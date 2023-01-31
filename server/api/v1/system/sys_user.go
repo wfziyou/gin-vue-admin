@@ -17,7 +17,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// Login
+// Login 用户登录
 // @Tags     Base
 // @Summary  用户登录
 // @Produce   application/json

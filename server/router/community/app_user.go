@@ -1,0 +1,27 @@
+package community
+
+import (
+	"github.com/flipped-aurora/gin-vue-admin/server/api/v1"
+	"github.com/flipped-aurora/gin-vue-admin/server/middleware"
+	"github.com/gin-gonic/gin"
+)
+
+type UserRouter struct {
+}
+
+// InitUserRouter 初始化 User 路由信息
+func (s *UserRouter) InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
+	appRouter := Router.Group("app")
+	userRouter := appRouter.Group("user").Use(middleware.OperationRecord())
+	userRouterWithoutRecord := appRouter.Group("user")
+	var userApi = v1.ApiGroupApp.CommunityApiGroup.UserApi
+	{
+		userRouter.POST("changePassword", userApi.ChangePassword) //用户修改密码
+		userRouter.PUT("updateUser", userApi.UpdateUser)          //更新User
+	}
+	{
+		userRouterWithoutRecord.GET("findUser", userApi.FindUser)       // 根据ID获取User
+		userRouterWithoutRecord.GET("getUserList", userApi.GetUserList) // 获取User列表
+	}
+	return userRouter
+}

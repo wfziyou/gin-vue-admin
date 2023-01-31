@@ -369,6 +369,503 @@ var doc = `{
                 }
             }
         },
+        "/app/user/changePassword": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_User"
+                ],
+                "summary": "用户修改密码",
+                "parameters": [
+                    {
+                        "description": "用户名, 原密码, 新密码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community_request.ChangePasswordReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "用户修改密码",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/findUser": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_User"
+                ],
+                "summary": "用id查询User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "account",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "birthday",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "email",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "headerImg",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "nickName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "password",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "phone",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "realName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "roleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "uuid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/getUserList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_User"
+                ],
+                "summary": "分页获取User列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "account",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "birthday",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "email",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "headerImg",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "nickName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "password",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "phone",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "realName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "roleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "uuid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/login": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_User"
+                ],
+                "summary": "用户登录",
+                "parameters": [
+                    {
+                        "description": "用户名, 密码, 验证码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community_request.Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回包括用户信息,token,过期时间",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community_response.LoginResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/register": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_User"
+                ],
+                "summary": "用户注册账号",
+                "parameters": [
+                    {
+                        "description": "用户名, 昵称, 密码, 角色ID",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community_request.Register"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "用户注册账号,返回包括用户信息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community_response.SysUserResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/updateUser": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_User"
+                ],
+                "summary": "更新User",
+                "parameters": [
+                    {
+                        "description": "更新User",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/authority/copyAuthority": {
             "post": {
                 "security": [
@@ -1475,7 +1972,7 @@ var doc = `{
                 "summary": "生成验证码",
                 "responses": {
                     "200": {
-                        "description": "生成验证码,返回包括随机数id,base64,验证码长度",
+                        "description": "生成验证码,返回包括随机数id,base64,验证码长度,是否开启验证码",
                         "schema": {
                             "allOf": [
                                 {
@@ -1514,7 +2011,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.Login"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Login"
                         }
                     }
                 ],
@@ -1530,7 +2027,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/response.LoginResponse"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -1997,161 +2494,6 @@ var doc = `{
                 }
             }
         },
-        "/excel/downloadTemplate": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "excel"
-                ],
-                "summary": "下载模板",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "模板名称",
-                        "name": "fileName",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/excel/exportExcel": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/octet-stream"
-                ],
-                "tags": [
-                    "excel"
-                ],
-                "summary": "导出Excel",
-                "parameters": [
-                    {
-                        "description": "导出Excel文件信息",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/example.ExcelInfo"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/excel/importExcel": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "excel"
-                ],
-                "summary": "导入Excel文件",
-                "parameters": [
-                    {
-                        "type": "file",
-                        "description": "导入Excel文件",
-                        "name": "file",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "导入Excel文件",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/excel/loadExcel": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "excel"
-                ],
-                "summary": "加载Excel数据",
-                "responses": {
-                    "200": {
-                        "description": "加载Excel数据,返回包括列表,总数,页码,每页数量",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/response.PageResult"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
         "/fileUploadAndDownload/breakpointContinue": {
             "post": {
                 "security": [
@@ -2445,6 +2787,730 @@ var doc = `{
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/hkForumPosts/createHkForumPosts": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HkForumPosts"
+                ],
+                "summary": "创建HkForumPosts",
+                "parameters": [
+                    {
+                        "description": "创建HkForumPosts",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.HkForumPosts"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkForumPosts/deleteHkForumPosts": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HkForumPosts"
+                ],
+                "summary": "删除HkForumPosts",
+                "parameters": [
+                    {
+                        "description": "删除HkForumPosts",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.HkForumPosts"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkForumPosts/deleteHkForumPostsByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HkForumPosts"
+                ],
+                "summary": "批量删除HkForumPosts",
+                "parameters": [
+                    {
+                        "description": "批量删除HkForumPosts",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkForumPosts/findHkForumPosts": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HkForumPosts"
+                ],
+                "summary": "用id查询HkForumPosts",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "anonymity",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "attachment",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "category",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "checkStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "checkTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "checkUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "collectNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "commentId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "commentNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "content",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "contentHtml",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "contentMarkdown",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "contentType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "coverImage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "groupId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "likeNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "marrow",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pay",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payAttachment",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payContent",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payContentLook",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payCurrency",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "powerComment",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "powerCommentAnonymity",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "readNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "seoIntroduce",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "seoKey",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "shareNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "source",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tag",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "time",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "top",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "video",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkForumPosts/getHkForumPostsList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HkForumPosts"
+                ],
+                "summary": "分页获取HkForumPosts列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "anonymity",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "attachment",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "category",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "checkStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "checkTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "checkUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "collectNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "commentId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "commentNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "content",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "contentHtml",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "contentMarkdown",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "contentType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "coverImage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "groupId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "likeNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "marrow",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pay",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payAttachment",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payContent",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payContentLook",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payCurrency",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "powerComment",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "powerCommentAnonymity",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "readNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "seoIntroduce",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "seoKey",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "shareNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "source",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tag",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "time",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "top",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "video",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkForumPosts/updateHkForumPosts": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HkForumPosts"
+                ],
+                "summary": "更新HkForumPosts",
+                "parameters": [
+                    {
+                        "description": "更新HkForumPosts",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.HkForumPosts"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -4365,7 +5431,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.Register"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Register"
                         }
                     }
                 ],
@@ -4381,7 +5447,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/response.SysUserResponse"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -4415,7 +5481,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.ChangePasswordReq"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_request.ChangePasswordReq"
                         }
                     }
                 ],
@@ -4790,6 +5856,235 @@ var doc = `{
         }
     },
     "definitions": {
+        "community.HkForumPosts": {
+            "type": "object",
+            "properties": {
+                "anonymity": {
+                    "type": "integer"
+                },
+                "attachment": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "integer"
+                },
+                "checkStatus": {
+                    "type": "integer"
+                },
+                "checkTime": {
+                    "type": "string"
+                },
+                "checkUser": {
+                    "type": "integer"
+                },
+                "circleId": {
+                    "type": "integer"
+                },
+                "collectNum": {
+                    "type": "integer"
+                },
+                "commentId": {
+                    "type": "integer"
+                },
+                "commentNum": {
+                    "type": "integer"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "contentHtml": {
+                    "type": "string"
+                },
+                "contentMarkdown": {
+                    "type": "string"
+                },
+                "contentType": {
+                    "type": "integer"
+                },
+                "coverImage": {
+                    "type": "string"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "groupId": {
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
+                    "type": "integer"
+                },
+                "likeNum": {
+                    "type": "integer"
+                },
+                "marrow": {
+                    "type": "integer"
+                },
+                "pay": {
+                    "type": "integer"
+                },
+                "payAttachment": {
+                    "type": "integer"
+                },
+                "payContent": {
+                    "type": "integer"
+                },
+                "payContentLook": {
+                    "type": "integer"
+                },
+                "payCurrency": {
+                    "type": "integer"
+                },
+                "payNum": {
+                    "type": "integer"
+                },
+                "powerComment": {
+                    "type": "integer"
+                },
+                "powerCommentAnonymity": {
+                    "type": "integer"
+                },
+                "readNum": {
+                    "type": "integer"
+                },
+                "seoIntroduce": {
+                    "type": "string"
+                },
+                "seoKey": {
+                    "type": "string"
+                },
+                "shareNum": {
+                    "type": "integer"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "top": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                },
+                "video": {
+                    "type": "string"
+                }
+            }
+        },
+        "community.User": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "string"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "headerImg": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
+                    "type": "integer"
+                },
+                "nickName": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "realName": {
+                    "type": "string"
+                },
+                "roleId": {
+                    "type": "integer"
+                },
+                "sex": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userType": {
+                    "type": "integer"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
         "config.AliyunOSS": {
             "type": "object",
             "properties": {
@@ -4940,6 +6235,14 @@ var doc = `{
                 "key-long": {
                     "description": "验证码长度",
                     "type": "integer"
+                },
+                "open-captcha": {
+                    "description": "防爆破验证码开启此数，0代表每次登录都需要验证码，其他数字代表错误密码此数，如3代表错误三次后出现验证码",
+                    "type": "integer"
+                },
+                "open-captcha-timeout": {
+                    "description": "防爆破验证码超时时间，单位：s(秒)",
+                    "type": "integer"
                 }
             }
         },
@@ -5055,7 +6358,7 @@ var doc = `{
                 }
             }
         },
-        "config.Mysql": {
+        "config.Mssql": {
             "type": "object",
             "properties": {
                 "config": {
@@ -5065,6 +6368,11 @@ var doc = `{
                 "db-name": {
                     "description": "数据库名",
                     "type": "string"
+                },
+                "engine": {
+                    "description": "数据库引擎，默认InnoDB",
+                    "type": "string",
+                    "default": "InnoDB"
                 },
                 "log-mode": {
                     "description": "是否开启Gorm全局日志",
@@ -5093,6 +6401,130 @@ var doc = `{
                 "port": {
                     "description": ":端口",
                     "type": "string"
+                },
+                "prefix": {
+                    "description": "全局表前缀，单独定义TableName则不生效",
+                    "type": "string"
+                },
+                "singular": {
+                    "description": "是否开启全局禁用复数，true表示开启",
+                    "type": "boolean"
+                },
+                "username": {
+                    "description": "数据库用户名",
+                    "type": "string"
+                }
+            }
+        },
+        "config.Mysql": {
+            "type": "object",
+            "properties": {
+                "config": {
+                    "description": "高级配置",
+                    "type": "string"
+                },
+                "db-name": {
+                    "description": "数据库名",
+                    "type": "string"
+                },
+                "engine": {
+                    "description": "数据库引擎，默认InnoDB",
+                    "type": "string",
+                    "default": "InnoDB"
+                },
+                "log-mode": {
+                    "description": "是否开启Gorm全局日志",
+                    "type": "string"
+                },
+                "log-zap": {
+                    "description": "是否通过zap写入日志文件",
+                    "type": "boolean"
+                },
+                "max-idle-conns": {
+                    "description": "空闲中的最大连接数",
+                    "type": "integer"
+                },
+                "max-open-conns": {
+                    "description": "打开到数据库的最大连接数",
+                    "type": "integer"
+                },
+                "password": {
+                    "description": "数据库密码",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "服务器地址:端口",
+                    "type": "string"
+                },
+                "port": {
+                    "description": ":端口",
+                    "type": "string"
+                },
+                "prefix": {
+                    "description": "全局表前缀，单独定义TableName则不生效",
+                    "type": "string"
+                },
+                "singular": {
+                    "description": "是否开启全局禁用复数，true表示开启",
+                    "type": "boolean"
+                },
+                "username": {
+                    "description": "数据库用户名",
+                    "type": "string"
+                }
+            }
+        },
+        "config.Oracle": {
+            "type": "object",
+            "properties": {
+                "config": {
+                    "description": "高级配置",
+                    "type": "string"
+                },
+                "db-name": {
+                    "description": "数据库名",
+                    "type": "string"
+                },
+                "engine": {
+                    "description": "数据库引擎，默认InnoDB",
+                    "type": "string",
+                    "default": "InnoDB"
+                },
+                "log-mode": {
+                    "description": "是否开启Gorm全局日志",
+                    "type": "string"
+                },
+                "log-zap": {
+                    "description": "是否通过zap写入日志文件",
+                    "type": "boolean"
+                },
+                "max-idle-conns": {
+                    "description": "空闲中的最大连接数",
+                    "type": "integer"
+                },
+                "max-open-conns": {
+                    "description": "打开到数据库的最大连接数",
+                    "type": "integer"
+                },
+                "password": {
+                    "description": "数据库密码",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "服务器地址:端口",
+                    "type": "string"
+                },
+                "port": {
+                    "description": ":端口",
+                    "type": "string"
+                },
+                "prefix": {
+                    "description": "全局表前缀，单独定义TableName则不生效",
+                    "type": "string"
+                },
+                "singular": {
+                    "description": "是否开启全局禁用复数，true表示开启",
+                    "type": "boolean"
                 },
                 "username": {
                     "description": "数据库用户名",
@@ -5111,6 +6543,11 @@ var doc = `{
                     "description": "数据库名",
                     "type": "string"
                 },
+                "engine": {
+                    "description": "数据库引擎，默认InnoDB",
+                    "type": "string",
+                    "default": "InnoDB"
+                },
                 "log-mode": {
                     "description": "是否开启Gorm全局日志",
                     "type": "string"
@@ -5138,6 +6575,14 @@ var doc = `{
                 "port": {
                     "description": ":端口",
                     "type": "string"
+                },
+                "prefix": {
+                    "description": "全局表前缀，单独定义TableName则不生效",
+                    "type": "string"
+                },
+                "singular": {
+                    "description": "是否开启全局禁用复数，true表示开启",
+                    "type": "boolean"
                 },
                 "username": {
                     "description": "数据库用户名",
@@ -5237,9 +6682,15 @@ var doc = `{
                     "description": "oss",
                     "$ref": "#/definitions/config.Local"
                 },
+                "mssql": {
+                    "$ref": "#/definitions/config.Mssql"
+                },
                 "mysql": {
                     "description": "gorm",
                     "$ref": "#/definitions/config.Mysql"
+                },
+                "oracle": {
+                    "$ref": "#/definitions/config.Oracle"
                 },
                 "pgsql": {
                     "$ref": "#/definitions/config.Pgsql"
@@ -5281,6 +6732,11 @@ var doc = `{
                 "disable": {
                     "type": "boolean"
                 },
+                "engine": {
+                    "description": "数据库引擎，默认InnoDB",
+                    "type": "string",
+                    "default": "InnoDB"
+                },
                 "log-mode": {
                     "description": "是否开启Gorm全局日志",
                     "type": "string"
@@ -5308,6 +6764,14 @@ var doc = `{
                 "port": {
                     "description": ":端口",
                     "type": "string"
+                },
+                "prefix": {
+                    "description": "全局表前缀，单独定义TableName则不生效",
+                    "type": "string"
+                },
+                "singular": {
+                    "description": "是否开启全局禁用复数，true表示开启",
+                    "type": "boolean"
                 },
                 "type": {
                     "type": "string"
@@ -5341,6 +6805,9 @@ var doc = `{
                 },
                 "oss-type": {
                     "description": "Oss类型",
+                    "type": "string"
+                },
+                "router-prefix": {
                     "type": "string"
                 },
                 "use-multipoint": {
@@ -5574,18 +7041,197 @@ var doc = `{
                 }
             }
         },
-        "example.ExcelInfo": {
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community_request.ChangePasswordReq": {
             "type": "object",
             "properties": {
-                "fileName": {
-                    "description": "文件名",
+                "newPassword": {
+                    "description": "新密码",
                     "type": "string"
                 },
-                "infoList": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/system.SysBaseMenu"
-                    }
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community_request.Login": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "用户名",
+                    "type": "string"
+                },
+                "captcha": {
+                    "description": "验证码",
+                    "type": "string"
+                },
+                "captchaId": {
+                    "description": "验证码ID",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community_request.Register": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "example": "用户名"
+                },
+                "authorityId": {
+                    "type": "string",
+                    "example": "int 角色id"
+                },
+                "authorityIds": {
+                    "type": "string",
+                    "example": "[]uint 角色id"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "电子邮箱"
+                },
+                "enable": {
+                    "type": "string",
+                    "example": "int 是否启用"
+                },
+                "headerImg": {
+                    "type": "string",
+                    "example": "头像链接"
+                },
+                "nickName": {
+                    "type": "string",
+                    "example": "昵称"
+                },
+                "passWord": {
+                    "type": "string",
+                    "example": "密码"
+                },
+                "phone": {
+                    "type": "string",
+                    "example": "电话号码"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community_response.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "expiresAt": {
+                    "type": "integer"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/community.User"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community_response.SysUserResponse": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/community.User"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_system_request.ChangePasswordReq": {
+            "type": "object",
+            "properties": {
+                "newPassword": {
+                    "description": "新密码",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Login": {
+            "type": "object",
+            "properties": {
+                "captcha": {
+                    "description": "验证码",
+                    "type": "string"
+                },
+                "captchaId": {
+                    "description": "验证码ID",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                },
+                "username": {
+                    "description": "用户名",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Register": {
+            "type": "object",
+            "properties": {
+                "authorityId": {
+                    "type": "string",
+                    "example": "int 角色id"
+                },
+                "authorityIds": {
+                    "type": "string",
+                    "example": "[]uint 角色id"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "电子邮箱"
+                },
+                "enable": {
+                    "type": "string",
+                    "example": "int 是否启用"
+                },
+                "headerImg": {
+                    "type": "string",
+                    "example": "头像链接"
+                },
+                "nickName": {
+                    "type": "string",
+                    "example": "昵称"
+                },
+                "passWord": {
+                    "type": "string",
+                    "example": "密码"
+                },
+                "phone": {
+                    "type": "string",
+                    "example": "电话号码"
+                },
+                "userName": {
+                    "type": "string",
+                    "example": "用户名"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "expiresAt": {
+                    "type": "integer"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/system.SysUser"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/system.SysUser"
                 }
             }
         },
@@ -5628,19 +7274,6 @@ var doc = `{
                 },
                 "path": {
                     "description": "路径",
-                    "type": "string"
-                }
-            }
-        },
-        "request.ChangePasswordReq": {
-            "type": "object",
-            "properties": {
-                "newPassword": {
-                    "description": "新密码",
-                    "type": "string"
-                },
-                "password": {
-                    "description": "密码",
                     "type": "string"
                 }
             }
@@ -5710,27 +7343,6 @@ var doc = `{
                 }
             }
         },
-        "request.Login": {
-            "type": "object",
-            "properties": {
-                "captcha": {
-                    "description": "验证码",
-                    "type": "string"
-                },
-                "captchaId": {
-                    "description": "验证码ID",
-                    "type": "string"
-                },
-                "password": {
-                    "description": "密码",
-                    "type": "string"
-                },
-                "username": {
-                    "description": "用户名",
-                    "type": "string"
-                }
-            }
-        },
         "request.PageInfo": {
             "type": "object",
             "properties": {
@@ -5745,35 +7357,6 @@ var doc = `{
                 "pageSize": {
                     "description": "每页大小",
                     "type": "integer"
-                }
-            }
-        },
-        "request.Register": {
-            "type": "object",
-            "properties": {
-                "authorityId": {
-                    "type": "integer"
-                },
-                "authorityIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "enable": {
-                    "type": "integer"
-                },
-                "headerImg": {
-                    "type": "string"
-                },
-                "nickName": {
-                    "type": "string"
-                },
-                "passWord": {
-                    "type": "string"
-                },
-                "userName": {
-                    "type": "string"
                 }
             }
         },
@@ -5950,20 +7533,6 @@ var doc = `{
                 }
             }
         },
-        "response.LoginResponse": {
-            "type": "object",
-            "properties": {
-                "expiresAt": {
-                    "type": "integer"
-                },
-                "token": {
-                    "type": "string"
-                },
-                "user": {
-                    "$ref": "#/definitions/system.SysUser"
-                }
-            }
-        },
         "response.PageResult": {
             "type": "object",
             "properties": {
@@ -6084,6 +7653,9 @@ var doc = `{
                 "captchaLength": {
                     "type": "integer"
                 },
+                "openCaptcha": {
+                    "type": "boolean"
+                },
                 "picPath": {
                     "type": "string"
                 }
@@ -6108,14 +7680,6 @@ var doc = `{
                 }
             }
         },
-        "response.SysUserResponse": {
-            "type": "object",
-            "properties": {
-                "user": {
-                    "$ref": "#/definitions/system.SysUser"
-                }
-            }
-        },
         "system.AutoCodeStruct": {
             "type": "object",
             "properties": {
@@ -6134,6 +7698,10 @@ var doc = `{
                 "autoMoveFile": {
                     "description": "是否自动移动文件",
                     "type": "boolean"
+                },
+                "businessDB": {
+                    "description": "业务数据库",
+                    "type": "string"
                 },
                 "description": {
                     "description": "Struct中文名称",
@@ -6218,6 +7786,10 @@ var doc = `{
                 },
                 "require": {
                     "description": "是否必填",
+                    "type": "boolean"
+                },
+                "sort": {
+                    "description": "是否增加排序",
                     "type": "boolean"
                 }
             }
@@ -6334,6 +7906,9 @@ var doc = `{
         "system.SysBaseMenu": {
             "type": "object",
             "properties": {
+                "activeName": {
+                    "type": "string"
+                },
                 "authoritys": {
                     "type": "array",
                     "items": {
@@ -6553,6 +8128,9 @@ var doc = `{
         "system.SysMenu": {
             "type": "object",
             "properties": {
+                "activeName": {
+                    "type": "string"
+                },
                 "authoritys": {
                     "type": "array",
                     "items": {
