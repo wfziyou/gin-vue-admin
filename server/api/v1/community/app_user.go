@@ -51,8 +51,8 @@ func (userApi *UserApi) Login(c *gin.Context) {
 	var oc bool = openCaptcha == 0 || openCaptcha < utils.InterfaceToInt(v)
 
 	if !oc || store.Verify(l.CaptchaId, l.Captcha, true) {
-		u := &community.User{Account: l.Account, Password: l.Password}
-		user, err := userService.Login(u)
+		u := &community.HkUser{Account: l.Account, Password: l.Password}
+		user, err := hkUserService.Login(u)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
 			// 验证码次数+1
@@ -76,7 +76,7 @@ func (userApi *UserApi) Login(c *gin.Context) {
 }
 
 // TokenNext 登录以后签发jwt
-func (userApi *UserApi) TokenNext(c *gin.Context, user community.User) {
+func (userApi *UserApi) TokenNext(c *gin.Context, user community.HkUser) {
 	j := &utils.JWT{SigningKey: []byte(global.GVA_CONFIG.JWT.SigningKey)} // 唯一签名
 	claims := j.CreateClaims(systemReq.BaseClaims{
 		UUID:        user.Uuid,
@@ -158,8 +158,8 @@ func (userApi *UserApi) Register(c *gin.Context) {
 			AuthorityId: v,
 		})
 	}
-	user := &community.User{Account: r.Account, NickName: r.NickName, Password: r.Password, HeaderImg: r.HeaderImg, RoleId: r.AuthorityId, Status: r.Enable, Phone: r.Phone, Email: r.Email}
-	userReturn, err := userService.Register(*user)
+	user := &community.HkUser{Account: r.Account, NickName: r.NickName, Password: r.Password, HeaderImg: r.HeaderImg, RoleId: r.AuthorityId, Status: r.Enable, Phone: r.Phone, Email: r.Email}
+	userReturn, err := hkUserService.Register(*user)
 	if err != nil {
 		global.GVA_LOG.Error("注册失败!", zap.Error(err))
 		response.FailWithDetailed(communityRes.SysUserResponse{User: userReturn}, "注册失败", c)
@@ -189,8 +189,8 @@ func (userApi *UserApi) ChangePassword(c *gin.Context) {
 		return
 	}
 	uid := utils.GetUserID(c)
-	u := &community.User{GVA_MODEL: global.GVA_MODEL{ID: uid}, Password: req.Password}
-	_, err = userService.ChangePassword(u, req.NewPassword)
+	u := &community.HkUser{GVA_MODEL: global.GVA_MODEL{ID: uid}, Password: req.Password}
+	_, err = hkUserService.ChangePassword(u, req.NewPassword)
 	if err != nil {
 		global.GVA_LOG.Error("修改失败!", zap.Error(err))
 		response.FailWithMessage("修改失败，原密码与当前账户不符", c)
@@ -209,13 +209,13 @@ func (userApi *UserApi) ChangePassword(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/user/updateUser [put]
 func (userApi *UserApi) UpdateUser(c *gin.Context) {
-	var user community.User
+	var user community.HkUser
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := userService.UpdateUser(user); err != nil {
+	if err := hkUserService.UpdateHkUser(user); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
@@ -233,13 +233,13 @@ func (userApi *UserApi) UpdateUser(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /app/user/findUser [get]
 func (userApi *UserApi) FindUser(c *gin.Context) {
-	var user community.User
+	var user community.HkUser
 	err := c.ShouldBindQuery(&user)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if reuser, err := userService.GetUser(user.ID); err != nil {
+	if reuser, err := hkUserService.GetHkUser(user.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -257,13 +257,13 @@ func (userApi *UserApi) FindUser(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/user/getUserList [get]
 func (userApi *UserApi) GetUserList(c *gin.Context) {
-	var pageInfo communityReq.UserSearch
+	var pageInfo communityReq.HkUserSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := userService.GetUserInfoList(pageInfo); err != nil {
+	if list, total, err := hkUserService.GetHkUserInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

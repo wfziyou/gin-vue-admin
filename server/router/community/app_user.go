@@ -6,11 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserRouter struct {
+type AppUserRouter struct {
 }
 
 // InitUserRouter 初始化 User 路由信息
-func (s *UserRouter) InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
+func (s *AppUserRouter) InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	appRouter := Router.Group("app")
 	userRouter := appRouter.Group("user").Use(middleware.OperationRecord())
 	userRouterWithoutRecord := appRouter.Group("user")
