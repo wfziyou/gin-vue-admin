@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/flipped-aurora/gin-vue-admin/server/service/app"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/apply"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/example"
@@ -14,6 +15,7 @@ type ServiceGroup struct {
 	CommunityServiceGroup community.ServiceGroup
 	ApplyServiceGroup     apply.ServiceGroup
 	GeneralServiceGroup   general.ServiceGroup
+	AppServiceGroup       app.ServiceGroup
 }
 
 var ServiceGroupApp = new(ServiceGroup)

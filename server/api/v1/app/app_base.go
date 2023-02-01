@@ -1,4 +1,4 @@
-package community
+package app
 
 import (
 	"github.com/mojocn/base64Captcha"

@@ -1,4 +1,4 @@
-package community
+package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/api/v1"
@@ -14,7 +14,7 @@ func (s *AppUserRouter) InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes) 
 	appRouter := Router.Group("app")
 	userRouter := appRouter.Group("user").Use(middleware.OperationRecord())
 	userRouterWithoutRecord := appRouter.Group("user")
-	var userApi = v1.ApiGroupApp.CommunityApiGroup.UserApi
+	var userApi = v1.ApiGroupApp.AppApiGroup.UserApi
 	{
 		userRouter.POST("changePassword", userApi.ChangePassword) //用户修改密码
 		userRouter.PUT("updateUser", userApi.UpdateUser)          //更新User

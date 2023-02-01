@@ -1,4 +1,4 @@
-package community
+package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"

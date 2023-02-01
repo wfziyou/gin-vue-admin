@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/flipped-aurora/gin-vue-admin/server/router/app"
 	"github.com/flipped-aurora/gin-vue-admin/server/router/apply"
 	"github.com/flipped-aurora/gin-vue-admin/server/router/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/router/example"
@@ -14,6 +15,7 @@ type RouterGroup struct {
 	Community community.RouterGroup
 	Apply     apply.RouterGroup
 	General   general.RouterGroup
+	App       app.RouterGroup
 }
 
 var RouterGroupApp = new(RouterGroup)
