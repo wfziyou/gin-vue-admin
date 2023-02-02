@@ -8,8 +8,8 @@ import (
 
 type HkUserSearch struct {
 	community.HkUser
-	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"`
-	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`
+	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"` //创建时间（开始）
+	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）
 	request.PageInfo
 }
 
@@ -26,7 +26,7 @@ type Register struct {
 	Email        string `json:"email" example:"电子邮箱"`
 }
 
-// User login structure
+// Login User login structure
 type Login struct {
 	Account   string `json:"account"`   // 用户名
 	Password  string `json:"password"`  // 密码
@@ -34,7 +34,7 @@ type Login struct {
 	CaptchaId string `json:"captchaId"` // 验证码ID
 }
 
-// Modify password structure
+// ChangePasswordReq Modify password structure
 type ChangePasswordReq struct {
 	ID          uint   `json:"-"`           // 从 JWT 中提取 user id，避免越权
 	Password    string `json:"password"`    // 密码

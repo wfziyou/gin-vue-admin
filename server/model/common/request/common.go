@@ -12,6 +12,16 @@ type GetById struct {
 	ID int `json:"id" form:"id"` // 主键ID
 }
 
+// IdSearch id查询
+type IdSearch struct {
+	ID uint `json:"id" form:"id" ` //编号
+}
+
+// IdDelete id删除
+type IdDelete struct {
+	ID uint `json:"id" form:"id" ` //编号
+}
+
 func (r *GetById) Uint() uint {
 	return uint(r.ID)
 }

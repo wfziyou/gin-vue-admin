@@ -9,8 +9,35 @@ type ApiGroup struct {
 }
 
 var (
-	hkUserService = service.ServiceGroupApp.CommunityServiceGroup.HkUserService
-	jwtService    = service.ServiceGroupApp.SystemServiceGroup.JwtService
+	hkUserService           = service.ServiceGroupApp.CommunityServiceGroup.HkUserService
+	hkCircleService         = service.ServiceGroupApp.CommunityServiceGroup.HkCircleService
+	hkCircleClassifyService = service.ServiceGroupApp.CommunityServiceGroup.HkCircleClassifyService
+	hkCircleRequestService  = service.ServiceGroupApp.CommunityServiceGroup.HkCircleRequestService
+	hkCircleUserService     = service.ServiceGroupApp.CommunityServiceGroup.HkCircleUserService
+
+	hkForumPostsService      = service.ServiceGroupApp.CommunityServiceGroup.HkForumPostsService
+	hkForumCommentService    = service.ServiceGroupApp.CommunityServiceGroup.HkForumCommentService
+	hkForumThumbsUpService   = service.ServiceGroupApp.CommunityServiceGroup.HkForumThumbsUpService
+	hkCommentThumbsUpService = service.ServiceGroupApp.CommunityServiceGroup.HkCommentThumbsUpService
+
+	hkForumTopicGroupService = service.ServiceGroupApp.CommunityServiceGroup.HkForumTopicGroupService
+	hkForumTopicService      = service.ServiceGroupApp.CommunityServiceGroup.HkForumTopicService
+
+	hkReportService       = service.ServiceGroupApp.CommunityServiceGroup.HkReportService
+	hkReportReasonService = service.ServiceGroupApp.CommunityServiceGroup.HkReportReasonService
+
+	hkProtocolService  = service.ServiceGroupApp.GeneralServiceGroup.HkProtocolService
+	hkBugReportService = service.ServiceGroupApp.GeneralServiceGroup.HkBugReportService
+
+	hkApplyService            = service.ServiceGroupApp.ApplyServiceGroup.HkApplyService
+	hkCircleApplyService      = service.ServiceGroupApp.ApplyServiceGroup.HkCircleApplyService
+	hkUserCircleApplyService  = service.ServiceGroupApp.CommunityServiceGroup.HkUserCircleApplyService
+	hkCircleApplyGroupService = service.ServiceGroupApp.ApplyServiceGroup.HkCircleApplyGroupService
+
+	hkUserCollectService         = service.ServiceGroupApp.GeneralServiceGroup.HkUserCollectService
+	hkUserBrowsingHistoryService = service.ServiceGroupApp.GeneralServiceGroup.HkUserBrowsingHistoryService
+	
+	jwtService = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	//apiService              = service.ServiceGroupApp.SystemServiceGroup.ApiService
 	//jwtService              = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	//menuService             = service.ServiceGroupApp.SystemServiceGroup.MenuService

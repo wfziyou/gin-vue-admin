@@ -16,11 +16,11 @@ func (s *AppUserRouter) InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes) 
 	userRouterWithoutRecord := appRouter.Group("user")
 	var userApi = v1.ApiGroupApp.AppApiGroup.UserApi
 	{
-		userRouter.POST("changePassword", userApi.ChangePassword) //用户修改密码
-		userRouter.PUT("updateUser", userApi.UpdateUser)          //更新User
+		userRouter.POST("resetPassword", userApi.ResetPassword) //重置密码
+		//userRouter.PUT("updateUser", userApi.UpdateUser)        //更新User
 	}
 	{
-		userRouterWithoutRecord.GET("findUser", userApi.FindUser)       // 根据ID获取User
+		//userRouterWithoutRecord.GET("findUser", userApi.FindUser)       // 根据ID获取User
 		userRouterWithoutRecord.GET("getUserList", userApi.GetUserList) // 获取User列表
 	}
 	return userRouter
