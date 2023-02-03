@@ -3,10 +3,13 @@ definitions:
   apply.HkApply:
     properties:
       applyAddress:
+        description: 访问地址
         type: string
       applyParameters:
+        description: 访问参数
         type: string
       circleId:
+        description: 圈子_编号
         type: integer
       createDept:
         type: integer
@@ -18,6 +21,7 @@ definitions:
         description: 创建时间
         type: string
       icon:
+        description: 图标
         type: string
       id:
         description: 主键ID
@@ -25,12 +29,16 @@ definitions:
       isDeleted:
         type: integer
       miniProgramId:
+        description: 类型(0小程序、1第三方链接)
         type: integer
       name:
+        description: 名称
         type: string
       owerType:
+        description: 拥有者：0平台、1圈子、2个人
         type: integer
       sort:
+        description: 排序
         type: integer
       status:
         type: integer
@@ -46,17 +54,22 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 用户_编号
         type: integer
     type: object
   apply.HkCircleApply:
     properties:
       applyGroupId:
+        description: 应用分组_编号
         type: integer
       applyId:
+        description: 应用_编号
         type: integer
       applyParameters:
+        description: 访问参数
         type: string
       circleId:
+        description: 圈子_编号
         type: integer
       createDept:
         type: integer
@@ -73,8 +86,10 @@ definitions:
       isDeleted:
         type: integer
       showName:
+        description: 名称别名
         type: string
       sort:
+        description: 排序
         type: integer
       status:
         type: integer
@@ -91,6 +106,7 @@ definitions:
   apply.HkCircleApplyGroup:
     properties:
       circleId:
+        description: 圈子_编号
         type: integer
       createDept:
         type: integer
@@ -102,6 +118,7 @@ definitions:
         description: 创建时间
         type: string
       icon:
+        description: 图标
         type: string
       id:
         description: 主键ID
@@ -109,10 +126,13 @@ definitions:
       isDeleted:
         type: integer
       name:
+        description: 名称
         type: string
       parentId:
+        description: 父节点编号
         type: integer
       sort:
+        description: 排序
         type: integer
       status:
         type: integer
@@ -1177,8 +1197,10 @@ definitions:
   community.HkUserCircleApply:
     properties:
       applyId:
+        description: ApplyId
         type: integer
       circleId:
+        description: CircleId
         type: integer
       createDept:
         type: integer
@@ -1195,6 +1217,7 @@ definitions:
       isDeleted:
         type: integer
       sort:
+        description: Sort
         type: integer
       status:
         type: integer
@@ -1208,6 +1231,7 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 用户编号
         type: integer
     type: object
   community.HkUserExtend:
@@ -2334,6 +2358,18 @@ definitions:
         type: integer
       type:
         description: 话题类型：0 全局，1圈子
+        type: integer
+    type: object
+  request.CreateUserCircleApplyReq:
+    properties:
+      applyId:
+        description: ApplyId
+        type: integer
+      circleId:
+        description: CircleId
+        type: integer
+      sort:
+        description: Sort
         type: integer
     type: object
   request.DeleteCircleUserReq:
@@ -4022,53 +4058,24 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
-        name: applyAddress
-        type: string
-      - in: query
-        name: applyParameters
-        type: string
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createTime
-        type: string
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - in: query
-        name: icon
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDeleted
-        type: integer
       - description: 关键字
         in: query
         name: keyword
         type: string
-      - in: query
-        name: miniProgramId
-        type: integer
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
-      - in: query
+      - description: 拥有者：0平台、1圈子、2个人
+        in: query
         name: owerType
         type: integer
       - description: 页码
@@ -4079,33 +4086,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
-        name: sort
-        type: integer
       - description: 创建时间（开始）
         in: query
         name: startCreatedAt
         type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: type
-        type: integer
-      - in: query
-        name: updateTime
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
+      - description: 用户_编号
         in: query
-        name: updatedAt
-        type: string
-      - in: query
         name: userId
         type: integer
       produces:
@@ -4130,7 +4116,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkUserCircleApply'
+          $ref: '#/definitions/request.CreateUserCircleApplyReq'
       produces:
       - application/json
       responses:
@@ -4153,7 +4139,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkUserCircleApply'
+          $ref: '#/definitions/request.IdDelete'
       produces:
       - application/json
       responses:
@@ -4215,78 +4201,40 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
-        name: applyAddress
-        type: string
-      - in: query
-        name: applyParameters
-        type: string
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createTime
-        type: string
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - in: query
-        name: icon
-        type: string
-      - description: 主键ID
+      - description: 关键字
         in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDeleted
-        type: integer
-      - in: query
-        name: miniProgramId
-        type: integer
-      - in: query
+        name: keyword
+        type: string
+      - description: 名称
+        in: query
         name: name
         type: string
-      - in: query
+      - description: 拥有者：0平台、1圈子、2个人
+        in: query
         name: owerType
         type: integer
-      - in: query
-        name: sort
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
         type: integer
       - description: 创建时间（开始）
         in: query
         name: startCreatedAt
         type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: type
-        type: integer
-      - in: query
-        name: updateTime
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
+      - description: 用户_编号
         in: query
-        name: updatedAt
-        type: string
-      - in: query
         name: userId
         type: integer
       produces:
@@ -4306,41 +4254,20 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createTime
-        type: string
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - in: query
-        name: icon
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDeleted
-        type: integer
       - description: 关键字
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -4351,31 +4278,13 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 父节点编号
+        in: query
         name: parentId
-        type: integer
-      - in: query
-        name: sort
         type: integer
       - description: 创建时间（开始）
         in: query
         name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateTime
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
         type: string
       produces:
       - application/json
@@ -4394,41 +4303,20 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createTime
-        type: string
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - in: query
-        name: icon
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDeleted
-        type: integer
       - description: 关键字
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -4439,31 +4327,13 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 父节点编号
+        in: query
         name: parentId
-        type: integer
-      - in: query
-        name: sort
         type: integer
       - description: 创建时间（开始）
         in: query
         name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateTime
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
         type: string
       produces:
       - application/json
@@ -4482,42 +4352,22 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 应用分组_编号
+        in: query
         name: applyGroupId
         type: integer
-      - in: query
+      - description: 应用_编号
+        in: query
         name: applyId
         type: integer
-      - in: query
-        name: applyParameters
-        type: string
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createTime
-        type: string
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDeleted
-        type: integer
       - description: 关键字
         in: query
         name: keyword
@@ -4530,31 +4380,13 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 名称别名
+        in: query
         name: showName
         type: string
-      - in: query
-        name: sort
-        type: integer
       - description: 创建时间（开始）
         in: query
         name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateTime
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
         type: string
       produces:
       - application/json
@@ -4573,42 +4405,22 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 应用分组_编号
+        in: query
         name: applyGroupId
         type: integer
-      - in: query
+      - description: 应用_编号
+        in: query
         name: applyId
         type: integer
-      - in: query
-        name: applyParameters
-        type: string
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createTime
-        type: string
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDeleted
-        type: integer
       - description: 关键字
         in: query
         name: keyword
@@ -4621,31 +4433,13 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 名称别名
+        in: query
         name: showName
         type: string
-      - in: query
-        name: sort
-        type: integer
       - description: 创建时间（开始）
         in: query
         name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateTime
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
         type: string
       produces:
       - application/json
@@ -4663,61 +4457,6 @@ paths:
     get:
       consumes:
       - application/json
-      parameters:
-      - in: query
-        name: applyId
-        type: integer
-      - in: query
-        name: circleId
-        type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createTime
-        type: string
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDeleted
-        type: integer
-      - in: query
-        name: sort
-        type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateTime
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
       produces:
       - application/json
       responses:
@@ -7966,13 +7705,16 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 访问地址
+        in: query
         name: applyAddress
         type: string
-      - in: query
+      - description: 访问参数
+        in: query
         name: applyParameters
         type: string
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -7988,7 +7730,8 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 图标
+        in: query
         name: icon
         type: string
       - description: 主键ID
@@ -7998,16 +7741,20 @@ paths:
       - in: query
         name: isDeleted
         type: integer
-      - in: query
+      - description: 类型(0小程序、1第三方链接)
+        in: query
         name: miniProgramId
         type: integer
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
-      - in: query
+      - description: 拥有者：0平台、1圈子、2个人
+        in: query
         name: owerType
         type: integer
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - in: query
@@ -8029,7 +7776,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户_编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -8049,13 +7797,16 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 访问地址
+        in: query
         name: applyAddress
         type: string
-      - in: query
+      - description: 访问参数
+        in: query
         name: applyParameters
         type: string
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -8075,7 +7826,8 @@ paths:
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 图标
+        in: query
         name: icon
         type: string
       - description: 主键ID
@@ -8089,13 +7841,16 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 类型(0小程序、1第三方链接)
+        in: query
         name: miniProgramId
         type: integer
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
-      - in: query
+      - description: 拥有者：0平台、1圈子、2个人
+        in: query
         name: owerType
         type: integer
       - description: 页码
@@ -8106,7 +7861,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -8132,7 +7888,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户_编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -9182,16 +8939,20 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 应用分组_编号
+        in: query
         name: applyGroupId
         type: integer
-      - in: query
+      - description: 应用_编号
+        in: query
         name: applyId
         type: integer
-      - in: query
+      - description: 访问参数
+        in: query
         name: applyParameters
         type: string
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -9214,10 +8975,12 @@ paths:
       - in: query
         name: isDeleted
         type: integer
-      - in: query
+      - description: 名称别名
+        in: query
         name: showName
         type: string
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - in: query
@@ -9253,16 +9016,20 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 应用分组_编号
+        in: query
         name: applyGroupId
         type: integer
-      - in: query
+      - description: 应用_编号
+        in: query
         name: applyId
         type: integer
-      - in: query
+      - description: 访问参数
+        in: query
         name: applyParameters
         type: string
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -9301,10 +9068,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 名称别名
+        in: query
         name: showName
         type: string
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -9436,7 +9205,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -9452,7 +9222,8 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 图标
+        in: query
         name: icon
         type: string
       - description: 主键ID
@@ -9462,13 +9233,16 @@ paths:
       - in: query
         name: isDeleted
         type: integer
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
-      - in: query
+      - description: 父节点编号
+        in: query
         name: parentId
         type: integer
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - in: query
@@ -9504,7 +9278,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -9524,7 +9299,8 @@ paths:
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 图标
+        in: query
         name: icon
         type: string
       - description: 主键ID
@@ -9538,7 +9314,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -9549,10 +9326,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 父节点编号
+        in: query
         name: parentId
         type: integer
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -16098,10 +15877,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: ApplyId
+        in: query
         name: applyId
         type: integer
-      - in: query
+      - description: CircleId
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -16124,7 +15905,8 @@ paths:
       - in: query
         name: isDeleted
         type: integer
-      - in: query
+      - description: Sort
+        in: query
         name: sort
         type: integer
       - in: query
@@ -16143,7 +15925,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -16163,10 +15946,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: ApplyId
+        in: query
         name: applyId
         type: integer
-      - in: query
+      - description: CircleId
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -16204,7 +15989,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: Sort
+        in: query
         name: sort
         type: integer
       - in: query
@@ -16226,7 +16012,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户编号
+        in: query
         name: userId
         type: integer
       produces:

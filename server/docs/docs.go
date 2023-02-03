@@ -1390,39 +1390,9 @@ var doc = `{
                 "summary": "分页获取Apply列表",
                 "parameters": [
                     {
-                        "type": "string",
-                        "name": "applyAddress",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "applyParameters",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
                         "in": "query"
                     },
                     {
@@ -1433,38 +1403,19 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "icon",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "miniProgramId",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "拥有者：0平台、1圈子、2个人",
                         "name": "owerType",
                         "in": "query"
                     },
@@ -1481,11 +1432,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
@@ -1493,37 +1439,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
+                        "description": "用户_编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -1562,7 +1478,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkUserCircleApply"
+                            "$ref": "#/definitions/request.CreateUserCircleApplyReq"
                         }
                     }
                 ],
@@ -1600,7 +1516,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkUserCircleApply"
+                            "$ref": "#/definitions/request.IdDelete"
                         }
                     }
                 ],
@@ -1706,39 +1622,9 @@ var doc = `{
                 "summary": "获取Apply列表",
                 "parameters": [
                     {
-                        "type": "string",
-                        "name": "applyAddress",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "applyParameters",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
                         "in": "query"
                     },
                     {
@@ -1749,38 +1635,32 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "icon",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "miniProgramId",
+                        "description": "关键字",
+                        "name": "keyword",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "拥有者：0平台、1圈子、2个人",
                         "name": "owerType",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "name": "sort",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
                         "in": "query"
                     },
                     {
@@ -1791,37 +1671,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
+                        "description": "用户_编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -1856,28 +1706,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
                         "in": "query"
                     },
                     {
@@ -1888,28 +1718,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "icon",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -1927,44 +1742,14 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "父节点编号",
                         "name": "parentId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "sort",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
                         "in": "query"
                     }
                 ],
@@ -1998,28 +1783,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
                         "in": "query"
                     },
                     {
@@ -2030,28 +1795,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "icon",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -2069,44 +1819,14 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "父节点编号",
                         "name": "parentId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "sort",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
                         "in": "query"
                     }
                 ],
@@ -2140,60 +1860,26 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "应用分组_编号",
                         "name": "applyGroupId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "应用_编号",
                         "name": "applyId",
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "applyParameters",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -2216,44 +1902,14 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称别名",
                         "name": "showName",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "sort",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
                         "in": "query"
                     }
                 ],
@@ -2287,60 +1943,26 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "应用分组_编号",
                         "name": "applyGroupId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "应用_编号",
                         "name": "applyId",
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "applyParameters",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -2363,44 +1985,14 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称别名",
                         "name": "showName",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "sort",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
                         "in": "query"
                     }
                 ],
@@ -2431,96 +2023,6 @@ var doc = `{
                     "CircleApply"
                 ],
                 "summary": "获取UserCircleApply列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "applyId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
@@ -7988,16 +7490,19 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "访问地址",
                         "name": "applyAddress",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "访问参数",
                         "name": "applyParameters",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -8024,6 +7529,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "图标",
                         "name": "icon",
                         "in": "query"
                     },
@@ -8040,21 +7546,25 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "类型(0小程序、1第三方链接)",
                         "name": "miniProgramId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "拥有者：0平台、1圈子、2个人",
                         "name": "owerType",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -8091,6 +7601,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户_编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -8125,16 +7636,19 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "访问地址",
                         "name": "applyAddress",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "访问参数",
                         "name": "applyParameters",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -8167,6 +7681,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "图标",
                         "name": "icon",
                         "in": "query"
                     },
@@ -8189,16 +7704,19 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "类型(0小程序、1第三方链接)",
                         "name": "miniProgramId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "拥有者：0平台、1圈子、2个人",
                         "name": "owerType",
                         "in": "query"
                     },
@@ -8216,6 +7734,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -8258,6 +7777,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户_编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -9944,21 +9464,25 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "应用分组_编号",
                         "name": "applyGroupId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "应用_编号",
                         "name": "applyId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "访问参数",
                         "name": "applyParameters",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -9996,11 +9520,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称别名",
                         "name": "showName",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -10061,21 +9587,25 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "应用分组_编号",
                         "name": "applyGroupId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "应用_编号",
                         "name": "applyId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "访问参数",
                         "name": "applyParameters",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -10137,11 +9667,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称别名",
                         "name": "showName",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -10360,6 +9892,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -10386,6 +9919,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "图标",
                         "name": "icon",
                         "in": "query"
                     },
@@ -10402,16 +9936,19 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "父节点编号",
                         "name": "parentId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -10472,6 +10009,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -10504,6 +10042,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "图标",
                         "name": "icon",
                         "in": "query"
                     },
@@ -10526,6 +10065,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -10543,11 +10083,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "父节点编号",
                         "name": "parentId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -21266,11 +20808,13 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "ApplyId",
                         "name": "applyId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "CircleId",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -21308,6 +20852,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "Sort",
                         "name": "sort",
                         "in": "query"
                     },
@@ -21339,6 +20884,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -21373,11 +20919,13 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "ApplyId",
                         "name": "applyId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "CircleId",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -21438,6 +20986,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "Sort",
                         "name": "sort",
                         "in": "query"
                     },
@@ -21474,6 +21023,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -24698,12 +24248,15 @@ var doc = `{
             "type": "object",
             "properties": {
                 "applyAddress": {
+                    "description": "访问地址",
                     "type": "string"
                 },
                 "applyParameters": {
+                    "description": "访问参数",
                     "type": "string"
                 },
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -24720,6 +24273,7 @@ var doc = `{
                     "type": "string"
                 },
                 "icon": {
+                    "description": "图标",
                     "type": "string"
                 },
                 "id": {
@@ -24730,15 +24284,19 @@ var doc = `{
                     "type": "integer"
                 },
                 "miniProgramId": {
+                    "description": "类型(0小程序、1第三方链接)",
                     "type": "integer"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
                 "owerType": {
+                    "description": "拥有者：0平台、1圈子、2个人",
                     "type": "integer"
                 },
                 "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
@@ -24761,6 +24319,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户_编号",
                     "type": "integer"
                 }
             }
@@ -24769,15 +24328,19 @@ var doc = `{
             "type": "object",
             "properties": {
                 "applyGroupId": {
+                    "description": "应用分组_编号",
                     "type": "integer"
                 },
                 "applyId": {
+                    "description": "应用_编号",
                     "type": "integer"
                 },
                 "applyParameters": {
+                    "description": "访问参数",
                     "type": "string"
                 },
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -24801,9 +24364,11 @@ var doc = `{
                     "type": "integer"
                 },
                 "showName": {
+                    "description": "名称别名",
                     "type": "string"
                 },
                 "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
@@ -24828,6 +24393,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -24844,6 +24410,7 @@ var doc = `{
                     "type": "string"
                 },
                 "icon": {
+                    "description": "图标",
                     "type": "string"
                 },
                 "id": {
@@ -24854,12 +24421,15 @@ var doc = `{
                     "type": "integer"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
                 "parentId": {
+                    "description": "父节点编号",
                     "type": "integer"
                 },
                 "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
@@ -26413,9 +25983,11 @@ var doc = `{
             "type": "object",
             "properties": {
                 "applyId": {
+                    "description": "ApplyId",
                     "type": "integer"
                 },
                 "circleId": {
+                    "description": "CircleId",
                     "type": "integer"
                 },
                 "createDept": {
@@ -26439,6 +26011,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "sort": {
+                    "description": "Sort",
                     "type": "integer"
                 },
                 "status": {
@@ -26458,6 +26031,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户编号",
                     "type": "integer"
                 }
             }
@@ -28067,6 +27641,23 @@ var doc = `{
                 },
                 "type": {
                     "description": "话题类型：0 全局，1圈子",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.CreateUserCircleApplyReq": {
+            "type": "object",
+            "properties": {
+                "applyId": {
+                    "description": "ApplyId",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "CircleId",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "Sort",
                     "type": "integer"
                 }
             }
