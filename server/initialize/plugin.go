@@ -2,10 +2,10 @@ package initialize
 
 import (
 	"fmt"
-
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/middleware"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/email"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/sms"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/plugin"
 	"github.com/gin-gonic/gin"
 )
@@ -32,5 +32,10 @@ func InstallPlugin(Router *gin.Engine) {
 		global.GVA_CONFIG.Email.Nickname,
 		global.GVA_CONFIG.Email.Port,
 		global.GVA_CONFIG.Email.IsSSL,
+	))
+	PluginInit(PrivateGroup, smsAliyun.CreateAliSmsPlug(
+		global.GVA_CONFIG.AliyunSms.AccessKeyId,
+		global.GVA_CONFIG.AliyunSms.AccessSecret,
+		global.GVA_CONFIG.AliyunSms.SignName,
 	))
 }

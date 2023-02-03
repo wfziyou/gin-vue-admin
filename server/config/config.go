@@ -1,10 +1,11 @@
 package config
 
 type Server struct {
-	JWT     JWT     `mapstructure:"jwt" json:"jwt" yaml:"jwt"`
-	Zap     Zap     `mapstructure:"zap" json:"zap" yaml:"zap"`
-	Redis   Redis   `mapstructure:"redis" json:"redis" yaml:"redis"`
-	Email   Email   `mapstructure:"email" json:"email" yaml:"email"`
+	JWT   JWT   `mapstructure:"jwt" json:"jwt" yaml:"jwt"`
+	Zap   Zap   `mapstructure:"zap" json:"zap" yaml:"zap"`
+	Redis Redis `mapstructure:"redis" json:"redis" yaml:"redis"`
+	Email Email `mapstructure:"email" json:"email" yaml:"email"`
+
 	System  System  `mapstructure:"system" json:"system" yaml:"system"`
 	Captcha Captcha `mapstructure:"captcha" json:"captcha" yaml:"captcha"`
 	// auto
@@ -22,6 +23,11 @@ type Server struct {
 	HuaWeiObs  HuaWeiObs  `mapstructure:"hua-wei-obs" json:"hua-wei-obs" yaml:"hua-wei-obs"`
 	TencentCOS TencentCOS `mapstructure:"tencent-cos" json:"tencent-cos" yaml:"tencent-cos"`
 	AwsS3      AwsS3      `mapstructure:"aws-s3" json:"aws-s3" yaml:"aws-s3"`
+
+	//sms
+	AliyunSms AliyunSms `mapstructure:"aliyun-sms" json:"aliyun-sms" yaml:"aliyun-sms"`
+	//cacheCaptcha
+	CacheCaptcha CacheCaptcha `mapstructure:"cache-captcha" json:"cache-captcha" yaml:"cache-captcha"`
 
 	Excel Excel `mapstructure:"excel" json:"excel" yaml:"excel"`
 	Timer Timer `mapstructure:"timer" json:"timer" yaml:"timer"`

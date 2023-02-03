@@ -1,9 +1,12 @@
 package app
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
 	communityRes "github.com/flipped-aurora/gin-vue-admin/server/model/community/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/sms/service"
+	"math/rand"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
@@ -31,36 +34,64 @@ type UserApi struct {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router    /app/user/getCaptcha [post]
 func (userApi *UserApi) GetCaptcha(c *gin.Context) {
-	//// 判断验证码是否开启
-	//openCaptcha := global.GVA_CONFIG.Captcha.OpenCaptcha               // 是否开启防爆次数
-	//openCaptchaTimeOut := global.GVA_CONFIG.Captcha.OpenCaptchaTimeOut // 缓存超时时间
-	//key := c.ClientIP()
-	//v, ok := global.BlackCache.Get(key)
-	//if !ok {
-	//	global.BlackCache.Set(key, 1, time.Second*time.Duration(openCaptchaTimeOut))
-	//}
-	//
-	//var oc bool
-	//if openCaptcha == 0 || openCaptcha < interfaceToInt(v) {
-	//	oc = true
-	//}
-	//// 字符,公式,验证码配置
-	//// 生成默认数字的driver
-	//driver := base64Captcha.NewDriverDigit(global.GVA_CONFIG.Captcha.ImgHeight, global.GVA_CONFIG.Captcha.ImgWidth, global.GVA_CONFIG.Captcha.KeyLong, 0.7, 80)
-	//// cp := base64Captcha.NewCaptcha(driver, store.UseWithCtx(c))   // v8下使用redis
-	//cp := base64Captcha.NewCaptcha(driver, store)
-	//id, b64s, err := cp.Generate()
-	//if err != nil {
-	//	global.GVA_LOG.Error("验证码获取失败!", zap.Error(err))
-	//	response.FailWithMessage("验证码获取失败", c)
-	//	return
-	//}
-	//response.OkWithDetailed(systemRes.SysCaptchaResponse{
-	//	CaptchaId:     id,
-	//	PicPath:       b64s,
-	//	CaptchaLength: global.GVA_CONFIG.Captcha.KeyLong,
-	//	OpenCaptcha:   oc,
-	//}, "验证码获取成功", c)
+	var obj appReq.CaptchaReq
+	_ = c.ShouldBindJSON(&obj)
+
+	//类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
+	var TemplateCode string = global.GVA_CONFIG.AliyunSms.SmsTemplate.Test
+	if obj.Type == 1 {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.Register
+	} else if obj.Type == 2 {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.ChangePwd
+	} else if obj.Type == 3 {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.BindTel
+	} else if obj.Type == 4 {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.ResetPwd
+	} else if obj.Type == 5 {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.BindBank
+	}
+	code := fmt.Sprintf("{\"code\":\"%06v\"}", rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
+	key := fmt.Sprintf("%d-%s", obj.Type, obj.Telephone)
+	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
+		if err := cacheSmsService.SetCacheSms(key, code); err != nil {
+			global.GVA_LOG.Error("设置验证码到缓存失败!", zap.Error(err))
+			response.FailWithMessage("设置验证码到缓存失败", c)
+			return
+		}
+
+		if err := service.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
+			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
+			response.FailWithMessage("发送验证码失败", c)
+			return
+		} else {
+			response.OkWithData("发送成功", c)
+			return
+		}
+	} else if err != nil {
+		global.GVA_LOG.Error("设置验证码到缓存失败!", zap.Error(err))
+		response.FailWithMessage("设置验证码到缓存失败", c)
+	} else {
+		//global.GVA_LOG.Error("aaa:" + cacheCaptcha.Overtime.String() + " : " + time.Now().String())
+		if cacheCaptcha.Overtime.After(time.Now()) {
+			response.FailWithMessage("发送太频繁，稍后再试", c)
+			return
+		}
+
+		if err := cacheSmsService.SetCacheSms(key, code); err != nil {
+			global.GVA_LOG.Error("设置验证码到缓存失败!", zap.Error(err))
+			response.FailWithMessage("设置验证码到缓存失败", c)
+			return
+		}
+
+		if err := service.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
+			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
+			response.FailWithMessage("发送验证码失败", c)
+			return
+		} else {
+			response.OkWithData("发送成功", c)
+			return
+		}
+	}
 }
 
 // Register 注册

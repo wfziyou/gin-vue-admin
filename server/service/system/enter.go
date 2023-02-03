@@ -1,6 +1,7 @@
 package system
 
 type ServiceGroup struct {
+	CacheSmsService
 	JwtService
 	ApiService
 	MenuService

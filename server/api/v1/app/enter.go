@@ -36,8 +36,9 @@ var (
 
 	hkUserCollectService         = service.ServiceGroupApp.GeneralServiceGroup.HkUserCollectService
 	hkUserBrowsingHistoryService = service.ServiceGroupApp.GeneralServiceGroup.HkUserBrowsingHistoryService
-	
-	jwtService = service.ServiceGroupApp.SystemServiceGroup.JwtService
+
+	jwtService      = service.ServiceGroupApp.SystemServiceGroup.JwtService
+	cacheSmsService = service.ServiceGroupApp.SystemServiceGroup.CacheSmsService
 	//apiService              = service.ServiceGroupApp.SystemServiceGroup.ApiService
 	//jwtService              = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	//menuService             = service.ServiceGroupApp.SystemServiceGroup.MenuService

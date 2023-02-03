@@ -12,3 +12,8 @@ type UserBaseInfo struct {
 	Birthday  *time.Time `json:"birthday" gorm:"comment:生日"`                //生日
 	Sex       *int       `json:"sex" gorm:"comment:性别"`                     //性别
 }
+
+type CacheCaptcha struct {
+	Code     string    `json:"code"`     // 验证码
+	Overtime time.Time `json:"overtime"` //过期时间
+}

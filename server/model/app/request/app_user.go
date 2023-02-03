@@ -9,6 +9,7 @@ import (
 // CaptchaReq  验证码请求
 type CaptchaReq struct {
 	Telephone string `json:"telephone"` // 电话号码
+	Type      int    `json:"type" `     //类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
 }
 
 // Register User register structure

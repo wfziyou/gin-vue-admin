@@ -12,7 +12,8 @@ func (s *AppBaseRouter) InitBaseRouter(Router *gin.RouterGroup) {
 	userRouter := appRouter.Group("user")
 	var userApi = v1.ApiGroupApp.AppApiGroup.UserApi
 	{
-		userRouter.POST("login", userApi.LoginPwd)    //用户登录
-		userRouter.POST("register", userApi.Register) //用户注册账号
+		userRouter.POST("login", userApi.LoginPwd)        //用户登录
+		userRouter.POST("register", userApi.Register)     //用户注册账号
+		userRouter.POST("getCaptcha", userApi.GetCaptcha) //获取验证码
 	}
 }

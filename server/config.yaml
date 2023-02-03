@@ -76,6 +76,20 @@ email:
   is-ssl: true
   secret: xxx
   nickname: test
+aliyun-sms:
+  accessKeyId: LTAI9DHp7LBDXkbR
+  accessSecret: mFfYI7R8lw43dFrUDX3Bnj4Nwnz0gm
+  signName: 拉线Game
+  smsTemplate:
+    test: SMS_138165092
+    register: SMS_138067762
+    changePwd: SMS_138077706
+    bindTel: SMS_138067765
+    resetPwd: SMS_138077709
+    bindBank: SMS_138067766
+cache-captcha:
+  expires-time: 120s
+  sms-time: 60s
 excel:
   dir: ./resource/excel/
 hua-wei-obs:
@@ -166,7 +180,7 @@ system:
   db-type: mysql
   oss-type: local
   use-multipoint: false
-  use-redis: false
+  use-redis: true
   iplimit-count: 15000
   iplimit-time: 3600
   router-prefix: ""

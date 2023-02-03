@@ -4523,6 +4523,12 @@ var doc = `{
                         "description": "电话号码",
                         "name": "telephone",
                         "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行",
+                        "name": "type",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -22480,6 +22486,30 @@ var doc = `{
                 }
             }
         },
+        "/smsAliyun/sendAliSms": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System"
+                ],
+                "summary": "发送（阿里）短信",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/sysDictionary/createSysDictionary": {
             "post": {
                 "security": [
@@ -26127,6 +26157,27 @@ var doc = `{
                 }
             }
         },
+        "config.AliyunSms": {
+            "type": "object",
+            "properties": {
+                "accessKeyId": {
+                    "description": "短信的AccessKey ID",
+                    "type": "string"
+                },
+                "accessSecret": {
+                    "description": "短信的AccessKey Secret",
+                    "type": "string"
+                },
+                "signName": {
+                    "description": "短信的 SignName",
+                    "type": "string"
+                },
+                "smsTemplate": {
+                    "description": "短信模板",
+                    "$ref": "#/definitions/config.SmsTemplate"
+                }
+            }
+        },
         "config.Autocode": {
             "type": "object",
             "properties": {
@@ -26236,6 +26287,19 @@ var doc = `{
                     "type": "string"
                 },
                 "expose-headers": {
+                    "type": "string"
+                }
+            }
+        },
+        "config.CacheCaptcha": {
+            "type": "object",
+            "properties": {
+                "expires-time": {
+                    "description": "缓存过期时间",
+                    "type": "string"
+                },
+                "sms-time": {
+                    "description": "短信有效时间",
                     "type": "string"
                 }
             }
@@ -26665,12 +26729,20 @@ var doc = `{
                 "aliyun-oss": {
                     "$ref": "#/definitions/config.AliyunOSS"
                 },
+                "aliyun-sms": {
+                    "description": "sms",
+                    "$ref": "#/definitions/config.AliyunSms"
+                },
                 "autocode": {
                     "description": "auto",
                     "$ref": "#/definitions/config.Autocode"
                 },
                 "aws-s3": {
                     "$ref": "#/definitions/config.AwsS3"
+                },
+                "cache-captcha": {
+                    "description": "cacheCaptcha",
+                    "$ref": "#/definitions/config.CacheCaptcha"
                 },
                 "captcha": {
                     "$ref": "#/definitions/config.Captcha"
@@ -26731,6 +26803,35 @@ var doc = `{
                 },
                 "zap": {
                     "$ref": "#/definitions/config.Zap"
+                }
+            }
+        },
+        "config.SmsTemplate": {
+            "type": "object",
+            "properties": {
+                "bindBank": {
+                    "description": "绑定银行",
+                    "type": "string"
+                },
+                "bindTel": {
+                    "description": "绑定电话",
+                    "type": "string"
+                },
+                "changePwd": {
+                    "description": "修改密码",
+                    "type": "string"
+                },
+                "register": {
+                    "description": "注册",
+                    "type": "string"
+                },
+                "resetPwd": {
+                    "description": "重置密码",
+                    "type": "string"
+                },
+                "test": {
+                    "description": "测试",
+                    "type": "string"
                 }
             }
         },
