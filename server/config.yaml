@@ -79,14 +79,14 @@ email:
 aliyun-sms:
   accessKeyId: LTAI9DHp7LBDXkbR
   accessSecret: mFfYI7R8lw43dFrUDX3Bnj4Nwnz0gm
-  signName: 拉线Game
+  signName: 李林个人论坛
   smsTemplate:
     test: SMS_138165092
-    register: SMS_138067762
-    changePwd: SMS_138077706
-    bindTel: SMS_138067765
-    resetPwd: SMS_138077709
-    bindBank: SMS_138067766
+    register: SMS_269145225
+    changePwd: SMS_269260229
+    bindTel: SMS_269135269
+    resetPwd: SMS_269245235
+    bindBank: SMS_269185218
 cache-captcha:
   expires-time: 120s
   sms-time: 60s

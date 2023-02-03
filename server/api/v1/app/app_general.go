@@ -36,7 +36,7 @@ func (generalApi *GeneralApi) FindProtocol(c *gin.Context) {
 	}
 }
 
-// GetHkProtocolList 分页获取Protocol列表
+// GetProtocolList 分页获取Protocol列表
 // @Tags APP_General
 // @Summary 分页获取Protocol列表
 // @Security ApiKeyAuth
@@ -44,8 +44,8 @@ func (generalApi *GeneralApi) FindProtocol(c *gin.Context) {
 // @Produce application/json
 // @Param data query appReq.ProtocolSearch true "分页获取Protocol列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /app/general/getHkProtocolList [get]
-func (generalApi *GeneralApi) GetHkProtocolList(c *gin.Context) {
+// @Router /app/general/getProtocolList [get]
+func (generalApi *GeneralApi) GetProtocolList(c *gin.Context) {
 	var pageInfo appReq.ProtocolSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
@@ -89,7 +89,7 @@ func (generalApi *GeneralApi) CreateHkBugReport(c *gin.Context) {
 	}
 }
 
-// FindHkBugReport 用id查询BugReport
+// FindBugReport 用id查询BugReport
 // @Tags APP_General
 // @Summary 用id查询BugReport
 // @Security ApiKeyAuth
@@ -97,8 +97,8 @@ func (generalApi *GeneralApi) CreateHkBugReport(c *gin.Context) {
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询BugReport"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
-// @Router /app/general/findHkBugReport [get]
-func (generalApi *GeneralApi) FindHkBugReport(c *gin.Context) {
+// @Router /app/general/findBugReport [get]
+func (generalApi *GeneralApi) FindBugReport(c *gin.Context) {
 	var idSearch request.IdSearch
 	err := c.ShouldBindQuery(&idSearch)
 	if err != nil {

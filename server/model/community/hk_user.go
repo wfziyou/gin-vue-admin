@@ -14,15 +14,15 @@ type HkUser struct {
 	TenantId    string                `json:"tenantId" form:"tenantId" gorm:"column:tenant_id;comment:租户ID;size:12;"`
 	Uuid        uuid.UUID             `json:"uuid" form:"uuid" gorm:"column:uuid;comment:用户编号;size:50;"`
 	UserType    *int                  `json:"userType" form:"userType" gorm:"column:user_type;comment:用户平台;size:10;"`
-	Account     string                `json:"account" form:"account" gorm:"column:account;comment:账号;size:45;"`
-	Password    string                `json:"password" form:"password" gorm:"column:password;comment:密码;size:80;"`
-	NickName    string                `json:"nickName" form:"nickName" gorm:"column:nick_name;comment:昵称;size:20;"`
-	RealName    string                `json:"realName" form:"realName" gorm:"column:real_name;comment:真名;size:10;"`
-	HeaderImg   string                `json:"headerImg" form:"headerImg" gorm:"column:header_img;comment:头像;size:500;"`
-	Email       string                `json:"email" form:"email" gorm:"column:email;comment:邮箱;size:45;"`
-	Phone       string                `json:"phone" form:"phone" gorm:"column:phone;comment:手机;size:45;"`
-	Birthday    *time.Time            `json:"birthday" form:"birthday" gorm:"column:birthday;comment:生日;"`
-	Sex         *int                  `json:"sex" form:"sex" gorm:"column:sex;comment:性别;size:10;"`
+	Account     string                `json:"account" form:"account" gorm:"column:account;comment:账号;size:45;"`         //账号
+	Password    string                `json:"password" form:"password" gorm:"column:password;comment:密码;size:80;"`      //密码
+	NickName    string                `json:"nickName" form:"nickName" gorm:"column:nick_name;comment:昵称;size:20;"`     //昵称
+	RealName    string                `json:"realName" form:"realName" gorm:"column:real_name;comment:真名;size:10;"`     //真名
+	HeaderImg   string                `json:"headerImg" form:"headerImg" gorm:"column:header_img;comment:头像;size:500;"` //头像
+	Email       string                `json:"email" form:"email" gorm:"column:email;comment:邮箱;size:45;"`               //邮箱
+	Phone       string                `json:"phone" form:"phone" gorm:"column:phone;comment:手机;size:45;"`               //手机
+	Birthday    *time.Time            `json:"birthday" form:"birthday" gorm:"column:birthday;comment:生日;"`              //生日
+	Sex         *int                  `json:"sex" form:"sex" gorm:"column:sex;comment:性别;size:10;"`                     //性别
 	RoleId      uint                  `json:"roleId" form:"roleId" gorm:"column:role_id;comment:用户角色ID;size:20;"`
 	CreateUser  *int                  `json:"createUser" form:"createUser" gorm:"column:create_user;comment:创建人;size:19;"`
 	CreateDept  *int                  `json:"createDept" form:"createDept" gorm:"column:create_dept;comment:创建部门;size:19;"`

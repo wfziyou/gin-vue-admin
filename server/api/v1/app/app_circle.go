@@ -23,7 +23,7 @@ type CircleApi struct {
 // @Param data query appReq.CircleForumPostsSearch true "分页获取圈子ForumPosts列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/circle/getCircleForumPostsList [get]
-func (forumPostsApi *ForumPostsApi) GetCircleForumPostsList(c *gin.Context) {
+func (circleApi *CircleApi) GetCircleForumPostsList(c *gin.Context) {
 	var pageInfo appReq.CircleForumPostsSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
@@ -52,7 +52,7 @@ func (forumPostsApi *ForumPostsApi) GetCircleForumPostsList(c *gin.Context) {
 // @Param data query appReq.UserCircleForumPostsSearch true "分页获取用户圈子ForumPosts列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/circle/getUserCircleForumPostsList [get]
-func (forumPostsApi *ForumPostsApi) GetUserCircleForumPostsList(c *gin.Context) {
+func (circleApi *CircleApi) GetUserCircleForumPostsList(c *gin.Context) {
 	var pageInfo appReq.UserCircleForumPostsSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {

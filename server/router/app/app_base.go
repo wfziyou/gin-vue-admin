@@ -5,9 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type AppBaseRouter struct{}
+type BaseRouter struct{}
 
-func (s *AppBaseRouter) InitBaseRouter(Router *gin.RouterGroup) {
+func (s *BaseRouter) InitBaseRouter(Router *gin.RouterGroup) {
 	appRouter := Router.Group("app")
 	userRouter := appRouter.Group("user")
 	var userApi = v1.ApiGroupApp.AppApiGroup.UserApi

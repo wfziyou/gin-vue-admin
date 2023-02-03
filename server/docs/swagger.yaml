@@ -1139,6 +1139,7 @@ definitions:
   community.HkUser:
     properties:
       account:
+        description: 账号
         type: string
       authorities:
         items:
@@ -1147,6 +1148,7 @@ definitions:
       authority:
         $ref: '#/definitions/system.SysAuthority'
       birthday:
+        description: 生日
         type: string
       createDept:
         type: integer
@@ -1158,8 +1160,10 @@ definitions:
         description: 创建时间
         type: string
       email:
+        description: 邮箱
         type: string
       headerImg:
+        description: 头像
         type: string
       id:
         description: 主键ID
@@ -1167,16 +1171,21 @@ definitions:
       isDeleted:
         type: integer
       nickName:
+        description: 昵称
         type: string
       password:
+        description: 密码
         type: string
       phone:
+        description: 手机
         type: string
       realName:
+        description: 真名
         type: string
       roleId:
         type: integer
       sex:
+        description: 性别
         type: integer
       status:
         type: integer
@@ -2341,6 +2350,15 @@ definitions:
         description: 电话号码
         type: string
     type: object
+  request.CaptchaReq:
+    properties:
+      telephone:
+        description: 电话号码
+        type: string
+      type:
+        description: 类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
+        type: integer
+    type: object
   request.CasbinInReceive:
     properties:
       authorityId:
@@ -3285,6 +3303,20 @@ info:
   title: Swagger Example API
   version: 0.0.1
 paths:
+  /aliSms/sendAliSms:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"发送成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 发送（阿里）短信
+      tags:
+      - System
   /api/createApi:
     post:
       consumes:
@@ -4083,80 +4115,6 @@ paths:
       summary: 更新CircleUser
       tags:
       - App_Circle
-  /app/circleApply/FindApply:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 编号
-        in: query
-        name: id
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询Apply
-      tags:
-      - CircleApply
-  /app/circleApply/GetApplyList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 圈子_编号
-        in: query
-        name: circleId
-        type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 名称
-        in: query
-        name: name
-        type: string
-      - description: 拥有者：0平台、1圈子、2个人
-        in: query
-        name: owerType
-        type: integer
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
-      - description: 用户_编号
-        in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取Apply列表
-      tags:
-      - CircleApply
   /app/circleApply/createUserCircleApply:
     post:
       consumes:
@@ -4226,6 +4184,27 @@ paths:
       summary: 批量删除UserCircleApply
       tags:
       - CircleApply
+  /app/circleApply/findApply:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 编号
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Apply
+      tags:
+      - CircleApply
   /app/circleApply/findCircleApply:
     get:
       consumes:
@@ -4245,6 +4224,59 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 用id查询CircleApply
+      tags:
+      - CircleApply
+  /app/circleApply/getApplyList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      - description: 创建时间（结束）
+        in: query
+        name: endCreatedAt
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 名称
+        in: query
+        name: name
+        type: string
+      - description: 拥有者：0平台、1圈子、2个人
+        in: query
+        name: owerType
+        type: integer
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 创建时间（开始）
+        in: query
+        name: startCreatedAt
+        type: string
+      - description: 用户_编号
+        in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Apply列表
       tags:
       - CircleApply
   /app/circleApply/getApplyListAll:
@@ -5122,7 +5154,7 @@ paths:
       summary: Bug反馈
       tags:
       - APP_General
-  /app/general/findHkBugReport:
+  /app/general/findBugReport:
     get:
       consumes:
       - application/json
@@ -5205,7 +5237,7 @@ paths:
       summary: 分页获取BugReport列表
       tags:
       - APP_General
-  /app/general/getHkProtocolList:
+  /app/general/getProtocolList:
     get:
       consumes:
       - application/json
@@ -5246,12 +5278,12 @@ paths:
       summary: 分页获取Protocol列表
       tags:
       - APP_General
-  /app/report/createHkReport:
+  /app/report/createReport:
     post:
       consumes:
       - application/json
       parameters:
-      - description: 创建HkReport
+      - description: 举报
         in: body
         name: data
         required: true
@@ -5266,125 +5298,10 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 创建HkReport
+      summary: 举报
       tags:
       - App_Report
-  /app/report/createHkReportReason:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建HkReportReason
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkReportReason'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建HkReportReason
-      tags:
-      - App_Report
-  /app/report/deleteHkReport:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除HkReport
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkReport'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除HkReport
-      tags:
-      - App_Report
-  /app/report/deleteHkReportByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除HkReport
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除HkReport
-      tags:
-      - App_Report
-  /app/report/deleteHkReportReason:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除HkReportReason
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkReportReason'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除HkReportReason
-      tags:
-      - App_Report
-  /app/report/deleteHkReportReasonByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除HkReportReason
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除HkReportReason
-      tags:
-      - App_Report
-  /app/report/findHkReport:
+  /app/report/findReport:
     get:
       consumes:
       - application/json
@@ -5402,10 +5319,10 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 用id查询HkReport
+      summary: 用id查询Report
       tags:
       - App_Report
-  /app/report/findHkReportReason:
+  /app/report/findReportReason:
     get:
       consumes:
       - application/json
@@ -5423,10 +5340,10 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 用id查询HkReportReason
+      summary: 用id查询ReportReason
       tags:
       - App_Report
-  /app/report/getHkReportList:
+  /app/report/getReportList:
     get:
       consumes:
       - application/json
@@ -5547,10 +5464,10 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 分页获取HkReport列表
+      summary: 分页获取Report列表
       tags:
       - App_Report
-  /app/report/getHkReportReasonList:
+  /app/report/getReportReasonList:
     get:
       consumes:
       - application/json
@@ -5626,53 +5543,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 分页获取HkReportReason列表
-      tags:
-      - App_Report
-  /app/report/updateHkReport:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新HkReport
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkReport'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新HkReport
-      tags:
-      - App_Report
-  /app/report/updateHkReportReason:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新HkReportReason
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkReportReason'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新HkReportReason
+      summary: 分页获取ReportReason列表
       tags:
       - App_Report
   /app/topic/createForumTopic:
@@ -6034,14 +5905,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 电话号码
-        in: query
-        name: telephone
-        type: string
-      - description: 类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
-        in: query
-        name: type
-        type: integer
+      - description: 获取验证码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CaptchaReq'
       produces:
       - application/json
       responses:
@@ -6049,11 +5918,9 @@ paths:
           description: '{"success":true,"data":{},"msg":"成功"}'
           schema:
             type: string
-      security:
-      - ApiKeyAuth: []
       summary: 获取验证码
       tags:
-      - Base
+      - App_User
   /app/user/getUserBaseInfo:
     get:
       consumes:
@@ -6087,46 +5954,27 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 账号
+        in: query
         name: account
         type: string
-      - in: query
-        name: birthday
-        type: string
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createTime
-        type: string
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
+      - description: 生日
         in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: email
+        name: birthday
         type: string
       - in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 用户头像
+        in: query
         name: headerImg
         type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDeleted
-        type: integer
       - description: 关键字
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 用户昵称
+        in: query
         name: nickName
         type: string
       - description: 页码
@@ -6137,45 +5985,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
-        name: password
-        type: string
-      - in: query
-        name: phone
-        type: string
-      - in: query
-        name: realName
-        type: string
-      - in: query
-        name: roleId
-        type: integer
-      - in: query
+      - description: 性别
+        in: query
         name: sex
         type: integer
       - in: query
         name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateTime
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userType
-        type: integer
-      - in: query
-        name: uuid
         type: string
       produces:
       - application/json
@@ -6337,29 +6152,6 @@ paths:
       summary: 设置用户基础信息
       tags:
       - App_User
-  /app/userBrowsingHistory/createUserBrowsingHistory:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建UserBrowsingHistory
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/general.HkUserBrowsingHistory'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建UserBrowsingHistory
-      tags:
-      - APP_UserBrowsingHistory
   /app/userBrowsingHistory/deleteUserBrowsingHistory:
     delete:
       consumes:
@@ -15408,10 +15200,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 账号
+        in: query
         name: account
         type: string
-      - in: query
+      - description: 生日
+        in: query
         name: birthday
         type: string
       - in: query
@@ -15427,10 +15221,12 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 邮箱
+        in: query
         name: email
         type: string
-      - in: query
+      - description: 头像
+        in: query
         name: headerImg
         type: string
       - description: 主键ID
@@ -15440,22 +15236,27 @@ paths:
       - in: query
         name: isDeleted
         type: integer
-      - in: query
+      - description: 昵称
+        in: query
         name: nickName
         type: string
-      - in: query
+      - description: 密码
+        in: query
         name: password
         type: string
-      - in: query
+      - description: 手机
+        in: query
         name: phone
         type: string
-      - in: query
+      - description: 真名
+        in: query
         name: realName
         type: string
       - in: query
         name: roleId
         type: integer
-      - in: query
+      - description: 性别
+        in: query
         name: sex
         type: integer
       - in: query
@@ -15497,10 +15298,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 账号
+        in: query
         name: account
         type: string
-      - in: query
+      - description: 生日
+        in: query
         name: birthday
         type: string
       - in: query
@@ -15516,14 +15319,16 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 邮箱
+        in: query
         name: email
         type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 头像
+        in: query
         name: headerImg
         type: string
       - description: 主键ID
@@ -15537,7 +15342,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 昵称
+        in: query
         name: nickName
         type: string
       - description: 页码
@@ -15548,19 +15354,23 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 密码
+        in: query
         name: password
         type: string
-      - in: query
+      - description: 手机
+        in: query
         name: phone
         type: string
-      - in: query
+      - description: 真名
+        in: query
         name: realName
         type: string
       - in: query
         name: roleId
         type: integer
-      - in: query
+      - description: 性别
+        in: query
         name: sex
         type: integer
       - description: 创建时间（开始）
@@ -16934,20 +16744,6 @@ paths:
       summary: 更新菜单
       tags:
       - Menu
-  /smsAliyun/sendAliSms:
-    post:
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"发送成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 发送（阿里）短信
-      tags:
-      - System
   /sysDictionary/createSysDictionary:
     post:
       consumes:

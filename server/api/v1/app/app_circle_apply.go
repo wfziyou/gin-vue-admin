@@ -121,7 +121,7 @@ func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListALL(c *gin.Context) 
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询Apply"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
-// @Router /app/circleApply/FindApply [get]
+// @Router /app/circleApply/findApply [get]
 func (circleApplyApi *CircleApplyApi) FindApply(c *gin.Context) {
 	var idSearch request.IdSearch
 	err := c.ShouldBindQuery(&idSearch)
@@ -145,7 +145,7 @@ func (circleApplyApi *CircleApplyApi) FindApply(c *gin.Context) {
 // @Produce application/json
 // @Param data query appReq.ApplySearchReq true "分页获取Apply列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /app/circleApply/GetApplyList [get]
+// @Router /app/circleApply/getApplyList [get]
 func (circleApplyApi *CircleApplyApi) GetApplyList(c *gin.Context) {
 	var pageInfo appReq.ApplySearchReq
 	err := c.ShouldBindQuery(&pageInfo)

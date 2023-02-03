@@ -13,30 +13,6 @@ import (
 type UserBrowsingHistoryApi struct {
 }
 
-// CreateUserBrowsingHistory 创建UserBrowsingHistory
-// @Tags APP_UserBrowsingHistory
-// @Summary 创建UserBrowsingHistory
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body general.HkUserBrowsingHistory true "创建UserBrowsingHistory"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /app/userBrowsingHistory/createUserBrowsingHistory [post]
-func (userBrowsingHistoryApi *UserBrowsingHistoryApi) CreateUserBrowsingHistory(c *gin.Context) {
-	var hkUserBrowsingHistory general.HkUserBrowsingHistory
-	err := c.ShouldBindJSON(&hkUserBrowsingHistory)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	if err := hkUserBrowsingHistoryService.CreateHkUserBrowsingHistory(hkUserBrowsingHistory); err != nil {
-		global.GVA_LOG.Error("创建失败!", zap.Error(err))
-		response.FailWithMessage("创建失败", c)
-	} else {
-		response.OkWithMessage("创建成功", c)
-	}
-}
-
 // DeleteUserBrowsingHistory 删除UserBrowsingHistory
 // @Tags APP_UserBrowsingHistory
 // @Summary 删除UserBrowsingHistory

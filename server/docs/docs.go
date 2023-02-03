@@ -24,6 +24,30 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/aliSms/sendAliSms": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System"
+                ],
+                "summary": "发送（阿里）短信",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/createApi": {
             "post": {
                 "security": [
@@ -1336,124 +1360,6 @@ var doc = `{
                 }
             }
         },
-        "/app/circleApply/FindApply": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CircleApply"
-                ],
-                "summary": "用id查询Apply",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "编号",
-                        "name": "id",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/circleApply/GetApplyList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CircleApply"
-                ],
-                "summary": "分页获取Apply列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "圈子_编号",
-                        "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "名称",
-                        "name": "name",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "拥有者：0平台、1圈子、2个人",
-                        "name": "owerType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "用户_编号",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/app/circleApply/createUserCircleApply": {
             "post": {
                 "security": [
@@ -1568,6 +1474,41 @@ var doc = `{
                 }
             }
         },
+        "/app/circleApply/findApply": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CircleApply"
+                ],
+                "summary": "用id查询Apply",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "编号",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circleApply/findCircleApply": {
             "get": {
                 "security": [
@@ -1596,6 +1537,89 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circleApply/getApplyList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CircleApply"
+                ],
+                "summary": "分页获取Apply列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间（结束）",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "名称",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "拥有者：0平台、1圈子、2个人",
+                        "name": "owerType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间（开始）",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户_编号",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -3023,7 +3047,7 @@ var doc = `{
                 }
             }
         },
-        "/app/general/findHkBugReport": {
+        "/app/general/findBugReport": {
             "get": {
                 "security": [
                     {
@@ -3158,7 +3182,7 @@ var doc = `{
                 }
             }
         },
-        "/app/general/getHkProtocolList": {
+        "/app/general/getProtocolList": {
             "get": {
                 "security": [
                     {
@@ -3223,7 +3247,7 @@ var doc = `{
                 }
             }
         },
-        "/app/report/createHkReport": {
+        "/app/report/createReport": {
             "post": {
                 "security": [
                     {
@@ -3239,10 +3263,10 @@ var doc = `{
                 "tags": [
                     "App_Report"
                 ],
-                "summary": "创建HkReport",
+                "summary": "举报",
                 "parameters": [
                     {
-                        "description": "创建HkReport",
+                        "description": "举报",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -3261,197 +3285,7 @@ var doc = `{
                 }
             }
         },
-        "/app/report/createHkReportReason": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App_Report"
-                ],
-                "summary": "创建HkReportReason",
-                "parameters": [
-                    {
-                        "description": "创建HkReportReason",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkReportReason"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/report/deleteHkReport": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App_Report"
-                ],
-                "summary": "删除HkReport",
-                "parameters": [
-                    {
-                        "description": "删除HkReport",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkReport"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/report/deleteHkReportByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App_Report"
-                ],
-                "summary": "批量删除HkReport",
-                "parameters": [
-                    {
-                        "description": "批量删除HkReport",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/report/deleteHkReportReason": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App_Report"
-                ],
-                "summary": "删除HkReportReason",
-                "parameters": [
-                    {
-                        "description": "删除HkReportReason",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkReportReason"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/report/deleteHkReportReasonByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App_Report"
-                ],
-                "summary": "批量删除HkReportReason",
-                "parameters": [
-                    {
-                        "description": "批量删除HkReportReason",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/report/findHkReport": {
+        "/app/report/findReport": {
             "get": {
                 "security": [
                     {
@@ -3467,7 +3301,7 @@ var doc = `{
                 "tags": [
                     "App_Report"
                 ],
-                "summary": "用id查询HkReport",
+                "summary": "用id查询Report",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3486,7 +3320,7 @@ var doc = `{
                 }
             }
         },
-        "/app/report/findHkReportReason": {
+        "/app/report/findReportReason": {
             "get": {
                 "security": [
                     {
@@ -3502,7 +3336,7 @@ var doc = `{
                 "tags": [
                     "App_Report"
                 ],
-                "summary": "用id查询HkReportReason",
+                "summary": "用id查询ReportReason",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3521,7 +3355,7 @@ var doc = `{
                 }
             }
         },
-        "/app/report/getHkReportList": {
+        "/app/report/getReportList": {
             "get": {
                 "security": [
                     {
@@ -3537,7 +3371,7 @@ var doc = `{
                 "tags": [
                     "App_Report"
                 ],
-                "summary": "分页获取HkReport列表",
+                "summary": "分页获取Report列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3723,7 +3557,7 @@ var doc = `{
                 }
             }
         },
-        "/app/report/getHkReportReasonList": {
+        "/app/report/getReportReasonList": {
             "get": {
                 "security": [
                     {
@@ -3739,7 +3573,7 @@ var doc = `{
                 "tags": [
                     "App_Report"
                 ],
-                "summary": "分页获取HkReportReason列表",
+                "summary": "分页获取ReportReason列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3843,82 +3677,6 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/report/updateHkReport": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App_Report"
-                ],
-                "summary": "更新HkReport",
-                "parameters": [
-                    {
-                        "description": "更新HkReport",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkReport"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/report/updateHkReportReason": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App_Report"
-                ],
-                "summary": "更新HkReportReason",
-                "parameters": [
-                    {
-                        "description": "更新HkReportReason",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkReportReason"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -4502,11 +4260,6 @@ var doc = `{
         },
         "/app/user/getCaptcha": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -4514,21 +4267,18 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Base"
+                    "App_User"
                 ],
                 "summary": "获取验证码",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "电话号码",
-                        "name": "telephone",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行",
-                        "name": "type",
-                        "in": "query"
+                        "description": "获取验证码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CaptchaReq"
+                        }
                     }
                 ],
                 "responses": {
@@ -4611,38 +4361,14 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "账号",
                         "name": "account",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "生日",
                         "name": "birthday",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "email",
                         "in": "query"
                     },
                     {
@@ -4652,18 +4378,8 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "用户头像",
                         "name": "headerImg",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -4674,6 +4390,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "用户昵称",
                         "name": "nickName",
                         "in": "query"
                     },
@@ -4690,69 +4407,14 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "password",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "phone",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "realName",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
-                        "name": "roleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
+                        "description": "性别",
                         "name": "sex",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "uuid",
                         "in": "query"
                     }
                 ],
@@ -5012,44 +4674,6 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/userBrowsingHistory/createUserBrowsingHistory": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "APP_UserBrowsingHistory"
-                ],
-                "summary": "创建UserBrowsingHistory",
-                "parameters": [
-                    {
-                        "description": "创建UserBrowsingHistory",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/general.HkUserBrowsingHistory"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -19954,11 +19578,13 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "账号",
                         "name": "account",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "生日",
                         "name": "birthday",
                         "in": "query"
                     },
@@ -19985,11 +19611,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "邮箱",
                         "name": "email",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "头像",
                         "name": "headerImg",
                         "in": "query"
                     },
@@ -20006,21 +19634,25 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "昵称",
                         "name": "nickName",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "密码",
                         "name": "password",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "手机",
                         "name": "phone",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "真名",
                         "name": "realName",
                         "in": "query"
                     },
@@ -20031,6 +19663,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "性别",
                         "name": "sex",
                         "in": "query"
                     },
@@ -20101,11 +19734,13 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "账号",
                         "name": "account",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "生日",
                         "name": "birthday",
                         "in": "query"
                     },
@@ -20132,6 +19767,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "邮箱",
                         "name": "email",
                         "in": "query"
                     },
@@ -20143,6 +19779,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "头像",
                         "name": "headerImg",
                         "in": "query"
                     },
@@ -20165,6 +19802,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "昵称",
                         "name": "nickName",
                         "in": "query"
                     },
@@ -20182,16 +19820,19 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "密码",
                         "name": "password",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "手机",
                         "name": "phone",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "真名",
                         "name": "realName",
                         "in": "query"
                     },
@@ -20202,6 +19843,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "性别",
                         "name": "sex",
                         "in": "query"
                     },
@@ -22481,30 +22123,6 @@ var doc = `{
                                     }
                                 }
                             ]
-                        }
-                    }
-                }
-            }
-        },
-        "/smsAliyun/sendAliSms": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "System"
-                ],
-                "summary": "发送（阿里）短信",
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 }
@@ -25927,6 +25545,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "account": {
+                    "description": "账号",
                     "type": "string"
                 },
                 "authorities": {
@@ -25939,6 +25558,7 @@ var doc = `{
                     "$ref": "#/definitions/system.SysAuthority"
                 },
                 "birthday": {
+                    "description": "生日",
                     "type": "string"
                 },
                 "createDept": {
@@ -25955,9 +25575,11 @@ var doc = `{
                     "type": "string"
                 },
                 "email": {
+                    "description": "邮箱",
                     "type": "string"
                 },
                 "headerImg": {
+                    "description": "头像",
                     "type": "string"
                 },
                 "id": {
@@ -25968,21 +25590,26 @@ var doc = `{
                     "type": "integer"
                 },
                 "nickName": {
+                    "description": "昵称",
                     "type": "string"
                 },
                 "password": {
+                    "description": "密码",
                     "type": "string"
                 },
                 "phone": {
+                    "description": "手机",
                     "type": "string"
                 },
                 "realName": {
+                    "description": "真名",
                     "type": "string"
                 },
                 "roleId": {
                     "type": "integer"
                 },
                 "sex": {
+                    "description": "性别",
                     "type": "integer"
                 },
                 "status": {
@@ -27644,6 +27271,19 @@ var doc = `{
                 "telephone": {
                     "description": "电话号码",
                     "type": "string"
+                }
+            }
+        },
+        "request.CaptchaReq": {
+            "type": "object",
+            "properties": {
+                "telephone": {
+                    "description": "电话号码",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行",
+                    "type": "integer"
                 }
             }
         },

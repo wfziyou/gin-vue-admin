@@ -2,7 +2,6 @@ package request
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
 	"time"
 )
 
@@ -63,7 +62,12 @@ type SetSelfBaseInfoReq struct {
 }
 
 type UserSearch struct {
-	community.HkUser
+	Account   string     `json:"account" gorm:"comment:账号"`     //账号
+	NickName  string     `json:"nickName" gorm:"comment:用户昵称"`  // 用户昵称
+	HeaderImg string     `json:"headerImg" gorm:"comment:用户头像"` // 用户头像
+	Birthday  *time.Time `json:"birthday" gorm:"comment:生日"`    //生日
+	Sex       *int       `json:"sex" gorm:"comment:性别"`         //性别
+
 	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"`
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`
 	request.PageInfo

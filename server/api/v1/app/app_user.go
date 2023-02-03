@@ -25,12 +25,11 @@ type UserApi struct {
 }
 
 // GetCaptcha 获取验证码
-// @Tags      Base
+// @Tags      App_User
 // @Summary   获取验证码
-// @Security  ApiKeyAuth
 // @accept    application/json
 // @Produce   application/json
-// @Param data query appReq.CaptchaReq true "获取验证码"
+// @Param data body appReq.CaptchaReq true "获取验证码"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router    /app/user/getCaptcha [post]
 func (userApi *UserApi) GetCaptcha(c *gin.Context) {
@@ -98,7 +97,7 @@ func (userApi *UserApi) GetCaptcha(c *gin.Context) {
 // @Tags     App_User
 // @Summary  注册
 // @Produce   application/json
-// @Param    data  body     appReq.Register true  "注册"
+// @Param    data  body appReq.Register true  "注册"
 // @Success  200   {object}  response.Response{data=communityRes.SysUserResponse,msg=string}  "用户注册账号,返回包括用户信息"
 // @Router   /app/user/register [post]
 func (userApi *UserApi) Register(c *gin.Context) {
@@ -118,7 +117,7 @@ func (userApi *UserApi) Register(c *gin.Context) {
 	userReturn, err := hkUserService.Register(*user)
 	if err != nil {
 		global.GVA_LOG.Error("注册失败!", zap.Error(err))
-		response.FailWithDetailed(communityRes.SysUserResponse{User: userReturn}, "注册失败", c)
+		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	response.OkWithDetailed(communityRes.SysUserResponse{User: userReturn}, "注册成功", c)
