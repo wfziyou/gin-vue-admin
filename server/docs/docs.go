@@ -25628,6 +25628,9 @@ var doc = `{
                     "description": "更新时间",
                     "type": "string"
                 },
+                "userExtend": {
+                    "$ref": "#/definitions/community.HkUserExtend"
+                },
                 "userType": {
                     "type": "integer"
                 },

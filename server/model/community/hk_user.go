@@ -33,6 +33,7 @@ type HkUser struct {
 	IsDeleted   uint                  `json:"isDeleted" form:"isDeleted" gorm:"column:is_deleted;comment:是否已删除;size:10;"`
 	Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:AuthorityId;references:RoleId;comment:用户角色"`
 	Authorities []system.SysAuthority `json:"authorities" gorm:"many2many:hk_user_authority;"`
+	UserExtend  HkUserExtend          `json:"userExtend" gorm:"foreignKey:ID;references:ID;comment:用户扩展"`
 }
 
 // TableName HkUser 表名

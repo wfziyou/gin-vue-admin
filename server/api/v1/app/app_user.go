@@ -155,7 +155,7 @@ func (userApi *UserApi) LoginPwd(c *gin.Context) {
 
 	var oc bool = openCaptcha == 0 || openCaptcha < utils.InterfaceToInt(v)
 
-	if !oc || true {
+	if !oc {
 		u := &community.HkUser{Account: l.Account, Password: l.Password}
 		user, err := hkUserService.Login(u)
 		if err != nil {
@@ -174,10 +174,25 @@ func (userApi *UserApi) LoginPwd(c *gin.Context) {
 		}
 		userApi.TokenNext(c, *user)
 		return
+	} else if openCaptcha == 0 {
+		u := &community.HkUser{Account: l.Account, Password: l.Password}
+		user, err := hkUserService.Login(u)
+		if err != nil {
+			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
+			response.FailWithMessage("用户名不存在或者密码错误", c)
+			return
+		}
+		if user.Status != 0 {
+			global.GVA_LOG.Error("登陆失败! 用户被禁止登录!")
+			response.FailWithMessage("用户被禁止登录", c)
+			return
+		}
+		userApi.TokenNext(c, *user)
+		return
 	}
 	// 验证码次数+1
 	global.BlackCache.Increment(key, 1)
-	response.FailWithMessage("验证码错误", c)
+	response.FailWithMessage("连续登录失败次数超过最大次数，请稍后再试", c)
 }
 
 // LoginTelephone 用户登录(手机)
