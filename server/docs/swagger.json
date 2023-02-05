@@ -19642,6 +19642,7 @@
                     },
                     {
                         "type": "integer",
+                        "description": "用户角色ID",
                         "name": "roleId",
                         "in": "query"
                     },
@@ -19822,6 +19823,7 @@
                     },
                     {
                         "type": "integer",
+                        "description": "用户角色ID",
                         "name": "roleId",
                         "in": "query"
                     },
@@ -25539,6 +25541,7 @@
                     }
                 },
                 "authority": {
+                    "description": "Authority   system.SysAuthority   `json:\"authority\" gorm:\"foreignKey:AuthorityId;references:RoleId;comment:用户角色\"`\nAuthorities []system.SysAuthority `json:\"authorities\" gorm:\"many2many:hk_user_authority;\"`",
                     "$ref": "#/definitions/system.SysAuthority"
                 },
                 "birthday": {
@@ -25590,6 +25593,7 @@
                     "type": "string"
                 },
                 "roleId": {
+                    "description": "用户角色ID",
                     "type": "integer"
                 },
                 "sex": {

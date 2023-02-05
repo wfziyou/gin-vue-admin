@@ -227,7 +227,7 @@ func (userApi *UserApi) TokenNext(c *gin.Context, user community.HkUser) {
 		ID:          user.ID,
 		NickName:    user.NickName,
 		Username:    user.Account,
-		AuthorityId: user.RoleId,
+		AuthorityId: user.AuthorityId,
 	})
 	token, err := j.CreateToken(claims)
 	if err != nil {

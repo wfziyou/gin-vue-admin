@@ -1147,6 +1147,9 @@ definitions:
         type: array
       authority:
         $ref: '#/definitions/system.SysAuthority'
+        description: |-
+          Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:AuthorityId;references:RoleId;comment:用户角色"`
+          Authorities []system.SysAuthority `json:"authorities" gorm:"many2many:hk_user_authority;"`
       birthday:
         description: 生日
         type: string
@@ -1183,6 +1186,7 @@ definitions:
         description: 真名
         type: string
       roleId:
+        description: 用户角色ID
         type: integer
       sex:
         description: 性别
@@ -15254,7 +15258,8 @@ paths:
         in: query
         name: realName
         type: string
-      - in: query
+      - description: 用户角色ID
+        in: query
         name: roleId
         type: integer
       - description: 性别
@@ -15368,7 +15373,8 @@ paths:
         in: query
         name: realName
         type: string
-      - in: query
+      - description: 用户角色ID
+        in: query
         name: roleId
         type: integer
       - description: 性别

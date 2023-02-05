@@ -19658,6 +19658,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户角色ID",
                         "name": "roleId",
                         "in": "query"
                     },
@@ -19838,6 +19839,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户角色ID",
                         "name": "roleId",
                         "in": "query"
                     },
@@ -25555,6 +25557,7 @@ var doc = `{
                     }
                 },
                 "authority": {
+                    "description": "Authority   system.SysAuthority   ` + "`" + `json:\"authority\" gorm:\"foreignKey:AuthorityId;references:RoleId;comment:用户角色\"` + "`" + `\nAuthorities []system.SysAuthority ` + "`" + `json:\"authorities\" gorm:\"many2many:hk_user_authority;\"` + "`" + `",
                     "$ref": "#/definitions/system.SysAuthority"
                 },
                 "birthday": {
@@ -25606,6 +25609,7 @@ var doc = `{
                     "type": "string"
                 },
                 "roleId": {
+                    "description": "用户角色ID",
                     "type": "integer"
                 },
                 "sex": {
