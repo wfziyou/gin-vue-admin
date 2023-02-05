@@ -2,20 +2,19 @@ package general
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/general"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/general/request"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/service"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/general"
+	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/general/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type HkUserCollectApi struct {
 }
 
 var hkUserCollectService = service.ServiceGroupApp.GeneralServiceGroup.HkUserCollectService
-
 
 // CreateHkUserCollect 创建HkUserCollect
 // @Tags HkUserCollect
@@ -34,7 +33,7 @@ func (hkUserCollectApi *HkUserCollectApi) CreateHkUserCollect(c *gin.Context) {
 		return
 	}
 	if err := hkUserCollectService.CreateHkUserCollect(hkUserCollect); err != nil {
-        global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
 		response.OkWithMessage("创建成功", c)
@@ -58,7 +57,7 @@ func (hkUserCollectApi *HkUserCollectApi) DeleteHkUserCollect(c *gin.Context) {
 		return
 	}
 	if err := hkUserCollectService.DeleteHkUserCollect(hkUserCollect); err != nil {
-        global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
 		response.OkWithMessage("删除成功", c)
@@ -76,13 +75,13 @@ func (hkUserCollectApi *HkUserCollectApi) DeleteHkUserCollect(c *gin.Context) {
 // @Router /hkUserCollect/deleteHkUserCollectByIds [delete]
 func (hkUserCollectApi *HkUserCollectApi) DeleteHkUserCollectByIds(c *gin.Context) {
 	var IDS request.IdsReq
-    err := c.ShouldBindJSON(&IDS)
+	err := c.ShouldBindJSON(&IDS)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	if err := hkUserCollectService.DeleteHkUserCollectByIds(IDS); err != nil {
-        global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
 		response.OkWithMessage("批量删除成功", c)
@@ -106,7 +105,7 @@ func (hkUserCollectApi *HkUserCollectApi) UpdateHkUserCollect(c *gin.Context) {
 		return
 	}
 	if err := hkUserCollectService.UpdateHkUserCollect(hkUserCollect); err != nil {
-        global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
@@ -123,14 +122,14 @@ func (hkUserCollectApi *HkUserCollectApi) UpdateHkUserCollect(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkUserCollect/findHkUserCollect [get]
 func (hkUserCollectApi *HkUserCollectApi) FindHkUserCollect(c *gin.Context) {
-	var hkUserCollect general.HkUserCollect
-	err := c.ShouldBindQuery(&hkUserCollect)
+	var idSearch request.IdSearch
+	err := c.ShouldBindQuery(&idSearch)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkUserCollect, err := hkUserCollectService.GetHkUserCollect(hkUserCollect.ID); err != nil {
-        global.GVA_LOG.Error("查询失败!", zap.Error(err))
+	if rehkUserCollect, err := hkUserCollectService.GetHkUserCollect(idSearch.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithData(gin.H{"rehkUserCollect": rehkUserCollect}, c)
@@ -154,14 +153,14 @@ func (hkUserCollectApi *HkUserCollectApi) GetHkUserCollectList(c *gin.Context) {
 		return
 	}
 	if list, total, err := hkUserCollectService.GetHkUserCollectInfoList(pageInfo); err != nil {
-	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
-        response.FailWithMessage("获取失败", c)
-    } else {
-        response.OkWithDetailed(response.PageResult{
-            List:     list,
-            Total:    total,
-            Page:     pageInfo.Page,
-            PageSize: pageInfo.PageSize,
-        }, "获取成功", c)
-    }
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

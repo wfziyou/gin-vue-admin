@@ -2,20 +2,19 @@ package general
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/general"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/general/request"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/service"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/general"
+	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/general/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type HkUserBrowsingHistoryApi struct {
 }
 
 var hkUserBrowsingHistoryService = service.ServiceGroupApp.GeneralServiceGroup.HkUserBrowsingHistoryService
-
 
 // CreateHkUserBrowsingHistory 创建HkUserBrowsingHistory
 // @Tags HkUserBrowsingHistory
@@ -34,7 +33,7 @@ func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) CreateHkUserBrowsingHi
 		return
 	}
 	if err := hkUserBrowsingHistoryService.CreateHkUserBrowsingHistory(hkUserBrowsingHistory); err != nil {
-        global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
 		response.OkWithMessage("创建成功", c)
@@ -58,7 +57,7 @@ func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) DeleteHkUserBrowsingHi
 		return
 	}
 	if err := hkUserBrowsingHistoryService.DeleteHkUserBrowsingHistory(hkUserBrowsingHistory); err != nil {
-        global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
 		response.OkWithMessage("删除成功", c)
@@ -76,13 +75,13 @@ func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) DeleteHkUserBrowsingHi
 // @Router /hkUserBrowsingHistory/deleteHkUserBrowsingHistoryByIds [delete]
 func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) DeleteHkUserBrowsingHistoryByIds(c *gin.Context) {
 	var IDS request.IdsReq
-    err := c.ShouldBindJSON(&IDS)
+	err := c.ShouldBindJSON(&IDS)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	if err := hkUserBrowsingHistoryService.DeleteHkUserBrowsingHistoryByIds(IDS); err != nil {
-        global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
 		response.OkWithMessage("批量删除成功", c)
@@ -106,7 +105,7 @@ func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) UpdateHkUserBrowsingHi
 		return
 	}
 	if err := hkUserBrowsingHistoryService.UpdateHkUserBrowsingHistory(hkUserBrowsingHistory); err != nil {
-        global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
@@ -123,14 +122,14 @@ func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) UpdateHkUserBrowsingHi
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkUserBrowsingHistory/findHkUserBrowsingHistory [get]
 func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) FindHkUserBrowsingHistory(c *gin.Context) {
-	var hkUserBrowsingHistory general.HkUserBrowsingHistory
-	err := c.ShouldBindQuery(&hkUserBrowsingHistory)
+	var idSearch request.IdSearch
+	err := c.ShouldBindQuery(&idSearch)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkUserBrowsingHistory, err := hkUserBrowsingHistoryService.GetHkUserBrowsingHistory(hkUserBrowsingHistory.ID); err != nil {
-        global.GVA_LOG.Error("查询失败!", zap.Error(err))
+	if rehkUserBrowsingHistory, err := hkUserBrowsingHistoryService.GetHkUserBrowsingHistory(idSearch.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithData(gin.H{"rehkUserBrowsingHistory": rehkUserBrowsingHistory}, c)
@@ -154,14 +153,14 @@ func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) GetHkUserBrowsingHisto
 		return
 	}
 	if list, total, err := hkUserBrowsingHistoryService.GetHkUserBrowsingHistoryInfoList(pageInfo); err != nil {
-	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
-        response.FailWithMessage("获取失败", c)
-    } else {
-        response.OkWithDetailed(response.PageResult{
-            List:     list,
-            Total:    total,
-            Page:     pageInfo.Page,
-            PageSize: pageInfo.PageSize,
-        }, "获取成功", c)
-    }
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

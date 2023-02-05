@@ -119,15 +119,15 @@ func (hkUserApi *HkUserApi) UpdateHkUser(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkUser/findHkUser [get]
 func (hkUserApi *HkUserApi) FindHkUser(c *gin.Context) {
-	var hkUser community.HkUser
-	err := c.ShouldBindQuery(&hkUser)
+	var idSearch request.IdSearch
+	err := c.ShouldBindQuery(&idSearch)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkUser, err := hkUserService.GetHkUser(hkUser.ID); err != nil {
+	if rehkUser, err := hkUserService.GetHkUser(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
-		response.FailWithMessage("查询失败", c)
+		response.FailWithMessage(err.Error(), c)
 	} else {
 		response.OkWithData(gin.H{"rehkUser": rehkUser}, c)
 	}

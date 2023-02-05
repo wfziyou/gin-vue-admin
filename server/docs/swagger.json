@@ -6340,6 +6340,21 @@
                 "summary": "获取单一客户信息",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -6365,6 +6380,16 @@
                     },
                     {
                         "type": "integer",
+                        "name": "isDeleted",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
                         "description": "管理角色ID",
                         "name": "sysUserAuthorityID",
                         "in": "query"
@@ -6373,6 +6398,16 @@
                         "type": "integer",
                         "description": "管理ID",
                         "name": "sysUserId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -22233,6 +22268,21 @@
                 "summary": "用id查询SysDictionary",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -22251,6 +22301,11 @@
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "name": "isDeleted",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "字典名（中）",
                         "name": "name",
@@ -22266,6 +22321,16 @@
                         "type": "string",
                         "description": "字典名（英）",
                         "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -22320,6 +22385,21 @@
                 "summary": "分页获取SysDictionary列表",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -22335,6 +22415,11 @@
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -22371,6 +22456,16 @@
                         "type": "string",
                         "description": "字典名（英）",
                         "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -22574,6 +22669,21 @@
                 "summary": "用id查询SysDictionaryDetail",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -22583,6 +22693,11 @@
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -22607,6 +22722,16 @@
                         "type": "integer",
                         "description": "关联标记",
                         "name": "sysDictionaryID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -22667,6 +22792,21 @@
                 "summary": "分页获取SysDictionaryDetail列表",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -22676,6 +22816,11 @@
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -22718,6 +22863,16 @@
                         "type": "integer",
                         "description": "关联标记",
                         "name": "sysDictionaryID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -22989,6 +23144,21 @@
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -23010,6 +23180,11 @@
                         "type": "string",
                         "description": "请求ip",
                         "name": "ip",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -23040,6 +23215,16 @@
                         "type": "integer",
                         "description": "请求状态",
                         "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -23112,6 +23297,21 @@
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -23133,6 +23333,11 @@
                         "type": "string",
                         "description": "请求ip",
                         "name": "ip",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -23181,6 +23386,16 @@
                         "type": "integer",
                         "description": "请求状态",
                         "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -26648,6 +26863,15 @@
         "example.ExaCustomer": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -26664,6 +26888,12 @@
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
                 "sysUser": {
                     "description": "管理详情",
                     "$ref": "#/definitions/system.SysUser"
@@ -26676,6 +26906,12 @@
                     "description": "管理ID",
                     "type": "integer"
                 },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -26686,6 +26922,15 @@
             "type": "object",
             "properties": {
                 "chunkTotal": {
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
@@ -26711,8 +26956,20 @@
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "isFinish": {
                     "type": "boolean"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -26723,6 +26980,15 @@
         "example.ExaFileChunk": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -26740,6 +27006,18 @@
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -26749,12 +27027,24 @@
         "example.ExaFileUploadAndDownload": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "key": {
@@ -26765,9 +27055,18 @@
                     "description": "文件名",
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "tag": {
                     "description": "文件标签",
                     "type": "string"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -27581,6 +27880,15 @@
                     "description": "api组",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -27595,6 +27903,9 @@
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "keyword": {
@@ -27620,6 +27931,15 @@
                 "path": {
                     "description": "api路径",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28058,6 +28378,15 @@
                     "description": "api组",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28070,6 +28399,9 @@
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "method": {
                     "description": "方法:创建POST(默认)|查看GET|更新PUT|删除DELETE",
                     "type": "string"
@@ -28077,6 +28409,15 @@
                 "path": {
                     "description": "api路径",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28137,6 +28478,15 @@
         "system.SysAutoCode": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28148,11 +28498,23 @@
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "label": {
                     "type": "string"
                 },
                 "packageName": {
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28186,6 +28548,15 @@
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28204,6 +28575,9 @@
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "keepAlive": {
@@ -28238,9 +28612,18 @@
                     "description": "排序标记",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "title": {
                     "description": "菜单名",
                     "type": "string"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28251,6 +28634,15 @@
         "system.SysBaseMenuBtn": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28262,10 +28654,22 @@
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "name": {
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "sysBaseMenuID": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -28277,6 +28681,15 @@
         "system.SysBaseMenuParameter": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28285,9 +28698,15 @@
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "key": {
                     "description": "地址栏携带参数的key",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 },
                 "sysBaseMenuID": {
                     "type": "integer"
@@ -28295,6 +28714,12 @@
                 "type": {
                     "description": "地址栏携带参数为params还是query",
                     "type": "string"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28309,6 +28734,15 @@
         "system.SysDictionary": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28319,6 +28753,9 @@
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -28339,6 +28776,12 @@
                     "description": "字典名（英）",
                     "type": "string"
                 },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -28348,12 +28791,24 @@
         "system.SysDictionaryDetail": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "label": {
@@ -28370,6 +28825,12 @@
                 },
                 "sysDictionaryID": {
                     "description": "关联标记",
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -28414,6 +28875,15 @@
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28432,6 +28902,9 @@
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "keepAlive": {
@@ -28469,9 +28942,18 @@
                     "description": "排序标记",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "title": {
                     "description": "菜单名",
                     "type": "string"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28490,6 +28972,15 @@
                     "description": "请求Body",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28505,6 +28996,9 @@
                 "ip": {
                     "description": "请求ip",
                     "type": "string"
+                },
+                "isDeleted": {
+                    "type": "integer"
                 },
                 "latency": {
                     "description": "延迟",
@@ -28524,6 +29018,12 @@
                 },
                 "status": {
                     "description": "请求状态",
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -28563,6 +29063,15 @@
                     "description": "基础颜色",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28583,6 +29092,9 @@
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "nickName": {
                     "description": "用户昵称",
                     "type": "string"
@@ -28594,6 +29106,15 @@
                 "sideMode": {
                     "description": "用户侧边主题",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",

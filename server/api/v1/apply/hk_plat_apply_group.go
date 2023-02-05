@@ -2,20 +2,19 @@ package apply
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/apply"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/apply/request"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/service"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/apply"
+	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/apply/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type HkPlatApplyGroupApi struct {
 }
 
 var hkPlatApplyGroupService = service.ServiceGroupApp.ApplyServiceGroup.HkPlatApplyGroupService
-
 
 // CreateHkPlatApplyGroup 创建HkPlatApplyGroup
 // @Tags HkPlatApplyGroup
@@ -34,7 +33,7 @@ func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) CreateHkPlatApplyGroup(c *gin.Co
 		return
 	}
 	if err := hkPlatApplyGroupService.CreateHkPlatApplyGroup(hkPlatApplyGroup); err != nil {
-        global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
 		response.OkWithMessage("创建成功", c)
@@ -58,7 +57,7 @@ func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) DeleteHkPlatApplyGroup(c *gin.Co
 		return
 	}
 	if err := hkPlatApplyGroupService.DeleteHkPlatApplyGroup(hkPlatApplyGroup); err != nil {
-        global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
 		response.OkWithMessage("删除成功", c)
@@ -76,13 +75,13 @@ func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) DeleteHkPlatApplyGroup(c *gin.Co
 // @Router /hkPlatApplyGroup/deleteHkPlatApplyGroupByIds [delete]
 func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) DeleteHkPlatApplyGroupByIds(c *gin.Context) {
 	var IDS request.IdsReq
-    err := c.ShouldBindJSON(&IDS)
+	err := c.ShouldBindJSON(&IDS)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	if err := hkPlatApplyGroupService.DeleteHkPlatApplyGroupByIds(IDS); err != nil {
-        global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
 		response.OkWithMessage("批量删除成功", c)
@@ -106,7 +105,7 @@ func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) UpdateHkPlatApplyGroup(c *gin.Co
 		return
 	}
 	if err := hkPlatApplyGroupService.UpdateHkPlatApplyGroup(hkPlatApplyGroup); err != nil {
-        global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
@@ -123,14 +122,14 @@ func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) UpdateHkPlatApplyGroup(c *gin.Co
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkPlatApplyGroup/findHkPlatApplyGroup [get]
 func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) FindHkPlatApplyGroup(c *gin.Context) {
-	var hkPlatApplyGroup apply.HkPlatApplyGroup
-	err := c.ShouldBindQuery(&hkPlatApplyGroup)
+	var idSearch request.IdSearch
+	err := c.ShouldBindQuery(&idSearch)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkPlatApplyGroup, err := hkPlatApplyGroupService.GetHkPlatApplyGroup(hkPlatApplyGroup.ID); err != nil {
-        global.GVA_LOG.Error("查询失败!", zap.Error(err))
+	if rehkPlatApplyGroup, err := hkPlatApplyGroupService.GetHkPlatApplyGroup(idSearch.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithData(gin.H{"rehkPlatApplyGroup": rehkPlatApplyGroup}, c)
@@ -154,14 +153,14 @@ func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) GetHkPlatApplyGroupList(c *gin.C
 		return
 	}
 	if list, total, err := hkPlatApplyGroupService.GetHkPlatApplyGroupInfoList(pageInfo); err != nil {
-	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
-        response.FailWithMessage("获取失败", c)
-    } else {
-        response.OkWithDetailed(response.PageResult{
-            List:     list,
-            Total:    total,
-            Page:     pageInfo.Page,
-            PageSize: pageInfo.PageSize,
-        }, "获取成功", c)
-    }
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

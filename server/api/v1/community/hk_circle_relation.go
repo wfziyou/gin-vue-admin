@@ -2,20 +2,19 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/community"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/service"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type HkCircleRelationApi struct {
 }
 
 var hkCircleRelationService = service.ServiceGroupApp.CommunityServiceGroup.HkCircleRelationService
-
 
 // CreateHkCircleRelation 创建HkCircleRelation
 // @Tags HkCircleRelation
@@ -34,7 +33,7 @@ func (hkCircleRelationApi *HkCircleRelationApi) CreateHkCircleRelation(c *gin.Co
 		return
 	}
 	if err := hkCircleRelationService.CreateHkCircleRelation(hkCircleRelation); err != nil {
-        global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
 		response.OkWithMessage("创建成功", c)
@@ -58,7 +57,7 @@ func (hkCircleRelationApi *HkCircleRelationApi) DeleteHkCircleRelation(c *gin.Co
 		return
 	}
 	if err := hkCircleRelationService.DeleteHkCircleRelation(hkCircleRelation); err != nil {
-        global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
 		response.OkWithMessage("删除成功", c)
@@ -76,13 +75,13 @@ func (hkCircleRelationApi *HkCircleRelationApi) DeleteHkCircleRelation(c *gin.Co
 // @Router /hkCircleRelation/deleteHkCircleRelationByIds [delete]
 func (hkCircleRelationApi *HkCircleRelationApi) DeleteHkCircleRelationByIds(c *gin.Context) {
 	var IDS request.IdsReq
-    err := c.ShouldBindJSON(&IDS)
+	err := c.ShouldBindJSON(&IDS)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	if err := hkCircleRelationService.DeleteHkCircleRelationByIds(IDS); err != nil {
-        global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
 		response.OkWithMessage("批量删除成功", c)
@@ -106,7 +105,7 @@ func (hkCircleRelationApi *HkCircleRelationApi) UpdateHkCircleRelation(c *gin.Co
 		return
 	}
 	if err := hkCircleRelationService.UpdateHkCircleRelation(hkCircleRelation); err != nil {
-        global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
@@ -123,14 +122,14 @@ func (hkCircleRelationApi *HkCircleRelationApi) UpdateHkCircleRelation(c *gin.Co
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkCircleRelation/findHkCircleRelation [get]
 func (hkCircleRelationApi *HkCircleRelationApi) FindHkCircleRelation(c *gin.Context) {
-	var hkCircleRelation community.HkCircleRelation
-	err := c.ShouldBindQuery(&hkCircleRelation)
+	var idSearch request.IdSearch
+	err := c.ShouldBindQuery(&idSearch)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkCircleRelation, err := hkCircleRelationService.GetHkCircleRelation(hkCircleRelation.ID); err != nil {
-        global.GVA_LOG.Error("查询失败!", zap.Error(err))
+	if rehkCircleRelation, err := hkCircleRelationService.GetHkCircleRelation(idSearch.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithData(gin.H{"rehkCircleRelation": rehkCircleRelation}, c)
@@ -154,14 +153,14 @@ func (hkCircleRelationApi *HkCircleRelationApi) GetHkCircleRelationList(c *gin.C
 		return
 	}
 	if list, total, err := hkCircleRelationService.GetHkCircleRelationInfoList(pageInfo); err != nil {
-	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
-        response.FailWithMessage("获取失败", c)
-    } else {
-        response.OkWithDetailed(response.PageResult{
-            List:     list,
-            Total:    total,
-            Page:     pageInfo.Page,
-            PageSize: pageInfo.PageSize,
-        }, "获取成功", c)
-    }
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

@@ -1929,6 +1929,12 @@ definitions:
     type: object
   example.ExaCustomer:
     properties:
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -1941,6 +1947,10 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isDeleted:
+        type: integer
+      status:
+        type: integer
       sysUser:
         $ref: '#/definitions/system.SysUser'
         description: 管理详情
@@ -1950,6 +1960,10 @@ definitions:
       sysUserId:
         description: 管理ID
         type: integer
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -1957,6 +1971,12 @@ definitions:
   example.ExaFile:
     properties:
       chunkTotal:
+        type: integer
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
         type: integer
       createdAt:
         description: 创建时间
@@ -1974,14 +1994,28 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isDeleted:
+        type: integer
       isFinish:
         type: boolean
+      status:
+        type: integer
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
     type: object
   example.ExaFileChunk:
     properties:
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -1994,17 +2028,33 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isDeleted:
+        type: integer
+      status:
+        type: integer
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
     type: object
   example.ExaFileUploadAndDownload:
     properties:
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
       id:
         description: 主键ID
+        type: integer
+      isDeleted:
         type: integer
       key:
         description: 编号
@@ -2012,9 +2062,15 @@ definitions:
       name:
         description: 文件名
         type: string
+      status:
+        type: integer
       tag:
         description: 文件标签
         type: string
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -2577,6 +2633,12 @@ definitions:
       apiGroup:
         description: api组
         type: string
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -2588,6 +2650,8 @@ definitions:
         type: string
       id:
         description: 主键ID
+        type: integer
+      isDeleted:
         type: integer
       keyword:
         description: 关键字
@@ -2607,6 +2671,12 @@ definitions:
       path:
         description: api路径
         type: string
+      status:
+        type: integer
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -2903,6 +2973,12 @@ definitions:
       apiGroup:
         description: api组
         type: string
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -2912,12 +2988,20 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isDeleted:
+        type: integer
       method:
         description: 方法:创建POST(默认)|查看GET|更新PUT|删除DELETE
         type: string
       path:
         description: api路径
         type: string
+      status:
+        type: integer
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -2959,6 +3043,12 @@ definitions:
     type: object
   system.SysAutoCode:
     properties:
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -2967,10 +3057,18 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isDeleted:
+        type: integer
       label:
         type: string
       packageName:
         type: string
+      status:
+        type: integer
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -2993,6 +3091,12 @@ definitions:
       component:
         description: 对应前端文件路径
         type: string
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -3007,6 +3111,8 @@ definitions:
         type: string
       id:
         description: 主键ID
+        type: integer
+      isDeleted:
         type: integer
       keepAlive:
         description: 是否缓存
@@ -3031,15 +3137,27 @@ definitions:
       sort:
         description: 排序标记
         type: integer
+      status:
+        type: integer
       title:
         description: 菜单名
         type: string
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
     type: object
   system.SysBaseMenuBtn:
     properties:
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -3048,9 +3166,17 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isDeleted:
+        type: integer
       name:
         type: string
+      status:
+        type: integer
       sysBaseMenuID:
+        type: integer
+      updateTime:
+        type: string
+      updateUser:
         type: integer
       updatedAt:
         description: 更新时间
@@ -3058,20 +3184,34 @@ definitions:
     type: object
   system.SysBaseMenuParameter:
     properties:
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
       id:
         description: 主键ID
         type: integer
+      isDeleted:
+        type: integer
       key:
         description: 地址栏携带参数的key
         type: string
+      status:
+        type: integer
       sysBaseMenuID:
         type: integer
       type:
         description: 地址栏携带参数为params还是query
         type: string
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -3081,6 +3221,12 @@ definitions:
     type: object
   system.SysDictionary:
     properties:
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -3089,6 +3235,8 @@ definitions:
         type: string
       id:
         description: 主键ID
+        type: integer
+      isDeleted:
         type: integer
       name:
         description: 字典名（中）
@@ -3103,17 +3251,29 @@ definitions:
       type:
         description: 字典名（英）
         type: string
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
     type: object
   system.SysDictionaryDetail:
     properties:
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
       id:
         description: 主键ID
+        type: integer
+      isDeleted:
         type: integer
       label:
         description: 展示值
@@ -3126,6 +3286,10 @@ definitions:
         type: boolean
       sysDictionaryID:
         description: 关联标记
+        type: integer
+      updateTime:
+        type: string
+      updateUser:
         type: integer
       updatedAt:
         description: 更新时间
@@ -3156,6 +3320,12 @@ definitions:
       component:
         description: 对应前端文件路径
         type: string
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -3170,6 +3340,8 @@ definitions:
         type: string
       id:
         description: 主键ID
+        type: integer
+      isDeleted:
         type: integer
       keepAlive:
         description: 是否缓存
@@ -3196,9 +3368,15 @@ definitions:
       sort:
         description: 排序标记
         type: integer
+      status:
+        type: integer
       title:
         description: 菜单名
         type: string
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -3211,6 +3389,12 @@ definitions:
       body:
         description: 请求Body
         type: string
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -3223,6 +3407,8 @@ definitions:
       ip:
         description: 请求ip
         type: string
+      isDeleted:
+        type: integer
       latency:
         description: 延迟
         type: string
@@ -3237,6 +3423,10 @@ definitions:
         type: string
       status:
         description: 请求状态
+        type: integer
+      updateTime:
+        type: string
+      updateUser:
         type: integer
       updatedAt:
         description: 更新时间
@@ -3264,6 +3454,12 @@ definitions:
       baseColor:
         description: 基础颜色
         type: string
+      createDept:
+        type: integer
+      createTime:
+        type: string
+      createUser:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -3279,6 +3475,8 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isDeleted:
+        type: integer
       nickName:
         description: 用户昵称
         type: string
@@ -3288,6 +3486,12 @@ definitions:
       sideMode:
         description: 用户侧边主题
         type: string
+      status:
+        type: integer
+      updateTime:
+        type: string
+      updateUser:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -7144,6 +7348,15 @@ paths:
       consumes:
       - application/json
       parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createTime
+        type: string
+      - in: query
+        name: createUser
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
@@ -7160,6 +7373,12 @@ paths:
         in: query
         name: id
         type: integer
+      - in: query
+        name: isDeleted
+        type: integer
+      - in: query
+        name: status
+        type: integer
       - description: 管理角色ID
         in: query
         name: sysUserAuthorityID
@@ -7167,6 +7386,12 @@ paths:
       - description: 管理ID
         in: query
         name: sysUserId
+        type: integer
+      - in: query
+        name: updateTime
+        type: string
+      - in: query
+        name: updateUser
         type: integer
       - description: 更新时间
         in: query
@@ -16813,6 +17038,15 @@ paths:
       consumes:
       - application/json
       parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createTime
+        type: string
+      - in: query
+        name: createUser
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
@@ -16824,6 +17058,9 @@ paths:
       - description: 主键ID
         in: query
         name: id
+        type: integer
+      - in: query
+        name: isDeleted
         type: integer
       - description: 字典名（中）
         in: query
@@ -16837,6 +17074,12 @@ paths:
         in: query
         name: type
         type: string
+      - in: query
+        name: updateTime
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
       - description: 更新时间
         in: query
         name: updatedAt
@@ -16866,6 +17109,15 @@ paths:
       consumes:
       - application/json
       parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createTime
+        type: string
+      - in: query
+        name: createUser
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
@@ -16877,6 +17129,9 @@ paths:
       - description: 主键ID
         in: query
         name: id
+        type: integer
+      - in: query
+        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -16902,6 +17157,12 @@ paths:
         in: query
         name: type
         type: string
+      - in: query
+        name: updateTime
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
       - description: 更新时间
         in: query
         name: updatedAt
@@ -17014,6 +17275,15 @@ paths:
       consumes:
       - application/json
       parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createTime
+        type: string
+      - in: query
+        name: createUser
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
@@ -17021,6 +17291,9 @@ paths:
       - description: 主键ID
         in: query
         name: id
+        type: integer
+      - in: query
+        name: isDeleted
         type: integer
       - description: 展示值
         in: query
@@ -17037,6 +17310,12 @@ paths:
       - description: 关联标记
         in: query
         name: sysDictionaryID
+        type: integer
+      - in: query
+        name: updateTime
+        type: string
+      - in: query
+        name: updateUser
         type: integer
       - description: 更新时间
         in: query
@@ -17071,6 +17350,15 @@ paths:
       consumes:
       - application/json
       parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createTime
+        type: string
+      - in: query
+        name: createUser
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
@@ -17078,6 +17366,9 @@ paths:
       - description: 主键ID
         in: query
         name: id
+        type: integer
+      - in: query
+        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -17106,6 +17397,12 @@ paths:
       - description: 关联标记
         in: query
         name: sysDictionaryID
+        type: integer
+      - in: query
+        name: updateTime
+        type: string
+      - in: query
+        name: updateUser
         type: integer
       - description: 更新时间
         in: query
@@ -17259,6 +17556,15 @@ paths:
         in: query
         name: body
         type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createTime
+        type: string
+      - in: query
+        name: createUser
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
@@ -17275,6 +17581,9 @@ paths:
         in: query
         name: ip
         type: string
+      - in: query
+        name: isDeleted
+        type: integer
       - description: 延迟
         in: query
         name: latency
@@ -17294,6 +17603,12 @@ paths:
       - description: 请求状态
         in: query
         name: status
+        type: integer
+      - in: query
+        name: updateTime
+        type: string
+      - in: query
+        name: updateUser
         type: integer
       - description: 更新时间
         in: query
@@ -17336,6 +17651,15 @@ paths:
         in: query
         name: body
         type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createTime
+        type: string
+      - in: query
+        name: createUser
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
@@ -17352,6 +17676,9 @@ paths:
         in: query
         name: ip
         type: string
+      - in: query
+        name: isDeleted
+        type: integer
       - description: 关键字
         in: query
         name: keyword
@@ -17383,6 +17710,12 @@ paths:
       - description: 请求状态
         in: query
         name: status
+        type: integer
+      - in: query
+        name: updateTime
+        type: string
+      - in: query
+        name: updateUser
         type: integer
       - description: 更新时间
         in: query

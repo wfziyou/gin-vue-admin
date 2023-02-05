@@ -2,20 +2,19 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/community"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/service"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type HkForbiddenSpeakReasonApi struct {
 }
 
 var hkForbiddenSpeakReasonService = service.ServiceGroupApp.CommunityServiceGroup.HkForbiddenSpeakReasonService
-
 
 // CreateHkForbiddenSpeakReason 创建HkForbiddenSpeakReason
 // @Tags HkForbiddenSpeakReason
@@ -34,7 +33,7 @@ func (hkForbiddenSpeakReasonApi *HkForbiddenSpeakReasonApi) CreateHkForbiddenSpe
 		return
 	}
 	if err := hkForbiddenSpeakReasonService.CreateHkForbiddenSpeakReason(hkForbiddenSpeakReason); err != nil {
-        global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
 		response.OkWithMessage("创建成功", c)
@@ -58,7 +57,7 @@ func (hkForbiddenSpeakReasonApi *HkForbiddenSpeakReasonApi) DeleteHkForbiddenSpe
 		return
 	}
 	if err := hkForbiddenSpeakReasonService.DeleteHkForbiddenSpeakReason(hkForbiddenSpeakReason); err != nil {
-        global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
 		response.OkWithMessage("删除成功", c)
@@ -76,13 +75,13 @@ func (hkForbiddenSpeakReasonApi *HkForbiddenSpeakReasonApi) DeleteHkForbiddenSpe
 // @Router /hkForbiddenSpeakReason/deleteHkForbiddenSpeakReasonByIds [delete]
 func (hkForbiddenSpeakReasonApi *HkForbiddenSpeakReasonApi) DeleteHkForbiddenSpeakReasonByIds(c *gin.Context) {
 	var IDS request.IdsReq
-    err := c.ShouldBindJSON(&IDS)
+	err := c.ShouldBindJSON(&IDS)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	if err := hkForbiddenSpeakReasonService.DeleteHkForbiddenSpeakReasonByIds(IDS); err != nil {
-        global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
 		response.OkWithMessage("批量删除成功", c)
@@ -106,7 +105,7 @@ func (hkForbiddenSpeakReasonApi *HkForbiddenSpeakReasonApi) UpdateHkForbiddenSpe
 		return
 	}
 	if err := hkForbiddenSpeakReasonService.UpdateHkForbiddenSpeakReason(hkForbiddenSpeakReason); err != nil {
-        global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
@@ -123,14 +122,14 @@ func (hkForbiddenSpeakReasonApi *HkForbiddenSpeakReasonApi) UpdateHkForbiddenSpe
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkForbiddenSpeakReason/findHkForbiddenSpeakReason [get]
 func (hkForbiddenSpeakReasonApi *HkForbiddenSpeakReasonApi) FindHkForbiddenSpeakReason(c *gin.Context) {
-	var hkForbiddenSpeakReason community.HkForbiddenSpeakReason
-	err := c.ShouldBindQuery(&hkForbiddenSpeakReason)
+	var idSearch request.IdSearch
+	err := c.ShouldBindQuery(&idSearch)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForbiddenSpeakReason, err := hkForbiddenSpeakReasonService.GetHkForbiddenSpeakReason(hkForbiddenSpeakReason.ID); err != nil {
-        global.GVA_LOG.Error("查询失败!", zap.Error(err))
+	if rehkForbiddenSpeakReason, err := hkForbiddenSpeakReasonService.GetHkForbiddenSpeakReason(idSearch.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithData(gin.H{"rehkForbiddenSpeakReason": rehkForbiddenSpeakReason}, c)
@@ -154,14 +153,14 @@ func (hkForbiddenSpeakReasonApi *HkForbiddenSpeakReasonApi) GetHkForbiddenSpeakR
 		return
 	}
 	if list, total, err := hkForbiddenSpeakReasonService.GetHkForbiddenSpeakReasonInfoList(pageInfo); err != nil {
-	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
-        response.FailWithMessage("获取失败", c)
-    } else {
-        response.OkWithDetailed(response.PageResult{
-            List:     list,
-            Total:    total,
-            Page:     pageInfo.Page,
-            PageSize: pageInfo.PageSize,
-        }, "获取成功", c)
-    }
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

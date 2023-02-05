@@ -6356,6 +6356,21 @@ var doc = `{
                 "summary": "获取单一客户信息",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -6381,6 +6396,16 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "name": "isDeleted",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
                         "description": "管理角色ID",
                         "name": "sysUserAuthorityID",
                         "in": "query"
@@ -6389,6 +6414,16 @@ var doc = `{
                         "type": "integer",
                         "description": "管理ID",
                         "name": "sysUserId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -22249,6 +22284,21 @@ var doc = `{
                 "summary": "用id查询SysDictionary",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -22267,6 +22317,11 @@ var doc = `{
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "name": "isDeleted",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "字典名（中）",
                         "name": "name",
@@ -22282,6 +22337,16 @@ var doc = `{
                         "type": "string",
                         "description": "字典名（英）",
                         "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -22336,6 +22401,21 @@ var doc = `{
                 "summary": "分页获取SysDictionary列表",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -22351,6 +22431,11 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -22387,6 +22472,16 @@ var doc = `{
                         "type": "string",
                         "description": "字典名（英）",
                         "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -22590,6 +22685,21 @@ var doc = `{
                 "summary": "用id查询SysDictionaryDetail",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -22599,6 +22709,11 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -22623,6 +22738,16 @@ var doc = `{
                         "type": "integer",
                         "description": "关联标记",
                         "name": "sysDictionaryID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -22683,6 +22808,21 @@ var doc = `{
                 "summary": "分页获取SysDictionaryDetail列表",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -22692,6 +22832,11 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -22734,6 +22879,16 @@ var doc = `{
                         "type": "integer",
                         "description": "关联标记",
                         "name": "sysDictionaryID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -23005,6 +23160,21 @@ var doc = `{
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -23026,6 +23196,11 @@ var doc = `{
                         "type": "string",
                         "description": "请求ip",
                         "name": "ip",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -23056,6 +23231,16 @@ var doc = `{
                         "type": "integer",
                         "description": "请求状态",
                         "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -23128,6 +23313,21 @@ var doc = `{
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "createTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -23149,6 +23349,11 @@ var doc = `{
                         "type": "string",
                         "description": "请求ip",
                         "name": "ip",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -23197,6 +23402,16 @@ var doc = `{
                         "type": "integer",
                         "description": "请求状态",
                         "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updateTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -26664,6 +26879,15 @@ var doc = `{
         "example.ExaCustomer": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -26680,6 +26904,12 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
                 "sysUser": {
                     "description": "管理详情",
                     "$ref": "#/definitions/system.SysUser"
@@ -26692,6 +26922,12 @@ var doc = `{
                     "description": "管理ID",
                     "type": "integer"
                 },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -26702,6 +26938,15 @@ var doc = `{
             "type": "object",
             "properties": {
                 "chunkTotal": {
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
@@ -26727,8 +26972,20 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "isFinish": {
                     "type": "boolean"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -26739,6 +26996,15 @@ var doc = `{
         "example.ExaFileChunk": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -26756,6 +27022,18 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -26765,12 +27043,24 @@ var doc = `{
         "example.ExaFileUploadAndDownload": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "key": {
@@ -26781,9 +27071,18 @@ var doc = `{
                     "description": "文件名",
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "tag": {
                     "description": "文件标签",
                     "type": "string"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -27597,6 +27896,15 @@ var doc = `{
                     "description": "api组",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -27611,6 +27919,9 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "keyword": {
@@ -27636,6 +27947,15 @@ var doc = `{
                 "path": {
                     "description": "api路径",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28074,6 +28394,15 @@ var doc = `{
                     "description": "api组",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28086,6 +28415,9 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "method": {
                     "description": "方法:创建POST(默认)|查看GET|更新PUT|删除DELETE",
                     "type": "string"
@@ -28093,6 +28425,15 @@ var doc = `{
                 "path": {
                     "description": "api路径",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28153,6 +28494,15 @@ var doc = `{
         "system.SysAutoCode": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28164,11 +28514,23 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "label": {
                     "type": "string"
                 },
                 "packageName": {
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28202,6 +28564,15 @@ var doc = `{
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28220,6 +28591,9 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "keepAlive": {
@@ -28254,9 +28628,18 @@ var doc = `{
                     "description": "排序标记",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "title": {
                     "description": "菜单名",
                     "type": "string"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28267,6 +28650,15 @@ var doc = `{
         "system.SysBaseMenuBtn": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28278,10 +28670,22 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "name": {
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "sysBaseMenuID": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -28293,6 +28697,15 @@ var doc = `{
         "system.SysBaseMenuParameter": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28301,9 +28714,15 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "key": {
                     "description": "地址栏携带参数的key",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 },
                 "sysBaseMenuID": {
                     "type": "integer"
@@ -28311,6 +28730,12 @@ var doc = `{
                 "type": {
                     "description": "地址栏携带参数为params还是query",
                     "type": "string"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28325,6 +28750,15 @@ var doc = `{
         "system.SysDictionary": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28335,6 +28769,9 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -28355,6 +28792,12 @@ var doc = `{
                     "description": "字典名（英）",
                     "type": "string"
                 },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -28364,12 +28807,24 @@ var doc = `{
         "system.SysDictionaryDetail": {
             "type": "object",
             "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "label": {
@@ -28386,6 +28841,12 @@ var doc = `{
                 },
                 "sysDictionaryID": {
                     "description": "关联标记",
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -28430,6 +28891,15 @@ var doc = `{
                     "description": "对应前端文件路径",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28448,6 +28918,9 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDeleted": {
                     "type": "integer"
                 },
                 "keepAlive": {
@@ -28485,9 +28958,18 @@ var doc = `{
                     "description": "排序标记",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "title": {
                     "description": "菜单名",
                     "type": "string"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -28506,6 +28988,15 @@ var doc = `{
                     "description": "请求Body",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28521,6 +29012,9 @@ var doc = `{
                 "ip": {
                     "description": "请求ip",
                     "type": "string"
+                },
+                "isDeleted": {
+                    "type": "integer"
                 },
                 "latency": {
                     "description": "延迟",
@@ -28540,6 +29034,12 @@ var doc = `{
                 },
                 "status": {
                     "description": "请求状态",
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -28579,6 +29079,15 @@ var doc = `{
                     "description": "基础颜色",
                     "type": "string"
                 },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "string"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -28599,6 +29108,9 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isDeleted": {
+                    "type": "integer"
+                },
                 "nickName": {
                     "description": "用户昵称",
                     "type": "string"
@@ -28610,6 +29122,15 @@ var doc = `{
                 "sideMode": {
                     "description": "用户侧边主题",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateTime": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",

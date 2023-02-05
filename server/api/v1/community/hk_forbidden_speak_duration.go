@@ -2,20 +2,19 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/community"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/service"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type HkForbiddenSpeakDurationApi struct {
 }
 
 var hkForbiddenSpeakDurationService = service.ServiceGroupApp.CommunityServiceGroup.HkForbiddenSpeakDurationService
-
 
 // CreateHkForbiddenSpeakDuration 创建HkForbiddenSpeakDuration
 // @Tags HkForbiddenSpeakDuration
@@ -34,7 +33,7 @@ func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) CreateHkForbidde
 		return
 	}
 	if err := hkForbiddenSpeakDurationService.CreateHkForbiddenSpeakDuration(hkForbiddenSpeakDuration); err != nil {
-        global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
 		response.OkWithMessage("创建成功", c)
@@ -58,7 +57,7 @@ func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) DeleteHkForbidde
 		return
 	}
 	if err := hkForbiddenSpeakDurationService.DeleteHkForbiddenSpeakDuration(hkForbiddenSpeakDuration); err != nil {
-        global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
 		response.OkWithMessage("删除成功", c)
@@ -76,13 +75,13 @@ func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) DeleteHkForbidde
 // @Router /hkForbiddenSpeakDuration/deleteHkForbiddenSpeakDurationByIds [delete]
 func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) DeleteHkForbiddenSpeakDurationByIds(c *gin.Context) {
 	var IDS request.IdsReq
-    err := c.ShouldBindJSON(&IDS)
+	err := c.ShouldBindJSON(&IDS)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	if err := hkForbiddenSpeakDurationService.DeleteHkForbiddenSpeakDurationByIds(IDS); err != nil {
-        global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
 		response.OkWithMessage("批量删除成功", c)
@@ -106,7 +105,7 @@ func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) UpdateHkForbidde
 		return
 	}
 	if err := hkForbiddenSpeakDurationService.UpdateHkForbiddenSpeakDuration(hkForbiddenSpeakDuration); err != nil {
-        global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
@@ -123,14 +122,14 @@ func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) UpdateHkForbidde
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkForbiddenSpeakDuration/findHkForbiddenSpeakDuration [get]
 func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) FindHkForbiddenSpeakDuration(c *gin.Context) {
-	var hkForbiddenSpeakDuration community.HkForbiddenSpeakDuration
-	err := c.ShouldBindQuery(&hkForbiddenSpeakDuration)
+	var idSearch request.IdSearch
+	err := c.ShouldBindQuery(&idSearch)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForbiddenSpeakDuration, err := hkForbiddenSpeakDurationService.GetHkForbiddenSpeakDuration(hkForbiddenSpeakDuration.ID); err != nil {
-        global.GVA_LOG.Error("查询失败!", zap.Error(err))
+	if rehkForbiddenSpeakDuration, err := hkForbiddenSpeakDurationService.GetHkForbiddenSpeakDuration(idSearch.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithData(gin.H{"rehkForbiddenSpeakDuration": rehkForbiddenSpeakDuration}, c)
@@ -154,14 +153,14 @@ func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) GetHkForbiddenSp
 		return
 	}
 	if list, total, err := hkForbiddenSpeakDurationService.GetHkForbiddenSpeakDurationInfoList(pageInfo); err != nil {
-	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
-        response.FailWithMessage("获取失败", c)
-    } else {
-        response.OkWithDetailed(response.PageResult{
-            List:     list,
-            Total:    total,
-            Page:     pageInfo.Page,
-            PageSize: pageInfo.PageSize,
-        }, "获取成功", c)
-    }
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

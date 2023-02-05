@@ -26,11 +26,9 @@ type HkUser struct {
 	AuthorityId uint       `json:"roleId" form:"roleId" gorm:"column:role_id;default:888;comment:用户角色ID;size:20;"` // 用户角色ID
 	CreateUser  *int       `json:"createUser" form:"createUser" gorm:"column:create_user;comment:创建人;size:19;"`
 	CreateDept  *int       `json:"createDept" form:"createDept" gorm:"column:create_dept;comment:创建部门;size:19;"`
-	CreateTime  *time.Time `json:"createTime" form:"createTime" gorm:"column:create_time;comment:创建时间;"`
-	UpdateUser  *int       `json:"updateUser" form:"updateUser" gorm:"column:update_user;comment:修改人;size:19;"`
-	UpdateTime  *time.Time `json:"updateTime" form:"updateTime" gorm:"column:update_time;comment:修改时间;"`
-	Status      int        `json:"status" form:"status" gorm:"column:status;comment:状态(用户是否被冻结) 1正常 2冻结;size:10;"`
-	IsDeleted   uint       `json:"isDeleted" form:"isDeleted" gorm:"column:is_deleted;comment:是否已删除;size:10;"`
+
+	Status    int  `json:"status" form:"status" gorm:"column:status;comment:状态(用户是否被冻结) 1正常 2冻结;size:10;"`
+	IsDeleted uint `json:"isDeleted" form:"isDeleted" gorm:"column:is_deleted;comment:是否已删除;size:10;"`
 	//Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:AuthorityId;references:RoleId;comment:用户角色"`
 	//Authorities []system.SysAuthority `json:"authorities" gorm:"many2many:hk_user_authority;"`
 	Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:AuthorityId;references:AuthorityId;comment:用户角色"`
