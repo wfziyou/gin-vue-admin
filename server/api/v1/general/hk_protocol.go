@@ -118,7 +118,7 @@ func (hkProtocolApi *HkProtocolApi) UpdateHkProtocol(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query general.HkProtocol true "用id查询HkProtocol"
+// @Param data query request.IdSearch true "用id查询HkProtocol"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkProtocol/findHkProtocol [get]
 func (hkProtocolApi *HkProtocolApi) FindHkProtocol(c *gin.Context) {

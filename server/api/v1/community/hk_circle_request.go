@@ -118,7 +118,7 @@ func (hkCircleRequestApi *HkCircleRequestApi) UpdateHkCircleRequest(c *gin.Conte
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.HkCircleRequest true "用id查询HkCircleRequest"
+// @Param data query request.IdSearch true "用id查询HkCircleRequest"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkCircleRequest/findHkCircleRequest [get]
 func (hkCircleRequestApi *HkCircleRequestApi) FindHkCircleRequest(c *gin.Context) {

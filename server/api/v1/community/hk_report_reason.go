@@ -118,7 +118,7 @@ func (hkReportReasonApi *HkReportReasonApi) UpdateHkReportReason(c *gin.Context)
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.HkReportReason true "用id查询HkReportReason"
+// @Param data query request.IdSearch true "用id查询HkReportReason"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkReportReason/findHkReportReason [get]
 func (hkReportReasonApi *HkReportReasonApi) FindHkReportReason(c *gin.Context) {

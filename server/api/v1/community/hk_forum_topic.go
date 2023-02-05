@@ -118,7 +118,7 @@ func (hkForumTopicApi *HkForumTopicApi) UpdateHkForumTopic(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.HkForumTopic true "用id查询HkForumTopic"
+// @Param data query request.IdSearch true "用id查询HkForumTopic"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkForumTopic/findHkForumTopic [get]
 func (hkForumTopicApi *HkForumTopicApi) FindHkForumTopic(c *gin.Context) {

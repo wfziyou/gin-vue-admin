@@ -118,7 +118,7 @@ func (hkForumThumbsUpApi *HkForumThumbsUpApi) UpdateHkForumThumbsUp(c *gin.Conte
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.HkForumThumbsUp true "用id查询HkForumThumbsUp"
+// @Param data query request.IdSearch true "用id查询HkForumThumbsUp"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkForumThumbsUp/findHkForumThumbsUp [get]
 func (hkForumThumbsUpApi *HkForumThumbsUpApi) FindHkForumThumbsUp(c *gin.Context) {

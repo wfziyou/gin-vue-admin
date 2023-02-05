@@ -118,7 +118,7 @@ func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) UpdateHkUserBrowsingHi
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query general.HkUserBrowsingHistory true "用id查询HkUserBrowsingHistory"
+// @Param data query request.IdSearch true "用id查询HkUserBrowsingHistory"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkUserBrowsingHistory/findHkUserBrowsingHistory [get]
 func (hkUserBrowsingHistoryApi *HkUserBrowsingHistoryApi) FindHkUserBrowsingHistory(c *gin.Context) {

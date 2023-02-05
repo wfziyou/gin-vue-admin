@@ -118,7 +118,7 @@ func (hkApplyApi *HkApplyApi) UpdateHkApply(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query apply.HkApply true "用id查询HkApply"
+// @Param data query request.IdSearch true "用id查询HkApply"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkApply/findHkApply [get]
 func (hkApplyApi *HkApplyApi) FindHkApply(c *gin.Context) {

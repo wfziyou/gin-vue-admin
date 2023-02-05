@@ -118,7 +118,7 @@ func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) UpdateHkPlatApplyGroup(c *gin.Co
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query apply.HkPlatApplyGroup true "用id查询HkPlatApplyGroup"
+// @Param data query request.IdSearch true "用id查询HkPlatApplyGroup"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkPlatApplyGroup/findHkPlatApplyGroup [get]
 func (hkPlatApplyGroupApi *HkPlatApplyGroupApi) FindHkPlatApplyGroup(c *gin.Context) {

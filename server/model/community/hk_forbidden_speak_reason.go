@@ -8,9 +8,9 @@ import (
 // HkForbiddenSpeakReason 结构体
 type HkForbiddenSpeakReason struct {
 	global.GVA_MODEL
-	TenantId string `json:"tenantId" form:"tenantId" gorm:"column:tenant_id;comment:租户ID;size:12;"`
-	Reason   string `json:"reason" form:"reason" gorm:"column:reason;comment:禁言理由;size:20;"`
-	Sort     *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`
+
+	Reason string `json:"reason" form:"reason" gorm:"column:reason;comment:禁言理由;size:20;"`
+	Sort   *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`
 }
 
 // TableName HkForbiddenSpeakReason 表名

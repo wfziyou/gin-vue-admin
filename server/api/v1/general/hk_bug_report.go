@@ -118,7 +118,7 @@ func (hkBugReportApi *HkBugReportApi) UpdateHkBugReport(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query general.HkBugReport true "用id查询HkBugReport"
+// @Param data query request.IdSearch true "用id查询HkBugReport"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkBugReport/findHkBugReport [get]
 func (hkBugReportApi *HkBugReportApi) FindHkBugReport(c *gin.Context) {

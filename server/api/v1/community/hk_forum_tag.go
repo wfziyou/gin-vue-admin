@@ -118,7 +118,7 @@ func (hkForumTagApi *HkForumTagApi) UpdateHkForumTag(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.HkForumTag true "用id查询HkForumTag"
+// @Param data query request.IdSearch true "用id查询HkForumTag"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkForumTag/findHkForumTag [get]
 func (hkForumTagApi *HkForumTagApi) FindHkForumTag(c *gin.Context) {

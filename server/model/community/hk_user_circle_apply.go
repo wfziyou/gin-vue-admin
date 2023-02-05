@@ -8,11 +8,11 @@ import (
 // HkUserCircleApply 结构体
 type HkUserCircleApply struct {
 	global.GVA_MODEL
-	TenantId string `json:"tenantId" form:"tenantId" gorm:"column:tenant_id;comment:租户ID;size:12;"`
-	UserId   *int   `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`        //用户编号
-	CircleId *int   `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"` //CircleId
-	ApplyId  *int   `json:"applyId" form:"applyId" gorm:"column:apply_id;comment:应用_编号;size:19;"`    //ApplyId
-	Sort     *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                 //Sort
+
+	UserId   *int `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`        //用户编号
+	CircleId *int `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"` //CircleId
+	ApplyId  *int `json:"applyId" form:"applyId" gorm:"column:apply_id;comment:应用_编号;size:19;"`    //ApplyId
+	Sort     *int `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                 //Sort
 
 }
 

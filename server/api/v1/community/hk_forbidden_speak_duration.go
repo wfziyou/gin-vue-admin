@@ -118,7 +118,7 @@ func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) UpdateHkForbidde
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.HkForbiddenSpeakDuration true "用id查询HkForbiddenSpeakDuration"
+// @Param data query request.IdSearch true "用id查询HkForbiddenSpeakDuration"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkForbiddenSpeakDuration/findHkForbiddenSpeakDuration [get]
 func (hkForbiddenSpeakDurationApi *HkForbiddenSpeakDurationApi) FindHkForbiddenSpeakDuration(c *gin.Context) {

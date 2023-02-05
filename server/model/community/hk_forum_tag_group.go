@@ -8,8 +8,8 @@ import (
 // HkForumTagGroup 结构体
 type HkForumTagGroup struct {
 	global.GVA_MODEL
-	TenantId string `json:"tenantId" form:"tenantId" gorm:"column:tenant_id;comment:租户ID;size:12;"`
-	Name     string `json:"name" form:"name" gorm:"column:name;comment:名称;size:20;"`
+
+	Name string `json:"name" form:"name" gorm:"column:name;comment:名称;size:20;"`
 }
 
 // TableName HkForumTagGroup 表名

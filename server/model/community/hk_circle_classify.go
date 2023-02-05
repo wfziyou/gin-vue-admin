@@ -8,7 +8,7 @@ import (
 // HkCircleClassify 结构体
 type HkCircleClassify struct {
 	global.GVA_MODEL
-	TenantId string `json:"tenantId" form:"tenantId" gorm:"column:tenant_id;comment:租户ID;size:12;"`
+
 	ParentId *int   `json:"parentId" form:"parentId" gorm:"column:parent_id;comment:父节点编号;size:19;"`
 	Name     string `json:"name" form:"name" gorm:"column:name;comment:名称;size:20;"`
 	Des      string `json:"des" form:"des" gorm:"column:des;comment:描述;size:20;"`

@@ -115,7 +115,7 @@ func (hkUserApi *HkUserApi) UpdateHkUser(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.HkUser true "用id查询HkUser"
+// @Param data query request.IdSearch true "用id查询HkUser"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkUser/findHkUser [get]
 func (hkUserApi *HkUserApi) FindHkUser(c *gin.Context) {

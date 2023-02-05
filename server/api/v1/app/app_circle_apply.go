@@ -17,7 +17,7 @@ type CircleApplyApi struct {
 **************************************/
 
 // CreateUserCircleApply 创建UserCircleApply
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 创建UserCircleApply
 // @Security ApiKeyAuth
 // @accept application/json
@@ -41,7 +41,7 @@ func (circleApplyApi *CircleApplyApi) CreateUserCircleApply(c *gin.Context) {
 }
 
 // DeleteUserCircleApply 删除UserCircleApply
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 删除UserCircleApply
 // @Security ApiKeyAuth
 // @accept application/json
@@ -66,7 +66,7 @@ func (circleApplyApi *CircleApplyApi) DeleteUserCircleApply(c *gin.Context) {
 }
 
 // DeleteUserCircleApplyByIds 批量删除UserCircleApply
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 批量删除UserCircleApply
 // @Security ApiKeyAuth
 // @accept application/json
@@ -90,7 +90,7 @@ func (circleApplyApi *CircleApplyApi) DeleteUserCircleApplyByIds(c *gin.Context)
 }
 
 // GetUserCircleApplyListALL 获取UserCircleApply列表
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 获取UserCircleApply列表
 // @Security ApiKeyAuth
 // @accept application/json
@@ -114,7 +114,7 @@ func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListALL(c *gin.Context) 
 **************************************/
 
 // FindApply 用id查询Apply
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 用id查询Apply
 // @Security ApiKeyAuth
 // @accept application/json
@@ -138,7 +138,7 @@ func (circleApplyApi *CircleApplyApi) FindApply(c *gin.Context) {
 }
 
 // GetApplyList 分页获取Apply列表
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 分页获取Apply列表
 // @Security ApiKeyAuth
 // @accept application/json
@@ -167,7 +167,7 @@ func (circleApplyApi *CircleApplyApi) GetApplyList(c *gin.Context) {
 }
 
 // GetApplyListAll 获取Apply列表
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 获取Apply列表
 // @Security ApiKeyAuth
 // @accept application/json
@@ -196,7 +196,7 @@ func (circleApplyApi *CircleApplyApi) GetApplyListAll(c *gin.Context) {
 }
 
 // FindCircleApply 用id查询CircleApply
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 用id查询CircleApply
 // @Security ApiKeyAuth
 // @accept application/json
@@ -220,7 +220,7 @@ func (circleApplyApi *CircleApplyApi) FindCircleApply(c *gin.Context) {
 }
 
 // GetCircleApplyList 分页获取CircleApply列表
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 分页获取CircleApply列表
 // @Security ApiKeyAuth
 // @accept application/json
@@ -249,7 +249,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyList(c *gin.Context) {
 }
 
 // GetCircleApplyListAll 获取CircleApply列表
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 获取CircleApply列表
 // @Security ApiKeyAuth
 // @accept application/json
@@ -276,7 +276,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyListAll(c *gin.Context) {
 }
 
 // GetCircleApplyGroupList 分页获取CircleApplyGroup列表
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 分页获取CircleApplyGroup列表
 // @Security ApiKeyAuth
 // @accept application/json
@@ -305,7 +305,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupList(c *gin.Context) {
 }
 
 // GetCircleApplyGroupListAll 获取CircleApplyGroup列表
-// @Tags CircleApply
+// @Tags App_CircleApply
 // @Summary 获取CircleApplyGroup列表
 // @Security ApiKeyAuth
 // @accept application/json

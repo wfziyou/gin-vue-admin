@@ -8,7 +8,7 @@ import (
 // HkPlatApplyGroup 结构体
 type HkPlatApplyGroup struct {
 	global.GVA_MODEL
-	TenantId string `json:"tenantId" form:"tenantId" gorm:"column:tenant_id;comment:租户ID;size:12;"`
+
 	Name     string `json:"name" form:"name" gorm:"column:name;comment:名称;size:20;"`
 	Icon     string `json:"icon" form:"icon" gorm:"column:icon;comment:图标;size:256;"`
 	ParentId *int   `json:"parentId" form:"parentId" gorm:"column:parent_id;comment:父节点编号;size:19;"`

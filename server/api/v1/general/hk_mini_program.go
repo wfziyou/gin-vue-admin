@@ -118,7 +118,7 @@ func (hkMiniProgramApi *HkMiniProgramApi) UpdateHkMiniProgram(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query general.HkMiniProgram true "用id查询HkMiniProgram"
+// @Param data query request.IdSearch true "用id查询HkMiniProgram"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkMiniProgram/findHkMiniProgram [get]
 func (hkMiniProgramApi *HkMiniProgramApi) FindHkMiniProgram(c *gin.Context) {

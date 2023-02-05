@@ -52,6 +52,9 @@
 | `--timer` | timer | 定时器接口封装 |
 | `--upload`      | oss                  | oss接口封装        |
 
+文档  
+[GORM 指南](https://gorm.io/zh_CN/docs/)  
+
 打包exe
 ```
 go build -o myserver.exe main.go

@@ -4,6 +4,9 @@ go 1.18
 
 require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
+	github.com/alibabacloud-go/darabonba-openapi v0.2.1
+	github.com/alibabacloud-go/dysmsapi-20170525/v2 v2.0.18
+	github.com/alibabacloud-go/tea v1.1.19
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.6+incompatible
 	github.com/aws/aws-sdk-go v1.42.27
 	github.com/casbin/casbin/v2 v2.51.0
@@ -41,6 +44,7 @@ require (
 	gorm.io/driver/postgres v1.3.4
 	gorm.io/driver/sqlserver v1.3.2
 	gorm.io/gorm v1.23.4
+	gorm.io/plugin/soft_delete v1.2.0
 	nhooyr.io/websocket v1.8.7
 )
 
@@ -50,12 +54,9 @@ require (
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/alibabacloud-go/alibabacloud-gateway-spi v0.0.4 // indirect
-	github.com/alibabacloud-go/darabonba-openapi v0.2.1 // indirect
 	github.com/alibabacloud-go/debug v0.0.0-20190504072949-9472017b5c68 // indirect
-	github.com/alibabacloud-go/dysmsapi-20170525/v2 v2.0.18 // indirect
 	github.com/alibabacloud-go/endpoint-util v1.1.0 // indirect
 	github.com/alibabacloud-go/openapi-util v0.0.11 // indirect
-	github.com/alibabacloud-go/tea v1.1.19 // indirect
 	github.com/alibabacloud-go/tea-utils v1.4.5 // indirect
 	github.com/alibabacloud-go/tea-xml v1.1.2 // indirect
 	github.com/aliyun/credentials-go v1.1.2 // indirect
