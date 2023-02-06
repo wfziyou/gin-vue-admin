@@ -21,7 +21,7 @@ type TopicApi struct {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ForumTopicGroup"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=community.HkForumTopicGroup,msg=string}  "返回community.HkForumTopicGroup"
 // @Router /app/topic/findForumTopicGroup [get]
 func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -45,7 +45,7 @@ func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.ForumTopicGroupSearch true "分页获取ForumTopicGroup列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkForumTopicGroup,msg=string} "返回community.HkForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupList [get]
 func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 	var pageInfo appReq.ForumTopicGroupSearch
@@ -74,7 +74,7 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.ForumTopicGroupSearch true "获取ForumTopicGroup列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkForumTopicGroup,msg=string} "返回community.HkForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupListAll [get]
 func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 	var pageInfo appReq.ForumTopicGroupSearch
@@ -199,7 +199,7 @@ func (topicApi *TopicApi) UpdateForumTopic(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ForumTopic"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkForumTopic,msg=string} "返回community.HkForumTopic"
 // @Router /app/topic/findForumTopic [get]
 func (topicApi *TopicApi) FindForumTopic(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -223,7 +223,7 @@ func (topicApi *TopicApi) FindForumTopic(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.HkForumTopicSearch true "分页获取ForumTopic列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkForumTopic,msg=string} "返回community.HkForumTopic"
 // @Router /app/topic/getForumTopicList [get]
 func (topicApi *TopicApi) GetForumTopicList(c *gin.Context) {
 	var pageInfo communityReq.HkForumTopicSearch

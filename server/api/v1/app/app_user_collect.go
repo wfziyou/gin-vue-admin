@@ -91,7 +91,7 @@ func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.UserCollectSearch true "分页获取UserCollect列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]general.HkUserCollect,msg=string} "返回general.HkUserCollect"
 // @Router /app/userCollect/getUserCollectList [get]
 func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 	var pageInfo appReq.UserCollectSearch

@@ -44,7 +44,7 @@ func (reportApi *ReportApi) CreateReport(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询Report"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=community.HkReport,msg=string}  "返回community.HkReport"
 // @Router /app/report/findReport [get]
 func (reportApi *ReportApi) FindReport(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -68,7 +68,7 @@ func (reportApi *ReportApi) FindReport(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.HkReportSearch true "分页获取Report列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkReport,msg=string} "返回community.HkReport"
 // @Router /app/report/getReportList [get]
 func (reportApi *ReportApi) GetReportList(c *gin.Context) {
 	var pageInfo communityReq.HkReportSearch
@@ -97,7 +97,7 @@ func (reportApi *ReportApi) GetReportList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ReportReason"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=community.HkReportReason,msg=string}  "返回community.HkReportReason"
 // @Router /app/report/findReportReason [get]
 func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -121,7 +121,7 @@ func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.HkReportReasonSearch true "分页获取ReportReason列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkReportReason,msg=string} "返回community.HkReportReason"
 // @Router /app/report/getReportReasonList [get]
 func (reportApi *ReportApi) GetReportReasonList(c *gin.Context) {
 	var pageInfo communityReq.HkReportReasonSearch

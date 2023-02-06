@@ -116,7 +116,7 @@ func (forumPostsApi *ForumPostsApi) UpdateForumPosts(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ForumPosts"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=community.HkForumPosts,msg=string}  "返回community.HkForumPosts"
 // @Router /app/forumPosts/findForumPosts [get]
 func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -140,7 +140,7 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.HkForumPostsSearch true "分页获取ForumPosts列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object} response.PageResult{List=[]community.HkForumPosts,msg=string} "返回community.HkForumPosts"
 // @Router /app/forumPosts/getForumPostsList [get]
 func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
 	var pageInfo communityReq.HkForumPostsSearch
@@ -241,7 +241,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumCommentByIds(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ForumComment"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=community.HkForumComment,msg=string}  "返回community.HkForumComment"
 // @Router /app/forumPosts/findForumComment [get]
 func (forumPostsApi *ForumPostsApi) FindForumComment(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -265,7 +265,7 @@ func (forumPostsApi *ForumPostsApi) FindForumComment(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.HkForumCommentSearch true "分页获取ForumComment列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object} response.PageResult{List=[]community.HkForumComment,msg=string} "返回community.HkForumComment"
 // @Router /app/forumPosts/getForumCommentList [get]
 func (forumPostsApi *ForumPostsApi) GetForumCommentList(c *gin.Context) {
 	var pageInfo communityReq.HkForumCommentSearch

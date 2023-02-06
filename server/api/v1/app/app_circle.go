@@ -21,7 +21,7 @@ type CircleApi struct {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleForumPostsSearch true "分页获取圈子ForumPosts列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkForumPosts,msg=string} "返回community.HkForumPosts"
 // @Router /app/circle/getCircleForumPostsList [get]
 func (circleApi *CircleApi) GetCircleForumPostsList(c *gin.Context) {
 	var pageInfo appReq.CircleForumPostsSearch
@@ -50,7 +50,7 @@ func (circleApi *CircleApi) GetCircleForumPostsList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.UserCircleForumPostsSearch true "分页获取用户圈子ForumPosts列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkForumPosts,msg=string} "返回community.HkForumPosts"
 // @Router /app/circle/getUserCircleForumPostsList [get]
 func (circleApi *CircleApi) GetUserCircleForumPostsList(c *gin.Context) {
 	var pageInfo appReq.UserCircleForumPostsSearch
@@ -79,7 +79,7 @@ func (circleApi *CircleApi) GetUserCircleForumPostsList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.SelfCircleSearch true "分页获取用户加入的Circle列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkCircle,msg=string} "返回community.HkCircle"
 // @Router /app/circle/getSelfCircleList [get]
 func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 	var pageInfo appReq.SelfCircleSearch
@@ -108,7 +108,7 @@ func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询Circle"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200  {object}  response.Response{data=community.HkCircle,msg=string}  "返回community.HkCircle"
 // @Router /app/circle/findCircle [get]
 func (circleApi *CircleApi) FindCircle(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -132,7 +132,7 @@ func (circleApi *CircleApi) FindCircle(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleSearch true "分页获取Circle列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkCircle,msg=string} "返回community.HkCircle"
 // @Router /app/circle/getCircleList [get]
 func (circleApi *CircleApi) GetCircleList(c *gin.Context) {
 	var pageInfo appReq.CircleSearch
@@ -294,7 +294,7 @@ func (circleApi *CircleApi) UpdateCircleUser(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询CircleUser"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200  {object}  response.Response{data=community.HkCircleUser,msg=string}  "返回community.HkCircleUser"
 // @Router /app/circle/findCircleUser [get]
 func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -318,7 +318,7 @@ func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleUserSearch true "分页获取CircleUser列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkCircleUser,msg=string} "返回community.HkCircleUser"
 // @Router /app/circle/getCircleUserList [get]
 func (circleApi *CircleApi) GetCircleUserList(c *gin.Context) {
 	var pageInfo appReq.CircleUserSearch
@@ -371,7 +371,7 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询CircleRequest"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=community.HkCircleRequest,msg=string}  "返回community.HkCircleUser"
 // @Router /app/circle/findCircleRequest [get]
 func (circleApi *CircleApi) FindCircleRequest(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -395,7 +395,7 @@ func (circleApi *CircleApi) FindCircleRequest(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleRequestSearch true "分页获取CircleRequest列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkCircleRequest,msg=string} "返回community.HkCircleRequest"
 // @Router /app/circle/getCircleRequestList [get]
 func (circleApi *CircleApi) GetCircleRequestList(c *gin.Context) {
 	var pageInfo appReq.CircleRequestSearch
@@ -424,7 +424,7 @@ func (circleApi *CircleApi) GetCircleRequestList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleClassifySearch true "分页获取CircleClassify列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkCircleClassify,msg=string} "返回community.HkCircleClassify"
 // @Router /app/circle/getCircleClassifyList [get]
 func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
 	var pageInfo appReq.CircleClassifySearch
@@ -453,7 +453,7 @@ func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleClassifySearch true "获取CircleClassify列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object} response.PageResult{List=[]community.HkCircleClassify,msg=string} "返回community.HkCircleClassify"
 // @Router /app/circle/getCircleClassifyListAll [get]
 func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {
 	var pageInfo appReq.CircleClassifySearch

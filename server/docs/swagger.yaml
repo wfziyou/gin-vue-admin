@@ -20,10 +20,6 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       icon:
         description: 图标
         type: string
@@ -84,10 +80,6 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
         type: integer
@@ -118,24 +110,16 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       icon:
         description: 图标
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       name:
         description: 名称
@@ -148,8 +132,6 @@ definitions:
         type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -166,21 +148,13 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       showName:
         type: string
@@ -189,8 +163,6 @@ definitions:
       status:
         type: integer
       tenantId:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -202,23 +174,15 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       icon:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       name:
         type: string
@@ -228,8 +192,6 @@ definitions:
         type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -276,10 +238,6 @@ definitions:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       des:
         description: 圈子简介;size:1000
@@ -377,29 +335,19 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       reason:
         type: string
       status:
         type: integer
       tenantId:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -411,23 +359,15 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       des:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       name:
         type: string
@@ -439,8 +379,6 @@ definitions:
         type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -453,21 +391,13 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       otherCircleId:
         type: integer
@@ -476,8 +406,6 @@ definitions:
       status:
         type: integer
       tenantId:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -504,10 +432,6 @@ definitions:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       des:
         description: 圈子简介
@@ -550,28 +474,18 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       sort:
         type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -586,29 +500,19 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       status:
         type: integer
       tenantId:
         type: string
       time:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -624,8 +528,6 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -633,16 +535,10 @@ definitions:
         type: string
       curStatus:
         type: integer
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       durationId:
         type: integer
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       reasonId:
         type: integer
@@ -652,8 +548,6 @@ definitions:
         type: string
       unlockUserId:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -668,21 +562,13 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       sort:
         type: integer
@@ -690,8 +576,6 @@ definitions:
         type: integer
       type:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -702,21 +586,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       reason:
         type: string
@@ -724,8 +600,6 @@ definitions:
         type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -746,21 +620,13 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       likeTimes:
         type: integer
@@ -771,8 +637,6 @@ definitions:
       status:
         type: integer
       tenantId:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -816,23 +680,15 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       groupId:
         type: integer
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       likeNum:
         type: integer
@@ -876,8 +732,6 @@ definitions:
         type: string
       top:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -894,21 +748,13 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       name:
         type: string
@@ -918,8 +764,6 @@ definitions:
         type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -930,30 +774,20 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       groupId:
         type: integer
       id:
         description: 主键ID
         type: integer
-      isDeleted:
-        type: integer
       name:
         type: string
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -964,28 +798,18 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       name:
         type: string
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -996,21 +820,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       postsId:
         type: integer
@@ -1019,8 +835,6 @@ definitions:
       tenantId:
         type: string
       time:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -1040,16 +854,10 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       discussNum:
         type: integer
@@ -1057,8 +865,6 @@ definitions:
         type: integer
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       name:
         type: string
@@ -1072,8 +878,6 @@ definitions:
         type: integer
       type:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -1084,21 +888,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       name:
         type: string
@@ -1106,8 +902,6 @@ definitions:
         type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -1124,8 +918,6 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -1133,10 +925,6 @@ definitions:
         type: string
       curStatus:
         type: integer
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       durationId:
         type: integer
       handleScore:
@@ -1147,8 +935,6 @@ definitions:
         type: integer
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       reasonId:
         type: integer
@@ -1170,8 +956,6 @@ definitions:
         type: string
       unlock:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -1184,21 +968,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       reason:
         type: string
@@ -1206,8 +982,6 @@ definitions:
         type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -1233,16 +1007,10 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       email:
         description: 邮箱
@@ -1252,8 +1020,6 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       nickName:
         description: 昵称
@@ -1277,8 +1043,6 @@ definitions:
         type: integer
       tenantId:
         type: string
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -1301,29 +1065,19 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       sort:
         description: Sort
         type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -1339,23 +1093,15 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       github:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       numCircle:
         type: integer
@@ -1368,8 +1114,6 @@ definitions:
       status:
         type: integer
       tenantId:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -2019,8 +1763,6 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -2032,14 +1774,8 @@ definitions:
       customerPhoneData:
         description: 客户手机号
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       status:
         type: integer
@@ -2052,8 +1788,6 @@ definitions:
       sysUserId:
         description: 管理ID
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -2066,16 +1800,10 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       exaFileChunk:
         items:
@@ -2090,14 +1818,10 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      isDeleted:
-        type: integer
       isFinish:
         type: boolean
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -2108,16 +1832,10 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       exaFileID:
         type: integer
@@ -2128,12 +1846,8 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      isDeleted:
-        type: integer
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -2144,21 +1858,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       key:
         description: 编号
@@ -2170,8 +1876,6 @@ definitions:
         type: integer
       tag:
         description: 文件标签
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -2204,10 +1908,6 @@ definitions:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       expectedResult:
         description: 预期结果
@@ -2243,8 +1943,6 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -2254,10 +1952,6 @@ definitions:
         type: string
       curVersion:
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       hidden:
         type: integer
       icon:
@@ -2265,15 +1959,11 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      isDeleted:
-        type: integer
       name:
         type: string
       status:
         type: integer
       tenantId:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -2285,21 +1975,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       miniProgramId:
         type: integer
@@ -2310,8 +1992,6 @@ definitions:
       status:
         type: integer
       tenantId:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -2327,23 +2007,15 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       des:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       module:
         type: string
@@ -2353,8 +2025,6 @@ definitions:
         type: string
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -2365,21 +2035,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       postsId:
         type: integer
@@ -2388,8 +2050,6 @@ definitions:
       tenantId:
         type: string
       time:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -2403,21 +2063,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       postsId:
         type: integer
@@ -2426,8 +2078,6 @@ definitions:
       tenantId:
         type: string
       time:
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -2761,16 +2411,10 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       desc:
         description: 排序方式:升序false(默认)|降序true
@@ -2780,8 +2424,6 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       keyword:
         description: 关键字
@@ -2803,8 +2445,6 @@ definitions:
         type: string
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3105,24 +2745,16 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       description:
         description: api中文描述
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       method:
         description: 方法:创建POST(默认)|查看GET|更新PUT|删除DELETE
@@ -3132,8 +2764,6 @@ definitions:
         type: string
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3179,23 +2809,15 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       desc:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       label:
         type: string
@@ -3203,8 +2825,6 @@ definitions:
         type: string
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3231,8 +2851,6 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -3241,10 +2859,6 @@ definitions:
       defaultMenu:
         description: 是否是基础路由（开发中）
         type: boolean
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       hidden:
         description: 是否在列表隐藏
         type: boolean
@@ -3253,8 +2867,6 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       keepAlive:
         description: 是否缓存
@@ -3284,8 +2896,6 @@ definitions:
       title:
         description: 菜单名
         type: string
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3296,23 +2906,15 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       desc:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       name:
         type: string
@@ -3320,8 +2922,6 @@ definitions:
         type: integer
       sysBaseMenuID:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3332,21 +2932,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       key:
         description: 地址栏携带参数的key
@@ -3357,8 +2949,6 @@ definitions:
         type: integer
       type:
         description: 地址栏携带参数为params还是query
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -3373,24 +2963,16 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       desc:
         description: 描述
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       name:
         description: 字典名（中）
@@ -3405,8 +2987,6 @@ definitions:
       type:
         description: 字典名（英）
         type: string
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3417,21 +2997,13 @@ definitions:
     properties:
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
         type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       label:
         description: 展示值
@@ -3445,8 +3017,6 @@ definitions:
       sysDictionaryID:
         description: 关联标记
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3480,8 +3050,6 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -3490,10 +3058,6 @@ definitions:
       defaultMenu:
         description: 是否是基础路由（开发中）
         type: boolean
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        type: string
       hidden:
         description: 是否在列表隐藏
         type: boolean
@@ -3502,8 +3066,6 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       keepAlive:
         description: 是否缓存
@@ -3535,8 +3097,6 @@ definitions:
       title:
         description: 菜单名
         type: string
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3553,16 +3113,10 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       error_message:
         description: 错误信息
@@ -3573,8 +3127,6 @@ definitions:
       ip:
         description: 请求ip
         type: string
-      isDeleted:
-        type: integer
       latency:
         description: 延迟
         type: string
@@ -3590,8 +3142,6 @@ definitions:
       status:
         description: 请求状态
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3622,16 +3172,10 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
         description: 创建时间
-        type: string
-      deletedAt:
-        description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
         type: string
       email:
         description: 用户邮箱
@@ -3645,8 +3189,6 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      isDeleted:
-        type: integer
       nickName:
         description: 用户昵称
         type: string
@@ -3658,8 +3200,6 @@ definitions:
         type: string
       status:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -3972,9 +3512,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.HkCircle
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.HkCircle'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询Circle
@@ -3993,9 +3540,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.HkCircleUser
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.HkCircleRequest'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询CircleRequest
@@ -4014,9 +3568,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.HkCircleUser
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.HkCircleUser'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询CircleUser
@@ -4059,9 +3620,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkCircleClassify
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkCircleClassify'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取CircleClassify列表
@@ -4104,9 +3674,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkCircleClassify
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkCircleClassify'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 获取CircleClassify列表
@@ -4165,9 +3744,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkForumPosts
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取圈子ForumPosts列表
@@ -4210,9 +3798,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkCircle
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkCircle'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取Circle列表
@@ -4271,9 +3868,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkCircleRequest
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkCircleRequest'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取CircleRequest列表
@@ -4316,9 +3922,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkCircleUser
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkCircleUser'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取CircleUser列表
@@ -4361,9 +3976,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkCircle
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkCircle'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取用户加入的Circle列表
@@ -4418,9 +4042,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkForumPosts
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取用户圈子ForumPosts列表
@@ -4577,9 +4210,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回apply.HkApply
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/apply.HkApply'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询Apply
@@ -4598,9 +4238,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回apply.HkCircleApply
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/apply.HkCircleApply'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询CircleApply
@@ -4651,9 +4298,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回apply.HkApply
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/apply.HkApply'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取Apply列表
@@ -4704,9 +4360,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回apply.HkApply
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/apply.HkApply'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 获取Apply列表
@@ -4753,9 +4418,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回apply.HkCircleApplyGroup
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/apply.HkCircleApplyGroup'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取CircleApplyGroup列表
@@ -4802,9 +4476,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回apply.HkCircleApplyGroup
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/apply.HkCircleApplyGroup'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 获取CircleApplyGroup列表
@@ -4855,9 +4538,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回apply.HkCircleApply
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/apply.HkCircleApply'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取CircleApply列表
@@ -4908,9 +4600,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回apply.HkCircleApply
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/apply.HkCircleApply'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 获取CircleApply列表
@@ -4924,9 +4625,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkUserCircleApply
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkUserCircleApply'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 获取UserCircleApply列表
@@ -5175,9 +4885,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.HkForumComment
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.HkForumComment'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询ForumComment
@@ -5196,9 +4913,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.HkForumPosts
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.HkForumPosts'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询ForumPosts
@@ -5228,19 +4952,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -5249,9 +4965,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -5285,9 +4998,6 @@ paths:
         name: tenantId
         type: string
       - in: query
-        name: updateTime
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
@@ -5301,9 +5011,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkForumComment
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkForumComment'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取ForumComment列表
@@ -5363,19 +5082,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -5387,9 +5098,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -5471,9 +5179,6 @@ paths:
         name: top
         type: integer
       - in: query
-        name: updateTime
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
@@ -5490,9 +5195,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkForumPosts
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取ForumPosts列表
@@ -5557,9 +5271,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回general.HkBugReport
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/general.HkBugReport'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询BugReport
@@ -5578,9 +5299,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回general.HkProtocol
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/general.HkProtocol'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询协议
@@ -5619,9 +5347,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回general.HkBugReport
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/general.HkBugReport'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取BugReport列表
@@ -5660,9 +5397,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回general.HkProtocol
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/general.HkProtocol'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取Protocol列表
@@ -5704,9 +5450,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.HkReport
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.HkReport'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询Report
@@ -5725,9 +5478,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.HkReportReason
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.HkReportReason'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询ReportReason
@@ -5751,9 +5511,6 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
@@ -5763,11 +5520,6 @@ paths:
       - in: query
         name: curStatus
         type: integer
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
-        type: string
       - in: query
         name: durationId
         type: integer
@@ -5787,9 +5539,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -5838,9 +5587,6 @@ paths:
         name: unlock
         type: integer
       - in: query
-        name: updateTime
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
@@ -5854,9 +5600,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkReport
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkReport'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取Report列表
@@ -5871,19 +5626,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -5892,9 +5639,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -5922,9 +5666,6 @@ paths:
         name: status
         type: integer
       - in: query
-        name: updateTime
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
@@ -5935,9 +5676,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkReportReason
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkReportReason'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取ReportReason列表
@@ -6025,9 +5775,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.HkForumTopic
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkForumTopic'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询ForumTopic
@@ -6046,9 +5805,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.HkForumTopicGroup
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.HkForumTopicGroup'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询ForumTopicGroup
@@ -6087,9 +5853,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkForumTopicGroup
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkForumTopicGroup'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取ForumTopicGroup列表
@@ -6128,9 +5903,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkForumTopicGroup
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkForumTopicGroup'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 获取ForumTopicGroup列表
@@ -6154,19 +5938,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: discussNum
@@ -6181,9 +5957,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -6220,9 +5993,6 @@ paths:
         name: type
         type: integer
       - in: query
-        name: updateTime
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
@@ -6233,9 +6003,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.HkForumTopic
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkForumTopic'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取ForumTopic列表
@@ -6336,7 +6115,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回UserBaseInfo
+          description: 返回common.UserBaseInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -6398,9 +6177,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回common.HkUser
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.HkUser'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取User列表
@@ -6609,19 +6397,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: endCreatedAt
@@ -6629,9 +6409,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -6661,9 +6438,6 @@ paths:
         name: time
         type: string
       - in: query
-        name: updateTime
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
@@ -6677,9 +6451,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回general.HkUserBrowsingHistory
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/general.HkUserBrowsingHistory'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取UserBrowsingHistory列表
@@ -6783,9 +6566,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回general.HkUserCollect
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/general.HkUserCollect'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取UserCollect列表
@@ -7549,9 +7341,6 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
@@ -7566,17 +7355,9 @@ paths:
         in: query
         name: customerPhoneData
         type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
-        type: string
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - in: query
         name: status
@@ -7589,9 +7370,6 @@ paths:
         in: query
         name: sysUserId
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -8031,11 +7809,6 @@ paths:
         in: query
         name: createdAt
         type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
-        type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
@@ -8265,11 +8038,6 @@ paths:
         in: query
         name: createdAt
         type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
-        type: string
       - in: query
         name: endCreatedAt
         type: string
@@ -8476,11 +8244,6 @@ paths:
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 圈子简介;size:1000
         in: query
@@ -8760,19 +8523,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -8781,9 +8536,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -8809,9 +8561,6 @@ paths:
         type: integer
       - in: query
         name: tenantId
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -8978,11 +8727,6 @@ paths:
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -9173,19 +8917,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -9198,9 +8934,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -9233,9 +8966,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -9377,19 +9107,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: des
@@ -9401,9 +9123,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -9436,9 +9155,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -9583,19 +9299,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -9604,9 +9312,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -9635,9 +9340,6 @@ paths:
         type: integer
       - in: query
         name: tenantId
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -9800,11 +9502,6 @@ paths:
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 圈子简介
         in: query
@@ -10010,19 +9707,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -10031,9 +9720,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -10057,9 +9743,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -10207,19 +9890,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -10228,9 +9903,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -10256,9 +9928,6 @@ paths:
         type: string
       - in: query
         name: time
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -10407,9 +10076,6 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
@@ -10419,11 +10085,6 @@ paths:
       - in: query
         name: curStatus
         type: integer
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
-        type: string
       - in: query
         name: durationId
         type: integer
@@ -10434,9 +10095,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -10466,9 +10124,6 @@ paths:
       - in: query
         name: unlockUserId
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -10616,19 +10271,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -10637,9 +10284,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -10666,9 +10310,6 @@ paths:
       - in: query
         name: type
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -10810,19 +10451,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -10831,9 +10464,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -10860,9 +10490,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -11019,19 +10646,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -11040,9 +10659,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -11074,9 +10690,6 @@ paths:
         type: integer
       - in: query
         name: tenantId
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -11267,19 +10880,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -11291,9 +10896,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -11374,9 +10976,6 @@ paths:
       - in: query
         name: top
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -11527,19 +11126,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -11548,9 +11139,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -11580,9 +11168,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -11724,19 +11309,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -11748,9 +11325,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -11774,9 +11348,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -11918,19 +11489,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -11939,9 +11502,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -11965,9 +11525,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -12109,19 +11666,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -12130,9 +11679,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -12161,9 +11707,6 @@ paths:
         type: string
       - in: query
         name: time
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -12318,19 +11861,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: discussNum
@@ -12345,9 +11880,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -12383,9 +11915,6 @@ paths:
       - in: query
         name: type
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -12527,19 +12056,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -12548,9 +12069,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -12577,9 +12095,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -12724,9 +12239,6 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
@@ -12738,11 +12250,6 @@ paths:
         type: string
       - in: query
         name: curVersion
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: endCreatedAt
@@ -12756,9 +12263,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -12783,9 +12287,6 @@ paths:
         type: integer
       - in: query
         name: tenantId
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -12928,19 +12429,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: endCreatedAt
@@ -12948,9 +12441,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -12981,9 +12471,6 @@ paths:
         type: integer
       - in: query
         name: tenantId
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -13138,19 +12625,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -13159,9 +12638,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -13190,9 +12666,6 @@ paths:
         type: integer
       - in: query
         name: tenantId
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -13335,19 +12808,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -13359,9 +12824,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -13391,9 +12853,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -13538,19 +12997,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: des
@@ -13561,9 +13012,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -13592,9 +13040,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -13745,9 +13190,6 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
@@ -13757,11 +13199,6 @@ paths:
       - in: query
         name: curStatus
         type: integer
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
-        type: string
       - in: query
         name: durationId
         type: integer
@@ -13781,9 +13218,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -13831,9 +13265,6 @@ paths:
       - in: query
         name: unlock
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -13978,19 +13409,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 创建时间（结束）
         in: query
@@ -13999,9 +13422,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -14028,9 +13448,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -14180,19 +13597,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 邮箱
         in: query
@@ -14209,9 +13618,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -14258,9 +13664,6 @@ paths:
         type: integer
       - in: query
         name: tenantId
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -14409,19 +13812,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: endCreatedAt
@@ -14429,9 +13824,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -14459,9 +13851,6 @@ paths:
         type: string
       - in: query
         name: time
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -14615,19 +14004,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: endCreatedAt
@@ -14635,9 +14016,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -14661,9 +14039,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -14809,19 +14184,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: endCreatedAt
@@ -14829,9 +14196,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -14859,9 +14223,6 @@ paths:
         type: string
       - in: query
         name: time
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -15010,19 +14371,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - in: query
         name: endCreatedAt
@@ -15033,9 +14386,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -15069,9 +14419,6 @@ paths:
         type: integer
       - in: query
         name: tenantId
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -15513,19 +14860,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 描述
         in: query
@@ -15534,9 +14873,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 字典名（中）
         in: query
@@ -15549,9 +14885,6 @@ paths:
       - description: 字典名（英）
         in: query
         name: type
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -15589,19 +14922,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 描述
         in: query
@@ -15610,9 +14935,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -15637,9 +14959,6 @@ paths:
       - description: 字典名（英）
         in: query
         name: type
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -15760,26 +15079,15 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
         type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
-        type: string
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 展示值
         in: query
@@ -15797,9 +15105,6 @@ paths:
         in: query
         name: sysDictionaryID
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -15840,26 +15145,15 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
         type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
-        type: string
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -15889,9 +15183,6 @@ paths:
         in: query
         name: sysDictionaryID
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -16051,19 +15342,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 错误信息
         in: query
@@ -16077,9 +15360,6 @@ paths:
         in: query
         name: ip
         type: string
-      - in: query
-        name: isDeleted
-        type: integer
       - description: 延迟
         in: query
         name: latency
@@ -16100,9 +15380,6 @@ paths:
         in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -16151,19 +15428,11 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - description: gorm.DeletedAt        `gorm:"index" json:"-"`                           //
-          删除时间
-        in: query
-        name: deletedAt
         type: string
       - description: 错误信息
         in: query
@@ -16177,9 +15446,6 @@ paths:
         in: query
         name: ip
         type: string
-      - in: query
-        name: isDeleted
-        type: integer
       - description: 关键字
         in: query
         name: keyword
@@ -16212,9 +15478,6 @@ paths:
         in: query
         name: status
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer

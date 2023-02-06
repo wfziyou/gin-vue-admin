@@ -339,7 +339,7 @@ func (userApi *UserApi) BindEmail(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询UserBaseInfo"
-// @Success  200   {object}  response.Response{data=common.UserBaseInfo,msg=string}  "返回UserBaseInfo"
+// @Success  200   {object}  response.Response{data=common.UserBaseInfo,msg=string}  "返回common.UserBaseInfo"
 // @Router /app/user/getUserBaseInfo [get]
 func (userApi *UserApi) GetUserBaseInfo(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -408,7 +408,7 @@ func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.UserSearch true "分页获取User列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkUser,msg=string} "返回common.HkUser"
 // @Router /app/user/getUserList [get]
 func (userApi *UserApi) GetUserList(c *gin.Context) {
 	var pageInfo appReq.UserSearch

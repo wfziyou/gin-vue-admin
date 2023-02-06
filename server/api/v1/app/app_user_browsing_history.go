@@ -68,7 +68,7 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistoryB
 // @accept application/json
 // @Produce application/json
 // @Param data query generalReq.HkUserBrowsingHistorySearch true "分页获取UserBrowsingHistory列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]general.HkUserBrowsingHistory,msg=string} "返回general.HkUserBrowsingHistory"
 // @Router /app/userBrowsingHistory/getUserBrowsingHistoryList [get]
 func (userBrowsingHistoryApi *UserBrowsingHistoryApi) GetUserBrowsingHistoryList(c *gin.Context) {
 	var pageInfo generalReq.HkUserBrowsingHistorySearch

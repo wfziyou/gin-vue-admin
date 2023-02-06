@@ -534,9 +534,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkCircle",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkCircle"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -569,9 +584,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkCircleUser",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkCircleRequest"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -604,9 +634,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkCircleUser",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkCircleUser"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -675,9 +720,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkCircleClassify",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkCircleClassify"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -746,9 +809,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkCircleClassify",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkCircleClassify"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -841,9 +922,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkForumPosts",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkForumPosts"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -912,9 +1011,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkCircle",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkCircle"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1007,9 +1124,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkCircleRequest",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkCircleRequest"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1078,9 +1213,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkCircleUser",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkCircleUser"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1149,9 +1302,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkCircle",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkCircle"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1238,9 +1409,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkForumPosts",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkForumPosts"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1501,9 +1690,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回apply.HkApply",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/apply.HkApply"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1536,9 +1740,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回apply.HkCircleApply",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/apply.HkCircleApply"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1619,9 +1838,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回apply.HkApply",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/apply.HkApply"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1702,9 +1939,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回apply.HkApply",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/apply.HkApply"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1779,9 +2034,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回apply.HkCircleApplyGroup",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/apply.HkCircleApplyGroup"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1856,9 +2129,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回apply.HkCircleApplyGroup",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/apply.HkCircleApplyGroup"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1939,9 +2230,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回apply.HkCircleApply",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/apply.HkCircleApply"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2022,9 +2331,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回apply.HkCircleApply",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/apply.HkCircleApply"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2049,9 +2376,27 @@ var doc = `{
                 "summary": "获取UserCircleApply列表",
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkUserCircleApply",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkUserCircleApply"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2464,9 +2809,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkForumComment",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkForumComment"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2499,9 +2859,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkForumPosts",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkForumPosts"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2556,11 +2931,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -2573,12 +2943,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -2587,11 +2951,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -2644,11 +3003,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -2667,9 +3021,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkForumComment",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkForumComment"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2774,11 +3146,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -2787,12 +3154,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -2810,11 +3171,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -2947,11 +3303,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -2975,9 +3326,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkForumPosts",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkForumPosts"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3086,9 +3455,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回general.HkBugReport",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/general.HkBugReport"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3121,9 +3505,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回general.HkProtocol",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/general.HkProtocol"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3186,9 +3585,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回general.HkBugReport",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/general.HkBugReport"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3251,9 +3668,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回general.HkProtocol",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/general.HkProtocol"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3324,9 +3759,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkReport",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkReport"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3359,9 +3809,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkReportReason",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkReportReason"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3406,11 +3871,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -3424,12 +3884,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "curStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -3462,11 +3916,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -3544,11 +3993,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -3567,9 +4011,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkReport",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkReport"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3599,11 +4061,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -3616,12 +4073,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -3630,11 +4081,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -3677,11 +4123,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -3695,9 +4136,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkReportReason",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkReportReason"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3844,9 +4303,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkForumTopic",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkForumTopic"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3879,9 +4356,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkForumTopicGroup",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkForumTopicGroup"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3944,9 +4436,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkForumTopicGroup",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkForumTopicGroup"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -4009,9 +4519,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkForumTopicGroup",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkForumTopicGroup"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -4056,11 +4584,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -4069,12 +4592,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -4097,11 +4614,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -4159,11 +4671,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -4177,9 +4684,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.HkForumTopic",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkForumTopic"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -4343,7 +4868,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回UserBaseInfo",
+                        "description": "返回common.UserBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -4445,9 +4970,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回common.HkUser",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkUser"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -4806,11 +5349,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -4823,12 +5361,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
                         "in": "query"
                     },
@@ -4836,11 +5368,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -4887,11 +5414,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "updateTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -4910,9 +5432,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回general.HkUserBrowsingHistory",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/general.HkUserBrowsingHistory"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -5083,9 +5623,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回general.HkUserCollect",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/general.HkUserCollect"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -6392,11 +6950,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -6420,20 +6973,9 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -6451,11 +6993,6 @@ var doc = `{
                         "type": "integer",
                         "description": "管理ID",
                         "name": "sysUserId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -7266,12 +7803,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -7641,12 +8172,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
                         "in": "query"
                     },
@@ -7980,12 +8505,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -8430,11 +8949,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -8447,12 +8961,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -8461,11 +8969,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -8505,11 +9008,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -8782,12 +9280,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -9097,11 +9589,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -9110,12 +9597,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -9134,11 +9615,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -9186,11 +9662,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -9426,11 +9897,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -9439,12 +9905,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -9462,11 +9922,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -9516,11 +9971,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -9761,11 +10211,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -9778,12 +10223,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -9792,11 +10231,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -9841,11 +10275,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -10112,12 +10541,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -10450,11 +10873,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -10467,12 +10885,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -10481,11 +10893,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -10520,11 +10927,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -10770,11 +11172,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -10787,12 +11184,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -10801,11 +11192,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -10845,11 +11231,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "time",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -11095,11 +11476,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -11113,12 +11489,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "curStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -11136,11 +11506,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -11185,11 +11550,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "unlockUserId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -11435,11 +11795,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -11452,12 +11807,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -11466,11 +11815,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -11510,11 +11854,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -11750,11 +12089,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -11767,12 +12101,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -11781,11 +12109,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -11825,11 +12148,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -12090,11 +12408,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -12107,12 +12420,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -12121,11 +12428,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -12175,11 +12477,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -12495,11 +12792,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -12508,12 +12800,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -12531,11 +12817,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -12665,11 +12946,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "top",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -12920,11 +13196,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -12937,12 +13208,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -12951,11 +13216,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -13000,11 +13260,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -13240,11 +13495,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -13253,12 +13503,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -13276,11 +13520,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -13315,11 +13554,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -13555,11 +13789,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -13572,12 +13801,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -13586,11 +13809,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -13625,11 +13843,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -13865,11 +14078,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -13882,12 +14090,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -13896,11 +14098,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -13945,11 +14142,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "time",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -14205,11 +14397,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -14218,12 +14405,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -14246,11 +14427,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -14305,11 +14481,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -14545,11 +14716,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -14562,12 +14728,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -14576,11 +14736,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -14620,11 +14775,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -14865,11 +15015,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -14892,12 +15037,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
                         "in": "query"
                     },
@@ -14915,11 +15054,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -14958,11 +15092,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -15198,11 +15327,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -15215,12 +15339,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
                         "in": "query"
                     },
@@ -15228,11 +15346,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -15281,11 +15394,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -15541,11 +15649,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -15558,12 +15661,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -15572,11 +15669,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -15621,11 +15713,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -15861,11 +15948,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -15874,12 +15956,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -15897,11 +15973,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -15946,11 +16017,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -16191,11 +16257,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -16204,12 +16265,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -16226,11 +16281,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -16274,11 +16324,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -16529,11 +16574,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -16547,12 +16587,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "curStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -16585,11 +16619,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -16664,11 +16693,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "unlock",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -16909,11 +16933,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -16926,12 +16945,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
@@ -16940,11 +16953,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -16984,11 +16992,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -17236,11 +17239,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -17249,12 +17247,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -17279,11 +17271,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -17354,11 +17341,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -17604,11 +17586,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -17621,12 +17598,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
                         "in": "query"
                     },
@@ -17634,11 +17605,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -17682,11 +17648,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "time",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -17939,11 +17900,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -17956,12 +17912,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
                         "in": "query"
                     },
@@ -17969,11 +17919,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -18008,11 +17953,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -18254,11 +18194,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -18271,12 +18206,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
                         "in": "query"
                     },
@@ -18284,11 +18213,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -18332,11 +18256,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "time",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -18582,11 +18501,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -18595,12 +18509,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -18617,11 +18525,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -18675,11 +18578,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -19457,11 +19355,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -19474,12 +19367,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "描述",
                         "name": "desc",
                         "in": "query"
@@ -19488,11 +19375,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -19511,11 +19393,6 @@ var doc = `{
                         "type": "string",
                         "description": "字典名（英）",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -19580,11 +19457,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -19597,12 +19469,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "描述",
                         "name": "desc",
                         "in": "query"
@@ -19611,11 +19477,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -19652,11 +19513,6 @@ var doc = `{
                         "type": "string",
                         "description": "字典名（英）",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -19870,11 +19726,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -19886,20 +19737,9 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -19924,11 +19764,6 @@ var doc = `{
                         "type": "integer",
                         "description": "关联标记",
                         "name": "sysDictionaryID",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -19999,11 +19834,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -20015,20 +19845,9 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -20071,11 +19890,6 @@ var doc = `{
                         "type": "integer",
                         "description": "关联标记",
                         "name": "sysDictionaryID",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -20357,11 +20171,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -20370,12 +20179,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -20394,11 +20197,6 @@ var doc = `{
                         "type": "string",
                         "description": "请求ip",
                         "name": "ip",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -20429,11 +20227,6 @@ var doc = `{
                         "type": "integer",
                         "description": "请求状态",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -20516,11 +20309,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -20529,12 +20317,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                        "name": "deletedAt",
                         "in": "query"
                     },
                     {
@@ -20553,11 +20335,6 @@ var doc = `{
                         "type": "string",
                         "description": "请求ip",
                         "name": "ip",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -20606,11 +20383,6 @@ var doc = `{
                         "type": "integer",
                         "description": "请求状态",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -21341,10 +21113,6 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "icon": {
                     "description": "图标",
                     "type": "string"
@@ -21429,10 +21197,6 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -21476,18 +21240,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "icon": {
@@ -21496,9 +21253,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -21515,9 +21269,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21543,9 +21294,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -21553,15 +21301,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "showName": {
@@ -21574,9 +21315,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "tenantId": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -21594,9 +21332,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -21604,18 +21339,11 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "icon": {
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -21629,9 +21357,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21697,10 +21422,6 @@ var doc = `{
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "des": {
@@ -21835,9 +21556,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -21845,15 +21563,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "reason": {
@@ -21863,9 +21574,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "tenantId": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -21883,9 +21591,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -21893,18 +21598,11 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "des": {
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -21921,9 +21619,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21943,9 +21638,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -21953,15 +21645,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "otherCircleId": {
@@ -21974,9 +21659,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "tenantId": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -22014,10 +21696,6 @@ var doc = `{
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "des": {
@@ -22078,9 +21756,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22088,15 +21763,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "sort": {
@@ -22104,9 +21772,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22129,9 +21794,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22139,15 +21801,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "status": {
@@ -22157,9 +21812,6 @@ var doc = `{
                     "type": "string"
                 },
                 "time": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -22183,9 +21835,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22196,18 +21845,11 @@ var doc = `{
                 "curStatus": {
                     "type": "integer"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "durationId": {
                     "type": "integer"
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "reasonId": {
@@ -22221,9 +21863,6 @@ var doc = `{
                 },
                 "unlockUserId": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22246,9 +21885,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22256,15 +21892,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "sort": {
@@ -22275,9 +21904,6 @@ var doc = `{
                 },
                 "type": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22294,9 +21920,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22304,15 +21927,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "reason": {
@@ -22323,9 +21939,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22357,9 +21970,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22367,15 +21977,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "likeTimes": {
@@ -22391,9 +21994,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "tenantId": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -22459,9 +22059,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22469,18 +22066,11 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "groupId": {
                     "type": "integer"
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "likeNum": {
@@ -22546,9 +22136,6 @@ var doc = `{
                 "top": {
                     "type": "integer"
                 },
-                "updateTime": {
-                    "type": "string"
-                },
                 "updateUser": {
                     "type": "integer"
                 },
@@ -22573,9 +22160,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22583,15 +22167,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -22605,9 +22182,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22624,18 +22198,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "groupId": {
@@ -22645,17 +22212,11 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "isDeleted": {
-                    "type": "integer"
-                },
                 "name": {
                     "type": "string"
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22672,9 +22233,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22682,15 +22240,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -22698,9 +22249,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22717,9 +22265,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22727,15 +22272,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "postsId": {
@@ -22748,9 +22286,6 @@ var doc = `{
                     "type": "string"
                 },
                 "time": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -22780,18 +22315,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "discussNum": {
@@ -22802,9 +22330,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -22825,9 +22350,6 @@ var doc = `{
                 "type": {
                     "type": "integer"
                 },
-                "updateTime": {
-                    "type": "string"
-                },
                 "updateUser": {
                     "type": "integer"
                 },
@@ -22843,9 +22365,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22853,15 +22372,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -22872,9 +22384,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22900,9 +22409,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22912,10 +22418,6 @@ var doc = `{
                 },
                 "curStatus": {
                     "type": "integer"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
                 },
                 "durationId": {
                     "type": "integer"
@@ -22931,9 +22433,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "reasonId": {
@@ -22966,9 +22465,6 @@ var doc = `{
                 "unlock": {
                     "type": "integer"
                 },
-                "updateTime": {
-                    "type": "string"
-                },
                 "updateUser": {
                     "type": "integer"
                 },
@@ -22987,9 +22483,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -22997,15 +22490,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "reason": {
@@ -23016,9 +22502,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -23053,18 +22536,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "email": {
@@ -23077,9 +22553,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "nickName": {
@@ -23110,9 +22583,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "tenantId": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -23147,9 +22617,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -23157,15 +22624,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "sort": {
@@ -23174,9 +22634,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -23200,9 +22657,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -23210,18 +22664,11 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "github": {
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "numCircle": {
@@ -23240,9 +22687,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "tenantId": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -24162,9 +23606,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -24180,15 +23621,8 @@ var doc = `{
                     "description": "客户手机号",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "status": {
@@ -24205,9 +23639,6 @@ var doc = `{
                 "sysUserId": {
                     "description": "管理ID",
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -24227,18 +23658,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "exaFileChunk": {
@@ -24260,17 +23684,11 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "isDeleted": {
-                    "type": "integer"
-                },
                 "isFinish": {
                     "type": "boolean"
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -24287,18 +23705,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "exaFileID": {
@@ -24314,14 +23725,8 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "isDeleted": {
-                    "type": "integer"
-                },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -24338,9 +23743,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -24348,15 +23750,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "key": {
@@ -24372,9 +23767,6 @@ var doc = `{
                 },
                 "tag": {
                     "description": "文件标签",
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -24420,10 +23812,6 @@ var doc = `{
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "expectedResult": {
@@ -24475,9 +23863,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -24491,10 +23876,6 @@ var doc = `{
                 "curVersion": {
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "hidden": {
                     "type": "integer"
                 },
@@ -24505,9 +23886,6 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "isDeleted": {
-                    "type": "integer"
-                },
                 "name": {
                     "type": "string"
                 },
@@ -24515,9 +23893,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "tenantId": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -24535,9 +23910,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -24545,15 +23917,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "miniProgramId": {
@@ -24569,9 +23934,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "tenantId": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -24595,9 +23957,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -24605,18 +23964,11 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "des": {
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "module": {
@@ -24630,9 +23982,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -24649,9 +23998,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -24659,15 +24005,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "postsId": {
@@ -24680,9 +24019,6 @@ var doc = `{
                     "type": "string"
                 },
                 "time": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -24703,9 +24039,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -24713,15 +24046,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "postsId": {
@@ -24734,9 +24060,6 @@ var doc = `{
                     "type": "string"
                 },
                 "time": {
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -25216,18 +24539,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "desc": {
@@ -25240,9 +24556,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "keyword": {
@@ -25271,9 +24584,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -25718,18 +25028,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "description": {
@@ -25738,9 +25041,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "method": {
@@ -25753,9 +25053,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -25822,9 +25119,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -25832,18 +25126,11 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "desc": {
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "label": {
@@ -25854,9 +25141,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -25896,9 +25180,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -25910,10 +25191,6 @@ var doc = `{
                     "description": "是否是基础路由（开发中）",
                     "type": "boolean"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "hidden": {
                     "description": "是否在列表隐藏",
                     "type": "boolean"
@@ -25924,9 +25201,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "keepAlive": {
@@ -25968,9 +25242,6 @@ var doc = `{
                     "description": "菜单名",
                     "type": "string"
                 },
-                "updateTime": {
-                    "type": "string"
-                },
                 "updateUser": {
                     "type": "integer"
                 },
@@ -25986,9 +25257,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -25996,18 +25264,11 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "desc": {
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -26018,9 +25279,6 @@ var doc = `{
                 },
                 "sysBaseMenuID": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -26037,9 +25295,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -26047,15 +25302,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "key": {
@@ -26070,9 +25318,6 @@ var doc = `{
                 },
                 "type": {
                     "description": "地址栏携带参数为params还是query",
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -26094,18 +25339,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "desc": {
@@ -26114,9 +25352,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "name": {
@@ -26137,9 +25372,6 @@ var doc = `{
                     "description": "字典名（英）",
                     "type": "string"
                 },
-                "updateTime": {
-                    "type": "string"
-                },
                 "updateUser": {
                     "type": "integer"
                 },
@@ -26155,9 +25387,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -26165,15 +25394,8 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "label": {
@@ -26191,9 +25413,6 @@ var doc = `{
                 "sysDictionaryID": {
                     "description": "关联标记",
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -26243,9 +25462,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -26257,10 +25473,6 @@ var doc = `{
                     "description": "是否是基础路由（开发中）",
                     "type": "boolean"
                 },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
-                    "type": "string"
-                },
                 "hidden": {
                     "description": "是否在列表隐藏",
                     "type": "boolean"
@@ -26271,9 +25483,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "keepAlive": {
@@ -26318,9 +25527,6 @@ var doc = `{
                     "description": "菜单名",
                     "type": "string"
                 },
-                "updateTime": {
-                    "type": "string"
-                },
                 "updateUser": {
                     "type": "integer"
                 },
@@ -26344,18 +25550,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "error_message": {
@@ -26369,9 +25568,6 @@ var doc = `{
                 "ip": {
                     "description": "请求ip",
                     "type": "string"
-                },
-                "isDeleted": {
-                    "type": "integer"
                 },
                 "latency": {
                     "description": "延迟",
@@ -26392,9 +25588,6 @@ var doc = `{
                 "status": {
                     "description": "请求状态",
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -26439,18 +25632,11 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "description": "gorm.DeletedAt        ` + "`" + `gorm:\"index\" json:\"-\"` + "`" + `                           // 删除时间",
                     "type": "string"
                 },
                 "email": {
@@ -26469,9 +25655,6 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "isDeleted": {
-                    "type": "integer"
-                },
                 "nickName": {
                     "description": "用户昵称",
                     "type": "string"
@@ -26486,9 +25669,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"

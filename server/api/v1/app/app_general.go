@@ -19,7 +19,7 @@ type GeneralApi struct{}
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询协议"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=general.HkProtocol,msg=string}  "返回general.HkProtocol"
 // @Router /app/general/findProtocol [get]
 func (generalApi *GeneralApi) FindProtocol(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -43,7 +43,7 @@ func (generalApi *GeneralApi) FindProtocol(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.ProtocolSearch true "分页获取Protocol列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]general.HkProtocol,msg=string} "返回general.HkProtocol"
 // @Router /app/general/getProtocolList [get]
 func (generalApi *GeneralApi) GetProtocolList(c *gin.Context) {
 	var pageInfo appReq.ProtocolSearch
@@ -96,7 +96,7 @@ func (generalApi *GeneralApi) CreateHkBugReport(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询BugReport"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=general.HkBugReport,msg=string}  "返回general.HkBugReport"
 // @Router /app/general/findBugReport [get]
 func (generalApi *GeneralApi) FindBugReport(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -120,7 +120,7 @@ func (generalApi *GeneralApi) FindBugReport(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.BugReportSearch true "分页获取BugReport列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]general.HkBugReport,msg=string} "返回general.HkBugReport"
 // @Router /app/general/getBugReportList [get]
 func (generalApi *GeneralApi) GetBugReportList(c *gin.Context) {
 	var pageInfo appReq.BugReportSearch

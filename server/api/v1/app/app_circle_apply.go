@@ -95,7 +95,7 @@ func (circleApplyApi *CircleApplyApi) DeleteUserCircleApplyByIds(c *gin.Context)
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.HkUserCircleApply,msg=string} "返回community.HkUserCircleApply"
 // @Router /app/circleApply/getUserCircleApplyListALL [get]
 func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListALL(c *gin.Context) {
 	//if list, total, err := hkUserCircleApplyService.GetHkUserCircleApplyInfoListALL(pageInfo); err != nil {
@@ -120,7 +120,7 @@ func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListALL(c *gin.Context) 
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询Apply"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=apply.HkApply,msg=string}  "返回apply.HkApply"
 // @Router /app/circleApply/findApply [get]
 func (circleApplyApi *CircleApplyApi) FindApply(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -144,7 +144,7 @@ func (circleApplyApi *CircleApplyApi) FindApply(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.ApplySearchReq true "分页获取Apply列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]apply.HkApply,msg=string} "返回apply.HkApply"
 // @Router /app/circleApply/getApplyList [get]
 func (circleApplyApi *CircleApplyApi) GetApplyList(c *gin.Context) {
 	var pageInfo appReq.ApplySearchReq
@@ -173,7 +173,7 @@ func (circleApplyApi *CircleApplyApi) GetApplyList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.ApplySearchReq true "获取Apply列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]apply.HkApply,msg=string} "返回apply.HkApply"
 // @Router /app/circleApply/getApplyListAll [get]
 func (circleApplyApi *CircleApplyApi) GetApplyListAll(c *gin.Context) {
 	var pageInfo appReq.ApplySearchReq
@@ -202,7 +202,7 @@ func (circleApplyApi *CircleApplyApi) GetApplyListAll(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询CircleApply"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object}  response.Response{data=apply.HkCircleApply,msg=string}  "返回apply.HkCircleApply"
 // @Router /app/circleApply/findCircleApply [get]
 func (circleApplyApi *CircleApplyApi) FindCircleApply(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -226,7 +226,7 @@ func (circleApplyApi *CircleApplyApi) FindCircleApply(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleApplySearchReq true "分页获取CircleApply列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]apply.HkCircleApply,msg=string} "返回apply.HkCircleApply"
 // @Router /app/circleApply/getCircleApplyList [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyList(c *gin.Context) {
 	var pageInfo appReq.CircleApplySearchReq
@@ -255,7 +255,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleApplySearchReq true "获取CircleApply列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]apply.HkCircleApply,msg=string} "返回apply.HkCircleApply"
 // @Router /app/circleApply/getCircleApplyListAll [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyListAll(c *gin.Context) {
 	var pageInfo appReq.CircleApplySearchReq
@@ -282,7 +282,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyListAll(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleApplyGroupSearchReq true "分页获取CircleApplyGroup列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]apply.HkCircleApplyGroup,msg=string} "返回apply.HkCircleApplyGroup"
 // @Router /app/circleApply/getCircleApplyGroupList [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupList(c *gin.Context) {
 	var pageInfo appReq.CircleApplyGroupSearchReq
@@ -311,7 +311,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query appReq.CircleApplyGroupSearchReq true "获取CircleApplyGroup列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]apply.HkCircleApplyGroup,msg=string} "返回apply.HkCircleApplyGroup"
 // @Router /app/circleApply/getCircleApplyGroupListAll [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupListAll(c *gin.Context) {
 	var pageInfo appReq.CircleApplyGroupSearchReq
