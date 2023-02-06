@@ -28,7 +28,7 @@ func (generalApi *GeneralApi) FindProtocol(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkProtocol, err := hkProtocolService.GetHkProtocol(idSearch.ID); err != nil {
+	if rehkProtocol, err := appProtocolService.GetHkProtocol(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -52,7 +52,7 @@ func (generalApi *GeneralApi) GetProtocolList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkProtocolService.AppGetHkProtocolInfoList(pageInfo); err != nil {
+	if list, total, err := appProtocolService.AppGetHkProtocolInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -81,7 +81,7 @@ func (generalApi *GeneralApi) CreateHkBugReport(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkBugReportService.CreateHkBugReport(hkBugReport); err != nil {
+	if err := appBugReportService.CreateHkBugReport(hkBugReport); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -105,7 +105,7 @@ func (generalApi *GeneralApi) FindBugReport(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkBugReport, err := hkBugReportService.GetHkBugReport(idSearch.ID); err != nil {
+	if rehkBugReport, err := appBugReportService.GetHkBugReport(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -129,7 +129,7 @@ func (generalApi *GeneralApi) GetBugReportList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkBugReportService.AppGetHkBugReportInfoList(pageInfo); err != nil {
+	if list, total, err := appBugReportService.AppGetHkBugReportInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

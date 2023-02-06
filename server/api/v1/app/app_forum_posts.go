@@ -29,7 +29,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkForumPostsService.CreateHkForumPosts(hkForumPosts); err != nil {
+	if err := appForumPostsService.CreateHkForumPosts(hkForumPosts); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -53,7 +53,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkForumPostsService.DeleteHkForumPosts(hkForumPosts); err != nil {
+	//if err := appForumPostsService.DeleteHkForumPosts(hkForumPosts); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -77,7 +77,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumPostsByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkForumPostsService.DeleteHkForumPostsByIds(IDS); err != nil {
+	if err := appForumPostsService.DeleteHkForumPostsByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -101,7 +101,7 @@ func (forumPostsApi *ForumPostsApi) UpdateForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkForumPostsService.UpdateHkForumPosts(hkForumPosts); err != nil {
+	if err := appForumPostsService.UpdateHkForumPosts(hkForumPosts); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
@@ -125,7 +125,7 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForumPosts, err := hkForumPostsService.GetHkForumPosts(idSearch.ID); err != nil {
+	if rehkForumPosts, err := appForumPostsService.GetHkForumPosts(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -149,7 +149,7 @@ func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkForumPostsService.GetHkForumPostsInfoList(pageInfo); err != nil {
+	if list, total, err := appForumPostsService.GetHkForumPostsInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -178,7 +178,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumComment(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkForumCommentService.CreateHkForumComment(hkForumComment); err != nil {
+	if err := appForumCommentService.CreateHkForumComment(hkForumComment); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -202,7 +202,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumComment(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkForumCommentService.DeleteHkForumComment(hkForumComment); err != nil {
+	//if err := appForumCommentService.DeleteHkForumComment(hkForumComment); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -226,7 +226,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumCommentByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkForumCommentService.DeleteHkForumCommentByIds(IDS); err != nil {
+	if err := appForumCommentService.DeleteHkForumCommentByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -250,7 +250,7 @@ func (forumPostsApi *ForumPostsApi) FindForumComment(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForumComment, err := hkForumCommentService.GetHkForumComment(idSearch.ID); err != nil {
+	if rehkForumComment, err := appForumCommentService.GetHkForumComment(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -274,7 +274,7 @@ func (forumPostsApi *ForumPostsApi) GetForumCommentList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkForumCommentService.GetHkForumCommentInfoList(pageInfo); err != nil {
+	if list, total, err := appForumCommentService.GetHkForumCommentInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -303,7 +303,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumThumbsUp(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkForumThumbsUpService.CreateHkForumThumbsUp(hkForumThumbsUp); err != nil {
+	if err := appForumThumbsUpService.CreateHkForumThumbsUp(hkForumThumbsUp); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -327,7 +327,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumThumbsUp(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkForumThumbsUpService.DeleteHkForumThumbsUp(hkForumThumbsUp); err != nil {
+	//if err := appForumThumbsUpService.DeleteHkForumThumbsUp(hkForumThumbsUp); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -351,7 +351,7 @@ func (forumPostsApi *ForumPostsApi) CreateCommentThumbsUp(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkCommentThumbsUpService.CreateHkCommentThumbsUp(hkCommentThumbsUp); err != nil {
+	if err := appCommentThumbsUpService.CreateHkCommentThumbsUp(hkCommentThumbsUp); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -375,7 +375,7 @@ func (forumPostsApi *ForumPostsApi) DeleteCommentThumbsUp(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkCommentThumbsUpService.DeleteHkCommentThumbsUp(hkCommentThumbsUp); err != nil {
+	//if err := appCommentThumbsUpService.DeleteHkCommentThumbsUp(hkCommentThumbsUp); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {

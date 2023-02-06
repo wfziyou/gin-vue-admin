@@ -13,8 +13,6 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -25,8 +23,6 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       miniProgramId:
         description: 类型(0小程序、1第三方链接)
@@ -42,12 +38,8 @@ definitions:
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       type:
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -73,8 +65,6 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -82,8 +72,6 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       showName:
         description: 名称别名
@@ -93,10 +81,6 @@ definitions:
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -162,8 +146,6 @@ definitions:
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -232,8 +214,6 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -244,8 +224,6 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       logo:
         description: 圈子Logo
@@ -306,14 +284,9 @@ definitions:
       supportCategory:
         description: 支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;
         type: string
-      tenantId:
-        description: 租户ID
-        type: string
       type:
         description: 类型：0官方圈子、1用户圈子、2小区
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -326,12 +299,16 @@ definitions:
   community.HkCircleAddRequest:
     properties:
       checkStatus:
+        description: 审核状态：0 未处理 1 通过，2驳回
         type: integer
       checkTime:
+        description: 审核时间
         type: string
       checkUser:
+        description: 审核人
         type: integer
       circleId:
+        description: 圈子_编号
         type: integer
       createDept:
         type: integer
@@ -344,11 +321,10 @@ definitions:
         description: 主键ID
         type: integer
       reason:
+        description: 申请理由
         type: string
       status:
         type: integer
-      tenantId:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -365,17 +341,19 @@ definitions:
         description: 创建时间
         type: string
       des:
+        description: 描述
         type: string
       id:
         description: 主键ID
         type: integer
       name:
+        description: 名称
         type: string
-      parentId:
-        type: integer
       property:
+        description: 属性：0公开 ，1受限
         type: integer
       sort:
+        description: 排序
         type: integer
       status:
         type: integer
@@ -388,6 +366,7 @@ definitions:
   community.HkCircleRelation:
     properties:
       circleId:
+        description: 圈子_编号
         type: integer
       createDept:
         type: integer
@@ -400,13 +379,13 @@ definitions:
         description: 主键ID
         type: integer
       otherCircleId:
+        description: 关系圈子_编号（ 关系类型0：父节点编号； 关系类型1：关注圈子编号）
         type: integer
       relationType:
+        description: 关系类型：0父子节点 1关注
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -426,8 +405,6 @@ definitions:
         type: integer
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -438,8 +415,6 @@ definitions:
         type: string
       id:
         description: 主键ID
-        type: integer
-      isDeleted:
         type: integer
       logo:
         description: 圈子Logo
@@ -455,13 +430,9 @@ definitions:
         type: string
       status:
         type: integer
-      tenantId:
-        type: string
       type:
         description: 类型：0官方圈子 ，1用户圈子
         type: integer
-      updateTime:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -471,6 +442,7 @@ definitions:
   community.HkCircleUser:
     properties:
       circleId:
+        description: 圈子_编号
         type: integer
       createDept:
         type: integer
@@ -483,6 +455,7 @@ definitions:
         description: 主键ID
         type: integer
       sort:
+        description: 用户的圈子排序
         type: integer
       status:
         type: integer
@@ -492,11 +465,13 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 用户ID
         type: integer
     type: object
   community.HkCommentThumbsUp:
     properties:
       commentId:
+        description: 评论编号
         type: integer
       createDept:
         type: integer
@@ -510,9 +485,8 @@ definitions:
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       time:
+        description: 点赞时间
         type: string
       updateUser:
         type: integer
@@ -520,11 +494,13 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 用户id
         type: integer
     type: object
   community.HkForbiddenSpeak:
     properties:
       circleId:
+        description: 圈子_编号
         type: integer
       createDept:
         type: integer
@@ -534,19 +510,21 @@ definitions:
         description: 创建时间
         type: string
       curStatus:
+        description: 当前状态：0 未解锁、1已解锁
         type: integer
       durationId:
+        description: 禁言时长_编号
         type: integer
       id:
         description: 主键ID
         type: integer
       reasonId:
+        description: 禁言原因_编号
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       unlockUserId:
+        description: 解锁用户_编号
         type: integer
       updateUser:
         type: integer
@@ -554,11 +532,13 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 用户编号
         type: integer
     type: object
   community.HkForbiddenSpeakDuration:
     properties:
       count:
+        description: 时长
         type: integer
       createDept:
         type: integer
@@ -571,10 +551,12 @@ definitions:
         description: 主键ID
         type: integer
       sort:
+        description: 排序
         type: integer
       status:
         type: integer
       type:
+        description: 时间类型：0 小时、1天
         type: integer
       updateUser:
         type: integer
@@ -595,8 +577,10 @@ definitions:
         description: 主键ID
         type: integer
       reason:
+        description: 禁言理由
         type: string
       sort:
+        description: 排序
         type: integer
       status:
         type: integer
@@ -609,14 +593,19 @@ definitions:
   community.HkForumComment:
     properties:
       checkStatus:
+        description: 审核状态(0未审批 1通过 2拒绝)
         type: integer
       checkTime:
+        description: 审核时间
         type: string
       checkUser:
+        description: 审核人
         type: integer
       commentContent:
+        description: 评论内容
         type: string
       commentTime:
+        description: 评论时间
         type: string
       createDept:
         type: integer
@@ -629,54 +618,71 @@ definitions:
         description: 主键ID
         type: integer
       likeTimes:
+        description: 点赞数
         type: integer
       parentId:
+        description: 父评论编号
         type: integer
       postsId:
+        description: 帖子编号
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       updateUser:
         type: integer
       updatedAt:
         description: 更新时间
         type: string
       userId:
+        description: 评论者
         type: integer
     type: object
   community.HkForumPosts:
     properties:
       anonymity:
+        description: 匿名发布(0否 1是)
         type: integer
       attachment:
+        description: 附件
         type: string
       category:
+        description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
         type: integer
       checkStatus:
+        description: 审核状态(0草稿 1未审批 2通过 3拒绝)
         type: integer
       checkTime:
+        description: 审核时间
         type: string
       checkUser:
+        description: 审核人
         type: integer
       circleId:
+        description: 圈子_编号
         type: integer
       collectNum:
+        description: 收藏次数
         type: integer
       commentId:
+        description: 问答最佳答案ID
         type: integer
       commentNum:
+        description: 评论次数
         type: integer
       content:
+        description: 内容
         type: string
       contentHtml:
+        description: html内容
         type: string
       contentMarkdown:
+        description: markdown内容
         type: string
       contentType:
+        description: 内容类型:0 markdown,1 html
         type: integer
       coverImage:
+        description: 封面
         type: string
       createDept:
         type: integer
@@ -686,51 +692,69 @@ definitions:
         description: 创建时间
         type: string
       groupId:
+        description: 帖子分类编号
         type: integer
       id:
         description: 主键ID
         type: integer
       likeNum:
+        description: 点赞次数
         type: integer
       marrow:
+        description: 精华(0否 1是)
         type: integer
       pay:
+        description: 付费：0 否，1是
         type: integer
       payAttachment:
+        description: 附件付费：0 否，1是
         type: integer
       payContent:
+        description: 内容付费：0 否，1是
         type: integer
       payContentLook:
+        description: 内容付费可查看百分比例
         type: integer
       payCurrency:
+        description: 付费货币：0 人民、1积分、2代币
         type: integer
       payNum:
+        description: 付费金额
         type: integer
       powerComment:
+        description: 评论权限(0关闭 1开启)
         type: integer
       powerCommentAnonymity:
+        description: 匿名评论(0关闭 1开启)
         type: integer
       readNum:
+        description: 阅读次数
         type: integer
       seoIntroduce:
+        description: 简介(SEO简介)
         type: string
       seoKey:
+        description: SEO关键词
         type: string
       shareNum:
+        description: 分享次数
         type: integer
       source:
+        description: 来源
         type: string
       status:
         type: integer
       tag:
-        type: string
-      tenantId:
+        description: 标签
         type: string
       time:
+        description: 发布时间
         type: string
       title:
+        description: 标题
         type: string
       top:
+        description: 置顶(0否 1是)
         type: integer
       updateUser:
         type: integer
@@ -738,13 +762,19 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 发布者编号
         type: integer
       video:
+        description: 视频地址
         type: string
     type: object
   community.HkForumPostsGroup:
     properties:
+      checkStatus:
+        description: 审核状态(0未审批 1通过 2拒绝)
+        type: integer
       circleId:
+        description: 圈子_编号
         type: integer
       createDept:
         type: integer
@@ -757,10 +787,13 @@ definitions:
         description: 主键ID
         type: integer
       name:
+        description: 名称
         type: string
       parentId:
+        description: 父节点编号
         type: integer
       sort:
+        description: 排序
         type: integer
       status:
         type: integer
@@ -780,11 +813,13 @@ definitions:
         description: 创建时间
         type: string
       groupId:
+        description: 分组id
         type: integer
       id:
         description: 主键ID
         type: integer
       name:
+        description: 名称
         type: string
       status:
         type: integer
@@ -807,6 +842,7 @@ definitions:
         description: 主键ID
         type: integer
       name:
+        description: 名称
         type: string
       status:
         type: integer
@@ -829,12 +865,12 @@ definitions:
         description: 主键ID
         type: integer
       postsId:
+        description: 帖子编号
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       time:
+        description: 点赞时间
         type: string
       updateUser:
         type: integer
@@ -842,15 +878,19 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 用户id
         type: integer
     type: object
   community.HkForumTopic:
     properties:
       attentionNum:
+        description: 关注数
         type: integer
       circleId:
+        description: 圈子_编号
         type: integer
       coverImage:
+        description: 封面
         type: string
       createDept:
         type: integer
@@ -860,23 +900,27 @@ definitions:
         description: 创建时间
         type: string
       discussNum:
+        description: 讨论数
         type: integer
       hot:
+        description: 是否热门：0 否 1 是
         type: integer
       id:
         description: 主键ID
         type: integer
       name:
+        description: 名称
         type: string
       reviewStatus:
+        description: 审核状态：0 未处理 1 通过，2驳回
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       topicGroupId:
+        description: 分组id
         type: integer
       type:
+        description: 话题类型：0 全局，1圈子
         type: integer
       updateUser:
         type: integer
@@ -897,8 +941,10 @@ definitions:
         description: 主键ID
         type: integer
       name:
+        description: 名称
         type: string
       sort:
+        description: 排序
         type: integer
       status:
         type: integer
@@ -911,10 +957,13 @@ definitions:
   community.HkReport:
     properties:
       circleId:
+        description: 圈子_编号
         type: integer
       content:
+        description: 举报内容
         type: string
       contentAttachment:
+        description: 内容附件
         type: string
       createDept:
         type: integer
@@ -924,37 +973,48 @@ definitions:
         description: 创建时间
         type: string
       curStatus:
+        description: 处理状态：0 未处理、1已处理
         type: integer
       durationId:
+        description: 禁言时长_编号
         type: integer
       handleScore:
+        description: 积分处理:0不扣分、1扣分
         type: integer
       handleType:
+        description: 处理方式:0无效处理（不予处理）、账号禁言
         type: integer
       handleUserId:
+        description: 操作用户_编号
         type: integer
       id:
         description: 主键ID
         type: integer
       reasonId:
+        description: 举报原因_编号
         type: integer
       reportType:
+        description: 举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题
         type: integer
       reportUserId:
+        description: 被举报用户编号
         type: integer
       scoreBuy:
+        description: 购物积分
         type: integer
       scoreCommunity:
+        description: 社区积分
         type: integer
       scoreDownload:
+        description: 下载值
         type: integer
       scoreExperience:
+        description: 经验
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       unlock:
+        description: 是否解除：0 否、是
         type: integer
       updateUser:
         type: integer
@@ -962,6 +1022,7 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 举报用户编号
         type: integer
     type: object
   community.HkReportReason:
@@ -977,8 +1038,10 @@ definitions:
         description: 主键ID
         type: integer
       reason:
+        description: 举报理由
         type: string
       sort:
+        description: 排序
         type: integer
       status:
         type: integer
@@ -999,9 +1062,7 @@ definitions:
         type: array
       authority:
         $ref: '#/definitions/system.SysAuthority'
-        description: |-
-          Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:AuthorityId;references:RoleId;comment:用户角色"`
-          Authorities []system.SysAuthority `json:"authorities" gorm:"many2many:hk_user_authority;"`
+        description: 用户角色
       birthday:
         description: 生日
         type: string
@@ -1041,8 +1102,6 @@ definitions:
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -1050,18 +1109,21 @@ definitions:
         type: string
       userExtend:
         $ref: '#/definitions/community.HkUserExtend'
+        description: 用户扩展
       userType:
+        description: 用户平台
         type: integer
       uuid:
+        description: 用户编号
         type: string
     type: object
   community.HkUserCircleApply:
     properties:
       applyId:
-        description: ApplyId
+        description: 应用_编号
         type: integer
       circleId:
-        description: CircleId
+        description: 圈子_编号
         type: integer
       createDept:
         type: integer
@@ -1074,7 +1136,7 @@ definitions:
         description: 主键ID
         type: integer
       sort:
-        description: Sort
+        description: 排序
         type: integer
       status:
         type: integer
@@ -1090,6 +1152,7 @@ definitions:
   community.HkUserExtend:
     properties:
       blog:
+        description: 博客
         type: string
       createDept:
         type: integer
@@ -1099,32 +1162,38 @@ definitions:
         description: 创建时间
         type: string
       github:
+        description: github
         type: string
       id:
         description: 主键ID
         type: integer
       numCircle:
+        description: 圈子数
         type: integer
       numFan:
+        description: 粉丝数
         type: integer
       numFocus:
+        description: 关注数
         type: integer
       qq:
+        description: qq
         type: string
       status:
         type: integer
-      tenantId:
-        type: string
       updateUser:
         type: integer
       updatedAt:
         description: 更新时间
         type: string
       userId:
+        description: 用户ID
         type: integer
       weibo:
+        description: 微博
         type: string
       weixin:
+        description: 微信
         type: string
     type: object
   config.AliyunOSS:
@@ -1894,6 +1963,9 @@ definitions:
       actualResultAttachment:
         description: 实际结果附件
         type: string
+      checkStatus:
+        description: 状态：0 未处理 1 处理中 2 拒绝 3 完成
+        type: integer
       content:
         description: 操作步骤
         type: string
@@ -1902,8 +1974,6 @@ definitions:
         type: string
       createDept:
         type: integer
-      createTime:
-        type: string
       createUser:
         type: integer
       createdAt:
@@ -1915,19 +1985,13 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      isDeleted:
-        type: integer
       otherInfo:
         description: 其他信息
         type: string
       status:
         type: integer
-      tenantId:
-        type: string
       title:
         description: 标题
-        type: string
-      updateTime:
         type: string
       updateUser:
         type: integer
@@ -1935,11 +1999,13 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 用户编号
         type: integer
     type: object
   general.HkMiniProgram:
     properties:
       companyName:
+        description: 公司名称
         type: string
       createDept:
         type: integer
@@ -1949,22 +2015,25 @@ definitions:
         description: 创建时间
         type: string
       curPacketId:
+        description: 当前包id
         type: string
       curVersion:
+        description: 当前版本
         type: string
       hidden:
+        description: 隐藏(0否 1是)
         type: integer
       icon:
+        description: 图标
         type: string
       id:
         description: 主键ID
         type: integer
       name:
+        description: 名称
         type: string
       status:
         type: integer
-      tenantId:
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -1984,26 +2053,29 @@ definitions:
         description: 主键ID
         type: integer
       miniProgramId:
+        description: 小程序id
         type: integer
       name:
+        description: 包名
         type: string
       packetAddress:
+        description: 访问地址
         type: string
       status:
         type: integer
-      tenantId:
-        type: string
       updateUser:
         type: integer
       updatedAt:
         description: 更新时间
         type: string
       version:
+        description: 版本
         type: string
     type: object
   general.HkProtocol:
     properties:
       content:
+        description: 协议内容
         type: string
       createDept:
         type: integer
@@ -2013,15 +2085,19 @@ definitions:
         description: 创建时间
         type: string
       des:
+        description: 协议说明
         type: string
       id:
         description: 主键ID
         type: integer
       module:
+        description: 所属模块/插件
         type: string
       name:
+        description: 协议名称
         type: string
       pos:
+        description: 显示位置
         type: string
       status:
         type: integer
@@ -2044,12 +2120,12 @@ definitions:
         description: 主键ID
         type: integer
       postsId:
+        description: 帖子编号
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       time:
+        description: 浏览时间
         type: string
       updateUser:
         type: integer
@@ -2057,6 +2133,7 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 用户编号
         type: integer
     type: object
   general.HkUserCollect:
@@ -2072,12 +2149,12 @@ definitions:
         description: 主键ID
         type: integer
       postsId:
+        description: 帖子编号
         type: integer
       status:
         type: integer
-      tenantId:
-        type: string
       time:
+        description: 收藏时间
         type: string
       updateUser:
         type: integer
@@ -2085,6 +2162,7 @@ definitions:
         description: 更新时间
         type: string
       userId:
+        description: 用户编号
         type: integer
     type: object
   github.com_flipped-aurora_gin-vue-admin_server_model_app_request.Register:
@@ -4933,19 +5011,24 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 审核状态(0未审批 1通过 2拒绝)
+        in: query
         name: checkStatus
         type: integer
-      - in: query
+      - description: 审核时间
+        in: query
         name: checkTime
         type: string
-      - in: query
+      - description: 审核人
+        in: query
         name: checkUser
         type: integer
-      - in: query
+      - description: 评论内容
+        in: query
         name: commentContent
         type: string
-      - in: query
+      - description: 评论时间
+        in: query
         name: commentTime
         type: string
       - in: query
@@ -4970,7 +5053,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 点赞数
+        in: query
         name: likeTimes
         type: integer
       - description: 页码
@@ -4981,10 +5065,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 父评论编号
+        in: query
         name: parentId
         type: integer
-      - in: query
+      - description: 帖子编号
+        in: query
         name: postsId
         type: integer
       - description: 创建时间（开始）
@@ -4995,16 +5081,14 @@ paths:
         name: status
         type: integer
       - in: query
-        name: tenantId
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 评论者
+        in: query
         name: userId
         type: integer
       produces:
@@ -5033,49 +5117,64 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 匿名发布(0否 1是)
+        in: query
         name: anonymity
         type: integer
-      - in: query
+      - description: 附件
+        in: query
         name: attachment
         type: string
-      - in: query
+      - description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+        in: query
         name: category
         type: integer
-      - in: query
+      - description: 审核状态(0草稿 1未审批 2通过 3拒绝)
+        in: query
         name: checkStatus
         type: integer
-      - in: query
+      - description: 审核时间
+        in: query
         name: checkTime
         type: string
-      - in: query
+      - description: 审核人
+        in: query
         name: checkUser
         type: integer
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
+      - description: 收藏次数
+        in: query
         name: collectNum
         type: integer
-      - in: query
+      - description: 问答最佳答案ID
+        in: query
         name: commentId
         type: integer
-      - in: query
+      - description: 评论次数
+        in: query
         name: commentNum
         type: integer
-      - in: query
+      - description: 内容
+        in: query
         name: content
         type: string
-      - in: query
+      - description: html内容
+        in: query
         name: contentHtml
         type: string
-      - in: query
+      - description: markdown内容
+        in: query
         name: contentMarkdown
         type: string
-      - in: query
+      - description: 内容类型:0 markdown,1 html
+        in: query
         name: contentType
         type: integer
-      - in: query
+      - description: 封面
+        in: query
         name: coverImage
         type: string
       - in: query
@@ -5092,7 +5191,8 @@ paths:
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 帖子分类编号
+        in: query
         name: groupId
         type: integer
       - description: 主键ID
@@ -5103,10 +5203,12 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 点赞次数
+        in: query
         name: likeNum
         type: integer
-      - in: query
+      - description: 精华(0否 1是)
+        in: query
         name: marrow
         type: integer
       - description: 页码
@@ -5117,43 +5219,56 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 付费：0 否，1是
+        in: query
         name: pay
         type: integer
-      - in: query
+      - description: 附件付费：0 否，1是
+        in: query
         name: payAttachment
         type: integer
-      - in: query
+      - description: 内容付费：0 否，1是
+        in: query
         name: payContent
         type: integer
-      - in: query
+      - description: 内容付费可查看百分比例
+        in: query
         name: payContentLook
         type: integer
-      - in: query
+      - description: 付费货币：0 人民、1积分、2代币
+        in: query
         name: payCurrency
         type: integer
-      - in: query
+      - description: 付费金额
+        in: query
         name: payNum
         type: integer
-      - in: query
+      - description: 评论权限(0关闭 1开启)
+        in: query
         name: powerComment
         type: integer
-      - in: query
+      - description: 匿名评论(0关闭 1开启)
+        in: query
         name: powerCommentAnonymity
         type: integer
-      - in: query
+      - description: 阅读次数
+        in: query
         name: readNum
         type: integer
-      - in: query
+      - description: 简介(SEO简介)
+        in: query
         name: seoIntroduce
         type: string
-      - in: query
+      - description: SEO关键词
+        in: query
         name: seoKey
         type: string
-      - in: query
+      - description: 分享次数
+        in: query
         name: shareNum
         type: integer
-      - in: query
+      - description: 来源
+        in: query
         name: source
         type: string
       - description: 创建时间（开始）
@@ -5163,19 +5278,20 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
+      - description: 标签
+        in: query
         name: tag
         type: string
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 发布时间
+        in: query
         name: time
         type: string
-      - in: query
+      - description: 标题
+        in: query
         name: title
         type: string
-      - in: query
+      - description: 置顶(0否 1是)
+        in: query
         name: top
         type: integer
       - in: query
@@ -5185,10 +5301,12 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 发布者编号
+        in: query
         name: userId
         type: integer
-      - in: query
+      - description: 视频地址
+        in: query
         name: video
         type: string
       produces:
@@ -5498,13 +5616,16 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
+      - description: 举报内容
+        in: query
         name: content
         type: string
-      - in: query
+      - description: 内容附件
+        in: query
         name: contentAttachment
         type: string
       - in: query
@@ -5517,23 +5638,28 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 处理状态：0 未处理、1已处理
+        in: query
         name: curStatus
         type: integer
-      - in: query
+      - description: 禁言时长_编号
+        in: query
         name: durationId
         type: integer
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 积分处理:0不扣分、1扣分
+        in: query
         name: handleScore
         type: integer
-      - in: query
+      - description: 处理方式:0无效处理（不予处理）、账号禁言
+        in: query
         name: handleType
         type: integer
-      - in: query
+      - description: 操作用户_编号
+        in: query
         name: handleUserId
         type: integer
       - description: 主键ID
@@ -5552,25 +5678,32 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 举报原因_编号
+        in: query
         name: reasonId
         type: integer
-      - in: query
+      - description: 举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题
+        in: query
         name: reportType
         type: integer
-      - in: query
+      - description: 被举报用户编号
+        in: query
         name: reportUserId
         type: integer
-      - in: query
+      - description: 购物积分
+        in: query
         name: scoreBuy
         type: integer
-      - in: query
+      - description: 社区积分
+        in: query
         name: scoreCommunity
         type: integer
-      - in: query
+      - description: 下载值
+        in: query
         name: scoreDownload
         type: integer
-      - in: query
+      - description: 经验
+        in: query
         name: scoreExperience
         type: integer
       - description: 创建时间（开始）
@@ -5580,10 +5713,8 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 是否解除：0 否、是
+        in: query
         name: unlock
         type: integer
       - in: query
@@ -5593,7 +5724,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 举报用户编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -5652,10 +5784,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 举报理由
+        in: query
         name: reason
         type: string
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -5925,13 +6059,16 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 关注数
+        in: query
         name: attentionNum
         type: integer
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
+      - description: 封面
+        in: query
         name: coverImage
         type: string
       - in: query
@@ -5944,14 +6081,16 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 讨论数
+        in: query
         name: discussNum
         type: integer
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 是否热门：0 否 1 是
+        in: query
         name: hot
         type: integer
       - description: 主键ID
@@ -5962,7 +6101,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -5973,7 +6113,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 审核状态：0 未处理 1 通过，2驳回
+        in: query
         name: reviewStatus
         type: integer
       - description: 创建时间（开始）
@@ -5983,13 +6124,12 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 分组id
+        in: query
         name: topicGroupId
         type: integer
-      - in: query
+      - description: 话题类型：0 全局，1圈子
+        in: query
         name: type
         type: integer
       - in: query
@@ -6422,7 +6562,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 帖子编号
+        in: query
         name: postsId
         type: integer
       - in: query
@@ -6431,10 +6572,8 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 浏览时间
+        in: query
         name: time
         type: string
       - in: query
@@ -6444,7 +6583,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -7800,9 +7940,6 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
@@ -7820,9 +7957,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -7860,14 +7994,8 @@ paths:
         name: status
         type: integer
       - in: query
-        name: tenantId
-        type: string
-      - in: query
         name: type
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -8017,6 +8145,10 @@ paths:
         in: query
         name: actualResultAttachment
         type: string
+      - description: 状态：0 未处理 1 处理中 2 拒绝 3 完成
+        in: query
+        name: checkStatus
+        type: integer
       - description: 操作步骤
         in: query
         name: content
@@ -8028,9 +8160,6 @@ paths:
       - in: query
         name: createDept
         type: integer
-      - in: query
-        name: createTime
-        type: string
       - in: query
         name: createUser
         type: integer
@@ -8048,9 +8177,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -8074,15 +8200,9 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
       - description: 标题
         in: query
         name: title
-        type: string
-      - in: query
-        name: updateTime
         type: string
       - in: query
         name: updateUser
@@ -8091,7 +8211,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -8236,9 +8357,6 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
@@ -8256,9 +8374,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -8355,17 +8470,10 @@ paths:
         in: query
         name: supportCategory
         type: string
-      - description: 租户ID
-        in: query
-        name: tenantId
-        type: string
       - description: 类型：0官方圈子、1用户圈子、2小区
         in: query
         name: type
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -8507,16 +8615,20 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 审核状态：0 未处理 1 通过，2驳回
+        in: query
         name: checkStatus
         type: integer
-      - in: query
+      - description: 审核时间
+        in: query
         name: checkTime
         type: string
-      - in: query
+      - description: 审核人
+        in: query
         name: checkUser
         type: integer
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -8549,7 +8661,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 申请理由
+        in: query
         name: reason
         type: string
       - description: 创建时间（开始）
@@ -8559,9 +8672,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -8719,9 +8829,6 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
@@ -8735,9 +8842,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -8766,12 +8870,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -9113,7 +9211,8 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 描述
+        in: query
         name: des
         type: string
       - description: 创建时间（结束）
@@ -9128,7 +9227,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -9139,13 +9239,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
-        name: parentId
-        type: integer
-      - in: query
+      - description: 属性：0公开 ，1受限
+        in: query
         name: property
         type: integer
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -9292,7 +9391,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -9317,7 +9417,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 关系圈子_编号（ 关系类型0：父节点编号； 关系类型1：关注圈子编号）
+        in: query
         name: otherCircleId
         type: integer
       - description: 页码
@@ -9328,7 +9429,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 关系类型：0父子节点 1关注
+        in: query
         name: relationType
         type: integer
       - description: 创建时间（开始）
@@ -9338,9 +9440,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -9494,9 +9593,6 @@ paths:
         name: createDept
         type: integer
       - in: query
-        name: createTime
-        type: string
-      - in: query
         name: createUser
         type: integer
       - description: 创建时间
@@ -9514,9 +9610,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDeleted
         type: integer
       - description: 关键字
         in: query
@@ -9553,16 +9646,10 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
       - description: 类型：0官方圈子 ，1用户圈子
         in: query
         name: type
         type: integer
-      - in: query
-        name: updateTime
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -9700,7 +9787,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -9733,7 +9821,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 用户的圈子排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -9750,7 +9839,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户ID
+        in: query
         name: userId
         type: integer
       produces:
@@ -9883,7 +9973,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 评论编号
+        in: query
         name: commentId
         type: integer
       - in: query
@@ -9923,10 +10014,8 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 点赞时间
+        in: query
         name: time
         type: string
       - in: query
@@ -9936,7 +10025,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户id
+        in: query
         name: userId
         type: integer
       produces:
@@ -10069,7 +10159,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -10082,10 +10173,12 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 当前状态：0 未解锁、1已解锁
+        in: query
         name: curStatus
         type: integer
-      - in: query
+      - description: 禁言时长_编号
+        in: query
         name: durationId
         type: integer
       - description: 创建时间（结束）
@@ -10108,7 +10201,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 禁言原因_编号
+        in: query
         name: reasonId
         type: integer
       - description: 创建时间（开始）
@@ -10118,10 +10212,8 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 解锁用户_编号
+        in: query
         name: unlockUserId
         type: integer
       - in: query
@@ -10131,7 +10223,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -10264,7 +10357,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 时长
+        in: query
         name: count
         type: integer
       - in: query
@@ -10297,7 +10391,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -10307,7 +10402,8 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
+      - description: 时间类型：0 小时、1天
+        in: query
         name: type
         type: integer
       - in: query
@@ -10477,10 +10573,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 禁言理由
+        in: query
         name: reason
         type: string
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -10627,19 +10725,24 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 审核状态(0未审批 1通过 2拒绝)
+        in: query
         name: checkStatus
         type: integer
-      - in: query
+      - description: 审核时间
+        in: query
         name: checkTime
         type: string
-      - in: query
+      - description: 审核人
+        in: query
         name: checkUser
         type: integer
-      - in: query
+      - description: 评论内容
+        in: query
         name: commentContent
         type: string
-      - in: query
+      - description: 评论时间
+        in: query
         name: commentTime
         type: string
       - in: query
@@ -10664,7 +10767,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 点赞数
+        in: query
         name: likeTimes
         type: integer
       - description: 页码
@@ -10675,10 +10779,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 父评论编号
+        in: query
         name: parentId
         type: integer
-      - in: query
+      - description: 帖子编号
+        in: query
         name: postsId
         type: integer
       - description: 创建时间（开始）
@@ -10689,16 +10795,14 @@ paths:
         name: status
         type: integer
       - in: query
-        name: tenantId
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 评论者
+        in: query
         name: userId
         type: integer
       produces:
@@ -10831,49 +10935,64 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 匿名发布(0否 1是)
+        in: query
         name: anonymity
         type: integer
-      - in: query
+      - description: 附件
+        in: query
         name: attachment
         type: string
-      - in: query
+      - description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+        in: query
         name: category
         type: integer
-      - in: query
+      - description: 审核状态(0草稿 1未审批 2通过 3拒绝)
+        in: query
         name: checkStatus
         type: integer
-      - in: query
+      - description: 审核时间
+        in: query
         name: checkTime
         type: string
-      - in: query
+      - description: 审核人
+        in: query
         name: checkUser
         type: integer
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
+      - description: 收藏次数
+        in: query
         name: collectNum
         type: integer
-      - in: query
+      - description: 问答最佳答案ID
+        in: query
         name: commentId
         type: integer
-      - in: query
+      - description: 评论次数
+        in: query
         name: commentNum
         type: integer
-      - in: query
+      - description: 内容
+        in: query
         name: content
         type: string
-      - in: query
+      - description: html内容
+        in: query
         name: contentHtml
         type: string
-      - in: query
+      - description: markdown内容
+        in: query
         name: contentMarkdown
         type: string
-      - in: query
+      - description: 内容类型:0 markdown,1 html
+        in: query
         name: contentType
         type: integer
-      - in: query
+      - description: 封面
+        in: query
         name: coverImage
         type: string
       - in: query
@@ -10890,7 +11009,8 @@ paths:
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 帖子分类编号
+        in: query
         name: groupId
         type: integer
       - description: 主键ID
@@ -10901,10 +11021,12 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 点赞次数
+        in: query
         name: likeNum
         type: integer
-      - in: query
+      - description: 精华(0否 1是)
+        in: query
         name: marrow
         type: integer
       - description: 页码
@@ -10915,43 +11037,56 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 付费：0 否，1是
+        in: query
         name: pay
         type: integer
-      - in: query
+      - description: 附件付费：0 否，1是
+        in: query
         name: payAttachment
         type: integer
-      - in: query
+      - description: 内容付费：0 否，1是
+        in: query
         name: payContent
         type: integer
-      - in: query
+      - description: 内容付费可查看百分比例
+        in: query
         name: payContentLook
         type: integer
-      - in: query
+      - description: 付费货币：0 人民、1积分、2代币
+        in: query
         name: payCurrency
         type: integer
-      - in: query
+      - description: 付费金额
+        in: query
         name: payNum
         type: integer
-      - in: query
+      - description: 评论权限(0关闭 1开启)
+        in: query
         name: powerComment
         type: integer
-      - in: query
+      - description: 匿名评论(0关闭 1开启)
+        in: query
         name: powerCommentAnonymity
         type: integer
-      - in: query
+      - description: 阅读次数
+        in: query
         name: readNum
         type: integer
-      - in: query
+      - description: 简介(SEO简介)
+        in: query
         name: seoIntroduce
         type: string
-      - in: query
+      - description: SEO关键词
+        in: query
         name: seoKey
         type: string
-      - in: query
+      - description: 分享次数
+        in: query
         name: shareNum
         type: integer
-      - in: query
+      - description: 来源
+        in: query
         name: source
         type: string
       - description: 创建时间（开始）
@@ -10961,19 +11096,20 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
+      - description: 标签
+        in: query
         name: tag
         type: string
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 发布时间
+        in: query
         name: time
         type: string
-      - in: query
+      - description: 标题
+        in: query
         name: title
         type: string
-      - in: query
+      - description: 置顶(0否 1是)
+        in: query
         name: top
         type: integer
       - in: query
@@ -10983,10 +11119,12 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 发布者编号
+        in: query
         name: userId
         type: integer
-      - in: query
+      - description: 视频地址
+        in: query
         name: video
         type: string
       produces:
@@ -11119,7 +11257,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 审核状态(0未审批 1通过 2拒绝)
+        in: query
+        name: checkStatus
+        type: integer
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
       - in: query
@@ -11144,7 +11287,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -11155,10 +11299,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 父节点编号
+        in: query
         name: parentId
         type: integer
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -11319,7 +11465,8 @@ paths:
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 分组id
+        in: query
         name: groupId
         type: integer
       - description: 主键ID
@@ -11330,7 +11477,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -11507,7 +11655,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -11692,7 +11841,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 帖子编号
+        in: query
         name: postsId
         type: integer
       - description: 创建时间（开始）
@@ -11702,10 +11852,8 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 点赞时间
+        in: query
         name: time
         type: string
       - in: query
@@ -11715,7 +11863,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户id
+        in: query
         name: userId
         type: integer
       produces:
@@ -11848,13 +11997,16 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 关注数
+        in: query
         name: attentionNum
         type: integer
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
+      - description: 封面
+        in: query
         name: coverImage
         type: string
       - in: query
@@ -11867,14 +12019,16 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 讨论数
+        in: query
         name: discussNum
         type: integer
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 是否热门：0 否 1 是
+        in: query
         name: hot
         type: integer
       - description: 主键ID
@@ -11885,7 +12039,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -11896,7 +12051,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 审核状态：0 未处理 1 通过，2驳回
+        in: query
         name: reviewStatus
         type: integer
       - description: 创建时间（开始）
@@ -11906,13 +12062,12 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 分组id
+        in: query
         name: topicGroupId
         type: integer
-      - in: query
+      - description: 话题类型：0 全局，1圈子
+        in: query
         name: type
         type: integer
       - in: query
@@ -12074,7 +12229,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -12085,7 +12241,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -12232,7 +12389,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 公司名称
+        in: query
         name: companyName
         type: string
       - in: query
@@ -12245,19 +12403,23 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 当前包id
+        in: query
         name: curPacketId
         type: string
-      - in: query
+      - description: 当前版本
+        in: query
         name: curVersion
         type: string
       - in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 隐藏(0否 1是)
+        in: query
         name: hidden
         type: integer
-      - in: query
+      - description: 图标
+        in: query
         name: icon
         type: string
       - description: 主键ID
@@ -12268,7 +12430,8 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -12285,9 +12448,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -12446,13 +12606,16 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 小程序id
+        in: query
         name: miniProgramId
         type: integer
-      - in: query
+      - description: 包名
+        in: query
         name: name
         type: string
-      - in: query
+      - description: 访问地址
+        in: query
         name: packetAddress
         type: string
       - description: 页码
@@ -12470,16 +12633,14 @@ paths:
         name: status
         type: integer
       - in: query
-        name: tenantId
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 版本
+        in: query
         name: version
         type: string
       produces:
@@ -12664,9 +12825,6 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
       - in: query
         name: updateUser
         type: integer
@@ -12990,7 +13148,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 协议内容
+        in: query
         name: content
         type: string
       - in: query
@@ -13003,7 +13162,8 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 协议说明
+        in: query
         name: des
         type: string
       - in: query
@@ -13017,10 +13177,12 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 所属模块/插件
+        in: query
         name: module
         type: string
-      - in: query
+      - description: 协议名称
+        in: query
         name: name
         type: string
       - description: 页码
@@ -13031,7 +13193,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 显示位置
+        in: query
         name: pos
         type: string
       - in: query
@@ -13177,13 +13340,16 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
+      - description: 举报内容
+        in: query
         name: content
         type: string
-      - in: query
+      - description: 内容附件
+        in: query
         name: contentAttachment
         type: string
       - in: query
@@ -13196,23 +13362,28 @@ paths:
         in: query
         name: createdAt
         type: string
-      - in: query
+      - description: 处理状态：0 未处理、1已处理
+        in: query
         name: curStatus
         type: integer
-      - in: query
+      - description: 禁言时长_编号
+        in: query
         name: durationId
         type: integer
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 积分处理:0不扣分、1扣分
+        in: query
         name: handleScore
         type: integer
-      - in: query
+      - description: 处理方式:0无效处理（不予处理）、账号禁言
+        in: query
         name: handleType
         type: integer
-      - in: query
+      - description: 操作用户_编号
+        in: query
         name: handleUserId
         type: integer
       - description: 主键ID
@@ -13231,25 +13402,32 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 举报原因_编号
+        in: query
         name: reasonId
         type: integer
-      - in: query
+      - description: 举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题
+        in: query
         name: reportType
         type: integer
-      - in: query
+      - description: 被举报用户编号
+        in: query
         name: reportUserId
         type: integer
-      - in: query
+      - description: 购物积分
+        in: query
         name: scoreBuy
         type: integer
-      - in: query
+      - description: 社区积分
+        in: query
         name: scoreCommunity
         type: integer
-      - in: query
+      - description: 下载值
+        in: query
         name: scoreDownload
         type: integer
-      - in: query
+      - description: 经验
+        in: query
         name: scoreExperience
         type: integer
       - description: 创建时间（开始）
@@ -13259,10 +13437,8 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 是否解除：0 否、是
+        in: query
         name: unlock
         type: integer
       - in: query
@@ -13272,7 +13448,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 举报用户编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -13435,10 +13612,12 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 举报理由
+        in: query
         name: reason
         type: string
-      - in: query
+      - description: 排序
+        in: query
         name: sort
         type: integer
       - description: 创建时间（开始）
@@ -13663,19 +13842,18 @@ paths:
         name: status
         type: integer
       - in: query
-        name: tenantId
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户平台
+        in: query
         name: userType
         type: integer
-      - in: query
+      - description: 用户编号
+        in: query
         name: uuid
         type: string
       produces:
@@ -13837,7 +14015,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 帖子编号
+        in: query
         name: postsId
         type: integer
       - in: query
@@ -13846,10 +14025,8 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 浏览时间
+        in: query
         name: time
         type: string
       - in: query
@@ -13859,7 +14036,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -13992,11 +14170,11 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: ApplyId
+      - description: 应用_编号
         in: query
         name: applyId
         type: integer
-      - description: CircleId
+      - description: 圈子_编号
         in: query
         name: circleId
         type: integer
@@ -14029,7 +14207,7 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: Sort
+      - description: 排序
         in: query
         name: sort
         type: integer
@@ -14209,7 +14387,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 帖子编号
+        in: query
         name: postsId
         type: integer
       - in: query
@@ -14218,10 +14397,8 @@ paths:
       - in: query
         name: status
         type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
+      - description: 收藏时间
+        in: query
         name: time
         type: string
       - in: query
@@ -14231,7 +14408,8 @@ paths:
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户编号
+        in: query
         name: userId
         type: integer
       produces:
@@ -14364,7 +14542,8 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 博客
+        in: query
         name: blog
         type: string
       - in: query
@@ -14380,7 +14559,8 @@ paths:
       - in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: github
+        in: query
         name: github
         type: string
       - description: 主键ID
@@ -14391,13 +14571,16 @@ paths:
         in: query
         name: keyword
         type: string
-      - in: query
+      - description: 圈子数
+        in: query
         name: numCircle
         type: integer
-      - in: query
+      - description: 粉丝数
+        in: query
         name: numFan
         type: integer
-      - in: query
+      - description: 关注数
+        in: query
         name: numFocus
         type: integer
       - description: 页码
@@ -14408,7 +14591,8 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: qq
+        in: query
         name: qq
         type: string
       - in: query
@@ -14418,22 +14602,22 @@ paths:
         name: status
         type: integer
       - in: query
-        name: tenantId
-        type: string
-      - in: query
         name: updateUser
         type: integer
       - description: 更新时间
         in: query
         name: updatedAt
         type: string
-      - in: query
+      - description: 用户ID
+        in: query
         name: userId
         type: integer
-      - in: query
+      - description: 微博
+        in: query
         name: weibo
         type: string
-      - in: query
+      - description: 微信
+        in: query
         name: weixin
         type: string
       produces:

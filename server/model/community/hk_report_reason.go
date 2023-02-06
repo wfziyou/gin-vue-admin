@@ -8,9 +8,8 @@ import (
 // HkReportReason 结构体
 type HkReportReason struct {
 	global.GVA_MODEL
-
-	Reason string `json:"reason" form:"reason" gorm:"column:reason;comment:举报理由;size:20;"`
-	Sort   *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`
+	Reason string `json:"reason" form:"reason" gorm:"column:reason;comment:举报理由;size:20;"` //举报理由
+	Sort   *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`         //排序
 }
 
 // TableName HkReportReason 表名

@@ -28,7 +28,7 @@ func (userCollectApi *UserCollectApi) CreateUserCollect(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkUserCollectService.CreateHkUserCollect(hkUserCollect); err != nil {
+	//if err := appUserCollectService.CreateHkUserCollect(hkUserCollect); err != nil {
 	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
 	//	response.FailWithMessage("创建失败", c)
 	//} else {
@@ -52,7 +52,7 @@ func (userCollectApi *UserCollectApi) DeleteUserCollect(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkUserCollectService.DeleteHkUserCollect(hkUserCollect); err != nil {
+	//if err := appUserCollectService.DeleteHkUserCollect(hkUserCollect); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -76,7 +76,7 @@ func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkUserCollectService.DeleteHkUserCollectByIds(IDS); err != nil {
+	if err := appUserCollectService.DeleteHkUserCollectByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -100,7 +100,7 @@ func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := hkUserCollectService.GetHkUserCollectInfoList(pageInfo); err != nil {
+	//if list, total, err := appUserCollectService.GetHkUserCollectInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {

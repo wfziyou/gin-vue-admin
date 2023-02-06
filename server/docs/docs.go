@@ -2902,26 +2902,31 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "审核状态(0未审批 1通过 2拒绝)",
                         "name": "checkStatus",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "审核时间",
                         "name": "checkTime",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "审核人",
                         "name": "checkUser",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "评论内容",
                         "name": "commentContent",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "评论时间",
                         "name": "commentTime",
                         "in": "query"
                     },
@@ -2961,6 +2966,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "点赞数",
                         "name": "likeTimes",
                         "in": "query"
                     },
@@ -2978,11 +2984,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "父评论编号",
                         "name": "parentId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "帖子编号",
                         "name": "postsId",
                         "in": "query"
                     },
@@ -2998,11 +3006,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -3015,6 +3018,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "评论者",
                         "name": "userId",
                         "in": "query"
                     }
@@ -3067,76 +3071,91 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "匿名发布(0否 1是)",
                         "name": "anonymity",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "附件",
                         "name": "attachment",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
                         "name": "category",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "审核状态(0草稿 1未审批 2通过 3拒绝)",
                         "name": "checkStatus",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "审核时间",
                         "name": "checkTime",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "审核人",
                         "name": "checkUser",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "收藏次数",
                         "name": "collectNum",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "问答最佳答案ID",
                         "name": "commentId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "评论次数",
                         "name": "commentNum",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "内容",
                         "name": "content",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "html内容",
                         "name": "contentHtml",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "markdown内容",
                         "name": "contentMarkdown",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "内容类型:0 markdown,1 html",
                         "name": "contentType",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "封面",
                         "name": "coverImage",
                         "in": "query"
                     },
@@ -3164,6 +3183,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "帖子分类编号",
                         "name": "groupId",
                         "in": "query"
                     },
@@ -3181,11 +3201,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "点赞次数",
                         "name": "likeNum",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "精华(0否 1是)",
                         "name": "marrow",
                         "in": "query"
                     },
@@ -3203,66 +3225,79 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "付费：0 否，1是",
                         "name": "pay",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "附件付费：0 否，1是",
                         "name": "payAttachment",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "内容付费：0 否，1是",
                         "name": "payContent",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "内容付费可查看百分比例",
                         "name": "payContentLook",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "付费货币：0 人民、1积分、2代币",
                         "name": "payCurrency",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "付费金额",
                         "name": "payNum",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "评论权限(0关闭 1开启)",
                         "name": "powerComment",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "匿名评论(0关闭 1开启)",
                         "name": "powerCommentAnonymity",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "阅读次数",
                         "name": "readNum",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "简介(SEO简介)",
                         "name": "seoIntroduce",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "SEO关键词",
                         "name": "seoKey",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "分享次数",
                         "name": "shareNum",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "来源",
                         "name": "source",
                         "in": "query"
                     },
@@ -3279,26 +3314,25 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "标签",
                         "name": "tag",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
+                        "description": "发布时间",
                         "name": "time",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "标题",
                         "name": "title",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "置顶(0否 1是)",
                         "name": "top",
                         "in": "query"
                     },
@@ -3315,11 +3349,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "发布者编号",
                         "name": "userId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "视频地址",
                         "name": "video",
                         "in": "query"
                     }
@@ -3852,16 +3888,19 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "举报内容",
                         "name": "content",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "内容附件",
                         "name": "contentAttachment",
                         "in": "query"
                     },
@@ -3883,11 +3922,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "处理状态：0 未处理、1已处理",
                         "name": "curStatus",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "禁言时长_编号",
                         "name": "durationId",
                         "in": "query"
                     },
@@ -3899,16 +3940,19 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "积分处理:0不扣分、1扣分",
                         "name": "handleScore",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "处理方式:0无效处理（不予处理）、账号禁言",
                         "name": "handleType",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "操作用户_编号",
                         "name": "handleUserId",
                         "in": "query"
                     },
@@ -3938,36 +3982,43 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "举报原因_编号",
                         "name": "reasonId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题",
                         "name": "reportType",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "被举报用户编号",
                         "name": "reportUserId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "购物积分",
                         "name": "scoreBuy",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "社区积分",
                         "name": "scoreCommunity",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "下载值",
                         "name": "scoreDownload",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "经验",
                         "name": "scoreExperience",
                         "in": "query"
                     },
@@ -3983,12 +4034,8 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
+                        "description": "是否解除：0 否、是",
                         "name": "unlock",
                         "in": "query"
                     },
@@ -4005,6 +4052,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "举报用户编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -4103,11 +4151,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "举报理由",
                         "name": "reason",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -4565,16 +4615,19 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "关注数",
                         "name": "attentionNum",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "封面",
                         "name": "coverImage",
                         "in": "query"
                     },
@@ -4596,6 +4649,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "讨论数",
                         "name": "discussNum",
                         "in": "query"
                     },
@@ -4607,6 +4661,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "是否热门：0 否 1 是",
                         "name": "hot",
                         "in": "query"
                     },
@@ -4624,6 +4679,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -4641,6 +4697,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "审核状态：0 未处理 1 通过，2驳回",
                         "name": "reviewStatus",
                         "in": "query"
                     },
@@ -4656,17 +4713,14 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
+                        "description": "分组id",
                         "name": "topicGroupId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "话题类型：0 全局，1圈子",
                         "name": "type",
                         "in": "query"
                     },
@@ -5390,6 +5444,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "帖子编号",
                         "name": "postsId",
                         "in": "query"
                     },
@@ -5405,11 +5460,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
+                        "description": "浏览时间",
                         "name": "time",
                         "in": "query"
                     },
@@ -5426,6 +5477,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -7786,11 +7838,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -7817,11 +7864,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -7878,18 +7920,8 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -8138,6 +8170,12 @@ var doc = `{
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "description": "状态：0 未处理 1 处理中 2 拒绝 3 完成",
+                        "name": "checkStatus",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "操作步骤",
                         "name": "content",
@@ -8152,11 +8190,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "createTime",
                         "in": "query"
                     },
                     {
@@ -8185,11 +8218,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -8228,18 +8256,8 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "标题",
                         "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -8255,6 +8273,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -8492,11 +8511,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -8523,11 +8537,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -8674,20 +8683,9 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "租户ID",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "类型：0官方圈子、1用户圈子、2小区",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -8925,21 +8923,25 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "审核状态：0 未处理 1 通过，2驳回",
                         "name": "checkStatus",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "审核时间",
                         "name": "checkTime",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "审核人",
                         "name": "checkUser",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -8991,6 +8993,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "申请理由",
                         "name": "reason",
                         "in": "query"
                     },
@@ -9003,11 +9006,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
                         "in": "query"
                     },
                     {
@@ -9267,11 +9265,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -9292,11 +9285,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -9338,16 +9326,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -9909,6 +9887,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "描述",
                         "name": "des",
                         "in": "query"
                     },
@@ -9932,6 +9911,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -9949,16 +9929,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "name": "parentId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
+                        "description": "属性：0公开 ，1受限",
                         "name": "property",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -10202,6 +10179,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -10241,6 +10219,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "关系圈子_编号（ 关系类型0：父节点编号； 关系类型1：关注圈子编号）",
                         "name": "otherCircleId",
                         "in": "query"
                     },
@@ -10258,6 +10237,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "关系类型：0父子节点 1关注",
                         "name": "relationType",
                         "in": "query"
                     },
@@ -10270,11 +10250,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
                         "in": "query"
                     },
                     {
@@ -10528,11 +10503,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "createTime",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "createUser",
                         "in": "query"
@@ -10559,11 +10529,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDeleted",
                         "in": "query"
                     },
                     {
@@ -10620,19 +10585,9 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "类型：0官方圈子 ，1用户圈子",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "updateTime",
                         "in": "query"
                     },
                     {
@@ -10864,6 +10819,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -10915,6 +10871,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户的圈子排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -10942,6 +10899,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户ID",
                         "name": "userId",
                         "in": "query"
                     }
@@ -11163,6 +11121,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "评论编号",
                         "name": "commentId",
                         "in": "query"
                     },
@@ -11225,11 +11184,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
+                        "description": "点赞时间",
                         "name": "time",
                         "in": "query"
                     },
@@ -11246,6 +11201,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户id",
                         "name": "userId",
                         "in": "query"
                     }
@@ -11467,6 +11423,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -11488,11 +11445,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "当前状态：0 未解锁、1已解锁",
                         "name": "curStatus",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "禁言时长_编号",
                         "name": "durationId",
                         "in": "query"
                     },
@@ -11528,6 +11487,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "禁言原因_编号",
                         "name": "reasonId",
                         "in": "query"
                     },
@@ -11543,12 +11503,8 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
+                        "description": "解锁用户_编号",
                         "name": "unlockUserId",
                         "in": "query"
                     },
@@ -11565,6 +11521,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -11786,6 +11743,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "时长",
                         "name": "count",
                         "in": "query"
                     },
@@ -11837,6 +11795,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -11853,6 +11812,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "时间类型：0 小时、1天",
                         "name": "type",
                         "in": "query"
                     },
@@ -12131,11 +12091,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "禁言理由",
                         "name": "reason",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -12379,26 +12341,31 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "审核状态(0未审批 1通过 2拒绝)",
                         "name": "checkStatus",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "审核时间",
                         "name": "checkTime",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "审核人",
                         "name": "checkUser",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "评论内容",
                         "name": "commentContent",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "评论时间",
                         "name": "commentTime",
                         "in": "query"
                     },
@@ -12438,6 +12405,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "点赞数",
                         "name": "likeTimes",
                         "in": "query"
                     },
@@ -12455,11 +12423,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "父评论编号",
                         "name": "parentId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "帖子编号",
                         "name": "postsId",
                         "in": "query"
                     },
@@ -12475,11 +12445,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -12492,6 +12457,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "评论者",
                         "name": "userId",
                         "in": "query"
                     }
@@ -12713,76 +12679,91 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "匿名发布(0否 1是)",
                         "name": "anonymity",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "附件",
                         "name": "attachment",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
                         "name": "category",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "审核状态(0草稿 1未审批 2通过 3拒绝)",
                         "name": "checkStatus",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "审核时间",
                         "name": "checkTime",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "审核人",
                         "name": "checkUser",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "收藏次数",
                         "name": "collectNum",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "问答最佳答案ID",
                         "name": "commentId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "评论次数",
                         "name": "commentNum",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "内容",
                         "name": "content",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "html内容",
                         "name": "contentHtml",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "markdown内容",
                         "name": "contentMarkdown",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "内容类型:0 markdown,1 html",
                         "name": "contentType",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "封面",
                         "name": "coverImage",
                         "in": "query"
                     },
@@ -12810,6 +12791,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "帖子分类编号",
                         "name": "groupId",
                         "in": "query"
                     },
@@ -12827,11 +12809,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "点赞次数",
                         "name": "likeNum",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "精华(0否 1是)",
                         "name": "marrow",
                         "in": "query"
                     },
@@ -12849,66 +12833,79 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "付费：0 否，1是",
                         "name": "pay",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "附件付费：0 否，1是",
                         "name": "payAttachment",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "内容付费：0 否，1是",
                         "name": "payContent",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "内容付费可查看百分比例",
                         "name": "payContentLook",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "付费货币：0 人民、1积分、2代币",
                         "name": "payCurrency",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "付费金额",
                         "name": "payNum",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "评论权限(0关闭 1开启)",
                         "name": "powerComment",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "匿名评论(0关闭 1开启)",
                         "name": "powerCommentAnonymity",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "阅读次数",
                         "name": "readNum",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "简介(SEO简介)",
                         "name": "seoIntroduce",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "SEO关键词",
                         "name": "seoKey",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "分享次数",
                         "name": "shareNum",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "来源",
                         "name": "source",
                         "in": "query"
                     },
@@ -12925,26 +12922,25 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "标签",
                         "name": "tag",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
+                        "description": "发布时间",
                         "name": "time",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "标题",
                         "name": "title",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "置顶(0否 1是)",
                         "name": "top",
                         "in": "query"
                     },
@@ -12961,11 +12957,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "发布者编号",
                         "name": "userId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "视频地址",
                         "name": "video",
                         "in": "query"
                     }
@@ -13187,6 +13185,13 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "审核状态(0未审批 1通过 2拒绝)",
+                        "name": "checkStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -13226,6 +13231,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -13243,11 +13249,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "父节点编号",
                         "name": "parentId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -13513,6 +13521,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "分组id",
                         "name": "groupId",
                         "in": "query"
                     },
@@ -13530,6 +13539,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -13819,6 +13829,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -14120,6 +14131,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "帖子编号",
                         "name": "postsId",
                         "in": "query"
                     },
@@ -14136,11 +14148,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
+                        "description": "点赞时间",
                         "name": "time",
                         "in": "query"
                     },
@@ -14157,6 +14165,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户id",
                         "name": "userId",
                         "in": "query"
                     }
@@ -14378,16 +14387,19 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "关注数",
                         "name": "attentionNum",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "封面",
                         "name": "coverImage",
                         "in": "query"
                     },
@@ -14409,6 +14421,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "讨论数",
                         "name": "discussNum",
                         "in": "query"
                     },
@@ -14420,6 +14433,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "是否热门：0 否 1 是",
                         "name": "hot",
                         "in": "query"
                     },
@@ -14437,6 +14451,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -14454,6 +14469,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "审核状态：0 未处理 1 通过，2驳回",
                         "name": "reviewStatus",
                         "in": "query"
                     },
@@ -14469,17 +14485,14 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
+                        "description": "分组id",
                         "name": "topicGroupId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "话题类型：0 全局，1圈子",
                         "name": "type",
                         "in": "query"
                     },
@@ -14746,6 +14759,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -14763,6 +14777,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -15006,6 +15021,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "公司名称",
                         "name": "companyName",
                         "in": "query"
                     },
@@ -15027,11 +15043,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "当前包id",
                         "name": "curPacketId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "当前版本",
                         "name": "curVersion",
                         "in": "query"
                     },
@@ -15042,11 +15060,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "隐藏(0否 1是)",
                         "name": "hidden",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "图标",
                         "name": "icon",
                         "in": "query"
                     },
@@ -15064,6 +15084,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -15087,11 +15108,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
                         "in": "query"
                     },
                     {
@@ -15356,16 +15372,19 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "小程序id",
                         "name": "miniProgramId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "包名",
                         "name": "name",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "访问地址",
                         "name": "packetAddress",
                         "in": "query"
                     },
@@ -15392,11 +15411,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -15409,6 +15423,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "版本",
                         "name": "version",
                         "in": "query"
                     }
@@ -15708,11 +15723,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
                         "in": "query"
                     },
                     {
@@ -16248,6 +16258,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "协议内容",
                         "name": "content",
                         "in": "query"
                     },
@@ -16269,6 +16280,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "协议说明",
                         "name": "des",
                         "in": "query"
                     },
@@ -16291,11 +16303,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "所属模块/插件",
                         "name": "module",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "协议名称",
                         "name": "name",
                         "in": "query"
                     },
@@ -16313,6 +16327,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "显示位置",
                         "name": "pos",
                         "in": "query"
                     },
@@ -16555,16 +16570,19 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "举报内容",
                         "name": "content",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "内容附件",
                         "name": "contentAttachment",
                         "in": "query"
                     },
@@ -16586,11 +16604,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "处理状态：0 未处理、1已处理",
                         "name": "curStatus",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "禁言时长_编号",
                         "name": "durationId",
                         "in": "query"
                     },
@@ -16602,16 +16622,19 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "积分处理:0不扣分、1扣分",
                         "name": "handleScore",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "处理方式:0无效处理（不予处理）、账号禁言",
                         "name": "handleType",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "操作用户_编号",
                         "name": "handleUserId",
                         "in": "query"
                     },
@@ -16641,36 +16664,43 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "举报原因_编号",
                         "name": "reasonId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题",
                         "name": "reportType",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "被举报用户编号",
                         "name": "reportUserId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "购物积分",
                         "name": "scoreBuy",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "社区积分",
                         "name": "scoreCommunity",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "下载值",
                         "name": "scoreDownload",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "经验",
                         "name": "scoreExperience",
                         "in": "query"
                     },
@@ -16686,12 +16716,8 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
+                        "description": "是否解除：0 否、是",
                         "name": "unlock",
                         "in": "query"
                     },
@@ -16708,6 +16734,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "举报用户编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -16975,11 +17002,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "举报理由",
                         "name": "reason",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -17339,11 +17368,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "name": "updateUser",
                         "in": "query"
@@ -17356,11 +17380,13 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户平台",
                         "name": "userType",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "用户编号",
                         "name": "uuid",
                         "in": "query"
                     }
@@ -17627,6 +17653,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "帖子编号",
                         "name": "postsId",
                         "in": "query"
                     },
@@ -17642,11 +17669,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
+                        "description": "浏览时间",
                         "name": "time",
                         "in": "query"
                     },
@@ -17663,6 +17686,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -17884,13 +17908,13 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "ApplyId",
+                        "description": "应用_编号",
                         "name": "applyId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "CircleId",
+                        "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
                     },
@@ -17941,7 +17965,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Sort",
+                        "description": "排序",
                         "name": "sort",
                         "in": "query"
                     },
@@ -18235,6 +18259,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "帖子编号",
                         "name": "postsId",
                         "in": "query"
                     },
@@ -18250,11 +18275,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
+                        "description": "收藏时间",
                         "name": "time",
                         "in": "query"
                     },
@@ -18271,6 +18292,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户编号",
                         "name": "userId",
                         "in": "query"
                     }
@@ -18492,6 +18514,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "博客",
                         "name": "blog",
                         "in": "query"
                     },
@@ -18518,6 +18541,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "github",
                         "name": "github",
                         "in": "query"
                     },
@@ -18535,16 +18559,19 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "圈子数",
                         "name": "numCircle",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "粉丝数",
                         "name": "numFan",
                         "in": "query"
                     },
                     {
                         "type": "integer",
+                        "description": "关注数",
                         "name": "numFocus",
                         "in": "query"
                     },
@@ -18562,6 +18589,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "qq",
                         "name": "qq",
                         "in": "query"
                     },
@@ -18573,11 +18601,6 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
                         "in": "query"
                     },
                     {
@@ -18593,16 +18616,19 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "用户ID",
                         "name": "userId",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "微博",
                         "name": "weibo",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "微信",
                         "name": "weixin",
                         "in": "query"
                     }
@@ -21103,9 +21129,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -21119,9 +21142,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "miniProgramId": {
@@ -21143,14 +21163,8 @@ var doc = `{
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "type": {
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21187,9 +21201,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -21199,9 +21210,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "showName": {
@@ -21214,12 +21222,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21313,9 +21315,6 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21414,9 +21413,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -21430,9 +21426,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "logo": {
@@ -21514,16 +21507,9 @@ var doc = `{
                     "description": "支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;",
                     "type": "string"
                 },
-                "tenantId": {
-                    "description": "租户ID",
-                    "type": "string"
-                },
                 "type": {
                     "description": "类型：0官方圈子、1用户圈子、2小区",
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21542,15 +21528,19 @@ var doc = `{
             "type": "object",
             "properties": {
                 "checkStatus": {
+                    "description": "审核状态：0 未处理 1 通过，2驳回",
                     "type": "integer"
                 },
                 "checkTime": {
+                    "description": "审核时间",
                     "type": "string"
                 },
                 "checkUser": {
+                    "description": "审核人",
                     "type": "integer"
                 },
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -21568,13 +21558,11 @@ var doc = `{
                     "type": "integer"
                 },
                 "reason": {
+                    "description": "申请理由",
                     "type": "string"
                 },
                 "status": {
                     "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21599,6 +21587,7 @@ var doc = `{
                     "type": "string"
                 },
                 "des": {
+                    "description": "描述",
                     "type": "string"
                 },
                 "id": {
@@ -21606,15 +21595,15 @@ var doc = `{
                     "type": "integer"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
-                "parentId": {
-                    "type": "integer"
-                },
                 "property": {
+                    "description": "属性：0公开 ，1受限",
                     "type": "integer"
                 },
                 "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
@@ -21633,6 +21622,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -21650,16 +21640,15 @@ var doc = `{
                     "type": "integer"
                 },
                 "otherCircleId": {
+                    "description": "关系圈子_编号（ 关系类型0：父节点编号； 关系类型1：关注圈子编号）",
                     "type": "integer"
                 },
                 "relationType": {
+                    "description": "关系类型：0父子节点 1关注",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21688,9 +21677,6 @@ var doc = `{
                 "createDept": {
                     "type": "integer"
                 },
-                "createTime": {
-                    "type": "string"
-                },
                 "createUser": {
                     "type": "integer"
                 },
@@ -21704,9 +21690,6 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDeleted": {
                     "type": "integer"
                 },
                 "logo": {
@@ -21728,15 +21711,9 @@ var doc = `{
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "type": {
                     "description": "类型：0官方圈子 ，1用户圈子",
                     "type": "integer"
-                },
-                "updateTime": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21751,6 +21728,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -21768,6 +21746,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "sort": {
+                    "description": "用户的圈子排序",
                     "type": "integer"
                 },
                 "status": {
@@ -21781,6 +21760,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户ID",
                     "type": "integer"
                 }
             }
@@ -21789,6 +21769,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "commentId": {
+                    "description": "评论编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -21808,10 +21789,8 @@ var doc = `{
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "time": {
+                    "description": "点赞时间",
                     "type": "string"
                 },
                 "updateUser": {
@@ -21822,6 +21801,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户id",
                     "type": "integer"
                 }
             }
@@ -21830,6 +21810,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -21843,9 +21824,11 @@ var doc = `{
                     "type": "string"
                 },
                 "curStatus": {
+                    "description": "当前状态：0 未解锁、1已解锁",
                     "type": "integer"
                 },
                 "durationId": {
+                    "description": "禁言时长_编号",
                     "type": "integer"
                 },
                 "id": {
@@ -21853,15 +21836,14 @@ var doc = `{
                     "type": "integer"
                 },
                 "reasonId": {
+                    "description": "禁言原因_编号",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "unlockUserId": {
+                    "description": "解锁用户_编号",
                     "type": "integer"
                 },
                 "updateUser": {
@@ -21872,6 +21854,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户编号",
                     "type": "integer"
                 }
             }
@@ -21880,6 +21863,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "count": {
+                    "description": "时长",
                     "type": "integer"
                 },
                 "createDept": {
@@ -21897,12 +21881,14 @@ var doc = `{
                     "type": "integer"
                 },
                 "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
                 "type": {
+                    "description": "时间类型：0 小时、1天",
                     "type": "integer"
                 },
                 "updateUser": {
@@ -21932,9 +21918,11 @@ var doc = `{
                     "type": "integer"
                 },
                 "reason": {
+                    "description": "禁言理由",
                     "type": "string"
                 },
                 "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
@@ -21953,18 +21941,23 @@ var doc = `{
             "type": "object",
             "properties": {
                 "checkStatus": {
+                    "description": "审核状态(0未审批 1通过 2拒绝)",
                     "type": "integer"
                 },
                 "checkTime": {
+                    "description": "审核时间",
                     "type": "string"
                 },
                 "checkUser": {
+                    "description": "审核人",
                     "type": "integer"
                 },
                 "commentContent": {
+                    "description": "评论内容",
                     "type": "string"
                 },
                 "commentTime": {
+                    "description": "评论时间",
                     "type": "string"
                 },
                 "createDept": {
@@ -21982,19 +21975,19 @@ var doc = `{
                     "type": "integer"
                 },
                 "likeTimes": {
+                    "description": "点赞数",
                     "type": "integer"
                 },
                 "parentId": {
+                    "description": "父评论编号",
                     "type": "integer"
                 },
                 "postsId": {
+                    "description": "帖子编号",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22004,6 +21997,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "评论者",
                     "type": "integer"
                 }
             }
@@ -22012,48 +22006,63 @@ var doc = `{
             "type": "object",
             "properties": {
                 "anonymity": {
+                    "description": "匿名发布(0否 1是)",
                     "type": "integer"
                 },
                 "attachment": {
+                    "description": "附件",
                     "type": "string"
                 },
                 "category": {
+                    "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
                     "type": "integer"
                 },
                 "checkStatus": {
+                    "description": "审核状态(0草稿 1未审批 2通过 3拒绝)",
                     "type": "integer"
                 },
                 "checkTime": {
+                    "description": "审核时间",
                     "type": "string"
                 },
                 "checkUser": {
+                    "description": "审核人",
                     "type": "integer"
                 },
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "collectNum": {
+                    "description": "收藏次数",
                     "type": "integer"
                 },
                 "commentId": {
+                    "description": "问答最佳答案ID",
                     "type": "integer"
                 },
                 "commentNum": {
+                    "description": "评论次数",
                     "type": "integer"
                 },
                 "content": {
+                    "description": "内容",
                     "type": "string"
                 },
                 "contentHtml": {
+                    "description": "html内容",
                     "type": "string"
                 },
                 "contentMarkdown": {
+                    "description": "markdown内容",
                     "type": "string"
                 },
                 "contentType": {
+                    "description": "内容类型:0 markdown,1 html",
                     "type": "integer"
                 },
                 "coverImage": {
+                    "description": "封面",
                     "type": "string"
                 },
                 "createDept": {
@@ -22067,6 +22076,7 @@ var doc = `{
                     "type": "string"
                 },
                 "groupId": {
+                    "description": "帖子分类编号",
                     "type": "integer"
                 },
                 "id": {
@@ -22074,66 +22084,82 @@ var doc = `{
                     "type": "integer"
                 },
                 "likeNum": {
+                    "description": "点赞次数",
                     "type": "integer"
                 },
                 "marrow": {
+                    "description": "精华(0否 1是)",
                     "type": "integer"
                 },
                 "pay": {
+                    "description": "付费：0 否，1是",
                     "type": "integer"
                 },
                 "payAttachment": {
+                    "description": "附件付费：0 否，1是",
                     "type": "integer"
                 },
                 "payContent": {
+                    "description": "内容付费：0 否，1是",
                     "type": "integer"
                 },
                 "payContentLook": {
+                    "description": "内容付费可查看百分比例",
                     "type": "integer"
                 },
                 "payCurrency": {
+                    "description": "付费货币：0 人民、1积分、2代币",
                     "type": "integer"
                 },
                 "payNum": {
+                    "description": "付费金额",
                     "type": "integer"
                 },
                 "powerComment": {
+                    "description": "评论权限(0关闭 1开启)",
                     "type": "integer"
                 },
                 "powerCommentAnonymity": {
+                    "description": "匿名评论(0关闭 1开启)",
                     "type": "integer"
                 },
                 "readNum": {
+                    "description": "阅读次数",
                     "type": "integer"
                 },
                 "seoIntroduce": {
+                    "description": "简介(SEO简介)",
                     "type": "string"
                 },
                 "seoKey": {
+                    "description": "SEO关键词",
                     "type": "string"
                 },
                 "shareNum": {
+                    "description": "分享次数",
                     "type": "integer"
                 },
                 "source": {
+                    "description": "来源",
                     "type": "string"
                 },
                 "status": {
                     "type": "integer"
                 },
                 "tag": {
-                    "type": "string"
-                },
-                "tenantId": {
+                    "description": "标签",
                     "type": "string"
                 },
                 "time": {
+                    "description": "发布时间",
                     "type": "string"
                 },
                 "title": {
+                    "description": "标题",
                     "type": "string"
                 },
                 "top": {
+                    "description": "置顶(0否 1是)",
                     "type": "integer"
                 },
                 "updateUser": {
@@ -22144,9 +22170,11 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "发布者编号",
                     "type": "integer"
                 },
                 "video": {
+                    "description": "视频地址",
                     "type": "string"
                 }
             }
@@ -22154,7 +22182,12 @@ var doc = `{
         "community.HkForumPostsGroup": {
             "type": "object",
             "properties": {
+                "checkStatus": {
+                    "description": "审核状态(0未审批 1通过 2拒绝)",
+                    "type": "integer"
+                },
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -22172,12 +22205,15 @@ var doc = `{
                     "type": "integer"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
                 "parentId": {
+                    "description": "父节点编号",
                     "type": "integer"
                 },
                 "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
@@ -22206,6 +22242,7 @@ var doc = `{
                     "type": "string"
                 },
                 "groupId": {
+                    "description": "分组id",
                     "type": "integer"
                 },
                 "id": {
@@ -22213,6 +22250,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
                 "status": {
@@ -22245,6 +22283,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
                 "status": {
@@ -22277,15 +22316,14 @@ var doc = `{
                     "type": "integer"
                 },
                 "postsId": {
+                    "description": "帖子编号",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "time": {
+                    "description": "点赞时间",
                     "type": "string"
                 },
                 "updateUser": {
@@ -22296,6 +22334,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户id",
                     "type": "integer"
                 }
             }
@@ -22304,12 +22343,15 @@ var doc = `{
             "type": "object",
             "properties": {
                 "attentionNum": {
+                    "description": "关注数",
                     "type": "integer"
                 },
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "coverImage": {
+                    "description": "封面",
                     "type": "string"
                 },
                 "createDept": {
@@ -22323,9 +22365,11 @@ var doc = `{
                     "type": "string"
                 },
                 "discussNum": {
+                    "description": "讨论数",
                     "type": "integer"
                 },
                 "hot": {
+                    "description": "是否热门：0 否 1 是",
                     "type": "integer"
                 },
                 "id": {
@@ -22333,21 +22377,22 @@ var doc = `{
                     "type": "integer"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
                 "reviewStatus": {
+                    "description": "审核状态：0 未处理 1 通过，2驳回",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "topicGroupId": {
+                    "description": "分组id",
                     "type": "integer"
                 },
                 "type": {
+                    "description": "话题类型：0 全局，1圈子",
                     "type": "integer"
                 },
                 "updateUser": {
@@ -22377,9 +22422,11 @@ var doc = `{
                     "type": "integer"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
                 "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
@@ -22398,12 +22445,15 @@ var doc = `{
             "type": "object",
             "properties": {
                 "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "content": {
+                    "description": "举报内容",
                     "type": "string"
                 },
                 "contentAttachment": {
+                    "description": "内容附件",
                     "type": "string"
                 },
                 "createDept": {
@@ -22417,18 +22467,23 @@ var doc = `{
                     "type": "string"
                 },
                 "curStatus": {
+                    "description": "处理状态：0 未处理、1已处理",
                     "type": "integer"
                 },
                 "durationId": {
+                    "description": "禁言时长_编号",
                     "type": "integer"
                 },
                 "handleScore": {
+                    "description": "积分处理:0不扣分、1扣分",
                     "type": "integer"
                 },
                 "handleType": {
+                    "description": "处理方式:0无效处理（不予处理）、账号禁言",
                     "type": "integer"
                 },
                 "handleUserId": {
+                    "description": "操作用户_编号",
                     "type": "integer"
                 },
                 "id": {
@@ -22436,33 +22491,38 @@ var doc = `{
                     "type": "integer"
                 },
                 "reasonId": {
+                    "description": "举报原因_编号",
                     "type": "integer"
                 },
                 "reportType": {
+                    "description": "举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题",
                     "type": "integer"
                 },
                 "reportUserId": {
+                    "description": "被举报用户编号",
                     "type": "integer"
                 },
                 "scoreBuy": {
+                    "description": "购物积分",
                     "type": "integer"
                 },
                 "scoreCommunity": {
+                    "description": "社区积分",
                     "type": "integer"
                 },
                 "scoreDownload": {
+                    "description": "下载值",
                     "type": "integer"
                 },
                 "scoreExperience": {
+                    "description": "经验",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "unlock": {
+                    "description": "是否解除：0 否、是",
                     "type": "integer"
                 },
                 "updateUser": {
@@ -22473,6 +22533,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "举报用户编号",
                     "type": "integer"
                 }
             }
@@ -22495,9 +22556,11 @@ var doc = `{
                     "type": "integer"
                 },
                 "reason": {
+                    "description": "举报理由",
                     "type": "string"
                 },
                 "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
@@ -22526,7 +22589,7 @@ var doc = `{
                     }
                 },
                 "authority": {
-                    "description": "Authority   system.SysAuthority   ` + "`" + `json:\"authority\" gorm:\"foreignKey:AuthorityId;references:RoleId;comment:用户角色\"` + "`" + `\nAuthorities []system.SysAuthority ` + "`" + `json:\"authorities\" gorm:\"many2many:hk_user_authority;\"` + "`" + `",
+                    "description": "用户角色",
                     "$ref": "#/definitions/system.SysAuthority"
                 },
                 "birthday": {
@@ -22582,9 +22645,6 @@ var doc = `{
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "updateUser": {
                     "type": "integer"
                 },
@@ -22593,12 +22653,15 @@ var doc = `{
                     "type": "string"
                 },
                 "userExtend": {
+                    "description": "用户扩展",
                     "$ref": "#/definitions/community.HkUserExtend"
                 },
                 "userType": {
+                    "description": "用户平台",
                     "type": "integer"
                 },
                 "uuid": {
+                    "description": "用户编号",
                     "type": "string"
                 }
             }
@@ -22607,11 +22670,11 @@ var doc = `{
             "type": "object",
             "properties": {
                 "applyId": {
-                    "description": "ApplyId",
+                    "description": "应用_编号",
                     "type": "integer"
                 },
                 "circleId": {
-                    "description": "CircleId",
+                    "description": "圈子_编号",
                     "type": "integer"
                 },
                 "createDept": {
@@ -22629,7 +22692,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "sort": {
-                    "description": "Sort",
+                    "description": "排序",
                     "type": "integer"
                 },
                 "status": {
@@ -22652,6 +22715,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "blog": {
+                    "description": "博客",
                     "type": "string"
                 },
                 "createDept": {
@@ -22665,6 +22729,7 @@ var doc = `{
                     "type": "string"
                 },
                 "github": {
+                    "description": "github",
                     "type": "string"
                 },
                 "id": {
@@ -22672,22 +22737,23 @@ var doc = `{
                     "type": "integer"
                 },
                 "numCircle": {
+                    "description": "圈子数",
                     "type": "integer"
                 },
                 "numFan": {
+                    "description": "粉丝数",
                     "type": "integer"
                 },
                 "numFocus": {
+                    "description": "关注数",
                     "type": "integer"
                 },
                 "qq": {
+                    "description": "qq",
                     "type": "string"
                 },
                 "status": {
                     "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -22697,12 +22763,15 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户ID",
                     "type": "integer"
                 },
                 "weibo": {
+                    "description": "微博",
                     "type": "string"
                 },
                 "weixin": {
+                    "description": "微信",
                     "type": "string"
                 }
             }
@@ -23793,6 +23862,10 @@ var doc = `{
                     "description": "实际结果附件",
                     "type": "string"
                 },
+                "checkStatus": {
+                    "description": "状态：0 未处理 1 处理中 2 拒绝 3 完成",
+                    "type": "integer"
+                },
                 "content": {
                     "description": "操作步骤",
                     "type": "string"
@@ -23803,9 +23876,6 @@ var doc = `{
                 },
                 "createDept": {
                     "type": "integer"
-                },
-                "createTime": {
-                    "type": "string"
                 },
                 "createUser": {
                     "type": "integer"
@@ -23822,9 +23892,6 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "isDeleted": {
-                    "type": "integer"
-                },
                 "otherInfo": {
                     "description": "其他信息",
                     "type": "string"
@@ -23832,14 +23899,8 @@ var doc = `{
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "title": {
                     "description": "标题",
-                    "type": "string"
-                },
-                "updateTime": {
                     "type": "string"
                 },
                 "updateUser": {
@@ -23850,6 +23911,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户编号",
                     "type": "integer"
                 }
             }
@@ -23858,6 +23920,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "companyName": {
+                    "description": "公司名称",
                     "type": "string"
                 },
                 "createDept": {
@@ -23871,15 +23934,19 @@ var doc = `{
                     "type": "string"
                 },
                 "curPacketId": {
+                    "description": "当前包id",
                     "type": "string"
                 },
                 "curVersion": {
+                    "description": "当前版本",
                     "type": "string"
                 },
                 "hidden": {
+                    "description": "隐藏(0否 1是)",
                     "type": "integer"
                 },
                 "icon": {
+                    "description": "图标",
                     "type": "string"
                 },
                 "id": {
@@ -23887,13 +23954,11 @@ var doc = `{
                     "type": "integer"
                 },
                 "name": {
+                    "description": "名称",
                     "type": "string"
                 },
                 "status": {
                     "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -23922,19 +23987,19 @@ var doc = `{
                     "type": "integer"
                 },
                 "miniProgramId": {
+                    "description": "小程序id",
                     "type": "integer"
                 },
                 "name": {
+                    "description": "包名",
                     "type": "string"
                 },
                 "packetAddress": {
+                    "description": "访问地址",
                     "type": "string"
                 },
                 "status": {
                     "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -23944,6 +24009,7 @@ var doc = `{
                     "type": "string"
                 },
                 "version": {
+                    "description": "版本",
                     "type": "string"
                 }
             }
@@ -23952,6 +24018,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "content": {
+                    "description": "协议内容",
                     "type": "string"
                 },
                 "createDept": {
@@ -23965,6 +24032,7 @@ var doc = `{
                     "type": "string"
                 },
                 "des": {
+                    "description": "协议说明",
                     "type": "string"
                 },
                 "id": {
@@ -23972,12 +24040,15 @@ var doc = `{
                     "type": "integer"
                 },
                 "module": {
+                    "description": "所属模块/插件",
                     "type": "string"
                 },
                 "name": {
+                    "description": "协议名称",
                     "type": "string"
                 },
                 "pos": {
+                    "description": "显示位置",
                     "type": "string"
                 },
                 "status": {
@@ -24010,15 +24081,14 @@ var doc = `{
                     "type": "integer"
                 },
                 "postsId": {
+                    "description": "帖子编号",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "time": {
+                    "description": "浏览时间",
                     "type": "string"
                 },
                 "updateUser": {
@@ -24029,6 +24099,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户编号",
                     "type": "integer"
                 }
             }
@@ -24051,15 +24122,14 @@ var doc = `{
                     "type": "integer"
                 },
                 "postsId": {
+                    "description": "帖子编号",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
-                "tenantId": {
-                    "type": "string"
-                },
                 "time": {
+                    "description": "收藏时间",
                     "type": "string"
                 },
                 "updateUser": {
@@ -24070,6 +24140,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户编号",
                     "type": "integer"
                 }
             }

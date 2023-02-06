@@ -114,7 +114,7 @@ func (userApi *UserApi) Register(c *gin.Context) {
 	}
 
 	user := &community.HkUser{Account: r.Account, NickName: r.NickName, Password: r.Password}
-	userReturn, err := hkUserService.Register(*user)
+	userReturn, err := appUserService.Register(*user)
 	if err != nil {
 		global.GVA_LOG.Error("注册失败!", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
@@ -157,7 +157,7 @@ func (userApi *UserApi) LoginPwd(c *gin.Context) {
 
 	if !oc {
 		u := &community.HkUser{Account: l.Account, Password: l.Password}
-		user, err := hkUserService.Login(u)
+		user, err := appUserService.Login(u)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
 			// 验证码次数+1
@@ -176,7 +176,7 @@ func (userApi *UserApi) LoginPwd(c *gin.Context) {
 		return
 	} else if openCaptcha == 0 {
 		u := &community.HkUser{Account: l.Account, Password: l.Password}
-		user, err := hkUserService.Login(u)
+		user, err := appUserService.Login(u)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
 			response.FailWithMessage("用户名不存在或者密码错误", c)
@@ -299,7 +299,7 @@ func (userApi *UserApi) ResetPassword(c *gin.Context) {
 	}
 	uid := utils.GetUserID(c)
 	u := &community.HkUser{GVA_MODEL: global.GVA_MODEL{ID: uid}, Password: req.Password}
-	_, err = hkUserService.ChangePassword(u, req.Password)
+	_, err = appUserService.ChangePassword(u, req.Password)
 	if err != nil {
 		global.GVA_LOG.Error("修改失败!", zap.Error(err))
 		response.FailWithMessage("修改失败，原密码与当前账户不符", c)
@@ -350,7 +350,7 @@ func (userApi *UserApi) GetUserBaseInfo(c *gin.Context) {
 		return
 	}
 
-	if user, err := hkUserService.GetHkUser(idSearch.ID); err != nil {
+	if user, err := appUserService.GetHkUser(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -383,7 +383,7 @@ func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
 		return
 	}
 	user.ID = utils.GetUserID(c)
-	err = hkUserService.UpdateHkUser(community.HkUser{
+	err = appUserService.UpdateHkUser(community.HkUser{
 		GVA_MODEL: global.GVA_MODEL{
 			ID: user.ID,
 		},
@@ -417,7 +417,7 @@ func (userApi *UserApi) GetUserList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkUserService.AppGetHkUserInfoList(pageInfo); err != nil {
+	if list, total, err := appUserService.AppGetHkUserInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

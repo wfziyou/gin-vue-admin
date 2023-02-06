@@ -29,7 +29,7 @@ func (reportApi *ReportApi) CreateReport(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkReportService.CreateHkReport(hkReport); err != nil {
+	if err := appReportService.CreateHkReport(hkReport); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -53,7 +53,7 @@ func (reportApi *ReportApi) FindReport(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkReport, err := hkReportService.GetHkReport(idSearch.ID); err != nil {
+	if rehkReport, err := appReportService.GetHkReport(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -77,7 +77,7 @@ func (reportApi *ReportApi) GetReportList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkReportService.GetHkReportInfoList(pageInfo); err != nil {
+	if list, total, err := appReportService.GetHkReportInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -106,7 +106,7 @@ func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkReportReason, err := hkReportReasonService.GetHkReportReason(idSearch.ID); err != nil {
+	if rehkReportReason, err := appReportReasonService.GetHkReportReason(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -130,7 +130,7 @@ func (reportApi *ReportApi) GetReportReasonList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkReportReasonService.GetHkReportReasonInfoList(pageInfo); err != nil {
+	if list, total, err := appReportReasonService.GetHkReportReasonInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

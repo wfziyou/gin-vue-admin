@@ -32,7 +32,7 @@ func (circleApplyApi *CircleApplyApi) CreateUserCircleApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkUserCircleApplyService.CreateHkUserCircleApply(hkUserCircleApply); err != nil {
+	//if err := appUserCircleApplyService.CreateHkUserCircleApply(hkUserCircleApply); err != nil {
 	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
 	//	response.FailWithMessage("创建失败", c)
 	//} else {
@@ -57,7 +57,7 @@ func (circleApplyApi *CircleApplyApi) DeleteUserCircleApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkUserCircleApplyService.DeleteHkUserCircleApply(hkUserCircleApply); err != nil {
+	//if err := appUserCircleApplyService.DeleteHkUserCircleApply(hkUserCircleApply); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -81,7 +81,7 @@ func (circleApplyApi *CircleApplyApi) DeleteUserCircleApplyByIds(c *gin.Context)
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkUserCircleApplyService.DeleteHkUserCircleApplyByIds(IDS); err != nil {
+	if err := appUserCircleApplyService.DeleteHkUserCircleApplyByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -98,7 +98,7 @@ func (circleApplyApi *CircleApplyApi) DeleteUserCircleApplyByIds(c *gin.Context)
 // @Success 200 {object}  response.PageResult{List=[]community.HkUserCircleApply,msg=string} "返回community.HkUserCircleApply"
 // @Router /app/circleApply/getUserCircleApplyListALL [get]
 func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListALL(c *gin.Context) {
-	//if list, total, err := hkUserCircleApplyService.GetHkUserCircleApplyInfoListALL(pageInfo); err != nil {
+	//if list, total, err := appUserCircleApplyService.GetHkUserCircleApplyInfoListALL(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -129,7 +129,7 @@ func (circleApplyApi *CircleApplyApi) FindApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkApply, err := hkApplyService.GetHkApply(idSearch.ID); err != nil {
+	if rehkApply, err := appApplyService.GetHkApply(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -153,7 +153,7 @@ func (circleApplyApi *CircleApplyApi) GetApplyList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := hkApplyService.GetHkApplyInfoList(pageInfo); err != nil {
+	//if list, total, err := appApplyService.GetHkApplyInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -182,7 +182,7 @@ func (circleApplyApi *CircleApplyApi) GetApplyListAll(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := hkApplyService.GetHkApplyInfoList(pageInfo); err != nil {
+	//if list, total, err := appApplyService.GetHkApplyInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -211,7 +211,7 @@ func (circleApplyApi *CircleApplyApi) FindCircleApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkCircleApply, err := hkCircleApplyService.GetHkCircleApply(idSearch.ID); err != nil {
+	if rehkCircleApply, err := appCircleApplyService.GetHkCircleApply(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -235,7 +235,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := hkCircleApplyService.GetHkCircleApplyInfoList(pageInfo); err != nil {
+	//if list, total, err := appCircleApplyService.GetHkCircleApplyInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -264,7 +264,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyListAll(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := hkCircleApplyService.GetHkCircleApplyInfoListAll(pageInfo); err != nil {
+	//if list, total, err := appCircleApplyService.GetHkCircleApplyInfoListAll(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -291,7 +291,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := hkCircleApplyGroupService.GetHkCircleApplyGroupInfoList(pageInfo); err != nil {
+	//if list, total, err := appCircleApplyGroupService.GetHkCircleApplyGroupInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -320,7 +320,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupListAll(c *gin.Context)
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := hkCircleApplyGroupService.GetHkCircleApplyGroupInfoList(pageInfo); err != nil {
+	//if list, total, err := appCircleApplyGroupService.GetHkCircleApplyGroupInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {

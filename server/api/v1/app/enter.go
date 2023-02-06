@@ -18,33 +18,32 @@ type ApiGroup struct {
 }
 
 var (
-	hkUserService           = service.ServiceGroupApp.CommunityServiceGroup.HkUserService
-	hkCircleService         = service.ServiceGroupApp.CommunityServiceGroup.HkCircleService
-	hkCircleClassifyService = service.ServiceGroupApp.CommunityServiceGroup.HkCircleClassifyService
-	hkCircleRequestService  = service.ServiceGroupApp.CommunityServiceGroup.HkCircleRequestService
-	hkCircleUserService     = service.ServiceGroupApp.CommunityServiceGroup.HkCircleUserService
+	appUserService           = service.ServiceGroupApp.AppServiceGroup.Community.AppUserService
+	appCircleService         = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleService
+	appCircleClassifyService = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleClassifyService
+	appCircleRequestService  = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRequestService
+	appCircleUserService     = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleUserService
 
-	hkForumPostsService      = service.ServiceGroupApp.CommunityServiceGroup.HkForumPostsService
-	hkForumCommentService    = service.ServiceGroupApp.CommunityServiceGroup.HkForumCommentService
-	hkForumThumbsUpService   = service.ServiceGroupApp.CommunityServiceGroup.HkForumThumbsUpService
-	hkCommentThumbsUpService = service.ServiceGroupApp.CommunityServiceGroup.HkCommentThumbsUpService
+	appForumPostsService      = service.ServiceGroupApp.AppServiceGroup.Community.AppForumPostsService
+	appForumCommentService    = service.ServiceGroupApp.AppServiceGroup.Community.AppForumCommentService
+	appForumThumbsUpService   = service.ServiceGroupApp.AppServiceGroup.Community.AppForumThumbsUpService
+	appCommentThumbsUpService = service.ServiceGroupApp.AppServiceGroup.Community.AppCommentThumbsUpService
 
-	hkForumTopicGroupService = service.ServiceGroupApp.CommunityServiceGroup.HkForumTopicGroupService
-	hkForumTopicService      = service.ServiceGroupApp.CommunityServiceGroup.HkForumTopicService
+	appForumTopicGroupService = service.ServiceGroupApp.AppServiceGroup.Community.AppForumTopicGroupService
+	appForumTopicService      = service.ServiceGroupApp.AppServiceGroup.Community.AppForumTopicService
 
-	hkReportService       = service.ServiceGroupApp.CommunityServiceGroup.HkReportService
-	hkReportReasonService = service.ServiceGroupApp.CommunityServiceGroup.HkReportReasonService
+	appReportService          = service.ServiceGroupApp.AppServiceGroup.Community.AppReportService
+	appReportReasonService    = service.ServiceGroupApp.AppServiceGroup.Community.AppReportReasonService
+	appUserCircleApplyService = service.ServiceGroupApp.AppServiceGroup.Community.AppUserCircleApplyService
 
-	hkProtocolService  = service.ServiceGroupApp.GeneralServiceGroup.HkProtocolService
-	hkBugReportService = service.ServiceGroupApp.GeneralServiceGroup.HkBugReportService
+	appProtocolService            = service.ServiceGroupApp.AppServiceGroup.General.AppProtocolService
+	appBugReportService           = service.ServiceGroupApp.AppServiceGroup.General.AppBugReportService
+	appUserCollectService         = service.ServiceGroupApp.AppServiceGroup.General.AppUserCollectService
+	appUserBrowsingHistoryService = service.ServiceGroupApp.AppServiceGroup.General.AppUserBrowsingHistoryService
 
-	hkApplyService            = service.ServiceGroupApp.ApplyServiceGroup.HkApplyService
-	hkCircleApplyService      = service.ServiceGroupApp.ApplyServiceGroup.HkCircleApplyService
-	hkUserCircleApplyService  = service.ServiceGroupApp.CommunityServiceGroup.HkUserCircleApplyService
-	hkCircleApplyGroupService = service.ServiceGroupApp.ApplyServiceGroup.HkCircleApplyGroupService
-
-	hkUserCollectService         = service.ServiceGroupApp.GeneralServiceGroup.HkUserCollectService
-	hkUserBrowsingHistoryService = service.ServiceGroupApp.GeneralServiceGroup.HkUserBrowsingHistoryService
+	appApplyService            = service.ServiceGroupApp.AppServiceGroup.Apply.AppApplyService
+	appCircleApplyService      = service.ServiceGroupApp.AppServiceGroup.Apply.AppCircleApplyService
+	appCircleApplyGroupService = service.ServiceGroupApp.AppServiceGroup.Apply.AppCircleApplyGroupService
 
 	jwtService      = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	cacheSmsService = service.ServiceGroupApp.SystemServiceGroup.CacheSmsService

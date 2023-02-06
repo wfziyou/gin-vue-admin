@@ -30,7 +30,7 @@ func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForumTopicGroup, err := hkForumTopicGroupService.GetHkForumTopicGroup(idSearch.ID); err != nil {
+	if rehkForumTopicGroup, err := appForumTopicGroupService.GetHkForumTopicGroup(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -54,7 +54,7 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := hkForumTopicGroupService.GetHkForumTopicGroupInfoList(pageInfo); err != nil {
+	//if list, total, err := appForumTopicGroupService.GetHkForumTopicGroupInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -83,7 +83,7 @@ func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := hkForumTopicGroupService.GetHkForumTopicGroupInfoList(pageInfo); err != nil {
+	//if list, total, err := appForumTopicGroupService.GetHkForumTopicGroupInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -112,7 +112,7 @@ func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkForumTopicService.CreateHkForumTopic(hkForumTopic); err != nil {
+	//if err := appForumTopicService.CreateHkForumTopic(hkForumTopic); err != nil {
 	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
 	//	response.FailWithMessage("创建失败", c)
 	//} else {
@@ -136,7 +136,7 @@ func (topicApi *TopicApi) DeleteForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkForumTopicService.DeleteHkForumTopic(hkForumTopic); err != nil {
+	//if err := appForumTopicService.DeleteHkForumTopic(hkForumTopic); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -160,7 +160,7 @@ func (topicApi *TopicApi) DeleteForumTopicByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkForumTopicService.DeleteHkForumTopicByIds(IDS); err != nil {
+	if err := appForumTopicService.DeleteHkForumTopicByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -184,7 +184,7 @@ func (topicApi *TopicApi) UpdateForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkForumTopicService.UpdateHkForumTopic(hkForumTopic); err != nil {
+	if err := appForumTopicService.UpdateHkForumTopic(hkForumTopic); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
@@ -208,7 +208,7 @@ func (topicApi *TopicApi) FindForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForumTopic, err := hkForumTopicService.GetHkForumTopic(idSearch.ID); err != nil {
+	if rehkForumTopic, err := appForumTopicService.GetHkForumTopic(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -232,7 +232,7 @@ func (topicApi *TopicApi) GetForumTopicList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkForumTopicService.GetHkForumTopicInfoList(pageInfo); err != nil {
+	if list, total, err := appForumTopicService.GetHkForumTopicInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
