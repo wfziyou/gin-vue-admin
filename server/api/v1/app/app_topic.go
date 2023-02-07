@@ -2,11 +2,10 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -44,11 +43,11 @@ func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.ForumTopicGroupSearch true "分页获取ForumTopicGroup列表"
+// @Param data query communityReq.ForumTopicGroupSearch true "分页获取ForumTopicGroup列表"
 // @Success 200 {object}  response.PageResult{List=[]community.HkForumTopicGroup,msg=string} "返回community.HkForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupList [get]
 func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
-	var pageInfo appReq.ForumTopicGroupSearch
+	var pageInfo communityReq.ForumTopicGroupSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -73,11 +72,11 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.ForumTopicGroupSearch true "获取ForumTopicGroup列表"
+// @Param data query communityReq.ForumTopicGroupSearch true "获取ForumTopicGroup列表"
 // @Success 200 {object}  response.PageResult{List=[]community.HkForumTopicGroup,msg=string} "返回community.HkForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupListAll [get]
 func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
-	var pageInfo appReq.ForumTopicGroupSearch
+	var pageInfo communityReq.ForumTopicGroupSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -102,11 +101,11 @@ func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body appReq.CreateForumTopicReq true "创建ForumTopic"
+// @Param data body communityReq.CreateForumTopicReq true "创建ForumTopic"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/topic/createForumTopic [post]
 func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
-	var hkForumTopic appReq.CreateForumTopicReq
+	var hkForumTopic communityReq.CreateForumTopicReq
 	err := c.ShouldBindJSON(&hkForumTopic)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -184,12 +183,12 @@ func (topicApi *TopicApi) UpdateForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appForumTopicService.UpdateHkForumTopic(hkForumTopic); err != nil {
-		global.GVA_LOG.Error("更新失败!", zap.Error(err))
-		response.FailWithMessage("更新失败", c)
-	} else {
-		response.OkWithMessage("更新成功", c)
-	}
+	//if err := appForumTopicService.UpdateHkForumTopic(hkForumTopic); err != nil {
+	//	global.GVA_LOG.Error("更新失败!", zap.Error(err))
+	//	response.FailWithMessage("更新失败", c)
+	//} else {
+	//	response.OkWithMessage("更新成功", c)
+	//}
 }
 
 // FindForumTopic 用id查询ForumTopic
@@ -232,15 +231,15 @@ func (topicApi *TopicApi) GetForumTopicList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumTopicService.GetHkForumTopicInfoList(pageInfo); err != nil {
-		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-		response.FailWithMessage("获取失败", c)
-	} else {
-		response.OkWithDetailed(response.PageResult{
-			List:     list,
-			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
-		}, "获取成功", c)
-	}
+	//if list, total, err := appForumTopicService.GetHkForumTopicInfoList(pageInfo); err != nil {
+	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
 }

@@ -544,7 +544,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/community.HkCircle"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircle"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -594,7 +594,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/community.HkCircleRequest"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleRequest"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -644,7 +644,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/community.HkCircleUser"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleUser"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -732,7 +732,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkCircleClassify"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleClassify"
                                             }
                                         },
                                         "msg": {
@@ -821,7 +821,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkCircleClassify"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleClassify"
                                             }
                                         },
                                         "msg": {
@@ -922,7 +922,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.HkForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -934,7 +934,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -1011,7 +1011,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.HkCircle",
+                        "description": "返回community.CircleBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -1023,7 +1023,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkCircle"
+                                                "$ref": "#/definitions/community.CircleBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -1136,7 +1136,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkCircleRequest"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleRequest"
                                             }
                                         },
                                         "msg": {
@@ -1225,7 +1225,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkCircleUser"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleUser"
                                             }
                                         },
                                         "msg": {
@@ -1302,7 +1302,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.HkCircle",
+                        "description": "返回community.CircleBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -1314,7 +1314,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkCircle"
+                                                "$ref": "#/definitions/community.CircleBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -1409,7 +1409,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.HkForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -1421,7 +1421,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -1497,7 +1497,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircle"
+                            "$ref": "#/definitions/request.UpdateCircleReq"
                         }
                     }
                 ],
@@ -1700,7 +1700,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/apply.HkApply"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkApply"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -1750,7 +1750,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/apply.HkCircleApply"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApply"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -1850,7 +1850,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/apply.HkApply"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkApply"
                                             }
                                         },
                                         "msg": {
@@ -1951,7 +1951,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/apply.HkApply"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkApply"
                                             }
                                         },
                                         "msg": {
@@ -2046,7 +2046,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/apply.HkCircleApplyGroup"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApplyGroup"
                                             }
                                         },
                                         "msg": {
@@ -2141,7 +2141,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/apply.HkCircleApplyGroup"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApplyGroup"
                                             }
                                         },
                                         "msg": {
@@ -2242,7 +2242,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/apply.HkCircleApply"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApply"
                                             }
                                         },
                                         "msg": {
@@ -2343,7 +2343,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/apply.HkCircleApply"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApply"
                                             }
                                         },
                                         "msg": {
@@ -2376,7 +2376,7 @@ var doc = `{
                 "summary": "获取UserCircleApply列表",
                 "responses": {
                     "200": {
-                        "description": "返回community.HkUserCircleApply",
+                        "description": "返回communityReq.HkUserCircleApplySearch",
                         "schema": {
                             "allOf": [
                                 {
@@ -2388,7 +2388,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkUserCircleApply"
+                                                "$ref": "#/definitions/request.HkUserCircleApplySearch"
                                             }
                                         },
                                         "msg": {
@@ -4365,7 +4365,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkForumTopic"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopic"
                                             }
                                         },
                                         "msg": {
@@ -4416,7 +4416,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/community.HkForumTopicGroup"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopicGroup"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -4498,7 +4498,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkForumTopicGroup"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopicGroup"
                                             }
                                         },
                                         "msg": {
@@ -4581,7 +4581,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkForumTopicGroup"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopicGroup"
                                             }
                                         },
                                         "msg": {
@@ -4750,7 +4750,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkForumTopic"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopic"
                                             }
                                         },
                                         "msg": {
@@ -4788,7 +4788,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkForumTopic"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopic"
                         }
                     }
                 ],
@@ -5201,7 +5201,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_request.Register"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_request.Register"
                         }
                     }
                 ],
@@ -5687,7 +5687,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/general.HkUserCollect"
+                                                "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_general.HkUserCollect"
                                             }
                                         },
                                         "msg": {
@@ -7671,7 +7671,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/apply.HkApply"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkApply"
                         }
                     }
                 ],
@@ -7709,7 +7709,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/apply.HkApply"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkApply"
                         }
                     }
                 ],
@@ -7976,7 +7976,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/apply.HkApply"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkApply"
                         }
                     }
                 ],
@@ -8350,7 +8350,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircle"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircle"
                         }
                     }
                 ],
@@ -8388,7 +8388,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircle"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircle"
                         }
                     }
                 ],
@@ -8740,7 +8740,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircle"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircle"
                         }
                     }
                 ],
@@ -9092,7 +9092,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/apply.HkCircleApply"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApply"
                         }
                     }
                 ],
@@ -9130,7 +9130,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/apply.HkCircleApply"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApply"
                         }
                     }
                 ],
@@ -9374,7 +9374,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/apply.HkCircleApply"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApply"
                         }
                     }
                 ],
@@ -9412,7 +9412,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/apply.HkCircleApplyGroup"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApplyGroup"
                         }
                     }
                 ],
@@ -9450,7 +9450,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/apply.HkCircleApplyGroup"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApplyGroup"
                         }
                     }
                 ],
@@ -9688,7 +9688,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/apply.HkCircleApplyGroup"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApplyGroup"
                         }
                     }
                 ],
@@ -9726,7 +9726,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircleClassify"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleClassify"
                         }
                     }
                 ],
@@ -9764,7 +9764,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircleClassify"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleClassify"
                         }
                     }
                 ],
@@ -9996,7 +9996,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircleClassify"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleClassify"
                         }
                     }
                 ],
@@ -10336,7 +10336,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircleRequest"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleRequest"
                         }
                     }
                 ],
@@ -10374,7 +10374,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircleRequest"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleRequest"
                         }
                     }
                 ],
@@ -10636,7 +10636,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircleRequest"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleRequest"
                         }
                     }
                 ],
@@ -10674,7 +10674,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircleUser"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleUser"
                         }
                     }
                 ],
@@ -10712,7 +10712,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircleUser"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleUser"
                         }
                     }
                 ],
@@ -10938,7 +10938,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkCircleUser"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleUser"
                         }
                     }
                 ],
@@ -14242,7 +14242,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkForumTopic"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopic"
                         }
                     }
                 ],
@@ -14280,7 +14280,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkForumTopic"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopic"
                         }
                     }
                 ],
@@ -14542,7 +14542,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkForumTopic"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopic"
                         }
                     }
                 ],
@@ -14580,7 +14580,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkForumTopicGroup"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopicGroup"
                         }
                     }
                 ],
@@ -14618,7 +14618,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkForumTopicGroup"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopicGroup"
                         }
                     }
                 ],
@@ -14838,7 +14838,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkForumTopicGroup"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopicGroup"
                         }
                     }
                 ],
@@ -18069,7 +18069,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/general.HkUserCollect"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_general.HkUserCollect"
                         }
                     }
                 ],
@@ -18107,7 +18107,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/general.HkUserCollect"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_general.HkUserCollect"
                         }
                     }
                 ],
@@ -18331,7 +18331,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/general.HkUserCollect"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_general.HkUserCollect"
                         }
                     }
                 ],
@@ -21111,176 +21111,6 @@ var doc = `{
         }
     },
     "definitions": {
-        "apply.HkApply": {
-            "type": "object",
-            "properties": {
-                "applyAddress": {
-                    "description": "访问地址",
-                    "type": "string"
-                },
-                "applyParameters": {
-                    "description": "访问参数",
-                    "type": "string"
-                },
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "icon": {
-                    "description": "图标",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "miniProgramId": {
-                    "description": "类型(0小程序、1第三方链接)",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "名称",
-                    "type": "string"
-                },
-                "owerType": {
-                    "description": "拥有者：0平台、1圈子、2个人",
-                    "type": "integer"
-                },
-                "sort": {
-                    "description": "排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "type": {
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户_编号",
-                    "type": "integer"
-                }
-            }
-        },
-        "apply.HkCircleApply": {
-            "type": "object",
-            "properties": {
-                "applyGroupId": {
-                    "description": "应用分组_编号",
-                    "type": "integer"
-                },
-                "applyId": {
-                    "description": "应用_编号",
-                    "type": "integer"
-                },
-                "applyParameters": {
-                    "description": "访问参数",
-                    "type": "string"
-                },
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "showName": {
-                    "description": "名称别名",
-                    "type": "string"
-                },
-                "sort": {
-                    "description": "排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "apply.HkCircleApplyGroup": {
-            "type": "object",
-            "properties": {
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "icon": {
-                    "description": "图标",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "名称",
-                    "type": "string"
-                },
-                "parentId": {
-                    "description": "父节点编号",
-                    "type": "integer"
-                },
-                "sort": {
-                    "description": "排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
         "apply.HkPlatApply": {
             "type": "object",
             "properties": {
@@ -21399,29 +21229,15 @@ var doc = `{
                 }
             }
         },
-        "community.HkCircle": {
+        "community.CircleBaseInfo": {
             "type": "object",
             "properties": {
-                "backImage": {
-                    "description": "圈子背景图;size:500",
-                    "type": "string"
-                },
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
                 },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "des": {
-                    "description": "圈子简介;size:1000",
                     "type": "string"
                 },
                 "id": {
@@ -21436,49 +21252,9 @@ var doc = `{
                     "description": "圈子名称",
                     "type": "string"
                 },
-                "newUserFocus": {
-                    "description": "新注册用户默认关注：0 否，1是",
-                    "type": "integer"
-                },
-                "noLimitUserGroup": {
-                    "description": "不受限用户组(json数组);size:500",
-                    "type": "string"
-                },
                 "pay": {
                     "description": "付费：0 否，1是;size:10",
                     "type": "integer"
-                },
-                "powerAdd": {
-                    "description": "圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户",
-                    "type": "integer"
-                },
-                "powerAddUser": {
-                    "description": "圈子加入权限_指定部门和成员(json数组);size:500",
-                    "type": "string"
-                },
-                "powerComment": {
-                    "description": "圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组",
-                    "type": "integer"
-                },
-                "powerCommentUser": {
-                    "description": "圈子内评论权限_指定部门和用户(json数组);size:500",
-                    "type": "string"
-                },
-                "powerPublish": {
-                    "description": "圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组",
-                    "type": "integer"
-                },
-                "powerPublishUser": {
-                    "description": "圈子内发布权限_指定部门和用户(json数组);size:500",
-                    "type": "string"
-                },
-                "powerView": {
-                    "description": "圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组",
-                    "type": "integer"
-                },
-                "powerViewUser": {
-                    "description": "圈子内浏览权限_指定部门和用户(json数组);size:500",
-                    "type": "string"
                 },
                 "process": {
                     "description": "是否开启版块内容人工审核：0 否，1是",
@@ -21488,39 +21264,110 @@ var doc = `{
                     "description": ":圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）",
                     "type": "integer"
                 },
-                "protocol": {
-                    "description": "圈子规约;size:1000",
-                    "type": "string"
-                },
-                "slogan": {
-                    "description": "圈子标语;size:20",
-                    "type": "string"
-                },
                 "sort": {
                     "description": "排序",
                     "type": "integer"
                 },
-                "status": {
-                    "type": "integer"
-                },
-                "supportCategory": {
-                    "description": "支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;",
-                    "type": "string"
-                },
                 "type": {
                     "description": "类型：0官方圈子、1用户圈子、2小区",
                     "type": "integer"
-                },
-                "updateUser": {
+                }
+            }
+        },
+        "community.ForumPostsBaseInfo": {
+            "type": "object",
+            "properties": {
+                "anonymity": {
+                    "description": "匿名发布(0否 1是)",
                     "type": "integer"
                 },
-                "updatedAt": {
-                    "description": "更新时间",
+                "category": {
+                    "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "collectNum": {
+                    "description": "收藏次数",
+                    "type": "integer"
+                },
+                "commentNum": {
+                    "description": "评论次数",
+                    "type": "integer"
+                },
+                "contentHtml": {
+                    "description": "html内容",
                     "type": "string"
                 },
-                "view": {
-                    "description": "板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到",
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "groupId": {
+                    "description": "帖子分类编号",
                     "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "likeNum": {
+                    "description": "点赞次数 \t//付费金额",
+                    "type": "integer"
+                },
+                "marrow": {
+                    "description": "精华(0否 1是)",
+                    "type": "integer"
+                },
+                "readNum": {
+                    "description": "阅读次数",
+                    "type": "integer"
+                },
+                "seoIntroduce": {
+                    "description": "简介(SEO简介)",
+                    "type": "string"
+                },
+                "seoKey": {
+                    "description": "SEO关键词",
+                    "type": "string"
+                },
+                "shareNum": {
+                    "description": "分享次数",
+                    "type": "integer"
+                },
+                "source": {
+                    "description": "来源",
+                    "type": "string"
+                },
+                "tag": {
+                    "description": "标签",
+                    "type": "string"
+                },
+                "time": {
+                    "description": "发布时间",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "标题",
+                    "type": "string"
+                },
+                "top": {
+                    "description": "置顶(0否 1是)",
+                    "type": "integer"
+                },
+                "userId": {
+                    "description": "发布者编号",
+                    "type": "integer"
+                },
+                "video": {
+                    "description": "视频地址",
+                    "type": "string"
                 }
             }
         },
@@ -21573,51 +21420,6 @@ var doc = `{
                 }
             }
         },
-        "community.HkCircleClassify": {
-            "type": "object",
-            "properties": {
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "des": {
-                    "description": "描述",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "名称",
-                    "type": "string"
-                },
-                "property": {
-                    "description": "属性：0公开 ，1受限",
-                    "type": "integer"
-                },
-                "sort": {
-                    "description": "排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
         "community.HkCircleRelation": {
             "type": "object",
             "properties": {
@@ -21656,112 +21458,6 @@ var doc = `{
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
-                }
-            }
-        },
-        "community.HkCircleRequest": {
-            "type": "object",
-            "properties": {
-                "backImage": {
-                    "description": "圈子背景图",
-                    "type": "string"
-                },
-                "checkStatus": {
-                    "description": "审核状态：0 未处理 1 通过，2驳回",
-                    "type": "integer"
-                },
-                "circleClassifyId": {
-                    "description": "圈子分类_编号",
-                    "type": "integer"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "des": {
-                    "description": "圈子简介",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "logo": {
-                    "description": "圈子Logo",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "圈子名称",
-                    "type": "string"
-                },
-                "protocol": {
-                    "description": "圈子规约",
-                    "type": "string"
-                },
-                "slogan": {
-                    "description": "圈子标语",
-                    "type": "string"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "type": {
-                    "description": "类型：0官方圈子 ，1用户圈子",
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "community.HkCircleUser": {
-            "type": "object",
-            "properties": {
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "sort": {
-                    "description": "用户的圈子排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户ID",
-                    "type": "integer"
                 }
             }
         },
@@ -22336,108 +22032,6 @@ var doc = `{
                 "userId": {
                     "description": "用户id",
                     "type": "integer"
-                }
-            }
-        },
-        "community.HkForumTopic": {
-            "type": "object",
-            "properties": {
-                "attentionNum": {
-                    "description": "关注数",
-                    "type": "integer"
-                },
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
-                "coverImage": {
-                    "description": "封面",
-                    "type": "string"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "discussNum": {
-                    "description": "讨论数",
-                    "type": "integer"
-                },
-                "hot": {
-                    "description": "是否热门：0 否 1 是",
-                    "type": "integer"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "名称",
-                    "type": "string"
-                },
-                "reviewStatus": {
-                    "description": "审核状态：0 未处理 1 通过，2驳回",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "topicGroupId": {
-                    "description": "分组id",
-                    "type": "integer"
-                },
-                "type": {
-                    "description": "话题类型：0 全局，1圈子",
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "community.HkForumTopicGroup": {
-            "type": "object",
-            "properties": {
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "名称",
-                    "type": "string"
-                },
-                "sort": {
-                    "description": "排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
                 }
             }
         },
@@ -24104,7 +23698,1030 @@ var doc = `{
                 }
             }
         },
-        "general.HkUserCollect": {
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkApply": {
+            "type": "object",
+            "properties": {
+                "applyAddress": {
+                    "description": "访问地址",
+                    "type": "string"
+                },
+                "applyParameters": {
+                    "description": "访问参数",
+                    "type": "string"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "icon": {
+                    "description": "图标",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "miniProgramId": {
+                    "description": "类型(0小程序、1第三方链接)",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "owerType": {
+                    "description": "拥有者：0平台、1圈子、2个人",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "userId": {
+                    "description": "用户_编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApply": {
+            "type": "object",
+            "properties": {
+                "applyGroupId": {
+                    "description": "应用分组_编号",
+                    "type": "integer"
+                },
+                "applyId": {
+                    "description": "应用_编号",
+                    "type": "integer"
+                },
+                "applyParameters": {
+                    "description": "访问参数",
+                    "type": "string"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "showName": {
+                    "description": "名称别名",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApplyGroup": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "icon": {
+                    "description": "图标",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "parentId": {
+                    "description": "父节点编号",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircle": {
+            "type": "object",
+            "properties": {
+                "backImage": {
+                    "description": "圈子背景图;size:500",
+                    "type": "string"
+                },
+                "circleClassifyId": {
+                    "description": "圈子分类_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "圈子简介;size:1000",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "logo": {
+                    "description": "圈子Logo",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "圈子名称",
+                    "type": "string"
+                },
+                "newUserFocus": {
+                    "description": "新注册用户默认关注：0 否，1是",
+                    "type": "integer"
+                },
+                "noLimitUserGroup": {
+                    "description": "不受限用户组(json数组);size:500",
+                    "type": "string"
+                },
+                "pay": {
+                    "description": "付费：0 否，1是;size:10",
+                    "type": "integer"
+                },
+                "powerAdd": {
+                    "description": "圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户",
+                    "type": "integer"
+                },
+                "powerAddUser": {
+                    "description": "圈子加入权限_指定部门和成员(json数组);size:500",
+                    "type": "string"
+                },
+                "powerComment": {
+                    "description": "圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerCommentUser": {
+                    "description": "圈子内评论权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "powerPublish": {
+                    "description": "圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerPublishUser": {
+                    "description": "圈子内发布权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "powerView": {
+                    "description": "圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerViewUser": {
+                    "description": "圈子内浏览权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "process": {
+                    "description": "是否开启版块内容人工审核：0 否，1是",
+                    "type": "integer"
+                },
+                "property": {
+                    "description": ":圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）",
+                    "type": "integer"
+                },
+                "protocol": {
+                    "description": "圈子规约;size:1000",
+                    "type": "string"
+                },
+                "slogan": {
+                    "description": "圈子标语;size:20",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "supportCategory": {
+                    "description": "支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "类型：0官方圈子、1用户圈子、2小区",
+                    "type": "integer"
+                },
+                "view": {
+                    "description": "板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleClassify": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "property": {
+                    "description": "属性：0公开 ，1受限",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleRequest": {
+            "type": "object",
+            "properties": {
+                "backImage": {
+                    "description": "圈子背景图",
+                    "type": "string"
+                },
+                "checkStatus": {
+                    "description": "审核状态：0 未处理 1 通过，2驳回",
+                    "type": "integer"
+                },
+                "circleClassifyId": {
+                    "description": "圈子分类_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "圈子简介",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "logo": {
+                    "description": "圈子Logo",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "圈子名称",
+                    "type": "string"
+                },
+                "protocol": {
+                    "description": "圈子规约",
+                    "type": "string"
+                },
+                "slogan": {
+                    "description": "圈子标语",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "类型：0官方圈子 ，1用户圈子",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleUser": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "用户的圈子排序",
+                    "type": "integer"
+                },
+                "userBaseInfo": {
+                    "description": "用户基本信息",
+                    "$ref": "#/definitions/common.UserBaseInfo"
+                },
+                "userId": {
+                    "description": "用户ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopic": {
+            "type": "object",
+            "properties": {
+                "attentionNum": {
+                    "description": "关注数",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "discussNum": {
+                    "description": "讨论数",
+                    "type": "integer"
+                },
+                "hot": {
+                    "description": "是否热门：0 否 1 是",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "reviewStatus": {
+                    "description": "审核状态：0 未处理 1 通过，2驳回",
+                    "type": "integer"
+                },
+                "topicGroupId": {
+                    "description": "分组id",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "话题类型：0 全局，1圈子",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopicGroup": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community_request.Register": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "用户名",
+                    "type": "string",
+                    "example": "用户名"
+                },
+                "nickName": {
+                    "description": "昵称",
+                    "type": "string",
+                    "example": "昵称"
+                },
+                "passWord": {
+                    "description": "密码",
+                    "type": "string",
+                    "example": "密码"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_general.HkUserCollect": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "postsId": {
+                    "description": "帖子编号",
+                    "type": "integer"
+                },
+                "time": {
+                    "description": "收藏时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkApply": {
+            "type": "object",
+            "properties": {
+                "applyAddress": {
+                    "description": "访问地址",
+                    "type": "string"
+                },
+                "applyParameters": {
+                    "description": "访问参数",
+                    "type": "string"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "icon": {
+                    "description": "图标",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "miniProgramId": {
+                    "description": "类型(0小程序、1第三方链接)",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "owerType": {
+                    "description": "拥有者：0平台、1圈子、2个人",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户_编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApply": {
+            "type": "object",
+            "properties": {
+                "applyGroupId": {
+                    "description": "应用分组_编号",
+                    "type": "integer"
+                },
+                "applyId": {
+                    "description": "应用_编号",
+                    "type": "integer"
+                },
+                "applyParameters": {
+                    "description": "访问参数",
+                    "type": "string"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "showName": {
+                    "description": "名称别名",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApplyGroup": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "icon": {
+                    "description": "图标",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "parentId": {
+                    "description": "父节点编号",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircle": {
+            "type": "object",
+            "properties": {
+                "backImage": {
+                    "description": "圈子背景图;size:500",
+                    "type": "string"
+                },
+                "circleClassifyId": {
+                    "description": "圈子分类_编号",
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "圈子简介;size:1000",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "logo": {
+                    "description": "圈子Logo",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "圈子名称",
+                    "type": "string"
+                },
+                "newUserFocus": {
+                    "description": "新注册用户默认关注：0 否，1是",
+                    "type": "integer"
+                },
+                "noLimitUserGroup": {
+                    "description": "不受限用户组(json数组);size:500",
+                    "type": "string"
+                },
+                "pay": {
+                    "description": "付费：0 否，1是;size:10",
+                    "type": "integer"
+                },
+                "powerAdd": {
+                    "description": "圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户",
+                    "type": "integer"
+                },
+                "powerAddUser": {
+                    "description": "圈子加入权限_指定部门和成员(json数组);size:500",
+                    "type": "string"
+                },
+                "powerComment": {
+                    "description": "圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerCommentUser": {
+                    "description": "圈子内评论权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "powerPublish": {
+                    "description": "圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerPublishUser": {
+                    "description": "圈子内发布权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "powerView": {
+                    "description": "圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerViewUser": {
+                    "description": "圈子内浏览权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "process": {
+                    "description": "是否开启版块内容人工审核：0 否，1是",
+                    "type": "integer"
+                },
+                "property": {
+                    "description": ":圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）",
+                    "type": "integer"
+                },
+                "protocol": {
+                    "description": "圈子规约;size:1000",
+                    "type": "string"
+                },
+                "slogan": {
+                    "description": "圈子标语;size:20",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "supportCategory": {
+                    "description": "支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "类型：0官方圈子、1用户圈子、2小区",
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "view": {
+                    "description": "板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleClassify": {
+            "type": "object",
+            "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "property": {
+                    "description": "属性：0公开 ，1受限",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleRequest": {
+            "type": "object",
+            "properties": {
+                "backImage": {
+                    "description": "圈子背景图",
+                    "type": "string"
+                },
+                "checkStatus": {
+                    "description": "审核状态：0 未处理 1 通过，2驳回",
+                    "type": "integer"
+                },
+                "circleClassifyId": {
+                    "description": "圈子分类_编号",
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "圈子简介",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "logo": {
+                    "description": "圈子Logo",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "圈子名称",
+                    "type": "string"
+                },
+                "protocol": {
+                    "description": "圈子规约",
+                    "type": "string"
+                },
+                "slogan": {
+                    "description": "圈子标语",
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "类型：0官方圈子 ，1用户圈子",
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleUser": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "用户的圈子排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopic": {
+            "type": "object",
+            "properties": {
+                "attentionNum": {
+                    "description": "关注数",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "discussNum": {
+                    "description": "讨论数",
+                    "type": "integer"
+                },
+                "hot": {
+                    "description": "是否热门：0 否 1 是",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "reviewStatus": {
+                    "description": "审核状态：0 未处理 1 通过，2驳回",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "topicGroupId": {
+                    "description": "分组id",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "话题类型：0 全局，1圈子",
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopicGroup": {
+            "type": "object",
+            "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community_response.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "expiresAt": {
+                    "type": "integer"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/community.HkUser"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_community_response.SysUserResponse": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/community.HkUser"
+                }
+            }
+        },
+        "github.com_flipped-aurora_gin-vue-admin_server_model_general.HkUserCollect": {
             "type": "object",
             "properties": {
                 "createDept": {
@@ -24142,48 +24759,6 @@ var doc = `{
                 "userId": {
                     "description": "用户编号",
                     "type": "integer"
-                }
-            }
-        },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_app_request.Register": {
-            "type": "object",
-            "properties": {
-                "account": {
-                    "description": "用户名",
-                    "type": "string",
-                    "example": "用户名"
-                },
-                "nickName": {
-                    "description": "昵称",
-                    "type": "string",
-                    "example": "昵称"
-                },
-                "passWord": {
-                    "description": "密码",
-                    "type": "string",
-                    "example": "密码"
-                }
-            }
-        },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_community_response.LoginResponse": {
-            "type": "object",
-            "properties": {
-                "expiresAt": {
-                    "type": "integer"
-                },
-                "token": {
-                    "type": "string"
-                },
-                "user": {
-                    "$ref": "#/definitions/community.HkUser"
-                }
-            }
-        },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_community_response.SysUserResponse": {
-            "type": "object",
-            "properties": {
-                "user": {
-                    "$ref": "#/definitions/community.HkUser"
                 }
             }
         },
@@ -24450,6 +25025,69 @@ var doc = `{
             "properties": {
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.HkUserCircleApplySearch": {
+            "type": "object",
+            "properties": {
+                "applyId": {
+                    "description": "应用_编号",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "endCreatedAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "keyword": {
+                    "description": "关键字",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "页码",
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "description": "每页大小",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "startCreatedAt": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户编号",
                     "type": "integer"
                 }
             }
@@ -24753,6 +25391,95 @@ var doc = `{
                 },
                 "pageSize": {
                     "description": "每页大小",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.UpdateCircleReq": {
+            "type": "object",
+            "properties": {
+                "backImage": {
+                    "description": "圈子背景图;size:500",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "圈子简介;size:1000",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "logo": {
+                    "description": "圈子Logo",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "圈子名称",
+                    "type": "string"
+                },
+                "newUserFocus": {
+                    "description": "新注册用户默认关注：0 否，1是",
+                    "type": "integer"
+                },
+                "noLimitUserGroup": {
+                    "description": "不受限用户组(json数组);size:500",
+                    "type": "string"
+                },
+                "powerAdd": {
+                    "description": "圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户",
+                    "type": "integer"
+                },
+                "powerAddUser": {
+                    "description": "圈子加入权限_指定部门和成员(json数组);size:500",
+                    "type": "string"
+                },
+                "powerComment": {
+                    "description": "圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerCommentUser": {
+                    "description": "圈子内评论权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "powerPublish": {
+                    "description": "圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerPublishUser": {
+                    "description": "圈子内发布权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "powerView": {
+                    "description": "圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerViewUser": {
+                    "description": "圈子内浏览权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "process": {
+                    "description": "是否开启版块内容人工审核：0 否，1是",
+                    "type": "integer"
+                },
+                "property": {
+                    "description": ":圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）",
+                    "type": "integer"
+                },
+                "protocol": {
+                    "description": "圈子规约;size:1000",
+                    "type": "string"
+                },
+                "slogan": {
+                    "description": "圈子标语;size:20",
+                    "type": "string"
+                },
+                "view": {
+                    "description": "板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到",
                     "type": "integer"
                 }
             }
@@ -25176,6 +25903,10 @@ var doc = `{
                 },
                 "parentId": {
                     "description": "父角色ID",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "updatedAt": {

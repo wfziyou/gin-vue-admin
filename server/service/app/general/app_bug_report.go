@@ -2,10 +2,9 @@ package general
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/general"
-	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/general/request"
 )
 
 type AppBugReportService struct {
@@ -48,7 +47,7 @@ func (appBugReportService *AppBugReportService) GetHkBugReport(id uint) (hkBugRe
 
 // GetHkBugReportInfoList 分页获取HkBugReport记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appBugReportService *AppBugReportService) GetHkBugReportInfoList(info generalReq.HkBugReportSearch) (list []general.HkBugReport, total int64, err error) {
+func (appBugReportService *AppBugReportService) GetHkBugReportInfoList(info generalReq.BugReportSearch) (list []general.HkBugReport, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -69,7 +68,7 @@ func (appBugReportService *AppBugReportService) GetHkBugReportInfoList(info gene
 
 // AppGetHkBugReportInfoList 分页获取HkBugReport记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appBugReportService *AppBugReportService) AppGetHkBugReportInfoList(info appReq.BugReportSearch) (list []general.HkBugReport, total int64, err error) {
+func (appBugReportService *AppBugReportService) AppGetHkBugReportInfoList(info generalReq.BugReportSearch) (list []general.HkBugReport, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db

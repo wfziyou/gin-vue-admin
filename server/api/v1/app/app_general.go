@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/general"
@@ -42,27 +42,27 @@ func (generalApi *GeneralApi) FindProtocol(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.ProtocolSearch true "分页获取Protocol列表"
+// @Param data query generalReq.ProtocolSearch true "分页获取Protocol列表"
 // @Success 200 {object}  response.PageResult{List=[]general.HkProtocol,msg=string} "返回general.HkProtocol"
 // @Router /app/general/getProtocolList [get]
 func (generalApi *GeneralApi) GetProtocolList(c *gin.Context) {
-	var pageInfo appReq.ProtocolSearch
+	var pageInfo generalReq.ProtocolSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appProtocolService.AppGetHkProtocolInfoList(pageInfo); err != nil {
-		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-		response.FailWithMessage("获取失败", c)
-	} else {
-		response.OkWithDetailed(response.PageResult{
-			List:     list,
-			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
-		}, "获取成功", c)
-	}
+	//if list, total, err := appProtocolService.GetHkProtocolInfoList(pageInfo); err != nil {
+	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
 }
 
 // CreateHkBugReport Bug反馈
@@ -119,11 +119,11 @@ func (generalApi *GeneralApi) FindBugReport(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.BugReportSearch true "分页获取BugReport列表"
+// @Param data query generalReq.BugReportSearch true "分页获取BugReport列表"
 // @Success 200 {object}  response.PageResult{List=[]general.HkBugReport,msg=string} "返回general.HkBugReport"
 // @Router /app/general/getBugReportList [get]
 func (generalApi *GeneralApi) GetBugReportList(c *gin.Context) {
-	var pageInfo appReq.BugReportSearch
+	var pageInfo generalReq.BugReportSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

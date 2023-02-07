@@ -1,127 +1,5 @@
 basePath: /
 definitions:
-  apply.HkApply:
-    properties:
-      applyAddress:
-        description: 访问地址
-        type: string
-      applyParameters:
-        description: 访问参数
-        type: string
-      circleId:
-        description: 圈子_编号
-        type: integer
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      icon:
-        description: 图标
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      miniProgramId:
-        description: 类型(0小程序、1第三方链接)
-        type: integer
-      name:
-        description: 名称
-        type: string
-      owerType:
-        description: 拥有者：0平台、1圈子、2个人
-        type: integer
-      sort:
-        description: 排序
-        type: integer
-      status:
-        type: integer
-      type:
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        description: 用户_编号
-        type: integer
-    type: object
-  apply.HkCircleApply:
-    properties:
-      applyGroupId:
-        description: 应用分组_编号
-        type: integer
-      applyId:
-        description: 应用_编号
-        type: integer
-      applyParameters:
-        description: 访问参数
-        type: string
-      circleId:
-        description: 圈子_编号
-        type: integer
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      showName:
-        description: 名称别名
-        type: string
-      sort:
-        description: 排序
-        type: integer
-      status:
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  apply.HkCircleApplyGroup:
-    properties:
-      circleId:
-        description: 圈子_编号
-        type: integer
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      icon:
-        description: 图标
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      name:
-        description: 名称
-        type: string
-      parentId:
-        description: 父节点编号
-        type: integer
-      sort:
-        description: 排序
-        type: integer
-      status:
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
   apply.HkPlatApply:
     properties:
       applyGroupId:
@@ -204,23 +82,13 @@ definitions:
         description: 性别
         type: integer
     type: object
-  community.HkCircle:
+  community.CircleBaseInfo:
     properties:
-      backImage:
-        description: 圈子背景图;size:500
-        type: string
       circleClassifyId:
         description: 圈子分类_编号
         type: integer
-      createDept:
-        type: integer
-      createUser:
-        type: integer
       createdAt:
         description: 创建时间
-        type: string
-      des:
-        description: 圈子简介;size:1000
         type: string
       id:
         description: 主键ID
@@ -231,70 +99,93 @@ definitions:
       name:
         description: 圈子名称
         type: string
-      newUserFocus:
-        description: 新注册用户默认关注：0 否，1是
-        type: integer
-      noLimitUserGroup:
-        description: 不受限用户组(json数组);size:500
-        type: string
       pay:
         description: 付费：0 否，1是;size:10
         type: integer
-      powerAdd:
-        description: 圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户
-        type: integer
-      powerAddUser:
-        description: 圈子加入权限_指定部门和成员(json数组);size:500
-        type: string
-      powerComment:
-        description: 圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组
-        type: integer
-      powerCommentUser:
-        description: 圈子内评论权限_指定部门和用户(json数组);size:500
-        type: string
-      powerPublish:
-        description: 圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组
-        type: integer
-      powerPublishUser:
-        description: 圈子内发布权限_指定部门和用户(json数组);size:500
-        type: string
-      powerView:
-        description: 圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组
-        type: integer
-      powerViewUser:
-        description: 圈子内浏览权限_指定部门和用户(json数组);size:500
-        type: string
       process:
         description: 是否开启版块内容人工审核：0 否，1是
         type: integer
       property:
         description: :圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
         type: integer
-      protocol:
-        description: 圈子规约;size:1000
-        type: string
-      slogan:
-        description: 圈子标语;size:20
-        type: string
       sort:
         description: 排序
         type: integer
-      status:
-        type: integer
-      supportCategory:
-        description: 支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;
-        type: string
       type:
         description: 类型：0官方圈子、1用户圈子、2小区
         type: integer
-      updateUser:
+    type: object
+  community.ForumPostsBaseInfo:
+    properties:
+      anonymity:
+        description: 匿名发布(0否 1是)
         type: integer
-      updatedAt:
-        description: 更新时间
+      category:
+        description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      collectNum:
+        description: 收藏次数
+        type: integer
+      commentNum:
+        description: 评论次数
+        type: integer
+      contentHtml:
+        description: html内容
         type: string
-      view:
-        description: 板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到
+      coverImage:
+        description: 封面
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      groupId:
+        description: 帖子分类编号
         type: integer
+      id:
+        description: 主键ID
+        type: integer
+      likeNum:
+        description: "点赞次数 \t//付费金额"
+        type: integer
+      marrow:
+        description: 精华(0否 1是)
+        type: integer
+      readNum:
+        description: 阅读次数
+        type: integer
+      seoIntroduce:
+        description: 简介(SEO简介)
+        type: string
+      seoKey:
+        description: SEO关键词
+        type: string
+      shareNum:
+        description: 分享次数
+        type: integer
+      source:
+        description: 来源
+        type: string
+      tag:
+        description: 标签
+        type: string
+      time:
+        description: 发布时间
+        type: string
+      title:
+        description: 标题
+        type: string
+      top:
+        description: 置顶(0否 1是)
+        type: integer
+      userId:
+        description: 发布者编号
+        type: integer
+      video:
+        description: 视频地址
+        type: string
     type: object
   community.HkCircleAddRequest:
     properties:
@@ -331,38 +222,6 @@ definitions:
         description: 更新时间
         type: string
     type: object
-  community.HkCircleClassify:
-    properties:
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      des:
-        description: 描述
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      name:
-        description: 名称
-        type: string
-      property:
-        description: 属性：0公开 ，1受限
-        type: integer
-      sort:
-        description: 排序
-        type: integer
-      status:
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
   community.HkCircleRelation:
     properties:
       circleId:
@@ -391,82 +250,6 @@ definitions:
       updatedAt:
         description: 更新时间
         type: string
-    type: object
-  community.HkCircleRequest:
-    properties:
-      backImage:
-        description: 圈子背景图
-        type: string
-      checkStatus:
-        description: 审核状态：0 未处理 1 通过，2驳回
-        type: integer
-      circleClassifyId:
-        description: 圈子分类_编号
-        type: integer
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      des:
-        description: 圈子简介
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      logo:
-        description: 圈子Logo
-        type: string
-      name:
-        description: 圈子名称
-        type: string
-      protocol:
-        description: 圈子规约
-        type: string
-      slogan:
-        description: 圈子标语
-        type: string
-      status:
-        type: integer
-      type:
-        description: 类型：0官方圈子 ，1用户圈子
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  community.HkCircleUser:
-    properties:
-      circleId:
-        description: 圈子_编号
-        type: integer
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      sort:
-        description: 用户的圈子排序
-        type: integer
-      status:
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        description: 用户ID
-        type: integer
     type: object
   community.HkCommentThumbsUp:
     properties:
@@ -880,79 +663,6 @@ definitions:
       userId:
         description: 用户id
         type: integer
-    type: object
-  community.HkForumTopic:
-    properties:
-      attentionNum:
-        description: 关注数
-        type: integer
-      circleId:
-        description: 圈子_编号
-        type: integer
-      coverImage:
-        description: 封面
-        type: string
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      discussNum:
-        description: 讨论数
-        type: integer
-      hot:
-        description: 是否热门：0 否 1 是
-        type: integer
-      id:
-        description: 主键ID
-        type: integer
-      name:
-        description: 名称
-        type: string
-      reviewStatus:
-        description: 审核状态：0 未处理 1 通过，2驳回
-        type: integer
-      status:
-        type: integer
-      topicGroupId:
-        description: 分组id
-        type: integer
-      type:
-        description: 话题类型：0 全局，1圈子
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  community.HkForumTopicGroup:
-    properties:
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      name:
-        description: 名称
-        type: string
-      sort:
-        description: 排序
-        type: integer
-      status:
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
     type: object
   community.HkReport:
     properties:
@@ -2136,7 +1846,748 @@ definitions:
         description: 用户编号
         type: integer
     type: object
-  general.HkUserCollect:
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkApply:
+    properties:
+      applyAddress:
+        description: 访问地址
+        type: string
+      applyParameters:
+        description: 访问参数
+        type: string
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      icon:
+        description: 图标
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      miniProgramId:
+        description: 类型(0小程序、1第三方链接)
+        type: integer
+      name:
+        description: 名称
+        type: string
+      owerType:
+        description: 拥有者：0平台、1圈子、2个人
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+      type:
+        type: integer
+      userId:
+        description: 用户_编号
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApply:
+    properties:
+      applyGroupId:
+        description: 应用分组_编号
+        type: integer
+      applyId:
+        description: 应用_编号
+        type: integer
+      applyParameters:
+        description: 访问参数
+        type: string
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      showName:
+        description: 名称别名
+        type: string
+      sort:
+        description: 排序
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApplyGroup:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      icon:
+        description: 图标
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      parentId:
+        description: 父节点编号
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircle:
+    properties:
+      backImage:
+        description: 圈子背景图;size:500
+        type: string
+      circleClassifyId:
+        description: 圈子分类_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      des:
+        description: 圈子简介;size:1000
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      logo:
+        description: 圈子Logo
+        type: string
+      name:
+        description: 圈子名称
+        type: string
+      newUserFocus:
+        description: 新注册用户默认关注：0 否，1是
+        type: integer
+      noLimitUserGroup:
+        description: 不受限用户组(json数组);size:500
+        type: string
+      pay:
+        description: 付费：0 否，1是;size:10
+        type: integer
+      powerAdd:
+        description: 圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户
+        type: integer
+      powerAddUser:
+        description: 圈子加入权限_指定部门和成员(json数组);size:500
+        type: string
+      powerComment:
+        description: 圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组
+        type: integer
+      powerCommentUser:
+        description: 圈子内评论权限_指定部门和用户(json数组);size:500
+        type: string
+      powerPublish:
+        description: 圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组
+        type: integer
+      powerPublishUser:
+        description: 圈子内发布权限_指定部门和用户(json数组);size:500
+        type: string
+      powerView:
+        description: 圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组
+        type: integer
+      powerViewUser:
+        description: 圈子内浏览权限_指定部门和用户(json数组);size:500
+        type: string
+      process:
+        description: 是否开启版块内容人工审核：0 否，1是
+        type: integer
+      property:
+        description: :圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
+        type: integer
+      protocol:
+        description: 圈子规约;size:1000
+        type: string
+      slogan:
+        description: 圈子标语;size:20
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      supportCategory:
+        description: 支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;
+        type: string
+      type:
+        description: 类型：0官方圈子、1用户圈子、2小区
+        type: integer
+      view:
+        description: 板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleClassify:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      des:
+        description: 描述
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      property:
+        description: 属性：0公开 ，1受限
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleRequest:
+    properties:
+      backImage:
+        description: 圈子背景图
+        type: string
+      checkStatus:
+        description: 审核状态：0 未处理 1 通过，2驳回
+        type: integer
+      circleClassifyId:
+        description: 圈子分类_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      des:
+        description: 圈子简介
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      logo:
+        description: 圈子Logo
+        type: string
+      name:
+        description: 圈子名称
+        type: string
+      protocol:
+        description: 圈子规约
+        type: string
+      slogan:
+        description: 圈子标语
+        type: string
+      type:
+        description: 类型：0官方圈子 ，1用户圈子
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleUser:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      sort:
+        description: 用户的圈子排序
+        type: integer
+      userBaseInfo:
+        $ref: '#/definitions/common.UserBaseInfo'
+        description: 用户基本信息
+      userId:
+        description: 用户ID
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopic:
+    properties:
+      attentionNum:
+        description: 关注数
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      coverImage:
+        description: 封面
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      discussNum:
+        description: 讨论数
+        type: integer
+      hot:
+        description: 是否热门：0 否 1 是
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      reviewStatus:
+        description: 审核状态：0 未处理 1 通过，2驳回
+        type: integer
+      topicGroupId:
+        description: 分组id
+        type: integer
+      type:
+        description: 话题类型：0 全局，1圈子
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopicGroup:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      sort:
+        description: 排序
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_community_request.Register:
+    properties:
+      account:
+        description: 用户名
+        example: 用户名
+        type: string
+      nickName:
+        description: 昵称
+        example: 昵称
+        type: string
+      passWord:
+        description: 密码
+        example: 密码
+        type: string
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_general.HkUserCollect:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      postsId:
+        description: 帖子编号
+        type: integer
+      time:
+        description: 收藏时间
+        type: string
+      userId:
+        description: 用户编号
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkApply:
+    properties:
+      applyAddress:
+        description: 访问地址
+        type: string
+      applyParameters:
+        description: 访问参数
+        type: string
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      icon:
+        description: 图标
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      miniProgramId:
+        description: 类型(0小程序、1第三方链接)
+        type: integer
+      name:
+        description: 名称
+        type: string
+      owerType:
+        description: 拥有者：0平台、1圈子、2个人
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+      status:
+        type: integer
+      type:
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        description: 用户_编号
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApply:
+    properties:
+      applyGroupId:
+        description: 应用分组_编号
+        type: integer
+      applyId:
+        description: 应用_编号
+        type: integer
+      applyParameters:
+        description: 访问参数
+        type: string
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      showName:
+        description: 名称别名
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApplyGroup:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      icon:
+        description: 图标
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      parentId:
+        description: 父节点编号
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+      status:
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircle:
+    properties:
+      backImage:
+        description: 圈子背景图;size:500
+        type: string
+      circleClassifyId:
+        description: 圈子分类_编号
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      des:
+        description: 圈子简介;size:1000
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      logo:
+        description: 圈子Logo
+        type: string
+      name:
+        description: 圈子名称
+        type: string
+      newUserFocus:
+        description: 新注册用户默认关注：0 否，1是
+        type: integer
+      noLimitUserGroup:
+        description: 不受限用户组(json数组);size:500
+        type: string
+      pay:
+        description: 付费：0 否，1是;size:10
+        type: integer
+      powerAdd:
+        description: 圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户
+        type: integer
+      powerAddUser:
+        description: 圈子加入权限_指定部门和成员(json数组);size:500
+        type: string
+      powerComment:
+        description: 圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组
+        type: integer
+      powerCommentUser:
+        description: 圈子内评论权限_指定部门和用户(json数组);size:500
+        type: string
+      powerPublish:
+        description: 圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组
+        type: integer
+      powerPublishUser:
+        description: 圈子内发布权限_指定部门和用户(json数组);size:500
+        type: string
+      powerView:
+        description: 圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组
+        type: integer
+      powerViewUser:
+        description: 圈子内浏览权限_指定部门和用户(json数组);size:500
+        type: string
+      process:
+        description: 是否开启版块内容人工审核：0 否，1是
+        type: integer
+      property:
+        description: :圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
+        type: integer
+      protocol:
+        description: 圈子规约;size:1000
+        type: string
+      slogan:
+        description: 圈子标语;size:20
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        type: integer
+      supportCategory:
+        description: 支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;
+        type: string
+      type:
+        description: 类型：0官方圈子、1用户圈子、2小区
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      view:
+        description: 板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleClassify:
+    properties:
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      des:
+        description: 描述
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      property:
+        description: 属性：0公开 ，1受限
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+      status:
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleRequest:
+    properties:
+      backImage:
+        description: 圈子背景图
+        type: string
+      checkStatus:
+        description: 审核状态：0 未处理 1 通过，2驳回
+        type: integer
+      circleClassifyId:
+        description: 圈子分类_编号
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      des:
+        description: 圈子简介
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      logo:
+        description: 圈子Logo
+        type: string
+      name:
+        description: 圈子名称
+        type: string
+      protocol:
+        description: 圈子规约
+        type: string
+      slogan:
+        description: 圈子标语
+        type: string
+      status:
+        type: integer
+      type:
+        description: 类型：0官方圈子 ，1用户圈子
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleUser:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      sort:
+        description: 用户的圈子排序
+        type: integer
+      status:
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        description: 用户ID
+        type: integer
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopic:
+    properties:
+      attentionNum:
+        description: 关注数
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      coverImage:
+        description: 封面
+        type: string
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      discussNum:
+        description: 讨论数
+        type: integer
+      hot:
+        description: 是否热门：0 否 1 是
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      reviewStatus:
+        description: 审核状态：0 未处理 1 通过，2驳回
+        type: integer
+      status:
+        type: integer
+      topicGroupId:
+        description: 分组id
+        type: integer
+      type:
+        description: 话题类型：0 全局，1圈子
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopicGroup:
+    properties:
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_community_response.LoginResponse:
+    properties:
+      expiresAt:
+        type: integer
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/community.HkUser'
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_community_response.SysUserResponse:
+    properties:
+      user:
+        $ref: '#/definitions/community.HkUser'
+    type: object
+  github.com_flipped-aurora_gin-vue-admin_server_model_general.HkUserCollect:
     properties:
       createDept:
         type: integer
@@ -2164,35 +2615,6 @@ definitions:
       userId:
         description: 用户编号
         type: integer
-    type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_app_request.Register:
-    properties:
-      account:
-        description: 用户名
-        example: 用户名
-        type: string
-      nickName:
-        description: 昵称
-        example: 昵称
-        type: string
-      passWord:
-        description: 密码
-        example: 密码
-        type: string
-    type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_community_response.LoginResponse:
-    properties:
-      expiresAt:
-        type: integer
-      token:
-        type: string
-      user:
-        $ref: '#/definitions/community.HkUser'
-    type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_community_response.SysUserResponse:
-    properties:
-      user:
-        $ref: '#/definitions/community.HkUser'
     type: object
   github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Register:
     properties:
@@ -2378,6 +2800,51 @@ definitions:
     properties:
       id:
         description: 主键ID
+        type: integer
+    type: object
+  request.HkUserCircleApplySearch:
+    properties:
+      applyId:
+        description: 应用_编号
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      endCreatedAt:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      keyword:
+        description: 关键字
+        type: string
+      page:
+        description: 页码
+        type: integer
+      pageSize:
+        description: 每页大小
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+      startCreatedAt:
+        type: string
+      status:
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        description: 用户编号
         type: integer
     type: object
   request.IdDelete:
@@ -2590,6 +3057,72 @@ definitions:
         type: integer
       pageSize:
         description: 每页大小
+        type: integer
+    type: object
+  request.UpdateCircleReq:
+    properties:
+      backImage:
+        description: 圈子背景图;size:500
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      des:
+        description: 圈子简介;size:1000
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      logo:
+        description: 圈子Logo
+        type: string
+      name:
+        description: 圈子名称
+        type: string
+      newUserFocus:
+        description: 新注册用户默认关注：0 否，1是
+        type: integer
+      noLimitUserGroup:
+        description: 不受限用户组(json数组);size:500
+        type: string
+      powerAdd:
+        description: 圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户
+        type: integer
+      powerAddUser:
+        description: 圈子加入权限_指定部门和成员(json数组);size:500
+        type: string
+      powerComment:
+        description: 圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组
+        type: integer
+      powerCommentUser:
+        description: 圈子内评论权限_指定部门和用户(json数组);size:500
+        type: string
+      powerPublish:
+        description: 圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组
+        type: integer
+      powerPublishUser:
+        description: 圈子内发布权限_指定部门和用户(json数组);size:500
+        type: string
+      powerView:
+        description: 圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组
+        type: integer
+      powerViewUser:
+        description: 圈子内浏览权限_指定部门和用户(json数组);size:500
+        type: string
+      process:
+        description: 是否开启版块内容人工审核：0 否，1是
+        type: integer
+      property:
+        description: :圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
+        type: integer
+      protocol:
+        description: 圈子规约;size:1000
+        type: string
+      slogan:
+        description: 圈子标语;size:20
+        type: string
+      view:
+        description: 板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到
         type: integer
     type: object
   request.UpdateCircleUserReq:
@@ -2878,6 +3411,9 @@ definitions:
         type: array
       parentId:
         description: 父角色ID
+        type: integer
+      sort:
+        description: 排序
         type: integer
       updatedAt:
         description: 更新时间
@@ -3596,7 +4132,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/community.HkCircle'
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircle'
                 msg:
                   type: string
               type: object
@@ -3624,7 +4160,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/community.HkCircleRequest'
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleRequest'
                 msg:
                   type: string
               type: object
@@ -3652,7 +4188,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/community.HkCircleUser'
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleUser'
                 msg:
                   type: string
               type: object
@@ -3705,7 +4241,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkCircleClassify'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleClassify'
                   type: array
                 msg:
                   type: string
@@ -3759,7 +4295,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkCircleClassify'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleClassify'
                   type: array
                 msg:
                   type: string
@@ -3822,14 +4358,14 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回community.HkForumPosts
+          description: 返回community.ForumPostsBaseInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkForumPosts'
+                    $ref: '#/definitions/community.ForumPostsBaseInfo'
                   type: array
                 msg:
                   type: string
@@ -3876,14 +4412,14 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回community.HkCircle
+          description: 返回community.CircleBaseInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkCircle'
+                    $ref: '#/definitions/community.CircleBaseInfo'
                   type: array
                 msg:
                   type: string
@@ -3953,7 +4489,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkCircleRequest'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleRequest'
                   type: array
                 msg:
                   type: string
@@ -4007,7 +4543,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkCircleUser'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkCircleUser'
                   type: array
                 msg:
                   type: string
@@ -4054,14 +4590,14 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回community.HkCircle
+          description: 返回community.CircleBaseInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkCircle'
+                    $ref: '#/definitions/community.CircleBaseInfo'
                   type: array
                 msg:
                   type: string
@@ -4120,14 +4656,14 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回community.HkForumPosts
+          description: 返回community.ForumPostsBaseInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkForumPosts'
+                    $ref: '#/definitions/community.ForumPostsBaseInfo'
                   type: array
                 msg:
                   type: string
@@ -4170,7 +4706,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircle'
+          $ref: '#/definitions/request.UpdateCircleReq'
       produces:
       - application/json
       responses:
@@ -4294,7 +4830,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/apply.HkApply'
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkApply'
                 msg:
                   type: string
               type: object
@@ -4322,7 +4858,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/apply.HkCircleApply'
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApply'
                 msg:
                   type: string
               type: object
@@ -4383,7 +4919,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/apply.HkApply'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkApply'
                   type: array
                 msg:
                   type: string
@@ -4445,7 +4981,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/apply.HkApply'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkApply'
                   type: array
                 msg:
                   type: string
@@ -4503,7 +5039,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/apply.HkCircleApplyGroup'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApplyGroup'
                   type: array
                 msg:
                   type: string
@@ -4561,7 +5097,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/apply.HkCircleApplyGroup'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApplyGroup'
                   type: array
                 msg:
                   type: string
@@ -4623,7 +5159,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/apply.HkCircleApply'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApply'
                   type: array
                 msg:
                   type: string
@@ -4685,7 +5221,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/apply.HkCircleApply'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_apply.HkCircleApply'
                   type: array
                 msg:
                   type: string
@@ -4703,14 +5239,14 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回community.HkUserCircleApply
+          description: 返回communityReq.HkUserCircleApplySearch
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkUserCircleApply'
+                    $ref: '#/definitions/request.HkUserCircleApplySearch'
                   type: array
                 msg:
                   type: string
@@ -5916,7 +6452,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkForumTopic'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopic'
                   type: array
                 msg:
                   type: string
@@ -5945,7 +6481,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/community.HkForumTopicGroup'
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopicGroup'
                 msg:
                   type: string
               type: object
@@ -5994,7 +6530,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkForumTopicGroup'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopicGroup'
                   type: array
                 msg:
                   type: string
@@ -6044,7 +6580,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkForumTopicGroup'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopicGroup'
                   type: array
                 msg:
                   type: string
@@ -6150,7 +6686,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.HkForumTopic'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopic'
                   type: array
                 msg:
                   type: string
@@ -6170,7 +6706,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkForumTopic'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community.HkForumTopic'
       produces:
       - application/json
       responses:
@@ -6420,7 +6956,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_request.Register'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_request.Register'
       produces:
       - application/json
       responses:
@@ -6713,7 +7249,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/general.HkUserCollect'
+                    $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_general.HkUserCollect'
                   type: array
                 msg:
                   type: string
@@ -7839,7 +8375,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/apply.HkApply'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkApply'
       produces:
       - application/json
       responses:
@@ -7862,7 +8398,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/apply.HkApply'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkApply'
       produces:
       - application/json
       responses:
@@ -8029,7 +8565,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/apply.HkApply'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkApply'
       produces:
       - application/json
       responses:
@@ -8260,7 +8796,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircle'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircle'
       produces:
       - application/json
       responses:
@@ -8283,7 +8819,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircle'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircle'
       produces:
       - application/json
       responses:
@@ -8507,7 +9043,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircle'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircle'
       produces:
       - application/json
       responses:
@@ -8724,7 +9260,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/apply.HkCircleApply'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApply'
       produces:
       - application/json
       responses:
@@ -8747,7 +9283,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/apply.HkCircleApply'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApply'
       produces:
       - application/json
       responses:
@@ -8899,7 +9435,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/apply.HkCircleApply'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApply'
       produces:
       - application/json
       responses:
@@ -8922,7 +9458,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/apply.HkCircleApplyGroup'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApplyGroup'
       produces:
       - application/json
       responses:
@@ -8945,7 +9481,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/apply.HkCircleApplyGroup'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApplyGroup'
       produces:
       - application/json
       responses:
@@ -9093,7 +9629,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/apply.HkCircleApplyGroup'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_apply.HkCircleApplyGroup'
       produces:
       - application/json
       responses:
@@ -9116,7 +9652,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircleClassify'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleClassify'
       produces:
       - application/json
       responses:
@@ -9139,7 +9675,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircleClassify'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleClassify'
       produces:
       - application/json
       responses:
@@ -9283,7 +9819,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircleClassify'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleClassify'
       produces:
       - application/json
       responses:
@@ -9492,7 +10028,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircleRequest'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleRequest'
       produces:
       - application/json
       responses:
@@ -9515,7 +10051,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircleRequest'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleRequest'
       produces:
       - application/json
       responses:
@@ -9679,7 +10215,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircleRequest'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleRequest'
       produces:
       - application/json
       responses:
@@ -9702,7 +10238,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircleUser'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleUser'
       produces:
       - application/json
       responses:
@@ -9725,7 +10261,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircleUser'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleUser'
       produces:
       - application/json
       responses:
@@ -9865,7 +10401,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkCircleUser'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkCircleUser'
       produces:
       - application/json
       responses:
@@ -11912,7 +12448,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkForumTopic'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopic'
       produces:
       - application/json
       responses:
@@ -11935,7 +12471,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkForumTopic'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopic'
       produces:
       - application/json
       responses:
@@ -12099,7 +12635,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkForumTopic'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopic'
       produces:
       - application/json
       responses:
@@ -12122,7 +12658,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkForumTopicGroup'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopicGroup'
       produces:
       - application/json
       responses:
@@ -12145,7 +12681,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkForumTopicGroup'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopicGroup'
       produces:
       - application/json
       responses:
@@ -12281,7 +12817,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkForumTopicGroup'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_community.HkForumTopicGroup'
       produces:
       - application/json
       responses:
@@ -14273,7 +14809,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/general.HkUserCollect'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_general.HkUserCollect'
       produces:
       - application/json
       responses:
@@ -14296,7 +14832,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/general.HkUserCollect'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_general.HkUserCollect'
       produces:
       - application/json
       responses:
@@ -14434,7 +14970,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/general.HkUserCollect'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_general.HkUserCollect'
       produces:
       - application/json
       responses:

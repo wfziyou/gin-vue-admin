@@ -65,22 +65,3 @@ func (hkUserCircleApplyService *HkUserCircleApplyService) GetHkUserCircleApplyIn
 	err = db.Limit(limit).Offset(offset).Find(&hkUserCircleApplys).Error
 	return hkUserCircleApplys, total, err
 }
-
-// GetHkUserCircleApplyInfoListALL 获取HkUserCircleApply记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (hkUserCircleApplyService *HkUserCircleApplyService) GetHkUserCircleApplyInfoListALL(info communityReq.HkUserCircleApplySearchAll) (list []community.HkUserCircleApply, total int64, err error) {
-	// 创建db
-	db := global.GVA_DB.Model(&community.HkUserCircleApply{})
-	var hkUserCircleApplys []community.HkUserCircleApply
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Find(&hkUserCircleApplys).Error
-	return hkUserCircleApplys, total, err
-}

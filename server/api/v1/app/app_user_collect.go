@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/gin-gonic/gin"
@@ -18,11 +18,11 @@ type UserCollectApi struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body appReq.UserCollectReq true "收藏帖子"
+// @Param data body generalReq.UserCollectReq true "收藏帖子"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/userCollect/createUserCollect [post]
 func (userCollectApi *UserCollectApi) CreateUserCollect(c *gin.Context) {
-	var hkUserCollect appReq.UserCollectReq
+	var hkUserCollect generalReq.UserCollectReq
 	err := c.ShouldBindJSON(&hkUserCollect)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -90,25 +90,26 @@ func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.UserCollectSearch true "分页获取UserCollect列表"
+// @Param data query generalReq.UserCollectSearch true "分页获取UserCollect列表"
 // @Success 200 {object}  response.PageResult{List=[]general.HkUserCollect,msg=string} "返回general.HkUserCollect"
 // @Router /app/userCollect/getUserCollectList [get]
 func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
-	var pageInfo appReq.UserCollectSearch
+	var pageInfo generalReq.UserCollectSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appUserCollectService.GetHkUserCollectInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	//var aa general.HkUserCollect
+	if list, total, err := appUserCollectService.GetHkUserCollectInfoList(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

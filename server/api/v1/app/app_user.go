@@ -3,7 +3,7 @@ package app
 import (
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	communityRes "github.com/flipped-aurora/gin-vue-admin/server/model/community/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/sms/service"
 	"math/rand"
@@ -29,11 +29,11 @@ type UserApi struct {
 // @Summary   获取验证码
 // @accept    application/json
 // @Produce   application/json
-// @Param data body appReq.CaptchaReq true "获取验证码"
+// @Param data body communityReq.CaptchaReq true "获取验证码"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router    /app/user/getCaptcha [post]
 func (userApi *UserApi) GetCaptcha(c *gin.Context) {
-	var obj appReq.CaptchaReq
+	var obj communityReq.CaptchaReq
 	_ = c.ShouldBindJSON(&obj)
 
 	//类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
@@ -97,11 +97,11 @@ func (userApi *UserApi) GetCaptcha(c *gin.Context) {
 // @Tags     App_User
 // @Summary  注册
 // @Produce   application/json
-// @Param    data  body appReq.Register true  "注册"
+// @Param    data  body communityReq.Register true  "注册"
 // @Success  200   {object}  response.Response{data=communityRes.SysUserResponse,msg=string}  "用户注册账号,返回包括用户信息"
 // @Router   /app/user/register [post]
 func (userApi *UserApi) Register(c *gin.Context) {
-	var r appReq.Register
+	var r communityReq.Register
 	err := c.ShouldBindJSON(&r)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -127,11 +127,11 @@ func (userApi *UserApi) Register(c *gin.Context) {
 // @Tags     App_User
 // @Summary  用户登录(账号密码)
 // @Produce   application/json
-// @Param    data  body      appReq.LoginPwd  true  "用户登录(账号密码)"
+// @Param    data  body      communityReq.LoginPwd  true  "用户登录(账号密码)"
 // @Success  200   {object}  response.Response{data=communityRes.LoginResponse,msg=string}  "返回包括用户信息,token,过期时间"
 // @Router   /app/user/loginPwd [post]
 func (userApi *UserApi) LoginPwd(c *gin.Context) {
-	var l appReq.LoginPwd
+	var l communityReq.LoginPwd
 	err := c.ShouldBindJSON(&l)
 	key := c.ClientIP()
 
@@ -199,11 +199,11 @@ func (userApi *UserApi) LoginPwd(c *gin.Context) {
 // @Tags     App_User
 // @Summary  用户登录(手机)
 // @Produce   application/json
-// @Param    data  body      appReq.LoginTelephone   true  "用户登录(手机)"
+// @Param    data  body      communityReq.LoginTelephone   true  "用户登录(手机)"
 // @Success  200   {object}  response.Response{data=communityRes.LoginResponse,msg=string}  "返回包括用户信息,token,过期时间"
 // @Router   /app/user/loginTelephone [post]
 func (userApi *UserApi) LoginTelephone(c *gin.Context) {
-	//var l appReq.LoginTelephone
+	//var l communityReq.LoginTelephone
 
 }
 
@@ -211,11 +211,11 @@ func (userApi *UserApi) LoginTelephone(c *gin.Context) {
 // @Tags     App_User
 // @Summary  用户登录(第三方授权)
 // @Produce   application/json
-// @Param    data  body      appReq.LoginThird    true  "用户登录(第三方授权)"
+// @Param    data  body      communityReq.LoginThird    true  "用户登录(第三方授权)"
 // @Success  200   {object}  response.Response{data=communityRes.LoginResponse,msg=string}  "返回包括用户信息,token,过期时间"
 // @Router   /app/user/loginThird [post]
 func (userApi *UserApi) LoginThird(c *gin.Context) {
-	//var l appReq.LoginThird
+	//var l communityReq.LoginThird
 
 }
 
@@ -282,11 +282,11 @@ func (userApi *UserApi) TokenNext(c *gin.Context, user community.HkUser) {
 // @Summary   重置密码
 // @Security  ApiKeyAuth
 // @Produce  application/json
-// @Param     data  body      appReq.ResetPasswordReq    true  "重置密码"
+// @Param     data  body      communityReq.ResetPasswordReq    true  "重置密码"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
 // @Router    /app/user/resetPassword [post]
 func (userApi *UserApi) ResetPassword(c *gin.Context) {
-	var req appReq.ResetPasswordReq
+	var req communityReq.ResetPasswordReq
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -312,11 +312,11 @@ func (userApi *UserApi) ResetPassword(c *gin.Context) {
 // @Tags     App_User
 // @Summary  绑定手机
 // @Produce   application/json
-// @Param    data  body      appReq.BindTelephoneReq   true  "绑定手机"
+// @Param    data  body      communityReq.BindTelephoneReq   true  "绑定手机"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router   /app/user/bindTelephone [post]
 func (userApi *UserApi) BindTelephone(c *gin.Context) {
-	//var l appReq.BindTelephoneReq
+	//var l communityReq.BindTelephoneReq
 
 }
 
@@ -324,11 +324,11 @@ func (userApi *UserApi) BindTelephone(c *gin.Context) {
 // @Tags     App_User
 // @Summary  绑定邮箱
 // @Produce   application/json
-// @Param    data  body      appReq.BindEmailReq  true  "绑定邮箱"
+// @Param    data  body      communityReq.BindEmailReq  true  "绑定邮箱"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router   /app/user/bindEmail [post]
 func (userApi *UserApi) BindEmail(c *gin.Context) {
-	//var l appReq.BindEmailReq
+	//var l communityReq.BindEmailReq
 
 }
 
@@ -372,11 +372,11 @@ func (userApi *UserApi) GetUserBaseInfo(c *gin.Context) {
 // @Security  ApiKeyAuth
 // @accept    application/json
 // @Produce   application/json
-// @Param     data  body      appReq.SetSelfBaseInfoReq    true  "设置用户基础信息"
+// @Param     data  body      communityReq.SetSelfBaseInfoReq    true  "设置用户基础信息"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router    /app/user/setSelfBaseInfo [put]
 func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
-	var user appReq.SetSelfBaseInfoReq
+	var user communityReq.SetSelfBaseInfoReq
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -407,11 +407,11 @@ func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.UserSearch true "分页获取User列表"
+// @Param data query communityReq.UserSearch true "分页获取User列表"
 // @Success 200 {object}  response.PageResult{List=[]community.HkUser,msg=string} "返回common.HkUser"
 // @Router /app/user/getUserList [get]
 func (userApi *UserApi) GetUserList(c *gin.Context) {
-	var pageInfo appReq.UserSearch
+	var pageInfo communityReq.UserSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

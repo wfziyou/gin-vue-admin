@@ -2,7 +2,8 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/apply/request"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/gin-gonic/gin"
@@ -22,11 +23,11 @@ type CircleApplyApi struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body appReq.CreateUserCircleApplyReq true "创建UserCircleApply"
+// @Param data body applyReq.CreateUserCircleApplyReq true "创建UserCircleApply"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/circleApply/createUserCircleApply [post]
 func (circleApplyApi *CircleApplyApi) CreateUserCircleApply(c *gin.Context) {
-	var hkUserCircleApply appReq.CreateUserCircleApplyReq
+	var hkUserCircleApply applyReq.CreateUserCircleApplyReq
 	err := c.ShouldBindJSON(&hkUserCircleApply)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -95,18 +96,25 @@ func (circleApplyApi *CircleApplyApi) DeleteUserCircleApplyByIds(c *gin.Context)
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200 {object}  response.PageResult{List=[]community.HkUserCircleApply,msg=string} "返回community.HkUserCircleApply"
+// @Success 200 {object}  response.PageResult{List=[]communityReq.HkUserCircleApplySearch,msg=string} "返回communityReq.HkUserCircleApplySearch"
 // @Router /app/circleApply/getUserCircleApplyListALL [get]
 func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListALL(c *gin.Context) {
-	//if list, total, err := appUserCircleApplyService.GetHkUserCircleApplyInfoListALL(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:  list,
-	//		Total: total,
-	//	}, "获取成功", c)
-	//}
+	var pageInfo communityReq.HkUserCircleApplySearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if list, total, err := appUserCircleApplyService.GetHkUserCircleApplyInfoListALL(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:  list,
+			Total: total,
+		}, "获取成功", c)
+	}
 }
 
 /*************************************
@@ -129,6 +137,7 @@ func (circleApplyApi *CircleApplyApi) FindApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	//var aa apply.HkApply
 	if rehkApply, err := appApplyService.GetHkApply(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
@@ -143,11 +152,11 @@ func (circleApplyApi *CircleApplyApi) FindApply(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.ApplySearchReq true "分页获取Apply列表"
+// @Param data query applyReq.ApplySearchReq true "分页获取Apply列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.HkApply,msg=string} "返回apply.HkApply"
 // @Router /app/circleApply/getApplyList [get]
 func (circleApplyApi *CircleApplyApi) GetApplyList(c *gin.Context) {
-	var pageInfo appReq.ApplySearchReq
+	var pageInfo applyReq.ApplySearchReq
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -172,11 +181,11 @@ func (circleApplyApi *CircleApplyApi) GetApplyList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.ApplySearchReq true "获取Apply列表"
+// @Param data query applyReq.ApplySearchReq true "获取Apply列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.HkApply,msg=string} "返回apply.HkApply"
 // @Router /app/circleApply/getApplyListAll [get]
 func (circleApplyApi *CircleApplyApi) GetApplyListAll(c *gin.Context) {
-	var pageInfo appReq.ApplySearchReq
+	var pageInfo applyReq.ApplySearchReq
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -225,11 +234,11 @@ func (circleApplyApi *CircleApplyApi) FindCircleApply(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.CircleApplySearchReq true "分页获取CircleApply列表"
+// @Param data query applyReq.CircleApplySearchReq true "分页获取CircleApply列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.HkCircleApply,msg=string} "返回apply.HkCircleApply"
 // @Router /app/circleApply/getCircleApplyList [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyList(c *gin.Context) {
-	var pageInfo appReq.CircleApplySearchReq
+	var pageInfo applyReq.CircleApplySearchReq
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -254,11 +263,11 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.CircleApplySearchReq true "获取CircleApply列表"
+// @Param data query applyReq.CircleApplySearchReq true "获取CircleApply列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.HkCircleApply,msg=string} "返回apply.HkCircleApply"
 // @Router /app/circleApply/getCircleApplyListAll [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyListAll(c *gin.Context) {
-	var pageInfo appReq.CircleApplySearchReq
+	var pageInfo applyReq.CircleApplySearchReq
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -281,11 +290,11 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyListAll(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.CircleApplyGroupSearchReq true "分页获取CircleApplyGroup列表"
+// @Param data query applyReq.CircleApplyGroupSearchReq true "分页获取CircleApplyGroup列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.HkCircleApplyGroup,msg=string} "返回apply.HkCircleApplyGroup"
 // @Router /app/circleApply/getCircleApplyGroupList [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupList(c *gin.Context) {
-	var pageInfo appReq.CircleApplyGroupSearchReq
+	var pageInfo applyReq.CircleApplyGroupSearchReq
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -310,11 +319,11 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query appReq.CircleApplyGroupSearchReq true "获取CircleApplyGroup列表"
+// @Param data query applyReq.CircleApplyGroupSearchReq true "获取CircleApplyGroup列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.HkCircleApplyGroup,msg=string} "返回apply.HkCircleApplyGroup"
 // @Router /app/circleApply/getCircleApplyGroupListAll [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupListAll(c *gin.Context) {
-	var pageInfo appReq.CircleApplyGroupSearchReq
+	var pageInfo applyReq.CircleApplyGroupSearchReq
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

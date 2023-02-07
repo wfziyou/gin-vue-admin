@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
@@ -116,27 +115,6 @@ func (hkUserService *HkUserService) GetHkUser(id uint) (hkUser community.HkUser,
 // GetHkUserInfoList 分页获取HkUser记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkUserService *HkUserService) GetHkUserInfoList(info communityReq.HkUserSearch) (list []community.HkUser, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
-	// 创建db
-	db := global.GVA_DB.Model(&community.HkUser{})
-	var hkUsers []community.HkUser
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Limit(limit).Offset(offset).Find(&hkUsers).Error
-	return hkUsers, total, err
-}
-
-// AppGetHkUserInfoList 分页获取HkUser记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (hkUserService *HkUserService) AppGetHkUserInfoList(info appReq.UserSearch) (list []community.HkUser, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db

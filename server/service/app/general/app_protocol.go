@@ -2,7 +2,6 @@ package general
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/general/request"
@@ -49,27 +48,6 @@ func (appProtocolService *AppProtocolService) GetHkProtocol(id uint) (hkProtocol
 // GetHkProtocolInfoList 分页获取HkProtocol记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appProtocolService *AppProtocolService) GetHkProtocolInfoList(info generalReq.HkProtocolSearch) (list []general.HkProtocol, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
-	// 创建db
-	db := global.GVA_DB.Model(&general.HkProtocol{})
-	var hkProtocols []general.HkProtocol
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Limit(limit).Offset(offset).Find(&hkProtocols).Error
-	return hkProtocols, total, err
-}
-
-// AppGetHkProtocolInfoList 分页获取HkProtocol记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appProtocolService *AppProtocolService) AppGetHkProtocolInfoList(info appReq.ProtocolSearch) (list []general.HkProtocol, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db

@@ -2,9 +2,9 @@ package general
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
+	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/general"
-	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/general/request"
 )
 
 type AppUserCollectService struct {
@@ -47,7 +47,7 @@ func (appUserCollectService *AppUserCollectService) GetHkUserCollect(id uint) (h
 
 // GetHkUserCollectInfoList 分页获取HkUserCollect记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserCollectService *AppUserCollectService) GetHkUserCollectInfoList(info generalReq.HkUserCollectSearch) (list []general.HkUserCollect, total int64, err error) {
+func (appUserCollectService *AppUserCollectService) GetHkUserCollectInfoList(info generalReq.UserCollectSearch) (list []general.HkUserCollect, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db

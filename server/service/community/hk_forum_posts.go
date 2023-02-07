@@ -2,7 +2,6 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
@@ -49,48 +48,6 @@ func (hkForumPostsService *HkForumPostsService) GetHkForumPosts(id uint) (hkForu
 // GetHkForumPostsInfoList 分页获取HkForumPosts记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkForumPostsService *HkForumPostsService) GetHkForumPostsInfoList(info communityReq.HkForumPostsSearch) (list []community.HkForumPosts, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
-	// 创建db
-	db := global.GVA_DB.Model(&community.HkForumPosts{})
-	var hkForumPostss []community.HkForumPosts
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
-	return hkForumPostss, total, err
-}
-
-// GetForumPostsInfoList 分页获取HkForumPosts记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (hkForumPostsService *HkForumPostsService) GetForumPostsInfoList(info appReq.CircleForumPostsSearch) (list []community.HkForumPosts, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
-	// 创建db
-	db := global.GVA_DB.Model(&community.HkForumPosts{})
-	var hkForumPostss []community.HkForumPosts
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
-	return hkForumPostss, total, err
-}
-
-// GetUserForumPostsInfoList 分页获取HkForumPosts记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (hkForumPostsService *HkForumPostsService) GetUserForumPostsInfoList(info appReq.UserCircleForumPostsSearch) (list []community.HkForumPosts, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db

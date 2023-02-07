@@ -4,10 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
@@ -115,7 +114,7 @@ func (appUserService *AppUserService) GetHkUser(id uint) (hkUser community.HkUse
 
 // GetHkUserInfoList 分页获取HkUser记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) GetHkUserInfoList(info communityReq.HkUserSearch) (list []community.HkUser, total int64, err error) {
+func (appUserService *AppUserService) GetHkUserInfoList(info communityReq.UserSearch) (list []community.HkUser, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -136,7 +135,7 @@ func (appUserService *AppUserService) GetHkUserInfoList(info communityReq.HkUser
 
 // AppGetHkUserInfoList 分页获取HkUser记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) AppGetHkUserInfoList(info appReq.UserSearch) (list []community.HkUser, total int64, err error) {
+func (appUserService *AppUserService) AppGetHkUserInfoList(info communityReq.UserSearch) (list []community.HkUser, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db

@@ -2,7 +2,7 @@ package apply
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/apply"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/apply"
 	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/apply/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )

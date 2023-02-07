@@ -2,9 +2,9 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 )
 
 type AppUserCircleApplyService struct {
@@ -68,7 +68,7 @@ func (appUserCircleApplyService *AppUserCircleApplyService) GetHkUserCircleApply
 
 // GetHkUserCircleApplyInfoListALL 获取HkUserCircleApply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserCircleApplyService *AppUserCircleApplyService) GetHkUserCircleApplyInfoListALL(info communityReq.HkUserCircleApplySearchAll) (list []community.HkUserCircleApply, total int64, err error) {
+func (appUserCircleApplyService *AppUserCircleApplyService) GetHkUserCircleApplyInfoListALL(info communityReq.HkUserCircleApplySearch) (list []community.HkUserCircleApply, total int64, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&community.HkUserCircleApply{})
 	var hkUserCircleApplys []community.HkUserCircleApply

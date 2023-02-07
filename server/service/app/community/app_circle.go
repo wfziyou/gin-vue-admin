@@ -2,10 +2,9 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 )
 
 type AppCircleService struct {
@@ -48,33 +47,12 @@ func (appCircleService *AppCircleService) GetHkCircle(id uint) (hkCircle communi
 
 // GetHkCircleInfoList 分页获取HkCircle记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleService *AppCircleService) GetHkCircleInfoList(info communityReq.HkCircleSearch) (list []community.HkCircle, total int64, err error) {
+func (appCircleService *AppCircleService) GetHkCircleInfoList(info communityReq.CircleSearch) (list []community.CircleBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkCircle{})
-	var hkCircles []community.HkCircle
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Limit(limit).Offset(offset).Find(&hkCircles).Error
-	return hkCircles, total, err
-}
-
-// AppGetHkCircleInfoList 分页获取HkCircle记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appCircleService *AppCircleService) AppGetHkCircleInfoList(info appReq.CircleSearch) (list []community.HkCircle, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
-	// 创建db
-	db := global.GVA_DB.Model(&community.HkCircle{})
-	var hkCircles []community.HkCircle
+	db := global.GVA_DB.Model(&community.CircleBaseInfo{})
+	var hkCircles []community.CircleBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
@@ -90,12 +68,12 @@ func (appCircleService *AppCircleService) AppGetHkCircleInfoList(info appReq.Cir
 
 // GetSelfCircleList 分页获取HkCircle记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleService *AppCircleService) GetSelfCircleList(info appReq.SelfCircleSearch) (list []community.HkCircle, total int64, err error) {
+func (appCircleService *AppCircleService) GetSelfCircleList(info communityReq.SelfCircleSearch) (list []community.CircleBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkCircle{})
-	var hkCircles []community.HkCircle
+	db := global.GVA_DB.Model(&community.CircleBaseInfo{})
+	var hkCircles []community.CircleBaseInfo
 
 	err = db.Count(&total).Error
 	if err != nil {
