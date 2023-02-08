@@ -14,7 +14,7 @@ type GetById struct {
 
 // IdSearch id查询
 type IdSearch struct {
-	ID uint `json:"id" form:"id" ` //编号
+	ID uint64 `json:"id" form:"id" ` //编号
 }
 
 // IdDelete id删除

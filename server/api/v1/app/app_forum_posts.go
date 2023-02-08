@@ -2,10 +2,10 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -19,17 +19,17 @@ type ForumPostsApi struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkForumPosts true "创建ForumPosts"
+// @Param data body community.ForumPosts true "创建ForumPosts"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/forumPosts/createForumPosts [post]
 func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
-	var hkForumPosts community.HkForumPosts
+	var hkForumPosts community.ForumPosts
 	err := c.ShouldBindJSON(&hkForumPosts)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumPostsService.CreateHkForumPosts(hkForumPosts); err != nil {
+	//if err := appForumPostsService.CreateForumPosts(hkForumPosts); err != nil {
 	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
 	//	response.FailWithMessage("创建失败", c)
 	//} else {
@@ -53,7 +53,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumPostsService.DeleteHkForumPosts(hkForumPosts); err != nil {
+	//if err := appForumPostsService.DeleteForumPosts(hkForumPosts); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -77,7 +77,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumPostsByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appForumPostsService.DeleteHkForumPostsByIds(IDS); err != nil {
+	if err := appForumPostsService.DeleteForumPostsByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -91,17 +91,17 @@ func (forumPostsApi *ForumPostsApi) DeleteForumPostsByIds(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkForumPosts true "更新ForumPosts"
+// @Param data body community.ForumPosts true "更新ForumPosts"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/forumPosts/updateForumPosts [put]
 func (forumPostsApi *ForumPostsApi) UpdateForumPosts(c *gin.Context) {
-	var hkForumPosts community.HkForumPosts
+	var hkForumPosts community.ForumPosts
 	err := c.ShouldBindJSON(&hkForumPosts)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumPostsService.UpdateHkForumPosts(hkForumPosts); err != nil {
+	//if err := appForumPostsService.UpdateForumPosts(hkForumPosts); err != nil {
 	//	global.GVA_LOG.Error("更新失败!", zap.Error(err))
 	//	response.FailWithMessage("更新失败", c)
 	//} else {
@@ -116,7 +116,7 @@ func (forumPostsApi *ForumPostsApi) UpdateForumPosts(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ForumPosts"
-// @Success 200 {object}  response.Response{data=community.HkForumPosts,msg=string}  "返回community.HkForumPosts"
+// @Success 200 {object}  response.Response{data=community.ForumPosts,msg=string}  "返回community.ForumPosts"
 // @Router /app/forumPosts/findForumPosts [get]
 func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -125,7 +125,7 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForumPosts, err := appForumPostsService.GetHkForumPosts(idSearch.ID); err != nil {
+	if rehkForumPosts, err := appForumPostsService.GetForumPosts(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -139,17 +139,17 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.HkForumPostsSearch true "分页获取ForumPosts列表"
-// @Success 200 {object} response.PageResult{List=[]community.HkForumPosts,msg=string} "返回community.HkForumPosts"
+// @Param data query communityReq.ForumPostsSearch true "分页获取ForumPosts列表"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
 // @Router /app/forumPosts/getForumPostsList [get]
 func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
-	var pageInfo communityReq.HkForumPostsSearch
+	var pageInfo communityReq.ForumPostsSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appForumPostsService.GetHkForumPostsInfoList(pageInfo); err != nil {
+	//if list, total, err := appForumPostsService.GetForumPostsInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -168,17 +168,17 @@ func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkForumComment true "创建ForumComment"
+// @Param data body community.ForumComment true "创建ForumComment"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/forumPosts/createForumComment [post]
 func (forumPostsApi *ForumPostsApi) CreateForumComment(c *gin.Context) {
-	var hkForumComment community.HkForumComment
+	var hkForumComment community.ForumComment
 	err := c.ShouldBindJSON(&hkForumComment)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appForumCommentService.CreateHkForumComment(hkForumComment); err != nil {
+	if err := appForumCommentService.CreateForumComment(hkForumComment); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -202,7 +202,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumComment(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumCommentService.DeleteHkForumComment(hkForumComment); err != nil {
+	//if err := appForumCommentService.DeleteForumComment(hkForumComment); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -226,7 +226,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumCommentByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appForumCommentService.DeleteHkForumCommentByIds(IDS); err != nil {
+	if err := appForumCommentService.DeleteForumCommentByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -241,7 +241,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumCommentByIds(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ForumComment"
-// @Success 200 {object}  response.Response{data=community.HkForumComment,msg=string}  "返回community.HkForumComment"
+// @Success 200 {object}  response.Response{data=community.ForumComment,msg=string}  "返回community.ForumComment"
 // @Router /app/forumPosts/findForumComment [get]
 func (forumPostsApi *ForumPostsApi) FindForumComment(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -250,7 +250,7 @@ func (forumPostsApi *ForumPostsApi) FindForumComment(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForumComment, err := appForumCommentService.GetHkForumComment(idSearch.ID); err != nil {
+	if rehkForumComment, err := appForumCommentService.GetForumComment(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -264,17 +264,17 @@ func (forumPostsApi *ForumPostsApi) FindForumComment(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.HkForumCommentSearch true "分页获取ForumComment列表"
-// @Success 200 {object} response.PageResult{List=[]community.HkForumComment,msg=string} "返回community.HkForumComment"
+// @Param data query communityReq.ForumCommentSearch true "分页获取ForumComment列表"
+// @Success 200 {object} response.PageResult{List=[]community.ForumComment,msg=string} "返回community.ForumComment"
 // @Router /app/forumPosts/getForumCommentList [get]
 func (forumPostsApi *ForumPostsApi) GetForumCommentList(c *gin.Context) {
-	var pageInfo communityReq.HkForumCommentSearch
+	var pageInfo communityReq.ForumCommentSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumCommentService.GetHkForumCommentInfoList(pageInfo); err != nil {
+	if list, total, err := appForumCommentService.GetForumCommentInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -293,17 +293,17 @@ func (forumPostsApi *ForumPostsApi) GetForumCommentList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkForumThumbsUp true "帖子点赞"
+// @Param data body community.ForumThumbsUp true "帖子点赞"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/forumPosts/createForumThumbsUp [post]
 func (forumPostsApi *ForumPostsApi) CreateForumThumbsUp(c *gin.Context) {
-	var hkForumThumbsUp community.HkForumThumbsUp
+	var hkForumThumbsUp community.ForumThumbsUp
 	err := c.ShouldBindJSON(&hkForumThumbsUp)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appForumThumbsUpService.CreateHkForumThumbsUp(hkForumThumbsUp); err != nil {
+	if err := appForumThumbsUpService.CreateForumThumbsUp(hkForumThumbsUp); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -327,7 +327,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumThumbsUp(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumThumbsUpService.DeleteHkForumThumbsUp(hkForumThumbsUp); err != nil {
+	//if err := appForumThumbsUpService.DeleteForumThumbsUp(hkForumThumbsUp); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -341,17 +341,17 @@ func (forumPostsApi *ForumPostsApi) DeleteForumThumbsUp(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkCommentThumbsUp true "评论点赞"
+// @Param data body community.CommentThumbsUp true "评论点赞"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/forumPosts/createCommentThumbsUp [post]
 func (forumPostsApi *ForumPostsApi) CreateCommentThumbsUp(c *gin.Context) {
-	var hkCommentThumbsUp community.HkCommentThumbsUp
+	var hkCommentThumbsUp community.CommentThumbsUp
 	err := c.ShouldBindJSON(&hkCommentThumbsUp)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appCommentThumbsUpService.CreateHkCommentThumbsUp(hkCommentThumbsUp); err != nil {
+	if err := appCommentThumbsUpService.CreateCommentThumbsUp(hkCommentThumbsUp); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -375,7 +375,7 @@ func (forumPostsApi *ForumPostsApi) DeleteCommentThumbsUp(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appCommentThumbsUpService.DeleteHkCommentThumbsUp(hkCommentThumbsUp); err != nil {
+	//if err := appCommentThumbsUpService.DeleteCommentThumbsUp(hkCommentThumbsUp); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {

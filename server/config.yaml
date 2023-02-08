@@ -132,7 +132,7 @@ mysql:
   engine: ""
   max-idle-conns: 10
   max-open-conns: 100
-  log-mode: error
+  log-mode: true
   log-zap: false
 oracle:
   path: ""

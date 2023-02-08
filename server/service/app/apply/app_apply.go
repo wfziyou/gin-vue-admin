@@ -3,56 +3,56 @@ package apply
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/apply"
-	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/apply/request"
+	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/apply/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
 type AppApplyService struct {
 }
 
-// CreateHkApply 创建HkApply记录
+// CreateApply 创建Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) CreateHkApply(hkApply apply.HkApply) (err error) {
+func (appApplyService *AppApplyService) CreateApply(hkApply apply.Apply) (err error) {
 	err = global.GVA_DB.Create(&hkApply).Error
 	return err
 }
 
-// DeleteHkApply 删除HkApply记录
+// DeleteApply 删除Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) DeleteHkApply(hkApply apply.HkApply) (err error) {
+func (appApplyService *AppApplyService) DeleteApply(hkApply apply.Apply) (err error) {
 	err = global.GVA_DB.Delete(&hkApply).Error
 	return err
 }
 
-// DeleteHkApplyByIds 批量删除HkApply记录
+// DeleteApplyByIds 批量删除Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) DeleteHkApplyByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]apply.HkApply{}, "id in ?", ids.Ids).Error
+func (appApplyService *AppApplyService) DeleteApplyByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]apply.Apply{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkApply 更新HkApply记录
+// UpdateApply 更新Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) UpdateHkApply(hkApply apply.HkApply) (err error) {
+func (appApplyService *AppApplyService) UpdateApply(hkApply apply.Apply) (err error) {
 	err = global.GVA_DB.Save(&hkApply).Error
 	return err
 }
 
-// GetHkApply 根据id获取HkApply记录
+// GetApply 根据id获取Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) GetHkApply(id uint) (hkApply apply.HkApply, err error) {
+func (appApplyService *AppApplyService) GetApply(id uint64) (hkApply apply.Apply, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkApply).Error
 	return
 }
 
-// GetHkApplyInfoList 分页获取HkApply记录
+// GetApplyInfoList 分页获取Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) GetHkApplyInfoList(info applyReq.HkApplySearch) (list []apply.HkApply, total int64, err error) {
+func (appApplyService *AppApplyService) GetApplyInfoList(info applyReq.ApplySearch) (list []apply.Apply, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&apply.HkApply{})
-	var hkApplys []apply.HkApply
+	db := global.GVA_DB.Model(&apply.Apply{})
+	var hkApplys []apply.Apply
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
@@ -66,12 +66,12 @@ func (appApplyService *AppApplyService) GetHkApplyInfoList(info applyReq.HkApply
 	return hkApplys, total, err
 }
 
-// GetHkApplyInfoListAll 分页获取HkApply记录
+// GetApplyInfoListAll 分页获取Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) GetHkApplyInfoListAll(info applyReq.HkApplySearchAll) (list []apply.HkApply, total int64, err error) {
+func (appApplyService *AppApplyService) GetApplyInfoListAll(info applyReq.ApplySearchAll) (list []apply.Apply, total int64, err error) {
 	// 创建db
-	db := global.GVA_DB.Model(&apply.HkApply{})
-	var hkApplys []apply.HkApply
+	db := global.GVA_DB.Model(&apply.Apply{})
+	var hkApplys []apply.Apply
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

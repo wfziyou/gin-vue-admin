@@ -1,4 +1,4 @@
-// 自动生成模板HkForumPosts
+// 自动生成模板ForumPosts
 package community
 
 import (
@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-// HkForumPosts 结构体
-type HkForumPosts struct {
+// ForumPosts 结构体
+type ForumPosts struct {
 	global.GvaModelApp
 	CircleId              *int       `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                                                 //圈子_编号
 	Category              *int       `json:"category" form:"category" gorm:"column:category;comment:类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）;size:10;"`                        //类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
@@ -48,8 +48,8 @@ type HkForumPosts struct {
 	PayNum                *int       `json:"payNum" form:"payNum" gorm:"column:pay_num;comment:付费金额;size:10;"`                                                        //付费金额
 }
 
-// TableName HkForumPosts 表名
-func (HkForumPosts) TableName() string {
+// TableName ForumPosts 表名
+func (ForumPosts) TableName() string {
 	return "hk_forum_posts"
 }
 
@@ -79,7 +79,7 @@ type ForumPostsBaseInfo struct {
 	LikeNum      *int       `json:"likeNum" form:"likeNum" gorm:"column:like_num;comment:点赞次数;size:10;"`                              //点赞次数 	//付费金额
 }
 
-// TableName HkForumPosts 表名
+// TableName ForumPosts 表名
 func (ForumPostsBaseInfo) TableName() string {
 	return "hk_forum_posts"
 }

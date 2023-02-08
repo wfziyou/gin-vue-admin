@@ -1,12 +1,12 @@
-// 自动生成模板HkForumTopic
+// 自动生成模板ForumTopic
 package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkForumTopic 结构体
-type HkForumTopic struct {
+// ForumTopic 结构体
+type ForumTopic struct {
 	global.GvaModelApp
 	Name         string `json:"name" form:"name" gorm:"column:name;comment:名称;size:20;"`                                           //名称
 	CoverImage   string `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:封面;size:500;"`                       //封面
@@ -19,7 +19,7 @@ type HkForumTopic struct {
 	ReviewStatus *int   `json:"reviewStatus" form:"reviewStatus" gorm:"column:review_status;comment:审核状态：0 未处理 1 通过，2驳回;size:10;"` //审核状态：0 未处理 1 通过，2驳回
 }
 
-// TableName HkForumTopic 表名
-func (HkForumTopic) TableName() string {
+// TableName ForumTopic 表名
+func (ForumTopic) TableName() string {
 	return "hk_forum_topic"
 }

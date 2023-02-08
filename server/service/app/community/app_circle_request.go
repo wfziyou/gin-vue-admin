@@ -2,57 +2,57 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 )
 
 type AppCircleRequestService struct {
 }
 
-// CreateHkCircleRequest 创建HkCircleRequest记录
+// CreateCircleRequest 创建CircleRequest记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleRequestService *AppCircleRequestService) CreateHkCircleRequest(hkCircleRequest community.HkCircleRequest) (err error) {
+func (appCircleRequestService *AppCircleRequestService) CreateCircleRequest(hkCircleRequest community.CircleRequest) (err error) {
 	err = global.GVA_DB.Create(&hkCircleRequest).Error
 	return err
 }
 
-// DeleteHkCircleRequest 删除HkCircleRequest记录
+// DeleteCircleRequest 删除CircleRequest记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleRequestService *AppCircleRequestService) DeleteHkCircleRequest(hkCircleRequest community.HkCircleRequest) (err error) {
+func (appCircleRequestService *AppCircleRequestService) DeleteCircleRequest(hkCircleRequest community.CircleRequest) (err error) {
 	err = global.GVA_DB.Delete(&hkCircleRequest).Error
 	return err
 }
 
-// DeleteHkCircleRequestByIds 批量删除HkCircleRequest记录
+// DeleteCircleRequestByIds 批量删除CircleRequest记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleRequestService *AppCircleRequestService) DeleteHkCircleRequestByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.HkCircleRequest{}, "id in ?", ids.Ids).Error
+func (appCircleRequestService *AppCircleRequestService) DeleteCircleRequestByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]community.CircleRequest{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkCircleRequest 更新HkCircleRequest记录
+// UpdateCircleRequest 更新CircleRequest记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleRequestService *AppCircleRequestService) UpdateHkCircleRequest(hkCircleRequest community.HkCircleRequest) (err error) {
+func (appCircleRequestService *AppCircleRequestService) UpdateCircleRequest(hkCircleRequest community.CircleRequest) (err error) {
 	err = global.GVA_DB.Save(&hkCircleRequest).Error
 	return err
 }
 
-// GetHkCircleRequest 根据id获取HkCircleRequest记录
+// GetCircleRequest 根据id获取CircleRequest记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleRequestService *AppCircleRequestService) GetHkCircleRequest(id uint) (hkCircleRequest community.HkCircleRequest, err error) {
+func (appCircleRequestService *AppCircleRequestService) GetCircleRequest(id uint64) (hkCircleRequest community.CircleRequest, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleRequest).Error
 	return
 }
 
-// GetHkCircleRequestInfoList 分页获取HkCircleRequest记录
+// GetCircleRequestInfoList 分页获取CircleRequest记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleRequestService *AppCircleRequestService) GetHkCircleRequestInfoList(info communityReq.HkCircleRequestSearch) (list []community.HkCircleRequest, total int64, err error) {
+func (appCircleRequestService *AppCircleRequestService) GetCircleRequestInfoList(info communityReq.CircleRequestSearch) (list []community.CircleRequest, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkCircleRequest{})
-	var hkCircleRequests []community.HkCircleRequest
+	db := global.GVA_DB.Model(&community.CircleRequest{})
+	var hkCircleRequests []community.CircleRequest
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

@@ -1,18 +1,5 @@
 package request
 
-import (
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"time"
-)
-
-type ForumTopicGroupSearch struct {
-	Name string `json:"name" form:"name"` //名称
-
-	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"` //创建时间（开始）
-	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）
-	request.PageInfo
-}
-
 // CreateForumTopic 结构体
 type CreateForumTopicReq struct {
 	Name         string `json:"name" form:"name" gorm:"column:name;comment:名称;size:20;"`                             //名称

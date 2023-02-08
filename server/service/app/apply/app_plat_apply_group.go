@@ -2,57 +2,57 @@ package apply
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/apply"
-	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/apply/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/apply"
+	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/apply/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
 type AppPlatApplyGroupService struct {
 }
 
-// CreateHkPlatApplyGroup 创建HkPlatApplyGroup记录
+// CreatePlatApplyGroup 创建PlatApplyGroup记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appPlatApplyGroupService *AppPlatApplyGroupService) CreateHkPlatApplyGroup(hkPlatApplyGroup apply.HkPlatApplyGroup) (err error) {
+func (appPlatApplyGroupService *AppPlatApplyGroupService) CreatePlatApplyGroup(hkPlatApplyGroup apply.PlatApplyGroup) (err error) {
 	err = global.GVA_DB.Create(&hkPlatApplyGroup).Error
 	return err
 }
 
-// DeleteHkPlatApplyGroup 删除HkPlatApplyGroup记录
+// DeletePlatApplyGroup 删除PlatApplyGroup记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appPlatApplyGroupService *AppPlatApplyGroupService) DeleteHkPlatApplyGroup(hkPlatApplyGroup apply.HkPlatApplyGroup) (err error) {
+func (appPlatApplyGroupService *AppPlatApplyGroupService) DeletePlatApplyGroup(hkPlatApplyGroup apply.PlatApplyGroup) (err error) {
 	err = global.GVA_DB.Delete(&hkPlatApplyGroup).Error
 	return err
 }
 
-// DeleteHkPlatApplyGroupByIds 批量删除HkPlatApplyGroup记录
+// DeletePlatApplyGroupByIds 批量删除PlatApplyGroup记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appPlatApplyGroupService *AppPlatApplyGroupService) DeleteHkPlatApplyGroupByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]apply.HkPlatApplyGroup{}, "id in ?", ids.Ids).Error
+func (appPlatApplyGroupService *AppPlatApplyGroupService) DeletePlatApplyGroupByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]apply.PlatApplyGroup{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkPlatApplyGroup 更新HkPlatApplyGroup记录
+// UpdatePlatApplyGroup 更新PlatApplyGroup记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appPlatApplyGroupService *AppPlatApplyGroupService) UpdateHkPlatApplyGroup(hkPlatApplyGroup apply.HkPlatApplyGroup) (err error) {
+func (appPlatApplyGroupService *AppPlatApplyGroupService) UpdatePlatApplyGroup(hkPlatApplyGroup apply.PlatApplyGroup) (err error) {
 	err = global.GVA_DB.Save(&hkPlatApplyGroup).Error
 	return err
 }
 
-// GetHkPlatApplyGroup 根据id获取HkPlatApplyGroup记录
+// GetPlatApplyGroup 根据id获取PlatApplyGroup记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appPlatApplyGroupService *AppPlatApplyGroupService) GetHkPlatApplyGroup(id uint) (hkPlatApplyGroup apply.HkPlatApplyGroup, err error) {
+func (appPlatApplyGroupService *AppPlatApplyGroupService) GetPlatApplyGroup(id uint) (hkPlatApplyGroup apply.PlatApplyGroup, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkPlatApplyGroup).Error
 	return
 }
 
-// GetHkPlatApplyGroupInfoList 分页获取HkPlatApplyGroup记录
+// GetPlatApplyGroupInfoList 分页获取PlatApplyGroup记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appPlatApplyGroupService *AppPlatApplyGroupService) GetHkPlatApplyGroupInfoList(info applyReq.HkPlatApplyGroupSearch) (list []apply.HkPlatApplyGroup, total int64, err error) {
+func (appPlatApplyGroupService *AppPlatApplyGroupService) GetPlatApplyGroupInfoList(info applyReq.PlatApplyGroupSearch) (list []apply.PlatApplyGroup, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&apply.HkPlatApplyGroup{})
-	var hkPlatApplyGroups []apply.HkPlatApplyGroup
+	db := global.GVA_DB.Model(&apply.PlatApplyGroup{})
+	var hkPlatApplyGroups []apply.PlatApplyGroup
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

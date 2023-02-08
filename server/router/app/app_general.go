@@ -15,7 +15,7 @@ func (router *GeneralRouter) InitGeneralRouter(Router *gin.RouterGroup) (R gin.I
 	generalRouterWithoutRecord := appRouter.Group("general")
 	var generalApi = v1.ApiGroupApp.AppApiGroup.GeneralApi
 	{
-		generalRouter.POST("createBugReport", generalApi.CreateHkBugReport) //Bug反馈
+		generalRouter.POST("createBugReport", generalApi.CreateBugReport) //Bug反馈
 
 	}
 	{

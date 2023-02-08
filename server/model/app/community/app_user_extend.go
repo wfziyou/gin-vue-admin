@@ -1,12 +1,12 @@
-// 自动生成模板HkUserExtend
+// 自动生成模板UserExtend
 package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkUserExtend 结构体
-type HkUserExtend struct {
+// UserExtend 结构体
+type UserExtend struct {
 	global.GvaModelApp
 	UserId    *int   `json:"userId" form:"userId" gorm:"column:user_id;comment:用户ID;size:19;"`         //用户ID
 	Github    string `json:"github" form:"github" gorm:"column:github;comment:github;size:64;"`        //github
@@ -19,7 +19,7 @@ type HkUserExtend struct {
 	NumFan    *int   `json:"numFan" form:"numFan" gorm:"column:num_fan;comment:粉丝数;size:19;"`          //粉丝数
 }
 
-// TableName HkUserExtend 表名
-func (HkUserExtend) TableName() string {
+// TableName UserExtend 表名
+func (UserExtend) TableName() string {
 	return "hk_user_extend"
 }

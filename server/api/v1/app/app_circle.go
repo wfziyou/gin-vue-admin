@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
@@ -107,7 +108,7 @@ func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询Circle"
-// @Success 200  {object}  response.Response{data=community.HkCircle,msg=string}  "返回community.HkCircle"
+// @Success 200  {object}  response.Response{data=community.Circle,msg=string}  "返回community.Circle"
 // @Router /app/circle/findCircle [get]
 func (circleApi *CircleApi) FindCircle(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -117,8 +118,8 @@ func (circleApi *CircleApi) FindCircle(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//var aa community.HkCircle
-	if rehkCircle, err := appCircleService.GetHkCircle(idSearch.ID); err != nil {
+	//var aa community.Circle
+	if rehkCircle, err := appCircleService.GetCircle(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -142,7 +143,7 @@ func (circleApi *CircleApi) GetCircleList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appCircleService.GetHkCircleInfoList(pageInfo); err != nil {
+	if list, total, err := appCircleService.GetCircleInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -171,7 +172,7 @@ func (circleApi *CircleApi) UpdateCircle(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appCircleService.UpdateHkCircle(hkCircle); err != nil {
+	//if err := appCircleService.UpdateCircle(hkCircle); err != nil {
 	//	global.GVA_LOG.Error("更新失败!", zap.Error(err))
 	//	response.FailWithMessage("更新失败", c)
 	//} else {
@@ -209,7 +210,7 @@ func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
 // @Produce application/json
 // @Param data body communityReq.DeleteCircleUserReq true "删除CircleUser"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
-// @Router /app/circle/deleteHkCircleUser [delete]
+// @Router /app/circle/deleteCircleUser [delete]
 func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 	var req communityReq.DeleteCircleUserReq
 	err := c.ShouldBindJSON(&req)
@@ -218,26 +219,33 @@ func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 		return
 	}
 
-	//var pageInfo communityReq.HkCircleUserSearch
-	//pageInfo.CircleId = req.CircleId
-	//pageInfo.UserId = req.UserId
-	//pageInfo.Page = 1
-	//pageInfo.PageSize = 10
-	//if list, total, err := appCircleUserService.GetHkCircleUserInfoList(pageInfo); err != nil {
-	//	if total == 0 {
-	//		response.OkWithMessage("圈子成员不存在", c)
-	//		return
-	//	}
-	//
-	//	if err := appCircleUserService.DeleteHkCircleUser(list[0]); err != nil {
-	//		global.GVA_LOG.Error("删除失败!", zap.Error(err))
-	//		response.FailWithMessage("删除失败", c)
-	//	} else {
-	//		response.OkWithMessage("删除成功", c)
-	//	}
-	//} else {
+	//if _, err := appCircleUserService.GetCircleUserInfoListCount(communityReq.CircleUserSearch{
+	//	CircleId: req.CircleId,
+	//}); err != nil {
 	//	response.OkWithMessage("圈子成员不存在", c)
+	//	return
 	//}
+
+	var pageInfo communityReq.CircleUserSearch
+	pageInfo.Page = 1
+	pageInfo.PageSize = 10
+	pageInfo.CircleId = req.CircleId
+	pageInfo.UserId = req.UserId
+	if list, total, err := appCircleUserService.GetCircleUserInfoList(pageInfo); err == nil {
+		if total != 1 {
+			response.OkWithMessage("圈子成员不存在", c)
+			return
+		}
+
+		if err := appCircleUserService.DeleteCircleUser(list[0]); err != nil {
+			global.GVA_LOG.Error("删除失败!", zap.Error(err))
+			response.FailWithMessage(err.Error(), c)
+		} else {
+			response.OkWithMessage("删除成功", c)
+		}
+	} else {
+		response.OkWithMessage("圈子成员不存在", c)
+	}
 }
 
 // DeleteCircleUserByIds 批量删除CircleUser
@@ -256,7 +264,7 @@ func (circleApi *CircleApi) DeleteCircleUserByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appCircleUserService.DeleteHkCircleUserByIds(IDS); err != nil {
+	if err := appCircleUserService.DeleteCircleUserByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -280,7 +288,7 @@ func (circleApi *CircleApi) UpdateCircleUser(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appCircleUserService.UpdateHkCircleUser(hkCircleUser); err != nil {
+	//if err := appCircleUserService.UpdateCircleUser(hkCircleUser); err != nil {
 	//	global.GVA_LOG.Error("更新失败!", zap.Error(err))
 	//	response.FailWithMessage("更新失败", c)
 	//} else {
@@ -295,7 +303,7 @@ func (circleApi *CircleApi) UpdateCircleUser(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询CircleUser"
-// @Success 200  {object}  response.Response{data=community.HkCircleUser,msg=string}  "返回community.HkCircleUser"
+// @Success 200  {object}  response.Response{data=community.CircleUser,msg=string}  "返回community.CircleUser"
 // @Router /app/circle/findCircleUser [get]
 func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -304,7 +312,7 @@ func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkCircleUser, err := appCircleUserService.GetHkCircleUser(idSearch.ID); err != nil {
+	if rehkCircleUser, err := appCircleUserService.GetCircleUser(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -319,7 +327,7 @@ func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.CircleUserSearch true "分页获取CircleUser列表"
-// @Success 200 {object}  response.PageResult{List=[]community.HkCircleUser,msg=string} "返回community.HkCircleUser"
+// @Success 200 {object}  response.PageResult{List=[]community.CircleUser,msg=string} "返回community.CircleUser"
 // @Router /app/circle/getCircleUserList [get]
 func (circleApi *CircleApi) GetCircleUserList(c *gin.Context) {
 	var pageInfo communityReq.CircleUserSearch
@@ -328,7 +336,7 @@ func (circleApi *CircleApi) GetCircleUserList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appCircleUserService.AppGetHkCircleUserInfoList(pageInfo); err != nil {
+	if list, total, err := appCircleUserService.GetCircleUserInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -341,13 +349,13 @@ func (circleApi *CircleApi) GetCircleUserList(c *gin.Context) {
 	}
 }
 
-// CreateCircleRequest 创建HkCircleRequest
+// CreateCircleRequest 创建CircleRequest
 // @Tags App_Circle
-// @Summary 创建HkCircleRequest
+// @Summary 创建CircleRequest
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.CreateCircleRequestReq true "创建HkCircleRequest"
+// @Param data body communityReq.CreateCircleRequestReq true "创建CircleRequest"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/circle/createCircleRequest [post]
 func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
@@ -357,12 +365,28 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appCircleRequestService.CreateHkCircleRequest(hkCircleRequest); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage("创建失败", c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+
+	if _, err := appCircleClassifyService.GetCircleClassify(*hkCircleRequest.CircleClassifyId); err != nil {
+		response.FailWithMessage("没有找到圈子分类", c)
+		return
+	}
+
+	//hkCircleRequest community.CircleRequest
+	if err := appCircleRequestService.CreateCircleRequest(community.CircleRequest{
+		Type:             1,
+		Name:             hkCircleRequest.Name,
+		Logo:             hkCircleRequest.Logo,
+		CircleClassifyId: hkCircleRequest.CircleClassifyId,
+		Slogan:           hkCircleRequest.Slogan,
+		Des:              hkCircleRequest.Des,
+		Protocol:         hkCircleRequest.Protocol,
+		BackImage:        hkCircleRequest.BackImage,
+	}); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("创建成功", c)
+	}
 }
 
 // FindCircleRequest 用id查询CircleRequest
@@ -372,7 +396,7 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询CircleRequest"
-// @Success 200 {object}  response.Response{data=community.HkCircleRequest,msg=string}  "返回community.HkCircleUser"
+// @Success 200 {object}  response.Response{data=community.CircleRequest,msg=string}  "返回community.CircleUser"
 // @Router /app/circle/findCircleRequest [get]
 func (circleApi *CircleApi) FindCircleRequest(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -381,7 +405,7 @@ func (circleApi *CircleApi) FindCircleRequest(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkCircleRequest, err := appCircleRequestService.GetHkCircleRequest(idSearch.ID); err != nil {
+	if rehkCircleRequest, err := appCircleRequestService.GetCircleRequest(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -396,7 +420,7 @@ func (circleApi *CircleApi) FindCircleRequest(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.CircleRequestSearch true "分页获取CircleRequest列表"
-// @Success 200 {object}  response.PageResult{List=[]community.HkCircleRequest,msg=string} "返回community.HkCircleRequest"
+// @Success 200 {object}  response.PageResult{List=[]community.CircleRequest,msg=string} "返回community.CircleRequest"
 // @Router /app/circle/getCircleRequestList [get]
 func (circleApi *CircleApi) GetCircleRequestList(c *gin.Context) {
 	var pageInfo communityReq.CircleRequestSearch
@@ -405,7 +429,7 @@ func (circleApi *CircleApi) GetCircleRequestList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appCircleRequestService.GetHkCircleRequestInfoList(pageInfo); err != nil {
+	//if list, total, err := appCircleRequestService.GetCircleRequestInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -425,7 +449,7 @@ func (circleApi *CircleApi) GetCircleRequestList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.CircleClassifySearch true "分页获取CircleClassify列表"
-// @Success 200 {object}  response.PageResult{List=[]community.HkCircleClassify,msg=string} "返回community.HkCircleClassify"
+// @Success 200 {object}  response.PageResult{List=[]community.CircleClassify,msg=string} "返回community.CircleClassify"
 // @Router /app/circle/getCircleClassifyList [get]
 func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
 	var pageInfo communityReq.CircleClassifySearch
@@ -434,7 +458,7 @@ func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appCircleClassifyService.GetHkCircleClassifyInfoList(pageInfo); err != nil {
+	//if list, total, err := appCircleClassifyService.GetCircleClassifyInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -454,7 +478,7 @@ func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.CircleClassifySearch true "获取CircleClassify列表"
-// @Success 200 {object} response.PageResult{List=[]community.HkCircleClassify,msg=string} "返回community.HkCircleClassify"
+// @Success 200 {object} response.PageResult{List=[]community.CircleClassify,msg=string} "返回community.CircleClassify"
 // @Router /app/circle/getCircleClassifyListAll [get]
 func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {
 	var pageInfo communityReq.CircleClassifySearch
@@ -463,7 +487,7 @@ func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appCircleClassifyService.GetHkCircleClassifyInfoList(pageInfo); err != nil {
+	//if list, total, err := appCircleClassifyService.GetCircleClassifyInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {

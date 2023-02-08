@@ -13,6 +13,7 @@ type Response struct {
 }
 
 const (
+	Other   = 8
 	ERROR   = 7
 	SUCCESS = 0
 )

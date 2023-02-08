@@ -1,12 +1,12 @@
-// 自动生成模板HkReport
+// 自动生成模板Report
 package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkReport 结构体
-type HkReport struct {
+// Report 结构体
+type Report struct {
 	global.GvaModelApp
 	ReportUserId      *int   `json:"reportUserId" form:"reportUserId" gorm:"column:report_user_id;comment:被举报用户编号;size:19;"`                                       //被举报用户编号
 	UserId            *int   `json:"userId" form:"userId" gorm:"column:user_id;comment:举报用户编号;size:19;"`                                                           //举报用户编号
@@ -27,7 +27,7 @@ type HkReport struct {
 	Unlock            *int   `json:"unlock" form:"unlock" gorm:"column:unlock;comment:是否解除：0 否、是;size:10;"`                                                        //是否解除：0 否、是
 }
 
-// TableName HkReport 表名
-func (HkReport) TableName() string {
+// TableName Report 表名
+func (Report) TableName() string {
 	return "hk_report"
 }

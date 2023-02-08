@@ -2,57 +2,57 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 )
 
 type AppForumTagService struct {
 }
 
-// CreateHkForumTag 创建HkForumTag记录
+// CreateForumTag 创建ForumTag记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumTagService *AppForumTagService) CreateHkForumTag(hkForumTag community.HkForumTag) (err error) {
+func (appForumTagService *AppForumTagService) CreateForumTag(hkForumTag community.ForumTag) (err error) {
 	err = global.GVA_DB.Create(&hkForumTag).Error
 	return err
 }
 
-// DeleteHkForumTag 删除HkForumTag记录
+// DeleteForumTag 删除ForumTag记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumTagService *AppForumTagService) DeleteHkForumTag(hkForumTag community.HkForumTag) (err error) {
+func (appForumTagService *AppForumTagService) DeleteForumTag(hkForumTag community.ForumTag) (err error) {
 	err = global.GVA_DB.Delete(&hkForumTag).Error
 	return err
 }
 
-// DeleteHkForumTagByIds 批量删除HkForumTag记录
+// DeleteForumTagByIds 批量删除ForumTag记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumTagService *AppForumTagService) DeleteHkForumTagByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.HkForumTag{}, "id in ?", ids.Ids).Error
+func (appForumTagService *AppForumTagService) DeleteForumTagByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]community.ForumTag{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkForumTag 更新HkForumTag记录
+// UpdateForumTag 更新ForumTag记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumTagService *AppForumTagService) UpdateHkForumTag(hkForumTag community.HkForumTag) (err error) {
+func (appForumTagService *AppForumTagService) UpdateForumTag(hkForumTag community.ForumTag) (err error) {
 	err = global.GVA_DB.Save(&hkForumTag).Error
 	return err
 }
 
-// GetHkForumTag 根据id获取HkForumTag记录
+// GetForumTag 根据id获取ForumTag记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumTagService *AppForumTagService) GetHkForumTag(id uint) (hkForumTag community.HkForumTag, err error) {
+func (appForumTagService *AppForumTagService) GetForumTag(id uint) (hkForumTag community.ForumTag, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkForumTag).Error
 	return
 }
 
-// GetHkForumTagInfoList 分页获取HkForumTag记录
+// GetForumTagInfoList 分页获取ForumTag记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumTagService *AppForumTagService) GetHkForumTagInfoList(info communityReq.HkForumTagSearch) (list []community.HkForumTag, total int64, err error) {
+func (appForumTagService *AppForumTagService) GetForumTagInfoList(info communityReq.ForumTagSearch) (list []community.ForumTag, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkForumTag{})
-	var hkForumTags []community.HkForumTag
+	db := global.GVA_DB.Model(&community.ForumTag{})
+	var hkForumTags []community.ForumTag
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

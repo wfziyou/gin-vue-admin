@@ -20,7 +20,7 @@ type TopicApi struct {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ForumTopicGroup"
-// @Success 200 {object}  response.Response{data=community.HkForumTopicGroup,msg=string}  "返回community.HkForumTopicGroup"
+// @Success 200 {object}  response.Response{data=community.ForumTopicGroup,msg=string}  "返回community.ForumTopicGroup"
 // @Router /app/topic/findForumTopicGroup [get]
 func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -29,7 +29,7 @@ func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForumTopicGroup, err := appForumTopicGroupService.GetHkForumTopicGroup(idSearch.ID); err != nil {
+	if rehkForumTopicGroup, err := appForumTopicGroupService.GetForumTopicGroup(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -44,7 +44,7 @@ func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.ForumTopicGroupSearch true "分页获取ForumTopicGroup列表"
-// @Success 200 {object}  response.PageResult{List=[]community.HkForumTopicGroup,msg=string} "返回community.HkForumTopicGroup"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupList [get]
 func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 	var pageInfo communityReq.ForumTopicGroupSearch
@@ -53,7 +53,7 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appForumTopicGroupService.GetHkForumTopicGroupInfoList(pageInfo); err != nil {
+	//if list, total, err := appForumTopicGroupService.GetForumTopicGroupInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -73,7 +73,7 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.ForumTopicGroupSearch true "获取ForumTopicGroup列表"
-// @Success 200 {object}  response.PageResult{List=[]community.HkForumTopicGroup,msg=string} "返回community.HkForumTopicGroup"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupListAll [get]
 func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 	var pageInfo communityReq.ForumTopicGroupSearch
@@ -82,7 +82,7 @@ func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appForumTopicGroupService.GetHkForumTopicGroupInfoList(pageInfo); err != nil {
+	//if list, total, err := appForumTopicGroupService.GetForumTopicGroupInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {
@@ -111,7 +111,7 @@ func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumTopicService.CreateHkForumTopic(hkForumTopic); err != nil {
+	//if err := appForumTopicService.CreateForumTopic(hkForumTopic); err != nil {
 	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
 	//	response.FailWithMessage("创建失败", c)
 	//} else {
@@ -135,7 +135,7 @@ func (topicApi *TopicApi) DeleteForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumTopicService.DeleteHkForumTopic(hkForumTopic); err != nil {
+	//if err := appForumTopicService.DeleteForumTopic(hkForumTopic); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -159,7 +159,7 @@ func (topicApi *TopicApi) DeleteForumTopicByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appForumTopicService.DeleteHkForumTopicByIds(IDS); err != nil {
+	if err := appForumTopicService.DeleteForumTopicByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -173,17 +173,17 @@ func (topicApi *TopicApi) DeleteForumTopicByIds(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkForumTopic true "更新ForumTopic"
+// @Param data body community.ForumTopic true "更新ForumTopic"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/topic/updateForumTopic [put]
 func (topicApi *TopicApi) UpdateForumTopic(c *gin.Context) {
-	var hkForumTopic community.HkForumTopic
+	var hkForumTopic community.ForumTopic
 	err := c.ShouldBindJSON(&hkForumTopic)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumTopicService.UpdateHkForumTopic(hkForumTopic); err != nil {
+	//if err := appForumTopicService.UpdateForumTopic(hkForumTopic); err != nil {
 	//	global.GVA_LOG.Error("更新失败!", zap.Error(err))
 	//	response.FailWithMessage("更新失败", c)
 	//} else {
@@ -198,7 +198,7 @@ func (topicApi *TopicApi) UpdateForumTopic(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ForumTopic"
-// @Success 200 {object}  response.PageResult{List=[]community.HkForumTopic,msg=string} "返回community.HkForumTopic"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumTopic,msg=string} "返回community.ForumTopic"
 // @Router /app/topic/findForumTopic [get]
 func (topicApi *TopicApi) FindForumTopic(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -207,7 +207,7 @@ func (topicApi *TopicApi) FindForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForumTopic, err := appForumTopicService.GetHkForumTopic(idSearch.ID); err != nil {
+	if rehkForumTopic, err := appForumTopicService.GetForumTopic(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -221,17 +221,17 @@ func (topicApi *TopicApi) FindForumTopic(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.HkForumTopicSearch true "分页获取ForumTopic列表"
-// @Success 200 {object}  response.PageResult{List=[]community.HkForumTopic,msg=string} "返回community.HkForumTopic"
+// @Param data query communityReq.ForumTopicSearch true "分页获取ForumTopic列表"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumTopic,msg=string} "返回community.ForumTopic"
 // @Router /app/topic/getForumTopicList [get]
 func (topicApi *TopicApi) GetForumTopicList(c *gin.Context) {
-	var pageInfo communityReq.HkForumTopicSearch
+	var pageInfo communityReq.ForumTopicSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appForumTopicService.GetHkForumTopicInfoList(pageInfo); err != nil {
+	//if list, total, err := appForumTopicService.GetForumTopicInfoList(pageInfo); err != nil {
 	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
 	//	response.FailWithMessage("获取失败", c)
 	//} else {

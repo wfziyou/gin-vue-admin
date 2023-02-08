@@ -2,10 +2,10 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
+	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/general"
-	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/general/request"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -19,17 +19,17 @@ type UserBrowsingHistoryApi struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body general.HkUserBrowsingHistory true "删除UserBrowsingHistory"
+// @Param data body general.UserBrowsingHistory true "删除UserBrowsingHistory"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/userBrowsingHistory/deleteUserBrowsingHistory [delete]
 func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistory(c *gin.Context) {
-	var hkUserBrowsingHistory general.HkUserBrowsingHistory
+	var hkUserBrowsingHistory general.UserBrowsingHistory
 	err := c.ShouldBindJSON(&hkUserBrowsingHistory)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appUserBrowsingHistoryService.DeleteHkUserBrowsingHistory(hkUserBrowsingHistory); err != nil {
+	if err := appUserBrowsingHistoryService.DeleteUserBrowsingHistory(hkUserBrowsingHistory); err != nil {
 		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
@@ -53,7 +53,7 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistoryB
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appUserBrowsingHistoryService.DeleteHkUserBrowsingHistoryByIds(IDS); err != nil {
+	if err := appUserBrowsingHistoryService.DeleteUserBrowsingHistoryByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -67,17 +67,17 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistoryB
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query generalReq.HkUserBrowsingHistorySearch true "分页获取UserBrowsingHistory列表"
-// @Success 200 {object}  response.PageResult{List=[]general.HkUserBrowsingHistory,msg=string} "返回general.HkUserBrowsingHistory"
+// @Param data query generalReq.UserBrowsingHistorySearch true "分页获取UserBrowsingHistory列表"
+// @Success 200 {object}  response.PageResult{List=[]general.UserBrowsingHistory,msg=string} "返回general.UserBrowsingHistory"
 // @Router /app/userBrowsingHistory/getUserBrowsingHistoryList [get]
 func (userBrowsingHistoryApi *UserBrowsingHistoryApi) GetUserBrowsingHistoryList(c *gin.Context) {
-	var pageInfo generalReq.HkUserBrowsingHistorySearch
+	var pageInfo generalReq.UserBrowsingHistorySearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appUserBrowsingHistoryService.GetHkUserBrowsingHistoryInfoList(pageInfo); err != nil {
+	if list, total, err := appUserBrowsingHistoryService.GetUserBrowsingHistoryInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

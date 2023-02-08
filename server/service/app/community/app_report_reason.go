@@ -2,57 +2,57 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 )
 
 type AppReportReasonService struct {
 }
 
-// CreateHkReportReason 创建HkReportReason记录
+// CreateReportReason 创建ReportReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appReportReasonService *AppReportReasonService) CreateHkReportReason(hkReportReason community.HkReportReason) (err error) {
+func (appReportReasonService *AppReportReasonService) CreateReportReason(hkReportReason community.ReportReason) (err error) {
 	err = global.GVA_DB.Create(&hkReportReason).Error
 	return err
 }
 
-// DeleteHkReportReason 删除HkReportReason记录
+// DeleteReportReason 删除ReportReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appReportReasonService *AppReportReasonService) DeleteHkReportReason(hkReportReason community.HkReportReason) (err error) {
+func (appReportReasonService *AppReportReasonService) DeleteReportReason(hkReportReason community.ReportReason) (err error) {
 	err = global.GVA_DB.Delete(&hkReportReason).Error
 	return err
 }
 
-// DeleteHkReportReasonByIds 批量删除HkReportReason记录
+// DeleteReportReasonByIds 批量删除ReportReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appReportReasonService *AppReportReasonService) DeleteHkReportReasonByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.HkReportReason{}, "id in ?", ids.Ids).Error
+func (appReportReasonService *AppReportReasonService) DeleteReportReasonByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]community.ReportReason{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkReportReason 更新HkReportReason记录
+// UpdateReportReason 更新ReportReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appReportReasonService *AppReportReasonService) UpdateHkReportReason(hkReportReason community.HkReportReason) (err error) {
+func (appReportReasonService *AppReportReasonService) UpdateReportReason(hkReportReason community.ReportReason) (err error) {
 	err = global.GVA_DB.Save(&hkReportReason).Error
 	return err
 }
 
-// GetHkReportReason 根据id获取HkReportReason记录
+// GetReportReason 根据id获取ReportReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appReportReasonService *AppReportReasonService) GetHkReportReason(id uint) (hkReportReason community.HkReportReason, err error) {
+func (appReportReasonService *AppReportReasonService) GetReportReason(id uint64) (hkReportReason community.ReportReason, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkReportReason).Error
 	return
 }
 
-// GetHkReportReasonInfoList 分页获取HkReportReason记录
+// GetReportReasonInfoList 分页获取ReportReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appReportReasonService *AppReportReasonService) GetHkReportReasonInfoList(info communityReq.HkReportReasonSearch) (list []community.HkReportReason, total int64, err error) {
+func (appReportReasonService *AppReportReasonService) GetReportReasonInfoList(info communityReq.ReportReasonSearch) (list []community.ReportReason, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkReportReason{})
-	var hkReportReasons []community.HkReportReason
+	db := global.GVA_DB.Model(&community.ReportReason{})
+	var hkReportReasons []community.ReportReason
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

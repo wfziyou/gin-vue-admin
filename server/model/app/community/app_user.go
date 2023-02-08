@@ -1,4 +1,4 @@
-// 自动生成模板HkUser
+// 自动生成模板User
 package community
 
 import (
@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-// HkUser 结构体
-type HkUser struct {
+// User 结构体
+type User struct {
 	global.GvaModelApp
 	Uuid        uuid.UUID             `json:"uuid" form:"uuid" gorm:"column:uuid;comment:用户编号;size:50;"`                      //用户编号
 	UserType    *int                  `json:"userType" form:"userType" gorm:"column:user_type;comment:用户平台;size:10;"`         //用户平台
@@ -25,10 +25,10 @@ type HkUser struct {
 	AuthorityId uint                  `json:"roleId" form:"roleId" gorm:"column:role_id;default:888;comment:用户角色ID;size:20;"` // 用户角色ID
 	Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:AuthorityId;references:AuthorityId;comment:用户角色"`    //用户角色
 	Authorities []system.SysAuthority `json:"authorities" gorm:"many2many:sys_user_authority;"`
-	UserExtend  HkUserExtend          `json:"userExtend" gorm:"foreignKey:ID;references:ID;comment:用户扩展"` //用户扩展
+	UserExtend  UserExtend            `json:"userExtend" gorm:"foreignKey:ID;references:ID;comment:用户扩展"` //用户扩展
 }
 
-// TableName HkUser 表名
-func (HkUser) TableName() string {
+// TableName User 表名
+func (User) TableName() string {
 	return "hk_user"
 }

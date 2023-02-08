@@ -2,57 +2,57 @@ package general
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
+	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/general"
-	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/general/request"
 )
 
 type AppMiniProgramPacketService struct {
 }
 
-// CreateHkMiniProgramPacket 创建HkMiniProgramPacket记录
+// CreateMiniProgramPacket 创建MiniProgramPacket记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appMiniProgramPacketService *AppMiniProgramPacketService) CreateHkMiniProgramPacket(hkMiniProgramPacket general.HkMiniProgramPacket) (err error) {
+func (appMiniProgramPacketService *AppMiniProgramPacketService) CreateMiniProgramPacket(hkMiniProgramPacket general.MiniProgramPacket) (err error) {
 	err = global.GVA_DB.Create(&hkMiniProgramPacket).Error
 	return err
 }
 
-// DeleteHkMiniProgramPacket 删除HkMiniProgramPacket记录
+// DeleteMiniProgramPacket 删除MiniProgramPacket记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appMiniProgramPacketService *AppMiniProgramPacketService) DeleteHkMiniProgramPacket(hkMiniProgramPacket general.HkMiniProgramPacket) (err error) {
+func (appMiniProgramPacketService *AppMiniProgramPacketService) DeleteMiniProgramPacket(hkMiniProgramPacket general.MiniProgramPacket) (err error) {
 	err = global.GVA_DB.Delete(&hkMiniProgramPacket).Error
 	return err
 }
 
-// DeleteHkMiniProgramPacketByIds 批量删除HkMiniProgramPacket记录
+// DeleteMiniProgramPacketByIds 批量删除MiniProgramPacket记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appMiniProgramPacketService *AppMiniProgramPacketService) DeleteHkMiniProgramPacketByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]general.HkMiniProgramPacket{}, "id in ?", ids.Ids).Error
+func (appMiniProgramPacketService *AppMiniProgramPacketService) DeleteMiniProgramPacketByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]general.MiniProgramPacket{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkMiniProgramPacket 更新HkMiniProgramPacket记录
+// UpdateMiniProgramPacket 更新MiniProgramPacket记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appMiniProgramPacketService *AppMiniProgramPacketService) UpdateHkMiniProgramPacket(hkMiniProgramPacket general.HkMiniProgramPacket) (err error) {
+func (appMiniProgramPacketService *AppMiniProgramPacketService) UpdateMiniProgramPacket(hkMiniProgramPacket general.MiniProgramPacket) (err error) {
 	err = global.GVA_DB.Save(&hkMiniProgramPacket).Error
 	return err
 }
 
-// GetHkMiniProgramPacket 根据id获取HkMiniProgramPacket记录
+// GetMiniProgramPacket 根据id获取MiniProgramPacket记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appMiniProgramPacketService *AppMiniProgramPacketService) GetHkMiniProgramPacket(id uint) (hkMiniProgramPacket general.HkMiniProgramPacket, err error) {
+func (appMiniProgramPacketService *AppMiniProgramPacketService) GetMiniProgramPacket(id uint) (hkMiniProgramPacket general.MiniProgramPacket, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkMiniProgramPacket).Error
 	return
 }
 
-// GetHkMiniProgramPacketInfoList 分页获取HkMiniProgramPacket记录
+// GetMiniProgramPacketInfoList 分页获取MiniProgramPacket记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appMiniProgramPacketService *AppMiniProgramPacketService) GetHkMiniProgramPacketInfoList(info generalReq.HkMiniProgramPacketSearch) (list []general.HkMiniProgramPacket, total int64, err error) {
+func (appMiniProgramPacketService *AppMiniProgramPacketService) GetMiniProgramPacketInfoList(info generalReq.MiniProgramPacketSearch) (list []general.MiniProgramPacket, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&general.HkMiniProgramPacket{})
-	var hkMiniProgramPackets []general.HkMiniProgramPacket
+	db := global.GVA_DB.Model(&general.MiniProgramPacket{})
+	var hkMiniProgramPackets []general.MiniProgramPacket
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

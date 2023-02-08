@@ -1,12 +1,12 @@
-// 自动生成模板HkApply
+// 自动生成模板Apply
 package apply
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkApply 结构体
-type HkApply struct {
+// Apply 结构体
+type Apply struct {
 	global.GvaModelApp
 	OwerType        *int   `json:"owerType" form:"owerType" gorm:"column:ower_type;comment:拥有者：0平台、1圈子、2个人;size:10;"` //拥有者：0平台、1圈子、2个人
 	CircleId        *int   `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`           //圈子_编号
@@ -20,7 +20,7 @@ type HkApply struct {
 	ApplyParameters string `json:"applyParameters" form:"applyParameters" gorm:"column:apply_parameters;comment:访问参数;size:256;"` //访问参数
 }
 
-// TableName HkApply 表名
-func (HkApply) TableName() string {
+// TableName Apply 表名
+func (Apply) TableName() string {
 	return "hk_apply"
 }

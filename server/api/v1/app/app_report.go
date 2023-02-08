@@ -2,10 +2,10 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -19,17 +19,17 @@ type ReportApi struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkReport true "举报"
+// @Param data body community.Report true "举报"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/report/createReport [post]
 func (reportApi *ReportApi) CreateReport(c *gin.Context) {
-	var hkReport community.HkReport
+	var hkReport community.Report
 	err := c.ShouldBindJSON(&hkReport)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appReportService.CreateHkReport(hkReport); err != nil {
+	if err := appReportService.CreateReport(hkReport); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -44,7 +44,7 @@ func (reportApi *ReportApi) CreateReport(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询Report"
-// @Success 200 {object}  response.Response{data=community.HkReport,msg=string}  "返回community.HkReport"
+// @Success 200 {object}  response.Response{data=community.Report,msg=string}  "返回community.Report"
 // @Router /app/report/findReport [get]
 func (reportApi *ReportApi) FindReport(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -53,7 +53,7 @@ func (reportApi *ReportApi) FindReport(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkReport, err := appReportService.GetHkReport(idSearch.ID); err != nil {
+	if rehkReport, err := appReportService.GetReport(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -67,17 +67,17 @@ func (reportApi *ReportApi) FindReport(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.HkReportSearch true "分页获取Report列表"
-// @Success 200 {object}  response.PageResult{List=[]community.HkReport,msg=string} "返回community.HkReport"
+// @Param data query communityReq.ReportSearch true "分页获取Report列表"
+// @Success 200 {object}  response.PageResult{List=[]community.Report,msg=string} "返回community.Report"
 // @Router /app/report/getReportList [get]
 func (reportApi *ReportApi) GetReportList(c *gin.Context) {
-	var pageInfo communityReq.HkReportSearch
+	var pageInfo communityReq.ReportSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appReportService.GetHkReportInfoList(pageInfo); err != nil {
+	if list, total, err := appReportService.GetReportInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -97,7 +97,7 @@ func (reportApi *ReportApi) GetReportList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询ReportReason"
-// @Success 200 {object}  response.Response{data=community.HkReportReason,msg=string}  "返回community.HkReportReason"
+// @Success 200 {object}  response.Response{data=community.ReportReason,msg=string}  "返回community.ReportReason"
 // @Router /app/report/findReportReason [get]
 func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -106,7 +106,7 @@ func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkReportReason, err := appReportReasonService.GetHkReportReason(idSearch.ID); err != nil {
+	if rehkReportReason, err := appReportReasonService.GetReportReason(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -120,17 +120,17 @@ func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.HkReportReasonSearch true "分页获取ReportReason列表"
-// @Success 200 {object}  response.PageResult{List=[]community.HkReportReason,msg=string} "返回community.HkReportReason"
+// @Param data query communityReq.ReportReasonSearch true "分页获取ReportReason列表"
+// @Success 200 {object}  response.PageResult{List=[]community.ReportReason,msg=string} "返回community.ReportReason"
 // @Router /app/report/getReportReasonList [get]
 func (reportApi *ReportApi) GetReportReasonList(c *gin.Context) {
-	var pageInfo communityReq.HkReportReasonSearch
+	var pageInfo communityReq.ReportReasonSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appReportReasonService.GetHkReportReasonInfoList(pageInfo); err != nil {
+	if list, total, err := appReportReasonService.GetReportReasonInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

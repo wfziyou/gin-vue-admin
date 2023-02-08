@@ -1,4 +1,4 @@
-// 自动生成模板HkForumComment
+// 自动生成模板ForumComment
 package community
 
 import (
@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-// HkForumComment 结构体
-type HkForumComment struct {
+// ForumComment 结构体
+type ForumComment struct {
 	global.GvaModelApp
 	PostsId        *int       `json:"postsId" form:"postsId" gorm:"column:posts_id;comment:帖子编号;size:19;"`                           //帖子编号
 	UserId         *int       `json:"userId" form:"userId" gorm:"column:user_id;comment:评论者;size:19;"`                               //评论者
@@ -20,7 +20,7 @@ type HkForumComment struct {
 	CheckStatus    *int       `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态(0未审批 1通过 2拒绝);size:10;"` //审核状态(0未审批 1通过 2拒绝)
 }
 
-// TableName HkForumComment 表名
-func (HkForumComment) TableName() string {
+// TableName ForumComment 表名
+func (ForumComment) TableName() string {
 	return "hk_forum_comment"
 }

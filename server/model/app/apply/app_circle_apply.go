@@ -1,12 +1,12 @@
-// 自动生成模板HkCircleApply
+// 自动生成模板CircleApply
 package apply
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkCircleApply 结构体
-type HkCircleApply struct {
+// CircleApply 结构体
+type CircleApply struct {
 	global.GvaModelApp
 	CircleId        *int   `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                      //圈子_编号
 	ApplyGroupId    *int   `json:"applyGroupId" form:"applyGroupId" gorm:"column:apply_group_id;comment:应用分组_编号;size:19;"`       //应用分组_编号
@@ -16,7 +16,7 @@ type HkCircleApply struct {
 	Sort            *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                      //排序
 }
 
-// TableName HkCircleApply 表名
-func (HkCircleApply) TableName() string {
+// TableName CircleApply 表名
+func (CircleApply) TableName() string {
 	return "hk_circle_apply"
 }

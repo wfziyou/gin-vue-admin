@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
@@ -19,10 +19,10 @@ type AppUserService struct {
 //@function: Register
 //@description: 用户注册
 //@param: u model.SysUser
-//@return: userInter community.HkUser, err error
+//@return: userInter community.User, err error
 
-func (appUserService *AppUserService) Register(u community.HkUser) (userInter community.HkUser, err error) {
-	var user community.HkUser
+func (appUserService *AppUserService) Register(u community.User) (userInter community.User, err error) {
+	var user community.User
 	if !errors.Is(global.GVA_DB.Where("account = ?", u.Account).First(&user).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
 		return userInter, errors.New("用户名已注册")
 	}
@@ -40,12 +40,12 @@ func (appUserService *AppUserService) Register(u community.HkUser) (userInter co
 //@param: u *model.SysUser
 //@return: err error, userInter *model.SysUser
 
-func (appUserService *AppUserService) Login(u *community.HkUser) (userInter *community.HkUser, err error) {
+func (appUserService *AppUserService) Login(u *community.User) (userInter *community.User, err error) {
 	if nil == global.GVA_DB {
 		return nil, fmt.Errorf("db not init")
 	}
 
-	var user community.HkUser
+	var user community.User
 	err = global.GVA_DB.Where("account = ?", u.Account).Preload("Authorities").Preload("Authority").First(&user).Error
 	if err == nil {
 		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
@@ -63,8 +63,8 @@ func (appUserService *AppUserService) Login(u *community.HkUser) (userInter *com
 //@param: u *model.SysUser, newPassword string
 //@return: userInter *model.SysUser,err error
 
-func (appUserService *AppUserService) ChangePassword(u *community.HkUser, newPassword string) (userInter *community.HkUser, err error) {
-	var user community.HkUser
+func (appUserService *AppUserService) ChangePassword(u *community.User, newPassword string) (userInter *community.User, err error) {
+	var user community.User
 	if err = global.GVA_DB.Where("id = ?", u.ID).First(&user).Error; err != nil {
 		return nil, err
 	}
@@ -77,49 +77,49 @@ func (appUserService *AppUserService) ChangePassword(u *community.HkUser, newPas
 
 }
 
-// CreateHkUser 创建HkUser记录
+// CreateUser 创建User记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) CreateHkUser(hkUser community.HkUser) (err error) {
+func (appUserService *AppUserService) CreateUser(hkUser community.User) (err error) {
 	err = global.GVA_DB.Create(&hkUser).Error
 	return err
 }
 
-// DeleteHkUser 删除HkUser记录
+// DeleteUser 删除User记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) DeleteHkUser(hkUser community.HkUser) (err error) {
+func (appUserService *AppUserService) DeleteUser(hkUser community.User) (err error) {
 	err = global.GVA_DB.Delete(&hkUser).Error
 	return err
 }
 
-// DeleteHkUserByIds 批量删除HkUser记录
+// DeleteUserByIds 批量删除User记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) DeleteHkUserByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.HkUser{}, "id in ?", ids.Ids).Error
+func (appUserService *AppUserService) DeleteUserByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]community.User{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkUser 更新HkUser记录
+// UpdateUser 更新User记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) UpdateHkUser(hkUser community.HkUser) (err error) {
+func (appUserService *AppUserService) UpdateUser(hkUser community.User) (err error) {
 	err = global.GVA_DB.Save(&hkUser).Error
 	return err
 }
 
-// GetHkUser 根据id获取HkUser记录
+// GetUser 根据id获取User记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) GetHkUser(id uint) (hkUser community.HkUser, err error) {
+func (appUserService *AppUserService) GetUser(id uint64) (hkUser community.User, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkUser).Error
 	return
 }
 
-// GetHkUserInfoList 分页获取HkUser记录
+// GetUserInfoList 分页获取User记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) GetHkUserInfoList(info communityReq.UserSearch) (list []community.HkUser, total int64, err error) {
+func (appUserService *AppUserService) GetUserInfoList(info communityReq.UserSearch) (list []community.User, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkUser{})
-	var hkUsers []community.HkUser
+	db := global.GVA_DB.Model(&community.User{})
+	var hkUsers []community.User
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
@@ -133,14 +133,14 @@ func (appUserService *AppUserService) GetHkUserInfoList(info communityReq.UserSe
 	return hkUsers, total, err
 }
 
-// AppGetHkUserInfoList 分页获取HkUser记录
+// AppGetUserInfoList 分页获取User记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) AppGetHkUserInfoList(info communityReq.UserSearch) (list []community.HkUser, total int64, err error) {
+func (appUserService *AppUserService) AppGetUserInfoList(info communityReq.UserSearch) (list []community.User, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkUser{})
-	var hkUsers []community.HkUser
+	db := global.GVA_DB.Model(&community.User{})
+	var hkUsers []community.User
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

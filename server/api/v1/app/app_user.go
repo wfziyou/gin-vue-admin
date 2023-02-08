@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
-	communityRes "github.com/flipped-aurora/gin-vue-admin/server/model/community/response"
+	communityRes "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/sms/service"
 	"math/rand"
 
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
@@ -113,7 +113,7 @@ func (userApi *UserApi) Register(c *gin.Context) {
 		return
 	}
 
-	user := &community.HkUser{Account: r.Account, NickName: r.NickName, Password: r.Password}
+	user := &community.User{Account: r.Account, Password: r.Password}
 	userReturn, err := appUserService.Register(*user)
 	if err != nil {
 		global.GVA_LOG.Error("注册失败!", zap.Error(err))
@@ -156,7 +156,7 @@ func (userApi *UserApi) LoginPwd(c *gin.Context) {
 	var oc bool = openCaptcha == 0 || openCaptcha < utils.InterfaceToInt(v)
 
 	if !oc {
-		u := &community.HkUser{Account: l.Account, Password: l.Password}
+		u := &community.User{Account: l.Account, Password: l.Password}
 		user, err := appUserService.Login(u)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
@@ -175,7 +175,7 @@ func (userApi *UserApi) LoginPwd(c *gin.Context) {
 		userApi.TokenNext(c, *user)
 		return
 	} else if openCaptcha == 0 {
-		u := &community.HkUser{Account: l.Account, Password: l.Password}
+		u := &community.User{Account: l.Account, Password: l.Password}
 		user, err := appUserService.Login(u)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
@@ -220,7 +220,7 @@ func (userApi *UserApi) LoginThird(c *gin.Context) {
 }
 
 // TokenNext 登录以后签发jwt
-func (userApi *UserApi) TokenNext(c *gin.Context, user community.HkUser) {
+func (userApi *UserApi) TokenNext(c *gin.Context, user community.User) {
 	j := &utils.JWT{SigningKey: []byte(global.GVA_CONFIG.JWT.SigningKey)} // 唯一签名
 	claims := j.CreateClaims(systemReq.BaseClaims{
 		UUID:        user.Uuid,
@@ -298,7 +298,7 @@ func (userApi *UserApi) ResetPassword(c *gin.Context) {
 		return
 	}
 	uid := utils.GetUserID(c)
-	u := &community.HkUser{GVA_MODEL: global.GVA_MODEL{ID: uid}, Password: req.Password}
+	u := &community.User{GvaModelApp: global.GvaModelApp{ID: uid}, Password: req.Password}
 	_, err = appUserService.ChangePassword(u, req.Password)
 	if err != nil {
 		global.GVA_LOG.Error("修改失败!", zap.Error(err))
@@ -350,7 +350,7 @@ func (userApi *UserApi) GetUserBaseInfo(c *gin.Context) {
 		return
 	}
 
-	if user, err := appUserService.GetHkUser(idSearch.ID); err != nil {
+	if user, err := appUserService.GetUser(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -383,8 +383,8 @@ func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
 		return
 	}
 	user.ID = utils.GetUserID(c)
-	err = appUserService.UpdateHkUser(community.HkUser{
-		GVA_MODEL: global.GVA_MODEL{
+	err = appUserService.UpdateUser(community.User{
+		GvaModelApp: global.GvaModelApp{
 			ID: user.ID,
 		},
 		NickName:  user.NickName,
@@ -408,7 +408,7 @@ func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.UserSearch true "分页获取User列表"
-// @Success 200 {object}  response.PageResult{List=[]community.HkUser,msg=string} "返回common.HkUser"
+// @Success 200 {object}  response.PageResult{List=[]community.User,msg=string} "返回common.User"
 // @Router /app/user/getUserList [get]
 func (userApi *UserApi) GetUserList(c *gin.Context) {
 	var pageInfo communityReq.UserSearch
@@ -417,7 +417,7 @@ func (userApi *UserApi) GetUserList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appUserService.AppGetHkUserInfoList(pageInfo); err != nil {
+	if list, total, err := appUserService.AppGetUserInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

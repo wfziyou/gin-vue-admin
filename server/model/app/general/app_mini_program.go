@@ -1,12 +1,12 @@
-// 自动生成模板HkMiniProgram
+// 自动生成模板MiniProgram
 package general
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkMiniProgram 结构体
-type HkMiniProgram struct {
+// MiniProgram 结构体
+type MiniProgram struct {
 	global.GvaModelApp
 	Name        string `json:"name" form:"name" gorm:"column:name;comment:名称;size:80;"`                           //名称
 	Icon        string `json:"icon" form:"icon" gorm:"column:icon;comment:图标;size:256;"`                          //图标
@@ -16,7 +16,7 @@ type HkMiniProgram struct {
 	Hidden      *int   `json:"hidden" form:"hidden" gorm:"column:hidden;comment:隐藏(0否 1是);size:10;"`              //隐藏(0否 1是)
 }
 
-// TableName HkMiniProgram 表名
-func (HkMiniProgram) TableName() string {
+// TableName MiniProgram 表名
+func (MiniProgram) TableName() string {
 	return "hk_mini_program"
 }

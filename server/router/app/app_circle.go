@@ -15,9 +15,11 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 	circleRouterWithoutRecord := appRouter.Group("circle")
 	var circleApi = v1.ApiGroupApp.AppApiGroup.CircleApi
 	{
+
+		circleRouter.POST("createCircleRequest", circleApi.CreateCircleRequest)       //创建CircleRequest
 		circleRouter.POST("updateCircle", circleApi.UpdateCircle)                     //(圈子管理者)更新Circle
 		circleRouter.POST("setUserCurCircle", circleApi.SetUserCurCircle)             //设置用户当前圈子
-		circleRouter.DELETE("deleteHkCircleUser", circleApi.DeleteCircleUser)         //删除CircleUser
+		circleRouter.DELETE("deleteCircleUser", circleApi.DeleteCircleUser)           //删除CircleUser
 		circleRouter.DELETE("deleteCircleUserByIds", circleApi.DeleteCircleUserByIds) //批量删除CircleUser
 		circleRouter.PUT("updateCircleUser", circleApi.UpdateCircleUser)              //更新CircleUser
 	}

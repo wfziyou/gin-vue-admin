@@ -1,12 +1,12 @@
-// 自动生成模板HkForumPostsGroup
+// 自动生成模板ForumPostsGroup
 package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkForumPostsGroup 结构体
-type HkForumPostsGroup struct {
+// ForumPostsGroup 结构体
+type ForumPostsGroup struct {
 	global.GvaModelApp
 	CircleId    *int   `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                       //圈子_编号
 	Name        string `json:"name" form:"name" gorm:"column:name;comment:名称;size:20;"`                                       //名称
@@ -15,7 +15,7 @@ type HkForumPostsGroup struct {
 	Sort        *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                       //排序
 }
 
-// TableName HkForumPostsGroup 表名
-func (HkForumPostsGroup) TableName() string {
+// TableName ForumPostsGroup 表名
+func (ForumPostsGroup) TableName() string {
 	return "hk_forum_posts_group"
 }

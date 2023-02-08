@@ -2,57 +2,57 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 )
 
 type AppForbiddenSpeakReasonService struct {
 }
 
-// CreateHkForbiddenSpeakReason 创建HkForbiddenSpeakReason记录
+// CreateForbiddenSpeakReason 创建ForbiddenSpeakReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) CreateHkForbiddenSpeakReason(hkForbiddenSpeakReason community.HkForbiddenSpeakReason) (err error) {
+func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) CreateForbiddenSpeakReason(hkForbiddenSpeakReason community.ForbiddenSpeakReason) (err error) {
 	err = global.GVA_DB.Create(&hkForbiddenSpeakReason).Error
 	return err
 }
 
-// DeleteHkForbiddenSpeakReason 删除HkForbiddenSpeakReason记录
+// DeleteForbiddenSpeakReason 删除ForbiddenSpeakReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) DeleteHkForbiddenSpeakReason(hkForbiddenSpeakReason community.HkForbiddenSpeakReason) (err error) {
+func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) DeleteForbiddenSpeakReason(hkForbiddenSpeakReason community.ForbiddenSpeakReason) (err error) {
 	err = global.GVA_DB.Delete(&hkForbiddenSpeakReason).Error
 	return err
 }
 
-// DeleteHkForbiddenSpeakReasonByIds 批量删除HkForbiddenSpeakReason记录
+// DeleteForbiddenSpeakReasonByIds 批量删除ForbiddenSpeakReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) DeleteHkForbiddenSpeakReasonByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.HkForbiddenSpeakReason{}, "id in ?", ids.Ids).Error
+func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) DeleteForbiddenSpeakReasonByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]community.ForbiddenSpeakReason{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkForbiddenSpeakReason 更新HkForbiddenSpeakReason记录
+// UpdateForbiddenSpeakReason 更新ForbiddenSpeakReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) UpdateHkForbiddenSpeakReason(hkForbiddenSpeakReason community.HkForbiddenSpeakReason) (err error) {
+func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) UpdateForbiddenSpeakReason(hkForbiddenSpeakReason community.ForbiddenSpeakReason) (err error) {
 	err = global.GVA_DB.Save(&hkForbiddenSpeakReason).Error
 	return err
 }
 
-// GetHkForbiddenSpeakReason 根据id获取HkForbiddenSpeakReason记录
+// GetForbiddenSpeakReason 根据id获取ForbiddenSpeakReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) GetHkForbiddenSpeakReason(id uint) (hkForbiddenSpeakReason community.HkForbiddenSpeakReason, err error) {
+func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) GetForbiddenSpeakReason(id uint) (hkForbiddenSpeakReason community.ForbiddenSpeakReason, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkForbiddenSpeakReason).Error
 	return
 }
 
-// GetHkForbiddenSpeakReasonInfoList 分页获取HkForbiddenSpeakReason记录
+// GetForbiddenSpeakReasonInfoList 分页获取ForbiddenSpeakReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) GetHkForbiddenSpeakReasonInfoList(info communityReq.HkForbiddenSpeakReasonSearch) (list []community.HkForbiddenSpeakReason, total int64, err error) {
+func (appForbiddenSpeakReasonService *AppForbiddenSpeakReasonService) GetForbiddenSpeakReasonInfoList(info communityReq.ForbiddenSpeakReasonSearch) (list []community.ForbiddenSpeakReason, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkForbiddenSpeakReason{})
-	var hkForbiddenSpeakReasons []community.HkForbiddenSpeakReason
+	db := global.GVA_DB.Model(&community.ForbiddenSpeakReason{})
+	var hkForbiddenSpeakReasons []community.ForbiddenSpeakReason
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

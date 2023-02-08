@@ -2,57 +2,57 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/community/request"
 )
 
 type AppUserExtendService struct {
 }
 
-// CreateHkUserExtend 创建HkUserExtend记录
+// CreateUserExtend 创建UserExtend记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserExtendService *AppUserExtendService) CreateHkUserExtend(hkUserExtend community.HkUserExtend) (err error) {
+func (appUserExtendService *AppUserExtendService) CreateUserExtend(hkUserExtend community.UserExtend) (err error) {
 	err = global.GVA_DB.Create(&hkUserExtend).Error
 	return err
 }
 
-// DeleteHkUserExtend 删除HkUserExtend记录
+// DeleteUserExtend 删除UserExtend记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserExtendService *AppUserExtendService) DeleteHkUserExtend(hkUserExtend community.HkUserExtend) (err error) {
+func (appUserExtendService *AppUserExtendService) DeleteUserExtend(hkUserExtend community.UserExtend) (err error) {
 	err = global.GVA_DB.Delete(&hkUserExtend).Error
 	return err
 }
 
-// DeleteHkUserExtendByIds 批量删除HkUserExtend记录
+// DeleteUserExtendByIds 批量删除UserExtend记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserExtendService *AppUserExtendService) DeleteHkUserExtendByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.HkUserExtend{}, "id in ?", ids.Ids).Error
+func (appUserExtendService *AppUserExtendService) DeleteUserExtendByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]community.UserExtend{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkUserExtend 更新HkUserExtend记录
+// UpdateUserExtend 更新UserExtend记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserExtendService *AppUserExtendService) UpdateHkUserExtend(hkUserExtend community.HkUserExtend) (err error) {
+func (appUserExtendService *AppUserExtendService) UpdateUserExtend(hkUserExtend community.UserExtend) (err error) {
 	err = global.GVA_DB.Save(&hkUserExtend).Error
 	return err
 }
 
-// GetHkUserExtend 根据id获取HkUserExtend记录
+// GetUserExtend 根据id获取UserExtend记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserExtendService *AppUserExtendService) GetHkUserExtend(id uint) (hkUserExtend community.HkUserExtend, err error) {
+func (appUserExtendService *AppUserExtendService) GetUserExtend(id uint) (hkUserExtend community.UserExtend, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkUserExtend).Error
 	return
 }
 
-// GetHkUserExtendInfoList 分页获取HkUserExtend记录
+// GetUserExtendInfoList 分页获取UserExtend记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserExtendService *AppUserExtendService) GetHkUserExtendInfoList(info communityReq.HkUserExtendSearch) (list []community.HkUserExtend, total int64, err error) {
+func (appUserExtendService *AppUserExtendService) GetUserExtendInfoList(info communityReq.UserExtendSearch) (list []community.UserExtend, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkUserExtend{})
-	var hkUserExtends []community.HkUserExtend
+	db := global.GVA_DB.Model(&community.UserExtend{})
+	var hkUserExtends []community.UserExtend
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

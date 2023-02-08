@@ -1,12 +1,12 @@
-// 自动生成模板HkCircle
+// 自动生成模板Circle
 package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkCircle 结构体
-type HkCircle struct {
+// Circle 结构体
+type Circle struct {
 	global.GvaModelApp
 	Type             *int   `json:"type" form:"type" gorm:"column:type;comment:类型：0官方圈子、1用户圈子、2小区;size:10;"`                                                            //类型：0官方圈子、1用户圈子、2小区
 	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                                          //圈子名称
@@ -34,12 +34,12 @@ type HkCircle struct {
 	Sort             *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                                                            //排序
 }
 
-// TableName HkCircle 表名
-func (HkCircle) TableName() string {
+// TableName Circle 表名
+func (Circle) TableName() string {
 	return "hk_circle"
 }
 
-// HkCircle 结构体
+// Circle 结构体
 type CircleBaseInfo struct {
 	global.GvaModelApp
 	Type             *int   `json:"type" form:"type" gorm:"column:type;comment:类型：0官方圈子、1用户圈子、2小区;size:10;"`                              //类型：0官方圈子、1用户圈子、2小区
@@ -52,7 +52,7 @@ type CircleBaseInfo struct {
 	Sort             *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                              //排序
 }
 
-// TableName HkCircle 表名
+// TableName Circle 表名
 func (CircleBaseInfo) TableName() string {
 	return "hk_circle"
 }

@@ -28,7 +28,7 @@ func (userCollectApi *UserCollectApi) CreateUserCollect(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appUserCollectService.CreateHkUserCollect(hkUserCollect); err != nil {
+	//if err := appUserCollectService.CreateUserCollect(hkUserCollect); err != nil {
 	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
 	//	response.FailWithMessage("创建失败", c)
 	//} else {
@@ -52,7 +52,7 @@ func (userCollectApi *UserCollectApi) DeleteUserCollect(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appUserCollectService.DeleteHkUserCollect(hkUserCollect); err != nil {
+	//if err := appUserCollectService.DeleteUserCollect(hkUserCollect); err != nil {
 	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
 	//	response.FailWithMessage("删除失败", c)
 	//} else {
@@ -76,7 +76,7 @@ func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appUserCollectService.DeleteHkUserCollectByIds(IDS); err != nil {
+	if err := appUserCollectService.DeleteUserCollectByIds(IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -91,7 +91,7 @@ func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query generalReq.UserCollectSearch true "分页获取UserCollect列表"
-// @Success 200 {object}  response.PageResult{List=[]general.HkUserCollect,msg=string} "返回general.HkUserCollect"
+// @Success 200 {object}  response.PageResult{List=[]general.UserCollect,msg=string} "返回general.UserCollect"
 // @Router /app/userCollect/getUserCollectList [get]
 func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 	var pageInfo generalReq.UserCollectSearch
@@ -100,8 +100,8 @@ func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//var aa general.HkUserCollect
-	if list, total, err := appUserCollectService.GetHkUserCollectInfoList(pageInfo); err != nil {
+	//var aa general.UserCollect
+	if list, total, err := appUserCollectService.GetUserCollectInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

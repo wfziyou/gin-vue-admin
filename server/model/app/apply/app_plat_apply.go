@@ -1,12 +1,12 @@
-// 自动生成模板HkPlatApply
+// 自动生成模板PlatApply
 package apply
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkPlatApply 结构体
-type HkPlatApply struct {
+// PlatApply 结构体
+type PlatApply struct {
 	global.GvaModelApp
 	ApplyGroupId    *int   `json:"applyGroupId" form:"applyGroupId" gorm:"column:apply_group_id;comment:应用分组_编号;size:19;"`
 	ShowName        string `json:"showName" form:"showName" gorm:"column:show_name;comment:名称别名;size:80;"`
@@ -15,7 +15,7 @@ type HkPlatApply struct {
 	Sort            *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`
 }
 
-// TableName HkPlatApply 表名
-func (HkPlatApply) TableName() string {
+// TableName PlatApply 表名
+func (PlatApply) TableName() string {
 	return "hk_plat_apply"
 }

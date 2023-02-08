@@ -1,12 +1,12 @@
-// 自动生成模板HkBugReport
+// 自动生成模板BugReport
 package general
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-// HkBugReport 结构体
-type HkBugReport struct {
+// BugReport 结构体
+type BugReport struct {
 	global.GvaModelApp
 	UserId                 *int   `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`                                                      //用户编号
 	Title                  string `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                                            //标题
@@ -19,7 +19,7 @@ type HkBugReport struct {
 	CheckStatus            *int   `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:状态：0 未处理 1 处理中 2 拒绝 3 完成;size:10;"`                   //状态：0 未处理 1 处理中 2 拒绝 3 完成
 }
 
-// TableName HkBugReport 表名
-func (HkBugReport) TableName() string {
+// TableName BugReport 表名
+func (BugReport) TableName() string {
 	return "hk_bug_report"
 }
