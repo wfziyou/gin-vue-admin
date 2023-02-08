@@ -13,6 +13,10 @@ import (
 type ReportApi struct {
 }
 
+/*************************************
+举报
+**************************************/
+
 // CreateReport 举报
 // @Tags App_Report
 // @Summary 举报

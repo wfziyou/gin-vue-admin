@@ -3512,6 +3512,56 @@ var doc = `{
                 }
             }
         },
+        "/app/general/findProtocolByName": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "APP_General"
+                ],
+                "summary": "用名字查询协议",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "协议名称",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回general.Protocol",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/general.Protocol"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/general/getBugReportList": {
             "get": {
                 "security": [
@@ -3531,39 +3581,9 @@ var doc = `{
                 "summary": "分页获取BugReport列表",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "实际结果",
-                        "name": "actualResult",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "实际结果附件",
-                        "name": "actualResultAttachment",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "状态：0 未处理 1 处理中 2 拒绝 3 完成",
                         "name": "checkStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "操作步骤",
-                        "name": "content",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "操作步骤附件",
-                        "name": "contentAttachment",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
                         "in": "query"
                     },
                     {
@@ -3573,26 +3593,8 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "预期结果",
-                        "name": "expectedResult",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "其他信息",
-                        "name": "otherInfo",
                         "in": "query"
                     },
                     {
@@ -3673,43 +3675,13 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "协议内容",
-                        "name": "content",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "协议说明",
-                        "name": "des",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "所属模块/插件",
-                        "name": "module",
                         "in": "query"
                     },
                     {
@@ -3728,12 +3700,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "显示位置",
-                        "name": "pos",
                         "in": "query"
                     },
                     {
@@ -4933,19 +4899,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "生日",
-                        "name": "birthday",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "用户头像",
-                        "name": "headerImg",
                         "in": "query"
                     },
                     {

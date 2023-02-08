@@ -13,6 +13,10 @@ import (
 type ForumPostsApi struct {
 }
 
+/*************************************
+帖子
+**************************************/
+
 // CreateForumPosts 创建ForumPosts
 // @Tags App_ForumPosts
 // @Summary 创建ForumPosts

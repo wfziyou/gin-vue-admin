@@ -8,7 +8,7 @@ import (
 // BugReport 结构体
 type BugReport struct {
 	global.GvaModelApp
-	UserId                 *int   `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`                                                      //用户编号
+	UserId                 uint64 `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`                                                      //用户编号
 	Title                  string `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                                            //标题
 	Content                string `json:"content" form:"content" gorm:"column:content;comment:操作步骤;size:400;"`                                                   //操作步骤
 	ContentAttachment      string `json:"contentAttachment" form:"contentAttachment" gorm:"column:content_attachment;comment:操作步骤附件;size:400;"`                  //操作步骤附件

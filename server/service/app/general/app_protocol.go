@@ -45,6 +45,13 @@ func (appProtocolService *AppProtocolService) GetProtocol(id uint64) (hkProtocol
 	return
 }
 
+// GetProtocolByName 用名字查询协议
+// Author [piexlmax](https://github.com/piexlmax)
+func (appProtocolService *AppProtocolService) GetProtocolByName(name string) (hkProtocol general.Protocol, err error) {
+	err = global.GVA_DB.Where("name = ?", name).First(&hkProtocol).Error
+	return
+}
+
 // GetProtocolInfoList 分页获取Protocol记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appProtocolService *AppProtocolService) GetProtocolInfoList(info generalReq.ProtocolSearch) (list []general.Protocol, total int64, err error) {
@@ -56,6 +63,9 @@ func (appProtocolService *AppProtocolService) GetProtocolInfoList(info generalRe
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	}
+	if len(info.Name) > 0 {
+		db = db.Where("name = ?", info.Name)
 	}
 	err = db.Count(&total).Error
 	if err != nil {

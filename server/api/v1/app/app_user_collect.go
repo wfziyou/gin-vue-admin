@@ -12,6 +12,10 @@ import (
 type UserCollectApi struct {
 }
 
+/*************************************
+收藏
+**************************************/
+
 // CreateUserCollect 收藏帖子
 // @Tags App_UserCollect
 // @Summary 收藏帖子

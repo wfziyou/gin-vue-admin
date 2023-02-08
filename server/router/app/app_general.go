@@ -19,7 +19,9 @@ func (router *GeneralRouter) InitGeneralRouter(Router *gin.RouterGroup) (R gin.I
 
 	}
 	{
-		generalRouterWithoutRecord.GET("findProtocol", generalApi.FindProtocol)         //用id查询协议
+		generalRouterWithoutRecord.GET("findProtocol", generalApi.FindProtocol)             //用id查询协议
+		generalRouterWithoutRecord.GET("findProtocolByName", generalApi.FindProtocolByName) //用名字查询协议
+
 		generalRouterWithoutRecord.GET("getProtocolList", generalApi.GetProtocolList)   //分页获取Protocol列表
 		generalRouterWithoutRecord.GET("findBugReport", generalApi.FindBugReport)       //用id查询BugReport
 		generalRouterWithoutRecord.GET("getBugReportList", generalApi.GetBugReportList) //分页获取BugReport列表

@@ -6,11 +6,16 @@ import (
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 
 type GeneralApi struct{}
+
+/*************************************
+常规
+**************************************/
 
 // FindProtocol 用id查询协议
 // @Tags APP_General
@@ -36,6 +41,30 @@ func (generalApi *GeneralApi) FindProtocol(c *gin.Context) {
 	}
 }
 
+// FindProtocolByName 用名字查询协议
+// @Tags APP_General
+// @Summary 用名字查询协议
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query generalReq.FindProtocolByName true "用名字查询协议"
+// @Success 200 {object}  response.Response{data=general.Protocol,msg=string}  "返回general.Protocol"
+// @Router /app/general/findProtocolByName [get]
+func (generalApi *GeneralApi) FindProtocolByName(c *gin.Context) {
+	var req generalReq.FindProtocolByName
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if rehkProtocol, err := appProtocolService.GetProtocolByName(req.Name); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+	} else {
+		response.OkWithData(gin.H{"rehkProtocol": rehkProtocol}, c)
+	}
+}
+
 // GetProtocolList 分页获取Protocol列表
 // @Tags APP_General
 // @Summary 分页获取Protocol列表
@@ -52,17 +81,17 @@ func (generalApi *GeneralApi) GetProtocolList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appProtocolService.GetProtocolInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := appProtocolService.GetProtocolInfoList(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 // CreateBugReport Bug反馈
@@ -75,13 +104,23 @@ func (generalApi *GeneralApi) GetProtocolList(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/general/createBugReport [post]
 func (generalApi *GeneralApi) CreateBugReport(c *gin.Context) {
-	var hkBugReport general.BugReport
-	err := c.ShouldBindJSON(&hkBugReport)
+	var req generalReq.BugReportCreate
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appBugReportService.CreateBugReport(hkBugReport); err != nil {
+
+	if err := appBugReportService.CreateBugReport(general.BugReport{
+		UserId:                 uint64(utils.GetUserID(c)),
+		Title:                  req.Title,
+		Content:                req.Content,
+		ContentAttachment:      req.ContentAttachment,
+		ExpectedResult:         req.ExpectedResult,
+		ActualResult:           req.ActualResult,
+		ActualResultAttachment: req.ActualResultAttachment,
+		OtherInfo:              req.OtherInfo,
+	}); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -129,6 +168,7 @@ func (generalApi *GeneralApi) GetBugReportList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	pageInfo.UserId = uint64(utils.GetUserID(c))
 	if list, total, err := appBugReportService.AppGetBugReportInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)

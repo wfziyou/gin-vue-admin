@@ -74,9 +74,20 @@ func (appBugReportService *AppBugReportService) AppGetBugReportInfoList(info gen
 	// 创建db
 	db := global.GVA_DB.Model(&general.BugReport{})
 	var hkBugReports []general.BugReport
+	db = db.Where("user_id = ?", info.UserId)
+
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	}
+	if info.UserId != 0 {
+		db = db.Where("user_id = ?", info.UserId)
+	}
+	if info.CheckStatus != nil {
+		db = db.Where("check_status = ?", info.CheckStatus)
+	}
+	if len(info.Title) > 0 {
+		db = db.Where("title LIKE '%?%'", info.Title)
 	}
 	err = db.Count(&total).Error
 	if err != nil {

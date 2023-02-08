@@ -13,6 +13,10 @@ import (
 type TopicApi struct {
 }
 
+/*************************************
+话题
+**************************************/
+
 // FindForumTopicGroup 用id查询ForumTopicGroup
 // @Tags App_Topic
 // @Summary 用id查询ForumTopicGroup

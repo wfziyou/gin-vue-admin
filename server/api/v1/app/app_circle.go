@@ -219,13 +219,6 @@ func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 		return
 	}
 
-	//if _, err := appCircleUserService.GetCircleUserInfoListCount(communityReq.CircleUserSearch{
-	//	CircleId: req.CircleId,
-	//}); err != nil {
-	//	response.OkWithMessage("圈子成员不存在", c)
-	//	return
-	//}
-
 	var pageInfo communityReq.CircleUserSearch
 	pageInfo.Page = 1
 	pageInfo.PageSize = 10

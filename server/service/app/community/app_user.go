@@ -145,6 +145,16 @@ func (appUserService *AppUserService) AppGetUserInfoList(info communityReq.UserS
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
+	if len(info.Account) > 0 {
+		db = db.Where("title account '?%'", info.Account)
+	}
+
+	if len(info.NickName) > 0 {
+		db = db.Where("nick_name LIKE '?%'", info.NickName)
+	}
+	if info.Sex != nil {
+		db = db.Where("sex = ?", info.Sex)
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return

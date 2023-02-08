@@ -4979,53 +4979,49 @@ paths:
       summary: 用id查询协议
       tags:
       - APP_General
+  /app/general/findProtocolByName:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 协议名称
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回general.Protocol
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/general.Protocol'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用名字查询协议
+      tags:
+      - APP_General
   /app/general/getBugReportList:
     get:
       consumes:
       - application/json
       parameters:
-      - description: 实际结果
-        in: query
-        name: actualResult
-        type: string
-      - description: 实际结果附件
-        in: query
-        name: actualResultAttachment
-        type: string
       - description: 状态：0 未处理 1 处理中 2 拒绝 3 完成
         in: query
         name: checkStatus
         type: integer
-      - description: 操作步骤
-        in: query
-        name: content
-        type: string
-      - description: 操作步骤附件
-        in: query
-        name: contentAttachment
-        type: string
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - in: query
         name: endCreatedAt
         type: string
-      - description: 预期结果
-        in: query
-        name: expectedResult
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 其他信息
-        in: query
-        name: otherInfo
         type: string
       - description: 页码
         in: query
@@ -5072,32 +5068,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 协议内容
-        in: query
-        name: content
-        type: string
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 协议说明
-        in: query
-        name: des
-        type: string
       - in: query
         name: endCreatedAt
         type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 所属模块/插件
-        in: query
-        name: module
         type: string
       - description: 协议名称
         in: query
@@ -5111,10 +5087,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 显示位置
-        in: query
-        name: pos
-        type: string
       - in: query
         name: startCreatedAt
         type: string
@@ -5838,16 +5810,8 @@ paths:
         in: query
         name: account
         type: string
-      - description: 生日
-        in: query
-        name: birthday
-        type: string
       - in: query
         name: endCreatedAt
-        type: string
-      - description: 用户头像
-        in: query
-        name: headerImg
         type: string
       - description: 关键字
         in: query

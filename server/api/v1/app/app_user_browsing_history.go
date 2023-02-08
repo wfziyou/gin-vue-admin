@@ -13,6 +13,10 @@ import (
 type UserBrowsingHistoryApi struct {
 }
 
+/*************************************
+浏览历史
+**************************************/
+
 // DeleteUserBrowsingHistory 删除UserBrowsingHistory
 // @Tags APP_UserBrowsingHistory
 // @Summary 删除UserBrowsingHistory
