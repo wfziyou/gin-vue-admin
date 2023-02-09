@@ -298,9 +298,6 @@ definitions:
       sort:
         description: 用户的圈子排序
         type: integer
-      userBaseInfo:
-        $ref: '#/definitions/common.UserBaseInfo'
-        description: 用户基本信息
       userId:
         description: 用户ID
         type: integer
@@ -490,6 +487,8 @@ definitions:
       circleId:
         description: 圈子_编号
         type: integer
+      circleUser:
+        $ref: '#/definitions/community.CircleUser'
       collectNum:
         description: 收藏次数
         type: integer
@@ -2041,8 +2040,8 @@ definitions:
     type: object
   request.SetUserCurCircleReq:
     properties:
-      id:
-        description: 圈子ID
+      circleId:
+        description: 圈子_编号
         type: integer
     type: object
   request.SysAuthorityBtnReq:
@@ -2073,14 +2072,11 @@ definitions:
       backImage:
         description: 圈子背景图;size:500
         type: string
-      createdAt:
-        description: 创建时间
-        type: string
       des:
         description: 圈子简介;size:1000
         type: string
       id:
-        description: 主键ID
+        description: 圈子编号
         type: integer
       logo:
         description: 圈子Logo
@@ -3694,6 +3690,10 @@ paths:
       - description: 置顶(0否 1是)
         in: query
         name: top
+        type: integer
+      - description: 用户ID
+        in: query
+        name: userId
         type: integer
       produces:
       - application/json

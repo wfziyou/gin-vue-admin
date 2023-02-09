@@ -45,6 +45,16 @@ func (appCircleUserService *AppCircleUserService) GetCircleUser(id uint64) (hkCi
 	return
 }
 
+// SetUserCurCircle 根据id获取CircleUser记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (appCircleUserService *AppCircleUserService) SetUserCurCircle(UserId uint64, CircleId uint64) (err error) {
+
+	db := global.GVA_DB.Model(&community.User{})
+
+	err = db.Where("id = ?", UserId).Update("name", "jinzhu").Error
+	return err
+}
+
 // GetCircleUserInfoList 分页获取CircleUser记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(info communityReq.CircleUserSearch) (list []community.CircleUser, total int64, err error) {

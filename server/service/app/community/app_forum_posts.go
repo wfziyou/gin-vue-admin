@@ -1,6 +1,7 @@
 package community
 
 import (
+	"database/sql"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
@@ -103,13 +104,13 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
 	var hkForumPostss []community.ForumPostsBaseInfo
+	db.Joins(",`hk_circle_user`")
+	db = db.Where("hk_circle_user.circle_id = hk_forum_posts.circle_id and hk_circle_user.user_id =@userId", sql.Named("userId", info.UserId))
+
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
-
-	//用户所在圈子
-	db.Where("circleId IN ?", info.ID)
 
 	//类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
 	if info.Category != nil {
@@ -133,7 +134,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 		db = db.Where("marrow = ?", info.Marrow)
 	}
 	//创建时间降序排列
-	db = db.Order("create_at desc")
+	db = db.Order("hk_forum_posts.created_at desc")
 
 	err = db.Count(&total).Error
 	if err != nil {

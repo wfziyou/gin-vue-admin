@@ -1405,6 +1405,12 @@ var doc = `{
                         "description": "置顶(0否 1是)",
                         "name": "top",
                         "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户ID",
+                        "name": "userId",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -10373,10 +10379,6 @@ var doc = `{
                     "description": "用户的圈子排序",
                     "type": "integer"
                 },
-                "userBaseInfo": {
-                    "description": "用户基本信息",
-                    "$ref": "#/definitions/common.UserBaseInfo"
-                },
                 "userId": {
                     "description": "用户ID",
                     "type": "integer"
@@ -10632,6 +10634,9 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
+                },
+                "circleUser": {
+                    "$ref": "#/definitions/community.CircleUser"
                 },
                 "collectNum": {
                     "description": "收藏次数",
@@ -12815,8 +12820,8 @@ var doc = `{
         "request.SetUserCurCircleReq": {
             "type": "object",
             "properties": {
-                "id": {
-                    "description": "圈子ID",
+                "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 }
             }
@@ -12862,16 +12867,12 @@ var doc = `{
                     "description": "圈子背景图;size:500",
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "des": {
                     "description": "圈子简介;size:1000",
                     "type": "string"
                 },
                 "id": {
-                    "description": "主键ID",
+                    "description": "圈子编号",
                     "type": "integer"
                 },
                 "logo": {

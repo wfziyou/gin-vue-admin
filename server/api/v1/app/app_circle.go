@@ -6,6 +6,7 @@ import (
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -59,6 +60,7 @@ func (circleApi *CircleApi) GetUserCircleForumPostsList(c *gin.Context) {
 		return
 	}
 
+	pageInfo.UserId = uint64(utils.GetUserID(c))
 	if list, total, err := appForumPostsService.GetUserForumPostsInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
@@ -88,6 +90,7 @@ func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	pageInfo.UserId = uint64(utils.GetUserID(c))
 	if list, total, err := appCircleService.GetSelfCircleList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
@@ -166,18 +169,41 @@ func (circleApi *CircleApi) GetCircleList(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/circle/updateCircle [put]
 func (circleApi *CircleApi) UpdateCircle(c *gin.Context) {
-	var hkCircle communityReq.UpdateCircleReq
-	err := c.ShouldBindJSON(&hkCircle)
+	var req communityReq.UpdateCircleReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appCircleService.UpdateCircle(hkCircle); err != nil {
-	//	global.GVA_LOG.Error("更新失败!", zap.Error(err))
-	//	response.FailWithMessage("更新失败", c)
-	//} else {
-	//	response.OkWithMessage("更新成功", c)
-	//}
+
+	var circle = community.Circle{
+		Name:             req.Name,
+		Logo:             req.Logo,
+		Slogan:           req.Slogan,
+		Des:              req.Des,
+		Protocol:         req.Protocol,
+		BackImage:        req.BackImage,
+		Process:          req.Process,
+		Property:         req.Property,
+		View:             req.View,
+		PowerAdd:         req.PowerAdd,
+		PowerView:        req.PowerView,
+		PowerPublish:     req.PowerPublish,
+		PowerComment:     req.PowerComment,
+		PowerAddUser:     req.PowerAddUser,
+		PowerViewUser:    req.PowerViewUser,
+		PowerPublishUser: req.PowerPublishUser,
+		PowerCommentUser: req.PowerCommentUser,
+		NoLimitUserGroup: req.NoLimitUserGroup,
+		NewUserFocus:     req.NewUserFocus,
+	}
+	circle.ID = req.ID
+	if err := appCircleService.UpdateCircle(circle); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
 }
 
 // SetUserCurCircle 设置用户当前圈子
@@ -190,12 +216,22 @@ func (circleApi *CircleApi) UpdateCircle(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/circle/setUserCurCircle [post]
 func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
-	var hkCircle communityReq.SetUserCurCircleReq
-	err := c.ShouldBindJSON(&hkCircle)
+	var req communityReq.SetUserCurCircleReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+		return
+	}
+	//if( err:=appCircleUserService.SetUserCurCircle(utils.GetUserID(c),req.CircleId); err!= nil){
+	//
+	//}
+	//appUserService.UpdateUser(community.User{})
+
 }
 
 /*************************************

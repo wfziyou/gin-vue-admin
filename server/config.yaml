@@ -48,7 +48,7 @@ captcha:
   key-long: 6
   img-width: 240
   img-height: 80
-  open-captcha: 3
+  open-captcha: 300
   open-captcha-timeout: 3600
 cors:
   mode: strict-whitelist
@@ -132,7 +132,7 @@ mysql:
   engine: ""
   max-idle-conns: 10
   max-open-conns: 100
-  log-mode: error
+  log-mode: Info
   log-zap: false
 oracle:
   path: ""

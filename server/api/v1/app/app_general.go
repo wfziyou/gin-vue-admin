@@ -37,7 +37,7 @@ func (generalApi *GeneralApi) FindProtocol(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkProtocol": rehkProtocol}, c)
+		response.OkWithData(rehkProtocol, c)
 	}
 }
 
@@ -61,7 +61,7 @@ func (generalApi *GeneralApi) FindProtocolByName(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkProtocol": rehkProtocol}, c)
+		response.OkWithData(rehkProtocol, c)
 	}
 }
 

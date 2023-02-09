@@ -1,13 +1,12 @@
 package request
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"time"
 )
 
 type CircleForumPostsSearch struct {
-	CircleId uint   `json:"circleId" form:"circleId" "`                      //圈子_编号
+	CircleId uint64 `json:"circleId" form:"circleId" "`                      //圈子_编号
 	Category *int   `json:"category" form:"category" "`                      //类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
 	GroupId  *int   `json:"groupId" form:"groupId" "`                        //帖子分类编号
 	Title    string `json:"title" form:"title" gorm:"column:title;size:80;"` //标题
@@ -20,7 +19,7 @@ type CircleForumPostsSearch struct {
 }
 
 type UserCircleForumPostsSearch struct {
-	ID       []uint `json:"-"`
+	UserId   uint64 `json:"userId" form:"userId" `                           //用户ID
 	Category *int   `json:"category" form:"category" "`                      //类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
 	GroupId  *int   `json:"groupId" form:"groupId" "`                        //帖子分类编号
 	Title    string `json:"title" form:"title" gorm:"column:title;size:80;"` //标题
@@ -33,9 +32,9 @@ type UserCircleForumPostsSearch struct {
 }
 
 type SelfCircleSearch struct {
-	ID   uint   `json:"-"`
-	Type *int   `json:"type" form:"type" ` //类型：0官方圈子、1用户圈子、2小区
-	Name string `json:"name" form:"name" ` //搜索名字：圈子名称或圈子简介
+	UserId uint64 `json:"-"`                 //用户ID
+	Type   *int   `json:"type" form:"type" ` //类型：0官方圈子、1用户圈子、2小区
+	Name   string `json:"name" form:"name" ` //搜索名字：圈子名称或圈子简介
 
 	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"` //创建时间（开始）
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）
@@ -44,7 +43,8 @@ type SelfCircleSearch struct {
 
 // SetUserCurCircleReq 设置用户当前圈子
 type SetUserCurCircleReq struct {
-	ID uint `json:"id"  gorm:"comment:编号"` // 圈子ID
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+	UserId   uint64 `json:"-"`                         //用户ID
 }
 
 type DeleteCircleUserReq struct {
@@ -68,7 +68,7 @@ type CreateCircleRequestReq struct {
 }
 
 type UpdateCircleReq struct {
-	global.GvaModelApp
+	ID               uint   `json:"id" `                                                                                                                 //圈子编号
 	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                           //圈子名称
 	Logo             string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                                        //圈子Logo
 	Slogan           string `json:"slogan" form:"slogan" gorm:"column:slogan;comment:圈子标语;size:20;"`                                                     //圈子标语;size:20

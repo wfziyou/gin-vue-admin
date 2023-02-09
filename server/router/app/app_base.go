@@ -19,4 +19,11 @@ func (s *BaseRouter) InitBaseRouter(Router *gin.RouterGroup) {
 		userRouter.POST("getCaptcha", userApi.GetCaptcha)         //获取验证码
 		userRouter.POST("resetPassword", userApi.ResetPassword)   //重置密码
 	}
+
+	generalRouterWithoutRecord := appRouter.Group("general")
+	var generalApi = v1.ApiGroupApp.AppApiGroup.GeneralApi
+	{
+		generalRouterWithoutRecord.GET("findProtocol", generalApi.FindProtocol)             //用id查询协议
+		generalRouterWithoutRecord.GET("findProtocolByName", generalApi.FindProtocolByName) //用名字查询协议
+	}
 }
