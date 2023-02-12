@@ -16,7 +16,7 @@ type SysUser struct {
 	BaseColor   string         `json:"baseColor" gorm:"default:#fff;comment:基础颜色"`                                           // 基础颜色
 	ActiveColor string         `json:"activeColor" gorm:"default:#1890ff;comment:活跃颜色"`                                      // 活跃颜色
 	AuthorityId uint           `json:"authorityId" gorm:"default:888;comment:用户角色ID"`                                        // 用户角色ID
-	Authority   SysAuthority   `json:"authority" gorm:"foreignKey:AuthorityId;references:AuthorityId;comment:用户角色"`
+	Authority   SysAuthority   `json:"authority" gorm:"foreignKey:Id;references:AuthorityId;comment:用户角色"`
 	Authorities []SysAuthority `json:"authorities" gorm:"many2many:sys_user_authority;"`
 	Phone       string         `json:"phone"  gorm:"comment:用户手机号"`                     // 用户手机号
 	Email       string         `json:"email"  gorm:"comment:用户邮箱"`                      // 用户邮箱

@@ -23,7 +23,7 @@ type User struct {
 	Birthday    *time.Time            `json:"birthday" form:"birthday" gorm:"column:birthday;comment:生日;"`                    //生日
 	Sex         *int                  `json:"sex" form:"sex" gorm:"column:sex;comment:性别;size:10;"`                           //性别
 	AuthorityId uint                  `json:"roleId" form:"roleId" gorm:"column:role_id;default:888;comment:用户角色ID;size:20;"` // 用户角色ID
-	Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:AuthorityId;references:AuthorityId;comment:用户角色"`    //用户角色
+	Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:Id;references:AuthorityId;comment:用户角色"`             //用户角色
 	Authorities []system.SysAuthority `json:"authorities" gorm:"many2many:sys_user_authority;"`
 	UserExtend  UserExtend            `json:"userExtend" gorm:"foreignKey:ID;references:ID;comment:用户扩展"` //用户扩展
 }

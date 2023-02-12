@@ -1,10 +1,10 @@
 aliyun-oss:
-  endpoint: yourEndpoint
-  access-key-id: yourAccessKeyId
-  access-key-secret: yourAccessKeySecret
-  bucket-name: yourBucketName
-  bucket-url: yourBucketUrl
-  base-path: yourBasePath
+  endpoint: oss-cn-hangzhou.aliyuncs.com
+  access-key-id: LTAI9DHp7LBDXkbR
+  access-key-secret: mFfYI7R8lw43dFrUDX3Bnj4Nwnz0gm
+  bucket-name: hk-uploadfiles
+  bucket-url: https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com
+  base-path: test
 aliyun-sms:
   accessKeyId: LTAI9DHp7LBDXkbR
   accessSecret: mFfYI7R8lw43dFrUDX3Bnj4Nwnz0gm
@@ -178,7 +178,7 @@ system:
   env: public
   addr: 8888
   db-type: mysql
-  oss-type: local
+  oss-type: aliyun-oss
   use-multipoint: false
   use-redis: true
   iplimit-count: 15000

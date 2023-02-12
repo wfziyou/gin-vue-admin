@@ -178,7 +178,7 @@ func (menuService *MenuService) GetBaseMenuTree() (menus []system.SysBaseMenu, e
 
 func (menuService *MenuService) AddMenuAuthority(menus []system.SysBaseMenu, authorityId uint) (err error) {
 	var auth system.SysAuthority
-	auth.AuthorityId = authorityId
+	auth.Id = authorityId
 	auth.SysBaseMenus = menus
 	err = AuthorityServiceApp.SetMenuAuthority(&auth)
 	return err
@@ -220,7 +220,8 @@ func (menuService *MenuService) GetMenuAuthority(info *request.GetAuthorityId) (
 }
 
 // UserAuthorityDefaultRouter 用户角色默认路由检查
-//  Author [SliverHorn](https://github.com/SliverHorn)
+//
+//	Author [SliverHorn](https://github.com/SliverHorn)
 func (menuService *MenuService) UserAuthorityDefaultRouter(user *system.SysUser) {
 	var menuIds []string
 	err := global.GVA_DB.Model(&system.SysAuthorityMenu{}).Where("sys_authority_authority_id = ?", user.AuthorityId).Pluck("sys_base_menu_id", &menuIds).Error

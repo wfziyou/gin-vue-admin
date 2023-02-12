@@ -65,14 +65,14 @@ func (exa *CustomerService) GetCustomerInfoList(sysUserAuthorityID uint, info re
 	offset := info.PageSize * (info.Page - 1)
 	db := global.GVA_DB.Model(&example.ExaCustomer{})
 	var a system.SysAuthority
-	a.AuthorityId = sysUserAuthorityID
+	a.Id = sysUserAuthorityID
 	auth, err := systemService.AuthorityServiceApp.GetAuthorityInfo(a)
 	if err != nil {
 		return
 	}
 	var dataId []uint
 	for _, v := range auth.DataAuthorityId {
-		dataId = append(dataId, v.AuthorityId)
+		dataId = append(dataId, v.Id)
 	}
 	var CustomerList []example.ExaCustomer
 	err = db.Where("sys_user_authority_id in ?", dataId).Count(&total).Error
