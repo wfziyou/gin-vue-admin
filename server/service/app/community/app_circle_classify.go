@@ -65,3 +65,22 @@ func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoL
 	err = db.Limit(limit).Offset(offset).Find(&hkCircleClassifys).Error
 	return hkCircleClassifys, total, err
 }
+
+// GetCircleClassifyInfoList 分页获取CircleClassify记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoListAll(info communityReq.CircleClassifySearch) (list []community.CircleClassify, total int64, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&community.CircleClassify{})
+	var hkCircleClassifys []community.CircleClassify
+	// 如果有条件搜索 下方会自动创建搜索语句
+	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
+		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	}
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Find(&hkCircleClassifys).Error
+	return hkCircleClassifys, total, err
+}
