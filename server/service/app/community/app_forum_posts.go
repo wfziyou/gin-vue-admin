@@ -111,7 +111,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 		db = db.Where("marrow = ?", info.Marrow)
 	}
 	//创建时间降序排列
-	db = db.Order("create_at desc")
+	db = db.Order("created_at desc")
 
 	err = db.Count(&total).Error
 	if err != nil {
@@ -161,7 +161,7 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 		db = db.Where("marrow = ?", info.Marrow)
 	}
 	//创建时间降序排列
-	db = db.Order("create_at desc")
+	db = db.Order("created_at desc")
 
 	err = db.Count(&total).Error
 	if err != nil {
