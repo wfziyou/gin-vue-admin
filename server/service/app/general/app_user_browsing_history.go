@@ -54,9 +54,11 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) GetUserBrows
 	db := global.GVA_DB.Model(&general.UserBrowsingHistory{})
 	var hkUserBrowsingHistorys []general.UserBrowsingHistory
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	if info.StartUpdatedAt != nil && info.EndUpdatedAt != nil {
+		db = db.Where("updated_at BETWEEN ? AND ?", info.StartUpdatedAt, info.EndUpdatedAt)
 	}
+	db = db.Where("user_id = ?", info.UserId)
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return

@@ -58,13 +58,13 @@ type UpdateCircleUserReq struct {
 
 // CreateCircleRequestReq 创建圈子申请参数
 type CreateCircleRequestReq struct {
-	Name             string  `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                          //圈子名称
-	Logo             string  `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                       //圈子Logo
-	CircleClassifyId *uint64 `json:"circleClassifyId" form:"circleClassifyId" gorm:"column:circle_classify_id;comment:圈子分类_编号;size:19;"` //圈子分类_编号
-	Slogan           string  `json:"slogan" form:"slogan" gorm:"column:slogan;comment:圈子标语;size:20;"`                                    //圈子标语
-	Des              string  `json:"des" form:"des" gorm:"column:des;comment:圈子简介;size:1000;"`                                           //圈子简介
-	Protocol         string  `json:"protocol" form:"protocol" gorm:"column:protocol;comment:圈子规约;size:1000;"`                            //圈子规约
-	BackImage        string  `json:"backImage" form:"backImage" gorm:"column:back_image;comment:圈子背景图;size:500;"`                        //圈子背景图
+	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                  //圈子名称
+	Logo             string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                               //圈子Logo
+	CircleClassifyId uint64 `json:"circleClassifyId" form:"circleClassifyId" gorm:"type:bigint(20);column:circle_classify_id;comment:圈子分类_编号;"` //圈子分类_编号
+	Slogan           string `json:"slogan" form:"slogan" gorm:"column:slogan;comment:圈子标语;size:20;"`                                            //圈子标语
+	Des              string `json:"des" form:"des" gorm:"column:des;comment:圈子简介;size:1000;"`                                                   //圈子简介
+	Protocol         string `json:"protocol" form:"protocol" gorm:"column:protocol;comment:圈子规约;size:1000;"`                                    //圈子规约
+	BackImage        string `json:"backImage" form:"backImage" gorm:"column:back_image;comment:圈子背景图;size:500;"`                                //圈子背景图
 }
 
 type UpdateCircleReq struct {

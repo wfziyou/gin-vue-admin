@@ -186,17 +186,18 @@ func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.ForumComment true "创建ForumComment"
+// @Param data body communityReq.CreateForumComment true "创建ForumComment"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/forumPosts/createForumComment [post]
 func (forumPostsApi *ForumPostsApi) CreateForumComment(c *gin.Context) {
-	var hkForumComment community.ForumComment
-	err := c.ShouldBindJSON(&hkForumComment)
+	var req communityReq.CreateForumComment
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appForumCommentService.CreateForumComment(hkForumComment); err != nil {
+	req.UserId = uint64(utils.GetUserID(c))
+	if err := appForumCommentService.CreateForumComment(req); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -214,18 +215,27 @@ func (forumPostsApi *ForumPostsApi) CreateForumComment(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/forumPosts/deleteForumComment [delete]
 func (forumPostsApi *ForumPostsApi) DeleteForumComment(c *gin.Context) {
-	var hkForumComment request.IdDelete
-	err := c.ShouldBindJSON(&hkForumComment)
+	var req request.IdDelete
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumCommentService.DeleteForumComment(hkForumComment); err != nil {
-	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
-	//	response.FailWithMessage("删除失败", c)
-	//} else {
-	//	response.OkWithMessage("删除成功", c)
-	//}
+
+	if data, err := appForumCommentService.GetForumComment(uint64(req.ID)); err != nil {
+		response.OkWithMessage("评论不存在", c)
+	} else {
+		if data.UserId != uint64(utils.GetUserID(c)) {
+			response.OkWithMessage("不能删除别人的评论", c)
+			return
+		}
+		if err := appForumCommentService.DeleteForumComment(data); err != nil {
+			global.GVA_LOG.Error("删除失败!", zap.Error(err))
+			response.FailWithMessage("删除失败", c)
+		} else {
+			response.OkWithMessage("删除成功", c)
+		}
+	}
 }
 
 // DeleteForumCommentByIds 批量删除ForumComment

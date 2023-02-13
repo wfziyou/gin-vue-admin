@@ -9,12 +9,11 @@ import (
 // ForumComment 结构体
 type ForumComment struct {
 	global.GvaModelApp
-	PostsId        *int       `json:"postsId" form:"postsId" gorm:"column:posts_id;comment:帖子编号;size:19;"`                           //帖子编号
-	UserId         *int       `json:"userId" form:"userId" gorm:"column:user_id;comment:评论者;size:19;"`                               //评论者
-	CommentTime    *time.Time `json:"commentTime" form:"commentTime" gorm:"column:comment_time;comment:评论时间;"`                       //评论时间
+	PostsId        uint64     `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"`                   //帖子编号
+	UserId         uint64     `json:"userId" form:"userId" gorm:"type:bigint(20);column:circle_id;comment:评论者;"`                     //评论者
 	CommentContent string     `json:"commentContent" form:"commentContent" gorm:"column:comment_content;comment:评论内容;"`              //评论内容
 	LikeTimes      *int       `json:"likeTimes" form:"likeTimes" gorm:"column:like_times;comment:点赞数;size:10;"`                      //点赞数
-	ParentId       *int       `json:"parentId" form:"parentId" gorm:"column:parent_id;comment:父评论编号;size:19;"`                       //父评论编号
+	ParentId       *uint64    `json:"parentId" form:"parentId" gorm:"column:parent_id;comment:父评论编号;size:19;"`                       //父评论编号
 	CheckUser      *int       `json:"checkUser" form:"checkUser" gorm:"column:check_user;comment:审核人;size:19;"`                      //审核人
 	CheckTime      *time.Time `json:"checkTime" form:"checkTime" gorm:"column:check_time;comment:审核时间;"`                             //审核时间
 	CheckStatus    *int       `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态(0未审批 1通过 2拒绝);size:10;"` //审核状态(0未审批 1通过 2拒绝)

@@ -57,6 +57,7 @@ func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(info 
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
+	db = db.Where("user_id = ?", info.UserId)
 	err = db.Count(&total).Error
 	if err != nil {
 		return

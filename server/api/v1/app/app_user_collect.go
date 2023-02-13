@@ -2,9 +2,11 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -26,18 +28,23 @@ type UserCollectApi struct {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/userCollect/createUserCollect [post]
 func (userCollectApi *UserCollectApi) CreateUserCollect(c *gin.Context) {
-	var hkUserCollect generalReq.UserCollectReq
-	err := c.ShouldBindJSON(&hkUserCollect)
+	var req generalReq.UserCollectReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appUserCollectService.CreateUserCollect(hkUserCollect); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage("创建失败", c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+
+	var hkUserCollect = general.UserCollect{
+		UserId:  uint64(utils.GetUserID(c)),
+		PostsId: req.PostsId,
+	}
+	if err := appUserCollectService.CreateUserCollect(hkUserCollect); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+	} else {
+		response.OkWithMessage("创建成功", c)
+	}
 }
 
 // DeleteUserCollect 删除UserCollect
@@ -50,18 +57,20 @@ func (userCollectApi *UserCollectApi) CreateUserCollect(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/userCollect/deleteUserCollect [delete]
 func (userCollectApi *UserCollectApi) DeleteUserCollect(c *gin.Context) {
-	var hkUserCollect request.IdDelete
-	err := c.ShouldBindJSON(&hkUserCollect)
+	var req request.IdDelete
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appUserCollectService.DeleteUserCollect(hkUserCollect); err != nil {
-	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
-	//	response.FailWithMessage("删除失败", c)
-	//} else {
-	//	response.OkWithMessage("删除成功", c)
-	//}
+	var data = general.UserCollect{}
+	data.ID = req.ID
+	if err := appUserCollectService.DeleteUserCollect(data); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
 }
 
 // DeleteUserCollectByIds 批量删除UserCollect
@@ -104,6 +113,7 @@ func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	pageInfo.UserId = uint64(utils.GetUserID(c))
 	//var aa general.UserCollect
 	if list, total, err := appUserCollectService.GetUserCollectInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))

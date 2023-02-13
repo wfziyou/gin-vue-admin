@@ -57,17 +57,17 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appForumTopicGroupService.GetForumTopicGroupInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := appForumTopicGroupService.GetForumTopicGroupInfoList(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 // GetForumTopicGroupListAll 获取ForumTopicGroup列表
@@ -77,7 +77,7 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.ForumTopicGroupSearch true "获取ForumTopicGroup列表"
-// @Success 200 {object}  response.PageResult{List=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
+// @Success 200 {object}  response.DataResult{data=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupListAll [get]
 func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 	var pageInfo communityReq.ForumTopicGroupSearch
@@ -86,17 +86,12 @@ func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appForumTopicGroupService.GetForumTopicGroupInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if data, _, err := appForumTopicGroupService.GetForumTopicGroupInfoListAll(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(data, "获取成功", c)
+	}
 }
 
 // CreateForumTopic 创建ForumTopic
@@ -109,18 +104,24 @@ func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/topic/createForumTopic [post]
 func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
-	var hkForumTopic communityReq.CreateForumTopicReq
-	err := c.ShouldBindJSON(&hkForumTopic)
+	var req communityReq.CreateForumTopicReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumTopicService.CreateForumTopic(hkForumTopic); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage("创建失败", c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+	if err := appForumTopicService.CreateForumTopic(community.ForumTopic{
+		Name:         req.Name,
+		CoverImage:   req.CoverImage,
+		TopicGroupId: req.TopicGroupId,
+		Type:         req.Type,
+		CircleId:     req.CircleId,
+	}); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+	} else {
+		response.OkWithMessage("创建成功", c)
+	}
 }
 
 // DeleteForumTopic 删除ForumTopic
@@ -133,18 +134,20 @@ func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/topic/deleteForumTopic [delete]
 func (topicApi *TopicApi) DeleteForumTopic(c *gin.Context) {
-	var hkForumTopic request.IdDelete
-	err := c.ShouldBindJSON(&hkForumTopic)
+	var req request.IdDelete
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumTopicService.DeleteForumTopic(hkForumTopic); err != nil {
-	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
-	//	response.FailWithMessage("删除失败", c)
-	//} else {
-	//	response.OkWithMessage("删除成功", c)
-	//}
+	var data community.ForumTopic
+	data.ID = req.ID
+	if err := appForumTopicService.DeleteForumTopic(data); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
 }
 
 // DeleteForumTopicByIds 批量删除ForumTopic

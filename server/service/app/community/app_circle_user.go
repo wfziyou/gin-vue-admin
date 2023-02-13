@@ -23,6 +23,10 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleUser(hkCircleUser 
 	err = global.GVA_DB.Delete(&hkCircleUser).Error
 	return err
 }
+func (appCircleUserService *AppCircleUserService) DeleteCircleUserInfo(hkCircleUser community.CircleUserInfo) (err error) {
+	err = global.GVA_DB.Delete(&hkCircleUser).Error
+	return err
+}
 
 // DeleteCircleUserByIds 批量删除CircleUser记录
 // Author [piexlmax](https://github.com/piexlmax)
@@ -44,25 +48,35 @@ func (appCircleUserService *AppCircleUserService) GetCircleUser(id uint64) (hkCi
 	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleUser).Error
 	return
 }
+func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(id uint64) (hkCircleUser community.CircleUserInfo, err error) {
+	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleUser).Error
+	return
+}
 
 // SetUserCurCircle 根据id获取CircleUser记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleUserService *AppCircleUserService) SetUserCurCircle(UserId uint64, CircleId uint64) (err error) {
-
-	db := global.GVA_DB.Model(&community.User{})
-
-	err = db.Where("id = ?", UserId).Update("name", "jinzhu").Error
+func (appCircleUserService *AppCircleUserService) SetUserCurCircle(userId uint64, circleId uint64) (err error) {
+	var userExtend community.UserExtend
+	userExtend.ID = uint(userId)
+	err = global.GVA_DB.Where("id = ?", userId).First(&userExtend).Error
+	if err == nil {
+		db := global.GVA_DB.Model(&userExtend)
+		err = db.Where("id = ?", userId).Update("circle_id", circleId).Error
+	} else {
+		err = global.GVA_DB.Save(&userExtend).Error
+		return err
+	}
 	return err
 }
 
 // GetCircleUserInfoList 分页获取CircleUser记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(info communityReq.CircleUserSearch) (list []community.CircleUser, total int64, err error) {
+func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(info communityReq.CircleUserSearch) (list []community.CircleUserInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.CircleUser{})
-	var hkCircleUsers []community.CircleUser
+	db := global.GVA_DB.Model(&community.CircleUserInfo{})
+	var hkCircleUsers []community.CircleUserInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

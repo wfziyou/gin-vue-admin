@@ -57,6 +57,15 @@ func (appCircleRequestService *AppCircleRequestService) GetCircleRequestInfoList
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
+	if info.Type != nil {
+		db = db.Where("type = ?", info.Type)
+	}
+	if len(info.Name) > 0 {
+		db = db.Where("name LIKE '%?%'", info.Name)
+	}
+	if info.CircleClassifyId != 0 {
+		db = db.Where("circle_classify_id = ?", info.CircleClassifyId)
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return

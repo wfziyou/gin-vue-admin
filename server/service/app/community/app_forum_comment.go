@@ -12,8 +12,12 @@ type AppForumCommentService struct {
 
 // CreateForumComment 创建ForumComment记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumCommentService *AppForumCommentService) CreateForumComment(hkForumComment community.ForumComment) (err error) {
-	err = global.GVA_DB.Create(&hkForumComment).Error
+func (appForumCommentService *AppForumCommentService) CreateForumComment(info communityReq.CreateForumComment) (err error) {
+
+	err = global.GVA_DB.Create(&community.ForumComment{
+		UserId:  info.UserId,
+		PostsId: info.PostsId,
+	}).Error
 	return err
 }
 
@@ -42,7 +46,7 @@ func (appForumCommentService *AppForumCommentService) UpdateForumComment(hkForum
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumCommentService *AppForumCommentService) GetForumComment(id uint64) (hkForumComment community.ForumComment, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkForumComment).Error
-	return
+	return hkForumComment, err
 }
 
 // GetForumCommentInfoList 分页获取ForumComment记录
@@ -57,6 +61,9 @@ func (appForumCommentService *AppForumCommentService) GetForumCommentInfoList(in
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
+	db = db.Where("posts_id = ?", info.PostsId)
+	db = db.Where("parent_id = ?", info.ParentId)
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return
