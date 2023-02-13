@@ -1,13 +1,19 @@
 package request
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"time"
 )
 
 type ForumPostsSearch struct {
-	community.ForumPosts
+	UserId   uint   `json:"userId" form:"userId" gorm:"column:user_id;comment:发布者编号;size:19;"` //发布者编号
+	CircleId uint64 `json:"circleId" form:"circleId" "`                                        //圈子_编号
+	Category *int   `json:"category" form:"category" "`                                        //类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+	GroupId  *int   `json:"groupId" form:"groupId" "`                                          //帖子分类编号
+	Title    string `json:"title" form:"title" gorm:"column:title;size:80;"`                   //标题
+	Top      *int   `json:"top" form:"top" `                                                   //置顶(0否 1是)
+	Marrow   *int   `json:"marrow" form:"marrow" `                                             //精华(0否 1是)
+
 	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"` //创建时间（开始）
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）
 	request.PageInfo
@@ -18,7 +24,7 @@ type CreateForumPostsReq struct {
 	UserId uint `json:"-" ` //发布者编号
 
 	TopicId         uint   `json:"topicId" form:"topicId" gorm:"column:topic_id;comment:话题_编号;size:19;"`                              //话题_编号
-	CircleId        uint   `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                           //圈子_编号
+	CircleId        uint   `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                   //圈子_编号
 	Category        *int   `json:"category" form:"category" gorm:"column:category;comment:类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）;size:10;"`  //类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
 	Title           string `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                        //标题
 	CoverImage      string `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:封面;size:500;"`                       //封面

@@ -9,7 +9,7 @@ import (
 // ForumPosts 结构体
 type ForumPosts struct {
 	global.GvaModelApp
-	CircleId              uint64     `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                                                 //圈子_编号
+	CircleId              uint64     `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                                         //圈子_编号
 	Category              *int       `json:"category" form:"category" gorm:"column:category;comment:类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）;size:10;"`                        //类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
 	GroupId               *int       `json:"groupId" form:"groupId" gorm:"column:group_id;comment:帖子分类编号;size:19;"`                                                   //帖子分类编号
 	Title                 string     `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                                              //标题
@@ -55,7 +55,7 @@ func (ForumPosts) TableName() string {
 // ForumPostsBaseInfo 结构体
 type ForumPostsBaseInfo struct {
 	global.GvaModelApp
-	CircleId     *int       `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                          //圈子_编号
+	CircleId     *int       `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                  //圈子_编号
 	Category     *int       `json:"category" form:"category" gorm:"column:category;comment:类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）;size:10;"` //类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
 	GroupId      *int       `json:"groupId" form:"groupId" gorm:"column:group_id;comment:帖子分类编号;size:19;"`                            //帖子分类编号
 	Title        string     `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                       //标题

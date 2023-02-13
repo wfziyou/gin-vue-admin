@@ -8,7 +8,7 @@ import (
 // CircleApply 结构体
 type CircleApply struct {
 	global.GvaModelApp
-	CircleId        *int   `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                      //圈子_编号
+	CircleId        *int   `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`              //圈子_编号
 	ApplyGroupId    *int   `json:"applyGroupId" form:"applyGroupId" gorm:"column:apply_group_id;comment:应用分组_编号;size:19;"`       //应用分组_编号
 	ShowName        string `json:"showName" form:"showName" gorm:"column:show_name;comment:名称别名;size:80;"`                       //名称别名
 	ApplyId         *int   `json:"applyId" form:"applyId" gorm:"column:apply_id;comment:应用_编号;size:19;"`                         //应用_编号

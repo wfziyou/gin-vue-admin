@@ -3333,92 +3333,14 @@
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "匿名发布(0否 1是)",
-                        "name": "anonymity",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "附件",
-                        "name": "attachment",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
                         "name": "category",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "审核状态(0草稿 1未审批 2通过 3拒绝)",
-                        "name": "checkStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "审核时间",
-                        "name": "checkTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "审核人",
-                        "name": "checkUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "收藏次数",
-                        "name": "collectNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "问答最佳答案ID",
-                        "name": "commentId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "评论次数",
-                        "name": "commentNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "html内容",
-                        "name": "contentHtml",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "markdown内容",
-                        "name": "contentMarkdown",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "内容类型:0 markdown,1 html",
-                        "name": "contentType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "封面",
-                        "name": "coverImage",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
                         "in": "query"
                     },
                     {
@@ -3434,21 +3356,9 @@
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "点赞次数",
-                        "name": "likeNum",
                         "in": "query"
                     },
                     {
@@ -3470,99 +3380,9 @@
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "description": "付费：0 否，1是",
-                        "name": "pay",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "附件付费：0 否，1是",
-                        "name": "payAttachment",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "内容付费：0 否，1是",
-                        "name": "payContent",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "内容付费可查看百分比例",
-                        "name": "payContentLook",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "付费货币：0 人民、1积分、2代币",
-                        "name": "payCurrency",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "付费金额",
-                        "name": "payNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "评论权限(0关闭 1开启)",
-                        "name": "powerComment",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "匿名评论(0关闭 1开启)",
-                        "name": "powerCommentAnonymity",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "阅读次数",
-                        "name": "readNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "简介(SEO简介)",
-                        "name": "seoIntroduce",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "SEO关键词",
-                        "name": "seoKey",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "分享次数",
-                        "name": "shareNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "来源",
-                        "name": "source",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "标签",
-                        "name": "tag",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "发布时间",
-                        "name": "time",
                         "in": "query"
                     },
                     {
@@ -3581,12 +3401,6 @@
                         "type": "integer",
                         "description": "发布者编号",
                         "name": "userId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "视频地址",
-                        "name": "video",
                         "in": "query"
                     }
                 ],

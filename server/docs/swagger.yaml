@@ -4871,66 +4871,14 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 匿名发布(0否 1是)
-        in: query
-        name: anonymity
-        type: integer
-      - description: 附件
-        in: query
-        name: attachment
-        type: string
       - description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
         in: query
         name: category
-        type: integer
-      - description: 审核状态(0草稿 1未审批 2通过 3拒绝)
-        in: query
-        name: checkStatus
-        type: integer
-      - description: 审核时间
-        in: query
-        name: checkTime
-        type: string
-      - description: 审核人
-        in: query
-        name: checkUser
         type: integer
       - description: 圈子_编号
         in: query
         name: circleId
         type: integer
-      - description: 收藏次数
-        in: query
-        name: collectNum
-        type: integer
-      - description: 问答最佳答案ID
-        in: query
-        name: commentId
-        type: integer
-      - description: 评论次数
-        in: query
-        name: commentNum
-        type: integer
-      - description: html内容
-        in: query
-        name: contentHtml
-        type: string
-      - description: markdown内容
-        in: query
-        name: contentMarkdown
-        type: string
-      - description: 内容类型:0 markdown,1 html
-        in: query
-        name: contentType
-        type: integer
-      - description: 封面
-        in: query
-        name: coverImage
-        type: string
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
@@ -4939,18 +4887,10 @@ paths:
         in: query
         name: groupId
         type: integer
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
       - description: 关键字
         in: query
         name: keyword
         type: string
-      - description: 点赞次数
-        in: query
-        name: likeNum
-        type: integer
       - description: 精华(0否 1是)
         in: query
         name: marrow
@@ -4963,69 +4903,9 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 付费：0 否，1是
-        in: query
-        name: pay
-        type: integer
-      - description: 附件付费：0 否，1是
-        in: query
-        name: payAttachment
-        type: integer
-      - description: 内容付费：0 否，1是
-        in: query
-        name: payContent
-        type: integer
-      - description: 内容付费可查看百分比例
-        in: query
-        name: payContentLook
-        type: integer
-      - description: 付费货币：0 人民、1积分、2代币
-        in: query
-        name: payCurrency
-        type: integer
-      - description: 付费金额
-        in: query
-        name: payNum
-        type: integer
-      - description: 评论权限(0关闭 1开启)
-        in: query
-        name: powerComment
-        type: integer
-      - description: 匿名评论(0关闭 1开启)
-        in: query
-        name: powerCommentAnonymity
-        type: integer
-      - description: 阅读次数
-        in: query
-        name: readNum
-        type: integer
-      - description: 简介(SEO简介)
-        in: query
-        name: seoIntroduce
-        type: string
-      - description: SEO关键词
-        in: query
-        name: seoKey
-        type: string
-      - description: 分享次数
-        in: query
-        name: shareNum
-        type: integer
-      - description: 来源
-        in: query
-        name: source
-        type: string
       - description: 创建时间（开始）
         in: query
         name: startCreatedAt
-        type: string
-      - description: 标签
-        in: query
-        name: tag
-        type: string
-      - description: 发布时间
-        in: query
-        name: time
         type: string
       - description: 标题
         in: query
@@ -5039,10 +4919,6 @@ paths:
         in: query
         name: userId
         type: integer
-      - description: 视频地址
-        in: query
-        name: video
-        type: string
       produces:
       - application/json
       responses:

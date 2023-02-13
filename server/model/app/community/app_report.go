@@ -10,7 +10,7 @@ type Report struct {
 	global.GvaModelApp
 	ReportUserId      *int   `json:"reportUserId" form:"reportUserId" gorm:"column:report_user_id;comment:被举报用户编号;size:19;"`                                       //被举报用户编号
 	UserId            *int   `json:"userId" form:"userId" gorm:"column:user_id;comment:举报用户编号;size:19;"`                                                           //举报用户编号
-	CircleId          *int   `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                                                      //圈子_编号
+	CircleId          *int   `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                                              //圈子_编号
 	ReasonId          *int   `json:"reasonId" form:"reasonId" gorm:"column:reason_id;comment:举报原因_编号;size:19;"`                                                    //举报原因_编号
 	ReportType        *int   `json:"reportType" form:"reportType" gorm:"column:report_type;comment:举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题;size:10;"` //举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题
 	Content           string `json:"content" form:"content" gorm:"column:content;comment:举报内容;size:200;"`                                                          //举报内容

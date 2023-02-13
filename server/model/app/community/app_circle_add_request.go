@@ -9,7 +9,7 @@ import (
 // CircleAddRequest 结构体
 type CircleAddRequest struct {
 	global.GvaModelApp
-	CircleId    *int       `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                        //圈子_编号
+	CircleId    *int       `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                //圈子_编号
 	Reason      string     `json:"reason" form:"reason" gorm:"column:reason;comment:申请理由;size:500;"`                               //申请理由
 	CheckUser   *int       `json:"checkUser" form:"checkUser" gorm:"column:check_user;comment:审核人;size:19;"`                       //审核人
 	CheckTime   *time.Time `json:"checkTime" form:"checkTime" gorm:"column:check_time;comment:审核时间;"`                              //审核时间

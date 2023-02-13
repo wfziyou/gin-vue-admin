@@ -15,7 +15,7 @@ type ForumTopic struct {
 	Hot          *int   `json:"hot" form:"hot" gorm:"column:hot;comment:是否热门：0 否 1 是;size:10;"`                                    //是否热门：0 否 1 是
 	DiscussNum   *int   `json:"discussNum" form:"discussNum" gorm:"column:discuss_num;comment:讨论数;size:10;"`                       //讨论数
 	AttentionNum *int   `json:"attentionNum" form:"attentionNum" gorm:"column:attention_num;comment:关注数;size:10;"`                 //关注数
-	CircleId     *int   `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                           //圈子_编号
+	CircleId     uint64 `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                   //圈子_编号
 	ReviewStatus *int   `json:"reviewStatus" form:"reviewStatus" gorm:"column:review_status;comment:审核状态：0 未处理 1 通过，2驳回;size:10;"` //审核状态：0 未处理 1 通过，2驳回
 }
 
