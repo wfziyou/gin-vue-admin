@@ -28,7 +28,7 @@ type ForumPosts struct {
 	Marrow                *int       `json:"marrow" form:"marrow" gorm:"column:marrow;comment:精华(0否 1是);size:10;"`                                                    //精华(0否 1是)
 	CommentId             *int       `json:"commentId" form:"commentId" gorm:"column:comment_id;comment:问答最佳答案ID;size:19;"`                                           //问答最佳答案ID
 	Anonymity             *int       `json:"anonymity" form:"anonymity" gorm:"column:anonymity;comment:匿名发布(0否 1是);size:10;"`                                         //匿名发布(0否 1是)
-	UserId                *int       `json:"userId" form:"userId" gorm:"column:user_id;comment:发布者编号;size:19;"`                                                       //发布者编号
+	UserId                uint       `json:"userId" form:"userId" gorm:"column:user_id;comment:发布者编号;size:19;"`                                                       //发布者编号
 	ReadNum               *int       `json:"readNum" form:"readNum" gorm:"column:read_num;comment:阅读次数;size:10;"`                                                     //阅读次数
 	CommentNum            *int       `json:"commentNum" form:"commentNum" gorm:"column:comment_num;comment:评论次数;size:10;"`                                            //评论次数
 	ShareNum              *int       `json:"shareNum" form:"shareNum" gorm:"column:share_num;comment:分享次数;size:10;"`                                                  //分享次数

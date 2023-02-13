@@ -15,8 +15,10 @@ type ForumPostsSearch struct {
 
 // CreateForumPostsReq 结构体
 type CreateForumPostsReq struct {
-	TopicId         uint64 `json:"topicId" form:"topicId" gorm:"column:topic_id;comment:话题_编号;size:19;"`                              //话题_编号
-	CircleId        uint64 `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                           //圈子_编号
+	UserId uint `json:"-" ` //发布者编号
+
+	TopicId         uint   `json:"topicId" form:"topicId" gorm:"column:topic_id;comment:话题_编号;size:19;"`                              //话题_编号
+	CircleId        uint   `json:"circleId" form:"circleId" gorm:"column:circle_id;comment:圈子_编号;size:19;"`                           //圈子_编号
 	Category        *int   `json:"category" form:"category" gorm:"column:category;comment:类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）;size:10;"`  //类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
 	Title           string `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                        //标题
 	CoverImage      string `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:封面;size:500;"`                       //封面

@@ -507,7 +507,7 @@ func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.CircleClassifySearch true "获取CircleClassify列表"
-// @Success 200 {object} response.PageResult{List=[]community.CircleClassify,msg=string} "返回community.CircleClassify"
+// @Success 200 {object} response.DataResult{data=[]community.CircleClassify,msg=string} "返回community.CircleClassify"
 // @Router /app/circle/getCircleClassifyListAll [get]
 func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {
 	var pageInfo communityReq.CircleClassifySearch
@@ -516,15 +516,10 @@ func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appCircleClassifyService.GetCircleClassifyInfoListAll(pageInfo); err != nil {
+	if list, _, err := appCircleClassifyService.GetCircleClassifyInfoListAll(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithDetailed(response.PageResult{
-			List:     list,
-			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
-		}, "获取成功", c)
+		response.OkWithDetailed(list, "获取成功", c)
 	}
 }

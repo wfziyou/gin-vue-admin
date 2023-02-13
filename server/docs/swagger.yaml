@@ -388,9 +388,6 @@ definitions:
       commentNum:
         description: 评论次数
         type: integer
-      content:
-        description: 内容
-        type: string
       contentHtml:
         description: html内容
         type: string
@@ -495,9 +492,6 @@ definitions:
       commentNum:
         description: 评论次数
         type: integer
-      contentHtml:
-        description: html内容
-        type: string
       coverImage:
         description: 封面
         type: string
@@ -1961,7 +1955,7 @@ definitions:
     properties:
       apiGroup:
         description: api组
-        type: string
+        type: integer
       createDept:
         type: integer
       createUser:
@@ -1998,6 +1992,8 @@ definitions:
         type: string
       status:
         type: integer
+      sysApiGroup:
+        $ref: '#/definitions/system.SysApiGroup'
       updateUser:
         type: integer
       updatedAt:
@@ -2178,6 +2174,8 @@ definitions:
       postsId:
         description: 帖子编号
         type: integer
+    type: object
+  response.DataResult:
     type: object
   response.Email:
     properties:
@@ -2392,7 +2390,7 @@ definitions:
     properties:
       apiGroup:
         description: api组
-        type: string
+        type: integer
       createDept:
         type: integer
       createUser:
@@ -2414,7 +2412,32 @@ definitions:
         type: string
       status:
         type: integer
+      sysApiGroup:
+        $ref: '#/definitions/system.SysApiGroup'
       updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  system.SysApiGroup:
+    properties:
+      authorityId:
+        description: 角色ID
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      deletedAt:
+        type: string
+      description:
+        description: 描述
+        type: string
+      name:
+        description: 名称
+        type: string
+      sort:
+        description: 排序
         type: integer
       updatedAt:
         description: 更新时间
@@ -3330,9 +3353,9 @@ paths:
           description: 返回community.CircleClassify
           schema:
             allOf:
-            - $ref: '#/definitions/response.PageResult'
+            - $ref: '#/definitions/response.DataResult'
             - properties:
-                List:
+                data:
                   items:
                     $ref: '#/definitions/community.CircleClassify'
                   type: array
@@ -4888,10 +4911,6 @@ paths:
         in: query
         name: commentNum
         type: integer
-      - description: 内容
-        in: query
-        name: content
-        type: string
       - description: html内容
         in: query
         name: contentHtml

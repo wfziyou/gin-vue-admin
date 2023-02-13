@@ -14,8 +14,9 @@ type AppForumPostsService struct {
 // CreateForumPosts 创建ForumPosts记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communityReq.CreateForumPostsReq) (err error) {
-	err = global.GVA_DB.Create(&community.ForumPosts{
-		CircleId:        info.CircleId,
+	forumPosts := community.ForumPosts{
+		UserId:          info.UserId,
+		CircleId:        uint64(info.CircleId),
 		Category:        info.Category,
 		Title:           info.Title,
 		CoverImage:      info.CoverImage,
@@ -25,9 +26,15 @@ func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communit
 		Video:           info.Video,
 		Attachment:      info.Attachment,
 		Anonymity:       info.Anonymity,
-	}).Error
+	}
+	err = global.GVA_DB.Create(&forumPosts).Error
 	if err == nil {
-
+		if info.TopicId != 0 {
+			err = global.GVA_DB.Create(&community.ForumTopicPostsMapping{
+				TopicId: info.TopicId,
+				PostsId: forumPosts.ID,
+			}).Error
+		}
 	}
 	return err
 }

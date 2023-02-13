@@ -462,41 +462,48 @@ func (autoCodeService *AutoCodeService) addAutoMoveFile(data *tplData) {
 //@return: err error
 
 func (autoCodeService *AutoCodeService) AutoCreateApi(a *system.AutoCodeStruct) (ids []uint, err error) {
+	var group system.SysApiGroup
+	group.Name = a.Abbreviation
+	group.Description = a.Abbreviation
+	err = global.GVA_DB.Create(&group).Error
+	if err != nil {
+		return ids, err
+	}
 	apiList := []system.SysApi{
 		{
 			Path:        "/" + a.Abbreviation + "/" + "create" + a.StructName,
 			Description: "新增" + a.Description,
-			ApiGroup:    a.Abbreviation,
+			GroupId:     group.ID,
 			Method:      "POST",
 		},
 		{
 			Path:        "/" + a.Abbreviation + "/" + "delete" + a.StructName,
 			Description: "删除" + a.Description,
-			ApiGroup:    a.Abbreviation,
+			GroupId:     group.ID,
 			Method:      "DELETE",
 		},
 		{
 			Path:        "/" + a.Abbreviation + "/" + "delete" + a.StructName + "ByIds",
 			Description: "批量删除" + a.Description,
-			ApiGroup:    a.Abbreviation,
+			GroupId:     group.ID,
 			Method:      "DELETE",
 		},
 		{
 			Path:        "/" + a.Abbreviation + "/" + "update" + a.StructName,
 			Description: "更新" + a.Description,
-			ApiGroup:    a.Abbreviation,
+			GroupId:     group.ID,
 			Method:      "PUT",
 		},
 		{
 			Path:        "/" + a.Abbreviation + "/" + "find" + a.StructName,
 			Description: "根据ID获取" + a.Description,
-			ApiGroup:    a.Abbreviation,
+			GroupId:     group.ID,
 			Method:      "GET",
 		},
 		{
 			Path:        "/" + a.Abbreviation + "/" + "get" + a.StructName + "List",
 			Description: "获取" + a.Description + "列表",
-			ApiGroup:    a.Abbreviation,
+			GroupId:     group.ID,
 			Method:      "GET",
 		},
 	}

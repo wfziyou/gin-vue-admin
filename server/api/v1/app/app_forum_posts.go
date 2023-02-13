@@ -6,6 +6,7 @@ import (
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -34,15 +35,16 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 		return
 	}
 	if req.TopicId != 0 {
-		if _, err := appForumTopicService.GetForumTopic(req.TopicId); err != nil {
+		if _, err := appForumTopicService.GetForumTopic(uint64(req.TopicId)); err != nil {
 			response.FailWithMessage("话题不存在", c)
 		}
 	}
 	if req.CircleId != 0 {
-		if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+		if _, err := appCircleService.GetCircle(uint64(req.CircleId)); err != nil {
 			response.FailWithMessage("圈子不存在", c)
 		}
 	}
+	req.UserId = utils.GetUserID(c)
 	if err := appForumPostsService.CreateForumPosts(req); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)

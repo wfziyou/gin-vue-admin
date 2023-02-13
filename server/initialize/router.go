@@ -16,9 +16,11 @@ import (
 
 func Routers() *gin.Engine {
 	Router := gin.Default()
+
 	//generalRouter := router.RouterGroupApp.General
 	//applyRouter := router.RouterGroupApp.Apply
 	//communityRouter := router.RouterGroupApp.Community
+
 	systemRouter := router.RouterGroupApp.System
 	exampleRouter := router.RouterGroupApp.Example
 	appRouter := router.RouterGroupApp.App

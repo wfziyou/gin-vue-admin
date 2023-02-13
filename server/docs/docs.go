@@ -813,12 +813,12 @@ var doc = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/response.PageResult"
+                                    "$ref": "#/definitions/response.DataResult"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "List": {
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/community.CircleClassify"
@@ -3405,12 +3405,6 @@ var doc = `{
                         "type": "integer",
                         "description": "评论次数",
                         "name": "commentNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "内容",
-                        "name": "content",
                         "in": "query"
                     },
                     {
@@ -10800,10 +10794,6 @@ var doc = `{
                     "description": "评论次数",
                     "type": "integer"
                 },
-                "content": {
-                    "description": "内容",
-                    "type": "string"
-                },
                 "contentHtml": {
                     "description": "html内容",
                     "type": "string"
@@ -10943,10 +10933,6 @@ var doc = `{
                 "commentNum": {
                     "description": "评论次数",
                     "type": "integer"
-                },
-                "contentHtml": {
-                    "description": "html内容",
-                    "type": "string"
                 },
                 "coverImage": {
                     "description": "封面",
@@ -13006,7 +12992,7 @@ var doc = `{
             "properties": {
                 "apiGroup": {
                     "description": "api组",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "createDept": {
                     "type": "integer"
@@ -13056,6 +13042,9 @@ var doc = `{
                 },
                 "status": {
                     "type": "integer"
+                },
+                "sysApiGroup": {
+                    "$ref": "#/definitions/system.SysApiGroup"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -13311,6 +13300,9 @@ var doc = `{
                     "type": "integer"
                 }
             }
+        },
+        "response.DataResult": {
+            "type": "object"
         },
         "response.Email": {
             "type": "object",
@@ -13627,7 +13619,7 @@ var doc = `{
             "properties": {
                 "apiGroup": {
                     "description": "api组",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "createDept": {
                     "type": "integer"
@@ -13658,7 +13650,42 @@ var doc = `{
                 "status": {
                     "type": "integer"
                 },
+                "sysApiGroup": {
+                    "$ref": "#/definitions/system.SysApiGroup"
+                },
                 "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "system.SysApiGroup": {
+            "type": "object",
+            "properties": {
+                "authorityId": {
+                    "description": "角色ID",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
                     "type": "integer"
                 },
                 "updatedAt": {
