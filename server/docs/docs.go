@@ -2687,7 +2687,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/response.ExaFileResponse"
+                                            "$ref": "#/definitions/example.ExaFileUploadAndDownload"
                                         },
                                         "msg": {
                                             "type": "string"

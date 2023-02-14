@@ -5,7 +5,6 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/example"
-	exampleRes "github.com/flipped-aurora/gin-vue-admin/server/model/example/response"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -19,7 +18,7 @@ type FileUploadAndDownloadApi struct{}
 // @accept    multipart/form-data
 // @Produce   application/json
 // @Param     file  formData  file                                                           true  "上传文件示例"
-// @Success   200   {object}  response.Response{data=exampleRes.ExaFileResponse,msg=string}  "上传文件示例,返回包括文件详情"
+// @Success   200   {object}  response.Response{data=example.ExaFileUploadAndDownload,msg=string}  "上传文件示例,返回包括文件详情"
 // @Router    /app/fileUploadAndDownload/upload [post]
 func (b *FileUploadAndDownloadApi) UploadFile(c *gin.Context) {
 	var file example.ExaFileUploadAndDownload
@@ -36,7 +35,7 @@ func (b *FileUploadAndDownloadApi) UploadFile(c *gin.Context) {
 		response.FailWithMessage("修改数据库链接失败", c)
 		return
 	}
-	response.OkWithDetailed(exampleRes.ExaFileResponse{File: file}, "上传成功", c)
+	response.OkWithDetailed(file, "上传成功", c)
 }
 
 // EditFileName 编辑文件名或者备注
