@@ -23,10 +23,10 @@ type ApplySearchReq struct {
 }
 
 type CircleApplySearchReq struct {
-	CircleId     *int   `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`        //圈子_编号
-	ApplyGroupId *int   `json:"applyGroupId" form:"applyGroupId" gorm:"column:apply_group_id;comment:应用分组_编号;size:19;"` //应用分组_编号
-	ShowName     string `json:"showName" form:"showName" gorm:"column:show_name;comment:名称别名;size:80;"`                 //名称别名
-	ApplyId      *int   `json:"applyId" form:"applyId" gorm:"column:apply_id;comment:应用_编号;size:19;"`                   //应用_编号
+	CircleId     *int   `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                //圈子_编号
+	ApplyGroupId *int   `json:"applyGroupId" form:"applyGroupId" gorm:"type:bigint(20);column:apply_group_id;comment:应用分组_编号;"` //应用分组_编号
+	ShowName     string `json:"showName" form:"showName" gorm:"column:show_name;comment:名称别名;size:80;"`                         //名称别名
+	ApplyId      *int   `json:"applyId" form:"applyId" gorm:"column:apply_id;comment:应用_编号;size:19;"`                           //应用_编号
 
 	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"` //创建时间（开始）
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）

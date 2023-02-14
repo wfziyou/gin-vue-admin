@@ -623,7 +623,7 @@ var doc = `{
                 "tags": [
                     "App_Circle"
                 ],
-                "summary": "用id查询CircleUser",
+                "summary": "用id查询CircleUserInfo",
                 "parameters": [
                     {
                         "type": "integer",
@@ -634,7 +634,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.CircleUser",
+                        "description": "返回community.CircleUserInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -644,7 +644,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/community.CircleUser"
+                                            "$ref": "#/definitions/community.CircleUserInfo"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -1166,7 +1166,7 @@ var doc = `{
                 "tags": [
                     "App_Circle"
                 ],
-                "summary": "分页获取CircleUser列表",
+                "summary": "分页获取CircleUserInfo列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1203,17 +1203,11 @@ var doc = `{
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
                         "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "用户ID",
-                        "name": "userId",
-                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.CircleUser",
+                        "description": "返回community.CircleUserInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -1225,7 +1219,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.CircleUser"
+                                                "$ref": "#/definitions/community.CircleUserInfo"
                                             }
                                         },
                                         "msg": {
@@ -1471,7 +1465,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"设置成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -2768,7 +2762,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.ForumComment"
+                            "$ref": "#/definitions/request.CreateForumComment"
                         }
                     }
                 ],
@@ -3205,63 +3199,15 @@ var doc = `{
                 "summary": "分页获取ForumComment列表",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "审核状态(0未审批 1通过 2拒绝)",
-                        "name": "checkStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "审核时间",
-                        "name": "checkTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "审核人",
-                        "name": "checkUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "评论内容",
-                        "name": "commentContent",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "评论时间",
-                        "name": "commentTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "点赞数",
-                        "name": "likeTimes",
                         "in": "query"
                     },
                     {
@@ -3292,12 +3238,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "评论者",
-                        "name": "userId",
                         "in": "query"
                     }
                 ],
@@ -4639,12 +4579,12 @@ var doc = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/response.PageResult"
+                                    "$ref": "#/definitions/response.DataResult"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "List": {
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/community.ForumTopicGroup"
@@ -5427,19 +5367,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
+                        "name": "endUpdatedAt",
                         "in": "query"
                     },
                     {
@@ -5461,26 +5389,8 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "description": "帖子编号",
-                        "name": "postsId",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "浏览时间",
-                        "name": "time",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "用户编号",
-                        "name": "userId",
+                        "name": "startUpdatedAt",
                         "in": "query"
                     }
                 ],
@@ -10491,6 +10401,35 @@ var doc = `{
                 }
             }
         },
+        "community.CircleUserInfo": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "用户的圈子排序",
+                    "type": "integer"
+                },
+                "userBaseInfo": {
+                    "description": "用户基本信息",
+                    "$ref": "#/definitions/community.User"
+                },
+                "userId": {
+                    "description": "用户ID",
+                    "type": "integer"
+                }
+            }
+        },
         "community.CommentThumbsUp": {
             "type": "object",
             "properties": {
@@ -10533,10 +10472,6 @@ var doc = `{
                 },
                 "commentContent": {
                     "description": "评论内容",
-                    "type": "string"
-                },
-                "commentTime": {
-                    "description": "评论时间",
                     "type": "string"
                 },
                 "createdAt": {
@@ -11097,6 +11032,10 @@ var doc = `{
                     "description": "博客",
                     "type": "string"
                 },
+                "circleId": {
+                    "description": "当前圈子编号",
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -11124,10 +11063,6 @@ var doc = `{
                 "qq": {
                     "description": "qq",
                     "type": "string"
-                },
-                "userId": {
-                    "description": "用户ID",
-                    "type": "integer"
                 },
                 "weibo": {
                     "description": "微博",
@@ -12336,10 +12271,6 @@ var doc = `{
                     "description": "帖子编号",
                     "type": "integer"
                 },
-                "time": {
-                    "description": "收藏时间",
-                    "type": "string"
-                },
                 "userId": {
                     "description": "用户编号",
                     "type": "integer"
@@ -12576,6 +12507,19 @@ var doc = `{
                 "slogan": {
                     "description": "圈子标语",
                     "type": "string"
+                }
+            }
+        },
+        "request.CreateForumComment": {
+            "type": "object",
+            "properties": {
+                "commentContent": {
+                    "description": "评论内容",
+                    "type": "string"
+                },
+                "postsId": {
+                    "description": "帖子编号",
+                    "type": "integer"
                 }
             }
         },

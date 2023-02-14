@@ -8,7 +8,7 @@ import (
 // PlatApply 结构体
 type PlatApply struct {
 	global.GvaModelApp
-	ApplyGroupId    *int   `json:"applyGroupId" form:"applyGroupId" gorm:"column:apply_group_id;comment:应用分组_编号;size:19;"`
+	ApplyGroupId    *int   `json:"applyGroupId" form:"applyGroupId" gorm:"type:bigint(20);column:apply_group_id;comment:应用分组_编号;"`
 	ShowName        string `json:"showName" form:"showName" gorm:"column:show_name;comment:名称别名;size:80;"`
 	ApplyId         *int   `json:"applyId" form:"applyId" gorm:"column:apply_id;comment:应用_编号;size:19;"`
 	ApplyParameters string `json:"applyParameters" form:"applyParameters" gorm:"column:apply_parameters;comment:访问参数;size:256;"`

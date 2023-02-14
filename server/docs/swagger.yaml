@@ -302,6 +302,27 @@ definitions:
         description: 用户ID
         type: integer
     type: object
+  community.CircleUserInfo:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      sort:
+        description: 用户的圈子排序
+        type: integer
+      userBaseInfo:
+        $ref: '#/definitions/community.User'
+        description: 用户基本信息
+      userId:
+        description: 用户ID
+        type: integer
+    type: object
   community.CommentThumbsUp:
     properties:
       commentId:
@@ -333,9 +354,6 @@ definitions:
         type: integer
       commentContent:
         description: 评论内容
-        type: string
-      commentTime:
-        description: 评论时间
         type: string
       createdAt:
         description: 创建时间
@@ -748,6 +766,9 @@ definitions:
       blog:
         description: 博客
         type: string
+      circleId:
+        description: 当前圈子编号
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -769,9 +790,6 @@ definitions:
       qq:
         description: qq
         type: string
-      userId:
-        description: 用户ID
-        type: integer
       weibo:
         description: 微博
         type: string
@@ -1627,9 +1645,6 @@ definitions:
       postsId:
         description: 帖子编号
         type: integer
-      time:
-        description: 收藏时间
-        type: string
       userId:
         description: 用户编号
         type: integer
@@ -1795,6 +1810,15 @@ definitions:
       slogan:
         description: 圈子标语
         type: string
+    type: object
+  request.CreateForumComment:
+    properties:
+      commentContent:
+        description: 评论内容
+        type: string
+      postsId:
+        description: 帖子编号
+        type: integer
     type: object
   request.CreateForumTopicReq:
     properties:
@@ -3244,19 +3268,19 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回community.CircleUser
+          description: 返回community.CircleUserInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/community.CircleUser'
+                  $ref: '#/definitions/community.CircleUserInfo'
                 msg:
                   type: string
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询CircleUser
+      summary: 用id查询CircleUserInfo
       tags:
       - App_Circle
   /app/circle/getCircleClassifyList:
@@ -3590,29 +3614,25 @@ paths:
         in: query
         name: startCreatedAt
         type: string
-      - description: 用户ID
-        in: query
-        name: userId
-        type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: 返回community.CircleUser
+          description: 返回community.CircleUserInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.CircleUser'
+                    $ref: '#/definitions/community.CircleUserInfo'
                   type: array
                 msg:
                   type: string
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取CircleUser列表
+      summary: 分页获取CircleUserInfo列表
       tags:
       - App_Circle
   /app/circle/getSelfCircleList:
@@ -3754,7 +3774,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
           schema:
             type: string
       security:
@@ -4523,7 +4543,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.ForumComment'
+          $ref: '#/definitions/request.CreateForumComment'
       produces:
       - application/json
       responses:
@@ -4781,46 +4801,14 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 审核状态(0未审批 1通过 2拒绝)
-        in: query
-        name: checkStatus
-        type: integer
-      - description: 审核时间
-        in: query
-        name: checkTime
-        type: string
-      - description: 审核人
-        in: query
-        name: checkUser
-        type: integer
-      - description: 评论内容
-        in: query
-        name: commentContent
-        type: string
-      - description: 评论时间
-        in: query
-        name: commentTime
-        type: string
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - description: 创建时间（结束）
         in: query
         name: endCreatedAt
         type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
       - description: 关键字
         in: query
         name: keyword
         type: string
-      - description: 点赞数
-        in: query
-        name: likeTimes
-        type: integer
       - description: 页码
         in: query
         name: page
@@ -4841,10 +4829,6 @@ paths:
         in: query
         name: startCreatedAt
         type: string
-      - description: 评论者
-        in: query
-        name: userId
-        type: integer
       produces:
       - application/json
       responses:
@@ -5650,9 +5634,9 @@ paths:
           description: 返回community.ForumTopicGroup
           schema:
             allOf:
-            - $ref: '#/definitions/response.PageResult'
+            - $ref: '#/definitions/response.DataResult'
             - properties:
-                List:
+                data:
                   items:
                     $ref: '#/definitions/community.ForumTopicGroup'
                   type: array
@@ -6119,17 +6103,9 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
       - in: query
-        name: endCreatedAt
+        name: endUpdatedAt
         type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
       - description: 关键字
         in: query
         name: keyword
@@ -6142,21 +6118,9 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 帖子编号
-        in: query
-        name: postsId
-        type: integer
       - in: query
-        name: startCreatedAt
+        name: startUpdatedAt
         type: string
-      - description: 浏览时间
-        in: query
-        name: time
-        type: string
-      - description: 用户编号
-        in: query
-        name: userId
-        type: integer
       produces:
       - application/json
       responses:
