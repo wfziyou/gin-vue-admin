@@ -7,7 +7,7 @@ import (
 )
 
 type GVA_MODEL struct {
-	ID         uint                  `json:"id" form:"id" gorm:"not null;unique;primary_key;"`                               // 主键ID
+	ID         uint64                `json:"id" form:"id" gorm:"not null;unique;primary_key;"`                               // 主键ID
 	TenantId   string                `json:"-" form:"tenantId" gorm:"column:tenant_id;default:000000;comment:租户ID;size:12;"` //租户ID
 	CreatedAt  time.Time             // 创建时间
 	UpdatedAt  time.Time             // 更新时间
@@ -20,7 +20,7 @@ type GVA_MODEL struct {
 }
 
 type GvaModelApp struct {
-	ID         uint                  `json:"id" form:"id" gorm:"primarykey"`                                                 // 主键ID
+	ID         uint64                `json:"id" form:"id" gorm:"primarykey"`                                                 // 主键ID
 	TenantId   string                `json:"-" form:"tenantId" gorm:"column:tenant_id;default:000000;comment:租户ID;size:12;"` //租户ID
 	CreatedAt  time.Time             // 创建时间
 	UpdatedAt  time.Time             `json:"-" `                                                                                // 更新时间

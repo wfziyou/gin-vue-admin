@@ -19,8 +19,9 @@ func (appForumThumbsUpService *AppForumThumbsUpService) CreateForumThumbsUp(hkFo
 
 // DeleteForumThumbsUp 删除ForumThumbsUp记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumThumbsUpService *AppForumThumbsUpService) DeleteForumThumbsUp(hkForumThumbsUp community.ForumThumbsUp) (err error) {
-	err = global.GVA_DB.Delete(&hkForumThumbsUp).Error
+func (appForumThumbsUpService *AppForumThumbsUpService) DeleteForumThumbsUp(info communityReq.DeleteForumThumbsUp) (err error) {
+	err = global.GVA_DB.Where("user_id = ? and posts_id = ?", info.UserId, info.PostsId).Delete(&community.ForumThumbsUp{}).Error
+	return err
 	return err
 }
 

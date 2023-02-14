@@ -60,7 +60,7 @@ func (circleApi *CircleApi) GetUserCircleForumPostsList(c *gin.Context) {
 		return
 	}
 
-	pageInfo.UserId = uint64(utils.GetUserID(c))
+	pageInfo.UserId = utils.GetUserID(c)
 	if list, total, err := appForumPostsService.GetUserForumPostsInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
@@ -90,7 +90,7 @@ func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	pageInfo.UserId = uint64(utils.GetUserID(c))
+	pageInfo.UserId = utils.GetUserID(c)
 	if list, total, err := appCircleService.GetSelfCircleList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
@@ -227,7 +227,7 @@ func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
 		return
 	}
 
-	var userId uint64 = uint64(utils.GetUserID(c))
+	var userId uint64 = utils.GetUserID(c)
 	if err = appCircleUserService.SetUserCurCircle(userId, req.CircleId); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return

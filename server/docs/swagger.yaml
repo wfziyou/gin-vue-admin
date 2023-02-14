@@ -334,11 +334,8 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      time:
-        description: 点赞时间
-        type: string
       userId:
-        description: 用户id
+        description: "用户id \t//点赞时间"
         type: integer
     type: object
   community.ForumComment:
@@ -573,9 +570,6 @@ definitions:
       postsId:
         description: 帖子编号
         type: integer
-      time:
-        description: 点赞时间
-        type: string
       userId:
         description: 用户id
         type: integer
@@ -1681,10 +1675,10 @@ definitions:
   github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Register:
     properties:
       authorityId:
-        example: int 角色id
+        example: uint64 角色id
         type: string
       authorityIds:
-        example: '[]uint 角色id'
+        example: '[]uint64 角色id'
         type: string
       email:
         example: 电子邮箱
@@ -1857,6 +1851,18 @@ definitions:
         type: integer
       userId:
         description: 用户ID
+        type: integer
+    type: object
+  request.DeleteCommentThumbsUp:
+    properties:
+      commentId:
+        description: 评论编号
+        type: integer
+    type: object
+  request.DeleteForumThumbsUp:
+    properties:
+      postsId:
+        description: 帖子编号
         type: integer
     type: object
   request.Empty:
@@ -4202,10 +4208,6 @@ paths:
         in: query
         name: applyGroupId
         type: integer
-      - description: 应用_编号
-        in: query
-        name: applyId
-        type: integer
       - description: 圈子_编号
         in: query
         name: circleId
@@ -4264,10 +4266,6 @@ paths:
         in: query
         name: applyGroupId
         type: integer
-      - description: 应用_编号
-        in: query
-        name: applyId
-        type: integer
       - description: 圈子_编号
         in: query
         name: circleId
@@ -4276,18 +4274,6 @@ paths:
         in: query
         name: endCreatedAt
         type: string
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
       - description: 名称别名
         in: query
         name: showName
@@ -4607,12 +4593,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 删除评论点赞
+      - description: 取消评论点赞
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.IdDelete'
+          $ref: '#/definitions/request.DeleteCommentThumbsUp'
       produces:
       - application/json
       responses:
@@ -4622,7 +4608,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除评论点赞
+      summary: 取消评论点赞
       tags:
       - App_ForumPosts
   /app/forumPosts/deleteForumComment:
@@ -4722,7 +4708,30 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 删除帖子点赞
+      - description: 取消帖子点赞
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DeleteForumThumbsUp'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 取消帖子点赞
+      tags:
+      - App_ForumPosts
+  /app/forumPosts/deleteSelfForumPosts:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除自己的ForumPosts
         in: body
         name: data
         required: true
@@ -4737,7 +4746,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除帖子点赞
+      summary: 删除自己的ForumPosts
       tags:
       - App_ForumPosts
   /app/forumPosts/findForumComment:
@@ -5364,18 +5373,6 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
       - description: 关键字
         in: query
         name: keyword
@@ -5391,14 +5388,6 @@ paths:
       - description: 举报理由
         in: query
         name: reason
-        type: string
-      - description: 排序
-        in: query
-        name: sort
-        type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
         type: string
       produces:
       - application/json
@@ -5653,25 +5642,9 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 关注数
-        in: query
-        name: attentionNum
-        type: integer
       - description: 圈子_编号
         in: query
         name: circleId
-        type: integer
-      - description: 封面
-        in: query
-        name: coverImage
-        type: string
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 讨论数
-        in: query
-        name: discussNum
         type: integer
       - description: 创建时间（结束）
         in: query
@@ -5680,10 +5653,6 @@ paths:
       - description: 是否热门：0 否 1 是
         in: query
         name: hot
-        type: integer
-      - description: 主键ID
-        in: query
-        name: id
         type: integer
       - description: 关键字
         in: query

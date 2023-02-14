@@ -8,7 +8,7 @@ import (
 // UserCollect 结构体
 type UserCollect struct {
 	global.GvaModelApp
-	UserId  uint64 `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`            //用户编号
+	UserId  uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户编号;"`    //用户编号
 	PostsId uint64 `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"` //帖子编号
 }
 

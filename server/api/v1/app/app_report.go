@@ -6,6 +6,7 @@ import (
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -33,6 +34,7 @@ func (reportApi *ReportApi) CreateReport(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	hkReport.UserId = utils.GetUserID(c)
 	if err := appReportService.CreateReport(hkReport); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
@@ -81,6 +83,7 @@ func (reportApi *ReportApi) GetReportList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	pageInfo.UserId = utils.GetUserID(c)
 	if list, total, err := appReportService.GetReportInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)

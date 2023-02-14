@@ -17,6 +17,7 @@ func (router *ForumPostsRouter) InitForumPostsRouter(Router *gin.RouterGroup) (R
 	{
 		forumPostsRouter.POST("createForumPosts", forumPostsApi.CreateForumPosts)                 //创建ForumPosts
 		forumPostsRouter.DELETE("deleteForumPosts", forumPostsApi.DeleteForumPosts)               //删除ForumPosts
+		forumPostsRouter.DELETE("deleteSelfForumPosts", forumPostsApi.DeleteSelfForumPosts)       //删除自己的ForumPosts
 		forumPostsRouter.DELETE("deleteForumPostsByIds", forumPostsApi.DeleteForumPostsByIds)     //批量删除ForumPosts
 		forumPostsRouter.PUT("updateForumPosts", forumPostsApi.UpdateForumPosts)                  //更新ForumPosts
 		forumPostsRouter.POST("createForumComment", forumPostsApi.CreateForumComment)             //创建ForumComment

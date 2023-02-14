@@ -20,7 +20,7 @@ type MenuService struct{}
 
 var MenuServiceApp = new(MenuService)
 
-func (menuService *MenuService) getMenuTreeMap(authorityId uint) (treeMap map[string][]system.SysMenu, err error) {
+func (menuService *MenuService) getMenuTreeMap(authorityId uint64) (treeMap map[string][]system.SysMenu, err error) {
 	var allMenus []system.SysMenu
 	var baseMenu []system.SysBaseMenu
 	var btns []system.SysAuthorityBtn
@@ -61,10 +61,10 @@ func (menuService *MenuService) getMenuTreeMap(authorityId uint) (treeMap map[st
 		if btnMap[v.SysMenuID] == nil {
 			btnMap[v.SysMenuID] = make(map[string]uint)
 		}
-		btnMap[v.SysMenuID][v.SysBaseMenuBtn.Name] = authorityId
+		btnMap[v.SysMenuID][v.SysBaseMenuBtn.Name] = uint(authorityId)
 	}
 	for _, v := range allMenus {
-		v.Btns = btnMap[v.ID]
+		v.Btns = btnMap[uint(v.ID)]
 		treeMap[v.ParentId] = append(treeMap[v.ParentId], v)
 	}
 	return treeMap, err
@@ -76,7 +76,7 @@ func (menuService *MenuService) getMenuTreeMap(authorityId uint) (treeMap map[st
 //@param: authorityId string
 //@return: menus []system.SysMenu, err error
 
-func (menuService *MenuService) GetMenuTree(authorityId uint) (menus []system.SysMenu, err error) {
+func (menuService *MenuService) GetMenuTree(authorityId uint64) (menus []system.SysMenu, err error) {
 	menuTree, err := menuService.getMenuTreeMap(authorityId)
 	menus = menuTree["0"]
 	for i := 0; i < len(menus); i++ {
@@ -176,7 +176,7 @@ func (menuService *MenuService) GetBaseMenuTree() (menus []system.SysBaseMenu, e
 //@param: menus []model.SysBaseMenu, authorityId string
 //@return: err error
 
-func (menuService *MenuService) AddMenuAuthority(menus []system.SysBaseMenu, authorityId uint) (err error) {
+func (menuService *MenuService) AddMenuAuthority(menus []system.SysBaseMenu, authorityId uint64) (err error) {
 	var auth system.SysAuthority
 	auth.Id = authorityId
 	auth.SysBaseMenus = menus

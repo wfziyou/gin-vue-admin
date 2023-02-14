@@ -23,7 +23,7 @@ type CasbinService struct{}
 
 var CasbinServiceApp = new(CasbinService)
 
-func (casbinService *CasbinService) UpdateCasbin(AuthorityID uint, casbinInfos []request.CasbinInfo) error {
+func (casbinService *CasbinService) UpdateCasbin(AuthorityID uint64, casbinInfos []request.CasbinInfo) error {
 	authorityId := strconv.Itoa(int(AuthorityID))
 	casbinService.ClearCasbin(0, authorityId)
 	rules := [][]string{}
@@ -67,7 +67,7 @@ func (casbinService *CasbinService) UpdateCasbinApi(oldPath string, newPath stri
 //@param: authorityId string
 //@return: pathMaps []request.CasbinInfo
 
-func (casbinService *CasbinService) GetPolicyPathByAuthorityId(AuthorityID uint) (pathMaps []request.CasbinInfo) {
+func (casbinService *CasbinService) GetPolicyPathByAuthorityId(AuthorityID uint64) (pathMaps []request.CasbinInfo) {
 	e := casbinService.Casbin()
 	authorityId := strconv.Itoa(int(AuthorityID))
 	list := e.GetFilteredPolicy(0, authorityId)

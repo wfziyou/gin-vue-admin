@@ -234,27 +234,27 @@ func (circleApplyApi *CircleApplyApi) FindCircleApply(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query applyReq.CircleApplySearchReq true "分页获取CircleApply列表"
+// @Param data query applyReq.CircleApplySearch true "分页获取CircleApply列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.CircleApply,msg=string} "返回apply.CircleApply"
 // @Router /app/circleApply/getCircleApplyList [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyList(c *gin.Context) {
-	var pageInfo applyReq.CircleApplySearchReq
+	var pageInfo applyReq.CircleApplySearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appCircleApplyService.GetCircleApplyInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := appCircleApplyService.GetCircleApplyInfoList(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 // GetCircleApplyListAll 获取CircleApply列表
@@ -263,25 +263,25 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query applyReq.CircleApplySearchReq true "获取CircleApply列表"
+// @Param data query applyReq.CircleApplySearchAll true "获取CircleApply列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.CircleApply,msg=string} "返回apply.CircleApply"
 // @Router /app/circleApply/getCircleApplyListAll [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyListAll(c *gin.Context) {
-	var pageInfo applyReq.CircleApplySearchReq
+	var pageInfo applyReq.CircleApplySearchAll
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appCircleApplyService.GetCircleApplyInfoListAll(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:  list,
-	//		Total: total,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := appCircleApplyService.GetCircleApplyInfoListAll(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:  list,
+			Total: total,
+		}, "获取成功", c)
+	}
 }
 
 // GetCircleApplyGroupList 分页获取CircleApplyGroup列表
@@ -290,27 +290,27 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyListAll(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query applyReq.CircleApplyGroupSearchReq true "分页获取CircleApplyGroup列表"
+// @Param data query applyReq.CircleApplyGroupSearch true "分页获取CircleApplyGroup列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.CircleApplyGroup,msg=string} "返回apply.CircleApplyGroup"
 // @Router /app/circleApply/getCircleApplyGroupList [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupList(c *gin.Context) {
-	var pageInfo applyReq.CircleApplyGroupSearchReq
+	var pageInfo applyReq.CircleApplyGroupSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appCircleApplyGroupService.GetCircleApplyGroupInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := appCircleApplyGroupService.GetCircleApplyGroupInfoList(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 // GetCircleApplyGroupListAll 获取CircleApplyGroup列表
@@ -319,25 +319,25 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query applyReq.CircleApplyGroupSearchReq true "获取CircleApplyGroup列表"
+// @Param data query applyReq.CircleApplyGroupSearchAll true "获取CircleApplyGroup列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.CircleApplyGroup,msg=string} "返回apply.CircleApplyGroup"
 // @Router /app/circleApply/getCircleApplyGroupListAll [get]
 func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupListAll(c *gin.Context) {
-	var pageInfo applyReq.CircleApplyGroupSearchReq
+	var pageInfo applyReq.CircleApplyGroupSearchAll
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appCircleApplyGroupService.GetCircleApplyGroupInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := appCircleApplyGroupService.GetCircleApplyGroupInfoListAll(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

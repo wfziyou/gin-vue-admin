@@ -9,8 +9,8 @@ import (
 type Apply struct {
 	global.GvaModelApp
 	OwerType        *int   `json:"owerType" form:"owerType" gorm:"column:ower_type;comment:拥有者：0平台、1圈子、2个人;size:10;"` //拥有者：0平台、1圈子、2个人
-	CircleId        *int   `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`   //圈子_编号
-	UserId          *int   `json:"userId" form:"userId" gorm:"column:user_id;comment:用户_编号;size:19;"`                 //用户_编号
+	CircleId        uint64 `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`   //圈子_编号
+	UserId          uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户_编号;"`         //用户_编号
 	Name            string `json:"name" form:"name" gorm:"column:name;comment:名称;size:80;"`                           //名称
 	Icon            string `json:"icon" form:"icon" gorm:"column:icon;comment:图标;size:256;"`                          //图标
 	Sort            *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                           //排序

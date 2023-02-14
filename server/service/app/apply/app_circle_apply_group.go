@@ -57,6 +57,15 @@ func (appCircleApplyGroupService *AppCircleApplyGroupService) GetCircleApplyGrou
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
+	if info.CircleId != nil {
+		db = db.Where("circle_id = ?", info.CircleId)
+	}
+	if len(info.Name) > 0 {
+		db = db.Where("name LIKE '?%'", info.Name)
+	}
+	if info.ParentId != nil {
+		db = db.Where("parent_id = ?", info.ParentId)
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
@@ -75,6 +84,15 @@ func (appCircleApplyGroupService *AppCircleApplyGroupService) GetCircleApplyGrou
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	}
+	if info.CircleId != nil {
+		db = db.Where("circle_id = ?", info.CircleId)
+	}
+	if len(info.Name) > 0 {
+		db = db.Where("name LIKE '?%'", info.Name)
+	}
+	if info.ParentId != nil {
+		db = db.Where("parent_id = ?", info.ParentId)
 	}
 	err = db.Count(&total).Error
 	if err != nil {

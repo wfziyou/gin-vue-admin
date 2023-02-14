@@ -190,12 +190,12 @@ func (topicApi *TopicApi) UpdateForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appForumTopicService.UpdateForumTopic(hkForumTopic); err != nil {
-	//	global.GVA_LOG.Error("更新失败!", zap.Error(err))
-	//	response.FailWithMessage("更新失败", c)
-	//} else {
-	//	response.OkWithMessage("更新成功", c)
-	//}
+	if err := appForumTopicService.UpdateForumTopic(hkForumTopic); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
 }
 
 // FindForumTopic 用id查询ForumTopic
@@ -238,15 +238,15 @@ func (topicApi *TopicApi) GetForumTopicList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appForumTopicService.GetForumTopicInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := appForumTopicService.GetForumTopicInfoList(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

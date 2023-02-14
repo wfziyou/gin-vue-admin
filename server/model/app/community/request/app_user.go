@@ -54,7 +54,7 @@ type BindEmailReq struct {
 
 // SetSelfBaseInfoReq 设置用户基本信息
 type SetSelfBaseInfoReq struct {
-	ID        uint       `gorm:"primarykey"`                                // 主键ID
+	ID        uint64     `gorm:"primarykey"`                                // 主键ID
 	NickName  string     `json:"nickName" gorm:"default:系统用户;comment:用户昵称"` // 用户昵称
 	HeaderImg string     `json:"headerImg" gorm:"comment:用户头像"`             // 用户头像
 	Birthday  *time.Time `json:"birthday" gorm:"comment:生日"`                //生日

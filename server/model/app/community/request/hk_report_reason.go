@@ -1,14 +1,11 @@
 package request
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"time"
 )
 
 type ReportReasonSearch struct {
-	community.ReportReason
-	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"` //创建时间（开始）
-	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）
+	Reason string `json:"reason" form:"reason" gorm:"column:reason;comment:举报理由;size:20;"` //举报理由
+
 	request.PageInfo
 }

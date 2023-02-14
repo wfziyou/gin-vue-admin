@@ -57,7 +57,7 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(id uint64) (
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleUserService *AppCircleUserService) SetUserCurCircle(userId uint64, circleId uint64) (err error) {
 	var userExtend community.UserExtend
-	userExtend.ID = uint(userId)
+	userExtend.ID = userId
 	err = global.GVA_DB.Where("id = ?", userId).First(&userExtend).Error
 	if err == nil {
 		db := global.GVA_DB.Model(&userExtend)

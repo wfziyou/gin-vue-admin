@@ -28,7 +28,7 @@ type ForumPosts struct {
 	Marrow                *int       `json:"marrow" form:"marrow" gorm:"column:marrow;comment:精华(0否 1是);size:10;"`                                                    //精华(0否 1是)
 	CommentId             *int       `json:"commentId" form:"commentId" gorm:"column:comment_id;comment:问答最佳答案ID;size:19;"`                                           //问答最佳答案ID
 	Anonymity             *int       `json:"anonymity" form:"anonymity" gorm:"column:anonymity;comment:匿名发布(0否 1是);size:10;"`                                         //匿名发布(0否 1是)
-	UserId                uint       `json:"userId" form:"userId" gorm:"column:user_id;comment:发布者编号;size:19;"`                                                       //发布者编号
+	UserId                uint64     `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:发布者编号;"`                                               //发布者编号
 	ReadNum               *int       `json:"readNum" form:"readNum" gorm:"column:read_num;comment:阅读次数;size:10;"`                                                     //阅读次数
 	CommentNum            *int       `json:"commentNum" form:"commentNum" gorm:"column:comment_num;comment:评论次数;size:10;"`                                            //评论次数
 	ShareNum              *int       `json:"shareNum" form:"shareNum" gorm:"column:share_num;comment:分享次数;size:10;"`                                                  //分享次数
@@ -55,9 +55,9 @@ func (ForumPosts) TableName() string {
 // ForumPostsBaseInfo 结构体
 type ForumPostsBaseInfo struct {
 	global.GvaModelApp
-	CircleId     *int       `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                  //圈子_编号
+	CircleId     uint64     `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                  //圈子_编号
 	Category     *int       `json:"category" form:"category" gorm:"column:category;comment:类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）;size:10;"` //类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
-	GroupId      *int       `json:"groupId" form:"groupId" gorm:"column:group_id;comment:帖子分类编号;size:19;"`                            //帖子分类编号
+	GroupId      uint64     `json:"groupId" form:"groupId" gorm:"type:bigint(20);column:group_id;comment:帖子分类编号;"`                    //帖子分类编号
 	Title        string     `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                       //标题
 	SeoKey       string     `json:"seoKey" form:"seoKey" gorm:"column:seo_key;comment:SEO关键词;size:500;"`                              //SEO关键词
 	SeoIntroduce string     `json:"seoIntroduce" form:"seoIntroduce" gorm:"column:seo_introduce;comment:简介(SEO简介);size:150;"`         //简介(SEO简介)
@@ -69,7 +69,7 @@ type ForumPostsBaseInfo struct {
 	Top          *int       `json:"top" form:"top" gorm:"column:top;comment:置顶(0否 1是);size:10;"`                                      //置顶(0否 1是)
 	Marrow       *int       `json:"marrow" form:"marrow" gorm:"column:marrow;comment:精华(0否 1是);size:10;"`                             //精华(0否 1是)
 	Anonymity    *int       `json:"anonymity" form:"anonymity" gorm:"column:anonymity;comment:匿名发布(0否 1是);size:10;"`                  //匿名发布(0否 1是)
-	UserId       *int       `json:"userId" form:"userId" gorm:"column:user_id;comment:发布者编号;size:19;"`                                //发布者编号
+	UserId       uint64     `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:发布者编号;"`                        //发布者编号
 	ReadNum      *int       `json:"readNum" form:"readNum" gorm:"column:read_num;comment:阅读次数;size:10;"`                              //阅读次数
 	CommentNum   *int       `json:"commentNum" form:"commentNum" gorm:"column:comment_num;comment:评论次数;size:10;"`                     //评论次数
 	ShareNum     *int       `json:"shareNum" form:"shareNum" gorm:"column:share_num;comment:分享次数;size:10;"`                           //分享次数

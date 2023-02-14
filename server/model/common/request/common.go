@@ -9,7 +9,7 @@ type PageInfo struct {
 
 // GetById Find by id structure
 type GetById struct {
-	ID int `json:"id" form:"id"` // 主键ID
+	ID uint64 `json:"id" form:"id"` // 主键ID
 }
 
 // IdSearch id查询
@@ -19,7 +19,7 @@ type IdSearch struct {
 
 // IdDelete id删除
 type IdDelete struct {
-	ID uint `json:"id" form:"id" ` //编号
+	ID uint64 `json:"id" form:"id" ` //编号
 }
 
 func (r *GetById) Uint() uint {
@@ -32,7 +32,7 @@ type IdsReq struct {
 
 // GetAuthorityId Get role by id structure
 type GetAuthorityId struct {
-	AuthorityId uint `json:"authorityId" form:"authorityId"` // 角色ID
+	AuthorityId uint64 `json:"authorityId" form:"authorityId"` // 角色ID
 }
 
 type Empty struct{}

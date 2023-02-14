@@ -36,7 +36,7 @@ func (userCollectApi *UserCollectApi) CreateUserCollect(c *gin.Context) {
 	}
 
 	var hkUserCollect = general.UserCollect{
-		UserId:  uint64(utils.GetUserID(c)),
+		UserId:  utils.GetUserID(c),
 		PostsId: req.PostsId,
 	}
 	if err := appUserCollectService.CreateUserCollect(hkUserCollect); err != nil {
@@ -113,7 +113,7 @@ func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	pageInfo.UserId = uint64(utils.GetUserID(c))
+	pageInfo.UserId = utils.GetUserID(c)
 	//var aa general.UserCollect
 	if list, total, err := appUserCollectService.GetUserCollectInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))

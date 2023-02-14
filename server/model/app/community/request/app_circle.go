@@ -68,7 +68,7 @@ type CreateCircleRequestReq struct {
 }
 
 type UpdateCircleReq struct {
-	ID               uint   `json:"id" `                                                                                                                 //圈子编号
+	ID               uint64 `json:"id" `                                                                                                                 //圈子编号
 	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                           //圈子名称
 	Logo             string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                                        //圈子Logo
 	Slogan           string `json:"slogan" form:"slogan" gorm:"column:slogan;comment:圈子标语;size:20;"`                                                     //圈子标语;size:20

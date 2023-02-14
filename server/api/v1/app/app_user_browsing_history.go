@@ -82,7 +82,7 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) GetUserBrowsingHistoryList
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	pageInfo.UserId = uint64(utils.GetUserID(c))
+	pageInfo.UserId = utils.GetUserID(c)
 	if list, total, err := appUserBrowsingHistoryService.GetUserBrowsingHistoryInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)

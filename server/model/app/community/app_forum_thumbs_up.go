@@ -3,15 +3,13 @@ package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"time"
 )
 
 // ForumThumbsUp 结构体
 type ForumThumbsUp struct {
 	global.GvaModelApp
-	UserId  *int       `json:"userId" form:"userId" gorm:"column:user_id;comment:用户id;size:19;"`    //用户id
-	Time    *time.Time `json:"time" form:"time" gorm:"column:time;comment:点赞时间;"`                   //点赞时间
-	PostsId *int       `json:"postsId" form:"postsId" gorm:"column:posts_id;comment:帖子编号;size:19;"` //帖子编号
+	UserId  uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户id;"`    //用户id
+	PostsId uint64 `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"` //帖子编号
 }
 
 // TableName ForumThumbsUp 表名

@@ -2165,12 +2165,6 @@
                     },
                     {
                         "type": "integer",
-                        "description": "应用_编号",
-                        "name": "applyId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
@@ -2266,12 +2260,6 @@
                     },
                     {
                         "type": "integer",
-                        "description": "应用_编号",
-                        "name": "applyId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
@@ -2280,24 +2268,6 @@
                         "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
                         "in": "query"
                     },
                     {
@@ -2852,15 +2822,15 @@
                 "tags": [
                     "App_ForumPosts"
                 ],
-                "summary": "删除评论点赞",
+                "summary": "取消评论点赞",
                 "parameters": [
                     {
-                        "description": "删除评论点赞",
+                        "description": "取消评论点赞",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.IdDelete"
+                            "$ref": "#/definitions/request.DeleteCommentThumbsUp"
                         }
                     }
                 ],
@@ -3042,10 +3012,48 @@
                 "tags": [
                     "App_ForumPosts"
                 ],
-                "summary": "删除帖子点赞",
+                "summary": "取消帖子点赞",
                 "parameters": [
                     {
-                        "description": "删除帖子点赞",
+                        "description": "取消帖子点赞",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteForumThumbsUp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/forumPosts/deleteSelfForumPosts": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_ForumPosts"
+                ],
+                "summary": "删除自己的ForumPosts",
+                "parameters": [
+                    {
+                        "description": "删除自己的ForumPosts",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -4121,24 +4129,6 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
                         "in": "query"
@@ -4159,18 +4149,6 @@
                         "type": "string",
                         "description": "举报理由",
                         "name": "reason",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "排序",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -4605,32 +4583,8 @@
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "关注数",
-                        "name": "attentionNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "封面",
-                        "name": "coverImage",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "讨论数",
-                        "name": "discussNum",
                         "in": "query"
                     },
                     {
@@ -4643,12 +4597,6 @@
                         "type": "integer",
                         "description": "是否热门：0 否 1 是",
                         "name": "hot",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
                         "in": "query"
                     },
                     {
@@ -10429,12 +10377,8 @@
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "time": {
-                    "description": "点赞时间",
-                    "type": "string"
-                },
                 "userId": {
-                    "description": "用户id",
+                    "description": "用户id \t//点赞时间",
                     "type": "integer"
                 }
             }
@@ -10751,10 +10695,6 @@
                 "postsId": {
                     "description": "帖子编号",
                     "type": "integer"
-                },
-                "time": {
-                    "description": "点赞时间",
-                    "type": "string"
                 },
                 "userId": {
                     "description": "用户id",
@@ -12308,11 +12248,11 @@
             "properties": {
                 "authorityId": {
                     "type": "string",
-                    "example": "int 角色id"
+                    "example": "uint64 角色id"
                 },
                 "authorityIds": {
                     "type": "string",
-                    "example": "[]uint 角色id"
+                    "example": "[]uint64 角色id"
                 },
                 "email": {
                     "type": "string",
@@ -12558,6 +12498,24 @@
                 },
                 "userId": {
                     "description": "用户ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.DeleteCommentThumbsUp": {
+            "type": "object",
+            "properties": {
+                "commentId": {
+                    "description": "评论编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.DeleteForumThumbsUp": {
+            "type": "object",
+            "properties": {
+                "postsId": {
+                    "description": "帖子编号",
                     "type": "integer"
                 }
             }

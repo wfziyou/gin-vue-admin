@@ -41,8 +41,12 @@ func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communit
 
 // DeleteForumPosts 删除ForumPosts记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumPostsService *AppForumPostsService) DeleteForumPosts(hkForumPosts community.ForumPosts) (err error) {
-	err = global.GVA_DB.Delete(&hkForumPosts).Error
+func (appForumPostsService *AppForumPostsService) DeleteForumPosts(info community.ForumPosts) (err error) {
+	err = global.GVA_DB.Delete(&info).Error
+	return err
+}
+func (appForumPostsService *AppForumPostsService) DeleteSelfForumPosts(info community.ForumPosts) (err error) {
+	err = global.GVA_DB.Where("user_id = ?", info.UserId).Delete(&info).Error
 	return err
 }
 

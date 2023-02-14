@@ -112,7 +112,7 @@ func (generalApi *GeneralApi) CreateBugReport(c *gin.Context) {
 	}
 
 	if err := appBugReportService.CreateBugReport(general.BugReport{
-		UserId:                 uint64(utils.GetUserID(c)),
+		UserId:                 utils.GetUserID(c),
 		Title:                  req.Title,
 		Content:                req.Content,
 		ContentAttachment:      req.ContentAttachment,
@@ -168,7 +168,7 @@ func (generalApi *GeneralApi) GetBugReportList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	pageInfo.UserId = uint64(utils.GetUserID(c))
+	pageInfo.UserId = utils.GetUserID(c)
 	if list, total, err := appBugReportService.AppGetBugReportInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
