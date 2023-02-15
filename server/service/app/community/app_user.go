@@ -46,13 +46,20 @@ func (appUserService *AppUserService) Login(u *community.User) (userInter *commu
 	}
 
 	var user community.User
-	err = global.GVA_DB.Where("account = ?", u.Account).Preload("Authorities").Preload("Authority").First(&user).Error
+	err = global.GVA_DB.Where("account = ?", u.Account).Preload("Authorities").Preload("Authority").Preload("UserExtend").First(&user).Error
 	if err == nil {
 		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
 			return nil, errors.New("密码错误")
 		}
 		//need to do
 		//MenuServiceApp.UserAuthorityDefaultRouter(&user)
+	} else {
+		if user.UserExtend.CircleId != 0 {
+			var hkCircle community.Circle
+			if global.GVA_DB.Where("id = ?", user.UserExtend.CircleId).First(&hkCircle).Error == nil {
+				user.UserExtend.CircleName = hkCircle.Name
+			}
+		}
 	}
 	return &user, err
 }

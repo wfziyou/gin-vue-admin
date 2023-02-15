@@ -10324,31 +10324,6 @@ var doc = `{
                 }
             }
         },
-        "community.CircleUser": {
-            "type": "object",
-            "properties": {
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "sort": {
-                    "description": "用户的圈子排序",
-                    "type": "integer"
-                },
-                "userId": {
-                    "description": "用户ID",
-                    "type": "integer"
-                }
-            }
-        },
         "community.CircleUserInfo": {
             "type": "object",
             "properties": {
@@ -10615,9 +10590,6 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
-                },
-                "circleUser": {
-                    "$ref": "#/definitions/community.CircleUser"
                 },
                 "collectNum": {
                     "description": "收藏次数",
@@ -10975,6 +10947,10 @@ var doc = `{
                 "circleId": {
                     "description": "当前圈子编号",
                     "type": "integer"
+                },
+                "circleName": {
+                    "description": "当前圈子名称",
+                    "type": "string"
                 },
                 "createdAt": {
                     "description": "创建时间",

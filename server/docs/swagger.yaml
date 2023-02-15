@@ -284,24 +284,6 @@ definitions:
         description: 类型：0官方圈子 ，1用户圈子
         type: integer
     type: object
-  community.CircleUser:
-    properties:
-      circleId:
-        description: 圈子_编号
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      sort:
-        description: 用户的圈子排序
-        type: integer
-      userId:
-        description: 用户ID
-        type: integer
-    type: object
   community.CircleUserInfo:
     properties:
       circleId:
@@ -499,8 +481,6 @@ definitions:
       circleId:
         description: 圈子_编号
         type: integer
-      circleUser:
-        $ref: '#/definitions/community.CircleUser'
       collectNum:
         description: 收藏次数
         type: integer
@@ -763,6 +743,9 @@ definitions:
       circleId:
         description: 当前圈子编号
         type: integer
+      circleName:
+        description: 当前圈子名称
+        type: string
       createdAt:
         description: 创建时间
         type: string

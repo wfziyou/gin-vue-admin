@@ -75,8 +75,6 @@ type ForumPostsBaseInfo struct {
 	ShareNum     *int       `json:"shareNum" form:"shareNum" gorm:"column:share_num;comment:分享次数;size:10;"`                           //分享次数
 	CollectNum   *int       `json:"collectNum" form:"collectNum" gorm:"column:collect_num;comment:收藏次数;size:10;"`                     //收藏次数
 	LikeNum      *int       `json:"likeNum" form:"likeNum" gorm:"column:like_num;comment:点赞次数;size:10;"`                              //点赞次数 	//付费金额
-
-	CircleUser *CircleUser `gorm:"many2many:hk_circle_user; ForeignKey:circle_id;References:id"`
 }
 
 // TableName ForumPosts 表名
