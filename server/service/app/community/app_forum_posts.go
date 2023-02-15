@@ -93,7 +93,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 
-	//类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+	//类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}
@@ -114,6 +114,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 	if info.Marrow != nil {
 		db = db.Where("marrow = ?", info.Marrow)
 	}
+
 	//创建时间降序排列
 	db = db.Order("created_at desc")
 
@@ -122,7 +123,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Preload("ForumPostsUser").Find(&hkForumPostss).Error
 	return hkForumPostss, total, err
 }
 
@@ -132,7 +133,7 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("UserInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
@@ -143,7 +144,7 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 
-	//类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+	//类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}
@@ -182,7 +183,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("UserInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
 	db.Joins(",`hk_circle_user`")
 	db = db.Where("hk_circle_user.circle_id = hk_forum_posts.circle_id and hk_circle_user.user_id =@userId", sql.Named("userId", info.UserId))
@@ -192,7 +193,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
 
-	//类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+	//类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}

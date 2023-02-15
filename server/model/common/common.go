@@ -10,7 +10,7 @@ type UserBaseInfo struct {
 	Email     string     `json:"email"  gorm:"comment:用户邮箱"`                // 用户邮箱
 	HeaderImg string     `json:"headerImg" gorm:"comment:用户头像"`             // 用户头像
 	Birthday  *time.Time `json:"birthday" gorm:"comment:生日"`                //生日
-	Sex       *int       `json:"sex" gorm:"comment:性别"`                     //性别
+	Sex       *int       `json:"sex" gorm:"comment:性别 1男 2女"`               //性别 1男 2女
 }
 
 type CacheCaptcha struct {

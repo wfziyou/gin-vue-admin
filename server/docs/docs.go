@@ -855,7 +855,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
+                        "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
                         "name": "category",
                         "in": "query"
                     },
@@ -1342,7 +1342,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
+                        "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
                         "name": "category",
                         "in": "query"
                     },
@@ -3297,7 +3297,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
+                        "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
                         "name": "category",
                         "in": "query"
                     },
@@ -4928,7 +4928,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "性别",
+                        "description": "性别 1男 2女",
                         "name": "sex",
                         "in": "query"
                     },
@@ -10087,7 +10087,7 @@ var doc = `{
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别",
+                    "description": "性别 1男 2女",
                     "type": "integer"
                 }
             }
@@ -10188,7 +10188,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "supportCategory": {
-                    "description": "支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;",
+                    "description": "支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7建议;size:500;",
                     "type": "string"
                 },
                 "type": {
@@ -10431,11 +10431,11 @@ var doc = `{
                     "type": "string"
                 },
                 "category": {
-                    "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
+                    "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
                     "type": "integer"
                 },
                 "checkStatus": {
-                    "description": "审核状态(0草稿 1未审批 2通过 3拒绝)",
+                    "description": "审核状态(1草稿 2未审批 3通过 4拒绝)",
                     "type": "integer"
                 },
                 "checkTime": {
@@ -10471,7 +10471,7 @@ var doc = `{
                     "type": "string"
                 },
                 "contentType": {
-                    "description": "内容类型:0 markdown,1 html",
+                    "description": "内容类型:1 markdown,2 html",
                     "type": "integer"
                 },
                 "coverImage": {
@@ -10515,7 +10515,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "payCurrency": {
-                    "description": "付费货币：0 人民、1积分、2代币",
+                    "description": "付费货币：1 人民、2积分、3代币",
                     "type": "integer"
                 },
                 "payNum": {
@@ -10554,10 +10554,6 @@ var doc = `{
                     "description": "标签",
                     "type": "string"
                 },
-                "time": {
-                    "description": "发布时间",
-                    "type": "string"
-                },
                 "title": {
                     "description": "标题",
                     "type": "string"
@@ -10583,8 +10579,12 @@ var doc = `{
                     "description": "匿名发布(0否 1是)",
                     "type": "integer"
                 },
+                "attachment": {
+                    "description": "附件",
+                    "type": "string"
+                },
                 "category": {
-                    "description": "类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）",
+                    "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
                     "type": "integer"
                 },
                 "circleId": {
@@ -10616,7 +10616,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "likeNum": {
-                    "description": "点赞次数 \t//付费金额",
+                    "description": "点赞次数",
                     "type": "integer"
                 },
                 "marrow": {
@@ -10626,14 +10626,6 @@ var doc = `{
                 "readNum": {
                     "description": "阅读次数",
                     "type": "integer"
-                },
-                "seoIntroduce": {
-                    "description": "简介(SEO简介)",
-                    "type": "string"
-                },
-                "seoKey": {
-                    "description": "SEO关键词",
-                    "type": "string"
                 },
                 "shareNum": {
                     "description": "分享次数",
@@ -10645,10 +10637,6 @@ var doc = `{
                 },
                 "tag": {
                     "description": "标签",
-                    "type": "string"
-                },
-                "time": {
-                    "description": "发布时间",
                     "type": "string"
                 },
                 "title": {
@@ -10663,9 +10651,46 @@ var doc = `{
                     "description": "发布者编号",
                     "type": "integer"
                 },
+                "userInfo": {
+                    "description": "用户基本信息",
+                    "$ref": "#/definitions/community.ForumPostsUser"
+                },
                 "video": {
                     "description": "视频地址",
                     "type": "string"
+                }
+            }
+        },
+        "community.ForumPostsUser": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "账号",
+                    "type": "string"
+                },
+                "headerImg": {
+                    "description": "头像",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "nickName": {
+                    "description": "昵称",
+                    "type": "string"
+                },
+                "realName": {
+                    "description": "真名",
+                    "type": "string"
+                },
+                "sex": {
+                    "description": "性别 1男 2女",
+                    "type": "integer"
+                },
+                "userType": {
+                    "description": "用户平台",
+                    "type": "integer"
                 }
             }
         },
@@ -10920,7 +10945,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "sex": {
-                    "description": "性别",
+                    "description": "性别 1男 2女",
                     "type": "integer"
                 },
                 "userExtend": {
@@ -12767,7 +12792,7 @@ var doc = `{
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别",
+                    "description": "性别 1男 2女",
                     "type": "integer"
                 }
             }

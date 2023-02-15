@@ -110,7 +110,7 @@ definitions:
         description: 用户手机号
         type: string
       sex:
-        description: 性别
+        description: 性别 1男 2女
         type: integer
     type: object
   community.Circle:
@@ -185,7 +185,7 @@ definitions:
         description: 排序
         type: integer
       supportCategory:
-        description: 支持内容类别(json数组)：0视频、1动态、2资讯、3公告、4文章、5问答、6建议;size:500;
+        description: 支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7建议;size:500;
         type: string
       type:
         description: 类型：0官方圈子、1用户圈子、2小区
@@ -362,10 +362,10 @@ definitions:
         description: 附件
         type: string
       category:
-        description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+        description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
         type: integer
       checkStatus:
-        description: 审核状态(0草稿 1未审批 2通过 3拒绝)
+        description: 审核状态(1草稿 2未审批 3通过 4拒绝)
         type: integer
       checkTime:
         description: 审核时间
@@ -392,7 +392,7 @@ definitions:
         description: markdown内容
         type: string
       contentType:
-        description: 内容类型:0 markdown,1 html
+        description: 内容类型:1 markdown,2 html
         type: integer
       coverImage:
         description: 封面
@@ -425,7 +425,7 @@ definitions:
         description: 内容付费可查看百分比例
         type: integer
       payCurrency:
-        description: 付费货币：0 人民、1积分、2代币
+        description: 付费货币：1 人民、2积分、3代币
         type: integer
       payNum:
         description: 付费金额
@@ -454,9 +454,6 @@ definitions:
       tag:
         description: 标签
         type: string
-      time:
-        description: 发布时间
-        type: string
       title:
         description: 标题
         type: string
@@ -475,8 +472,11 @@ definitions:
       anonymity:
         description: 匿名发布(0否 1是)
         type: integer
+      attachment:
+        description: 附件
+        type: string
       category:
-        description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+        description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
         type: integer
       circleId:
         description: 圈子_编号
@@ -500,7 +500,7 @@ definitions:
         description: 主键ID
         type: integer
       likeNum:
-        description: "点赞次数 \t//付费金额"
+        description: 点赞次数
         type: integer
       marrow:
         description: 精华(0否 1是)
@@ -508,12 +508,6 @@ definitions:
       readNum:
         description: 阅读次数
         type: integer
-      seoIntroduce:
-        description: 简介(SEO简介)
-        type: string
-      seoKey:
-        description: SEO关键词
-        type: string
       shareNum:
         description: 分享次数
         type: integer
@@ -522,9 +516,6 @@ definitions:
         type: string
       tag:
         description: 标签
-        type: string
-      time:
-        description: 发布时间
         type: string
       title:
         description: 标题
@@ -535,9 +526,36 @@ definitions:
       userId:
         description: 发布者编号
         type: integer
+      userInfo:
+        $ref: '#/definitions/community.ForumPostsUser'
+        description: 用户基本信息
       video:
         description: 视频地址
         type: string
+    type: object
+  community.ForumPostsUser:
+    properties:
+      account:
+        description: 账号
+        type: string
+      headerImg:
+        description: 头像
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      nickName:
+        description: 昵称
+        type: string
+      realName:
+        description: 真名
+        type: string
+      sex:
+        description: 性别 1男 2女
+        type: integer
+      userType:
+        description: 用户平台
+        type: integer
     type: object
   community.ForumThumbsUp:
     properties:
@@ -723,7 +741,7 @@ definitions:
         description: 用户角色ID
         type: integer
       sex:
-        description: 性别
+        description: 性别 1男 2女
         type: integer
       userExtend:
         $ref: '#/definitions/community.UserExtend'
@@ -2028,7 +2046,7 @@ definitions:
         description: 用户昵称
         type: string
       sex:
-        description: 性别
+        description: 性别 1男 2女
         type: integer
     type: object
   request.SetUserAuth:
@@ -3385,7 +3403,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+      - description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
         in: query
         name: category
         type: integer
@@ -3683,7 +3701,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+      - description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
         in: query
         name: category
         type: integer
@@ -4847,7 +4865,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别（0视频、1动态、2资讯、3公告、4文章、5问答、6建议）
+      - description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
         in: query
         name: category
         type: integer
@@ -5828,7 +5846,7 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 性别
+      - description: 性别 1男 2女
         in: query
         name: sex
         type: integer
