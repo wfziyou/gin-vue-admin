@@ -4912,7 +4912,7 @@
                     },
                     {
                         "type": "integer",
-                        "description": "性别 1男 2女",
+                        "description": "性别 1男 2女 3未知",
                         "name": "sex",
                         "in": "query"
                     },
@@ -10071,7 +10071,7 @@
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别 1男 2女",
+                    "description": "性别 1男 2女 3未知",
                     "type": "integer"
                 }
             }
@@ -10679,7 +10679,7 @@
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别 1男 2女",
+                    "description": "性别 1男 2女 3未知",
                     "type": "integer"
                 },
                 "userType": {
@@ -10952,7 +10952,7 @@
                     "type": "integer"
                 },
                 "sex": {
-                    "description": "性别 1男 2女",
+                    "description": "性别 1男 2女 3未知",
                     "type": "integer"
                 },
                 "userExtend": {
@@ -12799,7 +12799,7 @@
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别 1男 2女",
+                    "description": "性别 1男 2女 3未知",
                     "type": "integer"
                 }
             }

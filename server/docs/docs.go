@@ -4928,7 +4928,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "性别 1男 2女",
+                        "description": "性别 1男 2女 3未知",
                         "name": "sex",
                         "in": "query"
                     },
@@ -10087,7 +10087,7 @@ var doc = `{
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别 1男 2女",
+                    "description": "性别 1男 2女 3未知",
                     "type": "integer"
                 }
             }
@@ -10695,7 +10695,7 @@ var doc = `{
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别 1男 2女",
+                    "description": "性别 1男 2女 3未知",
                     "type": "integer"
                 },
                 "userType": {
@@ -10968,7 +10968,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "sex": {
-                    "description": "性别 1男 2女",
+                    "description": "性别 1男 2女 3未知",
                     "type": "integer"
                 },
                 "userExtend": {
@@ -12815,7 +12815,7 @@ var doc = `{
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别 1男 2女",
+                    "description": "性别 1男 2女 3未知",
                     "type": "integer"
                 }
             }

@@ -110,7 +110,7 @@ definitions:
         description: 用户手机号
         type: string
       sex:
-        description: 性别 1男 2女
+        description: 性别 1男 2女 3未知
         type: integer
     type: object
   community.Circle:
@@ -558,7 +558,7 @@ definitions:
         description: 真名
         type: string
       sex:
-        description: 性别 1男 2女
+        description: 性别 1男 2女 3未知
         type: integer
       userType:
         description: 用户平台
@@ -757,7 +757,7 @@ definitions:
         description: 用户角色ID
         type: integer
       sex:
-        description: 性别 1男 2女
+        description: 性别 1男 2女 3未知
         type: integer
       userExtend:
         $ref: '#/definitions/community.UserExtend'
@@ -2062,7 +2062,7 @@ definitions:
         description: 用户昵称
         type: string
       sex:
-        description: 性别 1男 2女
+        description: 性别 1男 2女 3未知
         type: integer
     type: object
   request.SetUserAuth:
@@ -5862,7 +5862,7 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 性别 1男 2女
+      - description: 性别 1男 2女 3未知
         in: query
         name: sex
         type: integer

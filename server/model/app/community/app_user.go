@@ -21,7 +21,7 @@ type User struct {
 	Email       string                `json:"email" form:"email" gorm:"column:email;comment:邮箱;size:45;"`                     //邮箱
 	Phone       string                `json:"phone" form:"phone" gorm:"column:phone;comment:手机;size:45;"`                     //手机
 	Birthday    *time.Time            `json:"birthday" form:"birthday" gorm:"column:birthday;comment:生日;"`                    //生日
-	Sex         *int                  `json:"sex" form:"sex" gorm:"column:sex;comment:性别 1男 2女;size:10;"`                     //性别 1男 2女
+	Sex         *int                  `json:"sex" form:"sex" gorm:"column:sex;comment:性别 1男 2女 3未知;size:10;"`                 //性别 1男 2女 3未知
 	AuthorityId uint64                `json:"roleId" form:"roleId" gorm:"column:role_id;default:888;comment:用户角色ID;size:20;"` // 用户角色ID
 	Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:Id;references:AuthorityId;comment:用户角色"`             //用户角色
 	Authorities []system.SysAuthority `json:"authorities" gorm:"many2many:sys_user_authority;"`
@@ -40,7 +40,7 @@ type ForumPostsUser struct {
 	NickName  string `json:"nickName" form:"nickName" gorm:"column:nick_name;comment:昵称;size:20;"`     //昵称
 	RealName  string `json:"realName" form:"realName" gorm:"column:real_name;comment:真名;size:10;"`     //真名
 	HeaderImg string `json:"headerImg" form:"headerImg" gorm:"column:header_img;comment:头像;size:500;"` //头像
-	Sex       *int   `json:"sex" form:"sex" gorm:"column:sex;comment:性别 1男 2女;size:10;"`               //性别 1男 2女
+	Sex       *int   `json:"sex" form:"sex" gorm:"column:sex;comment:性别 1男 2女 3未知;size:10;"`           //性别 1男 2女 3未知
 }
 
 // TableName User 表名
