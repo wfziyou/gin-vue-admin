@@ -11,7 +11,7 @@ type Circle struct {
 	Type             *int   `json:"type" form:"type" gorm:"column:type;comment:类型：0官方圈子、1用户圈子、2小区;size:10;"`                                                            //类型：0官方圈子、1用户圈子、2小区
 	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                                          //圈子名称
 	Logo             string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                                                       //圈子Logo
-	CircleClassifyId *int   `json:"circleClassifyId" form:"circleClassifyId" gorm:"column:circle_classify_id;comment:圈子分类_编号;size:19;"`                                 //圈子分类_编号
+	CircleClassifyId uint64 `json:"circleClassifyId" form:"circleClassifyId" gorm:"type:bigint(20);column:circle_classify_id;comment:圈子分类_编号"`                          //圈子分类_编号
 	Slogan           string `json:"slogan" form:"slogan" gorm:"column:slogan;comment:圈子标语;size:20;"`                                                                    //圈子标语;size:20
 	Des              string `json:"des" form:"des" gorm:"column:des;comment:圈子简介;size:1000;"`                                                                           //圈子简介;size:1000
 	Protocol         string `json:"protocol" form:"protocol" gorm:"column:protocol;comment:圈子规约;size:1000;"`                                                            //圈子规约;size:1000
@@ -42,14 +42,14 @@ func (Circle) TableName() string {
 // Circle 结构体
 type CircleBaseInfo struct {
 	global.GvaModelApp
-	Type             *int   `json:"type" form:"type" gorm:"column:type;comment:类型：0官方圈子、1用户圈子、2小区;size:10;"`                              //类型：0官方圈子、1用户圈子、2小区
-	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                            //圈子名称
-	Logo             string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                         //圈子Logo
-	CircleClassifyId *int   `json:"circleClassifyId" form:"circleClassifyId" gorm:"column:circle_classify_id;comment:圈子分类_编号;size:19;"`   //圈子分类_编号
-	Pay              *int   `json:"pay" form:"pay" gorm:"column:pay;comment:付费：0 否，1是;size:10;"`                                          //付费：0 否，1是;size:10
-	Process          *int   `json:"process" form:"process" gorm:"column:process;comment:是否开启版块内容人工审核：0 否，1是;size:10;"`                    //是否开启版块内容人工审核：0 否，1是
-	Property         *int   `json:"property" form:"property" gorm:"column:property;comment:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）;size:10;"` //:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
-	Sort             *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                              //排序
+	Type             *int   `json:"type" form:"type" gorm:"column:type;comment:类型：0官方圈子、1用户圈子、2小区;size:10;"`                                   //类型：0官方圈子、1用户圈子、2小区
+	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                 //圈子名称
+	Logo             string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                              //圈子Logo
+	CircleClassifyId uint64 `json:"circleClassifyId" form:"circleClassifyId" gorm:"type:bigint(20);column:circle_classify_id;comment:圈子分类_编号"` //圈子分类_编号
+	Pay              *int   `json:"pay" form:"pay" gorm:"column:pay;comment:付费：0 否，1是;size:10;"`                                               //付费：0 否，1是;size:10
+	Process          *int   `json:"process" form:"process" gorm:"column:process;comment:是否开启版块内容人工审核：0 否，1是;size:10;"`                         //是否开启版块内容人工审核：0 否，1是
+	Property         *int   `json:"property" form:"property" gorm:"column:property;comment:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）;size:10;"`      //:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
+	Sort             *int   `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                                   //排序
 }
 
 // TableName Circle 表名

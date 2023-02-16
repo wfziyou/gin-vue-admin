@@ -10591,6 +10591,10 @@ var doc = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
+                "circleInfo": {
+                    "description": "圈子基本信息",
+                    "$ref": "#/definitions/community.CircleBaseInfo"
+                },
                 "collectNum": {
                     "description": "收藏次数",
                     "type": "integer"
@@ -10646,6 +10650,12 @@ var doc = `{
                 "top": {
                     "description": "置顶(0否 1是)",
                     "type": "integer"
+                },
+                "topicInfo": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/community.ForumTopicBaseInfo"
+                    }
                 },
                 "userId": {
                     "description": "发布者编号",
@@ -10761,6 +10771,19 @@ var doc = `{
                 "type": {
                     "description": "话题类型：0 全局，1圈子",
                     "type": "integer"
+                }
+            }
+        },
+        "community.ForumTopicBaseInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
                 }
             }
         },

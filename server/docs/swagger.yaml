@@ -481,6 +481,9 @@ definitions:
       circleId:
         description: 圈子_编号
         type: integer
+      circleInfo:
+        $ref: '#/definitions/community.CircleBaseInfo'
+        description: 圈子基本信息
       collectNum:
         description: 收藏次数
         type: integer
@@ -523,6 +526,10 @@ definitions:
       top:
         description: 置顶(0否 1是)
         type: integer
+      topicInfo:
+        items:
+          $ref: '#/definitions/community.ForumTopicBaseInfo'
+        type: array
       userId:
         description: 发布者编号
         type: integer
@@ -607,6 +614,15 @@ definitions:
       type:
         description: 话题类型：0 全局，1圈子
         type: integer
+    type: object
+  community.ForumTopicBaseInfo:
+    properties:
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
     type: object
   community.ForumTopicGroup:
     properties:
