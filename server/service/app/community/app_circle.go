@@ -148,6 +148,9 @@ func (appCircleService *AppCircleService) GetSelfCircleList(info communityReq.Se
 	db.Joins(",`hk_circle_user`")
 	db = db.Where("hk_circle_user.circle_id = hk_circle.id and hk_circle_user.user_id =@userId", sql.Named("userId", info.UserId))
 
+	if info.CircleId != 0 {
+		db = db.Where("circle_id = ?'", info.CircleId)
+	}
 	if info.Type != nil {
 		db = db.Where("type = ?", info.Type)
 	}

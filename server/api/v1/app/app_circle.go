@@ -222,8 +222,21 @@ func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
 	if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
 		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+		CircleId: req.CircleId,
+		UserId:   utils.GetUserID(c),
+		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+	}); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if len(data) == 0 {
+		response.FailWithMessage("用户不在圈子中", c)
 		return
 	}
 
