@@ -34,6 +34,8 @@ func (circleApi *CircleApi) GetCircleForumPostsList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
+		var userId = utils.GetUserID(c)
+		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
@@ -65,6 +67,8 @@ func (circleApi *CircleApi) GetUserCircleForumPostsList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
+		var userId = utils.GetUserID(c)
+		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
@@ -126,7 +130,7 @@ func (circleApi *CircleApi) FindCircle(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkCircle": rehkCircle}, c)
+		response.OkWithData(rehkCircle, c)
 	}
 }
 
@@ -206,9 +210,10 @@ func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
 		return
 	}
 
+	var userId = utils.GetUserID(c)
 	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
 		CircleId: req.CircleId,
-		UserId:   utils.GetUserID(c),
+		UserId:   userId,
 		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
 	}); err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -218,7 +223,6 @@ func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
 		return
 	}
 
-	var userId uint64 = utils.GetUserID(c)
 	if err = appCircleUserService.SetUserCurCircle(userId, req.CircleId); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
@@ -337,7 +341,7 @@ func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkCircleUser": rehkCircleUser}, c)
+		response.OkWithData(rehkCircleUser, c)
 	}
 }
 
@@ -429,7 +433,7 @@ func (circleApi *CircleApi) FindCircleRequest(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkCircleRequest": rehkCircleRequest}, c)
+		response.OkWithData(rehkCircleRequest, c)
 	}
 }
 

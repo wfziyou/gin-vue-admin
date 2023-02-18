@@ -22,7 +22,6 @@ func (appForumThumbsUpService *AppForumThumbsUpService) CreateForumThumbsUp(hkFo
 func (appForumThumbsUpService *AppForumThumbsUpService) DeleteForumThumbsUp(info communityReq.DeleteForumThumbsUp) (err error) {
 	err = global.GVA_DB.Where("user_id = ? and posts_id = ?", info.UserId, info.PostsId).Delete(&community.ForumThumbsUp{}).Error
 	return err
-	return err
 }
 
 // DeleteForumThumbsUpByIds 批量删除ForumThumbsUp记录
@@ -43,6 +42,35 @@ func (appForumThumbsUpService *AppForumThumbsUpService) UpdateForumThumbsUp(hkFo
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumThumbsUpService *AppForumThumbsUpService) GetForumThumbsUp(id uint) (hkForumThumbsUp community.ForumThumbsUp, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkForumThumbsUp).Error
+	return
+}
+
+func (appForumThumbsUpService *AppForumThumbsUpService) GetForumThumbsUpEx(userId uint64, postsIds []uint64) (hkForumThumbsUp []community.ForumThumbsUp, num int, err error) {
+	err = global.GVA_DB.Where("user_id = ? and posts_id in  ?", userId, postsIds).Find(&hkForumThumbsUp).Error
+	if err == nil {
+		num = len(hkForumThumbsUp)
+	}
+	return
+}
+func (appForumThumbsUpService *AppForumThumbsUpService) GetUserForumThumbsUp(userId uint64, list []community.ForumPostsBaseInfo) (err error) {
+	var size = len(list)
+	if size > 0 {
+
+		var ids = make([]uint64, size)
+		for index, v := range list {
+			ids[index] = v.ID
+		}
+		if data, num, err := appForumThumbsUpService.GetForumThumbsUpEx(userId, ids); err == nil && num > 0 {
+			for _, v := range data {
+				for i, forum := range list {
+					if forum.ID == v.PostsId {
+						list[i].ThumbsUp = 1
+						break
+					}
+				}
+			}
+		}
+	}
 	return
 }
 

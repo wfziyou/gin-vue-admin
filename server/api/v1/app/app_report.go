@@ -63,7 +63,7 @@ func (reportApi *ReportApi) FindReport(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkReport": rehkReport}, c)
+		response.OkWithData(rehkReport, c)
 	}
 }
 
@@ -117,7 +117,7 @@ func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkReportReason": rehkReportReason}, c)
+		response.OkWithData(rehkReportReason, c)
 	}
 }
 

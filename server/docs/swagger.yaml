@@ -349,6 +349,9 @@ definitions:
       postsId:
         description: 帖子编号
         type: integer
+      thumbsUp:
+        description: 是否点赞：0否、1是
+        type: integer
       userId:
         description: 评论者
         type: integer
@@ -376,6 +379,9 @@ definitions:
       circleId:
         description: 圈子_编号
         type: integer
+      circleInfo:
+        $ref: '#/definitions/community.CircleBaseInfo'
+        description: 圈子基本信息
       collectNum:
         description: 收藏次数
         type: integer
@@ -454,15 +460,25 @@ definitions:
       tag:
         description: 标签
         type: string
+      thumbsUp:
+        description: 是否点赞：0否、1是
+        type: integer
       title:
         description: 标题
         type: string
       top:
         description: 置顶：0否、1是
         type: integer
+      topicInfo:
+        items:
+          $ref: '#/definitions/community.ForumTopicBaseInfo'
+        type: array
       userId:
         description: 发布者编号
         type: integer
+      userInfo:
+        $ref: '#/definitions/community.ForumPostsUser'
+        description: 用户基本信息
       video:
         description: 视频地址
         type: string
@@ -520,6 +536,9 @@ definitions:
       tag:
         description: 标签
         type: string
+      thumbsUp:
+        description: 是否点赞：0否、1是
+        type: integer
       title:
         description: 标题
         type: string

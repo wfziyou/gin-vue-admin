@@ -34,7 +34,7 @@ type ForumPosts struct {
 	CollectNum            int                  `json:"collectNum" form:"collectNum" gorm:"column:collect_num;comment:收藏次数;size:10;"`                                           //收藏次数
 	LikeNum               int                  `json:"likeNum" form:"likeNum" gorm:"column:like_num;comment:点赞次数;size:10;"`                                                    //点赞次数
 	CheckUser             uint64               `json:"checkUser" form:"checkUser" gorm:"type:bigint(20);column:check_user;comment:审核人;"`                                       //审核人
-	CheckTime             time.Time            `json:"checkTime" form:"checkTime" gorm:"column:check_time;comment:审核时间;"`                                                      //审核时间
+	CheckTime             *time.Time           `json:"checkTime" form:"checkTime" gorm:"column:check_time;comment:审核时间;"`                                                      //审核时间
 	CheckStatus           int                  `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态：1草稿、2未审批、3通过、4拒绝;size:10;"`                       //审核状态：1草稿、2未审批、3通过、4拒绝
 	PowerComment          int                  `json:"powerComment" form:"powerComment" gorm:"column:power_comment;comment:评论权限：0关闭、1开启;size:10;"`                             //评论权限：0关闭、1开启
 	PowerCommentAnonymity int                  `json:"powerCommentAnonymity" form:"powerCommentAnonymity" gorm:"column:power_comment_anonymity;comment:匿名评论：0关闭、1开启;size:10;"` //匿名评论：0关闭、1开启
@@ -47,6 +47,7 @@ type ForumPosts struct {
 	TopicInfo             []ForumTopicBaseInfo `json:"topicInfo" gorm:"many2many:hk_forum_topic_posts_mapping;foreignKey:ID;joinForeignKey:PostsId;References:ID;joinReferences:TopicId"`
 	CircleInfo            CircleBaseInfo       `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"` //圈子基本信息
 	UserInfo              ForumPostsUser       `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`     //用户基本信息
+	ThumbsUp              int                  `json:"thumbsUp"`                                                           //是否点赞：0否、1是
 }
 
 // TableName ForumPosts 表名
@@ -78,6 +79,7 @@ type ForumPostsBaseInfo struct {
 	TopicInfo  []ForumTopicBaseInfo `json:"topicInfo" gorm:"many2many:hk_forum_topic_posts_mapping;foreignKey:ID;joinForeignKey:PostsId;References:ID;joinReferences:TopicId"`
 	CircleInfo CircleBaseInfo       `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"` //圈子基本信息
 	UserInfo   ForumPostsUser       `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`     //用户基本信息
+	ThumbsUp   int                  `json:"thumbsUp"`                                                           //是否点赞：0否、1是
 }
 
 // TableName ForumPosts 表名

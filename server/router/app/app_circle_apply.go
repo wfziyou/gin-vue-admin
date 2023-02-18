@@ -15,9 +15,7 @@ func (router *CircleApplyRouter) InitCircleApplyRouter(Router *gin.RouterGroup) 
 	circleApplyRouterWithoutRecord := appRouter.Group("circleApply")
 	var circleApplyApi = v1.ApiGroupApp.AppApiGroup.CircleApplyApi
 	{
-		circleApplyRouter.POST("createUserCircleApply", circleApplyApi.CreateUserCircleApply)             //创建UserCircleApply
-		circleApplyRouter.DELETE("deleteUserCircleApply", circleApplyApi.DeleteUserCircleApply)           //删除UserCircleApply
-		circleApplyRouter.DELETE("deleteUserCircleApplyByIds", circleApplyApi.DeleteUserCircleApplyByIds) //批量删除UserCircleApply
+		circleApplyRouter.POST("setUserCircleApply", circleApplyApi.SetUserCircleApply) //设置UserCircleApply
 	}
 	{
 		circleApplyRouterWithoutRecord.GET("getUserCircleApplyListALL", circleApplyApi.GetUserCircleApplyListALL) //获取UserCircleApply列表

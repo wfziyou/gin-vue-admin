@@ -10389,6 +10389,10 @@ var doc = `{
                     "description": "帖子编号",
                     "type": "integer"
                 },
+                "thumbsUp": {
+                    "description": "是否点赞：0否、1是",
+                    "type": "integer"
+                },
                 "userId": {
                     "description": "评论者",
                     "type": "integer"
@@ -10425,6 +10429,10 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
+                },
+                "circleInfo": {
+                    "description": "圈子基本信息",
+                    "$ref": "#/definitions/community.CircleBaseInfo"
                 },
                 "collectNum": {
                     "description": "收藏次数",
@@ -10530,6 +10538,10 @@ var doc = `{
                     "description": "标签",
                     "type": "string"
                 },
+                "thumbsUp": {
+                    "description": "是否点赞：0否、1是",
+                    "type": "integer"
+                },
                 "title": {
                     "description": "标题",
                     "type": "string"
@@ -10538,9 +10550,19 @@ var doc = `{
                     "description": "置顶：0否、1是",
                     "type": "integer"
                 },
+                "topicInfo": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/community.ForumTopicBaseInfo"
+                    }
+                },
                 "userId": {
                     "description": "发布者编号",
                     "type": "integer"
+                },
+                "userInfo": {
+                    "description": "用户基本信息",
+                    "$ref": "#/definitions/community.ForumPostsUser"
                 },
                 "video": {
                     "description": "视频地址",
@@ -10618,6 +10640,10 @@ var doc = `{
                 "tag": {
                     "description": "标签",
                     "type": "string"
+                },
+                "thumbsUp": {
+                    "description": "是否点赞：0否、1是",
+                    "type": "integer"
                 },
                 "title": {
                     "description": "标题",

@@ -45,6 +45,34 @@ func (appCommentThumbsUpService *AppCommentThumbsUpService) GetCommentThumbsUp(i
 	return
 }
 
+func (appCommentThumbsUpService *AppCommentThumbsUpService) GetCommentThumbsUpEx(userId uint64, postsIds []uint64) (hkForumThumbsUp []community.CommentThumbsUp, num int, err error) {
+	err = global.GVA_DB.Where("user_id = ? and comment_id in  ?", userId, postsIds).Find(&hkForumThumbsUp).Error
+	if err == nil {
+		num = len(hkForumThumbsUp)
+	}
+	return
+}
+func (appCommentThumbsUpService *AppCommentThumbsUpService) GetUserCommentThumbsUp(userId uint64, list []community.ForumComment) (err error) {
+	var size = len(list)
+	if size > 0 {
+		var ids = make([]uint64, size)
+		for index, v := range list {
+			ids[index] = v.ID
+		}
+		if data, num, err := appCommentThumbsUpService.GetCommentThumbsUpEx(userId, ids); err == nil && num > 0 {
+			for _, v := range data {
+				for i, comment := range list {
+					if comment.ID == v.CommentId {
+						list[i].ThumbsUp = 1
+						break
+					}
+				}
+			}
+		}
+	}
+	return
+}
+
 // GetCommentThumbsUpInfoList 分页获取CommentThumbsUp记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCommentThumbsUpService *AppCommentThumbsUpService) GetCommentThumbsUpInfoList(info communityReq.CommentThumbsUpSearch) (list []community.CommentThumbsUp, total int64, err error) {

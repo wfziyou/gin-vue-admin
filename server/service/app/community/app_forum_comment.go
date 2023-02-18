@@ -62,7 +62,9 @@ func (appForumCommentService *AppForumCommentService) GetForumCommentInfoList(in
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
 	db = db.Where("posts_id = ?", info.PostsId)
-	db = db.Where("parent_id = ?", info.ParentId)
+	if info.ParentId > 0 {
+		db = db.Where("parent_id = ?", info.ParentId)
+	}
 
 	err = db.Count(&total).Error
 	if err != nil {

@@ -67,3 +67,19 @@ func (appUserCircleApplyService *AppUserCircleApplyService) GetUserCircleApplyIn
 	err = db.Find(&hkUserCircleApplys).Error
 	return hkUserCircleApplys, total, err
 }
+
+// GetUserCircleApplyInfoListALL 获取UserCircleApply记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (appUserCircleApplyService *AppUserCircleApplyService) SetUserCircleApply(info communityReq.UserCircleApplyUpdate) (err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&community.UserCircleApply{})
+	err = db.Delete(&community.UserCircleApply{}, "user_id = ? and circle_id", info.UserId, info.CircleId).Error
+	if len(info.Apply) > 0 {
+		for index, _ := range info.Apply {
+			info.Apply[index].CircleId = info.CircleId
+			info.Apply[index].UserId = info.UserId
+		}
+		err = db.Create(&info.Apply).Error
+	}
+	return err
+}

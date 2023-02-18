@@ -191,11 +191,15 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	var userId = utils.GetUserID(c)
 	if rehkForumPosts, err := appForumPostsService.GetForumPosts(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkForumPosts": rehkForumPosts}, c)
+		if _, num, err := appForumThumbsUpService.GetForumThumbsUpEx(userId, []uint64{idSearch.ID}); err == nil && num > 0 {
+			rehkForumPosts.ThumbsUp = 1
+		}
+		response.OkWithData(rehkForumPosts, c)
 	}
 }
 
@@ -219,6 +223,8 @@ func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
+		var userId = utils.GetUserID(c)
+		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
@@ -326,11 +332,15 @@ func (forumPostsApi *ForumPostsApi) FindForumComment(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	var userId = utils.GetUserID(c)
 	if rehkForumComment, err := appForumCommentService.GetForumComment(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkForumComment": rehkForumComment}, c)
+		if _, num, err := appCommentThumbsUpService.GetCommentThumbsUpEx(userId, []uint64{idSearch.ID}); err == nil && num > 0 {
+			rehkForumComment.ThumbsUp = 1
+		}
+		response.OkWithData(rehkForumComment, c)
 	}
 }
 
@@ -354,6 +364,8 @@ func (forumPostsApi *ForumPostsApi) GetForumCommentList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
+		var userId = utils.GetUserID(c)
+		appCommentThumbsUpService.GetUserCommentThumbsUp(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
