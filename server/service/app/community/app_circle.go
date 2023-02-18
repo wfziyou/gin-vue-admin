@@ -34,7 +34,7 @@ func (appCircleService *AppCircleService) DeleteCircleByIds(ids request.IdsReq) 
 
 // UpdateCircle 更新Circle记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleService *AppCircleService) UpdateCircle(req community.Circle) (err error) {
+func (appCircleService *AppCircleService) UpdateCircle(req communityReq.UpdateCircleReq) (err error) {
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
 	if len(req.Name) > 0 {

@@ -176,29 +176,7 @@ func (circleApi *CircleApi) UpdateCircle(c *gin.Context) {
 		return
 	}
 
-	var circle = community.Circle{
-		Name:             req.Name,
-		Logo:             req.Logo,
-		Slogan:           req.Slogan,
-		Des:              req.Des,
-		Protocol:         req.Protocol,
-		BackImage:        req.BackImage,
-		Process:          req.Process,
-		Property:         req.Property,
-		View:             req.View,
-		PowerAdd:         req.PowerAdd,
-		PowerView:        req.PowerView,
-		PowerPublish:     req.PowerPublish,
-		PowerComment:     req.PowerComment,
-		PowerAddUser:     req.PowerAddUser,
-		PowerViewUser:    req.PowerViewUser,
-		PowerPublishUser: req.PowerPublishUser,
-		PowerCommentUser: req.PowerCommentUser,
-		NoLimitUserGroup: req.NoLimitUserGroup,
-		NewUserFocus:     req.NewUserFocus,
-	}
-	circle.ID = req.ID
-	if err := appCircleService.UpdateCircle(circle); err != nil {
+	if err := appCircleService.UpdateCircle(req); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {

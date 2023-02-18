@@ -3,9 +3,11 @@ package app
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/apply/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -51,19 +53,19 @@ func (circleApplyApi *CircleApplyApi) CreateUserCircleApply(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/circleApply/deleteUserCircleApply [delete]
 func (circleApplyApi *CircleApplyApi) DeleteUserCircleApply(c *gin.Context) {
-	var hkUserCircleApply request.IdDelete
+	var req request.IdDelete
 
-	err := c.ShouldBindJSON(&hkUserCircleApply)
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appUserCircleApplyService.DeleteUserCircleApply(hkUserCircleApply); err != nil {
-	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
-	//	response.FailWithMessage("删除失败", c)
-	//} else {
-	//	response.OkWithMessage("删除成功", c)
-	//}
+	if err := appUserCircleApplyService.DeleteUserCircleApply(community.UserCircleApply{GvaModelApp: global.GvaModelApp{ID: req.ID}}); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
 }
 
 // DeleteUserCircleApplyByIds 批量删除UserCircleApply
@@ -99,14 +101,20 @@ func (circleApplyApi *CircleApplyApi) DeleteUserCircleApplyByIds(c *gin.Context)
 // @Success 200 {object}  response.PageResult{List=[]communityReq.UserCircleApplySearch,msg=string} "返回communityReq.UserCircleApplySearch"
 // @Router /app/circleApply/getUserCircleApplyListALL [get]
 func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListALL(c *gin.Context) {
-	var pageInfo communityReq.UserCircleApplySearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.UserCircleApplySearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
-	if list, total, err := appUserCircleApplyService.GetUserCircleApplyInfoListALL(pageInfo); err != nil {
+	req.UserId = utils.GetUserID(c)
+	if _, err := appCircleUserService.GetCircleUserEx(req.CircleId, req.UserId); err != nil {
+		response.FailWithMessage("用户没有在圈子中", c)
+		return
+	}
+
+	if list, total, err := appUserCircleApplyService.GetUserCircleApplyInfoListALL(req); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -162,17 +170,17 @@ func (circleApplyApi *CircleApplyApi) GetApplyList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appApplyService.GetApplyInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := appApplyService.GetApplyInfoList(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 // GetApplyListAll 获取Apply列表
@@ -191,17 +199,17 @@ func (circleApplyApi *CircleApplyApi) GetApplyListAll(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appApplyService.GetApplyInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := appApplyService.GetApplyInfoListAll(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 // FindCircleApply 用id查询CircleApply

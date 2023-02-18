@@ -143,7 +143,7 @@ definitions:
         description: 不受限用户组(json数组);size:500
         type: string
       pay:
-        description: 付费：0 否，1是;size:10
+        description: 付费：0否、1是;size:10
         type: integer
       powerAdd:
         description: 圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户
@@ -212,7 +212,7 @@ definitions:
         description: 圈子名称
         type: string
       pay:
-        description: 付费：0 否，1是;size:10
+        description: 付费：0否、1是;size:10
         type: integer
       process:
         description: 是否开启版块内容人工审核：0 否，1是
@@ -356,16 +356,16 @@ definitions:
   community.ForumPosts:
     properties:
       anonymity:
-        description: 匿名发布(0否 1是)
+        description: 匿名发布：0否、1是
         type: integer
       attachment:
         description: 附件
         type: string
       category:
-        description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
+        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
         type: integer
       checkStatus:
-        description: 审核状态(1草稿 2未审批 3通过 4拒绝)
+        description: 审核状态：1草稿、2未审批、3通过、4拒绝
         type: integer
       checkTime:
         description: 审核时间
@@ -392,7 +392,7 @@ definitions:
         description: markdown内容
         type: string
       contentType:
-        description: 内容类型:1 markdown,2 html
+        description: 内容类型：1markdown、2html
         type: integer
       coverImage:
         description: 封面
@@ -410,31 +410,31 @@ definitions:
         description: 点赞次数
         type: integer
       marrow:
-        description: 精华(0否 1是)
+        description: 精华：0否、1是
         type: integer
       pay:
-        description: 付费：0 否，1是
+        description: 付费：0否、1是
         type: integer
       payAttachment:
-        description: 附件付费：0 否，1是
+        description: 附件付费：0否、1是
         type: integer
       payContent:
-        description: 内容付费：0 否，1是
+        description: 内容付费：0否、1是
         type: integer
       payContentLook:
         description: 内容付费可查看百分比例
         type: integer
       payCurrency:
-        description: 付费货币：1 人民、2积分、3代币
+        description: 付费货币：1人民、2积分、3代币
         type: integer
       payNum:
         description: 付费金额
         type: integer
       powerComment:
-        description: 评论权限(0关闭 1开启)
+        description: 评论权限：0关闭、1开启
         type: integer
       powerCommentAnonymity:
-        description: 匿名评论(0关闭 1开启)
+        description: 匿名评论：0关闭、1开启
         type: integer
       readNum:
         description: 阅读次数
@@ -458,7 +458,7 @@ definitions:
         description: 标题
         type: string
       top:
-        description: 置顶(0否 1是)
+        description: 置顶：0否、1是
         type: integer
       userId:
         description: 发布者编号
@@ -470,13 +470,13 @@ definitions:
   community.ForumPostsBaseInfo:
     properties:
       anonymity:
-        description: 匿名发布(0否 1是)
+        description: 匿名发布：0否、1是
         type: integer
       attachment:
         description: 附件
         type: string
       category:
-        description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
+        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
         type: integer
       circleId:
         description: 圈子_编号
@@ -506,7 +506,7 @@ definitions:
         description: 点赞次数
         type: integer
       marrow:
-        description: 精华(0否 1是)
+        description: 精华：0否、1是
         type: integer
       readNum:
         description: 阅读次数
@@ -524,7 +524,7 @@ definitions:
         description: 标题
         type: string
       top:
-        description: 置顶(0否 1是)
+        description: 置顶：0否、1是
         type: integer
       topicInfo:
         items:
@@ -1831,6 +1831,42 @@ definitions:
         description: 帖子编号
         type: integer
     type: object
+  request.CreateForumPostsReq:
+    properties:
+      anonymity:
+        description: 匿名发布：0否、1是
+        type: integer
+      attachment:
+        description: 附件
+        type: string
+      category:
+        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      contentHtml:
+        description: html内容
+        type: string
+      contentMarkdown:
+        description: markdown内容
+        type: string
+      contentType:
+        description: 内容类型：1markdown、2html
+        type: integer
+      coverImage:
+        description: 封面
+        type: string
+      title:
+        description: 标题
+        type: string
+      topicId:
+        description: 话题_编号
+        type: integer
+      video:
+        description: 视频地址
+        type: string
+    type: object
   request.CreateForumTopicReq:
     properties:
       circleId:
@@ -2184,36 +2220,8 @@ definitions:
     type: object
   request.UserCircleApplySearch:
     properties:
-      applyId:
-        description: 应用_编号
-        type: integer
       circleId:
         description: 圈子_编号
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      endCreatedAt:
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      keyword:
-        description: 关键字
-        type: string
-      page:
-        description: 页码
-        type: integer
-      pageSize:
-        description: 每页大小
-        type: integer
-      sort:
-        description: 排序
-        type: integer
-      startCreatedAt:
-        type: string
-      userId:
-        description: 用户编号
         type: integer
     type: object
   request.UserCollectReq:
@@ -3419,7 +3427,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
         in: query
         name: category
         type: integer
@@ -3439,7 +3447,7 @@ paths:
         in: query
         name: keyword
         type: string
-      - description: 精华(0否 1是)
+      - description: 精华：0否、1是
         in: query
         name: marrow
         type: integer
@@ -3459,7 +3467,7 @@ paths:
         in: query
         name: title
         type: string
-      - description: 置顶(0否 1是)
+      - description: 置顶：0否、1是
         in: query
         name: top
         type: integer
@@ -3717,7 +3725,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
         in: query
         name: category
         type: integer
@@ -3733,7 +3741,7 @@ paths:
         in: query
         name: keyword
         type: string
-      - description: 精华(0否 1是)
+      - description: 精华：0否、1是
         in: query
         name: marrow
         type: integer
@@ -3753,7 +3761,7 @@ paths:
         in: query
         name: title
         type: string
-      - description: 置顶(0否 1是)
+      - description: 置顶：0否、1是
         in: query
         name: top
         type: integer
@@ -3985,10 +3993,6 @@ paths:
         in: query
         name: circleId
         type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
@@ -4009,10 +4013,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       - description: 用户_编号
         in: query
         name: userId
@@ -4047,10 +4047,6 @@ paths:
         in: query
         name: circleId
         type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
@@ -4071,10 +4067,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       - description: 用户_编号
         in: query
         name: userId
@@ -4569,7 +4561,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.ForumPosts'
+          $ref: '#/definitions/request.CreateForumPostsReq'
       produces:
       - application/json
       responses:
@@ -4881,7 +4873,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
         in: query
         name: category
         type: integer
@@ -4901,7 +4893,7 @@ paths:
         in: query
         name: keyword
         type: string
-      - description: 精华(0否 1是)
+      - description: 精华：0否、1是
         in: query
         name: marrow
         type: integer
@@ -4921,7 +4913,7 @@ paths:
         in: query
         name: title
         type: string
-      - description: 置顶(0否 1是)
+      - description: 置顶：0否、1是
         in: query
         name: top
         type: integer

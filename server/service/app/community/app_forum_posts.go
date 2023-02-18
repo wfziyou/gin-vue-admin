@@ -77,7 +77,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
@@ -93,7 +93,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 
-	//类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
+	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}
@@ -106,24 +106,24 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 	if len(info.Title) != 0 {
 		db = db.Where("title LIKE '%?%'", info.Title)
 	}
-	//置顶(0否 1是)
+	//置顶：0否、1是
 	if info.Top != nil {
 		db = db.Where("top = ?", info.Top)
 	}
-	//精华(0否 1是)
+	//精华：0否、1是
 	if info.Marrow != nil {
 		db = db.Where("marrow = ?", info.Marrow)
 	}
 
 	//创建时间降序排列
-	db = db.Order("created_at desc")
+	db = db.Order("hk_forum_posts.created_at desc")
 
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Preload("ForumPostsUser").Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
 	return hkForumPostss, total, err
 }
 
@@ -144,7 +144,7 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 
-	//类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
+	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}
@@ -157,16 +157,16 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 	if len(info.Title) != 0 {
 		db = db.Where("title LIKE '%?%'", info.Title)
 	}
-	//置顶(0否 1是)
+	//置顶：0否、1是
 	if info.Top != nil {
 		db = db.Where("top = ?", info.Top)
 	}
-	//精华(0否 1是)
+	//精华：0否、1是
 	if info.Marrow != nil {
 		db = db.Where("marrow = ?", info.Marrow)
 	}
 	//创建时间降序排列
-	db = db.Order("created_at desc")
+	db = db.Order("hk_forum_posts.created_at desc")
 
 	err = db.Count(&total).Error
 	if err != nil {
@@ -193,7 +193,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
 
-	//类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）
+	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}
@@ -206,11 +206,11 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 	if len(info.Title) != 0 {
 		db = db.Where("title LIKE '%?%'", info.Title)
 	}
-	//置顶(0否 1是)
+	//置顶：0否、1是
 	if info.Top != nil {
 		db = db.Where("top = ?", info.Top)
 	}
-	//精华(0否 1是)
+	//精华：0否、1是
 	if info.Marrow != nil {
 		db = db.Where("marrow = ?", info.Marrow)
 	}

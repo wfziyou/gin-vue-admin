@@ -48,6 +48,12 @@ func (appCircleUserService *AppCircleUserService) GetCircleUser(id uint64) (hkCi
 	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleUser).Error
 	return
 }
+
+func (appCircleUserService *AppCircleUserService) GetCircleUserEx(circleId uint64, userId uint64) (hkCircleUser community.CircleUser, err error) {
+	err = global.GVA_DB.Where("circle_id = ? and user_id = ?", circleId, userId).First(&hkCircleUser).Error
+	return
+}
+
 func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(id uint64) (hkCircleUser community.CircleUserInfo, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleUser).Error
 	return

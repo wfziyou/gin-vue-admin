@@ -855,7 +855,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
+                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议",
                         "name": "category",
                         "in": "query"
                     },
@@ -885,7 +885,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "精华(0否 1是)",
+                        "description": "精华：0否、1是",
                         "name": "marrow",
                         "in": "query"
                     },
@@ -915,7 +915,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "置顶(0否 1是)",
+                        "description": "置顶：0否、1是",
                         "name": "top",
                         "in": "query"
                     }
@@ -1342,7 +1342,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
+                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议",
                         "name": "category",
                         "in": "query"
                     },
@@ -1366,7 +1366,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "精华(0否 1是)",
+                        "description": "精华：0否、1是",
                         "name": "marrow",
                         "in": "query"
                     },
@@ -1396,7 +1396,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "置顶(0否 1是)",
+                        "description": "置顶：0否、1是",
                         "name": "top",
                         "in": "query"
                     },
@@ -1789,12 +1789,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
                         "in": "query"
@@ -1821,12 +1815,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     },
                     {
@@ -1890,12 +1878,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
                         "in": "query"
@@ -1922,12 +1904,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     },
                     {
@@ -2770,7 +2746,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.ForumPosts"
+                            "$ref": "#/definitions/request.CreateForumPostsReq"
                         }
                     }
                 ],
@@ -3297,7 +3273,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
+                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议",
                         "name": "category",
                         "in": "query"
                     },
@@ -3327,7 +3303,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "精华(0否 1是)",
+                        "description": "精华：0否、1是",
                         "name": "marrow",
                         "in": "query"
                     },
@@ -3357,7 +3333,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "置顶(0否 1是)",
+                        "description": "置顶：0否、1是",
                         "name": "top",
                         "in": "query"
                     },
@@ -10132,7 +10108,7 @@ var doc = `{
                     "type": "string"
                 },
                 "pay": {
-                    "description": "付费：0 否，1是;size:10",
+                    "description": "付费：0否、1是;size:10",
                     "type": "integer"
                 },
                 "powerAdd": {
@@ -10225,7 +10201,7 @@ var doc = `{
                     "type": "string"
                 },
                 "pay": {
-                    "description": "付费：0 否，1是;size:10",
+                    "description": "付费：0否、1是;size:10",
                     "type": "integer"
                 },
                 "process": {
@@ -10423,7 +10399,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "anonymity": {
-                    "description": "匿名发布(0否 1是)",
+                    "description": "匿名发布：0否、1是",
                     "type": "integer"
                 },
                 "attachment": {
@@ -10431,11 +10407,11 @@ var doc = `{
                     "type": "string"
                 },
                 "category": {
-                    "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议",
                     "type": "integer"
                 },
                 "checkStatus": {
-                    "description": "审核状态(1草稿 2未审批 3通过 4拒绝)",
+                    "description": "审核状态：1草稿、2未审批、3通过、4拒绝",
                     "type": "integer"
                 },
                 "checkTime": {
@@ -10471,7 +10447,7 @@ var doc = `{
                     "type": "string"
                 },
                 "contentType": {
-                    "description": "内容类型:1 markdown,2 html",
+                    "description": "内容类型：1markdown、2html",
                     "type": "integer"
                 },
                 "coverImage": {
@@ -10495,19 +10471,19 @@ var doc = `{
                     "type": "integer"
                 },
                 "marrow": {
-                    "description": "精华(0否 1是)",
+                    "description": "精华：0否、1是",
                     "type": "integer"
                 },
                 "pay": {
-                    "description": "付费：0 否，1是",
+                    "description": "付费：0否、1是",
                     "type": "integer"
                 },
                 "payAttachment": {
-                    "description": "附件付费：0 否，1是",
+                    "description": "附件付费：0否、1是",
                     "type": "integer"
                 },
                 "payContent": {
-                    "description": "内容付费：0 否，1是",
+                    "description": "内容付费：0否、1是",
                     "type": "integer"
                 },
                 "payContentLook": {
@@ -10515,7 +10491,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "payCurrency": {
-                    "description": "付费货币：1 人民、2积分、3代币",
+                    "description": "付费货币：1人民、2积分、3代币",
                     "type": "integer"
                 },
                 "payNum": {
@@ -10523,11 +10499,11 @@ var doc = `{
                     "type": "integer"
                 },
                 "powerComment": {
-                    "description": "评论权限(0关闭 1开启)",
+                    "description": "评论权限：0关闭、1开启",
                     "type": "integer"
                 },
                 "powerCommentAnonymity": {
-                    "description": "匿名评论(0关闭 1开启)",
+                    "description": "匿名评论：0关闭、1开启",
                     "type": "integer"
                 },
                 "readNum": {
@@ -10559,7 +10535,7 @@ var doc = `{
                     "type": "string"
                 },
                 "top": {
-                    "description": "置顶(0否 1是)",
+                    "description": "置顶：0否、1是",
                     "type": "integer"
                 },
                 "userId": {
@@ -10576,7 +10552,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "anonymity": {
-                    "description": "匿名发布(0否 1是)",
+                    "description": "匿名发布：0否、1是",
                     "type": "integer"
                 },
                 "attachment": {
@@ -10584,7 +10560,7 @@ var doc = `{
                     "type": "string"
                 },
                 "category": {
-                    "description": "类别（1视频、2动态、3资讯、4公告、5文章、6问答、7建议）",
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议",
                     "type": "integer"
                 },
                 "circleId": {
@@ -10624,7 +10600,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "marrow": {
-                    "description": "精华(0否 1是)",
+                    "description": "精华：0否、1是",
                     "type": "integer"
                 },
                 "readNum": {
@@ -10648,7 +10624,7 @@ var doc = `{
                     "type": "string"
                 },
                 "top": {
-                    "description": "置顶(0否 1是)",
+                    "description": "置顶：0否、1是",
                     "type": "integer"
                 },
                 "topicInfo": {
@@ -12487,6 +12463,55 @@ var doc = `{
                 }
             }
         },
+        "request.CreateForumPostsReq": {
+            "type": "object",
+            "properties": {
+                "anonymity": {
+                    "description": "匿名发布：0否、1是",
+                    "type": "integer"
+                },
+                "attachment": {
+                    "description": "附件",
+                    "type": "string"
+                },
+                "category": {
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "contentHtml": {
+                    "description": "html内容",
+                    "type": "string"
+                },
+                "contentMarkdown": {
+                    "description": "markdown内容",
+                    "type": "string"
+                },
+                "contentType": {
+                    "description": "内容类型：1markdown、2html",
+                    "type": "integer"
+                },
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "标题",
+                    "type": "string"
+                },
+                "topicId": {
+                    "description": "话题_编号",
+                    "type": "integer"
+                },
+                "video": {
+                    "description": "视频地址",
+                    "type": "string"
+                }
+            }
+        },
         "request.CreateForumTopicReq": {
             "type": "object",
             "properties": {
@@ -12988,46 +13013,8 @@ var doc = `{
         "request.UserCircleApplySearch": {
             "type": "object",
             "properties": {
-                "applyId": {
-                    "description": "应用_编号",
-                    "type": "integer"
-                },
                 "circleId": {
                     "description": "圈子_编号",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "endCreatedAt": {
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "keyword": {
-                    "description": "关键字",
-                    "type": "string"
-                },
-                "page": {
-                    "description": "页码",
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "description": "每页大小",
-                    "type": "integer"
-                },
-                "sort": {
-                    "description": "排序",
-                    "type": "integer"
-                },
-                "startCreatedAt": {
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户编号",
                     "type": "integer"
                 }
             }

@@ -387,15 +387,7 @@ func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
 		return
 	}
 	user.ID = utils.GetUserID(c)
-	err = appUserService.UpdateUser(community.User{
-		GvaModelApp: global.GvaModelApp{
-			ID: user.ID,
-		},
-		NickName:  user.NickName,
-		HeaderImg: user.HeaderImg,
-		Birthday:  user.Birthday,
-		Sex:       user.Sex,
-	})
+	err = appUserService.SetSelfBaseInfo(user)
 
 	if err != nil {
 		global.GVA_LOG.Error("设置失败!", zap.Error(err))

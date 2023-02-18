@@ -24,7 +24,7 @@ type ForumPostsApi struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.ForumPosts true "创建ForumPosts"
+// @Param data body communityReq.CreateForumPostsReq true "创建ForumPosts"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/forumPosts/createForumPosts [post]
 func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
@@ -40,8 +40,21 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 		}
 	}
 	if req.CircleId != 0 {
-		if _, err := appCircleService.GetCircle(uint64(req.CircleId)); err != nil {
+		if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
 			response.FailWithMessage("圈子不存在", c)
+			return
+		}
+
+		if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+			CircleId: req.CircleId,
+			UserId:   utils.GetUserID(c),
+			PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+		}); err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		} else if len(data) == 0 {
+			response.FailWithMessage("用户不在圈子中", c)
+			return
 		}
 	}
 	req.UserId = utils.GetUserID(c)

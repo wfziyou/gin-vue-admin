@@ -1,14 +1,6 @@
 package request
 
-import (
-	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"time"
-)
-
 type UserCircleApplySearch struct {
-	community.UserCircleApply
-	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"`
-	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`
-	request.PageInfo
+	UserId   uint64 `json:"-" form:"userId" `         //用户编号
+	CircleId uint64 `json:"circleId" form:"circleId"` //圈子_编号
 }

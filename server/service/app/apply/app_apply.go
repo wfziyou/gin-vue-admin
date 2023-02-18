@@ -47,16 +47,28 @@ func (appApplyService *AppApplyService) GetApply(id uint64) (hkApply apply.Apply
 
 // GetApplyInfoList 分页获取Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) GetApplyInfoList(info applyReq.ApplySearch) (list []apply.Apply, total int64, err error) {
+func (appApplyService *AppApplyService) GetApplyInfoList(info applyReq.ApplySearchReq) (list []apply.Apply, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&apply.Apply{})
 	var hkApplys []apply.Apply
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	db = db.Where("ower_type = ?", info.OwerType)
+	//拥有者：0平台、1圈子、2个人
+	if info.OwerType == 1 {
+		if info.CircleId > 0 {
+			db = db.Where("circle_id = ?", info.CircleId)
+		}
+	} else if info.OwerType == 2 {
+		if info.UserId > 0 {
+			db = db.Where("user_id = ?", info.UserId)
+		}
 	}
+	if len(info.Name) > 0 {
+		db = db.Where("name LIKE '?%'", info.Name)
+	}
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return
@@ -68,13 +80,24 @@ func (appApplyService *AppApplyService) GetApplyInfoList(info applyReq.ApplySear
 
 // GetApplyInfoListAll 分页获取Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) GetApplyInfoListAll(info applyReq.ApplySearchAll) (list []apply.Apply, total int64, err error) {
+func (appApplyService *AppApplyService) GetApplyInfoListAll(info applyReq.ApplySearchReq) (list []apply.Apply, total int64, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&apply.Apply{})
 	var hkApplys []apply.Apply
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	db = db.Where("ower_type = ?", info.OwerType)
+	//拥有者：0平台、1圈子、2个人
+	if info.OwerType == 1 {
+		if info.CircleId > 0 {
+			db = db.Where("circle_id = ?", info.CircleId)
+		}
+	} else if info.OwerType == 2 {
+		if info.UserId > 0 {
+			db = db.Where("user_id = ?", info.UserId)
+		}
+	}
+	if len(info.Name) > 0 {
+		db = db.Where("name LIKE '?%'", info.Name)
 	}
 	err = db.Count(&total).Error
 	if err != nil {

@@ -45,27 +45,6 @@ func (appUserCircleApplyService *AppUserCircleApplyService) GetUserCircleApply(i
 	return
 }
 
-// GetUserCircleApplyInfoList 分页获取UserCircleApply记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appUserCircleApplyService *AppUserCircleApplyService) GetUserCircleApplyInfoList(info communityReq.UserCircleApplySearch) (list []community.UserCircleApply, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
-	// 创建db
-	db := global.GVA_DB.Model(&community.UserCircleApply{})
-	var hkUserCircleApplys []community.UserCircleApply
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Limit(limit).Offset(offset).Find(&hkUserCircleApplys).Error
-	return hkUserCircleApplys, total, err
-}
-
 // GetUserCircleApplyInfoListALL 获取UserCircleApply记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserCircleApplyService *AppUserCircleApplyService) GetUserCircleApplyInfoListALL(info communityReq.UserCircleApplySearch) (list []community.UserCircleApply, total int64, err error) {
@@ -73,9 +52,13 @@ func (appUserCircleApplyService *AppUserCircleApplyService) GetUserCircleApplyIn
 	db := global.GVA_DB.Model(&community.UserCircleApply{})
 	var hkUserCircleApplys []community.UserCircleApply
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	if info.CircleId != 0 {
+		db = db.Where("circle_id = ?", info.CircleId)
 	}
+	if info.UserId != 0 {
+		db = db.Where("user_id = ?", info.UserId)
+	}
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return

@@ -112,6 +112,11 @@ func (appUserService *AppUserService) UpdateUser(hkUser community.User) (err err
 	return err
 }
 
+func (appUserService *AppUserService) SetSelfBaseInfo(hkUser communityReq.SetSelfBaseInfoReq) (err error) {
+	err = global.GVA_DB.Save(&hkUser).Error
+	return err
+}
+
 // GetUser 根据id获取User记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserService *AppUserService) GetUser(id uint64) (hkUser community.User, err error) {
