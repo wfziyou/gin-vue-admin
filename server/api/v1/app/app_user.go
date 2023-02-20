@@ -5,7 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	communityRes "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/plugin/sms/service"
+	smsService "github.com/flipped-aurora/gin-vue-admin/server/plugin/sms/service"
 	"math/rand"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
@@ -62,7 +62,7 @@ func (userApi *UserApi) GetCaptcha(c *gin.Context) {
 			return
 		}
 
-		if err := service.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
+		if err := smsService.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
 			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
 			response.FailWithMessage("发送验证码失败", c)
 			return
@@ -85,8 +85,11 @@ func (userApi *UserApi) GetCaptcha(c *gin.Context) {
 			response.FailWithMessage("设置验证码到缓存失败", c)
 			return
 		}
-
-		if err := service.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
+		//var req imReq.RegisterReq
+		//if _, err := imService.ServiceGroup.Register(req); err != nil {
+		//
+		//}
+		if err := smsService.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
 			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
 			response.FailWithMessage("发送验证码失败", c)
 			return

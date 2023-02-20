@@ -5,6 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/middleware"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/email"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/sms"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/plugin"
 	"github.com/gin-gonic/gin"
@@ -37,5 +38,10 @@ func InstallPlugin(Router *gin.Engine) {
 		global.GVA_CONFIG.AliyunSms.AccessKeyId,
 		global.GVA_CONFIG.AliyunSms.AccessSecret,
 		global.GVA_CONFIG.AliyunSms.SignName,
+	))
+
+	PluginInit(PrivateGroup, imYunXin.CreateYunXinImPlug(
+		global.GVA_CONFIG.YunXinIm.Url,
+		global.GVA_CONFIG.YunXinIm.AppKey,
 	))
 }

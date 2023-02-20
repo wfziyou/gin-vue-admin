@@ -49,6 +49,7 @@ var (
 	fileUploadAndDownloadService = service.ServiceGroupApp.ExampleServiceGroup.FileUploadAndDownloadService
 	jwtService                   = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	cacheSmsService              = service.ServiceGroupApp.SystemServiceGroup.CacheSmsService
+
 	//apiService              = service.ServiceGroupApp.SystemServiceGroup.ApiService
 	//jwtService              = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	//menuService             = service.ServiceGroupApp.SystemServiceGroup.MenuService

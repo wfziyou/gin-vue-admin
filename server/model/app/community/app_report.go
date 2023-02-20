@@ -15,7 +15,7 @@ type Report struct {
 	ReportType        *int    `json:"reportType" form:"reportType" gorm:"column:report_type;comment:举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题;size:10;"` //举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题
 	Content           string  `json:"content" form:"content" gorm:"column:content;comment:举报内容;size:200;"`                                                          //举报内容
 	ContentAttachment string  `json:"contentAttachment" form:"contentAttachment" gorm:"column:content_attachment;comment:内容附件;size:400;"`                           //内容附件
-	CurStatus         *int    `json:"curStatus" form:"curStatus" gorm:"column:cur_status;comment:处理状态：0 未处理、1已处理;size:10;"`                                         //处理状态：0 未处理、1已处理
+	CurStatus         *int    `json:"curStatus" form:"curStatus" gorm:"column:cur_status;comment:处理状态：0 未处理、1 处理中、2 拒绝、3 完成;size:10;"`                              //处理状态：0 未处理、1 处理中、2 拒绝、3 完成
 	HandleUserId      *uint64 `json:"handleUserId" form:"handleUserId" gorm:"type:bigint(20);column:handle_user_id;comment:操作用户_编号;"`                               //操作用户_编号
 	HandleType        *uint64 `json:"handleType" form:"handleType" gorm:"type:bigint(20);column:handle_type;comment:处理方式:0无效处理（不予处理）、账号禁言;"`                        //处理方式:0无效处理（不予处理）、账号禁言
 	DurationId        *uint64 `json:"durationId" form:"durationId" gorm:"type:bigint(20);column:duration_id;comment:禁言时长_编号;"`                                      //禁言时长_编号

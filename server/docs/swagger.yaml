@@ -673,7 +673,7 @@ definitions:
         description: 创建时间
         type: string
       curStatus:
-        description: 处理状态：0 未处理、1已处理
+        description: 处理状态：0 未处理、1 处理中、2 拒绝、3 完成
         type: integer
       durationId:
         description: 禁言时长_编号
@@ -787,6 +787,15 @@ definitions:
       uuid:
         description: 用户编号
         type: string
+    type: object
+  community.UserCircleApplyBaseInfo:
+    properties:
+      applyId:
+        description: 应用_编号
+        type: integer
+      sort:
+        description: 排序
+        type: integer
     type: object
   community.UserExtend:
     properties:
@@ -1298,6 +1307,9 @@ definitions:
         $ref: '#/definitions/config.TencentCOS'
       timer:
         $ref: '#/definitions/config.Timer'
+      yunxin-im:
+        $ref: '#/definitions/config.YunXinIm'
+        description: im
       zap:
         $ref: '#/definitions/config.Zap'
     type: object
@@ -1428,6 +1440,15 @@ definitions:
       with_seconds:
         description: 是否精确到秒
         type: boolean
+    type: object
+  config.YunXinIm:
+    properties:
+      appKey:
+        description: 云信IM AppKey
+        type: string
+      url:
+        description: 云信IM 地址
+        type: string
     type: object
   config.Zap:
     properties:
@@ -1595,7 +1616,7 @@ definitions:
         description: 实际结果附件
         type: string
       checkStatus:
-        description: 状态：0 未处理 1 处理中 2 拒绝 3 完成
+        description: 处理状态：0 未处理、1 处理中、2 拒绝、3 完成
         type: integer
       content:
         description: 操作步骤
@@ -1902,18 +1923,6 @@ definitions:
         type: integer
       type:
         description: 话题类型：0 全局，1圈子
-        type: integer
-    type: object
-  request.CreateUserCircleApplyReq:
-    properties:
-      applyId:
-        description: ApplyId
-        type: integer
-      circleId:
-        description: CircleId
-        type: integer
-      sort:
-        description: Sort
         type: integer
     type: object
   request.DeleteCircleUserReq:
@@ -2239,6 +2248,17 @@ definitions:
     type: object
   request.UserCircleApplySearch:
     properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+    type: object
+  request.UserCircleApplyUpdate:
+    properties:
+      apply:
+        description: 应用列表
+        items:
+          $ref: '#/definitions/community.UserCircleApplyBaseInfo'
+        type: array
       circleId:
         description: 圈子_编号
         type: integer
@@ -3878,75 +3898,6 @@ paths:
       summary: 更新CircleUser
       tags:
       - App_Circle
-  /app/circleApply/createUserCircleApply:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建UserCircleApply
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.CreateUserCircleApplyReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建UserCircleApply
-      tags:
-      - App_CircleApply
-  /app/circleApply/deleteUserCircleApply:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除UserCircleApply
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdDelete'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除UserCircleApply
-      tags:
-      - App_CircleApply
-  /app/circleApply/deleteUserCircleApplyByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除UserCircleApply
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除UserCircleApply
-      tags:
-      - App_CircleApply
   /app/circleApply/findApply:
     get:
       consumes:
@@ -4354,6 +4305,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 获取UserCircleApply列表
+      tags:
+      - App_CircleApply
+  /app/circleApply/setUserCircleApply:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 设置UserCircleApply
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserCircleApplyUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 设置UserCircleApply
       tags:
       - App_CircleApply
   /app/fileUploadAndDownload/breakpointContinue:
@@ -5096,7 +5070,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 状态：0 未处理 1 处理中 2 拒绝 3 完成
+      - description: 处理状态：0 未处理、1 处理中、2 拒绝、3 完成
         in: query
         name: checkStatus
         type: integer
@@ -5295,7 +5269,7 @@ paths:
         in: query
         name: createdAt
         type: string
-      - description: 处理状态：0 未处理、1已处理
+      - description: 处理状态：0 未处理、1 处理中、2 拒绝、3 完成
         in: query
         name: curStatus
         type: integer

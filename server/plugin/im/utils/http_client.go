@@ -6,7 +6,9 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im/config"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im/model/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im/model/response"
 	"github.com/google/go-querystring/query"
 	"github.com/mozillazg/go-httpheader"
 	"io"
@@ -17,9 +19,6 @@ import (
 	"strconv"
 )
 
-type YunxinIm struct {
-}
-
 const (
 	// Version current go sdk version
 	Version               = "0.7.19"
@@ -28,38 +27,36 @@ const (
 	defaultServiceBaseURL = "http://service.cos.myqcloud.com"
 )
 
-type sendOptions struct {
-	// 基础 URL
-	baseURL *url.URL
-	// URL 中除基础 URL 外的剩余部分
-	uri string
-	// 请求方法
-	method string
-
-	body interface{}
-	// url 查询参数
-	optQuery interface{}
-	// http header 参数
-	optHeader interface{}
-	// 用 result 反序列化 resp.Body
-	result interface{}
-	// 是否禁用自动调用 resp.Body.Close()
-	// 自动调用 Close() 是为了能够重用连接
-	disableCloseBody bool
-}
-type Client struct {
+type HttpClient struct {
 	client *http.Client
 
 	Host      string
 	UserAgent string
 	BaseUrl   *url.URL
-
-	common service
 }
 
 // Response API 响应
 type Response struct {
 	*http.Response
+}
+
+func newResponse(resp *http.Response) *Response {
+	return &Response{
+		Response: resp,
+	}
+}
+
+// 检查 response 是否是出错时的返回的 response
+func checkResponse(r *http.Response) error {
+	if c := r.StatusCode; 200 <= c && c <= 299 {
+		return nil
+	}
+	errorResponse := &ErrorResponse{Response: r}
+	data, err := ioutil.ReadAll(r.Body)
+	if err == nil && data != nil {
+		json.Unmarshal(data, errorResponse)
+	}
+	return errorResponse
 }
 
 type ErrorResponse struct {
@@ -87,10 +84,24 @@ func (r *ErrorResponse) Error() string {
 		r.Response.StatusCode, r.Code, r.Message, RequestID, TraceID)
 }
 
-func newResponse(resp *http.Response) *Response {
-	return &Response{
-		Response: resp,
-	}
+type sendOptions struct {
+	// 基础 URL
+	baseURL *url.URL
+	// URL 中除基础 URL 外的剩余部分
+	uri string
+	// 请求方法
+	method string
+
+	body interface{}
+	// url 查询参数
+	optQuery interface{}
+	// http header 参数
+	optHeader interface{}
+	// 用 result 反序列化 resp.Body
+	result interface{}
+	// 是否禁用自动调用 resp.Body.Close()
+	// 自动调用 Close() 是为了能够重用连接
+	disableCloseBody bool
 }
 
 // addURLOptions adds the parameters in opt as URL query parameters to s. opt
@@ -146,7 +157,26 @@ func addHeaderOptions(header http.Header, opt interface{}) (http.Header, error) 
 	return header, nil
 }
 
-func (c *Client) newRequest(ctx context.Context, baseURL *url.URL, uri, method string, body interface{}, optQuery interface{}, optHeader interface{}) (req *http.Request, err error) {
+func NewClient(config *config.YunXinIm) (*HttpClient, error) {
+	client := &HttpClient{}
+	err := client.Init(config)
+	return client, err
+}
+func (httpClient *HttpClient) Init(config *config.YunXinIm) (_err error) {
+	if config == nil {
+		return &ErrorResponse{Message: "请配置 YunXinIm"}
+	}
+	var baseUrl string
+	if len(config.Url) > 0 {
+		baseUrl = config.Url
+	} else {
+		baseUrl = defaultServiceBaseURL
+	}
+	urlStr, _ := url.Parse(baseUrl)
+	httpClient.BaseUrl = urlStr
+	return nil
+}
+func (httpClient *HttpClient) newRequest(ctx context.Context, baseURL *url.URL, uri, method string, body interface{}, optQuery interface{}, optHeader interface{}) (req *http.Request, err error) {
 	uri, err = addURLOptions(uri, optQuery)
 	if err != nil {
 		return
@@ -178,22 +208,21 @@ func (c *Client) newRequest(ctx context.Context, baseURL *url.URL, uri, method s
 		req.ContentLength, _ = strconv.ParseInt(v, 10, 64)
 	}
 
-	if c.UserAgent != "" {
-		req.Header.Set("User-Agent", c.UserAgent)
+	if httpClient.UserAgent != "" {
+		req.Header.Set("User-Agent", httpClient.UserAgent)
 	}
 	if req.Header.Get("Content-Type") == "" && contentType != "" {
 		req.Header.Set("Content-Type", contentTypeJson)
 	}
-	if c.Host != "" {
-		req.Host = c.Host
+	if httpClient.Host != "" {
+		req.Host = httpClient.Host
 	}
 	return
 }
-
-func (c *Client) doAPI(ctx context.Context, req *http.Request, result interface{}, closeBody bool) (*Response, error) {
+func (httpClient *HttpClient) doAPI(ctx context.Context, req *http.Request, result interface{}, closeBody bool) (*Response, error) {
 	req = req.WithContext(ctx)
 
-	resp, err := c.client.Do(req)
+	resp, err := httpClient.client.Do(req)
 	if err != nil {
 		// If we got an error, and the context has been canceled,
 		// the context's error is probably more useful.
@@ -226,7 +255,7 @@ func (c *Client) doAPI(ctx context.Context, req *http.Request, result interface{
 		if w, ok := result.(io.Writer); ok {
 			io.Copy(w, resp.Body)
 		} else {
-			err = xml.NewDecoder(resp.Body).Decode(result)
+			err = json.NewDecoder(resp.Body).Decode(result)
 			if err == io.EOF {
 				err = nil // ignore EOF errors caused by empty response body
 			}
@@ -235,55 +264,31 @@ func (c *Client) doAPI(ctx context.Context, req *http.Request, result interface{
 
 	return response, err
 }
-
-func (c *Client) send(ctx context.Context, opt *sendOptions) (resp *Response, err error) {
-	req, err := c.newRequest(ctx, opt.baseURL, opt.uri, opt.method, opt.body, opt.optQuery, opt.optHeader)
+func (httpClient *HttpClient) send(ctx context.Context, opt *sendOptions) (resp *Response, err error) {
+	req, err := httpClient.newRequest(ctx, opt.baseURL, opt.uri, opt.method, opt.body, opt.optQuery, opt.optHeader)
 	if err != nil {
 		return
 	}
 
-	resp, err = c.doAPI(ctx, req, opt.result, !opt.disableCloseBody)
+	resp, err = httpClient.doAPI(ctx, req, opt.result, !opt.disableCloseBody)
 	return
 }
-
-type service struct {
-	client *Client
-}
-
-func (s *service) Post(ctx context.Context, name string, body interface{}) (*Response, error) {
+func (httpClient *HttpClient) Post(ctx context.Context, name string, body interface{}, result interface{}) (*Response, error) {
 	u := fmt.Sprintf("/%s", encodeURIComponent(name))
 	sendOpt := sendOptions{
-		baseURL: s.client.BaseUrl,
+		baseURL: httpClient.BaseUrl,
 		uri:     u,
 		method:  http.MethodPost,
 		body:    body,
+		result:  result,
 	}
-	resp, err := s.client.send(ctx, &sendOpt)
+	resp, err := httpClient.send(ctx, &sendOpt)
 	return resp, err
 }
 
-// 检查 response 是否是出错时的返回的 response
-func checkResponse(r *http.Response) error {
-	if c := r.StatusCode; 200 <= c && c <= 299 {
-		return nil
-	}
-	errorResponse := &ErrorResponse{Response: r}
-	data, err := ioutil.ReadAll(r.Body)
-	if err == nil && data != nil {
-		json.Unmarshal(data, errorResponse)
-	}
-	return errorResponse
-}
-
-// NewClient init COS client
-func NewClient() *Client {
-	urlStr, _ := url.Parse("https://" + global.GVA_CONFIG.TencentCOS.Bucket + ".cos." + global.GVA_CONFIG.TencentCOS.Region + ".myqcloud.com")
-	var httpClient *http.Client = &http.Client{}
-	c := &Client{
-		client:    httpClient,
-		UserAgent: userAgent,
-		BaseUrl:   urlStr,
-	}
-	c.common.client = c
-	return c
+func (httpClient *HttpClient) Register(req *request.RegisterReq) (_result *response.RegisterRsp, _err error) {
+	//context.Background()
+	result := &response.RegisterRsp{}
+	_, _err = httpClient.Post(context.Background(), "", req, result)
+	return result, _err
 }

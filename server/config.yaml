@@ -212,3 +212,6 @@ zap:
   max-age: 0
   show-line: true
   log-in-console: true
+yunxin-im:
+  appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
+  url: https://api.netease.im/nimserver

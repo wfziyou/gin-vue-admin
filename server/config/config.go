@@ -26,6 +26,8 @@ type Server struct {
 
 	//sms
 	AliyunSms AliyunSms `mapstructure:"aliyun-sms" json:"aliyun-sms" yaml:"aliyun-sms"`
+	//im
+	YunXinIm YunXinIm `mapstructure:"yunxin-im" json:"yunxin-im" yaml:"yunxin-im"`
 	//cacheCaptcha
 	CacheCaptcha CacheCaptcha `mapstructure:"cache-captcha" json:"cache-captcha" yaml:"cache-captcha"`
 
