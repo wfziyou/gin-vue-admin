@@ -13,7 +13,21 @@ type AppForumThumbsUpService struct {
 // CreateForumThumbsUp 创建ForumThumbsUp记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumThumbsUpService *AppForumThumbsUpService) CreateForumThumbsUp(hkForumThumbsUp community.ForumThumbsUp) (err error) {
+
 	err = global.GVA_DB.Create(&hkForumThumbsUp).Error
+	if err == nil {
+		err = appForumThumbsUpService.UpdateForumPostsLikeNum(hkForumThumbsUp.PostsId)
+	}
+	return err
+}
+func (appForumThumbsUpService *AppForumThumbsUpService) UpdateForumPostsLikeNum(postsIdd uint64) (err error) {
+	var total int64 = 0
+	db := global.GVA_DB.Model(&community.ForumThumbsUp{}).Where("posts_id = ?", postsIdd)
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	err = global.GVA_DB.Model(community.ForumPosts{}).Where("id = ?", postsIdd).Update("like_num", total).Error
 	return err
 }
 
@@ -21,6 +35,9 @@ func (appForumThumbsUpService *AppForumThumbsUpService) CreateForumThumbsUp(hkFo
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumThumbsUpService *AppForumThumbsUpService) DeleteForumThumbsUp(info communityReq.DeleteForumThumbsUp) (err error) {
 	err = global.GVA_DB.Where("user_id = ? and posts_id = ?", info.UserId, info.PostsId).Delete(&community.ForumThumbsUp{}).Error
+	if err == nil {
+		err = appForumThumbsUpService.UpdateForumPostsLikeNum(info.PostsId)
+	}
 	return err
 }
 

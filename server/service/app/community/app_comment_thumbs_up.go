@@ -4,7 +4,6 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
 type AppCommentThumbsUpService struct {
@@ -14,6 +13,19 @@ type AppCommentThumbsUpService struct {
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCommentThumbsUpService *AppCommentThumbsUpService) CreateCommentThumbsUp(hkCommentThumbsUp community.CommentThumbsUp) (err error) {
 	err = global.GVA_DB.Create(&hkCommentThumbsUp).Error
+	if err == nil {
+		err = appCommentThumbsUpService.UpdateCommentLikeNum(hkCommentThumbsUp.CommentId)
+	}
+	return err
+}
+func (appCommentThumbsUpService *AppCommentThumbsUpService) UpdateCommentLikeNum(commentId uint64) (err error) {
+	var total int64 = 0
+	db := global.GVA_DB.Model(&community.CommentThumbsUp{}).Where("comment_id = ?", commentId)
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	err = global.GVA_DB.Model(community.ForumComment{}).Where("id = ?", commentId).Update("like_num", total).Error
 	return err
 }
 
@@ -21,28 +33,10 @@ func (appCommentThumbsUpService *AppCommentThumbsUpService) CreateCommentThumbsU
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCommentThumbsUpService *AppCommentThumbsUpService) DeleteCommentThumbsUp(info communityReq.DeleteCommentThumbsUp) (err error) {
 	err = global.GVA_DB.Where("user_id = ? and comment_id = ?", info.UserId, info.CommentId).Delete(&community.CommentThumbsUp{}).Error
+	if err == nil {
+		err = appCommentThumbsUpService.UpdateCommentLikeNum(info.CommentId)
+	}
 	return err
-}
-
-// DeleteCommentThumbsUpByIds 批量删除CommentThumbsUp记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appCommentThumbsUpService *AppCommentThumbsUpService) DeleteCommentThumbsUpByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.CommentThumbsUp{}, "id in ?", ids.Ids).Error
-	return err
-}
-
-// UpdateCommentThumbsUp 更新CommentThumbsUp记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appCommentThumbsUpService *AppCommentThumbsUpService) UpdateCommentThumbsUp(hkCommentThumbsUp community.CommentThumbsUp) (err error) {
-	err = global.GVA_DB.Save(&hkCommentThumbsUp).Error
-	return err
-}
-
-// GetCommentThumbsUp 根据id获取CommentThumbsUp记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appCommentThumbsUpService *AppCommentThumbsUpService) GetCommentThumbsUp(id uint) (hkCommentThumbsUp community.CommentThumbsUp, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&hkCommentThumbsUp).Error
-	return
 }
 
 func (appCommentThumbsUpService *AppCommentThumbsUpService) GetCommentThumbsUpEx(userId uint64, postsIds []uint64) (hkForumThumbsUp []community.CommentThumbsUp, num int, err error) {

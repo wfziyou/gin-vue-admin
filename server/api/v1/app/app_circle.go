@@ -36,6 +36,7 @@ func (circleApi *CircleApi) GetCircleForumPostsList(c *gin.Context) {
 	} else {
 		var userId = utils.GetUserID(c)
 		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
+		appUserCollectService.GetUserIsCollect(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
@@ -69,6 +70,7 @@ func (circleApi *CircleApi) GetUserCircleForumPostsList(c *gin.Context) {
 	} else {
 		var userId = utils.GetUserID(c)
 		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
+		appUserCollectService.GetUserIsCollect(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,

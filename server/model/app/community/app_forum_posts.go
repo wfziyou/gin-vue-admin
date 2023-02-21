@@ -48,6 +48,7 @@ type ForumPosts struct {
 	CircleInfo            CircleBaseInfo       `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"` //圈子基本信息
 	UserInfo              ForumPostsUser       `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`     //用户基本信息
 	ThumbsUp              int                  `json:"thumbsUp"`                                                           //是否点赞：0否、1是
+	Collect               int                  `json:"collect"`                                                            //是否收藏：0否、1是
 }
 
 // TableName ForumPosts 表名
@@ -80,6 +81,7 @@ type ForumPostsBaseInfo struct {
 	CircleInfo CircleBaseInfo       `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"` //圈子基本信息
 	UserInfo   ForumPostsUser       `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`     //用户基本信息
 	ThumbsUp   int                  `json:"thumbsUp"`                                                           //是否点赞：0否、1是
+	Collect    int                  `json:"collect"`                                                            //是否收藏：0否、1是
 }
 
 // TableName ForumPosts 表名

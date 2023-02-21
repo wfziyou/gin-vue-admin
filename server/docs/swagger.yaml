@@ -310,12 +310,6 @@ definitions:
       commentId:
         description: 评论编号
         type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
       userId:
         description: "用户id \t//点赞时间"
         type: integer
@@ -340,7 +334,7 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      likeTimes:
+      likeNum:
         description: 点赞数
         type: integer
       parentId:
@@ -581,21 +575,6 @@ definitions:
         type: integer
       userType:
         description: 用户平台
-        type: integer
-    type: object
-  community.ForumThumbsUp:
-    properties:
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      postsId:
-        description: 帖子编号
-        type: integer
-      userId:
-        description: 用户id
         type: integer
     type: object
   community.ForumTopic:
@@ -1947,6 +1926,12 @@ definitions:
         type: integer
     type: object
   request.Empty:
+    type: object
+  request.ForumThumbsUpReq:
+    properties:
+      postsId:
+        description: 帖子编号
+        type: integer
     type: object
   request.GetAuthorityId:
     properties:
@@ -4577,7 +4562,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.ForumThumbsUp'
+          $ref: '#/definitions/request.ForumThumbsUpReq'
       produces:
       - application/json
       responses:

@@ -2708,7 +2708,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.ForumThumbsUp"
+                            "$ref": "#/definitions/request.ForumThumbsUpReq"
                         }
                     }
                 ],
@@ -10260,14 +10260,6 @@ var doc = `{
                     "description": "评论编号",
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
                 "userId": {
                     "description": "用户id \t//点赞时间",
                     "type": "integer"
@@ -10301,7 +10293,7 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "likeTimes": {
+                "likeNum": {
                     "description": "点赞数",
                     "type": "integer"
                 },
@@ -10626,27 +10618,6 @@ var doc = `{
                 },
                 "userType": {
                     "description": "用户平台",
-                    "type": "integer"
-                }
-            }
-        },
-        "community.ForumThumbsUp": {
-            "type": "object",
-            "properties": {
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "postsId": {
-                    "description": "帖子编号",
-                    "type": "integer"
-                },
-                "userId": {
-                    "description": "用户id",
                     "type": "integer"
                 }
             }
@@ -12550,6 +12521,15 @@ var doc = `{
         },
         "request.Empty": {
             "type": "object"
+        },
+        "request.ForumThumbsUpReq": {
+            "type": "object",
+            "properties": {
+                "postsId": {
+                    "description": "帖子编号",
+                    "type": "integer"
+                }
+            }
         },
         "request.GetAuthorityId": {
             "type": "object",

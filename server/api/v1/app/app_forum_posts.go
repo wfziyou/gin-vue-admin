@@ -199,6 +199,9 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 		if _, num, err := appForumThumbsUpService.GetForumThumbsUpEx(userId, []uint64{idSearch.ID}); err == nil && num > 0 {
 			rehkForumPosts.ThumbsUp = 1
 		}
+		if _, num, err := appUserCollectService.GetUserCollectEx(userId, []uint64{idSearch.ID}); err == nil && num > 0 {
+			rehkForumPosts.Collect = 1
+		}
 		response.OkWithData(rehkForumPosts, c)
 	}
 }
@@ -225,6 +228,7 @@ func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
 	} else {
 		var userId = utils.GetUserID(c)
 		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
+		appUserCollectService.GetUserIsCollect(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
@@ -381,22 +385,25 @@ func (forumPostsApi *ForumPostsApi) GetForumCommentList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.ForumThumbsUp true "帖子点赞"
+// @Param data body communityReq.ForumThumbsUpReq true "帖子点赞"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/forumPosts/createForumThumbsUp [post]
 func (forumPostsApi *ForumPostsApi) CreateForumThumbsUp(c *gin.Context) {
-	var hkForumThumbsUp community.ForumThumbsUp
-	err := c.ShouldBindJSON(&hkForumThumbsUp)
+	var req communityReq.ForumThumbsUpReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	hkForumThumbsUp.UserId = utils.GetUserID(c)
-	if err := appForumThumbsUpService.CreateForumThumbsUp(hkForumThumbsUp); err != nil {
-		global.GVA_LOG.Error("创建失败!", zap.Error(err))
-		response.FailWithMessage("创建失败", c)
+	req.UserId = utils.GetUserID(c)
+	if err := appForumThumbsUpService.CreateForumThumbsUp(community.ForumThumbsUp{
+		UserId:  req.UserId,
+		PostsId: req.PostsId,
+	}); err != nil {
+		global.GVA_LOG.Error("点赞失败!", zap.Error(err))
+		response.FailWithMessage("点赞失败", c)
 	} else {
-		response.OkWithMessage("创建成功", c)
+		response.OkWithMessage("点赞成功", c)
 	}
 }
 
@@ -418,10 +425,10 @@ func (forumPostsApi *ForumPostsApi) DeleteForumThumbsUp(c *gin.Context) {
 	}
 	req.UserId = utils.GetUserID(c)
 	if err := appForumThumbsUpService.DeleteForumThumbsUp(req); err != nil {
-		global.GVA_LOG.Error("删除失败!", zap.Error(err))
-		response.FailWithMessage("删除失败", c)
+		global.GVA_LOG.Error("取消点赞失败!", zap.Error(err))
+		response.FailWithMessage("取消点赞失败", c)
 	} else {
-		response.OkWithMessage("删除成功", c)
+		response.OkWithMessage("取消点赞成功", c)
 	}
 }
 

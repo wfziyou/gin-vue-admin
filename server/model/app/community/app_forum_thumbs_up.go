@@ -1,13 +1,8 @@
 // 自动生成模板ForumThumbsUp
 package community
 
-import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-)
-
 // ForumThumbsUp 结构体
 type ForumThumbsUp struct {
-	global.GvaModelApp
 	UserId  uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户id;"`    //用户id
 	PostsId uint64 `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"` //帖子编号
 }
