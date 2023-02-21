@@ -15,8 +15,9 @@ type AppForumCommentService struct {
 func (appForumCommentService *AppForumCommentService) CreateForumComment(info communityReq.CreateForumComment) (err error) {
 
 	err = global.GVA_DB.Create(&community.ForumComment{
-		UserId:  info.UserId,
-		PostsId: info.PostsId,
+		UserId:         info.UserId,
+		PostsId:        info.PostsId,
+		CommentContent: info.CommentContent,
 	}).Error
 	return err
 }
@@ -55,7 +56,7 @@ func (appForumCommentService *AppForumCommentService) GetForumCommentInfoList(in
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.ForumComment{})
+	db := global.GVA_DB.Model(&community.ForumComment{}).Preload("UserInfo")
 	var hkForumComments []community.ForumComment
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {

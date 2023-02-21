@@ -15,9 +15,10 @@ type ForumCommentSearch struct {
 }
 
 type CreateForumComment struct {
-	UserId         uint64 `json:"-"`                                                                                //用户ID
-	PostsId        uint64 `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"`      //帖子编号
-	CommentContent string `json:"commentContent" form:"commentContent" gorm:"column:comment_content;comment:评论内容;"` //评论内容
+	UserId         uint64 `json:"-"`                                                                                 //用户ID
+	PostsId        uint64 `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"`       //帖子编号
+	CommentId      uint64 `json:"commentId" form:"commentId" gorm:"type:bigint(20);column:comment_id;comment:评论编号;"` //评论编号
+	CommentContent string `json:"commentContent" form:"commentContent" gorm:"column:comment_content;comment:评论内容;"`  //评论内容
 }
 
 type DeleteForumThumbsUp struct {

@@ -232,6 +232,160 @@ func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
 	response.OkWithMessage("设置成功", c)
 }
 
+// EnterCircle 加入圈子
+// @Tags App_Circle
+// @Summary 加入圈子
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.EnterCircleReq true "加入圈子"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"设置成功"}"
+// @Router /app/circle/enterCircle [post]
+func (circleApi *CircleApi) EnterCircle(c *gin.Context) {
+	var req communityReq.EnterCircleReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	//if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
+	//	response.FailWithMessage("圈子不存在", c)
+	//	return
+	//}
+	//
+	//var userId = utils.GetUserID(c)
+	//if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+	//	CircleId: req.CircleId,
+	//	UserId:   userId,
+	//	PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+	//}); err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//} else if len(data) == 0 {
+	//	response.FailWithMessage("用户不在圈子中", c)
+	//	return
+	//}
+	//
+	//if err = appCircleUserService.SetUserCurCircle(userId, req.CircleId); err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//}
+	//response.OkWithMessage("设置成功", c)
+}
+
+// ApplyEnterCircle 申请加入圈子
+// @Tags App_Circle
+// @Summary 申请加入圈子
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ApplyEnterCircleReq true "申请加入圈子"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"设置成功"}"
+// @Router /app/circle/applyEnterCircle [post]
+func (circleApi *CircleApi) ApplyEnterCircle(c *gin.Context) {
+	var req communityReq.ApplyEnterCircleReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	//if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
+	//	response.FailWithMessage("圈子不存在", c)
+	//	return
+	//}
+	//
+	//var userId = utils.GetUserID(c)
+	//if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+	//	CircleId: req.CircleId,
+	//	UserId:   userId,
+	//	PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+	//}); err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//} else if len(data) == 0 {
+	//	response.FailWithMessage("用户不在圈子中", c)
+	//	return
+	//}
+	//
+	//if err = appCircleUserService.SetUserCurCircle(userId, req.CircleId); err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//}
+	//response.OkWithMessage("设置成功", c)
+}
+
+// EnterCircleApplyList 分页获取加入圈子申请
+// @Tags App_Circle
+// @Summary 分页获取加入圈子申请
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.CircleAddRequestSearch true "分页获取加入圈子申请"
+// @Success 200 {object}  response.PageResult{List=[]community.CircleUserInfo,msg=string} "返回community.CircleUserInfo"
+// @Router app/circle/enterCircleApplyList [get]
+func (circleApi *CircleApi) EnterCircleApplyList(c *gin.Context) {
+	var pageInfo communityReq.CircleAddRequestSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//if list, total, err := appCircleAddRequestService.GetCircleAddRequestInfoList(pageInfo); err != nil {
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
+}
+
+// ApproveEnterCircleRequest 审批加入圈子申请
+// @Tags App_Circle
+// @Summary 审批加入圈子申请
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ApproveEnterCircleReq true "审批加入圈子申请"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"设置成功"}"
+// @Router /app/circle/approveEnterCircleRequest [post]
+func (circleApi *CircleApi) ApproveEnterCircleRequest(c *gin.Context) {
+	var req communityReq.ApproveEnterCircleReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	//if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
+	//	response.FailWithMessage("圈子不存在", c)
+	//	return
+	//}
+	//
+	//var userId = utils.GetUserID(c)
+	//if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+	//	CircleId: req.CircleId,
+	//	UserId:   userId,
+	//	PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+	//}); err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//} else if len(data) == 0 {
+	//	response.FailWithMessage("用户不在圈子中", c)
+	//	return
+	//}
+	//
+	//if err = appCircleUserService.SetUserCurCircle(userId, req.CircleId); err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//}
+	//response.OkWithMessage("设置成功", c)
+}
+
 /*************************************
 圈子成员
 **************************************/

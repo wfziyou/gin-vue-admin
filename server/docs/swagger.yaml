@@ -349,6 +349,9 @@ definitions:
       userId:
         description: 评论者
         type: integer
+      userInfo:
+        $ref: '#/definitions/community.ForumPostsUser'
+        description: 用户基本信息
     type: object
   community.ForumPosts:
     properties:
@@ -376,6 +379,9 @@ definitions:
       circleInfo:
         $ref: '#/definitions/community.CircleBaseInfo'
         description: 圈子基本信息
+      collect:
+        description: 是否收藏：0否、1是
+        type: integer
       collectNum:
         description: 收藏次数
         type: integer
@@ -494,6 +500,9 @@ definitions:
       circleInfo:
         $ref: '#/definitions/community.CircleBaseInfo'
         description: 圈子基本信息
+      collect:
+        description: 是否收藏：0否、1是
+        type: integer
       collectNum:
         description: 收藏次数
         type: integer

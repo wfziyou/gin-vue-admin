@@ -47,6 +47,19 @@ type SetUserCurCircleReq struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 	UserId   uint64 `json:"-"`                         //用户ID
 }
+type EnterCircleReq struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+	UserId   uint64 `json:"-"`                         //用户ID
+}
+type ApplyEnterCircleReq struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+	UserId   uint64 `json:"-"`                         //用户ID
+}
+type ApproveEnterCircleReq struct {
+	ID          uint64 `json:"id" `         //申请编号
+	UserId      uint64 `json:"-"`           //用户ID
+	CheckStatus int32  `json:"checkStatus"` //审核状态：1通过、2驳回
+}
 
 type DeleteCircleUserReq struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号

@@ -19,12 +19,13 @@ type ApiGroup struct {
 }
 
 var (
-	appUserService           = service.ServiceGroupApp.AppServiceGroup.Community.AppUserService
-	appCircleService         = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleService
-	appCircleClassifyService = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleClassifyService
-	appCircleRequestService  = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRequestService
-	appCircleUserService     = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleUserService
-
+	appUserService             = service.ServiceGroupApp.AppServiceGroup.Community.AppUserService
+	appCircleService           = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleService
+	appCircleClassifyService   = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleClassifyService
+	appCircleRequestService    = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRequestService
+	appCircleUserService       = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleUserService
+	appCircleAddRequestService = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleAddRequestService
+	
 	appForumPostsService      = service.ServiceGroupApp.AppServiceGroup.Community.AppForumPostsService
 	appForumCommentService    = service.ServiceGroupApp.AppServiceGroup.Community.AppForumCommentService
 	appForumThumbsUpService   = service.ServiceGroupApp.AppServiceGroup.Community.AppForumThumbsUpService

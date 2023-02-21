@@ -10312,6 +10312,10 @@ var doc = `{
                 "userId": {
                     "description": "评论者",
                     "type": "integer"
+                },
+                "userInfo": {
+                    "description": "用户基本信息",
+                    "$ref": "#/definitions/community.ForumPostsUser"
                 }
             }
         },
@@ -10349,6 +10353,10 @@ var doc = `{
                 "circleInfo": {
                     "description": "圈子基本信息",
                     "$ref": "#/definitions/community.CircleBaseInfo"
+                },
+                "collect": {
+                    "description": "是否收藏：0否、1是",
+                    "type": "integer"
                 },
                 "collectNum": {
                     "description": "收藏次数",
@@ -10508,6 +10516,10 @@ var doc = `{
                 "circleInfo": {
                     "description": "圈子基本信息",
                     "$ref": "#/definitions/community.CircleBaseInfo"
+                },
+                "collect": {
+                    "description": "是否收藏：0否、1是",
+                    "type": "integer"
                 },
                 "collectNum": {
                     "description": "收藏次数",
