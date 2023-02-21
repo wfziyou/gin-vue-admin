@@ -53,13 +53,14 @@ func (appUserService *AppUserService) Login(u *community.User) (userInter *commu
 		}
 		//need to do
 		//MenuServiceApp.UserAuthorityDefaultRouter(&user)
-	} else {
 		if user.UserExtend.CircleId != 0 {
 			var hkCircle community.Circle
 			if global.GVA_DB.Where("id = ?", user.UserExtend.CircleId).First(&hkCircle).Error == nil {
 				user.UserExtend.CircleName = hkCircle.Name
 			}
 		}
+	} else {
+
 	}
 	return &user, err
 }

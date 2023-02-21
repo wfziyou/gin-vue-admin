@@ -13,7 +13,6 @@ type AppForumThumbsUpService struct {
 // CreateForumThumbsUp 创建ForumThumbsUp记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumThumbsUpService *AppForumThumbsUpService) CreateForumThumbsUp(hkForumThumbsUp community.ForumThumbsUp) (err error) {
-
 	err = global.GVA_DB.Create(&hkForumThumbsUp).Error
 	if err == nil {
 		err = appForumThumbsUpService.UpdateForumPostsLikeNum(hkForumThumbsUp.PostsId)

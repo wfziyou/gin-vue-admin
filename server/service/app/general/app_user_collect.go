@@ -14,21 +14,40 @@ type AppUserCollectService struct {
 // CreateUserCollect 创建UserCollect记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserCollectService *AppUserCollectService) CreateUserCollect(hkUserCollect general.UserCollect) (err error) {
-	err = global.GVA_DB.Create(&hkUserCollect).Error
+	err = global.GVA_DB.Where("user_id = ? and posts_id = ?", hkUserCollect.UserId, hkUserCollect.PostsId).First(&hkUserCollect).Error
+	if err == nil {
+		err = global.GVA_DB.Save(&hkUserCollect).Error
+		err = appUserCollectService.UpdateCollectNum(hkUserCollect.PostsId)
+	} else {
+		err = global.GVA_DB.Save(&hkUserCollect).Error
+	}
+	return err
+}
+func (appUserCollectService *AppUserCollectService) UpdateCollectNum(postsIdd uint64) (err error) {
+	var total int64 = 0
+	db := global.GVA_DB.Model(&general.UserCollect{}).Where("posts_id = ?", postsIdd)
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	err = global.GVA_DB.Model(community.ForumPosts{}).Where("id = ?", postsIdd).Update("collect_num", total).Error
 	return err
 }
 
 // DeleteUserCollect 删除UserCollect记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserCollectService *AppUserCollectService) DeleteUserCollect(hkUserCollect general.UserCollect) (err error) {
-	err = global.GVA_DB.Delete(&hkUserCollect).Error
+	err = global.GVA_DB.Unscoped().Delete(&hkUserCollect).Error
+	if err == nil {
+		err = appUserCollectService.UpdateCollectNum(hkUserCollect.PostsId)
+	}
 	return err
 }
 
 // DeleteUserCollectByIds 批量删除UserCollect记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserCollectService *AppUserCollectService) DeleteUserCollectByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]general.UserCollect{}, "id in ?", ids.Ids).Error
+	err = global.GVA_DB.Unscoped().Delete(&[]general.UserCollect{}, "id in ?", ids.Ids).Error
 	return err
 }
 
