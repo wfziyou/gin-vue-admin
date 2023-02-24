@@ -1677,6 +1677,27 @@ definitions:
         description: 用户编号
         type: integer
     type: object
+  general.MiniProgramBaseInfo:
+    properties:
+      companyName:
+        description: 公司名称
+        type: string
+      hidden:
+        description: 隐藏(0否 1是)
+        type: integer
+      icon:
+        description: 图标
+        type: string
+      name:
+        description: 名称
+        type: string
+      packetAddress:
+        description: 当前包下载地址
+        type: string
+      version:
+        description: 当前版本
+        type: string
+    type: object
   general.Protocol:
     properties:
       content:
@@ -5193,6 +5214,34 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 用id查询BugReport
+      tags:
+      - APP_General
+  /app/general/findMiniProgram:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 编号
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回general.BugReport
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/general.MiniProgramBaseInfo'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询MiniProgram
       tags:
       - APP_General
   /app/general/findProtocol:

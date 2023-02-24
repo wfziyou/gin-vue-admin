@@ -181,3 +181,27 @@ func (generalApi *GeneralApi) GetBugReportList(c *gin.Context) {
 		}, "获取成功", c)
 	}
 }
+
+// FindMiniProgram 用id查询MiniProgram
+// @Tags APP_General
+// @Summary 用id查询MiniProgram
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query request.IdSearch true "用id查询MiniProgram"
+// @Success 200 {object}  response.Response{data=general.MiniProgramBaseInfo,msg=string}  "返回general.BugReport"
+// @Router /app/general/findMiniProgram [get]
+func (generalApi *GeneralApi) FindMiniProgram(c *gin.Context) {
+	var idSearch request.IdSearch
+	err := c.ShouldBindQuery(&idSearch)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if data, err := appMiniProgramService.GetMiniProgram(idSearch.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+	} else {
+		response.OkWithData(data, c)
+	}
+}

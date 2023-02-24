@@ -25,7 +25,7 @@ var (
 	appCircleRequestService    = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRequestService
 	appCircleUserService       = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleUserService
 	appCircleAddRequestService = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleAddRequestService
-	
+
 	appForumPostsService      = service.ServiceGroupApp.AppServiceGroup.Community.AppForumPostsService
 	appForumCommentService    = service.ServiceGroupApp.AppServiceGroup.Community.AppForumCommentService
 	appForumThumbsUpService   = service.ServiceGroupApp.AppServiceGroup.Community.AppForumThumbsUpService
@@ -42,6 +42,7 @@ var (
 	appBugReportService           = service.ServiceGroupApp.AppServiceGroup.General.AppBugReportService
 	appUserCollectService         = service.ServiceGroupApp.AppServiceGroup.General.AppUserCollectService
 	appUserBrowsingHistoryService = service.ServiceGroupApp.AppServiceGroup.General.AppUserBrowsingHistoryService
+	appMiniProgramService         = service.ServiceGroupApp.AppServiceGroup.General.AppMiniProgramService
 
 	appApplyService            = service.ServiceGroupApp.AppServiceGroup.Apply.AppApplyService
 	appCircleApplyService      = service.ServiceGroupApp.AppServiceGroup.Apply.AppCircleApplyService

@@ -22,6 +22,7 @@ func (router *GeneralRouter) InitGeneralRouter(Router *gin.RouterGroup) (R gin.I
 		generalRouterWithoutRecord.GET("getProtocolList", generalApi.GetProtocolList)   //分页获取Protocol列表
 		generalRouterWithoutRecord.GET("findBugReport", generalApi.FindBugReport)       //用id查询BugReport
 		generalRouterWithoutRecord.GET("getBugReportList", generalApi.GetBugReportList) //分页获取BugReport列表
+		generalRouterWithoutRecord.GET("findMiniProgram", generalApi.FindMiniProgram)   //用id查询MiniProgram
 	}
 	return generalRouter
 }

@@ -3617,6 +3617,56 @@
                 }
             }
         },
+        "/app/general/findMiniProgram": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "APP_General"
+                ],
+                "summary": "用id查询MiniProgram",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "编号",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回general.BugReport",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/general.MiniProgramBaseInfo"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/general/findProtocol": {
             "get": {
                 "security": [
@@ -12356,6 +12406,35 @@
                 "userId": {
                     "description": "用户编号",
                     "type": "integer"
+                }
+            }
+        },
+        "general.MiniProgramBaseInfo": {
+            "type": "object",
+            "properties": {
+                "companyName": {
+                    "description": "公司名称",
+                    "type": "string"
+                },
+                "hidden": {
+                    "description": "隐藏(0否 1是)",
+                    "type": "integer"
+                },
+                "icon": {
+                    "description": "图标",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "packetAddress": {
+                    "description": "当前包下载地址",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "当前版本",
+                    "type": "string"
                 }
             }
         },
