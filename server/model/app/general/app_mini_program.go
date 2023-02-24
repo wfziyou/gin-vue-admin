@@ -21,6 +21,7 @@ type MiniProgramBaseInfo struct {
 	Icon          string `json:"icon" form:"icon" gorm:"column:icon;comment:图标;size:256;"`                                 //图标
 	CompanyName   string `json:"companyName" form:"companyName" gorm:"column:company_name;comment:公司名称;size:256;"`         //公司名称
 	Version       string `json:"version" form:"version" gorm:"column:version;comment:当前版本;size:12;"`                       //当前版本
+	Code          uint64 `json:"code" form:"code" gorm:"column:code;comment:版本code;size:12;"`                              //版本code
 	PacketAddress string `json:"packetAddress" form:"packetAddress" gorm:"column:packet_address;comment:当前包下载地址;size:12;"` //当前包下载地址
 	Hidden        *int   `json:"hidden" form:"hidden" gorm:"column:hidden;comment:隐藏(0否 1是);size:10;"`                     //隐藏(0否 1是)
 }

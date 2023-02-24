@@ -12428,6 +12428,10 @@ var doc = `{
         "general.MiniProgramBaseInfo": {
             "type": "object",
             "properties": {
+                "code": {
+                    "description": "版本code",
+                    "type": "integer"
+                },
                 "companyName": {
                     "description": "公司名称",
                     "type": "string"

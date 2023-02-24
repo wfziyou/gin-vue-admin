@@ -41,7 +41,7 @@ func (appMiniProgramService *AppMiniProgramService) UpdateMiniProgram(hkMiniProg
 // GetMiniProgram 根据id获取MiniProgram记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appMiniProgramService *AppMiniProgramService) GetMiniProgram(id uint64) (hkMiniProgram general.MiniProgramBaseInfo, err error) {
-	err = global.GVA_DB.Raw("SELECT t.name,t.icon,t.company_name,p.version,p.packet_address,t.hidden FROM hk_mini_program t LEFT JOIN hk_mini_program_packet p ON  t.cur_packet_id = p.id WHERE t.id = ?", id).First(&hkMiniProgram).Error
+	err = global.GVA_DB.Raw("SELECT t.name,t.icon,t.company_name,p.version,p.code,p.packet_address,t.hidden FROM hk_mini_program t LEFT JOIN hk_mini_program_packet p ON  t.cur_packet_id = p.id WHERE t.id = ?", id).First(&hkMiniProgram).Error
 	//err = global.GVA_DB.Where("id = ?", id).First(&hkMiniProgram).Error
 	return
 }
