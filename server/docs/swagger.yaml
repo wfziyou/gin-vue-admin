@@ -21,7 +21,7 @@ definitions:
         description: 主键ID
         type: integer
       miniProgramId:
-        description: 类型(0小程序、1第三方链接)
+        description: 小程序id
         type: integer
       name:
         description: 名称
@@ -33,6 +33,7 @@ definitions:
         description: 排序
         type: integer
       type:
+        description: 类型(0小程序、1第三方链接)
         type: integer
       userId:
         description: 用户_编号
@@ -40,15 +41,15 @@ definitions:
     type: object
   apply.CircleApply:
     properties:
+      apply:
+        $ref: '#/definitions/apply.Apply'
+        description: 应用
       applyGroupId:
         description: 应用分组_编号
         type: integer
       applyId:
         description: 应用_编号
         type: integer
-      applyParameters:
-        description: 访问参数
-        type: string
       circleId:
         description: 圈子_编号
         type: integer
@@ -58,9 +59,6 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      showName:
-        description: 名称别名
-        type: string
       sort:
         description: 排序
         type: integer
@@ -193,6 +191,30 @@ definitions:
       view:
         description: 板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到
         type: integer
+    type: object
+  community.CircleAddRequest:
+    properties:
+      checkStatus:
+        description: 审核状态：0 未处理 1 通过，2驳回
+        type: integer
+      checkTime:
+        description: 审核时间
+        type: string
+      checkUser:
+        description: 审核人
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      reason:
+        description: 申请理由
+        type: string
     type: object
   community.CircleBaseInfo:
     properties:
@@ -583,7 +605,7 @@ definitions:
         description: 性别 1男 2女 3未知
         type: integer
       userType:
-        description: 用户平台
+        description: '用户平台: 1web、2app、3other'
         type: integer
     type: object
   community.ForumTopic:
@@ -770,11 +792,35 @@ definitions:
         $ref: '#/definitions/community.UserExtend'
         description: 用户扩展
       userType:
-        description: 用户平台
+        description: '用户平台: 1web、2app、3other'
         type: integer
       uuid:
         description: 用户编号
         type: string
+    type: object
+  community.UserCircleApply:
+    properties:
+      apply:
+        $ref: '#/definitions/apply.Apply'
+        description: 应用
+      applyId:
+        description: 应用_编号
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+      userId:
+        description: 用户编号
+        type: integer
     type: object
   community.UserCircleApplyBaseInfo:
     properties:
@@ -1771,6 +1817,21 @@ definitions:
           $ref: '#/definitions/system.SysBaseMenu'
         type: array
     type: object
+  request.ApplyEnterCircleReq:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+    type: object
+  request.ApproveEnterCircleReq:
+    properties:
+      checkStatus:
+        description: 审核状态：1通过、2驳回
+        type: integer
+      id:
+        description: 申请编号
+        type: integer
+    type: object
   request.BindEmailReq:
     properties:
       captcha:
@@ -1855,6 +1916,9 @@ definitions:
       commentContent:
         description: 评论内容
         type: string
+      commentId:
+        description: 评论编号
+        type: integer
       postsId:
         description: 帖子编号
         type: integer
@@ -1935,6 +1999,12 @@ definitions:
         type: integer
     type: object
   request.Empty:
+    type: object
+  request.EnterCircleReq:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
     type: object
   request.ForumThumbsUpReq:
     properties:
@@ -2238,12 +2308,6 @@ definitions:
         type: integer
       userId:
         description: 用户ID
-        type: integer
-    type: object
-  request.UserCircleApplySearch:
-    properties:
-      circleId:
-        description: 圈子_编号
         type: integer
     type: object
   request.UserCircleApplyUpdate:
@@ -3194,6 +3258,52 @@ paths:
       summary: 修改基础api
       tags:
       - SysApi
+  /app/circle/applyEnterCircle:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 申请加入圈子
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ApplyEnterCircleReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 申请加入圈子
+      tags:
+      - App_Circle
+  /app/circle/approveEnterCircleRequest:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 审批加入圈子申请
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ApproveEnterCircleReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 审批加入圈子申请
+      tags:
+      - App_Circle
   /app/circle/createCircleRequest:
     post:
       consumes:
@@ -3261,6 +3371,83 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 批量删除CircleUser
+      tags:
+      - App_Circle
+  /app/circle/enterCircle:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 加入圈子
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.EnterCircleReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 加入圈子
+      tags:
+      - App_Circle
+  /app/circle/enterCircleApplyList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 审核状态：0 未处理 1 通过，2驳回
+        in: query
+        name: checkStatus
+        type: integer
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      - description: 创建时间（结束）
+        in: query
+        name: endCreatedAt
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 创建时间（开始）
+        in: query
+        name: startCreatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.CircleUserInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.CircleAddRequest'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取加入圈子申请
       tags:
       - App_Circle
   /app/circle/findCircle:
@@ -4158,9 +4345,9 @@ paths:
           description: 返回apply.CircleApplyGroup
           schema:
             allOf:
-            - $ref: '#/definitions/response.PageResult'
+            - $ref: '#/definitions/response.Response'
             - properties:
-                List:
+                data:
                   items:
                     $ref: '#/definitions/apply.CircleApplyGroup'
                   type: array
@@ -4262,9 +4449,9 @@ paths:
           description: 返回apply.CircleApply
           schema:
             allOf:
-            - $ref: '#/definitions/response.PageResult'
+            - $ref: '#/definitions/response.Response'
             - properties:
-                List:
+                data:
                   items:
                     $ref: '#/definitions/apply.CircleApply'
                   type: array
@@ -4276,10 +4463,15 @@ paths:
       summary: 获取CircleApply列表
       tags:
       - App_CircleApply
-  /app/circleApply/getUserCircleApplyListALL:
+  /app/circleApply/getUserCircleApplyListAll:
     get:
       consumes:
       - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
       produces:
       - application/json
       responses:
@@ -4287,11 +4479,11 @@ paths:
           description: 返回communityReq.UserCircleApplySearch
           schema:
             allOf:
-            - $ref: '#/definitions/response.PageResult'
+            - $ref: '#/definitions/response.Response'
             - properties:
-                List:
+                data:
                   items:
-                    $ref: '#/definitions/request.UserCircleApplySearch'
+                    $ref: '#/definitions/community.UserCircleApply'
                   type: array
                 msg:
                   type: string

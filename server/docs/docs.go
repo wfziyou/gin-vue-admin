@@ -393,6 +393,82 @@ var doc = `{
                 }
             }
         },
+        "/app/circle/applyEnterCircle": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_Circle"
+                ],
+                "summary": "申请加入圈子",
+                "parameters": [
+                    {
+                        "description": "申请加入圈子",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ApplyEnterCircleReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"设置成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/approveEnterCircleRequest": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_Circle"
+                ],
+                "summary": "审批加入圈子申请",
+                "parameters": [
+                    {
+                        "description": "审批加入圈子申请",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ApproveEnterCircleReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"设置成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/createCircleRequest": {
             "post": {
                 "security": [
@@ -502,6 +578,133 @@ var doc = `{
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/enterCircle": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_Circle"
+                ],
+                "summary": "加入圈子",
+                "parameters": [
+                    {
+                        "description": "加入圈子",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.EnterCircleReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"设置成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/enterCircleApplyList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_Circle"
+                ],
+                "summary": "分页获取加入圈子申请",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "审核状态：0 未处理 1 通过，2驳回",
+                        "name": "checkStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间（结束）",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间（开始）",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.CircleUserInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.CircleAddRequest"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1995,12 +2198,12 @@ var doc = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/response.PageResult"
+                                    "$ref": "#/definitions/response.Response"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "List": {
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/apply.CircleApplyGroup"
@@ -2167,12 +2370,12 @@ var doc = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/response.PageResult"
+                                    "$ref": "#/definitions/response.Response"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "List": {
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/apply.CircleApply"
@@ -2189,7 +2392,7 @@ var doc = `{
                 }
             }
         },
-        "/app/circleApply/getUserCircleApplyListALL": {
+        "/app/circleApply/getUserCircleApplyListAll": {
             "get": {
                 "security": [
                     {
@@ -2206,21 +2409,29 @@ var doc = `{
                     "App_CircleApply"
                 ],
                 "summary": "获取UserCircleApply列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "返回communityReq.UserCircleApplySearch",
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/response.PageResult"
+                                    "$ref": "#/definitions/response.Response"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "List": {
+                                        "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/request.UserCircleApplySearch"
+                                                "$ref": "#/definitions/community.UserCircleApply"
                                             }
                                         },
                                         "msg": {
@@ -9865,7 +10076,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "miniProgramId": {
-                    "description": "类型(0小程序、1第三方链接)",
+                    "description": "小程序id",
                     "type": "integer"
                 },
                 "name": {
@@ -9881,6 +10092,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "type": {
+                    "description": "类型(0小程序、1第三方链接)",
                     "type": "integer"
                 },
                 "userId": {
@@ -9892,6 +10104,10 @@ var doc = `{
         "apply.CircleApply": {
             "type": "object",
             "properties": {
+                "apply": {
+                    "description": "应用",
+                    "$ref": "#/definitions/apply.Apply"
+                },
                 "applyGroupId": {
                     "description": "应用分组_编号",
                     "type": "integer"
@@ -9899,10 +10115,6 @@ var doc = `{
                 "applyId": {
                     "description": "应用_编号",
                     "type": "integer"
-                },
-                "applyParameters": {
-                    "description": "访问参数",
-                    "type": "string"
                 },
                 "circleId": {
                     "description": "圈子_编号",
@@ -9915,10 +10127,6 @@ var doc = `{
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
-                },
-                "showName": {
-                    "description": "名称别名",
-                    "type": "string"
                 },
                 "sort": {
                     "description": "排序",
@@ -10098,6 +10306,39 @@ var doc = `{
                 "view": {
                     "description": "板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到",
                     "type": "integer"
+                }
+            }
+        },
+        "community.CircleAddRequest": {
+            "type": "object",
+            "properties": {
+                "checkStatus": {
+                    "description": "审核状态：0 未处理 1 通过，2驳回",
+                    "type": "integer"
+                },
+                "checkTime": {
+                    "description": "审核时间",
+                    "type": "string"
+                },
+                "checkUser": {
+                    "description": "审核人",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "reason": {
+                    "description": "申请理由",
+                    "type": "string"
                 }
             }
         },
@@ -10629,7 +10870,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "userType": {
-                    "description": "用户平台",
+                    "description": "用户平台: 1web、2app、3other",
                     "type": "integer"
                 }
             }
@@ -10885,12 +11126,45 @@ var doc = `{
                     "$ref": "#/definitions/community.UserExtend"
                 },
                 "userType": {
-                    "description": "用户平台",
+                    "description": "用户平台: 1web、2app、3other",
                     "type": "integer"
                 },
                 "uuid": {
                     "description": "用户编号",
                     "type": "string"
+                }
+            }
+        },
+        "community.UserCircleApply": {
+            "type": "object",
+            "properties": {
+                "apply": {
+                    "description": "应用",
+                    "$ref": "#/definitions/apply.Apply"
+                },
+                "applyId": {
+                    "description": "应用_编号",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "userId": {
+                    "description": "用户编号",
+                    "type": "integer"
                 }
             }
         },
@@ -12300,6 +12574,28 @@ var doc = `{
                 }
             }
         },
+        "request.ApplyEnterCircleReq": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ApproveEnterCircleReq": {
+            "type": "object",
+            "properties": {
+                "checkStatus": {
+                    "description": "审核状态：1通过、2驳回",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "申请编号",
+                    "type": "integer"
+                }
+            }
+        },
         "request.BindEmailReq": {
             "type": "object",
             "properties": {
@@ -12420,6 +12716,10 @@ var doc = `{
                     "description": "评论内容",
                     "type": "string"
                 },
+                "commentId": {
+                    "description": "评论编号",
+                    "type": "integer"
+                },
                 "postsId": {
                     "description": "帖子编号",
                     "type": "integer"
@@ -12533,6 +12833,15 @@ var doc = `{
         },
         "request.Empty": {
             "type": "object"
+        },
+        "request.EnterCircleReq": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                }
+            }
         },
         "request.ForumThumbsUpReq": {
             "type": "object",
@@ -12961,15 +13270,6 @@ var doc = `{
                 },
                 "userId": {
                     "description": "用户ID",
-                    "type": "integer"
-                }
-            }
-        },
-        "request.UserCircleApplySearch": {
-            "type": "object",
-            "properties": {
-                "circleId": {
-                    "description": "圈子_编号",
                     "type": "integer"
                 }
             }

@@ -207,7 +207,7 @@ func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
 		return
 	}
 
-	if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
+	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
 		response.FailWithMessage("圈子不存在", c)
 		return
 	}
@@ -249,7 +249,7 @@ func (circleApi *CircleApi) EnterCircle(c *gin.Context) {
 		return
 	}
 
-	//if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
+	//if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
 	//	response.FailWithMessage("圈子不存在", c)
 	//	return
 	//}
@@ -291,7 +291,7 @@ func (circleApi *CircleApi) ApplyEnterCircle(c *gin.Context) {
 		return
 	}
 
-	//if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
+	//if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
 	//	response.FailWithMessage("圈子不存在", c)
 	//	return
 	//}
@@ -323,8 +323,8 @@ func (circleApi *CircleApi) ApplyEnterCircle(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.CircleAddRequestSearch true "分页获取加入圈子申请"
-// @Success 200 {object}  response.PageResult{List=[]community.CircleUserInfo,msg=string} "返回community.CircleUserInfo"
-// @Router app/circle/enterCircleApplyList [get]
+// @Success 200 {object}  response.PageResult{List=[]community.CircleAddRequest,msg=string} "返回community.CircleUserInfo"
+// @Router /app/circle/enterCircleApplyList [get]
 func (circleApi *CircleApi) EnterCircleApplyList(c *gin.Context) {
 	var pageInfo communityReq.CircleAddRequestSearch
 	err := c.ShouldBindQuery(&pageInfo)
@@ -361,7 +361,7 @@ func (circleApi *CircleApi) ApproveEnterCircleRequest(c *gin.Context) {
 		return
 	}
 
-	//if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
+	//if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
 	//	response.FailWithMessage("圈子不存在", c)
 	//	return
 	//}

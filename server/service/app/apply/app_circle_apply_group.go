@@ -57,7 +57,7 @@ func (appCircleApplyGroupService *AppCircleApplyGroupService) GetCircleApplyGrou
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
-	if info.CircleId != nil {
+	if info.CircleId != 0 {
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 	if len(info.Name) > 0 {
@@ -85,7 +85,7 @@ func (appCircleApplyGroupService *AppCircleApplyGroupService) GetCircleApplyGrou
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
-	if info.CircleId != nil {
+	if info.CircleId != 0 {
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 	if len(info.Name) > 0 {

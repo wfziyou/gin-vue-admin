@@ -51,7 +51,7 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoList(info 
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&apply.CircleApply{})
+	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
 	var hkCircleApplys []apply.CircleApply
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
@@ -62,9 +62,6 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoList(info 
 	}
 	if info.ApplyGroupId != 0 {
 		db.Where("apply_group_id = ?", info.ApplyGroupId)
-	}
-	if len(info.ShowName) > 0 {
-		db = db.Where("name show_name '?%'", info.ShowName)
 	}
 	err = db.Count(&total).Error
 	if err != nil {
@@ -79,7 +76,7 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoList(info 
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoListAll(info applyReq.CircleApplySearchAll) (list []apply.CircleApply, total int64, err error) {
 	// 创建db
-	db := global.GVA_DB.Model(&apply.CircleApply{})
+	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
 	var hkCircleApplys []apply.CircleApply
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
@@ -90,9 +87,6 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoListAll(in
 	}
 	if info.ApplyGroupId != 0 {
 		db.Where("apply_group_id = ?", info.ApplyGroupId)
-	}
-	if len(info.ShowName) > 0 {
-		db = db.Where("name show_name '?%'", info.ShowName)
 	}
 	err = db.Count(&total).Error
 	if err != nil {

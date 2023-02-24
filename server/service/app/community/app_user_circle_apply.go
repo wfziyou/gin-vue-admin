@@ -49,7 +49,7 @@ func (appUserCircleApplyService *AppUserCircleApplyService) GetUserCircleApply(i
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserCircleApplyService *AppUserCircleApplyService) GetUserCircleApplyInfoListALL(info communityReq.UserCircleApplySearch) (list []community.UserCircleApply, total int64, err error) {
 	// 创建db
-	db := global.GVA_DB.Model(&community.UserCircleApply{})
+	db := global.GVA_DB.Model(&community.UserCircleApply{}).Preload("Apply")
 	var hkUserCircleApplys []community.UserCircleApply
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.CircleId != 0 {
@@ -72,8 +72,8 @@ func (appUserCircleApplyService *AppUserCircleApplyService) GetUserCircleApplyIn
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserCircleApplyService *AppUserCircleApplyService) SetUserCircleApply(info communityReq.UserCircleApplyUpdate) (err error) {
 	// 创建db
-	db := global.GVA_DB.Model(&community.UserCircleApply{})
-	err = db.Delete(&community.UserCircleApply{}, "user_id = ? and circle_id", info.UserId, info.CircleId).Error
+	db := global.GVA_DB
+	err = db.Delete(&community.UserCircleApply{}, "user_id = ? and circle_id = ?", info.UserId, info.CircleId).Error
 	if len(info.Apply) > 0 {
 		for index, _ := range info.Apply {
 			info.Apply[index].CircleId = info.CircleId

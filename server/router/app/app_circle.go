@@ -16,9 +16,12 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 	var circleApi = v1.ApiGroupApp.AppApiGroup.CircleApi
 	{
 
-		circleRouter.POST("createCircleRequest", circleApi.CreateCircleRequest)       //创建CircleRequest
-		circleRouter.PUT("updateCircle", circleApi.UpdateCircle)                      //(圈子管理者)更新Circle
-		circleRouter.POST("setUserCurCircle", circleApi.SetUserCurCircle)             //设置用户当前圈子
+		circleRouter.POST("createCircleRequest", circleApi.CreateCircleRequest) //创建CircleRequest
+		circleRouter.PUT("updateCircle", circleApi.UpdateCircle)                //(圈子管理者)更新Circle
+		circleRouter.POST("setUserCurCircle", circleApi.SetUserCurCircle)       //设置用户当前圈子
+		circleRouter.POST("enterCircle", circleApi.EnterCircle)                 //加入圈子
+		circleRouter.POST("applyEnterCircle", circleApi.ApplyEnterCircle)       //申请加入圈子
+
 		circleRouter.DELETE("deleteCircleUser", circleApi.DeleteCircleUser)           //删除CircleUser
 		circleRouter.DELETE("deleteCircleUserByIds", circleApi.DeleteCircleUserByIds) //批量删除CircleUser
 		circleRouter.PUT("updateCircleUser", circleApi.UpdateCircleUser)              //更新CircleUser
@@ -31,8 +34,11 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 		circleRouterWithoutRecord.GET("getCircleList", circleApi.GetCircleList)                             // 分页获取Circle列表
 		circleRouterWithoutRecord.GET("findCircleUser", circleApi.FindCircleUser)                           // 用id查询CircleUser
 
-		circleRouterWithoutRecord.GET("getCircleClassifyList", circleApi.GetCircleClassifyList)       // 分页获取CircleClassify列表
-		circleRouterWithoutRecord.GET("getCircleClassifyListAll", circleApi.GetCircleClassifyListAll) // 获取CircleClassify列表
+		circleRouterWithoutRecord.GET("getCircleClassifyList", circleApi.GetCircleClassifyList)         // 分页获取CircleClassify列表
+		circleRouterWithoutRecord.GET("getCircleClassifyListAll", circleApi.GetCircleClassifyListAll)   // 获取CircleClassify列表
+		circleRouterWithoutRecord.GET("enterCircleApplyList", circleApi.EnterCircleApplyList)           // 分页获取加入圈子申请
+		circleRouterWithoutRecord.GET("approveEnterCircleRequest", circleApi.ApproveEnterCircleRequest) // 审批加入圈子申请
+
 	}
 	return circleRouter
 }

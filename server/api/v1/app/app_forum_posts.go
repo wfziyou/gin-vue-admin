@@ -40,7 +40,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 		}
 	}
 	if req.CircleId != 0 {
-		if _, err := appCircleUserService.GetCircleUser(req.CircleId); err != nil {
+		if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
 			response.FailWithMessage("圈子不存在", c)
 			return
 		}
