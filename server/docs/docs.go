@@ -1170,6 +1170,12 @@ var doc = `{
                 "summary": "分页获取Circle列表",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "description": "圈子分类_编号",
+                        "name": "circleClassifyId",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
@@ -5089,7 +5095,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "性别 1男 2女 3未知",
+                        "description": "性别： 0未知、1男、2女",
                         "name": "sex",
                         "in": "query"
                     },
@@ -10245,7 +10251,7 @@ var doc = `{
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别 1男 2女 3未知",
+                    "description": "性别： 0未知、1男、2女",
                     "type": "integer"
                 }
             }
@@ -10916,7 +10922,7 @@ var doc = `{
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别 1男 2女 3未知",
+                    "description": "性别： 0未知、1男、2女",
                     "type": "integer"
                 },
                 "userType": {
@@ -11168,7 +11174,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "sex": {
-                    "description": "性别 1男 2女 3未知",
+                    "description": "性别： 0未知、1男、2女",
                     "type": "integer"
                 },
                 "userExtend": {
@@ -13187,7 +13193,7 @@ var doc = `{
                     "type": "string"
                 },
                 "sex": {
-                    "description": "性别 1男 2女 3未知",
+                    "description": "性别： 0未知、1男、2女",
                     "type": "integer"
                 }
             }

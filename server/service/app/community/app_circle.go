@@ -123,6 +123,9 @@ func (appCircleService *AppCircleService) GetCircleInfoList(info communityReq.Ci
 	if info.Type != nil {
 		db = db.Where("type = ?", info.Type)
 	}
+	if info.CircleClassifyId != 0 {
+		db = db.Where("circle_classify_id = ?", info.CircleClassifyId)
+	}
 	if len(info.Name) > 0 {
 		db = db.Where("name LIKE '%?%'", info.Name)
 	}

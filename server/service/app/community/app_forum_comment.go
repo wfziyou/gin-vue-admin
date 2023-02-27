@@ -19,13 +19,29 @@ func (appForumCommentService *AppForumCommentService) CreateForumComment(info co
 		PostsId:        info.PostsId,
 		CommentContent: info.CommentContent,
 	}).Error
+	if err == nil {
+		err = appForumCommentService.UpdateForumPostsCommentNum(info.PostsId)
+	}
+	return err
+}
+func (appForumCommentService *AppForumCommentService) UpdateForumPostsCommentNum(postsIdd uint64) (err error) {
+	var total int64 = 0
+	db := global.GVA_DB.Model(&community.ForumComment{}).Where("posts_id = ?", postsIdd)
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	err = global.GVA_DB.Model(community.ForumPosts{}).Where("id = ?", postsIdd).Update("comment_num", total).Error
 	return err
 }
 
 // DeleteForumComment 删除ForumComment记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumCommentService *AppForumCommentService) DeleteForumComment(hkForumComment community.ForumComment) (err error) {
-	err = global.GVA_DB.Delete(&hkForumComment).Error
+func (appForumCommentService *AppForumCommentService) DeleteForumComment(info community.ForumComment) (err error) {
+	err = global.GVA_DB.Delete(&info).Error
+	if err == nil {
+		err = appForumCommentService.UpdateForumPostsCommentNum(info.PostsId)
+	}
 	return err
 }
 

@@ -58,13 +58,13 @@ type SetSelfBaseInfoReq struct {
 	NickName  string     `json:"nickName" gorm:"default:系统用户;comment:用户昵称"` // 用户昵称
 	HeaderImg string     `json:"headerImg" gorm:"comment:用户头像"`             // 用户头像
 	Birthday  *time.Time `json:"birthday" gorm:"comment:生日"`                //生日
-	Sex       *int       `json:"sex" gorm:"comment:性别 1男 2女 3未知"`           //性别 1男 2女 3未知
+	Sex       *int       `json:"sex" gorm:"comment:性别： 0未知、1男、2女"`          //性别： 0未知、1男、2女
 }
 
 type UserSearch struct {
-	Account  string `json:"account" gorm:"comment:账号"`       //账号
-	NickName string `json:"nickName" gorm:"comment:用户昵称"`    // 用户昵称
-	Sex      *int   `json:"sex" gorm:"comment:性别 1男 2女 3未知"` //性别 1男 2女 3未知
+	Account  string `json:"account" gorm:"comment:账号"`        //账号
+	NickName string `json:"nickName" gorm:"comment:用户昵称"`     // 用户昵称
+	Sex      *int   `json:"sex" gorm:"comment:性别： 0未知、1男、2女"` //性别： 0未知、1男、2女
 
 	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"`
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`

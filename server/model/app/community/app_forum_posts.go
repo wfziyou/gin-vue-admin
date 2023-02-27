@@ -18,8 +18,8 @@ type ForumPosts struct {
 	CoverImage            string               `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:封面;size:500;"`                                            //封面
 	Source                string               `json:"source" form:"source" gorm:"column:source;comment:来源;size:40;"`                                                          //来源
 	ContentType           int                  `json:"contentType" form:"contentType" gorm:"column:content_type;comment:内容类型：1markdown、2html;size:10;"`                        //内容类型：1markdown、2html
-	ContentMarkdown       string               `json:"contentMarkdown" form:"contentMarkdown" gorm:"column:content_markdown;comment:markdown内容;"`                              //markdown内容
-	ContentHtml           string               `json:"contentHtml" form:"contentHtml" gorm:"column:content_html;comment:html内容;"`                                              //html内容
+	ContentMarkdown       string               `json:"contentMarkdown" form:"contentMarkdown" gorm:"type:longText;column:content_markdown;comment:markdown内容;"`                //markdown内容
+	ContentHtml           string               `json:"contentHtml" form:"contentHtml" gorm:"type:longText;column:content_html;comment:html内容;"`                                //html内容
 	Video                 string               `json:"video" form:"video" gorm:"column:video;comment:视频地址;size:500;"`                                                          //视频地址
 	Attachment            string               `json:"attachment" form:"attachment" gorm:"column:attachment;comment:附件;size:2000;"`                                            //附件
 	Tag                   string               `json:"tag" form:"tag" gorm:"column:tag;comment:标签;size:400;"`                                                                  //标签
@@ -47,8 +47,8 @@ type ForumPosts struct {
 	TopicInfo             []ForumTopicBaseInfo `json:"topicInfo" gorm:"many2many:hk_forum_topic_posts_mapping;foreignKey:ID;joinForeignKey:PostsId;References:ID;joinReferences:TopicId"`
 	CircleInfo            CircleBaseInfo       `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"` //圈子基本信息
 	UserInfo              ForumPostsUser       `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`     //用户基本信息
-	ThumbsUp              int                  `json:"thumbsUp"`                                                           //是否点赞：0否、1是
-	Collect               int                  `json:"collect"`                                                            //是否收藏：0否、1是
+	ThumbsUp              int                  `json:"thumbsUp" gorm:"column:thumbs_up;comment:是否点赞：0否、1是;size:10;"`       //是否点赞：0否、1是
+	Collect               int                  `json:"collect" gorm:"column:collect;comment:是否收藏：0否、1是;size:10;"`          //是否收藏：0否、1是
 }
 
 // TableName ForumPosts 表名
