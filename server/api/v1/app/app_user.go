@@ -84,10 +84,7 @@ func (userApi *UserApi) GetCaptcha(c *gin.Context) {
 			response.FailWithMessage("设置验证码到缓存失败", c)
 			return
 		}
-		//var req imReq.RegisterReq
-		//if _, err := imService.ServiceGroup.Register(req); err != nil {
-		//
-		//}
+
 		if err := smsService.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
 			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
 			response.FailWithMessage("发送验证码失败", c)
@@ -241,6 +238,30 @@ func (userApi *UserApi) TokenNext(c *gin.Context, user community.User) {
 		response.FailWithMessage("获取token失败", c)
 		return
 	}
+	//var req imReq.RegisterReq
+	//req.Accid = user.Account
+	//req.Token = token
+	//req.Name = user.NickName
+	//req.Icon = user.HeaderImg
+	//if rsp, err := imService.ServiceGroupApp.Register(req); err != nil {
+	//	response.FailWithMessage("调研IM失败", c)
+	//	return
+	//} else if rsp.Code != 414 && rsp.Code != 200 {
+	//	response.FailWithMessage("登录IM失败", c)
+	//	return
+	//}
+
+	//var req imReq.UpdateActionReq
+	//req.Accid = user.Account
+	//req.Token = token
+	//if rsp, err := imService.ServiceGroupApp.UpdateAction(req); err != nil {
+	//	response.FailWithMessage("调研IM失败", c)
+	//	return
+	//} else if rsp.Code != 200 {
+	//	response.FailWithMessage("更新IM会话失败", c)
+	//	return
+	//}
+
 	if !global.GVA_CONFIG.System.UseMultipoint {
 		response.OkWithDetailed(communityRes.LoginResponse{
 			User:      user,

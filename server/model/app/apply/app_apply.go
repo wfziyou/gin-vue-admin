@@ -16,6 +16,7 @@ type Apply struct {
 	Sort            int    `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                        //排序
 	Type            int    `json:"type" form:"type" gorm:"column:type;comment:类型(0小程序、1第三方链接);size:10;"`                           //类型(0小程序、1第三方链接)
 	MiniProgramId   uint64 `json:"miniProgramId" form:"miniProgramId" gorm:"type:bigint(20);column:mini_program_id;comment:小程序id"` //小程序id
+	ProgramId       string `json:"programId" form:"programId" gorm:"column:program_id;comment:小程序id;size:80"`                      //小程序id
 	ApplyAddress    string `json:"applyAddress" form:"applyAddress" gorm:"column:apply_address;comment:访问地址;size:256;"`            //访问地址
 	ApplyParameters string `json:"applyParameters" form:"applyParameters" gorm:"column:apply_parameters;comment:访问参数;size:256;"`   //访问参数
 }

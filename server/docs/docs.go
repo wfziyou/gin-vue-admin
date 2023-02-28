@@ -12458,6 +12458,10 @@ var doc = `{
                     "description": "当前包下载地址",
                     "type": "string"
                 },
+                "programId": {
+                    "description": "小程序id",
+                    "type": "string"
+                },
                 "version": {
                     "description": "当前版本",
                     "type": "string"

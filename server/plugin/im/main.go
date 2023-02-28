@@ -9,9 +9,10 @@ import (
 type YunXinImPlugin struct {
 }
 
-func CreateYunXinImPlug(Url, AppKey string) *YunXinImPlugin {
+func CreateYunXinImPlug(Url, AppKey, AppSecret string) *YunXinImPlugin {
 	global.GlobalConfig.Url = Url
 	global.GlobalConfig.AppKey = AppKey
+	global.GlobalConfig.AppSecret = AppSecret
 	return &YunXinImPlugin{}
 }
 

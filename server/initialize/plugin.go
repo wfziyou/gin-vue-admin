@@ -43,5 +43,6 @@ func InstallPlugin(Router *gin.Engine) {
 	PluginInit(PrivateGroup, imYunXin.CreateYunXinImPlug(
 		global.GVA_CONFIG.YunXinIm.Url,
 		global.GVA_CONFIG.YunXinIm.AppKey,
+		global.GVA_CONFIG.YunXinIm.AppSecret,
 	))
 }

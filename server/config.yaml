@@ -214,4 +214,5 @@ zap:
   log-in-console: true
 yunxin-im:
   appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
+  appSecret: 54699e9dd7a0
   url: https://api.netease.im/nimserver
