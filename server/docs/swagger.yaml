@@ -29,6 +29,9 @@ definitions:
       owerType:
         description: 拥有者：0平台、1圈子、2个人
         type: integer
+      programId:
+        description: 小程序id
+        type: string
       sort:
         description: 排序
         type: integer
@@ -125,6 +128,9 @@ definitions:
       des:
         description: 圈子简介;size:1000
         type: string
+      haveCircle:
+        description: 是在圈子里：0否、1是
+        type: integer
       id:
         description: 主键ID
         type: integer
@@ -215,6 +221,9 @@ definitions:
       reason:
         description: 申请理由
         type: string
+      userId:
+        description: 用户_编号
+        type: integer
     type: object
   community.CircleBaseInfo:
     properties:
@@ -224,6 +233,9 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
+      haveCircle:
+        description: 是在圈子里：0否、1是
+        type: integer
       id:
         description: 主键ID
         type: integer
@@ -1480,6 +1492,9 @@ definitions:
       appKey:
         description: 云信IM AppKey
         type: string
+      appSecret:
+        description: 云信IM AppSecret
+        type: string
       url:
         description: 云信IM 地址
         type: string
@@ -1849,6 +1864,9 @@ definitions:
       circleId:
         description: 圈子_编号
         type: integer
+      reason:
+        description: 申请理由
+        type: string
     type: object
   request.ApproveEnterCircleReq:
     properties:
@@ -3456,6 +3474,10 @@ paths:
         in: query
         name: startCreatedAt
         type: string
+      - description: 用户_编号
+        in: query
+        name: userId
+        type: integer
       produces:
       - application/json
       responses:

@@ -30,6 +30,10 @@ func (circleApi *CircleApi) GetCircleForumPostsList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	if pageInfo.CircleId == 0 {
+		response.FailWithMessage("请给circleId赋值", c)
+		return
+	}
 	if list, total, err := appForumPostsService.GetCircleForumPostsList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
@@ -127,11 +131,14 @@ func (circleApi *CircleApi) FindCircle(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//var aa community.Circle
+	var userId = utils.GetUserID(c)
 	if rehkCircle, err := appCircleService.GetCircle(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
+		if _, num, err := appCircleUserService.GetUserHaveCircles(userId, []uint64{idSearch.ID}); err == nil && num > 0 {
+			rehkCircle.HaveCircle = 1
+		}
 		response.OkWithData(rehkCircle, c)
 	}
 }
@@ -156,6 +163,8 @@ func (circleApi *CircleApi) GetCircleList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
+		var userId = utils.GetUserID(c)
+		appCircleUserService.GetUserHaveCircle(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
@@ -249,29 +258,54 @@ func (circleApi *CircleApi) EnterCircle(c *gin.Context) {
 		return
 	}
 
-	//if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
-	//	response.FailWithMessage("圈子不存在", c)
-	//	return
-	//}
-	//
-	//var userId = utils.GetUserID(c)
-	//if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
-	//	CircleId: req.CircleId,
-	//	UserId:   userId,
-	//	PageInfo: request.PageInfo{Page: 1, PageSize: 2},
-	//}); err != nil {
-	//	response.FailWithMessage(err.Error(), c)
-	//	return
-	//} else if len(data) == 0 {
-	//	response.FailWithMessage("用户不在圈子中", c)
-	//	return
-	//}
-	//
-	//if err = appCircleUserService.SetUserCurCircle(userId, req.CircleId); err != nil {
-	//	response.FailWithMessage(err.Error(), c)
-	//	return
-	//}
-	//response.OkWithMessage("设置成功", c)
+	circleInfo, err := appCircleService.GetCircle(req.CircleId)
+	if err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	var userId = utils.GetUserID(c)
+	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+		CircleId: req.CircleId,
+		UserId:   userId,
+		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+	}); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if len(data) > 0 {
+		response.FailWithMessage("用户已在圈子中", c)
+		return
+	}
+	//圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
+	if circleInfo.Property == 0 {
+		appCircleUserService.UpdateCircleUser(community.CircleUser{
+			UserId:   userId,
+			CircleId: req.CircleId,
+			Sort:     1,
+		})
+		response.OkWithMessage("加入圈子成功", c)
+		return
+	} else {
+		if data, _, err := appCircleAddRequestService.GetCircleAddRequestInfoList(communityReq.CircleAddRequestSearch{
+			CircleId: req.CircleId,
+			UserId:   userId,
+			PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+		}); err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		} else if len(data) > 0 {
+			appCircleAddRequestService.UpdateCircleAddRequest(data[0])
+			response.OkWithMessage("申请成功", c)
+			return
+		} else {
+			appCircleAddRequestService.UpdateCircleAddRequest(community.CircleAddRequest{
+				CircleId: req.CircleId,
+				UserId:   userId,
+			})
+			response.OkWithMessage("申请成功", c)
+			return
+		}
+	}
 }
 
 // ApplyEnterCircle 申请加入圈子
@@ -291,29 +325,56 @@ func (circleApi *CircleApi) ApplyEnterCircle(c *gin.Context) {
 		return
 	}
 
-	//if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
-	//	response.FailWithMessage("圈子不存在", c)
-	//	return
-	//}
-	//
-	//var userId = utils.GetUserID(c)
-	//if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
-	//	CircleId: req.CircleId,
-	//	UserId:   userId,
-	//	PageInfo: request.PageInfo{Page: 1, PageSize: 2},
-	//}); err != nil {
-	//	response.FailWithMessage(err.Error(), c)
-	//	return
-	//} else if len(data) == 0 {
-	//	response.FailWithMessage("用户不在圈子中", c)
-	//	return
-	//}
-	//
-	//if err = appCircleUserService.SetUserCurCircle(userId, req.CircleId); err != nil {
-	//	response.FailWithMessage(err.Error(), c)
-	//	return
-	//}
-	//response.OkWithMessage("设置成功", c)
+	circleInfo, err := appCircleService.GetCircle(req.CircleId)
+	if err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	var userId = utils.GetUserID(c)
+	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+		CircleId: req.CircleId,
+		UserId:   userId,
+		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+	}); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if len(data) > 0 {
+		response.FailWithMessage("用户已在圈子中", c)
+		return
+	}
+	//圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
+	if circleInfo.Property == 0 {
+		appCircleUserService.UpdateCircleUser(community.CircleUser{
+			UserId:   userId,
+			CircleId: req.CircleId,
+			Sort:     1,
+		})
+		response.OkWithMessage("加入圈子成功", c)
+		return
+	} else {
+		if data, _, err := appCircleAddRequestService.GetCircleAddRequestInfoList(communityReq.CircleAddRequestSearch{
+			CircleId: req.CircleId,
+			UserId:   userId,
+			PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+		}); err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		} else if len(data) > 0 {
+			data[0].Reason = req.Reason
+			appCircleAddRequestService.UpdateCircleAddRequest(data[0])
+			response.OkWithMessage("申请成功", c)
+			return
+		} else {
+			appCircleAddRequestService.UpdateCircleAddRequest(community.CircleAddRequest{
+				CircleId: req.CircleId,
+				UserId:   userId,
+				Reason:   req.Reason,
+			})
+			response.OkWithMessage("申请成功", c)
+			return
+		}
+	}
 }
 
 // EnterCircleApplyList 分页获取加入圈子申请

@@ -54,6 +54,7 @@ type EnterCircleReq struct {
 type ApplyEnterCircleReq struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 	UserId   uint64 `json:"-"`                         //用户ID
+	Reason   string `json:"reason" form:"reason"`      //申请理由
 }
 type ApproveEnterCircleReq struct {
 	ID          uint64 `json:"id" `         //申请编号

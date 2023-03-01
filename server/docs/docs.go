@@ -680,6 +680,12 @@ var doc = `{
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
                         "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户_编号",
+                        "name": "userId",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -10143,6 +10149,10 @@ var doc = `{
                     "description": "拥有者：0平台、1圈子、2个人",
                     "type": "integer"
                 },
+                "programId": {
+                    "description": "小程序id",
+                    "type": "string"
+                },
                 "sort": {
                     "description": "排序",
                     "type": "integer"
@@ -10275,6 +10285,10 @@ var doc = `{
                     "description": "圈子简介;size:1000",
                     "type": "string"
                 },
+                "haveCircle": {
+                    "description": "是在圈子里：0否、1是",
+                    "type": "integer"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -10395,6 +10409,10 @@ var doc = `{
                 "reason": {
                     "description": "申请理由",
                     "type": "string"
+                },
+                "userId": {
+                    "description": "用户_编号",
+                    "type": "integer"
                 }
             }
         },
@@ -10408,6 +10426,10 @@ var doc = `{
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
+                },
+                "haveCircle": {
+                    "description": "是在圈子里：0否、1是",
+                    "type": "integer"
                 },
                 "id": {
                     "description": "主键ID",
@@ -12153,6 +12175,10 @@ var doc = `{
                     "description": "云信IM AppKey",
                     "type": "string"
                 },
+                "appSecret": {
+                    "description": "云信IM AppSecret",
+                    "type": "string"
+                },
                 "url": {
                     "description": "云信IM 地址",
                     "type": "string"
@@ -12673,6 +12699,10 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
+                },
+                "reason": {
+                    "description": "申请理由",
+                    "type": "string"
                 }
             }
         },

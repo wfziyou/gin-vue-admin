@@ -34,6 +34,33 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleUserByIds(ids requ
 	err = global.GVA_DB.Delete(&[]community.CircleUser{}, "id in ?", ids.Ids).Error
 	return err
 }
+func (appCircleUserService *AppCircleUserService) GetUserHaveCircles(userId uint64, circleIds []uint64) (hkCircleUser []community.CircleUser, num int, err error) {
+	err = global.GVA_DB.Where("user_id = ? and circle_id in  ?", userId, circleIds).Find(&hkCircleUser).Error
+	if err == nil {
+		num = len(hkCircleUser)
+	}
+	return
+}
+func (appCircleUserService *AppCircleUserService) GetUserHaveCircle(userId uint64, list []community.CircleBaseInfo) (err error) {
+	var size = len(list)
+	if size > 0 {
+		var ids = make([]uint64, size)
+		for index, v := range list {
+			ids[index] = v.ID
+		}
+		if data, num, err := appCircleUserService.GetUserHaveCircles(userId, ids); err == nil && num > 0 {
+			for _, v := range data {
+				for i, obj := range list {
+					if obj.ID == v.CircleId {
+						list[i].HaveCircle = 1
+						break
+					}
+				}
+			}
+		}
+	}
+	return
+}
 
 // UpdateCircleUser 更新CircleUser记录
 // Author [piexlmax](https://github.com/piexlmax)

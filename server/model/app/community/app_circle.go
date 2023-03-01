@@ -32,6 +32,7 @@ type Circle struct {
 	NoLimitUserGroup string `json:"noLimitUserGroup" form:"noLimitUserGroup" gorm:"column:no_limit_user_group;comment:不受限用户组(json数组);size:500;"`                        //不受限用户组(json数组);size:500
 	NewUserFocus     int    `json:"newUserFocus" form:"newUserFocus" gorm:"column:new_user_focus;comment:新注册用户默认关注：0 否，1是;size:10;"`                                    //新注册用户默认关注：0 否，1是
 	Sort             int    `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                                                            //排序
+	HaveCircle       int    `json:"haveCircle"`                                                                                                                         //是在圈子里：0否、1是
 }
 
 // TableName Circle 表名
@@ -50,6 +51,7 @@ type CircleBaseInfo struct {
 	Process          int    `json:"process" form:"process" gorm:"column:process;comment:是否开启版块内容人工审核：0 否，1是;size:10;"`                         //是否开启版块内容人工审核：0 否，1是
 	Property         int    `json:"property" form:"property" gorm:"column:property;comment:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）;size:10;"`      //:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
 	Sort             int    `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                                   //排序
+	HaveCircle       int    `json:"haveCircle"`                                                                                                //是在圈子里：0否、1是
 }
 
 // TableName Circle 表名
