@@ -11,12 +11,15 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
+	imReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/im/model/request"
+	imService "github.com/flipped-aurora/gin-vue-admin/server/plugin/im/service"
 	smsService "github.com/flipped-aurora/gin-vue-admin/server/plugin/sms/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 	"go.uber.org/zap"
 	"math/rand"
+	"strconv"
 	"time"
 )
 
@@ -122,8 +125,28 @@ func (userApi *UserApi) Register(c *gin.Context) {
 		global.GVA_LOG.Error("注册失败!", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
 		return
+	} else {
+		OnRegisterSuccess(userReturn)
 	}
 	response.OkWithDetailed(communityRes.SysUserResponse{User: userReturn}, "注册成功", c)
+}
+
+func OnRegisterSuccess(user community.User) {
+	ImRegiser(user)
+}
+func ImRegiser(user community.User) {
+	var req imReq.RegisterReq
+	req.Accid = user.Account
+	req.Token = user.Uuid.String()
+	req.Name = user.NickName
+	req.Icon = user.HeaderImg
+	if rsp, err := imService.ServiceGroupApp.UserCreateAction(req); err != nil {
+		global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
+		return
+	} else if rsp.Code != 414 && rsp.Code != 200 {
+		global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
+		return
+	}
 }
 
 // LoginPwd 用户登录(账号密码)
@@ -238,18 +261,17 @@ func (userApi *UserApi) TokenNext(c *gin.Context, user community.User) {
 		response.FailWithMessage("获取token失败", c)
 		return
 	}
-	//var req imReq.RegisterReq
-	//req.Accid = user.Account
-	//req.Token = token
-	//req.Name = user.NickName
-	//req.Icon = user.HeaderImg
-	//if rsp, err := imService.ServiceGroupApp.Register(req); err != nil {
-	//	response.FailWithMessage("调研IM失败", c)
-	//	return
-	//} else if rsp.Code != 414 && rsp.Code != 200 {
-	//	response.FailWithMessage("登录IM失败", c)
-	//	return
-	//}
+
+	var req imReq.UserGetUinfosActionReq
+	req.Accids = []string{user.Account}
+
+	if rsp, err := imService.ServiceGroupApp.UserGetUinfosAction(req); err != nil {
+		global.GVA_LOG.Debug("调用IM失败：UserGetUinfosAction."+err.Error(), zap.Error(err))
+	} else if rsp.Code == 414 {
+		ImRegiser(user)
+	} else {
+		global.GVA_LOG.Debug("调用IM：UserGetUinfosAction code:" + strconv.Itoa(rsp.Code))
+	}
 
 	//var req imReq.UpdateActionReq
 	//req.Accid = user.Account

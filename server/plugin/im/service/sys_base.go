@@ -3,6 +3,7 @@ package service
 import (
 	"crypto/sha1"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/alibabacloud-go/tea/tea"
@@ -45,7 +46,7 @@ func CreateClient(url *string, appKey *string, appSecret *string) (_result *util
 	return _result, _err
 }
 
-func (e *YunXinImService) Register(req imReq.RegisterReq) (result *response.RegisterRsp, err error) {
+func (e *YunXinImService) UserCreateAction(req imReq.RegisterReq) (result *response.RegisterRsp, err error) {
 	client, err := CreateClient(tea.String(global.GlobalConfig.Url), tea.String(global.GlobalConfig.AppKey), tea.String(global.GlobalConfig.AppSecret))
 	if err != nil {
 		return
@@ -86,6 +87,26 @@ func (e *YunXinImService) Register(req imReq.RegisterReq) (result *response.Regi
 	err = client.Post("/user/create.action", postData, result)
 	return
 }
+
+func (e *YunXinImService) UserGetUinfosAction(req imReq.UserGetUinfosActionReq) (result *response.UserGetUinfosActionRsp, err error) {
+	client, err := CreateClient(tea.String(global.GlobalConfig.Url), tea.String(global.GlobalConfig.AppKey), tea.String(global.GlobalConfig.AppSecret))
+	if err != nil {
+		return
+	}
+	if len(req.Accids) == 0 {
+		return nil, errors.New("请输入im账号")
+	}
+
+	postData := url.Values{}
+	if data, err := json.Marshal(req.Accids); err == nil {
+		postData.Add("accids", string(data))
+	}
+
+	result = &response.UserGetUinfosActionRsp{}
+	err = client.Post("/user/getUinfos.action", postData, result)
+	return
+}
+
 func (e *YunXinImService) UpdateAction(req imReq.UpdateActionReq) (result *response.ImResponse, err error) {
 	client, err := CreateClient(tea.String(global.GlobalConfig.Url), tea.String(global.GlobalConfig.AppKey), tea.String(global.GlobalConfig.AppSecret))
 	if err != nil {
