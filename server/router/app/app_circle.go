@@ -20,6 +20,7 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 		circleRouter.PUT("updateCircle", circleApi.UpdateCircle)                //(圈子管理者)更新Circle
 		circleRouter.POST("setUserCurCircle", circleApi.SetUserCurCircle)       //设置用户当前圈子
 		circleRouter.POST("enterCircle", circleApi.EnterCircle)                 //加入圈子
+		circleRouter.POST("exitCircle", circleApi.ExitCircle)                   //退出圈子
 		circleRouter.POST("applyEnterCircle", circleApi.ApplyEnterCircle)       //申请加入圈子
 
 		circleRouter.DELETE("deleteCircleUser", circleApi.DeleteCircleUser)           //删除CircleUser

@@ -111,14 +111,20 @@ func (forumPostsApi *ForumPostsApi) DeleteSelfForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	var data community.ForumPosts
-	data.ID = req.ID
-	data.UserId = utils.GetUserID(c)
-	if err := appForumPostsService.DeleteSelfForumPosts(data); err != nil {
-		global.GVA_LOG.Error("删除失败!", zap.Error(err))
-		response.FailWithMessage("删除失败", c)
+
+	if data, err := appForumPostsService.GetForumPosts(req.ID); err != nil {
+		response.FailWithMessage("帖子不存在", c)
+		return
+	} else if data.UserId != utils.GetUserID(c) {
+		response.FailWithMessage("不是自己的帖子", c)
+		return
 	} else {
-		response.OkWithMessage("删除成功", c)
+		if err := appForumPostsService.DeleteSelfForumPosts(data); err != nil {
+			global.GVA_LOG.Error("删除失败!", zap.Error(err))
+			response.FailWithMessage("删除失败", c)
+		} else {
+			response.OkWithMessage("删除成功", c)
+		}
 	}
 }
 

@@ -51,6 +51,10 @@ type EnterCircleReq struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 	UserId   uint64 `json:"-"`                         //用户ID
 }
+type ExitCircleReq struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+	UserId   uint64 `json:"-"`                         //用户ID
+}
 type ApplyEnterCircleReq struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 	UserId   uint64 `json:"-"`                         //用户ID

@@ -95,6 +95,9 @@ definitions:
       birthday:
         description: 生日
         type: string
+      description:
+        description: 描述
+        type: string
       email:
         description: 用户邮箱
         type: string
@@ -118,6 +121,9 @@ definitions:
     properties:
       backImage:
         description: 圈子背景图;size:500
+        type: string
+      channelId:
+        description: 频道_编号
         type: string
       circleClassifyId:
         description: 圈子分类_编号
@@ -328,6 +334,9 @@ definitions:
         type: string
       id:
         description: 主键ID
+        type: integer
+      power:
+        description: 权限：0普通 1圈主
         type: integer
       sort:
         description: 用户的圈子排序
@@ -601,6 +610,9 @@ definitions:
       account:
         description: 账号
         type: string
+      description:
+        description: 描述
+        type: string
       headerImg:
         description: 头像
         type: string
@@ -678,6 +690,258 @@ definitions:
         type: string
       sort:
         description: 排序
+        type: integer
+    type: object
+  community.HkActivity:
+    properties:
+      address:
+        type: string
+      addressPos:
+        type: string
+      addressZone:
+        type: string
+      chatGroupId:
+        type: integer
+      checkStatus:
+        type: integer
+      circleId:
+        type: integer
+      classifyId:
+        type: integer
+      collect:
+        type: integer
+      collectNum:
+        type: integer
+      contentHtml:
+        type: string
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      curUserNum:
+        type: integer
+      des:
+        type: string
+      dynamicNum:
+        type: integer
+      endAt:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      isPublic:
+        type: integer
+      pay:
+        type: integer
+      payCurrency:
+        type: integer
+      payNum:
+        type: integer
+      startAt:
+        type: string
+      status:
+        type: integer
+      tenantId:
+        type: string
+      title:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+      userNum:
+        type: integer
+    type: object
+  community.HkActivityClassify:
+    properties:
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      icon:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      name:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  community.HkActivityCollect:
+    properties:
+      activityId:
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+    type: object
+  community.HkActivityUser:
+    properties:
+      activityId:
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      orderId:
+        type: integer
+      pay:
+        type: integer
+      power:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+    type: object
+  community.HkChannel:
+    properties:
+      code:
+        type: string
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      fixedType:
+        type: boolean
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      name:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      type:
+        type: boolean
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  community.HkFocusUser:
+    properties:
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      focusUserId:
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+    type: object
+  community.HkUserSign:
+    properties:
+      balance:
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      number:
+        type: integer
+      status:
+        type: integer
+      title:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
         type: integer
     type: object
   community.Report:
@@ -773,6 +1037,9 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
+      description:
+        description: 描述
+        type: string
       email:
         description: 邮箱
         type: string
@@ -847,6 +1114,9 @@ definitions:
     properties:
       blog:
         description: 博客
+        type: string
+      channelId:
+        description: 频道_编号
         type: string
       circleId:
         description: 当前圈子编号
@@ -2051,6 +2321,12 @@ definitions:
         description: 圈子_编号
         type: integer
     type: object
+  request.ExitCircleReq:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+    type: object
   request.ForumThumbsUpReq:
     properties:
       postsId:
@@ -2225,12 +2501,12 @@ definitions:
       birthday:
         description: 生日
         type: string
+      description:
+        description: 描述
+        type: string
       headerImg:
         description: 用户头像
         type: string
-      id:
-        description: 主键ID
-        type: integer
       nickName:
         description: 用户昵称
         type: string
@@ -3497,6 +3773,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取加入圈子申请
+      tags:
+      - App_Circle
+  /app/circle/exitCircle:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 退出圈子
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ExitCircleReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 退出圈子
       tags:
       - App_Circle
   /app/circle/findCircle:
@@ -7601,6 +7900,1686 @@ paths:
       summary: 上传文件示例
       tags:
       - ExaFileUploadAndDownload
+  /hkActivity/createHkActivity:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建HkActivity
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建HkActivity
+      tags:
+      - HkActivity
+  /hkActivity/deleteHkActivity:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除HkActivity
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除HkActivity
+      tags:
+      - HkActivity
+  /hkActivity/deleteHkActivityByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除HkActivity
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除HkActivity
+      tags:
+      - HkActivity
+  /hkActivity/findHkActivity:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: address
+        type: string
+      - in: query
+        name: addressPos
+        type: string
+      - in: query
+        name: addressZone
+        type: string
+      - in: query
+        name: chatGroupId
+        type: integer
+      - in: query
+        name: checkStatus
+        type: integer
+      - in: query
+        name: circleId
+        type: integer
+      - in: query
+        name: classifyId
+        type: integer
+      - in: query
+        name: collect
+        type: integer
+      - in: query
+        name: collectNum
+        type: integer
+      - in: query
+        name: contentHtml
+        type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: curUserNum
+        type: integer
+      - in: query
+        name: des
+        type: string
+      - in: query
+        name: dynamicNum
+        type: integer
+      - in: query
+        name: endAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: isPublic
+        type: integer
+      - in: query
+        name: pay
+        type: integer
+      - in: query
+        name: payCurrency
+        type: integer
+      - in: query
+        name: payNum
+        type: integer
+      - in: query
+        name: startAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      - in: query
+        name: userNum
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询HkActivity
+      tags:
+      - HkActivity
+  /hkActivity/getHkActivityList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: address
+        type: string
+      - in: query
+        name: addressPos
+        type: string
+      - in: query
+        name: addressZone
+        type: string
+      - in: query
+        name: chatGroupId
+        type: integer
+      - in: query
+        name: checkStatus
+        type: integer
+      - in: query
+        name: circleId
+        type: integer
+      - in: query
+        name: classifyId
+        type: integer
+      - in: query
+        name: collect
+        type: integer
+      - in: query
+        name: collectNum
+        type: integer
+      - in: query
+        name: contentHtml
+        type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: curUserNum
+        type: integer
+      - in: query
+        name: des
+        type: string
+      - in: query
+        name: dynamicNum
+        type: integer
+      - in: query
+        name: endAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: isPublic
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: pay
+        type: integer
+      - in: query
+        name: payCurrency
+        type: integer
+      - in: query
+        name: payNum
+        type: integer
+      - in: query
+        name: startAt
+        type: string
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      - in: query
+        name: userNum
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取HkActivity列表
+      tags:
+      - HkActivity
+  /hkActivity/updateHkActivity:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新HkActivity
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新HkActivity
+      tags:
+      - HkActivity
+  /hkActivityClassify/createHkActivityClassify:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建HkActivityClassify
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivityClassify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建HkActivityClassify
+      tags:
+      - HkActivityClassify
+  /hkActivityClassify/deleteHkActivityClassify:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除HkActivityClassify
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivityClassify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除HkActivityClassify
+      tags:
+      - HkActivityClassify
+  /hkActivityClassify/deleteHkActivityClassifyByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除HkActivityClassify
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除HkActivityClassify
+      tags:
+      - HkActivityClassify
+  /hkActivityClassify/findHkActivityClassify:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: icon
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: sort
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询HkActivityClassify
+      tags:
+      - HkActivityClassify
+  /hkActivityClassify/getHkActivityClassifyList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: icon
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: name
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: sort
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取HkActivityClassify列表
+      tags:
+      - HkActivityClassify
+  /hkActivityClassify/updateHkActivityClassify:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新HkActivityClassify
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivityClassify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新HkActivityClassify
+      tags:
+      - HkActivityClassify
+  /hkActivityCollect/createHkActivityCollect:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建HkActivityCollect
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivityCollect'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建HkActivityCollect
+      tags:
+      - HkActivityCollect
+  /hkActivityCollect/deleteHkActivityCollect:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除HkActivityCollect
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivityCollect'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除HkActivityCollect
+      tags:
+      - HkActivityCollect
+  /hkActivityCollect/deleteHkActivityCollectByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除HkActivityCollect
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除HkActivityCollect
+      tags:
+      - HkActivityCollect
+  /hkActivityCollect/findHkActivityCollect:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: activityId
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询HkActivityCollect
+      tags:
+      - HkActivityCollect
+  /hkActivityCollect/getHkActivityCollectList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: activityId
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取HkActivityCollect列表
+      tags:
+      - HkActivityCollect
+  /hkActivityCollect/updateHkActivityCollect:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新HkActivityCollect
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivityCollect'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新HkActivityCollect
+      tags:
+      - HkActivityCollect
+  /hkActivityUser/createHkActivityUser:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建HkActivityUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivityUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建HkActivityUser
+      tags:
+      - HkActivityUser
+  /hkActivityUser/deleteHkActivityUser:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除HkActivityUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivityUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除HkActivityUser
+      tags:
+      - HkActivityUser
+  /hkActivityUser/deleteHkActivityUserByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除HkActivityUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除HkActivityUser
+      tags:
+      - HkActivityUser
+  /hkActivityUser/findHkActivityUser:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: activityId
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: orderId
+        type: integer
+      - in: query
+        name: pay
+        type: integer
+      - in: query
+        name: power
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询HkActivityUser
+      tags:
+      - HkActivityUser
+  /hkActivityUser/getHkActivityUserList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: activityId
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: orderId
+        type: integer
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: pay
+        type: integer
+      - in: query
+        name: power
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取HkActivityUser列表
+      tags:
+      - HkActivityUser
+  /hkActivityUser/updateHkActivityUser:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新HkActivityUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkActivityUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新HkActivityUser
+      tags:
+      - HkActivityUser
+  /hkChannel/createHkChannel:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建HkChannel
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkChannel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建HkChannel
+      tags:
+      - HkChannel
+  /hkChannel/deleteHkChannel:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除HkChannel
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkChannel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除HkChannel
+      tags:
+      - HkChannel
+  /hkChannel/deleteHkChannelByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除HkChannel
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除HkChannel
+      tags:
+      - HkChannel
+  /hkChannel/findHkChannel:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: fixedType
+        type: boolean
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: sort
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: type
+        type: boolean
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询HkChannel
+      tags:
+      - HkChannel
+  /hkChannel/getHkChannelList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: fixedType
+        type: boolean
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: name
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: sort
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: type
+        type: boolean
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取HkChannel列表
+      tags:
+      - HkChannel
+  /hkChannel/updateHkChannel:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新HkChannel
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkChannel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新HkChannel
+      tags:
+      - HkChannel
+  /hkFocusUser/createHkFocusUser:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建HkFocusUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkFocusUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建HkFocusUser
+      tags:
+      - HkFocusUser
+  /hkFocusUser/deleteHkFocusUser:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除HkFocusUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkFocusUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除HkFocusUser
+      tags:
+      - HkFocusUser
+  /hkFocusUser/deleteHkFocusUserByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除HkFocusUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除HkFocusUser
+      tags:
+      - HkFocusUser
+  /hkFocusUser/findHkFocusUser:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: focusUserId
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询HkFocusUser
+      tags:
+      - HkFocusUser
+  /hkFocusUser/getHkFocusUserList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: focusUserId
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取HkFocusUser列表
+      tags:
+      - HkFocusUser
+  /hkFocusUser/updateHkFocusUser:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新HkFocusUser
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkFocusUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新HkFocusUser
+      tags:
+      - HkFocusUser
+  /hkUserSign/createHkUserSign:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建HkUserSign
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkUserSign'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建HkUserSign
+      tags:
+      - HkUserSign
+  /hkUserSign/deleteHkUserSign:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除HkUserSign
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkUserSign'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除HkUserSign
+      tags:
+      - HkUserSign
+  /hkUserSign/deleteHkUserSignByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除HkUserSign
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除HkUserSign
+      tags:
+      - HkUserSign
+  /hkUserSign/findHkUserSign:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: balance
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: number
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询HkUserSign
+      tags:
+      - HkUserSign
+  /hkUserSign/getHkUserSignList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: balance
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: number
+        type: integer
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取HkUserSign列表
+      tags:
+      - HkUserSign
+  /hkUserSign/updateHkUserSign:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新HkUserSign
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.HkUserSign'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新HkUserSign
+      tags:
+      - HkUserSign
   /init/checkdb:
     post:
       produces:

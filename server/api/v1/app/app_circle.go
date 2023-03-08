@@ -308,6 +308,56 @@ func (circleApi *CircleApi) EnterCircle(c *gin.Context) {
 	}
 }
 
+// ExitCircle 退出圈子
+// @Tags App_Circle
+// @Summary 退出圈子
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ExitCircleReq true "退出圈子"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"设置成功"}"
+// @Router /app/circle/exitCircle [post]
+func (circleApi *CircleApi) ExitCircle(c *gin.Context) {
+	var req communityReq.ExitCircleReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	_, err = appCircleService.GetCircle(req.CircleId)
+	if err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	var userId = utils.GetUserID(c)
+	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+		CircleId: req.CircleId,
+		UserId:   userId,
+		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
+	}); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if len(data) == 0 {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else {
+		//如果是圈主
+		if data[0].Power == 1 {
+			response.FailWithMessage("圈主不能退出", c)
+			return
+		} else {
+			err = appCircleUserService.DeleteCircleUserInfo(data[0])
+			if err == nil {
+				response.OkWithMessage("退出成功", c)
+				return
+			}
+			response.FailWithMessage("退出失败", c)
+		}
+	}
+}
+
 // ApplyEnterCircle 申请加入圈子
 // @Tags App_Circle
 // @Summary 申请加入圈子

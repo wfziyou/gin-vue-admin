@@ -113,8 +113,28 @@ func (appUserService *AppUserService) UpdateUser(hkUser community.User) (err err
 	return err
 }
 
-func (appUserService *AppUserService) SetSelfBaseInfo(hkUser communityReq.SetSelfBaseInfoReq) (err error) {
-	err = global.GVA_DB.Save(&hkUser).Error
+func (appUserService *AppUserService) SetSelfBaseInfo(req communityReq.SetSelfBaseInfoReq) (err error) {
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	if len(req.NickName) > 0 {
+		updateData["nick_name"] = req.NickName
+	}
+	if len(req.HeaderImg) > 0 {
+		updateData["header_img"] = req.HeaderImg
+	}
+
+	if req.Birthday != nil {
+		updateData["birthday"] = req.Birthday
+	}
+	if req.Birthday != nil {
+		updateData["sex"] = req.Sex
+	}
+	if len(req.Description) > 0 {
+		updateData["description"] = req.Description
+	}
+
+	db := global.GVA_DB.Model(&community.User{})
+	err = db.Where("id = ?", req.ID).Updates(updateData).Error
 	return err
 }
 
