@@ -19,6 +19,7 @@ type UserExtend struct {
 	NumCircle  uint64 `json:"numCircle" form:"numCircle" gorm:"type:bigint(20);column:num_circle;comment:圈子数;"` //圈子数
 	NumFocus   uint64 `json:"numFocus" form:"numFocus" gorm:"type:bigint(20);column:num_focus;comment:关注数;"`    //关注数
 	NumFan     uint64 `json:"numFan" form:"numFan" gorm:"type:bigint(20);column:num_fan;comment:粉丝数;"`          //粉丝数
+	ChannelId  string `json:"channelId" form:"channelId" gorm:"column:channel_id;comment:频道_编号;"`               //频道_编号
 }
 
 // TableName UserExtend 表名

@@ -33,6 +33,7 @@ type Circle struct {
 	NewUserFocus     int    `json:"newUserFocus" form:"newUserFocus" gorm:"column:new_user_focus;comment:新注册用户默认关注：0 否，1是;size:10;"`                                    //新注册用户默认关注：0 否，1是
 	Sort             int    `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                                                            //排序
 	HaveCircle       int    `json:"haveCircle"`                                                                                                                         //是在圈子里：0否、1是
+	ChannelId        string `json:"channelId" form:"channelId" gorm:"column:channel_id;comment:频道_编号;"`                                                                 //频道_编号
 }
 
 // TableName Circle 表名
