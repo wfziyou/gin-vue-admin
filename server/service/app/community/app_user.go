@@ -123,7 +123,7 @@ func (appUserService *AppUserService) SetSelfBaseInfo(req communityReq.SetSelfBa
 		updateData["header_img"] = req.HeaderImg
 	}
 
-	if req.Birthday != nil {
+	if len(req.Birthday) > 0 {
 		updateData["birthday"] = req.Birthday
 	}
 	if req.Sex != nil {

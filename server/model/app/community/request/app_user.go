@@ -54,12 +54,12 @@ type BindEmailReq struct {
 
 // SetSelfBaseInfoReq 设置用户基本信息
 type SetSelfBaseInfoReq struct {
-	ID          uint64     `json:"-" gorm:"primarykey"`                                                          // 主键ID
-	NickName    string     `json:"nickName" gorm:"default:系统用户;comment:用户昵称"`                                    // 用户昵称
-	HeaderImg   string     `json:"headerImg" gorm:"comment:用户头像"`                                                // 用户头像
-	Birthday    *time.Time `json:"birthday" gorm:"comment:生日"`                                                   //生日
-	Sex         *int       `json:"sex" gorm:"comment:性别： 0未知、1男、2女"`                                             //性别： 0未知、1男、2女
-	Description string     `json:"description" form:"description" gorm:"column:description;comment:描述;size:45;"` //描述
+	ID          uint64 `json:"-" gorm:"primarykey"`                                                          // 主键ID
+	NickName    string `json:"nickName" gorm:"default:系统用户;comment:用户昵称"`                                    // 用户昵称
+	HeaderImg   string `json:"headerImg" gorm:"comment:用户头像"`                                                // 用户头像
+	Birthday    string `json:"birthday" gorm:"comment:生日"`                                                   //生日
+	Sex         *int   `json:"sex" gorm:"comment:性别： 0未知、1男、2女"`                                             //性别： 0未知、1男、2女
+	Description string `json:"description" form:"description" gorm:"column:description;comment:描述;size:45;"` //描述
 }
 
 type UserSearch struct {
