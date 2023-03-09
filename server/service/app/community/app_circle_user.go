@@ -108,7 +108,7 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(info com
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.CircleUserInfo{})
+	db := global.GVA_DB.Model(&community.CircleUserInfo{}).Preload("UserInfo")
 	var hkCircleUsers []community.CircleUserInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
@@ -128,7 +128,6 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(info com
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkCircleUsers).Error
-
 	return hkCircleUsers, total, err
 }
 

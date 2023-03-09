@@ -126,7 +126,7 @@ func (appUserService *AppUserService) SetSelfBaseInfo(req communityReq.SetSelfBa
 	if req.Birthday != nil {
 		updateData["birthday"] = req.Birthday
 	}
-	if req.Birthday != nil {
+	if req.Sex != nil {
 		updateData["sex"] = req.Sex
 	}
 	if len(req.Description) > 0 {
@@ -195,4 +195,25 @@ func (appUserService *AppUserService) AppGetUserInfoList(info communityReq.UserS
 
 	err = db.Limit(limit).Offset(offset).Find(&hkUsers).Error
 	return hkUsers, total, err
+}
+
+// GetUserChannel 获取用户频道
+// Author [piexlmax](https://github.com/piexlmax)
+func (appUserService *AppUserService) GetUserChannel(userId uint64) (channel string, err error) {
+	var data = community.UserExtend{}
+	err = global.GVA_DB.Where("id = ?", userId).Select("channel_id").First(&data).Error
+	channel = data.ChannelId
+	return
+}
+
+// UpdateUserChannel 更新用户频道
+// Author [piexlmax](https://github.com/piexlmax)
+func (appUserService *AppUserService) UpdateUserChannel(userId uint64, channel string) (err error) {
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	updateData["channel_id"] = channel
+
+	db := global.GVA_DB.Model(&community.UserExtend{})
+	err = db.Where("id = ?", userId).Updates(updateData).Error
+	return err
 }

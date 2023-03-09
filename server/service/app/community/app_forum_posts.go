@@ -67,7 +67,7 @@ func (appForumPostsService *AppForumPostsService) UpdateForumPosts(hkForumPosts 
 // GetForumPosts 根据id获取ForumPosts记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) GetForumPosts(id uint64) (hkForumPosts community.ForumPosts, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&hkForumPosts).Error
+	err = global.GVA_DB.Where("id = ?", id).Preload("UserInfo").First(&hkForumPosts).Error
 	return
 }
 

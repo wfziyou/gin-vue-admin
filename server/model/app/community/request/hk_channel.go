@@ -12,3 +12,7 @@ type HkChannelSearch struct {
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`
 	request.PageInfo
 }
+
+type ParamSetUserChannel struct {
+	ChannelIds string `json:"channelIds" form:"channelIds"`
+}

@@ -403,6 +403,7 @@ func (userApi *UserApi) GetUserBaseInfo(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
+		time.ParseDuration("20")
 		response.OkWithData(common.UserBaseInfo{
 			ID:        user.ID,
 			NickName:  user.NickName,

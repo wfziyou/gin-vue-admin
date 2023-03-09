@@ -9039,7 +9039,7 @@ paths:
       summary: 用id查询HkChannel
       tags:
       - HkChannel
-  /hkChannel/getHkChannelList:
+  /hkChannel/getChannelList:
     get:
       consumes:
       - application/json

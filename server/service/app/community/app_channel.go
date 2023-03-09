@@ -3,7 +3,6 @@ package community
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
@@ -45,23 +44,24 @@ func (hkChannelService *HkChannelService) GetHkChannel(id uint64) (hkChannel com
 	return
 }
 
-// GetHkChannelInfoList 分页获取HkChannel记录
+// GetChannelInfoList 分页获取HkChannel记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkChannelService *HkChannelService) GetHkChannelInfoList(info communityReq.HkChannelSearch) (list []community.HkChannel, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
+func (hkChannelService *HkChannelService) GetChannelInfoList() (list []community.HkChannel, total int64, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&community.HkChannel{})
 	var hkChannels []community.HkChannel
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkChannels).Error
+	err = db.Find(&hkChannels).Error
+	return hkChannels, total, err
+}
+
+// GetChannelInfoListById 分页获取HkChannel记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (hkChannelService *HkChannelService) GetChannelInfoListById(ids string) (list []community.HkChannel, total int64, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&community.HkChannel{})
+	var hkChannels []community.HkChannel
+
+	err = db.Where("id in(?)", ids).Find(&hkChannels).Error
 	return hkChannels, total, err
 }

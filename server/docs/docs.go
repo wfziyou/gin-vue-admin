@@ -9590,7 +9590,7 @@ var doc = `{
                 }
             }
         },
-        "/hkChannel/getHkChannelList": {
+        "/hkChannel/getChannelList": {
             "get": {
                 "security": [
                     {

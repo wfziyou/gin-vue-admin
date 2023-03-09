@@ -20,9 +20,9 @@ type User struct {
 	HeaderImg   string     `json:"headerImg" form:"headerImg" gorm:"column:header_img;comment:头像;size:500;"`                 //头像
 	Email       string     `json:"email" form:"email" gorm:"column:email;comment:邮箱;size:45;"`                               //邮箱
 	Phone       string     `json:"phone" form:"phone" gorm:"column:phone;comment:手机;size:45;"`                               //手机
-	Birthday    *time.Time `json:"birthday" form:"birthday" gorm:"column:birthday;comment:生日;"`                              //生日
-	Sex         int        `json:"sex" form:"sex" gorm:"column:sex;comment:性别： 0未知、1男、2女;size:10;"`                          //性别： 0未知、1男、2女
-	Description string     `json:"description" form:"description" gorm:"column:description;comment:描述;size:45;"`             //描述
+	Birthday    *time.Time `json:"birthday" form:"birthday" gorm:"column:birthday;comment:生日;"`
+	Sex         int        `json:"sex" form:"sex" gorm:"column:sex;comment:性别： 0未知、1男、2女;size:10;"`              //性别： 0未知、1男、2女
+	Description string     `json:"description" form:"description" gorm:"column:description;comment:描述;size:45;"` //描述
 
 	AuthorityId uint64                `json:"roleId" form:"roleId" gorm:"column:role_id;default:888;comment:用户角色ID;size:20;"` // 用户角色ID
 	Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:Id;references:AuthorityId;comment:用户角色"`             //用户角色

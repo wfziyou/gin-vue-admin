@@ -16,13 +16,10 @@ func (s *HkChannelRouter) InitHkChannelRouter(Router *gin.RouterGroup) {
 	hkChannelRouterWithoutRecord := appRouter.Group("hkChannel")
 	var hkChannelApi = v1.ApiGroupApp.AppApiGroup.HkChannelApi
 	{
-		hkChannelRouter.POST("createHkChannel", hkChannelApi.CreateHkChannel)             // 新建HkChannel
-		hkChannelRouter.DELETE("deleteHkChannel", hkChannelApi.DeleteHkChannel)           // 删除HkChannel
-		hkChannelRouter.DELETE("deleteHkChannelByIds", hkChannelApi.DeleteHkChannelByIds) // 批量删除HkChannel
-		hkChannelRouter.PUT("updateHkChannel", hkChannelApi.UpdateHkChannel)              // 更新HkChannel
+		hkChannelRouter.POST("setUserChannel", hkChannelApi.SetUserChannel) // 设置用户频道
 	}
 	{
-		hkChannelRouterWithoutRecord.GET("findHkChannel", hkChannelApi.FindHkChannel)       // 根据ID获取HkChannel
-		hkChannelRouterWithoutRecord.GET("getHkChannelList", hkChannelApi.GetHkChannelList) // 获取HkChannel列表
+		hkChannelRouterWithoutRecord.GET("getChannelList", hkChannelApi.GetChannelList)         // 获取频道列表
+		hkChannelRouterWithoutRecord.GET("getUserChannelList", hkChannelApi.GetUserChannelList) // 获取用户频道
 	}
 }

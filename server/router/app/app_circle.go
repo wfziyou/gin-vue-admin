@@ -34,6 +34,7 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 		circleRouterWithoutRecord.GET("findCircle", circleApi.FindCircle)                                   // 用id查询Circle
 		circleRouterWithoutRecord.GET("getCircleList", circleApi.GetCircleList)                             // 分页获取Circle列表
 		circleRouterWithoutRecord.GET("findCircleUser", circleApi.FindCircleUser)                           // 用id查询CircleUser
+		circleRouterWithoutRecord.GET("getCircleUserList", circleApi.GetCircleUserList)                     // 分页获取CircleUserInfo列表
 
 		circleRouterWithoutRecord.GET("getCircleClassifyList", circleApi.GetCircleClassifyList)         // 分页获取CircleClassify列表
 		circleRouterWithoutRecord.GET("getCircleClassifyListAll", circleApi.GetCircleClassifyListAll)   // 获取CircleClassify列表

@@ -1,7 +1,6 @@
 package community
 
 import (
-	"database/sql"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
@@ -145,20 +144,17 @@ func (appCircleService *AppCircleService) GetSelfCircleList(info communityReq.Se
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.CircleBaseInfo{})
-	var hkCircles []community.CircleBaseInfo
-
-	db.Joins(",`hk_circle_user`")
-	db = db.Where("hk_circle_user.circle_id = hk_circle.id and hk_circle_user.user_id =@userId", sql.Named("userId", info.UserId))
+	db := global.GVA_DB.Model(&community.CircleUser{})
+	var circleUser []community.CircleUser
 
 	if info.CircleId != 0 {
 		db = db.Where("circle_id = ?'", info.CircleId)
 	}
-	if info.Type != nil {
-		db = db.Where("type = ?", info.Type)
+	if info.UserId != 0 {
+		db = db.Where("user_id = ?", info.UserId)
 	}
-	if len(info.Name) > 0 {
-		db = db.Where("name LIKE '%?%'", info.Name)
+	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
+		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
 
 	err = db.Count(&total).Error
@@ -166,6 +162,17 @@ func (appCircleService *AppCircleService) GetSelfCircleList(info communityReq.Se
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkCircles).Error
+	err = db.Limit(limit).Offset(offset).Find(&circleUser).Error
+	var circleIds = make([]uint64, len(circleUser))
+	if err != nil {
+		return
+	}
+
+	for index, item := range circleUser {
+		circleIds[index] = item.CircleId
+	}
+	var hkCircles []community.CircleBaseInfo
+	err = global.GVA_DB.Where("id in ?", circleIds).Find(&hkCircles).Error
+
 	return hkCircles, total, err
 }
