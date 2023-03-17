@@ -59,3 +59,9 @@
 ```
 go build -o myserver.exe main.go
 ```
+docker 打包
+```
+docker build -t server .
+
+docker run -d --name myserver -p 8888:8888 server
+```
