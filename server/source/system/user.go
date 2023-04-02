@@ -24,7 +24,7 @@ func (i *initUser) MigrateTable(ctx context.Context) (context.Context, error) {
 	if !ok {
 		return ctx, system.ErrMissingDBContext
 	}
-	return ctx, db.AutoMigrate(&sysModel.SysUser{})
+	return ctx, db.AutoMigrate(&sysModel.SysUser{}, &sysModel.SysChatGptOption{})
 }
 
 func (i *initUser) TableCreated(ctx context.Context) bool {
@@ -95,5 +95,5 @@ func (i *initUser) DataInserted(ctx context.Context) bool {
 		Preload("Authorities").First(&record).Error, gorm.ErrRecordNotFound) { // 判断是否存在数据
 		return false
 	}
-	return len(record.Authorities) > 0 && record.Authorities[0].Id == 888
+	return len(record.Authorities) > 0 && record.Authorities[0].AuthorityId == 888
 }

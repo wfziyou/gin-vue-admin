@@ -47,7 +47,7 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 	var jwt = sysModel.SysApiGroup{Name: "base", Description: "base", Sort: 1}
 	var sysUser = sysModel.SysApiGroup{Name: "系统用户", Description: "系统用户", Sort: 1}
 	var api = sysModel.SysApiGroup{Name: "api", Description: "api", Sort: 1}
-	var authority = sysModel.SysApiGroup{Name: "角色", Description: "角色", Sort: 1}
+	var role = sysModel.SysApiGroup{Name: "角色", Description: "角色", Sort: 1}
 	var casbin = sysModel.SysApiGroup{Name: "casbin", Description: "casbin", Sort: 1}
 	var menu = sysModel.SysApiGroup{Name: "菜单", Description: "菜单", Sort: 1}
 	var file = sysModel.SysApiGroup{Name: "文件上传与下载", Description: "文件上传与下载", Sort: 1}
@@ -61,30 +61,7 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 	var simpleUploader = sysModel.SysApiGroup{Name: "断点续传(插件版)", Description: "断点续传(插件版)", Sort: 1}
 	var email = sysModel.SysApiGroup{Name: "email", Description: "email", Sort: 1}
 	var authorityBtn = sysModel.SysApiGroup{Name: "按钮权限", Description: "按钮权限", Sort: 1}
-	groups := []sysModel.SysApiGroup{
-		base,
-		jwt,
-		sysUser,
-		api,
-		authority,
-		casbin,
-		menu,
-		file,
-		sysSevice,
-		customer,
-		autoCode,
-		autoCodeHistory,
-		sysDictionaryDetail,
-		sysDictionary,
-		sysOperationRecord,
-		simpleUploader,
-		email,
-		authorityBtn,
-	}
-
-	if err := db.Create(&groups).Error; err != nil {
-		return ctx, errors.Wrap(err, sysModel.SysApiGroup{}.TableName()+"表数据初始化失败!")
-	}
+	var chatGpt = sysModel.SysApiGroup{Name: "万用表格", Description: "万用表格", Sort: 1}
 
 	entities := []sysModel.SysApi{
 		{GroupId: base.ID, Method: "POST", Path: "/base/login", Description: "用户登录(必选)"},
@@ -110,12 +87,12 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{GroupId: api.ID, Method: "POST", Path: "/api/getApiById", Description: "获取api详细信息"},
 		{GroupId: api.ID, Method: "DELETE", Path: "/api/deleteApisByIds", Description: "批量删除api"},
 
-		{GroupId: authority.ID, Method: "POST", Path: "/authority/copyAuthority", Description: "拷贝角色"},
-		{GroupId: authority.ID, Method: "POST", Path: "/authority/createAuthority", Description: "创建角色"},
-		{GroupId: authority.ID, Method: "POST", Path: "/authority/deleteAuthority", Description: "删除角色"},
-		{GroupId: authority.ID, Method: "PUT", Path: "/authority/updateAuthority", Description: "更新角色信息"},
-		{GroupId: authority.ID, Method: "POST", Path: "/authority/getAuthorityList", Description: "获取角色列表"},
-		{GroupId: authority.ID, Method: "POST", Path: "/authority/setDataAuthority", Description: "设置角色资源权限"},
+		{GroupId: role.ID, Method: "POST", Path: "/authority/copyAuthority", Description: "拷贝角色"},
+		{GroupId: role.ID, Method: "POST", Path: "/authority/createAuthority", Description: "创建角色"},
+		{GroupId: role.ID, Method: "POST", Path: "/authority/deleteAuthority", Description: "删除角色"},
+		{GroupId: role.ID, Method: "PUT", Path: "/authority/updateAuthority", Description: "更新角色信息"},
+		{GroupId: role.ID, Method: "POST", Path: "/authority/getAuthorityList", Description: "获取角色列表"},
+		{GroupId: role.ID, Method: "POST", Path: "/authority/setDataAuthority", Description: "设置角色资源权限"},
 
 		{GroupId: casbin.ID, Method: "POST", Path: "/casbin/updateCasbin", Description: "更改角色api权限"},
 		{GroupId: casbin.ID, Method: "POST", Path: "/casbin/getPolicyPathByAuthorityId", Description: "获取权限列表"},
@@ -195,6 +172,11 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{GroupId: authorityBtn.ID, Method: "POST", Path: "/authorityBtn/setAuthorityBtn", Description: "设置按钮权限"},
 		{GroupId: authorityBtn.ID, Method: "POST", Path: "/authorityBtn/getAuthorityBtn", Description: "获取已有按钮权限"},
 		{GroupId: authorityBtn.ID, Method: "POST", Path: "/authorityBtn/canRemoveAuthorityBtn", Description: "删除按钮"},
+
+		{GroupId: chatGpt.ID, Method: "POST", Path: "/chatGpt/getTable", Description: "通过gpt获取内容"},
+		{GroupId: chatGpt.ID, Method: "POST", Path: "/chatGpt/createSK", Description: "录入sk"},
+		{GroupId: chatGpt.ID, Method: "GET", Path: "/chatGpt/getSK", Description: "获取sk"},
+		{GroupId: chatGpt.ID, Method: "DELETE", Path: "/chatGpt/deleteSK", Description: "删除sk"},
 	}
 	if err := db.Create(&entities).Error; err != nil {
 		return ctx, errors.Wrap(err, sysModel.SysApi{}.TableName()+"表数据初始化失败!")
