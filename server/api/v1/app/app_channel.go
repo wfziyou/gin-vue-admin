@@ -21,18 +21,17 @@ var hkChannelService = service.ServiceGroupApp.AppServiceGroup.Community.HkChann
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200  {object}  response.Response{data= []community.HkChannel,msg=string}  "返回[]community.HkChannel"
+// @Success 200 {object}  response.Response{data=[]community.HkChannel,msg=string} "返回[]community.HkChannel"
 // @Router /hkChannel/getChannelList [get]
 func (hkChannelApi *HkChannelApi) GetChannelList(c *gin.Context) {
-
-	if list, _, err := hkChannelService.GetChannelInfoList(); err != nil {
+	list, _, err := hkChannelService.GetChannelInfoList()
+	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
-	} else {
-		response.OkWithDetailed(response.Response{
-			Data: list,
-		}, "获取成功", c)
 	}
+	response.OkWithDetailed(response.Response{
+		Data: list,
+	}, "获取成功", c)
 }
 
 // GetUserChannelList 获取用户频道
@@ -41,7 +40,7 @@ func (hkChannelApi *HkChannelApi) GetChannelList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200  {object}  response.Response{data= []community.HkChannel,msg=string}  "返回[]community.HkChannel"
+// @Success 200 {object}  response.Response{data=[]community.HkChannel,msg=string} "返回[]community.HkChannel"
 // @Router /hkChannel/getUserChannelList [get]
 func (hkChannelApi *HkChannelApi) GetUserChannelList(c *gin.Context) {
 	var pageInfo communityReq.HkChannelSearch
