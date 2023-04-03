@@ -41,8 +41,8 @@ func (a *AuthorityApi) CreateAuthority(c *gin.Context) {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败"+err.Error(), c)
 	} else {
-		_ = menuService.AddMenuAuthority(systemReq.DefaultMenu(), authority.Id)
-		_ = casbinService.UpdateCasbin(authority.Id, systemReq.DefaultCasbin())
+		_ = menuService.AddMenuAuthority(systemReq.DefaultMenu(), authority.AuthorityId)
+		_ = casbinService.UpdateCasbin(authority.AuthorityId, systemReq.DefaultCasbin())
 		response.OkWithDetailed(systemRes.SysAuthorityResponse{Authority: authBack}, "创建成功", c)
 	}
 }
