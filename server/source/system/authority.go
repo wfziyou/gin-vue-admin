@@ -44,9 +44,9 @@ func (i *initAuthority) InitializeData(ctx context.Context) (context.Context, er
 		return ctx, system.ErrMissingDBContext
 	}
 	entities := []sysModel.SysAuthority{
-		{AuthorityId: 888, AuthorityName: "普通用户", ParentId: utils.Pointer[uint64](0), DefaultRouter: "dashboard"},
-		{AuthorityId: 9528, AuthorityName: "测试角色", ParentId: utils.Pointer[uint64](0), DefaultRouter: "dashboard"},
-		{AuthorityId: 8881, AuthorityName: "普通用户子角色", ParentId: utils.Pointer[uint64](888), DefaultRouter: "dashboard"},
+		{Id: 888, AuthorityName: "普通用户", ParentId: utils.Pointer[uint64](0), DefaultRouter: "dashboard"},
+		{Id: 9528, AuthorityName: "测试角色", ParentId: utils.Pointer[uint64](0), DefaultRouter: "dashboard"},
+		{Id: 8881, AuthorityName: "普通用户子角色", ParentId: utils.Pointer[uint64](888), DefaultRouter: "dashboard"},
 	}
 
 	if err := db.Create(&entities).Error; err != nil {
@@ -55,17 +55,17 @@ func (i *initAuthority) InitializeData(ctx context.Context) (context.Context, er
 	// data authority
 	if err := db.Model(&entities[0]).Association("DataAuthorityId").Replace(
 		[]*sysModel.SysAuthority{
-			{AuthorityId: 888},
-			{AuthorityId: 9528},
-			{AuthorityId: 8881},
+			{Id: 888},
+			{Id: 9528},
+			{Id: 8881},
 		}); err != nil {
 		return ctx, errors.Wrapf(err, "%s表数据初始化失败!",
 			db.Model(&entities[0]).Association("DataAuthorityId").Relationship.JoinTable.Name)
 	}
 	if err := db.Model(&entities[1]).Association("DataAuthorityId").Replace(
 		[]*sysModel.SysAuthority{
-			{AuthorityId: 9528},
-			{AuthorityId: 8881},
+			{Id: 9528},
+			{Id: 8881},
 		}); err != nil {
 		return ctx, errors.Wrapf(err, "%s表数据初始化失败!",
 			db.Model(&entities[1]).Association("DataAuthorityId").Relationship.JoinTable.Name)

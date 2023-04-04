@@ -92,6 +92,9 @@ definitions:
     type: object
   common.UserBaseInfo:
     properties:
+      account:
+        description: 账号
+        type: string
       birthday:
         description: 生日
         type: string
@@ -326,6 +329,9 @@ definitions:
     type: object
   community.CircleUserInfo:
     properties:
+      UserInfo:
+        $ref: '#/definitions/common.UserBaseInfo'
+        description: 用户基本信息
       circleId:
         description: 圈子_编号
         type: integer
@@ -341,9 +347,6 @@ definitions:
       sort:
         description: 用户的圈子排序
         type: integer
-      userBaseInfo:
-        $ref: '#/definitions/community.User'
-        description: 用户基本信息
       userId:
         description: 用户ID
         type: integer
@@ -1032,7 +1035,6 @@ definitions:
         $ref: '#/definitions/system.SysAuthority'
         description: 用户角色
       birthday:
-        description: 生日
         type: string
       createdAt:
         description: 创建时间
@@ -2416,6 +2418,11 @@ definitions:
         type: string
     type: object
   request.LoginThird:
+    properties:
+      Plat:
+        type: string
+      code:
+        type: string
     type: object
   request.PageInfo:
     properties:
@@ -2428,6 +2435,11 @@ definitions:
       pageSize:
         description: 每页大小
         type: integer
+    type: object
+  request.ParamSetUserChannel:
+    properties:
+      channelIds:
+        type: string
     type: object
   request.ResetPasswordReq:
     properties:
@@ -2775,6 +2787,17 @@ definitions:
         items:
           $ref: '#/definitions/system.SysMenu'
         type: array
+    type: object
+  response.ThirdPlatInfo:
+    properties:
+      Plat:
+        type: string
+      appid:
+        type: string
+      icon:
+        type: string
+      name:
+        type: string
     type: object
   system.AutoCodeStruct:
     properties:
@@ -6357,6 +6380,27 @@ paths:
       summary: 获取验证码
       tags:
       - App_User
+  /app/user/getThirdPlat:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回包括用户信息,token,过期时间
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/response.ThirdPlatInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      summary: 获取第三方平台信息
+      tags:
+      - App_User
   /app/user/getUserBaseInfo:
     get:
       consumes:
@@ -8908,238 +8952,77 @@ paths:
       summary: 更新HkActivityUser
       tags:
       - HkActivityUser
-  /hkChannel/createHkChannel:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建HkChannel
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkChannel'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建HkChannel
-      tags:
-      - HkChannel
-  /hkChannel/deleteHkChannel:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除HkChannel
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkChannel'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除HkChannel
-      tags:
-      - HkChannel
-  /hkChannel/deleteHkChannelByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除HkChannel
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除HkChannel
-      tags:
-      - HkChannel
-  /hkChannel/findHkChannel:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: code
-        type: string
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: fixedType
-        type: boolean
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: name
-        type: string
-      - in: query
-        name: sort
-        type: integer
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: type
-        type: boolean
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkChannel
-      tags:
-      - HkChannel
   /hkChannel/getChannelList:
     get:
       consumes:
       - application/json
-      parameters:
-      - in: query
-        name: code
-        type: string
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - in: query
-        name: fixedType
-        type: boolean
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: name
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: sort
-        type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: type
-        type: boolean
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回[]community.HkChannel
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.HkChannel'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取HkChannel列表
+      summary: 获取频道列表
       tags:
       - HkChannel
-  /hkChannel/updateHkChannel:
-    put:
+  /hkChannel/getUserChannelList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.HkChannel
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.HkChannel'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户频道
+      tags:
+      - HkChannel
+  /hkChannel/setUserChannel:
+    post:
       consumes:
       - application/json
       parameters:
-      - description: 更新HkChannel
+      - description: 设置用户频道
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.HkChannel'
+          $ref: '#/definitions/request.ParamSetUserChannel'
       produces:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          description: '{"success":true,"data":{},"msg":"成功"}'
           schema:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 更新HkChannel
+      summary: 设置用户频道
       tags:
       - HkChannel
   /hkFocusUser/createHkFocusUser:

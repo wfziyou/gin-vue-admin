@@ -52,6 +52,11 @@
 | `--timer` | timer | 定时器接口封装 |
 | `--upload`      | oss                  | oss接口封装        |
 
+1、首先需要注册微信开放平台，然后获取开发者认证。审批通过之后再创建一个移动应用同样还是需要审批。通过之后就可以给这个应用添加微信授权登陆以及相应功能了。这里移动应用审批通过之后会给你两个参数，一个叫AppId，一个叫Secret。这两个参数在后面用的到。
+
+
+https://github.com/go-oauth2/gin-server
+
 文档  
 [GORM 指南](https://gorm.io/zh_CN/docs/)  
 
