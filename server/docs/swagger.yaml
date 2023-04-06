@@ -2418,6 +2418,11 @@ definitions:
         type: string
     type: object
   request.LoginThird:
+    properties:
+      Plat:
+        type: string
+      code:
+        type: string
     type: object
   request.PageInfo:
     properties:
@@ -2782,6 +2787,17 @@ definitions:
         items:
           $ref: '#/definitions/system.SysMenu'
         type: array
+    type: object
+  response.ThirdPlatInfo:
+    properties:
+      Plat:
+        type: string
+      appid:
+        type: string
+      icon:
+        type: string
+      name:
+        type: string
     type: object
   system.AutoCodeStruct:
     properties:
@@ -6362,6 +6378,27 @@ paths:
           schema:
             type: string
       summary: 获取验证码
+      tags:
+      - App_User
+  /app/user/getThirdPlat:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回包括用户信息,token,过期时间
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/response.ThirdPlatInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      summary: 获取第三方平台信息
       tags:
       - App_User
   /app/user/getUserBaseInfo:

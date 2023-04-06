@@ -5034,6 +5034,43 @@ var doc = `{
                 }
             }
         },
+        "/app/user/getThirdPlat": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App_User"
+                ],
+                "summary": "获取第三方平台信息",
+                "responses": {
+                    "200": {
+                        "description": "返回包括用户信息,token,过期时间",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/response.ThirdPlatInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/user/getUserBaseInfo": {
             "get": {
                 "security": [
@@ -16041,7 +16078,15 @@ var doc = `{
             }
         },
         "request.LoginThird": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "Plat": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                }
+            }
         },
         "request.PageInfo": {
             "type": "object",
@@ -16573,6 +16618,23 @@ var doc = `{
                     "items": {
                         "$ref": "#/definitions/system.SysMenu"
                     }
+                }
+            }
+        },
+        "response.ThirdPlatInfo": {
+            "type": "object",
+            "properties": {
+                "Plat": {
+                    "type": "string"
+                },
+                "appid": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
                 }
             }
         },

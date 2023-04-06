@@ -233,6 +233,16 @@ func (userApi *UserApi) LoginTelephone(c *gin.Context) {
 
 }
 
+// GetThirdPlat 获取第三方平台信息
+// @Tags     App_User
+// @Summary  获取第三方平台信息
+// @Produce   application/json
+// @Success  200   {object}  response.Response{data=[]communityRes.ThirdPlatInfo,msg=string}  "返回包括用户信息,token,过期时间"
+// @Router   /app/user/getThirdPlat [post]
+func (userApi *UserApi) GetThirdPlat(c *gin.Context) {
+
+}
+
 // LoginThird 用户登录(第三方授权)
 // @Tags     App_User
 // @Summary  用户登录(第三方授权)
