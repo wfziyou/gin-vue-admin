@@ -16,13 +16,13 @@ type HkActivityApi struct {
 
 var hkActivityService = service.ServiceGroupApp.AppServiceGroup.Community.HkActivityService
 
-// CreateHkActivity 创建HkActivity
+// CreateHkActivity 创建活动
 // @Tags HkActivity
-// @Summary 创建HkActivity
+// @Summary 创建活动
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkActivity true "创建HkActivity"
+// @Param data body community.HkActivity true "创建活动"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /hkActivity/createHkActivity [post]
 func (hkActivityApi *HkActivityApi) CreateHkActivity(c *gin.Context) {
@@ -40,13 +40,13 @@ func (hkActivityApi *HkActivityApi) CreateHkActivity(c *gin.Context) {
 	}
 }
 
-// DeleteHkActivity 删除HkActivity
+// DeleteHkActivity 删除活动
 // @Tags HkActivity
-// @Summary 删除HkActivity
+// @Summary 删除活动
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkActivity true "删除HkActivity"
+// @Param data body community.HkActivity true "删除活动"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /hkActivity/deleteHkActivity [delete]
 func (hkActivityApi *HkActivityApi) DeleteHkActivity(c *gin.Context) {
@@ -64,13 +64,13 @@ func (hkActivityApi *HkActivityApi) DeleteHkActivity(c *gin.Context) {
 	}
 }
 
-// DeleteHkActivityByIds 批量删除HkActivity
+// DeleteHkActivityByIds 批量删除活动
 // @Tags HkActivity
-// @Summary 批量删除HkActivity
+// @Summary 批量删除活动
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdsReq true "批量删除HkActivity"
+// @Param data body request.IdsReq true "批量删除活动"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /hkActivity/deleteHkActivityByIds [delete]
 func (hkActivityApi *HkActivityApi) DeleteHkActivityByIds(c *gin.Context) {
@@ -88,13 +88,13 @@ func (hkActivityApi *HkActivityApi) DeleteHkActivityByIds(c *gin.Context) {
 	}
 }
 
-// UpdateHkActivity 更新HkActivity
+// UpdateHkActivity 更新活动
 // @Tags HkActivity
-// @Summary 更新HkActivity
+// @Summary 更新活动
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.HkActivity true "更新HkActivity"
+// @Param data body community.HkActivity true "更新活动"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /hkActivity/updateHkActivity [put]
 func (hkActivityApi *HkActivityApi) UpdateHkActivity(c *gin.Context) {
@@ -112,13 +112,13 @@ func (hkActivityApi *HkActivityApi) UpdateHkActivity(c *gin.Context) {
 	}
 }
 
-// FindHkActivity 用id查询HkActivity
+// FindHkActivity 用id查询活动详情
 // @Tags HkActivity
-// @Summary 用id查询HkActivity
+// @Summary 用id查询活动详情
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.HkActivity true "用id查询HkActivity"
+// @Param data query community.HkActivity true "用id查询活动详情"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /hkActivity/findHkActivity [get]
 func (hkActivityApi *HkActivityApi) FindHkActivity(c *gin.Context) {
@@ -136,13 +136,13 @@ func (hkActivityApi *HkActivityApi) FindHkActivity(c *gin.Context) {
 	}
 }
 
-// GetHkActivityList 分页获取HkActivity列表
+// GetHkActivityList 分页获取推荐活动列表
 // @Tags HkActivity
-// @Summary 分页获取HkActivity列表
+// @Summary 分页获取推荐活动列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.HkActivitySearch true "分页获取HkActivity列表"
+// @Param data query communityReq.HkActivitySearch true "分页获取推荐活动列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /hkActivity/getHkActivityList [get]
 func (hkActivityApi *HkActivityApi) GetHkActivityList(c *gin.Context) {

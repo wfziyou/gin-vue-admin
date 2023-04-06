@@ -9358,222 +9358,6 @@
                 }
             }
         },
-        "/hkChannel/createHkChannel": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkChannel"
-                ],
-                "summary": "创建HkChannel",
-                "parameters": [
-                    {
-                        "description": "创建HkChannel",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkChannel"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkChannel/deleteHkChannel": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkChannel"
-                ],
-                "summary": "删除HkChannel",
-                "parameters": [
-                    {
-                        "description": "删除HkChannel",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkChannel"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkChannel/deleteHkChannelByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkChannel"
-                ],
-                "summary": "批量删除HkChannel",
-                "parameters": [
-                    {
-                        "description": "批量删除HkChannel",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkChannel/findHkChannel": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkChannel"
-                ],
-                "summary": "用id查询HkChannel",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "name": "code",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "fixedType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "name",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/hkChannel/getChannelList": {
             "get": {
                 "security": [
@@ -9590,122 +9374,37 @@
                 "tags": [
                     "HkChannel"
                 ],
-                "summary": "分页获取HkChannel列表",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "name": "code",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "fixedType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "name",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    }
-                ],
+                "summary": "获取频道列表",
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回[]community.HkChannel",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkChannel"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
             }
         },
-        "/hkChannel/updateHkChannel": {
-            "put": {
+        "/hkChannel/getUserChannelList": {
+            "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -9720,21 +9419,66 @@
                 "tags": [
                     "HkChannel"
                 ],
-                "summary": "更新HkChannel",
+                "summary": "获取用户频道",
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.HkChannel",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkChannel"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/hkChannel/setUserChannel": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HkChannel"
+                ],
+                "summary": "设置用户频道",
                 "parameters": [
                     {
-                        "description": "更新HkChannel",
+                        "description": "设置用户频道",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.HkChannel"
+                            "$ref": "#/definitions/request.ParamSetUserChannel"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -13016,6 +12760,10 @@
         "common.UserBaseInfo": {
             "type": "object",
             "properties": {
+                "account": {
+                    "description": "账号",
+                    "type": "string"
+                },
                 "birthday": {
                     "description": "生日",
                     "type": "string"
@@ -13334,6 +13082,10 @@
         "community.CircleUserInfo": {
             "type": "object",
             "properties": {
+                "UserInfo": {
+                    "description": "用户基本信息",
+                    "$ref": "#/definitions/common.UserBaseInfo"
+                },
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
@@ -13353,10 +13105,6 @@
                 "sort": {
                     "description": "用户的圈子排序",
                     "type": "integer"
-                },
-                "userBaseInfo": {
-                    "description": "用户基本信息",
-                    "$ref": "#/definitions/community.User"
                 },
                 "userId": {
                     "description": "用户ID",
@@ -14323,7 +14071,6 @@
                     "$ref": "#/definitions/system.SysAuthority"
                 },
                 "birthday": {
-                    "description": "生日",
                     "type": "string"
                 },
                 "createdAt": {
@@ -16294,6 +16041,14 @@
                 "pageSize": {
                     "description": "每页大小",
                     "type": "integer"
+                }
+            }
+        },
+        "request.ParamSetUserChannel": {
+            "type": "object",
+            "properties": {
+                "channelIds": {
+                    "type": "string"
                 }
             }
         },
