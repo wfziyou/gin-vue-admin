@@ -35,7 +35,7 @@ func (appForumCommentService *AppForumCommentService) UpdateForumPostsCommentNum
 	return err
 }
 
-// DeleteForumComment 删除ForumComment记录
+// DeleteForumComment 删除评论记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumCommentService *AppForumCommentService) DeleteForumComment(info community.ForumComment) (err error) {
 	err = global.GVA_DB.Delete(&info).Error
@@ -45,7 +45,7 @@ func (appForumCommentService *AppForumCommentService) DeleteForumComment(info co
 	return err
 }
 
-// DeleteForumCommentByIds 批量删除ForumComment记录
+// DeleteForumCommentByIds 批量删除评论记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumCommentService *AppForumCommentService) DeleteForumCommentByIds(ids request.IdsReq) (err error) {
 	err = global.GVA_DB.Delete(&[]community.ForumComment{}, "id in ?", ids.Ids).Error
@@ -59,14 +59,14 @@ func (appForumCommentService *AppForumCommentService) UpdateForumComment(hkForum
 	return err
 }
 
-// GetForumComment 根据id获取ForumComment记录
+// GetForumComment 根据id获取评论记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumCommentService *AppForumCommentService) GetForumComment(id uint64) (hkForumComment community.ForumComment, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkForumComment).Error
 	return hkForumComment, err
 }
 
-// GetForumCommentInfoList 分页获取ForumComment记录
+// GetForumCommentInfoList 分页获取评论记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumCommentService *AppForumCommentService) GetForumCommentInfoList(info communityReq.ForumCommentSearch) (list []community.ForumComment, total int64, err error) {
 	limit := info.PageSize

@@ -18,13 +18,13 @@ type ForumPostsApi struct {
 帖子
 **************************************/
 
-// CreateForumPosts 创建ForumPosts
-// @Tags App_ForumPosts
-// @Summary 创建ForumPosts
+// CreateForumPosts 创建帖子
+// @Tags 帖子
+// @Summary 创建帖子
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.CreateForumPostsReq true "创建ForumPosts"
+// @Param data body communityReq.CreateForumPostsReq true "创建帖子"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/forumPosts/createForumPosts [post]
 func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
@@ -68,13 +68,13 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 	}
 }
 
-// DeleteForumPosts 删除ForumPosts
-// @Tags App_ForumPosts
-// @Summary 删除ForumPosts
+// DeleteForumPosts 删除帖子
+// @Tags 帖子
+// @Summary 删除帖子
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdDelete true "删除ForumPosts"
+// @Param data body request.IdDelete true "删除帖子"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/forumPosts/deleteForumPosts [delete]
 func (forumPostsApi *ForumPostsApi) DeleteForumPosts(c *gin.Context) {
@@ -95,13 +95,13 @@ func (forumPostsApi *ForumPostsApi) DeleteForumPosts(c *gin.Context) {
 	}
 }
 
-// DeleteSelfForumPosts 删除自己的ForumPosts
-// @Tags App_ForumPosts
-// @Summary 删除自己的ForumPosts
+// DeleteSelfForumPosts 删除自己的帖子
+// @Tags 帖子
+// @Summary 删除自己的帖子
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdDelete true "删除自己的ForumPosts"
+// @Param data body request.IdDelete true "删除自己的帖子"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/forumPosts/deleteSelfForumPosts [delete]
 func (forumPostsApi *ForumPostsApi) DeleteSelfForumPosts(c *gin.Context) {
@@ -128,13 +128,13 @@ func (forumPostsApi *ForumPostsApi) DeleteSelfForumPosts(c *gin.Context) {
 	}
 }
 
-// DeleteForumPostsByIds 批量删除ForumPosts
-// @Tags App_ForumPosts
-// @Summary 批量删除ForumPosts
+// DeleteForumPostsByIds 批量删除帖子
+// @Tags 帖子
+// @Summary 批量删除帖子
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdsReq true "批量删除ForumPosts"
+// @Param data body request.IdsReq true "批量删除帖子"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /app/forumPosts/deleteForumPostsByIds [delete]
 func (forumPostsApi *ForumPostsApi) DeleteForumPostsByIds(c *gin.Context) {
@@ -153,7 +153,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumPostsByIds(c *gin.Context) {
 }
 
 // UpdateForumPosts 更新ForumPosts
-// @Tags App_ForumPosts
+// @Tags 帖子
 // @Summary 更新ForumPosts
 // @Security ApiKeyAuth
 // @accept application/json
@@ -181,13 +181,13 @@ func (forumPostsApi *ForumPostsApi) UpdateForumPosts(c *gin.Context) {
 	}
 }
 
-// FindForumPosts 用id查询ForumPosts
-// @Tags App_ForumPosts
-// @Summary 用id查询ForumPosts
+// FindForumPosts 用id查询帖子
+// @Tags 帖子
+// @Summary 用id查询帖子
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询ForumPosts"
+// @Param data query request.IdSearch true "用id查询帖子"
 // @Success 200 {object}  response.Response{data=community.ForumPosts,msg=string}  "返回community.ForumPosts"
 // @Router /app/forumPosts/findForumPosts [get]
 func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
@@ -213,7 +213,7 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 }
 
 // GetForumPostsList 分页获取ForumPosts列表
-// @Tags App_ForumPosts
+// @Tags 帖子
 // @Summary 分页获取ForumPosts列表
 // @Security ApiKeyAuth
 // @accept application/json
@@ -244,14 +244,14 @@ func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
 	}
 }
 
-// CreateForumComment 创建ForumComment
-// @Tags App_ForumPosts
-// @Summary 创建ForumComment
+// CreateForumComment 创建评论
+// @Tags 帖子
+// @Summary 创建评论
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.CreateForumComment true "创建ForumComment"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Param data body communityReq.CreateForumComment true "创建评论"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
 // @Router /app/forumPosts/createForumComment [post]
 func (forumPostsApi *ForumPostsApi) CreateForumComment(c *gin.Context) {
 	var req communityReq.CreateForumComment
@@ -269,13 +269,13 @@ func (forumPostsApi *ForumPostsApi) CreateForumComment(c *gin.Context) {
 	}
 }
 
-// DeleteForumComment 删除ForumComment
-// @Tags App_ForumPosts
-// @Summary 删除ForumComment
+// DeleteForumComment 删除评论
+// @Tags 帖子
+// @Summary 删除评论
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdDelete true "删除ForumComment"
+// @Param data body request.IdDelete true "删除评论"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/forumPosts/deleteForumComment [delete]
 func (forumPostsApi *ForumPostsApi) DeleteForumComment(c *gin.Context) {
@@ -302,13 +302,13 @@ func (forumPostsApi *ForumPostsApi) DeleteForumComment(c *gin.Context) {
 	}
 }
 
-// DeleteForumCommentByIds 批量删除ForumComment
-// @Tags App_ForumPosts
-// @Summary 批量删除ForumComment
+// DeleteForumCommentByIds 批量删除评论
+// @Tags 帖子
+// @Summary 批量删除评论
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdsReq true "批量删除ForumComment"
+// @Param data body request.IdsReq true "批量删除评论"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /app/forumPosts/deleteForumCommentByIds [delete]
 func (forumPostsApi *ForumPostsApi) DeleteForumCommentByIds(c *gin.Context) {
@@ -327,7 +327,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumCommentByIds(c *gin.Context) {
 }
 
 // FindForumComment 用id查询ForumComment
-// @Tags App_ForumPosts
+// @Tags 帖子
 // @Summary 用id查询ForumComment
 // @Security ApiKeyAuth
 // @accept application/json
@@ -354,13 +354,13 @@ func (forumPostsApi *ForumPostsApi) FindForumComment(c *gin.Context) {
 	}
 }
 
-// GetForumCommentList 分页获取ForumComment列表
-// @Tags App_ForumPosts
-// @Summary 分页获取ForumComment列表
+// GetForumCommentList 分页获取评论列表
+// @Tags 帖子
+// @Summary 分页获取评论列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.ForumCommentSearch true "分页获取ForumComment列表"
+// @Param data query communityReq.ForumCommentSearch true "分页获取评论列表"
 // @Success 200 {object} response.PageResult{List=[]community.ForumComment,msg=string} "返回community.ForumComment"
 // @Router /app/forumPosts/getForumCommentList [get]
 func (forumPostsApi *ForumPostsApi) GetForumCommentList(c *gin.Context) {
@@ -386,7 +386,7 @@ func (forumPostsApi *ForumPostsApi) GetForumCommentList(c *gin.Context) {
 }
 
 // CreateForumThumbsUp 帖子点赞
-// @Tags App_ForumPosts
+// @Tags 帖子
 // @Summary 帖子点赞
 // @Security ApiKeyAuth
 // @accept application/json
@@ -414,7 +414,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumThumbsUp(c *gin.Context) {
 }
 
 // DeleteForumThumbsUp 取消帖子点赞
-// @Tags App_ForumPosts
+// @Tags 帖子
 // @Summary 取消帖子点赞
 // @Security ApiKeyAuth
 // @accept application/json
@@ -439,7 +439,7 @@ func (forumPostsApi *ForumPostsApi) DeleteForumThumbsUp(c *gin.Context) {
 }
 
 // CreateCommentThumbsUp 评论点赞
-// @Tags App_ForumPosts
+// @Tags 帖子
 // @Summary 评论点赞
 // @Security ApiKeyAuth
 // @accept application/json
@@ -464,7 +464,7 @@ func (forumPostsApi *ForumPostsApi) CreateCommentThumbsUp(c *gin.Context) {
 }
 
 // DeleteCommentThumbsUp 取消评论点赞
-// @Tags App_ForumPosts
+// @Tags 帖子
 // @Summary 取消评论点赞
 // @Security ApiKeyAuth
 // @accept application/json

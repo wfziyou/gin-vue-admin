@@ -393,6 +393,1398 @@ var doc = `{
                 }
             }
         },
+        "/app/Channel/getChannelList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "频道"
+                ],
+                "summary": "获取频道列表",
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.HkChannel",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkChannel"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/Channel/getUserChannelList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "频道"
+                ],
+                "summary": "获取用户频道",
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.HkChannel",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.HkChannel"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/Channel/setUserChannel": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "频道"
+                ],
+                "summary": "设置用户频道",
+                "parameters": [
+                    {
+                        "description": "设置用户频道",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamSetUserChannel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/createActivity": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "创建活动",
+                "parameters": [
+                    {
+                        "description": "创建活动",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.Activity"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/createActivityClassify": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "创建活动分类",
+                "parameters": [
+                    {
+                        "description": "创建活动分类",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.ActivityClassify"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/deleteActivity": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "删除活动",
+                "parameters": [
+                    {
+                        "description": "删除活动",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.Activity"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/deleteActivityByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "批量删除活动",
+                "parameters": [
+                    {
+                        "description": "批量删除活动",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/deleteActivityClassify": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "删除活动分类",
+                "parameters": [
+                    {
+                        "description": "删除活动分类",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.ActivityClassify"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/deleteActivityClassifyByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "批量删除活动分类",
+                "parameters": [
+                    {
+                        "description": "批量删除活动分类",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/exitActivity": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "退出活动",
+                "parameters": [
+                    {
+                        "description": "退出活动",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.ActivityUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/findActivity": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "用id查询活动详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "address",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "addressPos",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "addressZone",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "chatGroupId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "checkStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "classifyId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "collect",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "collectNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "contentHtml",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "curUserNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "des",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "dynamicNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isPublic",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pay",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payCurrency",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userNum",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/findActivityClassify": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "用id查询活动分类",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "icon",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/findActivityUser": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "用id查询活动的用户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "activityId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "orderId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pay",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "power",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/getActivityClassifyList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "分页获取活动分类列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "icon",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/getActivityList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "分页获取推荐活动列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "address",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "addressPos",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "addressZone",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "chatGroupId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "checkStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "classifyId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "collect",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "collectNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "contentHtml",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "curUserNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "des",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "dynamicNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isPublic",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pay",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payCurrency",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "payNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userNum",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/getActivityUserList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "分页获取活动的用户列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "activityId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "orderId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pay",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "power",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/joinActivity": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "加入活动",
+                "parameters": [
+                    {
+                        "description": "加入活动",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.ActivityUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/kickOutActivityUsers": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "踢出活动的用户",
+                "parameters": [
+                    {
+                        "description": "踢出活动的用户",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/updateActivity": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "更新活动",
+                "parameters": [
+                    {
+                        "description": "更新活动",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.Activity"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/updateActivityClassify": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "更新活动分类",
+                "parameters": [
+                    {
+                        "description": "更新活动分类",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.ActivityClassify"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/applyEnterCircle": {
             "post": {
                 "security": [
@@ -407,7 +1799,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
                 "summary": "申请加入圈子",
                 "parameters": [
@@ -445,7 +1837,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
                 "summary": "审批加入圈子申请",
                 "parameters": [
@@ -483,12 +1875,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "创建CircleRequest",
+                "summary": "创建圈子请求",
                 "parameters": [
                     {
-                        "description": "创建CircleRequest",
+                        "description": "创建圈子请求",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -521,12 +1913,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "删除CircleUser",
+                "summary": "删除圈子用户",
                 "parameters": [
                     {
-                        "description": "删除CircleUser",
+                        "description": "删除圈子用户",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -559,12 +1951,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "批量删除CircleUser",
+                "summary": "批量删除圈子用户",
                 "parameters": [
                     {
-                        "description": "批量删除CircleUser",
+                        "description": "批量删除圈子用户",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -597,7 +1989,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
                 "summary": "加入圈子",
                 "parameters": [
@@ -635,7 +2027,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
                 "summary": "分页获取加入圈子申请",
                 "parameters": [
@@ -730,7 +2122,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
                 "summary": "退出圈子",
                 "parameters": [
@@ -768,7 +2160,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
                 "summary": "用id查询Circle",
                 "parameters": [
@@ -818,9 +2210,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "用id查询CircleRequest",
+                "summary": "用id查询创建圈子请求",
                 "parameters": [
                     {
                         "type": "integer",
@@ -868,9 +2260,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "用id查询CircleUserInfo",
+                "summary": "用id查询圈子用户信息",
                 "parameters": [
                     {
                         "type": "integer",
@@ -918,9 +2310,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "分页获取CircleClassify列表",
+                "summary": "分页获取圈子分类列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -1007,9 +2399,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "获取CircleClassify列表",
+                "summary": "获取圈子分类列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -1096,9 +2488,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "分页获取圈子ForumPosts列表",
+                "summary": "分页获取圈子的帖子列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1209,9 +2601,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "分页获取Circle列表",
+                "summary": "分页获取圈子列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1304,9 +2696,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "分页获取CircleRequest列表",
+                "summary": "分页获取创建圈子请求列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1417,9 +2809,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "分页获取CircleUserInfo列表",
+                "summary": "分页获取圈子的用户信息列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1500,9 +2892,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "分页获取用户加入的Circle列表",
+                "summary": "分页获取用户加入的圈子列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -1589,7 +2981,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
                 "summary": "用户加入圈子的所有动态列表",
                 "parameters": [
@@ -1702,7 +3094,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
                 "summary": "设置用户当前圈子",
                 "parameters": [
@@ -1740,12 +3132,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "(圈子管理者)更新Circle",
+                "summary": "(圈子管理者)更新圈子",
                 "parameters": [
                     {
-                        "description": "(圈子管理者)更新Circle",
+                        "description": "(圈子管理者)更新圈子",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -1778,12 +3170,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Circle"
+                    "圈子"
                 ],
-                "summary": "更新CircleUser",
+                "summary": "更新圈子用户",
                 "parameters": [
                     {
-                        "description": "更新CircleUser",
+                        "description": "更新圈子用户",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -1816,7 +3208,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "用id查询Apply",
                 "parameters": [
@@ -1866,7 +3258,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "用id查询CircleApply",
                 "parameters": [
@@ -1916,7 +3308,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "分页获取Apply列表",
                 "parameters": [
@@ -2005,7 +3397,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "获取Apply列表",
                 "parameters": [
@@ -2094,7 +3486,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "分页获取CircleApplyGroup列表",
                 "parameters": [
@@ -2189,7 +3581,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "获取CircleApplyGroup列表",
                 "parameters": [
@@ -2284,7 +3676,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "分页获取CircleApply列表",
                 "parameters": [
@@ -2379,7 +3771,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "获取CircleApply列表",
                 "parameters": [
@@ -2456,7 +3848,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "获取UserCircleApply列表",
                 "parameters": [
@@ -2509,7 +3901,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_CircleApply"
+                    "圈子应用"
                 ],
                 "summary": "设置UserCircleApply",
                 "parameters": [
@@ -2547,7 +3939,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_FileUploadAndDownload"
+                    "文件"
                 ],
                 "summary": "断点续传到服务器",
                 "parameters": [
@@ -2592,7 +3984,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_FileUploadAndDownload"
+                    "文件"
                 ],
                 "summary": "删除文件",
                 "parameters": [
@@ -2642,7 +4034,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_FileUploadAndDownload"
+                    "文件"
                 ],
                 "summary": "创建文件",
                 "parameters": [
@@ -2693,7 +4085,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_FileUploadAndDownload"
+                    "文件"
                 ],
                 "summary": "分页文件列表",
                 "parameters": [
@@ -2746,7 +4138,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_FileUploadAndDownload"
+                    "文件"
                 ],
                 "summary": "删除切片",
                 "parameters": [
@@ -2794,7 +4186,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_FileUploadAndDownload"
+                    "文件"
                 ],
                 "summary": "上传文件示例",
                 "parameters": [
@@ -2831,6 +4223,499 @@ var doc = `{
                 }
             }
         },
+        "/app/focus/findFocusUser": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "关注/粉丝"
+                ],
+                "summary": "用id查询关注用户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "focusUserId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/focus/focusUser": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "关注/粉丝"
+                ],
+                "summary": "关注用户",
+                "parameters": [
+                    {
+                        "description": "关注用户",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.FocusUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/focus/focusUserCancel": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "关注/粉丝"
+                ],
+                "summary": "取消用户关注",
+                "parameters": [
+                    {
+                        "description": "取消用户关注",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.FocusUserCancel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/focus/getFansList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "关注/粉丝"
+                ],
+                "summary": "分页获取粉丝列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/focus/getFocusUserDynamicList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "关注/粉丝"
+                ],
+                "summary": "分页获取关注用户动态列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumPosts",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ForumPosts"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/focus/getFocusUserList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "关注/粉丝"
+                ],
+                "summary": "分页获取关注用户列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "focusUserId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/focus/getFrequentBrowsingUserList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "关注/粉丝"
+                ],
+                "summary": "分页获取经常浏览用户列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumPosts",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.UserBaseInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/focus/updateFocusUser": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "关注/粉丝"
+                ],
+                "summary": "更新关注用户",
+                "parameters": [
+                    {
+                        "description": "更新关注用户",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.FocusUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/forumPosts/createCommentThumbsUp": {
             "post": {
                 "security": [
@@ -2845,7 +4730,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
                 "summary": "评论点赞",
                 "parameters": [
@@ -2883,12 +4768,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
-                "summary": "创建ForumComment",
+                "summary": "创建评论",
                 "parameters": [
                     {
-                        "description": "创建ForumComment",
+                        "description": "创建评论",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -2899,7 +4784,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -2921,12 +4806,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
-                "summary": "创建ForumPosts",
+                "summary": "创建帖子",
                 "parameters": [
                     {
-                        "description": "创建ForumPosts",
+                        "description": "创建帖子",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -2959,7 +4844,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
                 "summary": "帖子点赞",
                 "parameters": [
@@ -2997,7 +4882,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
                 "summary": "取消评论点赞",
                 "parameters": [
@@ -3035,12 +4920,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
-                "summary": "删除ForumComment",
+                "summary": "删除评论",
                 "parameters": [
                     {
-                        "description": "删除ForumComment",
+                        "description": "删除评论",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -3073,12 +4958,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
-                "summary": "批量删除ForumComment",
+                "summary": "批量删除评论",
                 "parameters": [
                     {
-                        "description": "批量删除ForumComment",
+                        "description": "批量删除评论",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -3111,12 +4996,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
-                "summary": "删除ForumPosts",
+                "summary": "删除帖子",
                 "parameters": [
                     {
-                        "description": "删除ForumPosts",
+                        "description": "删除帖子",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -3149,12 +5034,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
-                "summary": "批量删除ForumPosts",
+                "summary": "批量删除帖子",
                 "parameters": [
                     {
-                        "description": "批量删除ForumPosts",
+                        "description": "批量删除帖子",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -3187,7 +5072,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
                 "summary": "取消帖子点赞",
                 "parameters": [
@@ -3225,12 +5110,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
-                "summary": "删除自己的ForumPosts",
+                "summary": "删除自己的帖子",
                 "parameters": [
                     {
-                        "description": "删除自己的ForumPosts",
+                        "description": "删除自己的帖子",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -3263,7 +5148,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
                 "summary": "用id查询ForumComment",
                 "parameters": [
@@ -3313,9 +5198,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
-                "summary": "用id查询ForumPosts",
+                "summary": "用id查询帖子",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3363,9 +5248,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
-                "summary": "分页获取ForumComment列表",
+                "summary": "分页获取评论列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -3452,7 +5337,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
                 "summary": "分页获取ForumPosts列表",
                 "parameters": [
@@ -3571,7 +5456,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_ForumPosts"
+                    "帖子"
                 ],
                 "summary": "更新ForumPosts",
                 "parameters": [
@@ -3609,7 +5494,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_General"
+                    "常规方法"
                 ],
                 "summary": "Bug反馈",
                 "parameters": [
@@ -3647,9 +5532,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_General"
+                    "常规方法"
                 ],
-                "summary": "用id查询BugReport",
+                "summary": "用id查询Bug反馈",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3697,9 +5582,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_General"
+                    "常规方法"
                 ],
-                "summary": "用id查询MiniProgram",
+                "summary": "用id查询小程序",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3747,7 +5632,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_General"
+                    "常规方法"
                 ],
                 "summary": "用id查询协议",
                 "parameters": [
@@ -3797,7 +5682,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_General"
+                    "常规方法"
                 ],
                 "summary": "用名字查询协议",
                 "parameters": [
@@ -3847,9 +5732,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_General"
+                    "常规方法"
                 ],
-                "summary": "分页获取BugReport列表",
+                "summary": "分页获取Bug反馈列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3940,9 +5825,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_General"
+                    "常规方法"
                 ],
-                "summary": "分页获取Protocol列表",
+                "summary": "分页获取协议列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -4007,6 +5892,447 @@ var doc = `{
                 }
             }
         },
+        "/app/question/answerQuestion": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "问答"
+                ],
+                "summary": "回答问题",
+                "parameters": [
+                    {
+                        "description": "回答问题",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.AnswerQuestion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/question/closeQuestion": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "问答"
+                ],
+                "summary": "关闭问题",
+                "parameters": [
+                    {
+                        "description": "关闭问题",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CloseQuestion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/question/createQuestion": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "问答"
+                ],
+                "summary": "创建问题",
+                "parameters": [
+                    {
+                        "description": "创建问题",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CreateQuestion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/question/delSelfAnswer": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "问答"
+                ],
+                "summary": "删除自己的回答",
+                "parameters": [
+                    {
+                        "description": "删除自己的回答",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdDelete"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/question/getAnswerList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "问答"
+                ],
+                "summary": "分页获取问题的回答列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "问题_编号",
+                        "name": "questionId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.QuestionAnswer",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.QuestionAnswer"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/question/getCircleQuestionList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "问答"
+                ],
+                "summary": "分页获取圈子问题列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumPosts",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ForumPosts"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/question/getGlobalQuestionList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "问答"
+                ],
+                "summary": "分页获取全局问题列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "当前位置",
+                        "name": "curPos",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumPosts",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ForumPosts"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/question/setBestAnswer": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "问答"
+                ],
+                "summary": "设置最佳答案",
+                "parameters": [
+                    {
+                        "description": "设置最佳答案",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.SetBestAnswer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/question/setQuestionScore": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "问答"
+                ],
+                "summary": "给问题打分（1-5星）",
+                "parameters": [
+                    {
+                        "description": "给问题打分（1-5星）",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.SetQuestionScore"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/report/createReport": {
             "post": {
                 "security": [
@@ -4021,7 +6347,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Report"
+                    "举报"
                 ],
                 "summary": "举报",
                 "parameters": [
@@ -4059,9 +6385,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Report"
+                    "举报"
                 ],
-                "summary": "用id查询Report",
+                "summary": "用id查询举报",
                 "parameters": [
                     {
                         "type": "integer",
@@ -4109,9 +6435,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Report"
+                    "举报"
                 ],
-                "summary": "用id查询ReportReason",
+                "summary": "用id查询举报原因",
                 "parameters": [
                     {
                         "type": "integer",
@@ -4159,9 +6485,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Report"
+                    "举报"
                 ],
-                "summary": "分页获取Report列表",
+                "summary": "分页获取举报列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -4350,9 +6676,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Report"
+                    "举报"
                 ],
-                "summary": "分页获取ReportReason列表",
+                "summary": "分页获取举报原因列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -4421,12 +6747,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Topic"
+                    "话题"
                 ],
-                "summary": "创建ForumTopic",
+                "summary": "创建话题",
                 "parameters": [
                     {
-                        "description": "创建ForumTopic",
+                        "description": "创建话题",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -4459,12 +6785,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Topic"
+                    "话题"
                 ],
-                "summary": "删除ForumTopic",
+                "summary": "删除话题",
                 "parameters": [
                     {
-                        "description": "删除ForumTopic",
+                        "description": "删除话题",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -4497,12 +6823,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Topic"
+                    "话题"
                 ],
-                "summary": "批量删除ForumTopic",
+                "summary": "批量删除话题",
                 "parameters": [
                     {
-                        "description": "批量删除ForumTopic",
+                        "description": "批量删除话题",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -4535,9 +6861,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Topic"
+                    "话题"
                 ],
-                "summary": "用id查询ForumTopic",
+                "summary": "用id查询话题",
                 "parameters": [
                     {
                         "type": "integer",
@@ -4588,9 +6914,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Topic"
+                    "话题"
                 ],
-                "summary": "用id查询ForumTopicGroup",
+                "summary": "用id查询话题分组",
                 "parameters": [
                     {
                         "type": "integer",
@@ -4638,9 +6964,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Topic"
+                    "话题"
                 ],
-                "summary": "分页获取ForumTopicGroup列表",
+                "summary": "分页获取话题分组列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -4721,9 +7047,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Topic"
+                    "话题"
                 ],
-                "summary": "获取ForumTopicGroup列表",
+                "summary": "获取话题分组列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -4804,9 +7130,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Topic"
+                    "话题"
                 ],
-                "summary": "分页获取ForumTopic列表",
+                "summary": "分页获取话题列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -4917,12 +7243,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_Topic"
+                    "话题"
                 ],
-                "summary": "更新ForumTopic",
+                "summary": "更新话题",
                 "parameters": [
                     {
-                        "description": "更新ForumTopic",
+                        "description": "更新话题",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -4947,7 +7273,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "用户"
                 ],
                 "summary": "绑定邮箱",
                 "parameters": [
@@ -4977,7 +7303,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "用户"
                 ],
                 "summary": "绑定手机",
                 "parameters": [
@@ -5001,7 +7327,7 @@ var doc = `{
                 }
             }
         },
-        "/app/user/getCaptcha": {
+        "/app/user/getSmsVerification": {
             "post": {
                 "consumes": [
                     "application/json"
@@ -5010,12 +7336,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "鉴权认证"
                 ],
-                "summary": "获取验证码",
+                "summary": "获取短信验证码",
                 "parameters": [
                     {
-                        "description": "获取验证码",
+                        "description": "获取短信验证码",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -5026,7 +7352,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -5040,12 +7366,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "鉴权认证"
                 ],
                 "summary": "获取第三方平台信息",
                 "responses": {
                     "200": {
-                        "description": "返回包括用户信息,token,过期时间",
+                        "description": "返回[]authRes.ThirdPlatInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -5085,9 +7411,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "用户"
                 ],
-                "summary": "用id查询UserBaseInfo",
+                "summary": "用id查询用户基本信息",
                 "parameters": [
                     {
                         "type": "integer",
@@ -5135,9 +7461,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "用户"
                 ],
-                "summary": "分页获取User列表",
+                "summary": "分页获取用户列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -5220,7 +7546,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "鉴权认证"
                 ],
                 "summary": "用户登录(账号密码)",
                 "parameters": [
@@ -5236,7 +7562,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回包括用户信息,token,过期时间",
+                        "description": "返回LoginResponse",
                         "schema": {
                             "allOf": [
                                 {
@@ -5246,7 +7572,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.LoginResponse"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -5265,7 +7591,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "鉴权认证"
                 ],
                 "summary": "用户登录(手机)",
                 "parameters": [
@@ -5281,7 +7607,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回包括用户信息,token,过期时间",
+                        "description": "返回LoginResponse",
                         "schema": {
                             "allOf": [
                                 {
@@ -5291,7 +7617,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.LoginResponse"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -5310,7 +7636,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "鉴权认证"
                 ],
                 "summary": "用户登录(第三方授权)",
                 "parameters": [
@@ -5326,7 +7652,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回包括用户信息,token,过期时间",
+                        "description": "返回LoginResponse",
                         "schema": {
                             "allOf": [
                                 {
@@ -5336,7 +7662,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.LoginResponse"
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -5355,7 +7681,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "鉴权认证"
                 ],
                 "summary": "注册",
                 "parameters": [
@@ -5365,13 +7691,13 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_request.Register"
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "用户注册账号,返回包括用户信息",
+                        "description": "返回RegisterResponse",
                         "schema": {
                             "allOf": [
                                 {
@@ -5381,7 +7707,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.SysUserResponse"
+                                            "$ref": "#/definitions/response.RegisterResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -5405,7 +7731,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "鉴权认证"
                 ],
                 "summary": "重置密码",
                 "parameters": [
@@ -5443,7 +7769,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_User"
+                    "用户"
                 ],
                 "summary": "设置用户基础信息",
                 "parameters": [
@@ -5481,12 +7807,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_UserBrowsingHistory"
+                    "浏览历史"
                 ],
-                "summary": "删除UserBrowsingHistory",
+                "summary": "删除浏览历史",
                 "parameters": [
                     {
-                        "description": "删除UserBrowsingHistory",
+                        "description": "删除浏览历史",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -5519,12 +7845,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_UserBrowsingHistory"
+                    "浏览历史"
                 ],
-                "summary": "批量删除UserBrowsingHistory",
+                "summary": "批量删除浏览历史",
                 "parameters": [
                     {
-                        "description": "批量删除UserBrowsingHistory",
+                        "description": "批量删除浏览历史",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -5557,9 +7883,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "APP_UserBrowsingHistory"
+                    "浏览历史"
                 ],
-                "summary": "分页获取UserBrowsingHistory列表",
+                "summary": "分页获取浏览历史列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -5632,7 +7958,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_UserCollect"
+                    "收藏"
                 ],
                 "summary": "收藏帖子",
                 "parameters": [
@@ -5670,12 +7996,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_UserCollect"
+                    "收藏"
                 ],
-                "summary": "删除UserCollect",
+                "summary": "删除收藏",
                 "parameters": [
                     {
-                        "description": "删除UserCollect",
+                        "description": "删除收藏",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -5708,12 +8034,12 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_UserCollect"
+                    "收藏"
                 ],
-                "summary": "批量删除UserCollect",
+                "summary": "批量删除收藏",
                 "parameters": [
                     {
-                        "description": "批量删除UserCollect",
+                        "description": "批量删除收藏",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -5746,9 +8072,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "App_UserCollect"
+                    "收藏"
                 ],
-                "summary": "分页获取UserCollect列表",
+                "summary": "分页获取收藏列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -5797,6 +8123,59 @@ var doc = `{
                                             "items": {
                                                 "$ref": "#/definitions/general.UserCollect"
                                             }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/loginOneClick": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "一键登录",
+                "parameters": [
+                    {
+                        "description": "一键登录",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.LoginOneClick"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回LoginResponse",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -7750,2508 +10129,6 @@ var doc = `{
                                     }
                                 }
                             ]
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivity/createHkActivity": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivity"
-                ],
-                "summary": "创建HkActivity",
-                "parameters": [
-                    {
-                        "description": "创建HkActivity",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivity"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivity/deleteHkActivity": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivity"
-                ],
-                "summary": "删除HkActivity",
-                "parameters": [
-                    {
-                        "description": "删除HkActivity",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivity"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivity/deleteHkActivityByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivity"
-                ],
-                "summary": "批量删除HkActivity",
-                "parameters": [
-                    {
-                        "description": "批量删除HkActivity",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivity/findHkActivity": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivity"
-                ],
-                "summary": "用id查询HkActivity",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "name": "address",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "addressPos",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "addressZone",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "chatGroupId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "checkStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "classifyId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "collect",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "collectNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "contentHtml",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "curUserNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "des",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "dynamicNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isPublic",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "pay",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "payCurrency",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "payNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userNum",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivity/getHkActivityList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivity"
-                ],
-                "summary": "分页获取HkActivity列表",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "name": "address",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "addressPos",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "addressZone",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "chatGroupId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "checkStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "classifyId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "collect",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "collectNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "contentHtml",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "curUserNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "des",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "dynamicNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isPublic",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "pay",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "payCurrency",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "payNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userNum",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivity/updateHkActivity": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivity"
-                ],
-                "summary": "更新HkActivity",
-                "parameters": [
-                    {
-                        "description": "更新HkActivity",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivity"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityClassify/createHkActivityClassify": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityClassify"
-                ],
-                "summary": "创建HkActivityClassify",
-                "parameters": [
-                    {
-                        "description": "创建HkActivityClassify",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivityClassify"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityClassify/deleteHkActivityClassify": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityClassify"
-                ],
-                "summary": "删除HkActivityClassify",
-                "parameters": [
-                    {
-                        "description": "删除HkActivityClassify",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivityClassify"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityClassify/deleteHkActivityClassifyByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityClassify"
-                ],
-                "summary": "批量删除HkActivityClassify",
-                "parameters": [
-                    {
-                        "description": "批量删除HkActivityClassify",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityClassify/findHkActivityClassify": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityClassify"
-                ],
-                "summary": "用id查询HkActivityClassify",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "icon",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "name",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityClassify/getHkActivityClassifyList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityClassify"
-                ],
-                "summary": "分页获取HkActivityClassify列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "icon",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "name",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityClassify/updateHkActivityClassify": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityClassify"
-                ],
-                "summary": "更新HkActivityClassify",
-                "parameters": [
-                    {
-                        "description": "更新HkActivityClassify",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivityClassify"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityCollect/createHkActivityCollect": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityCollect"
-                ],
-                "summary": "创建HkActivityCollect",
-                "parameters": [
-                    {
-                        "description": "创建HkActivityCollect",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivityCollect"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityCollect/deleteHkActivityCollect": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityCollect"
-                ],
-                "summary": "删除HkActivityCollect",
-                "parameters": [
-                    {
-                        "description": "删除HkActivityCollect",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivityCollect"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityCollect/deleteHkActivityCollectByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityCollect"
-                ],
-                "summary": "批量删除HkActivityCollect",
-                "parameters": [
-                    {
-                        "description": "批量删除HkActivityCollect",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityCollect/findHkActivityCollect": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityCollect"
-                ],
-                "summary": "用id查询HkActivityCollect",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "activityId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityCollect/getHkActivityCollectList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityCollect"
-                ],
-                "summary": "分页获取HkActivityCollect列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "activityId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityCollect/updateHkActivityCollect": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityCollect"
-                ],
-                "summary": "更新HkActivityCollect",
-                "parameters": [
-                    {
-                        "description": "更新HkActivityCollect",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivityCollect"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityUser/createHkActivityUser": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityUser"
-                ],
-                "summary": "创建HkActivityUser",
-                "parameters": [
-                    {
-                        "description": "创建HkActivityUser",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivityUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityUser/deleteHkActivityUser": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityUser"
-                ],
-                "summary": "删除HkActivityUser",
-                "parameters": [
-                    {
-                        "description": "删除HkActivityUser",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivityUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityUser/deleteHkActivityUserByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityUser"
-                ],
-                "summary": "批量删除HkActivityUser",
-                "parameters": [
-                    {
-                        "description": "批量删除HkActivityUser",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityUser/findHkActivityUser": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityUser"
-                ],
-                "summary": "用id查询HkActivityUser",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "activityId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "orderId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "pay",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "power",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityUser/getHkActivityUserList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityUser"
-                ],
-                "summary": "分页获取HkActivityUser列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "activityId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "orderId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "pay",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "power",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkActivityUser/updateHkActivityUser": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkActivityUser"
-                ],
-                "summary": "更新HkActivityUser",
-                "parameters": [
-                    {
-                        "description": "更新HkActivityUser",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkActivityUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkChannel/getChannelList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkChannel"
-                ],
-                "summary": "获取频道列表",
-                "responses": {
-                    "200": {
-                        "description": "返回[]community.HkChannel",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/community.HkChannel"
-                                            }
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/hkChannel/getUserChannelList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkChannel"
-                ],
-                "summary": "获取用户频道",
-                "responses": {
-                    "200": {
-                        "description": "返回[]community.HkChannel",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/community.HkChannel"
-                                            }
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/hkChannel/setUserChannel": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkChannel"
-                ],
-                "summary": "设置用户频道",
-                "parameters": [
-                    {
-                        "description": "设置用户频道",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.ParamSetUserChannel"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkFocusUser/createHkFocusUser": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkFocusUser"
-                ],
-                "summary": "创建HkFocusUser",
-                "parameters": [
-                    {
-                        "description": "创建HkFocusUser",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkFocusUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkFocusUser/deleteHkFocusUser": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkFocusUser"
-                ],
-                "summary": "删除HkFocusUser",
-                "parameters": [
-                    {
-                        "description": "删除HkFocusUser",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkFocusUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkFocusUser/deleteHkFocusUserByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkFocusUser"
-                ],
-                "summary": "批量删除HkFocusUser",
-                "parameters": [
-                    {
-                        "description": "批量删除HkFocusUser",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkFocusUser/findHkFocusUser": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkFocusUser"
-                ],
-                "summary": "用id查询HkFocusUser",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "focusUserId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkFocusUser/getHkFocusUserList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkFocusUser"
-                ],
-                "summary": "分页获取HkFocusUser列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "focusUserId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkFocusUser/updateHkFocusUser": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkFocusUser"
-                ],
-                "summary": "更新HkFocusUser",
-                "parameters": [
-                    {
-                        "description": "更新HkFocusUser",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkFocusUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkUserSign/createHkUserSign": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkUserSign"
-                ],
-                "summary": "创建HkUserSign",
-                "parameters": [
-                    {
-                        "description": "创建HkUserSign",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkUserSign"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkUserSign/deleteHkUserSign": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkUserSign"
-                ],
-                "summary": "删除HkUserSign",
-                "parameters": [
-                    {
-                        "description": "删除HkUserSign",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkUserSign"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkUserSign/deleteHkUserSignByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkUserSign"
-                ],
-                "summary": "批量删除HkUserSign",
-                "parameters": [
-                    {
-                        "description": "批量删除HkUserSign",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkUserSign/findHkUserSign": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkUserSign"
-                ],
-                "summary": "用id查询HkUserSign",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "balance",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "number",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkUserSign/getHkUserSignList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkUserSign"
-                ],
-                "summary": "分页获取HkUserSign列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "balance",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "number",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/hkUserSign/updateHkUserSign": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HkUserSign"
-                ],
-                "summary": "更新HkUserSign",
-                "parameters": [
-                    {
-                        "description": "更新HkUserSign",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.HkUserSign"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 }
@@ -12278,7 +12155,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse"
+                                            "$ref": "#/definitions/response.SysUserResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -12851,6 +12728,201 @@ var doc = `{
                 }
             }
         },
+        "community.Activity": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "addressPos": {
+                    "type": "string"
+                },
+                "addressZone": {
+                    "type": "string"
+                },
+                "chatGroupId": {
+                    "type": "integer"
+                },
+                "checkStatus": {
+                    "type": "integer"
+                },
+                "circleId": {
+                    "type": "integer"
+                },
+                "classifyId": {
+                    "type": "integer"
+                },
+                "collect": {
+                    "type": "integer"
+                },
+                "collectNum": {
+                    "type": "integer"
+                },
+                "contentHtml": {
+                    "type": "string"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "curUserNum": {
+                    "type": "integer"
+                },
+                "des": {
+                    "type": "string"
+                },
+                "dynamicNum": {
+                    "type": "integer"
+                },
+                "endAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "isPublic": {
+                    "type": "integer"
+                },
+                "pay": {
+                    "type": "integer"
+                },
+                "payCurrency": {
+                    "type": "integer"
+                },
+                "payNum": {
+                    "type": "integer"
+                },
+                "startAt": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                },
+                "userNum": {
+                    "type": "integer"
+                }
+            }
+        },
+        "community.ActivityClassify": {
+            "type": "object",
+            "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "community.ActivityUser": {
+            "type": "object",
+            "properties": {
+                "activityId": {
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "orderId": {
+                    "type": "integer"
+                },
+                "pay": {
+                    "type": "integer"
+                },
+                "power": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
         "community.Circle": {
             "type": "object",
             "properties": {
@@ -13178,6 +13250,47 @@ var doc = `{
                 }
             }
         },
+        "community.FocusUser": {
+            "type": "object",
+            "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "focusUserId": {
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
         "community.ForumComment": {
             "type": "object",
             "properties": {
@@ -13227,7 +13340,7 @@ var doc = `{
                 },
                 "userInfo": {
                     "description": "用户基本信息",
-                    "$ref": "#/definitions/community.ForumPostsUser"
+                    "$ref": "#/definitions/community.UserBaseInfo"
                 }
             }
         },
@@ -13398,7 +13511,7 @@ var doc = `{
                 },
                 "userInfo": {
                     "description": "用户基本信息",
-                    "$ref": "#/definitions/community.ForumPostsUser"
+                    "$ref": "#/definitions/community.UserBaseInfo"
                 },
                 "video": {
                     "description": "视频地址",
@@ -13505,48 +13618,11 @@ var doc = `{
                 },
                 "userInfo": {
                     "description": "用户基本信息",
-                    "$ref": "#/definitions/community.ForumPostsUser"
+                    "$ref": "#/definitions/community.UserBaseInfo"
                 },
                 "video": {
                     "description": "视频地址",
                     "type": "string"
-                }
-            }
-        },
-        "community.ForumPostsUser": {
-            "type": "object",
-            "properties": {
-                "account": {
-                    "description": "账号",
-                    "type": "string"
-                },
-                "description": {
-                    "description": "描述",
-                    "type": "string"
-                },
-                "headerImg": {
-                    "description": "头像",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "nickName": {
-                    "description": "昵称",
-                    "type": "string"
-                },
-                "realName": {
-                    "description": "真名",
-                    "type": "string"
-                },
-                "sex": {
-                    "description": "性别： 0未知、1男、2女",
-                    "type": "integer"
-                },
-                "userType": {
-                    "description": "用户平台: 1web、2app、3other",
-                    "type": "integer"
                 }
             }
         },
@@ -13633,242 +13709,6 @@ var doc = `{
                 }
             }
         },
-        "community.HkActivity": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "addressPos": {
-                    "type": "string"
-                },
-                "addressZone": {
-                    "type": "string"
-                },
-                "chatGroupId": {
-                    "type": "integer"
-                },
-                "checkStatus": {
-                    "type": "integer"
-                },
-                "circleId": {
-                    "type": "integer"
-                },
-                "classifyId": {
-                    "type": "integer"
-                },
-                "collect": {
-                    "type": "integer"
-                },
-                "collectNum": {
-                    "type": "integer"
-                },
-                "contentHtml": {
-                    "type": "string"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "curUserNum": {
-                    "type": "integer"
-                },
-                "des": {
-                    "type": "string"
-                },
-                "dynamicNum": {
-                    "type": "integer"
-                },
-                "endAt": {
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDel": {
-                    "type": "integer"
-                },
-                "isPublic": {
-                    "type": "integer"
-                },
-                "pay": {
-                    "type": "integer"
-                },
-                "payCurrency": {
-                    "type": "integer"
-                },
-                "payNum": {
-                    "type": "integer"
-                },
-                "startAt": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "type": "integer"
-                },
-                "userNum": {
-                    "type": "integer"
-                }
-            }
-        },
-        "community.HkActivityClassify": {
-            "type": "object",
-            "properties": {
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "icon": {
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDel": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "sort": {
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "community.HkActivityCollect": {
-            "type": "object",
-            "properties": {
-                "activityId": {
-                    "type": "integer"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDel": {
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "type": "integer"
-                }
-            }
-        },
-        "community.HkActivityUser": {
-            "type": "object",
-            "properties": {
-                "activityId": {
-                    "type": "integer"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDel": {
-                    "type": "integer"
-                },
-                "orderId": {
-                    "type": "integer"
-                },
-                "pay": {
-                    "type": "integer"
-                },
-                "power": {
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "type": "integer"
-                }
-            }
-        },
         "community.HkChannel": {
             "type": "object",
             "properties": {
@@ -13919,58 +13759,12 @@ var doc = `{
                 }
             }
         },
-        "community.HkFocusUser": {
+        "community.QuestionAnswer": {
             "type": "object",
             "properties": {
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
+                "content": {
+                    "description": "回答内容",
                     "type": "string"
-                },
-                "focusUserId": {
-                    "type": "integer"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDel": {
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "type": "integer"
-                }
-            }
-        },
-        "community.HkUserSign": {
-            "type": "object",
-            "properties": {
-                "balance": {
-                    "type": "integer"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
@@ -13980,26 +13774,20 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "isDel": {
+                "likeNum": {
+                    "description": "点赞数",
                     "type": "integer"
                 },
-                "number": {
+                "questionId": {
+                    "description": "问题编号",
                     "type": "integer"
                 },
-                "status": {
+                "thumbsUp": {
+                    "description": "是否点赞：0否、1是",
                     "type": "integer"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
                 },
                 "userId": {
+                    "description": "回答者",
                     "type": "integer"
                 }
             }
@@ -14181,6 +13969,43 @@ var doc = `{
                 "uuid": {
                     "description": "用户编号",
                     "type": "string"
+                }
+            }
+        },
+        "community.UserBaseInfo": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "账号",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "headerImg": {
+                    "description": "头像",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "nickName": {
+                    "description": "昵称",
+                    "type": "string"
+                },
+                "realName": {
+                    "description": "真名",
+                    "type": "string"
+                },
+                "sex": {
+                    "description": "性别： 0未知、1男、2女",
+                    "type": "integer"
+                },
+                "userType": {
+                    "description": "用户平台: 1web、2app、3other",
+                    "type": "integer"
                 }
             }
         },
@@ -15530,6 +15355,10 @@ var doc = `{
         "general.UserCollect": {
             "type": "object",
             "properties": {
+                "category": {
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议",
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -15548,7 +15377,7 @@ var doc = `{
                 }
             }
         },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community_request.Register": {
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register": {
             "type": "object",
             "properties": {
                 "account": {
@@ -15568,7 +15397,7 @@ var doc = `{
                 }
             }
         },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.LoginResponse": {
+        "github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse": {
             "type": "object",
             "properties": {
                 "expiresAt": {
@@ -15577,14 +15406,6 @@ var doc = `{
                 "token": {
                     "type": "string"
                 },
-                "user": {
-                    "$ref": "#/definitions/community.User"
-                }
-            }
-        },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.SysUserResponse": {
-            "type": "object",
-            "properties": {
                 "user": {
                     "$ref": "#/definitions/community.User"
                 }
@@ -15645,14 +15466,6 @@ var doc = `{
                 }
             }
         },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse": {
-            "type": "object",
-            "properties": {
-                "user": {
-                    "$ref": "#/definitions/system.SysUser"
-                }
-            }
-        },
         "request.AddMenuAuthorityInfo": {
             "type": "object",
             "properties": {
@@ -15665,6 +15478,19 @@ var doc = `{
                     "items": {
                         "$ref": "#/definitions/system.SysBaseMenu"
                     }
+                }
+            }
+        },
+        "request.AnswerQuestion": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "description": "内容",
+                    "type": "string"
+                },
+                "questionId": {
+                    "description": "问题_编号",
+                    "type": "integer"
                 }
             }
         },
@@ -15771,6 +15597,15 @@ var doc = `{
                 "password": {
                     "description": "密码",
                     "type": "string"
+                }
+            }
+        },
+        "request.CloseQuestion": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "问题_编号",
+                    "type": "integer"
                 }
             }
         },
@@ -15898,6 +15733,35 @@ var doc = `{
                 }
             }
         },
+        "request.CreateQuestion": {
+            "type": "object",
+            "properties": {
+                "attachment": {
+                    "description": "附件",
+                    "type": "string"
+                },
+                "content": {
+                    "description": "内容",
+                    "type": "string"
+                },
+                "pay": {
+                    "description": "付费：0否、1是",
+                    "type": "integer"
+                },
+                "payCurrency": {
+                    "description": "付费货币：1人民、2积分、3代币",
+                    "type": "integer"
+                },
+                "payNum": {
+                    "description": "付费金额",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "标题",
+                    "type": "string"
+                }
+            }
+        },
         "request.DeleteCircleUserReq": {
             "type": "object",
             "properties": {
@@ -15947,6 +15811,26 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
+                }
+            }
+        },
+        "request.FocusUser": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "description": "用户ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.FocusUserCancel": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             }
         },
@@ -16050,6 +15934,9 @@ var doc = `{
                     "type": "string"
                 }
             }
+        },
+        "request.LoginOneClick": {
+            "type": "object"
         },
         "request.LoginPwd": {
             "type": "object",
@@ -16204,6 +16091,32 @@ var doc = `{
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
+                }
+            }
+        },
+        "request.SetBestAnswer": {
+            "type": "object",
+            "properties": {
+                "answerId": {
+                    "description": "答案_编号",
+                    "type": "integer"
+                },
+                "questionId": {
+                    "description": "问题_编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.SetQuestionScore": {
+            "type": "object",
+            "properties": {
+                "questionId": {
+                    "description": "问题_编号",
+                    "type": "integer"
+                },
+                "score": {
+                    "description": "分数（1-5星）",
+                    "type": "integer"
                 }
             }
         },
@@ -16502,6 +16415,14 @@ var doc = `{
                 }
             }
         },
+        "response.RegisterResponse": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/community.User"
+                }
+            }
+        },
         "response.Response": {
             "type": "object",
             "properties": {
@@ -16618,6 +16539,14 @@ var doc = `{
                     "items": {
                         "$ref": "#/definitions/system.SysMenu"
                     }
+                }
+            }
+        },
+        "response.SysUserResponse": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/system.SysUser"
                 }
             }
         },

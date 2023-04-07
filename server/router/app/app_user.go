@@ -22,8 +22,8 @@ func (router *UserRouter) InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes
 
 	}
 	{
-		userRouterWithoutRecord.GET("getUserBaseInfo", userApi.GetUserBaseInfo) // 用id查询UserBaseInfo
-		userRouterWithoutRecord.GET("getUserList", userApi.GetUserList)         // 分页获取User列表
+		userRouterWithoutRecord.GET("getUserBaseInfo", userApi.GetUserBaseInfo) // 用id查询用户基本信息
+		userRouterWithoutRecord.GET("getUserList", userApi.GetUserList)         // 分页获取用户列表
 	}
 	return userRouter
 }

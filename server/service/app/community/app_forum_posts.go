@@ -11,7 +11,7 @@ import (
 type AppForumPostsService struct {
 }
 
-// CreateForumPosts 创建ForumPosts记录
+// CreateForumPosts 创建帖子记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communityReq.CreateForumPostsReq) (err error) {
 	forumPosts := community.ForumPosts{
@@ -39,7 +39,7 @@ func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communit
 	return err
 }
 
-// DeleteForumPosts 删除ForumPosts记录
+// DeleteForumPosts 删除帖子记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) DeleteForumPosts(info community.ForumPosts) (err error) {
 	err = global.GVA_DB.Delete(&info).Error
@@ -50,7 +50,7 @@ func (appForumPostsService *AppForumPostsService) DeleteSelfForumPosts(info comm
 	return err
 }
 
-// DeleteForumPostsByIds 批量删除ForumPosts记录
+// DeleteForumPostsByIds 批量删除帖子记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) DeleteForumPostsByIds(ids request.IdsReq) (err error) {
 	err = global.GVA_DB.Delete(&[]community.ForumPosts{}, "id in ?", ids.Ids).Error

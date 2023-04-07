@@ -11,16 +11,3 @@ type UserBaseInfoResponse struct {
 type SysUserResponse struct {
 	User community.User `json:"user"`
 }
-
-type LoginResponse struct {
-	User      community.User `json:"user"`
-	Token     string         `json:"token"`
-	ExpiresAt int64          `json:"expiresAt"`
-}
-
-type ThirdPlatInfo struct {
-	Plat  string `json:"Plat"`
-	Name  string `json:"name"`
-	Appid string `json:"appid"`
-	Icon  string `json:"icon"`
-}

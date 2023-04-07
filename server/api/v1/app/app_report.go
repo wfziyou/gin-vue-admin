@@ -19,7 +19,7 @@ type ReportApi struct {
 **************************************/
 
 // CreateReport 举报
-// @Tags App_Report
+// @Tags 举报
 // @Summary 举报
 // @Security ApiKeyAuth
 // @accept application/json
@@ -43,13 +43,13 @@ func (reportApi *ReportApi) CreateReport(c *gin.Context) {
 	}
 }
 
-// FindReport 用id查询Report
-// @Tags App_Report
-// @Summary 用id查询Report
+// FindReport 用id查询举报
+// @Tags 举报
+// @Summary 用id查询举报
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询Report"
+// @Param data query request.IdSearch true "用id查询举报"
 // @Success 200 {object}  response.Response{data=community.Report,msg=string}  "返回community.Report"
 // @Router /app/report/findReport [get]
 func (reportApi *ReportApi) FindReport(c *gin.Context) {
@@ -67,13 +67,13 @@ func (reportApi *ReportApi) FindReport(c *gin.Context) {
 	}
 }
 
-// GetReportList 分页获取Report列表
-// @Tags App_Report
-// @Summary 分页获取Report列表
+// GetReportList 分页获取举报列表
+// @Tags 举报
+// @Summary 分页获取举报列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.ReportSearch true "分页获取Report列表"
+// @Param data query communityReq.ReportSearch true "分页获取举报列表"
 // @Success 200 {object}  response.PageResult{List=[]community.Report,msg=string} "返回community.Report"
 // @Router /app/report/getReportList [get]
 func (reportApi *ReportApi) GetReportList(c *gin.Context) {
@@ -97,13 +97,13 @@ func (reportApi *ReportApi) GetReportList(c *gin.Context) {
 	}
 }
 
-// FindReportReason 用id查询ReportReason
-// @Tags App_Report
-// @Summary 用id查询ReportReason
+// FindReportReason 用id查询举报原因
+// @Tags 举报
+// @Summary 用id查询举报原因
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询ReportReason"
+// @Param data query request.IdSearch true "用id查询举报原因"
 // @Success 200 {object}  response.Response{data=community.ReportReason,msg=string}  "返回community.ReportReason"
 // @Router /app/report/findReportReason [get]
 func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
@@ -121,13 +121,13 @@ func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
 	}
 }
 
-// GetReportReasonList 分页获取ReportReason列表
-// @Tags App_Report
-// @Summary 分页获取ReportReason列表
+// GetReportReasonList 分页获取举报原因列表
+// @Tags 举报
+// @Summary 分页获取举报原因列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.ReportReasonSearch true "分页获取ReportReason列表"
+// @Param data query communityReq.ReportReasonSearch true "分页获取举报原因列表"
 // @Success 200 {object}  response.PageResult{List=[]community.ReportReason,msg=string} "返回community.ReportReason"
 // @Router /app/report/getReportReasonList [get]
 func (reportApi *ReportApi) GetReportReasonList(c *gin.Context) {

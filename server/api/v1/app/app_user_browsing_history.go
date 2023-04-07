@@ -18,13 +18,13 @@ type UserBrowsingHistoryApi struct {
 浏览历史
 **************************************/
 
-// DeleteUserBrowsingHistory 删除UserBrowsingHistory
-// @Tags APP_UserBrowsingHistory
-// @Summary 删除UserBrowsingHistory
+// DeleteUserBrowsingHistory 删除浏览历史
+// @Tags 浏览历史
+// @Summary 删除浏览历史
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body general.UserBrowsingHistory true "删除UserBrowsingHistory"
+// @Param data body general.UserBrowsingHistory true "删除浏览历史"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/userBrowsingHistory/deleteUserBrowsingHistory [delete]
 func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistory(c *gin.Context) {
@@ -42,13 +42,13 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistory(
 	}
 }
 
-// DeleteUserBrowsingHistoryByIds 批量删除UserBrowsingHistory
-// @Tags APP_UserBrowsingHistory
-// @Summary 批量删除UserBrowsingHistory
+// DeleteUserBrowsingHistoryByIds 批量删除浏览历史
+// @Tags 浏览历史
+// @Summary 批量删除浏览历史
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdsReq true "批量删除UserBrowsingHistory"
+// @Param data body request.IdsReq true "批量删除浏览历史"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /app/userBrowsingHistory/deleteUserBrowsingHistoryByIds [delete]
 func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistoryByIds(c *gin.Context) {
@@ -66,13 +66,13 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistoryB
 	}
 }
 
-// GetUserBrowsingHistoryList 分页获取UserBrowsingHistory列表
-// @Tags APP_UserBrowsingHistory
-// @Summary 分页获取UserBrowsingHistory列表
+// GetUserBrowsingHistoryList 分页获取浏览历史列表
+// @Tags 浏览历史
+// @Summary 分页获取浏览历史列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query generalReq.UserBrowsingHistorySearch true "分页获取UserBrowsingHistory列表"
+// @Param data query generalReq.UserBrowsingHistorySearch true "分页获取浏览历史列表"
 // @Success 200 {object}  response.PageResult{List=[]general.UserBrowsingHistory,msg=string} "返回general.UserBrowsingHistory"
 // @Router /app/userBrowsingHistory/getUserBrowsingHistoryList [get]
 func (userBrowsingHistoryApi *UserBrowsingHistoryApi) GetUserBrowsingHistoryList(c *gin.Context) {

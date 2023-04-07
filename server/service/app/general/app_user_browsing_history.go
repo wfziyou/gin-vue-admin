@@ -17,14 +17,14 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) CreateUserBr
 	return err
 }
 
-// DeleteUserBrowsingHistory 删除UserBrowsingHistory记录
+// DeleteUserBrowsingHistory 删除浏览历史记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistory(hkUserBrowsingHistory general.UserBrowsingHistory) (err error) {
 	err = global.GVA_DB.Delete(&hkUserBrowsingHistory).Error
 	return err
 }
 
-// DeleteUserBrowsingHistoryByIds 批量删除UserBrowsingHistory记录
+// DeleteUserBrowsingHistoryByIds 批量删除浏览历史记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistoryByIds(ids request.IdsReq) (err error) {
 	err = global.GVA_DB.Delete(&[]general.UserBrowsingHistory{}, "id in ?", ids.Ids).Error

@@ -17,13 +17,13 @@ type TopicApi struct {
 话题
 **************************************/
 
-// FindForumTopicGroup 用id查询ForumTopicGroup
-// @Tags App_Topic
-// @Summary 用id查询ForumTopicGroup
+// FindForumTopicGroup 用id查询话题分组
+// @Tags 话题
+// @Summary 用id查询话题分组
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询ForumTopicGroup"
+// @Param data query request.IdSearch true "用id查询话题分组"
 // @Success 200 {object}  response.Response{data=community.ForumTopicGroup,msg=string}  "返回community.ForumTopicGroup"
 // @Router /app/topic/findForumTopicGroup [get]
 func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
@@ -41,13 +41,13 @@ func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 	}
 }
 
-// GetForumTopicGroupList 分页获取ForumTopicGroup列表
-// @Tags App_Topic
-// @Summary 分页获取ForumTopicGroup列表
+// GetForumTopicGroupList 分页获取话题分组列表
+// @Tags 话题
+// @Summary 分页获取话题分组列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.ForumTopicGroupSearch true "分页获取ForumTopicGroup列表"
+// @Param data query communityReq.ForumTopicGroupSearch true "分页获取话题分组列表"
 // @Success 200 {object}  response.PageResult{List=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupList [get]
 func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
@@ -70,13 +70,13 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 	}
 }
 
-// GetForumTopicGroupListAll 获取ForumTopicGroup列表
-// @Tags App_Topic
-// @Summary 获取ForumTopicGroup列表
+// GetForumTopicGroupListAll 获取话题分组列表
+// @Tags 话题
+// @Summary 获取话题分组列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.ForumTopicGroupSearch true "获取ForumTopicGroup列表"
+// @Param data query communityReq.ForumTopicGroupSearch true "获取话题分组列表"
 // @Success 200 {object}  response.DataResult{data=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupListAll [get]
 func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
@@ -94,13 +94,13 @@ func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 	}
 }
 
-// CreateForumTopic 创建ForumTopic
-// @Tags App_Topic
-// @Summary 创建ForumTopic
+// CreateForumTopic 创建话题
+// @Tags 话题
+// @Summary 创建话题
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.CreateForumTopicReq true "创建ForumTopic"
+// @Param data body communityReq.CreateForumTopicReq true "创建话题"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/topic/createForumTopic [post]
 func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
@@ -124,13 +124,13 @@ func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
 	}
 }
 
-// DeleteForumTopic 删除ForumTopic
-// @Tags App_Topic
-// @Summary 删除ForumTopic
+// DeleteForumTopic 删除话题
+// @Tags 话题
+// @Summary 删除话题
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdDelete true "删除ForumTopic"
+// @Param data body request.IdDelete true "删除话题"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/topic/deleteForumTopic [delete]
 func (topicApi *TopicApi) DeleteForumTopic(c *gin.Context) {
@@ -150,13 +150,13 @@ func (topicApi *TopicApi) DeleteForumTopic(c *gin.Context) {
 	}
 }
 
-// DeleteForumTopicByIds 批量删除ForumTopic
-// @Tags App_Topic
-// @Summary 批量删除ForumTopic
+// DeleteForumTopicByIds 批量删除话题
+// @Tags 话题
+// @Summary 批量删除话题
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdsReq true "批量删除ForumTopic"
+// @Param data body request.IdsReq true "批量删除话题"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /app/topic/deleteForumTopicByIds [delete]
 func (topicApi *TopicApi) DeleteForumTopicByIds(c *gin.Context) {
@@ -174,13 +174,13 @@ func (topicApi *TopicApi) DeleteForumTopicByIds(c *gin.Context) {
 	}
 }
 
-// UpdateForumTopic 更新ForumTopic
-// @Tags App_Topic
-// @Summary 更新ForumTopic
+// UpdateForumTopic 更新话题
+// @Tags 话题
+// @Summary 更新话题
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.ForumTopic true "更新ForumTopic"
+// @Param data body community.ForumTopic true "更新话题"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/topic/updateForumTopic [put]
 func (topicApi *TopicApi) UpdateForumTopic(c *gin.Context) {
@@ -198,13 +198,13 @@ func (topicApi *TopicApi) UpdateForumTopic(c *gin.Context) {
 	}
 }
 
-// FindForumTopic 用id查询ForumTopic
-// @Tags App_Topic
-// @Summary 用id查询ForumTopic
+// FindForumTopic 用id查询话题
+// @Tags 话题
+// @Summary 用id查询话题
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询ForumTopic"
+// @Param data query request.IdSearch true "用id查询话题"
 // @Success 200 {object}  response.PageResult{List=[]community.ForumTopic,msg=string} "返回community.ForumTopic"
 // @Router /app/topic/findForumTopic [get]
 func (topicApi *TopicApi) FindForumTopic(c *gin.Context) {
@@ -222,13 +222,13 @@ func (topicApi *TopicApi) FindForumTopic(c *gin.Context) {
 	}
 }
 
-// GetForumTopicList 分页获取ForumTopic列表
-// @Tags App_Topic
-// @Summary 分页获取ForumTopic列表
+// GetForumTopicList 分页获取话题列表
+// @Tags 话题
+// @Summary 分页获取话题列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.ForumTopicSearch true "分页获取ForumTopic列表"
+// @Param data query communityReq.ForumTopicSearch true "分页获取话题列表"
 // @Success 200 {object}  response.PageResult{List=[]community.ForumTopic,msg=string} "返回community.ForumTopic"
 // @Router /app/topic/getForumTopicList [get]
 func (topicApi *TopicApi) GetForumTopicList(c *gin.Context) {

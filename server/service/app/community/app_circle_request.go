@@ -10,7 +10,7 @@ import (
 type AppCircleRequestService struct {
 }
 
-// CreateCircleRequest 创建CircleRequest记录
+// CreateCircleRequest 创建圈子请求记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleRequestService *AppCircleRequestService) CreateCircleRequest(hkCircleRequest community.CircleRequest) (err error) {
 	err = global.GVA_DB.Create(&hkCircleRequest).Error

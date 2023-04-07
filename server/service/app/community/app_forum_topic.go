@@ -10,28 +10,28 @@ import (
 type AppForumTopicService struct {
 }
 
-// CreateForumTopic 创建ForumTopic记录
+// CreateForumTopic 创建话题记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumTopicService *AppForumTopicService) CreateForumTopic(hkForumTopic community.ForumTopic) (err error) {
 	err = global.GVA_DB.Create(&hkForumTopic).Error
 	return err
 }
 
-// DeleteForumTopic 删除ForumTopic记录
+// DeleteForumTopic 删除话题记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumTopicService *AppForumTopicService) DeleteForumTopic(hkForumTopic community.ForumTopic) (err error) {
 	err = global.GVA_DB.Delete(&hkForumTopic).Error
 	return err
 }
 
-// DeleteForumTopicByIds 批量删除ForumTopic记录
+// DeleteForumTopicByIds 批量删除话题记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumTopicService *AppForumTopicService) DeleteForumTopicByIds(ids request.IdsReq) (err error) {
 	err = global.GVA_DB.Delete(&[]community.ForumTopic{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateForumTopic 更新ForumTopic记录
+// UpdateForumTopic 更新话题记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumTopicService *AppForumTopicService) UpdateForumTopic(hkForumTopic community.ForumTopic) (err error) {
 	err = global.GVA_DB.Save(&hkForumTopic).Error

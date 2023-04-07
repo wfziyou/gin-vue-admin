@@ -1,71 +1,196 @@
 package app
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
+)
 
 type FocusApi struct {
 }
 
-// GetFrequentBrowsingUserList 获取经常浏览用户列表
-// @Tags focus
-// @Summary 获取经常浏览用户列表
+var hkFocusUserService = service.ServiceGroupApp.AppServiceGroup.Community.FocusUserService
+
+// GetFrequentBrowsingUserList 分页获取经常浏览用户列表
+// @Tags 关注/粉丝
+// @Summary 分页获取经常浏览用户列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.ParamSetUserChannel true "获取经常浏览用户列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
-// @Router /focus/getFrequentBrowsingUserList [post]
+// @Param data query communityReq.FrequentBrowsingUserSearch true "分页获取经常浏览用户列表"
+// @Success 200 {object}  response.Response{data=[]community.UserBaseInfo,msg=string}  "返回community.ForumPosts"
+// @Router /app/focus/getFrequentBrowsingUserList [get]
 func (focusApi *FocusApi) GetFrequentBrowsingUserList(c *gin.Context) {
-
+	var req communityReq.FrequentBrowsingUserSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
 }
 
-// GetFocusUserDynamicList 获取关注用户动态列表
-// @Tags focus
-// @Summary 获取关注用户动态列表
+// GetFocusUserDynamicList 分页获取关注用户动态列表
+// @Tags 关注/粉丝
+// @Summary 分页获取关注用户动态列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.ParamSetUserChannel true "获取关注用户动态列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
-// @Router /focus/getFocusUserDynamicList [post]
+// @Param data query communityReq.FocusUserDynamicSearch true "分页获取关注用户动态列表"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Router /app/focus/getFocusUserDynamicList [get]
 func (focusApi *FocusApi) GetFocusUserDynamicList(c *gin.Context) {
-
+	var req communityReq.FocusUserDynamicSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
 }
 
 // FocusUser 关注用户
-// @Tags focus
+// @Tags 关注/粉丝
 // @Summary 关注用户
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.ParamSetUserChannel true "关注用户"
+// @Param data body communityReq.FocusUser true "关注用户"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
-// @Router /focus/focusUser [post]
+// @Router /app/focus/focusUser [post]
 func (focusApi *FocusApi) FocusUser(c *gin.Context) {
+	var req communityReq.FocusUser
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
 
+	//if err := hkFocusUserService.CreateFocusUser(hkFocusUser); err != nil {
+	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
+	//	response.FailWithMessage("创建失败", c)
+	//} else {
+	//	response.OkWithMessage("创建成功", c)
+	//}
 }
 
 // FocusUserCancel 取消用户关注
-// @Tags focus
+// @Tags 关注/粉丝
 // @Summary 取消用户关注
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.ParamSetUserChannel true "取消用户关注"
+// @Param data body communityReq.FocusUserCancel true "取消用户关注"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
-// @Router /focus/focusUserCancel [post]
+// @Router /app/focus/focusUserCancel [post]
 func (focusApi *FocusApi) FocusUserCancel(c *gin.Context) {
-
+	var req communityReq.FocusUserCancel
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if err := hkFocusUserService.DeleteFocusUserByIds(req.Ids); err != nil {
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		response.FailWithMessage("批量删除失败", c)
+	} else {
+		response.OkWithMessage("批量删除成功", c)
+	}
 }
 
-// GetFansList 获取粉丝列表
-// @Tags focus
-// @Summary 获取粉丝列表
+// GetFocusUserList 分页获取关注用户列表
+// @Tags 关注/粉丝
+// @Summary 分页获取关注用户列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.ParamSetUserChannel true "获取粉丝列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
-// @Router /focus/getFansList [post]
-func (focusApi *FocusApi) GetFansList(c *gin.Context) {
+// @Param data query communityReq.FocusUserSearch true "分页获取关注用户列表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /app/focus/getFocusUserList [get]
+func (focusApi *FocusApi) GetFocusUserList(c *gin.Context) {
+	var pageInfo communityReq.FocusUserSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if list, total, err := hkFocusUserService.GetFocusUserInfoList(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
+}
 
+// GetFansList 分页获取粉丝列表
+// @Tags 关注/粉丝
+// @Summary 分页获取粉丝列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.FansSearch true "分页获取粉丝列表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
+// @Router /app/focus/getFansList [get]
+func (focusApi *FocusApi) GetFansList(c *gin.Context) {
+	var pageInfo communityReq.FansSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+}
+
+// UpdateFocusUser 更新关注用户
+// @Tags 关注/粉丝
+// @Summary 更新关注用户
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body community.FocusUser true "更新关注用户"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /app/focus/updateFocusUser [put]
+func (focusApi *FocusApi) UpdateFocusUser(c *gin.Context) {
+	var hkFocusUser community.FocusUser
+	err := c.ShouldBindJSON(&hkFocusUser)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if err := hkFocusUserService.UpdateFocusUser(hkFocusUser); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
+// FindFocusUser 用id查询关注用户
+// @Tags 关注/粉丝
+// @Summary 用id查询关注用户
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query community.FocusUser true "用id查询关注用户"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Router /app/focus/findFocusUser [get]
+func (focusApi *FocusApi) FindFocusUser(c *gin.Context) {
+	var hkFocusUser community.FocusUser
+	err := c.ShouldBindQuery(&hkFocusUser)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if rehkFocusUser, err := hkFocusUserService.GetFocusUser(hkFocusUser.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+	} else {
+		response.OkWithData(gin.H{"rehkFocusUser": rehkFocusUser}, c)
+	}
 }

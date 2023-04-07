@@ -51,6 +51,7 @@ func Routers() *gin.Engine {
 		systemRouter.InitBaseRouter(PublicGroup) // 注册基础功能路由 不做鉴权
 		systemRouter.InitInitRouter(PublicGroup) // 自动初始化相关
 		appRouter.InitBaseRouter(PublicGroup)
+		appRouter.InitAuthRouter(PublicGroup)
 	}
 	PrivateGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
 	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
@@ -84,13 +85,8 @@ func Routers() *gin.Engine {
 		appRouter.InitUserCollectRouter(PrivateGroup)
 		appRouter.InitFileUploadAndDownloadRouter(PrivateGroup) // 文件上传下载功能路由
 		appRouter.InitHkChannelRouter(PrivateGroup)
-		appRouter.InitHkFocusUserRouter(PrivateGroup)
-		appRouter.InitHkActivityRouter(PrivateGroup)
-		appRouter.InitHkActivityClassifyRouter(PrivateGroup)
-		appRouter.InitHkActivityCollectRouter(PrivateGroup)
-		appRouter.InitHkActivityUserRouter(PrivateGroup)
-		appRouter.InitHkUserSignRouter(PrivateGroup)
-
+		appRouter.InitFocusUserRouter(PrivateGroup)
+		appRouter.InitActivityRouter(PrivateGroup)
 	}
 
 	global.GVA_LOG.Info("router register success")

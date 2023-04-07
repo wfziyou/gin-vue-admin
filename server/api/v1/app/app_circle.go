@@ -14,13 +14,13 @@ import (
 type CircleApi struct {
 }
 
-// GetCircleForumPostsList 分页获取圈子ForumPosts列表
-// @Tags App_Circle
-// @Summary 分页获取圈子ForumPosts列表
+// GetCircleForumPostsList 分页获取圈子的帖子列表
+// @Tags 圈子
+// @Summary 分页获取圈子的帖子列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.CircleForumPostsSearch true "分页获取圈子ForumPosts列表"
+// @Param data query communityReq.CircleForumPostsSearch true "分页获取圈子的帖子列表"
 // @Success 200 {object}  response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/circle/getCircleForumPostsList [get]
 func (circleApi *CircleApi) GetCircleForumPostsList(c *gin.Context) {
@@ -51,7 +51,7 @@ func (circleApi *CircleApi) GetCircleForumPostsList(c *gin.Context) {
 }
 
 // GetUserCircleForumPostsList 用户加入圈子的所有动态列表
-// @Tags App_Circle
+// @Tags 圈子
 // @Summary 用户加入圈子的所有动态列表
 // @Security ApiKeyAuth
 // @accept application/json
@@ -84,13 +84,13 @@ func (circleApi *CircleApi) GetUserCircleForumPostsList(c *gin.Context) {
 	}
 }
 
-// GetSelfCircleList 分页获取用户加入的Circle列表
-// @Tags App_Circle
-// @Summary 分页获取用户加入的Circle列表
+// GetSelfCircleList 分页获取用户加入的圈子列表
+// @Tags 圈子
+// @Summary 分页获取用户加入的圈子列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.SelfCircleSearch true "分页获取用户加入的Circle列表"
+// @Param data query communityReq.SelfCircleSearch true "分页获取用户加入的圈子列表"
 // @Success 200 {object}  response.PageResult{List=[]community.CircleBaseInfo,msg=string} "返回community.CircleBaseInfo"
 // @Router /app/circle/getSelfCircleList [get]
 func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
@@ -115,7 +115,7 @@ func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 }
 
 // FindCircle 用id查询Circle
-// @Tags App_Circle
+// @Tags 圈子
 // @Summary 用id查询Circle
 // @Security ApiKeyAuth
 // @accept application/json
@@ -143,13 +143,13 @@ func (circleApi *CircleApi) FindCircle(c *gin.Context) {
 	}
 }
 
-// GetCircleList 分页获取Circle列表
-// @Tags App_Circle
-// @Summary 分页获取Circle列表
+// GetCircleList 分页获取圈子列表
+// @Tags 圈子
+// @Summary 分页获取圈子列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.CircleSearch true "分页获取Circle列表"
+// @Param data query communityReq.CircleSearch true "分页获取圈子列表"
 // @Success 200 {object}  response.PageResult{List=[]community.CircleBaseInfo,msg=string} "返回community.CircleBaseInfo"
 // @Router /app/circle/getCircleList [get]
 func (circleApi *CircleApi) GetCircleList(c *gin.Context) {
@@ -174,13 +174,13 @@ func (circleApi *CircleApi) GetCircleList(c *gin.Context) {
 	}
 }
 
-// UpdateCircle (圈子管理者)更新Circle
-// @Tags App_Circle
-// @Summary (圈子管理者)更新Circle
+// UpdateCircle (圈子管理者)更新圈子
+// @Tags 圈子
+// @Summary (圈子管理者)更新圈子
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.UpdateCircleReq true "(圈子管理者)更新Circle"
+// @Param data body communityReq.UpdateCircleReq true "(圈子管理者)更新圈子"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/circle/updateCircle [put]
 func (circleApi *CircleApi) UpdateCircle(c *gin.Context) {
@@ -200,7 +200,7 @@ func (circleApi *CircleApi) UpdateCircle(c *gin.Context) {
 }
 
 // SetUserCurCircle 设置用户当前圈子
-// @Tags App_Circle
+// @Tags 圈子
 // @Summary 设置用户当前圈子
 // @Security ApiKeyAuth
 // @accept application/json
@@ -242,7 +242,7 @@ func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
 }
 
 // EnterCircle 加入圈子
-// @Tags App_Circle
+// @Tags 圈子
 // @Summary 加入圈子
 // @Security ApiKeyAuth
 // @accept application/json
@@ -309,7 +309,7 @@ func (circleApi *CircleApi) EnterCircle(c *gin.Context) {
 }
 
 // ExitCircle 退出圈子
-// @Tags App_Circle
+// @Tags 圈子
 // @Summary 退出圈子
 // @Security ApiKeyAuth
 // @accept application/json
@@ -359,7 +359,7 @@ func (circleApi *CircleApi) ExitCircle(c *gin.Context) {
 }
 
 // ApplyEnterCircle 申请加入圈子
-// @Tags App_Circle
+// @Tags 圈子
 // @Summary 申请加入圈子
 // @Security ApiKeyAuth
 // @accept application/json
@@ -428,7 +428,7 @@ func (circleApi *CircleApi) ApplyEnterCircle(c *gin.Context) {
 }
 
 // EnterCircleApplyList 分页获取加入圈子申请
-// @Tags App_Circle
+// @Tags 圈子
 // @Summary 分页获取加入圈子申请
 // @Security ApiKeyAuth
 // @accept application/json
@@ -456,7 +456,7 @@ func (circleApi *CircleApi) EnterCircleApplyList(c *gin.Context) {
 }
 
 // ApproveEnterCircleRequest 审批加入圈子申请
-// @Tags App_Circle
+// @Tags 圈子
 // @Summary 审批加入圈子申请
 // @Security ApiKeyAuth
 // @accept application/json
@@ -501,13 +501,13 @@ func (circleApi *CircleApi) ApproveEnterCircleRequest(c *gin.Context) {
 圈子成员
 **************************************/
 
-// DeleteCircleUser 删除CircleUser
-// @Tags App_Circle
-// @Summary 删除CircleUser
+// DeleteCircleUser 删除圈子用户
+// @Tags 圈子
+// @Summary 删除圈子用户
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.DeleteCircleUserReq true "删除CircleUser"
+// @Param data body communityReq.DeleteCircleUserReq true "删除圈子用户"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/circle/deleteCircleUser [delete]
 func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
@@ -540,13 +540,13 @@ func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 	}
 }
 
-// DeleteCircleUserByIds 批量删除CircleUser
-// @Tags App_Circle
-// @Summary 批量删除CircleUser
+// DeleteCircleUserByIds 批量删除圈子用户
+// @Tags 圈子
+// @Summary 批量删除圈子用户
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdsReq true "批量删除CircleUser"
+// @Param data body request.IdsReq true "批量删除圈子用户"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /app/circle/deleteCircleUserByIds [delete]
 func (circleApi *CircleApi) DeleteCircleUserByIds(c *gin.Context) {
@@ -564,13 +564,13 @@ func (circleApi *CircleApi) DeleteCircleUserByIds(c *gin.Context) {
 	}
 }
 
-// UpdateCircleUser 更新CircleUser
-// @Tags App_Circle
-// @Summary 更新CircleUser
+// UpdateCircleUser 更新圈子用户
+// @Tags 圈子
+// @Summary 更新圈子用户
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.UpdateCircleUserReq true "更新CircleUser"
+// @Param data body communityReq.UpdateCircleUserReq true "更新圈子用户"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/circle/updateCircleUser [put]
 func (circleApi *CircleApi) UpdateCircleUser(c *gin.Context) {
@@ -588,13 +588,13 @@ func (circleApi *CircleApi) UpdateCircleUser(c *gin.Context) {
 	//}
 }
 
-// FindCircleUser 用id查询CircleUserInfo
-// @Tags App_Circle
-// @Summary 用id查询CircleUserInfo
+// FindCircleUser 用id查询圈子用户信息
+// @Tags 圈子
+// @Summary 用id查询圈子用户信息
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询CircleUserInfo"
+// @Param data query request.IdSearch true "用id查询圈子用户信息"
 // @Success 200  {object}  response.Response{data=community.CircleUserInfo,msg=string}  "返回community.CircleUserInfo"
 // @Router /app/circle/findCircleUser [get]
 func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
@@ -612,13 +612,13 @@ func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
 	}
 }
 
-// GetCircleUserList 分页获取CircleUserInfo列表
-// @Tags App_Circle
-// @Summary 分页获取CircleUserInfo列表
+// GetCircleUserList 分页获取圈子的用户信息列表
+// @Tags 圈子
+// @Summary 分页获取圈子的用户信息列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.CircleUserSearch true "分页获取CircleUserInfo列表"
+// @Param data query communityReq.CircleUserSearch true "分页获取圈子的用户信息列表"
 // @Success 200 {object}  response.PageResult{List=[]community.CircleUserInfo,msg=string} "返回community.CircleUserInfo"
 // @Router /app/circle/getCircleUserList [get]
 func (circleApi *CircleApi) GetCircleUserList(c *gin.Context) {
@@ -640,13 +640,13 @@ func (circleApi *CircleApi) GetCircleUserList(c *gin.Context) {
 	}
 }
 
-// CreateCircleRequest 创建CircleRequest
-// @Tags App_Circle
-// @Summary 创建CircleRequest
+// CreateCircleRequest 创建圈子请求
+// @Tags 圈子
+// @Summary 创建圈子请求
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.CreateCircleRequestReq true "创建CircleRequest"
+// @Param data body communityReq.CreateCircleRequestReq true "创建圈子请求"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/circle/createCircleRequest [post]
 func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
@@ -680,13 +680,13 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 	}
 }
 
-// FindCircleRequest 用id查询CircleRequest
-// @Tags App_Circle
-// @Summary 用id查询CircleRequest
+// FindCircleRequest 用id查询创建圈子请求
+// @Tags 圈子
+// @Summary 用id查询创建圈子请求
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询CircleRequest"
+// @Param data query request.IdSearch true "用id查询创建圈子请求"
 // @Success 200 {object}  response.Response{data=community.CircleRequest,msg=string}  "返回community.CircleUser"
 // @Router /app/circle/findCircleRequest [get]
 func (circleApi *CircleApi) FindCircleRequest(c *gin.Context) {
@@ -704,13 +704,13 @@ func (circleApi *CircleApi) FindCircleRequest(c *gin.Context) {
 	}
 }
 
-// GetCircleRequestList 分页获取CircleRequest列表
-// @Tags App_Circle
-// @Summary 分页获取CircleRequest列表
+// GetCircleRequestList 分页获取创建圈子请求列表
+// @Tags 圈子
+// @Summary 分页获取创建圈子请求列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.CircleRequestSearch true "分页获取CircleRequest列表"
+// @Param data query communityReq.CircleRequestSearch true "分页获取创建圈子请求列表"
 // @Success 200 {object}  response.PageResult{List=[]community.CircleRequest,msg=string} "返回community.CircleRequest"
 // @Router /app/circle/getCircleRequestList [get]
 func (circleApi *CircleApi) GetCircleRequestList(c *gin.Context) {
@@ -733,13 +733,13 @@ func (circleApi *CircleApi) GetCircleRequestList(c *gin.Context) {
 	}
 }
 
-// GetCircleClassifyList 分页获取CircleClassify列表
-// @Tags App_Circle
-// @Summary 分页获取CircleClassify列表
+// GetCircleClassifyList 分页获取圈子分类列表
+// @Tags 圈子
+// @Summary 分页获取圈子分类列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.CircleClassifySearch true "分页获取CircleClassify列表"
+// @Param data query communityReq.CircleClassifySearch true "分页获取圈子分类列表"
 // @Success 200 {object}  response.PageResult{List=[]community.CircleClassify,msg=string} "返回community.CircleClassify"
 // @Router /app/circle/getCircleClassifyList [get]
 func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
@@ -762,13 +762,13 @@ func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
 	}
 }
 
-// GetCircleClassifyListAll 获取CircleClassify列表
-// @Tags App_Circle
-// @Summary 获取CircleClassify列表
+// GetCircleClassifyListAll 获取圈子分类列表
+// @Tags 圈子
+// @Summary 获取圈子分类列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.CircleClassifySearch true "获取CircleClassify列表"
+// @Param data query communityReq.CircleClassifySearch true "获取圈子分类列表"
 // @Success 200 {object} response.DataResult{data=[]community.CircleClassify,msg=string} "返回community.CircleClassify"
 // @Router /app/circle/getCircleClassifyListAll [get]
 func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {

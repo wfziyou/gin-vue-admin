@@ -19,7 +19,7 @@ type UserCollectApi struct {
 **************************************/
 
 // CreateUserCollect 收藏帖子
-// @Tags App_UserCollect
+// @Tags 收藏
 // @Summary 收藏帖子
 // @Security ApiKeyAuth
 // @accept application/json
@@ -47,13 +47,13 @@ func (userCollectApi *UserCollectApi) CreateUserCollect(c *gin.Context) {
 	}
 }
 
-// DeleteUserCollect 删除UserCollect
-// @Tags App_UserCollect
-// @Summary 删除UserCollect
+// DeleteUserCollect 删除收藏
+// @Tags 收藏
+// @Summary 删除收藏
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdDelete true "删除UserCollect"
+// @Param data body request.IdDelete true "删除收藏"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/userCollect/deleteUserCollect [delete]
 func (userCollectApi *UserCollectApi) DeleteUserCollect(c *gin.Context) {
@@ -73,13 +73,13 @@ func (userCollectApi *UserCollectApi) DeleteUserCollect(c *gin.Context) {
 	}
 }
 
-// DeleteUserCollectByIds 批量删除UserCollect
-// @Tags App_UserCollect
-// @Summary 批量删除UserCollect
+// DeleteUserCollectByIds 批量删除收藏
+// @Tags 收藏
+// @Summary 批量删除收藏
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdsReq true "批量删除UserCollect"
+// @Param data body request.IdsReq true "批量删除收藏"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /app/userCollect/deleteUserCollectByIds [delete]
 func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
@@ -97,13 +97,13 @@ func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
 	}
 }
 
-// GetUserCollectList 分页获取UserCollect列表
-// @Tags App_UserCollect
-// @Summary 分页获取UserCollect列表
+// GetUserCollectList 分页获取收藏列表
+// @Tags 收藏
+// @Summary 分页获取收藏列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query generalReq.UserCollectSearch true "分页获取UserCollect列表"
+// @Param data query generalReq.UserCollectSearch true "分页获取收藏列表"
 // @Success 200 {object}  response.PageResult{List=[]general.UserCollect,msg=string} "返回general.UserCollect"
 // @Router /app/userCollect/getUserCollectList [get]
 func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {

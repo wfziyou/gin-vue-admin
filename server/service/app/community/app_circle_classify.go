@@ -38,14 +38,14 @@ func (appCircleClassifyService *AppCircleClassifyService) UpdateCircleClassify(h
 	return err
 }
 
-// GetCircleClassify 根据id获取CircleClassify记录
+// GetCircleClassify 根据id获取圈子分类记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassify(id uint64) (hkCircleClassify community.CircleClassify, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleClassify).Error
 	return
 }
 
-// GetCircleClassifyInfoList 分页获取CircleClassify记录
+// GetCircleClassifyInfoList 分页获取圈子分类记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoList(info communityReq.CircleClassifySearch) (list []community.CircleClassify, total int64, err error) {
 	limit := info.PageSize
@@ -66,7 +66,7 @@ func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoL
 	return hkCircleClassifys, total, err
 }
 
-// GetCircleClassifyInfoList 分页获取CircleClassify记录
+// GetCircleClassifyInfoList 分页获取圈子分类记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoListAll(info communityReq.CircleClassifySearch) (list []community.CircleClassify, total int64, err error) {
 	// 创建db

@@ -34,7 +34,7 @@ func (appUserCollectService *AppUserCollectService) UpdateCollectNum(postsIdd ui
 	return err
 }
 
-// DeleteUserCollect 删除UserCollect记录
+// DeleteUserCollect 删除收藏记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserCollectService *AppUserCollectService) DeleteUserCollect(hkUserCollect general.UserCollect) (err error) {
 	err = global.GVA_DB.Unscoped().Delete(&hkUserCollect).Error
@@ -44,7 +44,7 @@ func (appUserCollectService *AppUserCollectService) DeleteUserCollect(hkUserColl
 	return err
 }
 
-// DeleteUserCollectByIds 批量删除UserCollect记录
+// DeleteUserCollectByIds 批量删除收藏记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserCollectService *AppUserCollectService) DeleteUserCollectByIds(ids request.IdsReq) (err error) {
 	err = global.GVA_DB.Unscoped().Delete(&[]general.UserCollect{}, "id in ?", ids.Ids).Error

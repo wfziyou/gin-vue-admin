@@ -120,6 +120,138 @@ definitions:
         description: 性别： 0未知、1男、2女
         type: integer
     type: object
+  community.Activity:
+    properties:
+      address:
+        type: string
+      addressPos:
+        type: string
+      addressZone:
+        type: string
+      chatGroupId:
+        type: integer
+      checkStatus:
+        type: integer
+      circleId:
+        type: integer
+      classifyId:
+        type: integer
+      collect:
+        type: integer
+      collectNum:
+        type: integer
+      contentHtml:
+        type: string
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      curUserNum:
+        type: integer
+      des:
+        type: string
+      dynamicNum:
+        type: integer
+      endAt:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      isPublic:
+        type: integer
+      pay:
+        type: integer
+      payCurrency:
+        type: integer
+      payNum:
+        type: integer
+      startAt:
+        type: string
+      status:
+        type: integer
+      tenantId:
+        type: string
+      title:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+      userNum:
+        type: integer
+    type: object
+  community.ActivityClassify:
+    properties:
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      icon:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      name:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  community.ActivityUser:
+    properties:
+      activityId:
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      orderId:
+        type: integer
+      pay:
+        type: integer
+      power:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+    type: object
   community.Circle:
     properties:
       backImage:
@@ -360,6 +492,34 @@ definitions:
         description: "用户id \t//点赞时间"
         type: integer
     type: object
+  community.FocusUser:
+    properties:
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      focusUserId:
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+    type: object
   community.ForumComment:
     properties:
       checkStatus:
@@ -396,7 +556,7 @@ definitions:
         description: 评论者
         type: integer
       userInfo:
-        $ref: '#/definitions/community.ForumPostsUser'
+        $ref: '#/definitions/community.UserBaseInfo'
         description: 用户基本信息
     type: object
   community.ForumPosts:
@@ -523,7 +683,7 @@ definitions:
         description: 发布者编号
         type: integer
       userInfo:
-        $ref: '#/definitions/community.ForumPostsUser'
+        $ref: '#/definitions/community.UserBaseInfo'
         description: 用户基本信息
       video:
         description: 视频地址
@@ -602,38 +762,11 @@ definitions:
         description: 发布者编号
         type: integer
       userInfo:
-        $ref: '#/definitions/community.ForumPostsUser'
+        $ref: '#/definitions/community.UserBaseInfo'
         description: 用户基本信息
       video:
         description: 视频地址
         type: string
-    type: object
-  community.ForumPostsUser:
-    properties:
-      account:
-        description: 账号
-        type: string
-      description:
-        description: 描述
-        type: string
-      headerImg:
-        description: 头像
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      nickName:
-        description: 昵称
-        type: string
-      realName:
-        description: 真名
-        type: string
-      sex:
-        description: 性别： 0未知、1男、2女
-        type: integer
-      userType:
-        description: '用户平台: 1web、2app、3other'
-        type: integer
     type: object
   community.ForumTopic:
     properties:
@@ -695,166 +828,6 @@ definitions:
         description: 排序
         type: integer
     type: object
-  community.HkActivity:
-    properties:
-      address:
-        type: string
-      addressPos:
-        type: string
-      addressZone:
-        type: string
-      chatGroupId:
-        type: integer
-      checkStatus:
-        type: integer
-      circleId:
-        type: integer
-      classifyId:
-        type: integer
-      collect:
-        type: integer
-      collectNum:
-        type: integer
-      contentHtml:
-        type: string
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      curUserNum:
-        type: integer
-      des:
-        type: string
-      dynamicNum:
-        type: integer
-      endAt:
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      isPublic:
-        type: integer
-      pay:
-        type: integer
-      payCurrency:
-        type: integer
-      payNum:
-        type: integer
-      startAt:
-        type: string
-      status:
-        type: integer
-      tenantId:
-        type: string
-      title:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        type: integer
-      userNum:
-        type: integer
-    type: object
-  community.HkActivityClassify:
-    properties:
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      icon:
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      name:
-        type: string
-      sort:
-        type: integer
-      status:
-        type: integer
-      tenantId:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  community.HkActivityCollect:
-    properties:
-      activityId:
-        type: integer
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      status:
-        type: integer
-      tenantId:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        type: integer
-    type: object
-  community.HkActivityUser:
-    properties:
-      activityId:
-        type: integer
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      orderId:
-        type: integer
-      pay:
-        type: integer
-      power:
-        type: integer
-      status:
-        type: integer
-      tenantId:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        type: integer
-    type: object
   community.HkChannel:
     properties:
       code:
@@ -889,62 +862,28 @@ definitions:
         description: 更新时间
         type: string
     type: object
-  community.HkFocusUser:
+  community.QuestionAnswer:
     properties:
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
+      content:
+        description: 回答内容
         type: string
-      focusUserId:
-        type: integer
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      status:
-        type: integer
-      tenantId:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        type: integer
-    type: object
-  community.HkUserSign:
-    properties:
-      balance:
-        type: integer
-      createDept:
-        type: integer
-      createUser:
-        type: integer
       createdAt:
         description: 创建时间
         type: string
       id:
         description: 主键ID
         type: integer
-      isDel:
+      likeNum:
+        description: 点赞数
         type: integer
-      number:
+      questionId:
+        description: 问题编号
         type: integer
-      status:
+      thumbsUp:
+        description: 是否点赞：0否、1是
         type: integer
-      title:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
       userId:
+        description: 回答者
         type: integer
     type: object
   community.Report:
@@ -1078,6 +1017,33 @@ definitions:
       uuid:
         description: 用户编号
         type: string
+    type: object
+  community.UserBaseInfo:
+    properties:
+      account:
+        description: 账号
+        type: string
+      description:
+        description: 描述
+        type: string
+      headerImg:
+        description: 头像
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      nickName:
+        description: 昵称
+        type: string
+      realName:
+        description: 真名
+        type: string
+      sex:
+        description: 性别： 0未知、1男、2女
+        type: integer
+      userType:
+        description: '用户平台: 1web、2app、3other'
+        type: integer
     type: object
   community.UserCircleApply:
     properties:
@@ -2035,6 +2001,9 @@ definitions:
     type: object
   general.UserCollect:
     properties:
+      category:
+        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -2048,7 +2017,7 @@ definitions:
         description: 用户编号
         type: integer
     type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_app_community_request.Register:
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register:
     properties:
       account:
         description: 用户名
@@ -2063,17 +2032,12 @@ definitions:
         example: 密码
         type: string
     type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.LoginResponse:
+  github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse:
     properties:
       expiresAt:
         type: integer
       token:
         type: string
-      user:
-        $ref: '#/definitions/community.User'
-    type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.SysUserResponse:
-    properties:
       user:
         $ref: '#/definitions/community.User'
     type: object
@@ -2116,11 +2080,6 @@ definitions:
       user:
         $ref: '#/definitions/system.SysUser'
     type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse:
-    properties:
-      user:
-        $ref: '#/definitions/system.SysUser'
-    type: object
   request.AddMenuAuthorityInfo:
     properties:
       authorityId:
@@ -2130,6 +2089,15 @@ definitions:
         items:
           $ref: '#/definitions/system.SysBaseMenu'
         type: array
+    type: object
+  request.AnswerQuestion:
+    properties:
+      content:
+        description: 内容
+        type: string
+      questionId:
+        description: 问题_编号
+        type: integer
     type: object
   request.ApplyEnterCircleReq:
     properties:
@@ -2203,6 +2171,12 @@ definitions:
       password:
         description: 密码
         type: string
+    type: object
+  request.CloseQuestion:
+    properties:
+      id:
+        description: 问题_编号
+        type: integer
     type: object
   request.CreateCircleRequestReq:
     properties:
@@ -2294,6 +2268,27 @@ definitions:
         description: 话题类型：0 全局，1圈子
         type: integer
     type: object
+  request.CreateQuestion:
+    properties:
+      attachment:
+        description: 附件
+        type: string
+      content:
+        description: 内容
+        type: string
+      pay:
+        description: 付费：0否、1是
+        type: integer
+      payCurrency:
+        description: 付费货币：1人民、2积分、3代币
+        type: integer
+      payNum:
+        description: 付费金额
+        type: integer
+      title:
+        description: 标题
+        type: string
+    type: object
   request.DeleteCircleUserReq:
     properties:
       circleId:
@@ -2328,6 +2323,19 @@ definitions:
       circleId:
         description: 圈子_编号
         type: integer
+    type: object
+  request.FocusUser:
+    properties:
+      userId:
+        description: 用户ID
+        type: integer
+    type: object
+  request.FocusUserCancel:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
     type: object
   request.ForumThumbsUpReq:
     properties:
@@ -2398,6 +2406,8 @@ definitions:
       username:
         description: 用户名
         type: string
+    type: object
+  request.LoginOneClick:
     type: object
   request.LoginPwd:
     properties:
@@ -2507,6 +2517,24 @@ definitions:
       updatedAt:
         description: 更新时间
         type: string
+    type: object
+  request.SetBestAnswer:
+    properties:
+      answerId:
+        description: 答案_编号
+        type: integer
+      questionId:
+        description: 问题_编号
+        type: integer
+    type: object
+  request.SetQuestionScore:
+    properties:
+      questionId:
+        description: 问题_编号
+        type: integer
+      score:
+        description: 分数（1-5星）
+        type: integer
     type: object
   request.SetSelfBaseInfoReq:
     properties:
@@ -2712,6 +2740,11 @@ definitions:
           $ref: '#/definitions/request.CasbinInfo'
         type: array
     type: object
+  response.RegisterResponse:
+    properties:
+      user:
+        $ref: '#/definitions/community.User'
+    type: object
   response.Response:
     properties:
       code:
@@ -2787,6 +2820,11 @@ definitions:
         items:
           $ref: '#/definitions/system.SysMenu'
         type: array
+    type: object
+  response.SysUserResponse:
+    properties:
+      user:
+        $ref: '#/definitions/system.SysUser'
     type: object
   response.ThirdPlatInfo:
     properties:
@@ -3602,6 +3640,848 @@ paths:
       summary: 修改基础api
       tags:
       - SysApi
+  /app/Channel/getChannelList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.HkChannel
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.HkChannel'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取频道列表
+      tags:
+      - 频道
+  /app/Channel/getUserChannelList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.HkChannel
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.HkChannel'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户频道
+      tags:
+      - 频道
+  /app/Channel/setUserChannel:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 设置用户频道
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamSetUserChannel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 设置用户频道
+      tags:
+      - 频道
+  /app/activity/createActivity:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建活动
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.Activity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建活动
+      tags:
+      - 活动
+  /app/activity/createActivityClassify:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建活动分类
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.ActivityClassify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建活动分类
+      tags:
+      - 活动
+  /app/activity/deleteActivity:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除活动
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.Activity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除活动
+      tags:
+      - 活动
+  /app/activity/deleteActivityByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除活动
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除活动
+      tags:
+      - 活动
+  /app/activity/deleteActivityClassify:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除活动分类
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.ActivityClassify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除活动分类
+      tags:
+      - 活动
+  /app/activity/deleteActivityClassifyByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除活动分类
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除活动分类
+      tags:
+      - 活动
+  /app/activity/exitActivity:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 退出活动
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.ActivityUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 退出活动
+      tags:
+      - 活动
+  /app/activity/findActivity:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: address
+        type: string
+      - in: query
+        name: addressPos
+        type: string
+      - in: query
+        name: addressZone
+        type: string
+      - in: query
+        name: chatGroupId
+        type: integer
+      - in: query
+        name: checkStatus
+        type: integer
+      - in: query
+        name: circleId
+        type: integer
+      - in: query
+        name: classifyId
+        type: integer
+      - in: query
+        name: collect
+        type: integer
+      - in: query
+        name: collectNum
+        type: integer
+      - in: query
+        name: contentHtml
+        type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: curUserNum
+        type: integer
+      - in: query
+        name: des
+        type: string
+      - in: query
+        name: dynamicNum
+        type: integer
+      - in: query
+        name: endAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: isPublic
+        type: integer
+      - in: query
+        name: pay
+        type: integer
+      - in: query
+        name: payCurrency
+        type: integer
+      - in: query
+        name: payNum
+        type: integer
+      - in: query
+        name: startAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      - in: query
+        name: userNum
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询活动详情
+      tags:
+      - 活动
+  /app/activity/findActivityClassify:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: icon
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: sort
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询活动分类
+      tags:
+      - 活动
+  /app/activity/findActivityUser:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: activityId
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: orderId
+        type: integer
+      - in: query
+        name: pay
+        type: integer
+      - in: query
+        name: power
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询活动的用户
+      tags:
+      - 活动
+  /app/activity/getActivityClassifyList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: icon
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: name
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: sort
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取活动分类列表
+      tags:
+      - 活动
+  /app/activity/getActivityList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: address
+        type: string
+      - in: query
+        name: addressPos
+        type: string
+      - in: query
+        name: addressZone
+        type: string
+      - in: query
+        name: chatGroupId
+        type: integer
+      - in: query
+        name: checkStatus
+        type: integer
+      - in: query
+        name: circleId
+        type: integer
+      - in: query
+        name: classifyId
+        type: integer
+      - in: query
+        name: collect
+        type: integer
+      - in: query
+        name: collectNum
+        type: integer
+      - in: query
+        name: contentHtml
+        type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: curUserNum
+        type: integer
+      - in: query
+        name: des
+        type: string
+      - in: query
+        name: dynamicNum
+        type: integer
+      - in: query
+        name: endAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: isPublic
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: pay
+        type: integer
+      - in: query
+        name: payCurrency
+        type: integer
+      - in: query
+        name: payNum
+        type: integer
+      - in: query
+        name: startAt
+        type: string
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      - in: query
+        name: userNum
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取推荐活动列表
+      tags:
+      - 活动
+  /app/activity/getActivityUserList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: activityId
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: orderId
+        type: integer
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: pay
+        type: integer
+      - in: query
+        name: power
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取活动的用户列表
+      tags:
+      - 活动
+  /app/activity/joinActivity:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 加入活动
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.ActivityUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 加入活动
+      tags:
+      - 活动
+  /app/activity/kickOutActivityUsers:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 踢出活动的用户
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 踢出活动的用户
+      tags:
+      - 活动
+  /app/activity/updateActivity:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新活动
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.Activity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新活动
+      tags:
+      - 活动
+  /app/activity/updateActivityClassify:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新活动分类
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.ActivityClassify'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新活动分类
+      tags:
+      - 活动
   /app/circle/applyEnterCircle:
     post:
       consumes:
@@ -3624,7 +4504,7 @@ paths:
       - ApiKeyAuth: []
       summary: 申请加入圈子
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/approveEnterCircleRequest:
     post:
       consumes:
@@ -3647,13 +4527,13 @@ paths:
       - ApiKeyAuth: []
       summary: 审批加入圈子申请
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/createCircleRequest:
     post:
       consumes:
       - application/json
       parameters:
-      - description: 创建CircleRequest
+      - description: 创建圈子请求
         in: body
         name: data
         required: true
@@ -3668,15 +4548,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 创建CircleRequest
+      summary: 创建圈子请求
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/deleteCircleUser:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 删除CircleUser
+      - description: 删除圈子用户
         in: body
         name: data
         required: true
@@ -3691,15 +4571,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除CircleUser
+      summary: 删除圈子用户
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/deleteCircleUserByIds:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 批量删除CircleUser
+      - description: 批量删除圈子用户
         in: body
         name: data
         required: true
@@ -3714,9 +4594,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 批量删除CircleUser
+      summary: 批量删除圈子用户
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/enterCircle:
     post:
       consumes:
@@ -3739,7 +4619,7 @@ paths:
       - ApiKeyAuth: []
       summary: 加入圈子
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/enterCircleApplyList:
     get:
       consumes:
@@ -3797,7 +4677,7 @@ paths:
       - ApiKeyAuth: []
       summary: 分页获取加入圈子申请
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/exitCircle:
     post:
       consumes:
@@ -3820,7 +4700,7 @@ paths:
       - ApiKeyAuth: []
       summary: 退出圈子
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/findCircle:
     get:
       consumes:
@@ -3848,7 +4728,7 @@ paths:
       - ApiKeyAuth: []
       summary: 用id查询Circle
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/findCircleRequest:
     get:
       consumes:
@@ -3874,9 +4754,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询CircleRequest
+      summary: 用id查询创建圈子请求
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/findCircleUser:
     get:
       consumes:
@@ -3902,9 +4782,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询CircleUserInfo
+      summary: 用id查询圈子用户信息
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/getCircleClassifyList:
     get:
       consumes:
@@ -3956,9 +4836,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取CircleClassify列表
+      summary: 分页获取圈子分类列表
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/getCircleClassifyListAll:
     get:
       consumes:
@@ -4010,9 +4890,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 获取CircleClassify列表
+      summary: 获取圈子分类列表
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/getCircleForumPostsList:
     get:
       consumes:
@@ -4080,9 +4960,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取圈子ForumPosts列表
+      summary: 分页获取圈子的帖子列表
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/getCircleList:
     get:
       consumes:
@@ -4138,9 +5018,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取Circle列表
+      summary: 分页获取圈子列表
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/getCircleRequestList:
     get:
       consumes:
@@ -4208,9 +5088,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取CircleRequest列表
+      summary: 分页获取创建圈子请求列表
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/getCircleUserList:
     get:
       consumes:
@@ -4258,9 +5138,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取CircleUserInfo列表
+      summary: 分页获取圈子的用户信息列表
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/getSelfCircleList:
     get:
       consumes:
@@ -4312,9 +5192,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取用户加入的Circle列表
+      summary: 分页获取用户加入的圈子列表
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/getUserCircleForumPostsList:
     get:
       consumes:
@@ -4384,7 +5264,7 @@ paths:
       - ApiKeyAuth: []
       summary: 用户加入圈子的所有动态列表
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/setUserCurCircle:
     post:
       consumes:
@@ -4407,13 +5287,13 @@ paths:
       - ApiKeyAuth: []
       summary: 设置用户当前圈子
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/updateCircle:
     put:
       consumes:
       - application/json
       parameters:
-      - description: (圈子管理者)更新Circle
+      - description: (圈子管理者)更新圈子
         in: body
         name: data
         required: true
@@ -4428,15 +5308,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: (圈子管理者)更新Circle
+      summary: (圈子管理者)更新圈子
       tags:
-      - App_Circle
+      - 圈子
   /app/circle/updateCircleUser:
     put:
       consumes:
       - application/json
       parameters:
-      - description: 更新CircleUser
+      - description: 更新圈子用户
         in: body
         name: data
         required: true
@@ -4451,9 +5331,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 更新CircleUser
+      summary: 更新圈子用户
       tags:
-      - App_Circle
+      - 圈子
   /app/circleApply/findApply:
     get:
       consumes:
@@ -4481,7 +5361,7 @@ paths:
       - ApiKeyAuth: []
       summary: 用id查询Apply
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/circleApply/findCircleApply:
     get:
       consumes:
@@ -4509,7 +5389,7 @@ paths:
       - ApiKeyAuth: []
       summary: 用id查询CircleApply
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/circleApply/getApplyList:
     get:
       consumes:
@@ -4563,7 +5443,7 @@ paths:
       - ApiKeyAuth: []
       summary: 分页获取Apply列表
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/circleApply/getApplyListAll:
     get:
       consumes:
@@ -4617,7 +5497,7 @@ paths:
       - ApiKeyAuth: []
       summary: 获取Apply列表
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/circleApply/getCircleApplyGroupList:
     get:
       consumes:
@@ -4675,7 +5555,7 @@ paths:
       - ApiKeyAuth: []
       summary: 分页获取CircleApplyGroup列表
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/circleApply/getCircleApplyGroupListAll:
     get:
       consumes:
@@ -4733,7 +5613,7 @@ paths:
       - ApiKeyAuth: []
       summary: 获取CircleApplyGroup列表
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/circleApply/getCircleApplyList:
     get:
       consumes:
@@ -4791,7 +5671,7 @@ paths:
       - ApiKeyAuth: []
       summary: 分页获取CircleApply列表
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/circleApply/getCircleApplyListAll:
     get:
       consumes:
@@ -4837,7 +5717,7 @@ paths:
       - ApiKeyAuth: []
       summary: 获取CircleApply列表
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/circleApply/getUserCircleApplyListAll:
     get:
       consumes:
@@ -4867,7 +5747,7 @@ paths:
       - ApiKeyAuth: []
       summary: 获取UserCircleApply列表
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/circleApply/setUserCircleApply:
     post:
       consumes:
@@ -4890,7 +5770,7 @@ paths:
       - ApiKeyAuth: []
       summary: 设置UserCircleApply
       tags:
-      - App_CircleApply
+      - 圈子应用
   /app/fileUploadAndDownload/breakpointContinue:
     post:
       consumes:
@@ -4917,7 +5797,7 @@ paths:
       - ApiKeyAuth: []
       summary: 断点续传到服务器
       tags:
-      - App_FileUploadAndDownload
+      - 文件
   /app/fileUploadAndDownload/deleteFile:
     post:
       parameters:
@@ -4943,7 +5823,7 @@ paths:
       - ApiKeyAuth: []
       summary: 删除文件
       tags:
-      - App_FileUploadAndDownload
+      - 文件
   /app/fileUploadAndDownload/findFile:
     post:
       consumes:
@@ -4972,7 +5852,7 @@ paths:
       - ApiKeyAuth: []
       summary: 创建文件
       tags:
-      - App_FileUploadAndDownload
+      - 文件
   /app/fileUploadAndDownload/getFileList:
     post:
       consumes:
@@ -5002,7 +5882,7 @@ paths:
       - ApiKeyAuth: []
       summary: 分页文件列表
       tags:
-      - App_FileUploadAndDownload
+      - 文件
   /app/fileUploadAndDownload/removeChunk:
     post:
       consumes:
@@ -5029,7 +5909,7 @@ paths:
       - ApiKeyAuth: []
       summary: 删除切片
       tags:
-      - App_FileUploadAndDownload
+      - 文件
   /app/fileUploadAndDownload/upload:
     post:
       consumes:
@@ -5058,7 +5938,305 @@ paths:
       - ApiKeyAuth: []
       summary: 上传文件示例
       tags:
-      - App_FileUploadAndDownload
+      - 文件
+  /app/focus/findFocusUser:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: focusUserId
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询关注用户
+      tags:
+      - 关注/粉丝
+  /app/focus/focusUser:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关注用户
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.FocusUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 关注用户
+      tags:
+      - 关注/粉丝
+  /app/focus/focusUserCancel:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 取消用户关注
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.FocusUserCancel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 取消用户关注
+      tags:
+      - 关注/粉丝
+  /app/focus/getFansList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取粉丝列表
+      tags:
+      - 关注/粉丝
+  /app/focus/getFocusUserDynamicList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPosts
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取关注用户动态列表
+      tags:
+      - 关注/粉丝
+  /app/focus/getFocusUserList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: focusUserId
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取关注用户列表
+      tags:
+      - 关注/粉丝
+  /app/focus/getFrequentBrowsingUserList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPosts
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.UserBaseInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取经常浏览用户列表
+      tags:
+      - 关注/粉丝
+  /app/focus/updateFocusUser:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新关注用户
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.FocusUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新关注用户
+      tags:
+      - 关注/粉丝
   /app/forumPosts/createCommentThumbsUp:
     post:
       consumes:
@@ -5081,13 +6259,13 @@ paths:
       - ApiKeyAuth: []
       summary: 评论点赞
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/createForumComment:
     post:
       consumes:
       - application/json
       parameters:
-      - description: 创建ForumComment
+      - description: 创建评论
         in: body
         name: data
         required: true
@@ -5097,20 +6275,20 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
           schema:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 创建ForumComment
+      summary: 创建评论
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/createForumPosts:
     post:
       consumes:
       - application/json
       parameters:
-      - description: 创建ForumPosts
+      - description: 创建帖子
         in: body
         name: data
         required: true
@@ -5125,9 +6303,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 创建ForumPosts
+      summary: 创建帖子
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/createForumThumbsUp:
     post:
       consumes:
@@ -5150,7 +6328,7 @@ paths:
       - ApiKeyAuth: []
       summary: 帖子点赞
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/deleteCommentThumbsUp:
     delete:
       consumes:
@@ -5173,13 +6351,13 @@ paths:
       - ApiKeyAuth: []
       summary: 取消评论点赞
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/deleteForumComment:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 删除ForumComment
+      - description: 删除评论
         in: body
         name: data
         required: true
@@ -5194,15 +6372,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除ForumComment
+      summary: 删除评论
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/deleteForumCommentByIds:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 批量删除ForumComment
+      - description: 批量删除评论
         in: body
         name: data
         required: true
@@ -5217,15 +6395,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 批量删除ForumComment
+      summary: 批量删除评论
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/deleteForumPosts:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 删除ForumPosts
+      - description: 删除帖子
         in: body
         name: data
         required: true
@@ -5240,15 +6418,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除ForumPosts
+      summary: 删除帖子
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/deleteForumPostsByIds:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 批量删除ForumPosts
+      - description: 批量删除帖子
         in: body
         name: data
         required: true
@@ -5263,9 +6441,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 批量删除ForumPosts
+      summary: 批量删除帖子
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/deleteForumThumbsUp:
     delete:
       consumes:
@@ -5288,13 +6466,13 @@ paths:
       - ApiKeyAuth: []
       summary: 取消帖子点赞
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/deleteSelfForumPosts:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 删除自己的ForumPosts
+      - description: 删除自己的帖子
         in: body
         name: data
         required: true
@@ -5309,9 +6487,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除自己的ForumPosts
+      summary: 删除自己的帖子
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/findForumComment:
     get:
       consumes:
@@ -5339,7 +6517,7 @@ paths:
       - ApiKeyAuth: []
       summary: 用id查询ForumComment
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/findForumPosts:
     get:
       consumes:
@@ -5365,9 +6543,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询ForumPosts
+      summary: 用id查询帖子
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/getForumCommentList:
     get:
       consumes:
@@ -5419,9 +6597,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取ForumComment列表
+      summary: 分页获取评论列表
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/getForumPostsList:
     get:
       consumes:
@@ -5495,7 +6673,7 @@ paths:
       - ApiKeyAuth: []
       summary: 分页获取ForumPosts列表
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/forumPosts/updateForumPosts:
     put:
       consumes:
@@ -5518,7 +6696,7 @@ paths:
       - ApiKeyAuth: []
       summary: 更新ForumPosts
       tags:
-      - App_ForumPosts
+      - 帖子
   /app/general/createBugReport:
     post:
       consumes:
@@ -5541,7 +6719,7 @@ paths:
       - ApiKeyAuth: []
       summary: Bug反馈
       tags:
-      - APP_General
+      - 常规方法
   /app/general/findBugReport:
     get:
       consumes:
@@ -5567,9 +6745,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询BugReport
+      summary: 用id查询Bug反馈
       tags:
-      - APP_General
+      - 常规方法
   /app/general/findMiniProgram:
     get:
       consumes:
@@ -5595,9 +6773,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询MiniProgram
+      summary: 用id查询小程序
       tags:
-      - APP_General
+      - 常规方法
   /app/general/findProtocol:
     get:
       consumes:
@@ -5625,7 +6803,7 @@ paths:
       - ApiKeyAuth: []
       summary: 用id查询协议
       tags:
-      - APP_General
+      - 常规方法
   /app/general/findProtocolByName:
     get:
       consumes:
@@ -5653,7 +6831,7 @@ paths:
       - ApiKeyAuth: []
       summary: 用名字查询协议
       tags:
-      - APP_General
+      - 常规方法
   /app/general/getBugReportList:
     get:
       consumes:
@@ -5707,9 +6885,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取BugReport列表
+      summary: 分页获取Bug反馈列表
       tags:
-      - APP_General
+      - 常规方法
   /app/general/getProtocolList:
     get:
       consumes:
@@ -5755,9 +6933,273 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取Protocol列表
+      summary: 分页获取协议列表
       tags:
-      - APP_General
+      - 常规方法
+  /app/question/answerQuestion:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 回答问题
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.AnswerQuestion'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 回答问题
+      tags:
+      - 问答
+  /app/question/closeQuestion:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关闭问题
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CloseQuestion'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 关闭问题
+      tags:
+      - 问答
+  /app/question/createQuestion:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建问题
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateQuestion'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建问题
+      tags:
+      - 问答
+  /app/question/delSelfAnswer:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除自己的回答
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdDelete'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除自己的回答
+      tags:
+      - 问答
+  /app/question/getAnswerList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 问题_编号
+        in: query
+        name: questionId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.QuestionAnswer
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.QuestionAnswer'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取问题的回答列表
+      tags:
+      - 问答
+  /app/question/getCircleQuestionList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPosts
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取圈子问题列表
+      tags:
+      - 问答
+  /app/question/getGlobalQuestionList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 当前位置
+        in: query
+        name: curPos
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPosts
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取全局问题列表
+      tags:
+      - 问答
+  /app/question/setBestAnswer:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 设置最佳答案
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SetBestAnswer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 设置最佳答案
+      tags:
+      - 问答
+  /app/question/setQuestionScore:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 给问题打分（1-5星）
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SetQuestionScore'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 给问题打分（1-5星）
+      tags:
+      - 问答
   /app/report/createReport:
     post:
       consumes:
@@ -5780,7 +7222,7 @@ paths:
       - ApiKeyAuth: []
       summary: 举报
       tags:
-      - App_Report
+      - 举报
   /app/report/findReport:
     get:
       consumes:
@@ -5806,9 +7248,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询Report
+      summary: 用id查询举报
       tags:
-      - App_Report
+      - 举报
   /app/report/findReportReason:
     get:
       consumes:
@@ -5834,9 +7276,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询ReportReason
+      summary: 用id查询举报原因
       tags:
-      - App_Report
+      - 举报
   /app/report/getReportList:
     get:
       consumes:
@@ -5956,9 +7398,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取Report列表
+      summary: 分页获取举报列表
       tags:
-      - App_Report
+      - 举报
   /app/report/getReportReasonList:
     get:
       consumes:
@@ -5998,15 +7440,15 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取ReportReason列表
+      summary: 分页获取举报原因列表
       tags:
-      - App_Report
+      - 举报
   /app/topic/createForumTopic:
     post:
       consumes:
       - application/json
       parameters:
-      - description: 创建ForumTopic
+      - description: 创建话题
         in: body
         name: data
         required: true
@@ -6021,15 +7463,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 创建ForumTopic
+      summary: 创建话题
       tags:
-      - App_Topic
+      - 话题
   /app/topic/deleteForumTopic:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 删除ForumTopic
+      - description: 删除话题
         in: body
         name: data
         required: true
@@ -6044,15 +7486,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除ForumTopic
+      summary: 删除话题
       tags:
-      - App_Topic
+      - 话题
   /app/topic/deleteForumTopicByIds:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 批量删除ForumTopic
+      - description: 批量删除话题
         in: body
         name: data
         required: true
@@ -6067,9 +7509,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 批量删除ForumTopic
+      summary: 批量删除话题
       tags:
-      - App_Topic
+      - 话题
   /app/topic/findForumTopic:
     get:
       consumes:
@@ -6097,9 +7539,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询ForumTopic
+      summary: 用id查询话题
       tags:
-      - App_Topic
+      - 话题
   /app/topic/findForumTopicGroup:
     get:
       consumes:
@@ -6125,9 +7567,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询ForumTopicGroup
+      summary: 用id查询话题分组
       tags:
-      - App_Topic
+      - 话题
   /app/topic/getForumTopicGroupList:
     get:
       consumes:
@@ -6175,9 +7617,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取ForumTopicGroup列表
+      summary: 分页获取话题分组列表
       tags:
-      - App_Topic
+      - 话题
   /app/topic/getForumTopicGroupListAll:
     get:
       consumes:
@@ -6225,9 +7667,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 获取ForumTopicGroup列表
+      summary: 获取话题分组列表
       tags:
-      - App_Topic
+      - 话题
   /app/topic/getForumTopicList:
     get:
       consumes:
@@ -6295,15 +7737,15 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取ForumTopic列表
+      summary: 分页获取话题列表
       tags:
-      - App_Topic
+      - 话题
   /app/topic/updateForumTopic:
     put:
       consumes:
       - application/json
       parameters:
-      - description: 更新ForumTopic
+      - description: 更新话题
         in: body
         name: data
         required: true
@@ -6318,9 +7760,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 更新ForumTopic
+      summary: 更新话题
       tags:
-      - App_Topic
+      - 话题
   /app/user/bindEmail:
     post:
       parameters:
@@ -6339,7 +7781,7 @@ paths:
             type: string
       summary: 绑定邮箱
       tags:
-      - App_User
+      - 用户
   /app/user/bindTelephone:
     post:
       parameters:
@@ -6358,13 +7800,13 @@ paths:
             type: string
       summary: 绑定手机
       tags:
-      - App_User
-  /app/user/getCaptcha:
+      - 用户
+  /app/user/getSmsVerification:
     post:
       consumes:
       - application/json
       parameters:
-      - description: 获取验证码
+      - description: 获取短信验证码
         in: body
         name: data
         required: true
@@ -6374,19 +7816,19 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"成功"}'
+          description: '{"success":true,"data":{},"msg":"发送成功"}'
           schema:
             type: string
-      summary: 获取验证码
+      summary: 获取短信验证码
       tags:
-      - App_User
+      - 鉴权认证
   /app/user/getThirdPlat:
     post:
       produces:
       - application/json
       responses:
         "200":
-          description: 返回包括用户信息,token,过期时间
+          description: 返回[]authRes.ThirdPlatInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -6400,7 +7842,7 @@ paths:
               type: object
       summary: 获取第三方平台信息
       tags:
-      - App_User
+      - 鉴权认证
   /app/user/getUserBaseInfo:
     get:
       consumes:
@@ -6426,9 +7868,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询UserBaseInfo
+      summary: 用id查询用户基本信息
       tags:
-      - App_User
+      - 用户
   /app/user/getUserList:
     get:
       consumes:
@@ -6482,9 +7924,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取User列表
+      summary: 分页获取用户列表
       tags:
-      - App_User
+      - 用户
   /app/user/loginPwd:
     post:
       parameters:
@@ -6498,19 +7940,19 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回包括用户信息,token,过期时间
+          description: 返回LoginResponse
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.LoginResponse'
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
                 msg:
                   type: string
               type: object
       summary: 用户登录(账号密码)
       tags:
-      - App_User
+      - 鉴权认证
   /app/user/loginTelephone:
     post:
       parameters:
@@ -6524,19 +7966,19 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回包括用户信息,token,过期时间
+          description: 返回LoginResponse
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.LoginResponse'
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
                 msg:
                   type: string
               type: object
       summary: 用户登录(手机)
       tags:
-      - App_User
+      - 鉴权认证
   /app/user/loginThird:
     post:
       parameters:
@@ -6550,19 +7992,19 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回包括用户信息,token,过期时间
+          description: 返回LoginResponse
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.LoginResponse'
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
                 msg:
                   type: string
               type: object
       summary: 用户登录(第三方授权)
       tags:
-      - App_User
+      - 鉴权认证
   /app/user/register:
     post:
       parameters:
@@ -6571,24 +8013,24 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_request.Register'
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register'
       produces:
       - application/json
       responses:
         "200":
-          description: 用户注册账号,返回包括用户信息
+          description: 返回RegisterResponse
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_community_response.SysUserResponse'
+                  $ref: '#/definitions/response.RegisterResponse'
                 msg:
                   type: string
               type: object
       summary: 注册
       tags:
-      - App_User
+      - 鉴权认证
   /app/user/resetPassword:
     post:
       parameters:
@@ -6609,7 +8051,7 @@ paths:
       - ApiKeyAuth: []
       summary: 重置密码
       tags:
-      - App_User
+      - 鉴权认证
   /app/user/setSelfBaseInfo:
     put:
       consumes:
@@ -6632,13 +8074,13 @@ paths:
       - ApiKeyAuth: []
       summary: 设置用户基础信息
       tags:
-      - App_User
+      - 用户
   /app/userBrowsingHistory/deleteUserBrowsingHistory:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 删除UserBrowsingHistory
+      - description: 删除浏览历史
         in: body
         name: data
         required: true
@@ -6653,15 +8095,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除UserBrowsingHistory
+      summary: 删除浏览历史
       tags:
-      - APP_UserBrowsingHistory
+      - 浏览历史
   /app/userBrowsingHistory/deleteUserBrowsingHistoryByIds:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 批量删除UserBrowsingHistory
+      - description: 批量删除浏览历史
         in: body
         name: data
         required: true
@@ -6676,9 +8118,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 批量删除UserBrowsingHistory
+      summary: 批量删除浏览历史
       tags:
-      - APP_UserBrowsingHistory
+      - 浏览历史
   /app/userBrowsingHistory/getUserBrowsingHistoryList:
     get:
       consumes:
@@ -6720,9 +8162,9 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取UserBrowsingHistory列表
+      summary: 分页获取浏览历史列表
       tags:
-      - APP_UserBrowsingHistory
+      - 浏览历史
   /app/userCollect/createUserCollect:
     post:
       consumes:
@@ -6745,13 +8187,13 @@ paths:
       - ApiKeyAuth: []
       summary: 收藏帖子
       tags:
-      - App_UserCollect
+      - 收藏
   /app/userCollect/deleteUserCollect:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 删除UserCollect
+      - description: 删除收藏
         in: body
         name: data
         required: true
@@ -6766,15 +8208,15 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除UserCollect
+      summary: 删除收藏
       tags:
-      - App_UserCollect
+      - 收藏
   /app/userCollect/deleteUserCollectByIds:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 批量删除UserCollect
+      - description: 批量删除收藏
         in: body
         name: data
         required: true
@@ -6789,9 +8231,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 批量删除UserCollect
+      summary: 批量删除收藏
       tags:
-      - App_UserCollect
+      - 收藏
   /app/userCollect/getUserCollectList:
     get:
       consumes:
@@ -6835,9 +8277,39 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取UserCollect列表
+      summary: 分页获取收藏列表
       tags:
-      - App_UserCollect
+      - 收藏
+  /auth/loginOneClick:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 一键登录
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginOneClick'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回LoginResponse
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 一键登录
+      tags:
+      - 鉴权认证
   /authority/copyAuthority:
     post:
       consumes:
@@ -7944,1525 +9416,6 @@ paths:
       summary: 上传文件示例
       tags:
       - ExaFileUploadAndDownload
-  /hkActivity/createHkActivity:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建HkActivity
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivity'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建HkActivity
-      tags:
-      - HkActivity
-  /hkActivity/deleteHkActivity:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除HkActivity
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivity'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除HkActivity
-      tags:
-      - HkActivity
-  /hkActivity/deleteHkActivityByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除HkActivity
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除HkActivity
-      tags:
-      - HkActivity
-  /hkActivity/findHkActivity:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: address
-        type: string
-      - in: query
-        name: addressPos
-        type: string
-      - in: query
-        name: addressZone
-        type: string
-      - in: query
-        name: chatGroupId
-        type: integer
-      - in: query
-        name: checkStatus
-        type: integer
-      - in: query
-        name: circleId
-        type: integer
-      - in: query
-        name: classifyId
-        type: integer
-      - in: query
-        name: collect
-        type: integer
-      - in: query
-        name: collectNum
-        type: integer
-      - in: query
-        name: contentHtml
-        type: string
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: curUserNum
-        type: integer
-      - in: query
-        name: des
-        type: string
-      - in: query
-        name: dynamicNum
-        type: integer
-      - in: query
-        name: endAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: isPublic
-        type: integer
-      - in: query
-        name: pay
-        type: integer
-      - in: query
-        name: payCurrency
-        type: integer
-      - in: query
-        name: payNum
-        type: integer
-      - in: query
-        name: startAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      - in: query
-        name: userNum
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkActivity
-      tags:
-      - HkActivity
-  /hkActivity/getHkActivityList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: address
-        type: string
-      - in: query
-        name: addressPos
-        type: string
-      - in: query
-        name: addressZone
-        type: string
-      - in: query
-        name: chatGroupId
-        type: integer
-      - in: query
-        name: checkStatus
-        type: integer
-      - in: query
-        name: circleId
-        type: integer
-      - in: query
-        name: classifyId
-        type: integer
-      - in: query
-        name: collect
-        type: integer
-      - in: query
-        name: collectNum
-        type: integer
-      - in: query
-        name: contentHtml
-        type: string
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: curUserNum
-        type: integer
-      - in: query
-        name: des
-        type: string
-      - in: query
-        name: dynamicNum
-        type: integer
-      - in: query
-        name: endAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: isPublic
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: pay
-        type: integer
-      - in: query
-        name: payCurrency
-        type: integer
-      - in: query
-        name: payNum
-        type: integer
-      - in: query
-        name: startAt
-        type: string
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      - in: query
-        name: userNum
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkActivity列表
-      tags:
-      - HkActivity
-  /hkActivity/updateHkActivity:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新HkActivity
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivity'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新HkActivity
-      tags:
-      - HkActivity
-  /hkActivityClassify/createHkActivityClassify:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建HkActivityClassify
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivityClassify'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建HkActivityClassify
-      tags:
-      - HkActivityClassify
-  /hkActivityClassify/deleteHkActivityClassify:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除HkActivityClassify
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivityClassify'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除HkActivityClassify
-      tags:
-      - HkActivityClassify
-  /hkActivityClassify/deleteHkActivityClassifyByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除HkActivityClassify
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除HkActivityClassify
-      tags:
-      - HkActivityClassify
-  /hkActivityClassify/findHkActivityClassify:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: icon
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: name
-        type: string
-      - in: query
-        name: sort
-        type: integer
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkActivityClassify
-      tags:
-      - HkActivityClassify
-  /hkActivityClassify/getHkActivityClassifyList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - in: query
-        name: icon
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: name
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: sort
-        type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkActivityClassify列表
-      tags:
-      - HkActivityClassify
-  /hkActivityClassify/updateHkActivityClassify:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新HkActivityClassify
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivityClassify'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新HkActivityClassify
-      tags:
-      - HkActivityClassify
-  /hkActivityCollect/createHkActivityCollect:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建HkActivityCollect
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivityCollect'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建HkActivityCollect
-      tags:
-      - HkActivityCollect
-  /hkActivityCollect/deleteHkActivityCollect:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除HkActivityCollect
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivityCollect'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除HkActivityCollect
-      tags:
-      - HkActivityCollect
-  /hkActivityCollect/deleteHkActivityCollectByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除HkActivityCollect
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除HkActivityCollect
-      tags:
-      - HkActivityCollect
-  /hkActivityCollect/findHkActivityCollect:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: activityId
-        type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkActivityCollect
-      tags:
-      - HkActivityCollect
-  /hkActivityCollect/getHkActivityCollectList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: activityId
-        type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkActivityCollect列表
-      tags:
-      - HkActivityCollect
-  /hkActivityCollect/updateHkActivityCollect:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新HkActivityCollect
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivityCollect'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新HkActivityCollect
-      tags:
-      - HkActivityCollect
-  /hkActivityUser/createHkActivityUser:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建HkActivityUser
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivityUser'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建HkActivityUser
-      tags:
-      - HkActivityUser
-  /hkActivityUser/deleteHkActivityUser:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除HkActivityUser
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivityUser'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除HkActivityUser
-      tags:
-      - HkActivityUser
-  /hkActivityUser/deleteHkActivityUserByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除HkActivityUser
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除HkActivityUser
-      tags:
-      - HkActivityUser
-  /hkActivityUser/findHkActivityUser:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: activityId
-        type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: orderId
-        type: integer
-      - in: query
-        name: pay
-        type: integer
-      - in: query
-        name: power
-        type: integer
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkActivityUser
-      tags:
-      - HkActivityUser
-  /hkActivityUser/getHkActivityUserList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: activityId
-        type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: orderId
-        type: integer
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: pay
-        type: integer
-      - in: query
-        name: power
-        type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkActivityUser列表
-      tags:
-      - HkActivityUser
-  /hkActivityUser/updateHkActivityUser:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新HkActivityUser
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkActivityUser'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新HkActivityUser
-      tags:
-      - HkActivityUser
-  /hkChannel/getChannelList:
-    get:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回[]community.HkChannel
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/community.HkChannel'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 获取频道列表
-      tags:
-      - HkChannel
-  /hkChannel/getUserChannelList:
-    get:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回[]community.HkChannel
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/community.HkChannel'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 获取用户频道
-      tags:
-      - HkChannel
-  /hkChannel/setUserChannel:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 设置用户频道
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.ParamSetUserChannel'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 设置用户频道
-      tags:
-      - HkChannel
-  /hkFocusUser/createHkFocusUser:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建HkFocusUser
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkFocusUser'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建HkFocusUser
-      tags:
-      - HkFocusUser
-  /hkFocusUser/deleteHkFocusUser:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除HkFocusUser
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkFocusUser'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除HkFocusUser
-      tags:
-      - HkFocusUser
-  /hkFocusUser/deleteHkFocusUserByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除HkFocusUser
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除HkFocusUser
-      tags:
-      - HkFocusUser
-  /hkFocusUser/findHkFocusUser:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: focusUserId
-        type: integer
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkFocusUser
-      tags:
-      - HkFocusUser
-  /hkFocusUser/getHkFocusUserList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - in: query
-        name: focusUserId
-        type: integer
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkFocusUser列表
-      tags:
-      - HkFocusUser
-  /hkFocusUser/updateHkFocusUser:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新HkFocusUser
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkFocusUser'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新HkFocusUser
-      tags:
-      - HkFocusUser
-  /hkUserSign/createHkUserSign:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建HkUserSign
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkUserSign'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建HkUserSign
-      tags:
-      - HkUserSign
-  /hkUserSign/deleteHkUserSign:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除HkUserSign
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkUserSign'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除HkUserSign
-      tags:
-      - HkUserSign
-  /hkUserSign/deleteHkUserSignByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除HkUserSign
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除HkUserSign
-      tags:
-      - HkUserSign
-  /hkUserSign/findHkUserSign:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: balance
-        type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: number
-        type: integer
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkUserSign
-      tags:
-      - HkUserSign
-  /hkUserSign/getHkUserSignList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: balance
-        type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: number
-        type: integer
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkUserSign列表
-      tags:
-      - HkUserSign
-  /hkUserSign/updateHkUserSign:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新HkUserSign
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkUserSign'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新HkUserSign
-      tags:
-      - HkUserSign
   /init/checkdb:
     post:
       produces:
@@ -10638,7 +10591,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse'
+                  $ref: '#/definitions/response.SysUserResponse'
                 msg:
                   type: string
               type: object

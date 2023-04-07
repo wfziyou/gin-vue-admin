@@ -1,4 +1,4 @@
-// 自动生成模板HkActivity
+// 自动生成模板Activity
 package community
 
 import (
@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-// HkActivity 结构体
-type HkActivity struct {
+// Activity 结构体
+type Activity struct {
 	global.GVA_MODEL
 	TenantId    string     `json:"tenantId" form:"tenantId" gorm:"column:tenant_id;comment:租户ID;size:12;"`
 	Title       string     `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`
@@ -39,7 +39,7 @@ type HkActivity struct {
 	IsDel       *int       `json:"isDel" form:"isDel" gorm:"column:is_del;comment:是否已删除;size:10;"`
 }
 
-// TableName HkActivity 表名
-func (HkActivity) TableName() string {
+// TableName Activity 表名
+func (Activity) TableName() string {
 	return "hk_activity"
 }

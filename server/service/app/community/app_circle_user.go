@@ -17,7 +17,7 @@ func (appCircleUserService *AppCircleUserService) CreateCircleUser(hkCircleUser 
 	return err
 }
 
-// DeleteCircleUser 删除CircleUser记录
+// DeleteCircleUser 删除圈子用户记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleUserService *AppCircleUserService) DeleteCircleUser(hkCircleUser community.CircleUser) (err error) {
 	err = global.GVA_DB.Delete(&hkCircleUser).Error
@@ -28,7 +28,7 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleUserInfo(hkCircleU
 	return err
 }
 
-// DeleteCircleUserByIds 批量删除CircleUser记录
+// DeleteCircleUserByIds 批量删除圈子用户记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleUserService *AppCircleUserService) DeleteCircleUserByIds(ids request.IdsReq) (err error) {
 	err = global.GVA_DB.Delete(&[]community.CircleUser{}, "id in ?", ids.Ids).Error
@@ -62,7 +62,7 @@ func (appCircleUserService *AppCircleUserService) GetUserHaveCircle(userId uint6
 	return
 }
 
-// UpdateCircleUser 更新CircleUser记录
+// UpdateCircleUser 更新圈子用户记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleUserService *AppCircleUserService) UpdateCircleUser(hkCircleUser community.CircleUser) (err error) {
 	err = global.GVA_DB.Save(&hkCircleUser).Error

@@ -16,13 +16,13 @@ type HkChannelApi struct {
 var hkChannelService = service.ServiceGroupApp.AppServiceGroup.Community.HkChannelService
 
 // GetChannelList 获取频道列表
-// @Tags HkChannel
+// @Tags 频道
 // @Summary 获取频道列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
 // @Success 200 {object}  response.Response{data=[]community.HkChannel,msg=string} "返回[]community.HkChannel"
-// @Router /hkChannel/getChannelList [get]
+// @Router /app/Channel/getChannelList [get]
 func (hkChannelApi *HkChannelApi) GetChannelList(c *gin.Context) {
 	list, _, err := hkChannelService.GetChannelInfoList()
 	if err != nil {
@@ -35,13 +35,13 @@ func (hkChannelApi *HkChannelApi) GetChannelList(c *gin.Context) {
 }
 
 // GetUserChannelList 获取用户频道
-// @Tags HkChannel
+// @Tags 频道
 // @Summary 获取用户频道
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
 // @Success 200 {object}  response.Response{data=[]community.HkChannel,msg=string} "返回[]community.HkChannel"
-// @Router /hkChannel/getUserChannelList [get]
+// @Router /app/Channel/getUserChannelList [get]
 func (hkChannelApi *HkChannelApi) GetUserChannelList(c *gin.Context) {
 	var pageInfo communityReq.HkChannelSearch
 	err := c.ShouldBindQuery(&pageInfo)
@@ -67,14 +67,14 @@ func (hkChannelApi *HkChannelApi) GetUserChannelList(c *gin.Context) {
 }
 
 // SetUserChannel 设置用户频道
-// @Tags HkChannel
+// @Tags 频道
 // @Summary 设置用户频道
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
 // @Param data body communityReq.ParamSetUserChannel true "设置用户频道"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
-// @Router /hkChannel/setUserChannel [post]
+// @Router /app/Channel/setUserChannel [post]
 func (hkChannelApi *HkChannelApi) SetUserChannel(c *gin.Context) {
 	var req communityReq.ParamSetUserChannel
 	err := c.ShouldBindJSON(&req)

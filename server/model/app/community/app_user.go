@@ -35,7 +35,7 @@ func (User) TableName() string {
 	return "hk_user"
 }
 
-type ForumPostsUser struct {
+type UserBaseInfo struct {
 	ID          uint64 `json:"id" form:"id" gorm:"primarykey"`                                                           // 主键ID
 	UserType    int    `json:"userType" form:"userType" gorm:"column:user_type;comment:用户平台: 1web、2app、3other;size:10;"` //用户平台: 1web、2app、3other
 	Account     string `json:"account" form:"account" gorm:"column:account;comment:账号;size:45;"`                         //账号
@@ -47,6 +47,6 @@ type ForumPostsUser struct {
 }
 
 // TableName User 表名
-func (ForumPostsUser) TableName() string {
+func (UserBaseInfo) TableName() string {
 	return "hk_user"
 }

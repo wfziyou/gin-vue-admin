@@ -18,7 +18,7 @@ type GeneralApi struct{}
 **************************************/
 
 // FindProtocol 用id查询协议
-// @Tags APP_General
+// @Tags 常规方法
 // @Summary 用id查询协议
 // @Security ApiKeyAuth
 // @accept application/json
@@ -42,7 +42,7 @@ func (generalApi *GeneralApi) FindProtocol(c *gin.Context) {
 }
 
 // FindProtocolByName 用名字查询协议
-// @Tags APP_General
+// @Tags 常规方法
 // @Summary 用名字查询协议
 // @Security ApiKeyAuth
 // @accept application/json
@@ -65,13 +65,13 @@ func (generalApi *GeneralApi) FindProtocolByName(c *gin.Context) {
 	}
 }
 
-// GetProtocolList 分页获取Protocol列表
-// @Tags APP_General
-// @Summary 分页获取Protocol列表
+// GetProtocolList 分页获取协议列表
+// @Tags 常规方法
+// @Summary 分页获取协议列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query generalReq.ProtocolSearch true "分页获取Protocol列表"
+// @Param data query generalReq.ProtocolSearch true "分页获取协议列表"
 // @Success 200 {object}  response.PageResult{List=[]general.Protocol,msg=string} "返回general.Protocol"
 // @Router /app/general/getProtocolList [get]
 func (generalApi *GeneralApi) GetProtocolList(c *gin.Context) {
@@ -95,7 +95,7 @@ func (generalApi *GeneralApi) GetProtocolList(c *gin.Context) {
 }
 
 // CreateBugReport Bug反馈
-// @Tags APP_General
+// @Tags 常规方法
 // @Summary Bug反馈
 // @Security ApiKeyAuth
 // @accept application/json
@@ -128,13 +128,13 @@ func (generalApi *GeneralApi) CreateBugReport(c *gin.Context) {
 	}
 }
 
-// FindBugReport 用id查询BugReport
-// @Tags APP_General
-// @Summary 用id查询BugReport
+// FindBugReport 用id查询Bug反馈
+// @Tags 常规方法
+// @Summary 用id查询Bug反馈
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询BugReport"
+// @Param data query request.IdSearch true "用id查询Bug反馈"
 // @Success 200 {object}  response.Response{data=general.BugReport,msg=string}  "返回general.BugReport"
 // @Router /app/general/findBugReport [get]
 func (generalApi *GeneralApi) FindBugReport(c *gin.Context) {
@@ -152,13 +152,13 @@ func (generalApi *GeneralApi) FindBugReport(c *gin.Context) {
 	}
 }
 
-// GetBugReportList 分页获取BugReport列表
-// @Tags APP_General
-// @Summary 分页获取BugReport列表
+// GetBugReportList 分页获取Bug反馈列表
+// @Tags 常规方法
+// @Summary 分页获取Bug反馈列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query generalReq.BugReportSearch true "分页获取BugReport列表"
+// @Param data query generalReq.BugReportSearch true "分页获取Bug反馈列表"
 // @Success 200 {object}  response.PageResult{List=[]general.BugReport,msg=string} "返回general.BugReport"
 // @Router /app/general/getBugReportList [get]
 func (generalApi *GeneralApi) GetBugReportList(c *gin.Context) {
@@ -182,13 +182,13 @@ func (generalApi *GeneralApi) GetBugReportList(c *gin.Context) {
 	}
 }
 
-// FindMiniProgram 用id查询MiniProgram
-// @Tags APP_General
-// @Summary 用id查询MiniProgram
+// FindMiniProgram 用id查询小程序
+// @Tags 常规方法
+// @Summary 用id查询小程序
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询MiniProgram"
+// @Param data query request.IdSearch true "用id查询小程序"
 // @Success 200 {object}  response.Response{data=general.MiniProgramBaseInfo,msg=string}  "返回general.BugReport"
 // @Router /app/general/findMiniProgram [get]
 func (generalApi *GeneralApi) FindMiniProgram(c *gin.Context) {

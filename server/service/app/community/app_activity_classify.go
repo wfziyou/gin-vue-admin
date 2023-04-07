@@ -7,52 +7,52 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
-type HkActivityClassifyService struct {
+type ActivityClassifyService struct {
 }
 
-// CreateHkActivityClassify 创建HkActivityClassify记录
+// CreateActivityClassify 创建活动分类记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityClassifyService *HkActivityClassifyService) CreateHkActivityClassify(hkActivityClassify community.HkActivityClassify) (err error) {
+func (hkActivityClassifyService *ActivityClassifyService) CreateActivityClassify(hkActivityClassify community.ActivityClassify) (err error) {
 	err = global.GVA_DB.Create(&hkActivityClassify).Error
 	return err
 }
 
-// DeleteHkActivityClassify 删除HkActivityClassify记录
+// DeleteActivityClassify 删除ActivityClassify记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityClassifyService *HkActivityClassifyService) DeleteHkActivityClassify(hkActivityClassify community.HkActivityClassify) (err error) {
+func (hkActivityClassifyService *ActivityClassifyService) DeleteActivityClassify(hkActivityClassify community.ActivityClassify) (err error) {
 	err = global.GVA_DB.Delete(&hkActivityClassify).Error
 	return err
 }
 
-// DeleteHkActivityClassifyByIds 批量删除HkActivityClassify记录
+// DeleteActivityClassifyByIds 批量删除ActivityClassify记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityClassifyService *HkActivityClassifyService) DeleteHkActivityClassifyByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.HkActivityClassify{}, "id in ?", ids.Ids).Error
+func (hkActivityClassifyService *ActivityClassifyService) DeleteActivityClassifyByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]community.ActivityClassify{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkActivityClassify 更新HkActivityClassify记录
+// UpdateActivityClassify 更新ActivityClassify记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityClassifyService *HkActivityClassifyService) UpdateHkActivityClassify(hkActivityClassify community.HkActivityClassify) (err error) {
+func (hkActivityClassifyService *ActivityClassifyService) UpdateActivityClassify(hkActivityClassify community.ActivityClassify) (err error) {
 	err = global.GVA_DB.Save(&hkActivityClassify).Error
 	return err
 }
 
-// GetHkActivityClassify 根据id获取HkActivityClassify记录
+// GetActivityClassify 根据id获取ActivityClassify记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityClassifyService *HkActivityClassifyService) GetHkActivityClassify(id uint64) (hkActivityClassify community.HkActivityClassify, err error) {
+func (hkActivityClassifyService *ActivityClassifyService) GetActivityClassify(id uint64) (hkActivityClassify community.ActivityClassify, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkActivityClassify).Error
 	return
 }
 
-// GetHkActivityClassifyInfoList 分页获取HkActivityClassify记录
+// GetActivityClassifyInfoList 分页获取ActivityClassify记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityClassifyService *HkActivityClassifyService) GetHkActivityClassifyInfoList(info communityReq.HkActivityClassifySearch) (list []community.HkActivityClassify, total int64, err error) {
+func (hkActivityClassifyService *ActivityClassifyService) GetActivityClassifyInfoList(info communityReq.ActivityClassifySearch) (list []community.ActivityClassify, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkActivityClassify{})
-	var hkActivityClassifys []community.HkActivityClassify
+	db := global.GVA_DB.Model(&community.ActivityClassify{})
+	var hkActivityClassifys []community.ActivityClassify
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
