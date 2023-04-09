@@ -469,7 +469,7 @@ var doc = `{
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkChannel"
+                                                "$ref": "#/definitions/community.ChannelInfo"
                                             }
                                         },
                                         "msg": {
@@ -1778,6 +1778,344 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/auth/getSmsVerification": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "获取短信验证码",
+                "parameters": [
+                    {
+                        "description": "获取短信验证码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CaptchaReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/auth/getThirdPlat": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "获取第三方平台信息",
+                "responses": {
+                    "200": {
+                        "description": "返回[]authRes.ThirdPlatInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/response.ThirdPlatInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/auth/loginOneClick": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "一键登录",
+                "parameters": [
+                    {
+                        "description": "一键登录",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.LoginOneClick"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回LoginResponse",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/auth/loginPwd": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "用户登录(账号密码)",
+                "parameters": [
+                    {
+                        "description": "用户登录(账号密码)",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.LoginPwd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回LoginResponse",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/auth/loginTelephone": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "用户登录(手机)",
+                "parameters": [
+                    {
+                        "description": "用户登录(手机)",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.LoginTelephone"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回LoginResponse",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/auth/loginThird": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "用户登录(第三方授权)",
+                "parameters": [
+                    {
+                        "description": "用户登录(第三方授权)",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.LoginThird"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回LoginResponse",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/auth/register": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "注册",
+                "parameters": [
+                    {
+                        "description": "注册",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回RegisterResponse",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.RegisterResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/auth/resetPassword": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "重置密码",
+                "parameters": [
+                    {
+                        "description": "重置密码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ResetPasswordReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"修改成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -4239,72 +4577,35 @@ var doc = `{
                 "tags": [
                     "关注/粉丝"
                 ],
-                "summary": "用id查询关注用户",
+                "summary": "查询关注用户信息",
                 "parameters": [
                     {
                         "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "focusUserId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
+                        "description": "用户编号",
                         "name": "userId",
                         "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.FocusUserInfo",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.FocusUserInfo"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -4573,12 +4874,22 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "name": "remark",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
                         "name": "startCreatedAt",
                         "in": "query"
                     },
                     {
                         "type": "integer",
                         "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tag",
                         "in": "query"
                     },
                     {
@@ -7327,76 +7638,6 @@ var doc = `{
                 }
             }
         },
-        "/app/user/getSmsVerification": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "鉴权认证"
-                ],
-                "summary": "获取短信验证码",
-                "parameters": [
-                    {
-                        "description": "获取短信验证码",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.CaptchaReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/user/getThirdPlat": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "鉴权认证"
-                ],
-                "summary": "获取第三方平台信息",
-                "responses": {
-                    "200": {
-                        "description": "返回[]authRes.ThirdPlatInfo",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/response.ThirdPlatInfo"
-                                            }
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
         "/app/user/getUserBaseInfo": {
             "get": {
                 "security": [
@@ -7535,221 +7776,6 @@ var doc = `{
                                     }
                                 }
                             ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/user/loginPwd": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "鉴权认证"
-                ],
-                "summary": "用户登录(账号密码)",
-                "parameters": [
-                    {
-                        "description": "用户登录(账号密码)",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.LoginPwd"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回LoginResponse",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/user/loginTelephone": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "鉴权认证"
-                ],
-                "summary": "用户登录(手机)",
-                "parameters": [
-                    {
-                        "description": "用户登录(手机)",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.LoginTelephone"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回LoginResponse",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/user/loginThird": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "鉴权认证"
-                ],
-                "summary": "用户登录(第三方授权)",
-                "parameters": [
-                    {
-                        "description": "用户登录(第三方授权)",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.LoginThird"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回LoginResponse",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/user/register": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "鉴权认证"
-                ],
-                "summary": "注册",
-                "parameters": [
-                    {
-                        "description": "注册",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回RegisterResponse",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/response.RegisterResponse"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/user/resetPassword": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "鉴权认证"
-                ],
-                "summary": "重置密码",
-                "parameters": [
-                    {
-                        "description": "重置密码",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.ResetPasswordReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"修改成功\"}",
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 }
@@ -8123,59 +8149,6 @@ var doc = `{
                                             "items": {
                                                 "$ref": "#/definitions/general.UserCollect"
                                             }
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/loginOneClick": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "鉴权认证"
-                ],
-                "summary": "一键登录",
-                "parameters": [
-                    {
-                        "description": "一键登录",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.LoginOneClick"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回LoginResponse",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -12923,6 +12896,31 @@ var doc = `{
                 }
             }
         },
+        "community.ChannelInfo": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "标识",
+                    "type": "string"
+                },
+                "fixedType": {
+                    "description": "固定标识(不固定:0，固定:1)",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "编号",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                }
+            }
+        },
         "community.Circle": {
             "type": "object",
             "properties": {
@@ -13273,8 +13271,14 @@ var doc = `{
                 "isDel": {
                     "type": "integer"
                 },
+                "remark": {
+                    "type": "string"
+                },
                 "status": {
                     "type": "integer"
+                },
+                "tag": {
+                    "type": "string"
                 },
                 "tenantId": {
                     "type": "string"
@@ -13288,6 +13292,50 @@ var doc = `{
                 },
                 "userId": {
                     "type": "integer"
+                }
+            }
+        },
+        "community.FocusUserInfo": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "账号",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "focusUserId": {
+                    "type": "integer"
+                },
+                "headerImg": {
+                    "description": "头像",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "编号",
+                    "type": "integer"
+                },
+                "nickName": {
+                    "description": "昵称",
+                    "type": "string"
+                },
+                "realName": {
+                    "description": "真名",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
+                },
+                "sex": {
+                    "description": "性别： 0未知、1男、2女",
+                    "type": "integer"
+                },
+                "tag": {
+                    "description": "标签",
+                    "type": "string"
                 }
             }
         },
@@ -13726,7 +13774,7 @@ var doc = `{
                     "type": "string"
                 },
                 "fixedType": {
-                    "type": "boolean"
+                    "type": "integer"
                 },
                 "id": {
                     "description": "主键ID",
@@ -13748,7 +13796,7 @@ var doc = `{
                     "type": "string"
                 },
                 "type": {
-                    "type": "boolean"
+                    "type": "integer"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -15383,7 +15431,7 @@ var doc = `{
                 "account": {
                     "description": "用户名",
                     "type": "string",
-                    "example": "用户名"
+                    "example": "admin"
                 },
                 "nickName": {
                     "description": "昵称",
@@ -15393,7 +15441,7 @@ var doc = `{
                 "passWord": {
                     "description": "密码",
                     "type": "string",
-                    "example": "密码"
+                    "example": "123456"
                 }
             }
         },
@@ -15551,11 +15599,13 @@ var doc = `{
             "properties": {
                 "telephone": {
                     "description": "电话号码",
-                    "type": "string"
+                    "type": "string",
+                    "example": "12345678901"
                 },
                 "type": {
                     "description": "类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行",
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 }
             }
         },
@@ -15826,11 +15876,9 @@ var doc = `{
         "request.FocusUserCancel": {
             "type": "object",
             "properties": {
-                "ids": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
+                "userId": {
+                    "description": "用户ID",
+                    "type": "integer"
                 }
             }
         },
@@ -15967,10 +16015,12 @@ var doc = `{
         "request.LoginThird": {
             "type": "object",
             "properties": {
-                "Plat": {
+                "code": {
+                    "description": "平台code",
                     "type": "string"
                 },
-                "code": {
+                "plat": {
+                    "description": "平台",
                     "type": "string"
                 }
             }
@@ -15996,7 +16046,9 @@ var doc = `{
             "type": "object",
             "properties": {
                 "channelIds": {
-                    "type": "string"
+                    "description": "频道编号，通过逗号分割",
+                    "type": "string",
+                    "example": "1,2"
                 }
             }
         },
@@ -16005,11 +16057,13 @@ var doc = `{
             "properties": {
                 "captcha": {
                     "description": "验证码",
-                    "type": "string"
+                    "type": "string",
+                    "example": "666666"
                 },
                 "password": {
                     "description": "密码",
-                    "type": "string"
+                    "type": "string",
+                    "example": "pwd"
                 }
             }
         },
@@ -16554,15 +16608,19 @@ var doc = `{
             "type": "object",
             "properties": {
                 "Plat": {
+                    "description": "平台",
                     "type": "string"
                 },
                 "appid": {
+                    "description": "平台的应用编号",
                     "type": "string"
                 },
                 "icon": {
+                    "description": "平台图标",
                     "type": "string"
                 },
                 "name": {
+                    "description": "平台名称",
                     "type": "string"
                 }
             }

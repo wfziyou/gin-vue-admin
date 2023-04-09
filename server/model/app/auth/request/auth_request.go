@@ -14,8 +14,8 @@ type LoginTelephone struct {
 
 // LoginThird 登录（第三方授权）
 type LoginThird struct {
-	Plat string `json:"Plat"`
-	Code string `json:"code"`
+	Plat string `json:"plat"` //平台
+	Code string `json:"code"` //平台code
 }
 
 // LoginOneClick 一键登录
@@ -25,19 +25,19 @@ type LoginOneClick struct {
 
 // CaptchaReq  验证码请求
 type CaptchaReq struct {
-	Telephone string `json:"telephone"` // 电话号码
-	Type      int    `json:"type" `     //类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
+	Telephone string `json:"telephone" example:"12345678901"` // 电话号码
+	Type      int    `json:"type" example:"0"`                //类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
 }
 
 // Register User register structure
 type Register struct {
-	Account  string `json:"account" example:"用户名"` // 用户名
-	Password string `json:"passWord" example:"密码"` // 密码
-	NickName string `json:"nickName" example:"昵称"` // 昵称
+	Account  string `json:"account" example:"admin"`   // 用户名
+	Password string `json:"passWord" example:"123456"` // 密码
+	NickName string `json:"nickName" example:"昵称"`     // 昵称
 }
 
 // ResetPasswordReq 重置密码
 type ResetPasswordReq struct {
-	Captcha  string `json:"captcha"`  // 验证码
-	Password string `json:"password"` // 密码
+	Captcha  string `json:"captcha" example:"666666"` // 验证码
+	Password string `json:"password" example:"pwd"`   // 密码
 }

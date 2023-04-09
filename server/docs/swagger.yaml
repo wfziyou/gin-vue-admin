@@ -252,6 +252,24 @@ definitions:
       userId:
         type: integer
     type: object
+  community.ChannelInfo:
+    properties:
+      code:
+        description: 标识
+        type: string
+      fixedType:
+        description: 固定标识(不固定:0，固定:1)
+        type: integer
+      id:
+        description: 编号
+        type: integer
+      name:
+        description: 名称
+        type: string
+      sort:
+        description: 排序
+        type: integer
+    type: object
   community.Circle:
     properties:
       backImage:
@@ -508,8 +526,12 @@ definitions:
         type: integer
       isDel:
         type: integer
+      remark:
+        type: string
       status:
         type: integer
+      tag:
+        type: string
       tenantId:
         type: string
       updateUser:
@@ -519,6 +541,38 @@ definitions:
         type: string
       userId:
         type: integer
+    type: object
+  community.FocusUserInfo:
+    properties:
+      account:
+        description: 账号
+        type: string
+      description:
+        description: 描述
+        type: string
+      focusUserId:
+        type: integer
+      headerImg:
+        description: 头像
+        type: string
+      id:
+        description: 编号
+        type: integer
+      nickName:
+        description: 昵称
+        type: string
+      realName:
+        description: 真名
+        type: string
+      remark:
+        description: 备注
+        type: string
+      sex:
+        description: 性别： 0未知、1男、2女
+        type: integer
+      tag:
+        description: 标签
+        type: string
     type: object
   community.ForumComment:
     properties:
@@ -840,7 +894,7 @@ definitions:
         description: 创建时间
         type: string
       fixedType:
-        type: boolean
+        type: integer
       id:
         description: 主键ID
         type: integer
@@ -855,7 +909,7 @@ definitions:
       tenantId:
         type: string
       type:
-        type: boolean
+        type: integer
       updateUser:
         type: integer
       updatedAt:
@@ -2021,7 +2075,7 @@ definitions:
     properties:
       account:
         description: 用户名
-        example: 用户名
+        example: admin
         type: string
       nickName:
         description: 昵称
@@ -2029,7 +2083,7 @@ definitions:
         type: string
       passWord:
         description: 密码
-        example: 密码
+        example: "123456"
         type: string
     type: object
   github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse:
@@ -2139,9 +2193,11 @@ definitions:
     properties:
       telephone:
         description: 电话号码
+        example: "12345678901"
         type: string
       type:
         description: 类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
+        example: 0
         type: integer
     type: object
   request.CasbinInReceive:
@@ -2332,10 +2388,9 @@ definitions:
     type: object
   request.FocusUserCancel:
     properties:
-      ids:
-        items:
-          type: integer
-        type: array
+      userId:
+        description: 用户ID
+        type: integer
     type: object
   request.ForumThumbsUpReq:
     properties:
@@ -2429,9 +2484,11 @@ definitions:
     type: object
   request.LoginThird:
     properties:
-      Plat:
-        type: string
       code:
+        description: 平台code
+        type: string
+      plat:
+        description: 平台
         type: string
     type: object
   request.PageInfo:
@@ -2449,15 +2506,19 @@ definitions:
   request.ParamSetUserChannel:
     properties:
       channelIds:
+        description: 频道编号，通过逗号分割
+        example: 1,2
         type: string
     type: object
   request.ResetPasswordReq:
     properties:
       captcha:
         description: 验证码
+        example: "666666"
         type: string
       password:
         description: 密码
+        example: pwd
         type: string
     type: object
   request.RollBack:
@@ -2829,12 +2890,16 @@ definitions:
   response.ThirdPlatInfo:
     properties:
       Plat:
+        description: 平台
         type: string
       appid:
+        description: 平台的应用编号
         type: string
       icon:
+        description: 平台图标
         type: string
       name:
+        description: 平台名称
         type: string
     type: object
   system.AutoCodeStruct:
@@ -3680,7 +3745,7 @@ paths:
             - properties:
                 data:
                   items:
-                    $ref: '#/definitions/community.HkChannel'
+                    $ref: '#/definitions/community.ChannelInfo'
                   type: array
                 msg:
                   type: string
@@ -4482,6 +4547,203 @@ paths:
       summary: 更新活动分类
       tags:
       - 活动
+  /app/auth/getSmsVerification:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 获取短信验证码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CaptchaReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"发送成功"}'
+          schema:
+            type: string
+      summary: 获取短信验证码
+      tags:
+      - 鉴权认证
+  /app/auth/getThirdPlat:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]authRes.ThirdPlatInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/response.ThirdPlatInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      summary: 获取第三方平台信息
+      tags:
+      - 鉴权认证
+  /app/auth/loginOneClick:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 一键登录
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginOneClick'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回LoginResponse
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 一键登录
+      tags:
+      - 鉴权认证
+  /app/auth/loginPwd:
+    post:
+      parameters:
+      - description: 用户登录(账号密码)
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginPwd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回LoginResponse
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                msg:
+                  type: string
+              type: object
+      summary: 用户登录(账号密码)
+      tags:
+      - 鉴权认证
+  /app/auth/loginTelephone:
+    post:
+      parameters:
+      - description: 用户登录(手机)
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginTelephone'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回LoginResponse
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                msg:
+                  type: string
+              type: object
+      summary: 用户登录(手机)
+      tags:
+      - 鉴权认证
+  /app/auth/loginThird:
+    post:
+      parameters:
+      - description: 用户登录(第三方授权)
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginThird'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回LoginResponse
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                msg:
+                  type: string
+              type: object
+      summary: 用户登录(第三方授权)
+      tags:
+      - 鉴权认证
+  /app/auth/register:
+    post:
+      parameters:
+      - description: 注册
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回RegisterResponse
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.RegisterResponse'
+                msg:
+                  type: string
+              type: object
+      summary: 注册
+      tags:
+      - 鉴权认证
+  /app/auth/resetPassword:
+    post:
+      parameters:
+      - description: 重置密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ResetPasswordReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"修改成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 重置密码
+      tags:
+      - 鉴权认证
   /app/circle/applyEnterCircle:
     post:
       consumes:
@@ -5944,52 +6206,27 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
+      - description: 用户编号
         in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: focusUserId
-        type: integer
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
         name: userId
         type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          description: 返回community.FocusUserInfo
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.FocusUserInfo'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询关注用户
+      summary: 查询关注用户信息
       tags:
       - 关注/粉丝
   /app/focus/focusUser:
@@ -6146,11 +6383,17 @@ paths:
         name: pageSize
         type: integer
       - in: query
+        name: remark
+        type: string
+      - in: query
         name: startCreatedAt
         type: string
       - in: query
         name: status
         type: integer
+      - in: query
+        name: tag
+        type: string
       - in: query
         name: tenantId
         type: string
@@ -7801,48 +8044,6 @@ paths:
       summary: 绑定手机
       tags:
       - 用户
-  /app/user/getSmsVerification:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 获取短信验证码
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.CaptchaReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"发送成功"}'
-          schema:
-            type: string
-      summary: 获取短信验证码
-      tags:
-      - 鉴权认证
-  /app/user/getThirdPlat:
-    post:
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回[]authRes.ThirdPlatInfo
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/response.ThirdPlatInfo'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      summary: 获取第三方平台信息
-      tags:
-      - 鉴权认证
   /app/user/getUserBaseInfo:
     get:
       consumes:
@@ -7927,131 +8128,6 @@ paths:
       summary: 分页获取用户列表
       tags:
       - 用户
-  /app/user/loginPwd:
-    post:
-      parameters:
-      - description: 用户登录(账号密码)
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.LoginPwd'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回LoginResponse
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
-                msg:
-                  type: string
-              type: object
-      summary: 用户登录(账号密码)
-      tags:
-      - 鉴权认证
-  /app/user/loginTelephone:
-    post:
-      parameters:
-      - description: 用户登录(手机)
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.LoginTelephone'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回LoginResponse
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
-                msg:
-                  type: string
-              type: object
-      summary: 用户登录(手机)
-      tags:
-      - 鉴权认证
-  /app/user/loginThird:
-    post:
-      parameters:
-      - description: 用户登录(第三方授权)
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.LoginThird'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回LoginResponse
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
-                msg:
-                  type: string
-              type: object
-      summary: 用户登录(第三方授权)
-      tags:
-      - 鉴权认证
-  /app/user/register:
-    post:
-      parameters:
-      - description: 注册
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回RegisterResponse
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/response.RegisterResponse'
-                msg:
-                  type: string
-              type: object
-      summary: 注册
-      tags:
-      - 鉴权认证
-  /app/user/resetPassword:
-    post:
-      parameters:
-      - description: 重置密码
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.ResetPasswordReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"修改成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 重置密码
-      tags:
-      - 鉴权认证
   /app/user/setSelfBaseInfo:
     put:
       consumes:
@@ -8280,36 +8356,6 @@ paths:
       summary: 分页获取收藏列表
       tags:
       - 收藏
-  /auth/loginOneClick:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 一键登录
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.LoginOneClick'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回LoginResponse
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 一键登录
-      tags:
-      - 鉴权认证
   /authority/copyAuthority:
     post:
       consumes:

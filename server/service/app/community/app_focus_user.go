@@ -18,8 +18,8 @@ func (hkFocusUserService *FocusUserService) CreateFocusUser(hkFocusUser communit
 
 // DeleteFocusUser 删除FocusUser记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkFocusUserService *FocusUserService) DeleteFocusUser(hkFocusUser community.FocusUser) (err error) {
-	err = global.GVA_DB.Delete(&hkFocusUser).Error
+func (hkFocusUserService *FocusUserService) DeleteFocusUser(userId uint64, focusUserId uint64) (err error) {
+	err = global.GVA_DB.Delete(&[]community.FocusUser{}, "user_id = ? and focus_user_id = ?", userId, focusUserId).Error
 	return err
 }
 
@@ -39,8 +39,24 @@ func (hkFocusUserService *FocusUserService) UpdateFocusUser(hkFocusUser communit
 
 // GetFocusUser 根据id获取FocusUser记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkFocusUserService *FocusUserService) GetFocusUser(id uint64) (hkFocusUser community.FocusUser, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&hkFocusUser).Error
+func (hkFocusUserService *FocusUserService) GetFocusUser(userId uint64, focusUserId uint64) (focusUserInfo community.FocusUserInfo, err error) {
+	focusUser := community.FocusUser{}
+	err = global.GVA_DB.Where("userId = ?,focusUserId = ?", userId, focusUserId).First(&focusUser).Error
+	if err == nil {
+		userBaseInfo := community.UserBaseInfo{}
+		err = global.GVA_DB.Where("id = ?", focusUserId).First(&userBaseInfo).Error
+		if err != nil {
+			focusUserInfo.Id = focusUser.ID
+			focusUserInfo.FocusUserId = focusUser.FocusUserId
+			focusUserInfo.Remark = focusUser.Remark
+			focusUserInfo.Tag = focusUser.Tag
+			focusUserInfo.Account = userBaseInfo.Account
+			focusUserInfo.RealName = userBaseInfo.RealName
+			focusUserInfo.HeaderImg = userBaseInfo.HeaderImg
+			focusUserInfo.Sex = userBaseInfo.Sex
+			focusUserInfo.Description = userBaseInfo.Description
+		}
+	}
 	return
 }
 

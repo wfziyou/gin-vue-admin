@@ -14,5 +14,5 @@ type HkChannelSearch struct {
 }
 
 type ParamSetUserChannel struct {
-	ChannelIds string `json:"channelIds" form:"channelIds"`
+	ChannelIds string `json:"channelIds" form:"channelIds" example:"1,2"` //频道编号，通过逗号分割
 }

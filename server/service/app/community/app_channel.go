@@ -46,10 +46,10 @@ func (hkChannelService *HkChannelService) GetHkChannel(id uint64) (hkChannel com
 
 // GetChannelInfoList 分页获取HkChannel记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkChannelService *HkChannelService) GetChannelInfoList() (list []community.HkChannel, total int64, err error) {
+func (hkChannelService *HkChannelService) GetChannelInfoList() (list []community.ChannelInfo, total int64, err error) {
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkChannel{})
-	var hkChannels []community.HkChannel
+	db := global.GVA_DB.Model(&community.ChannelInfo{})
+	var hkChannels []community.ChannelInfo
 
 	err = db.Find(&hkChannels).Error
 	return hkChannels, total, err
@@ -57,10 +57,10 @@ func (hkChannelService *HkChannelService) GetChannelInfoList() (list []community
 
 // GetChannelInfoListById 分页获取HkChannel记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkChannelService *HkChannelService) GetChannelInfoListById(ids string) (list []community.HkChannel, total int64, err error) {
+func (hkChannelService *HkChannelService) GetChannelInfoListById(ids string) (list []community.ChannelInfo, total int64, err error) {
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkChannel{})
-	var hkChannels []community.HkChannel
+	db := global.GVA_DB.Model(&community.ChannelInfo{})
+	var hkChannels []community.ChannelInfo
 
 	err = db.Where("id in(?)", ids).Find(&hkChannels).Error
 	return hkChannels, total, err

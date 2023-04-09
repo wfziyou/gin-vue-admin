@@ -6,6 +6,7 @@ import (
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -92,7 +93,8 @@ func (focusApi *FocusApi) FocusUserCancel(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkFocusUserService.DeleteFocusUserByIds(req.Ids); err != nil {
+	var userId = utils.GetUserID(c)
+	if err := hkFocusUserService.DeleteFocusUser(userId, req.UserId); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
@@ -171,26 +173,28 @@ func (focusApi *FocusApi) UpdateFocusUser(c *gin.Context) {
 	}
 }
 
-// FindFocusUser 用id查询关注用户
+// FindFocusUser 查询关注用户信息
 // @Tags 关注/粉丝
-// @Summary 用id查询关注用户
+// @Summary 查询关注用户信息
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.FocusUser true "用id查询关注用户"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Param data query communityReq.FindFocusUser true "查询关注用户信息"
+// @Success 200  {object}  response.Response{data=community.FocusUserInfo,msg=string}  "返回community.FocusUserInfo"
 // @Router /app/focus/findFocusUser [get]
 func (focusApi *FocusApi) FindFocusUser(c *gin.Context) {
-	var hkFocusUser community.FocusUser
-	err := c.ShouldBindQuery(&hkFocusUser)
+	var req communityReq.FindFocusUser
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkFocusUser, err := hkFocusUserService.GetFocusUser(hkFocusUser.ID); err != nil {
+
+	var userId = utils.GetUserID(c)
+	if focusUserInfo, err := hkFocusUserService.GetFocusUser(userId, req.UserId); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkFocusUser": rehkFocusUser}, c)
+		response.OkWithData(focusUserInfo, c)
 	}
 }

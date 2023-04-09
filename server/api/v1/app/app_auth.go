@@ -29,7 +29,7 @@ type AuthApi struct {
 // @Summary  获取第三方平台信息
 // @Produce   application/json
 // @Success  200   {object}  response.Response{data=[]authRes.ThirdPlatInfo,msg=string}  "返回[]authRes.ThirdPlatInfo"
-// @Router   /app/user/getThirdPlat [post]
+// @Router   /app/auth/getThirdPlat [post]
 func (authApi *AuthApi) GetThirdPlat(c *gin.Context) {
 
 }
@@ -40,7 +40,7 @@ func (authApi *AuthApi) GetThirdPlat(c *gin.Context) {
 // @Produce   application/json
 // @Param    data  body      authReq.LoginPwd  true  "用户登录(账号密码)"
 // @Success  200   {object}  response.Response{data=authRes.LoginResponse,msg=string}  "返回LoginResponse"
-// @Router   /app/user/loginPwd [post]
+// @Router   /app/auth/loginPwd [post]
 func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 	var l authReq.LoginPwd
 	err := c.ShouldBindJSON(&l)
@@ -112,7 +112,7 @@ func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 // @Produce   application/json
 // @Param    data  body      authReq.LoginTelephone   true  "用户登录(手机)"
 // @Success  200   {object}  response.Response{data=authRes.LoginResponse,msg=string}  "返回LoginResponse"
-// @Router   /app/user/loginTelephone [post]
+// @Router   /app/auth/loginTelephone [post]
 func (authApi *AuthApi) LoginTelephone(c *gin.Context) {
 	//var l authReq.LoginTelephone
 
@@ -124,7 +124,7 @@ func (authApi *AuthApi) LoginTelephone(c *gin.Context) {
 // @Produce   application/json
 // @Param data body authReq.LoginThird true "用户登录(第三方授权)"
 // @Success  200   {object}  response.Response{data=authRes.LoginResponse,msg=string}  "返回LoginResponse"
-// @Router   /app/user/loginThird [post]
+// @Router   /app/auth/loginThird [post]
 func (authApi *AuthApi) LoginThird(c *gin.Context) {
 	var req authReq.LoginThird
 	err := c.ShouldBindJSON(&req)
@@ -143,7 +143,7 @@ func (authApi *AuthApi) LoginThird(c *gin.Context) {
 // @Produce application/json
 // @Param data body authReq.LoginOneClick true "一键登录"
 // @Success  200   {object}  response.Response{data=authRes.LoginResponse,msg=string}  "返回LoginResponse"
-// @Router /auth/loginOneClick [post]
+// @Router /app/auth/loginOneClick [post]
 func (authApi *AuthApi) LoginOneClick(c *gin.Context) {
 	var req authReq.LoginOneClick
 	err := c.ShouldBindJSON(&req)
@@ -159,7 +159,7 @@ func (authApi *AuthApi) LoginOneClick(c *gin.Context) {
 // @Produce   application/json
 // @Param    data  body authReq.Register true  "注册"
 // @Success  200   {object}  response.Response{data=authRes.RegisterResponse,msg=string}  "返回RegisterResponse"
-// @Router   /app/user/register [post]
+// @Router   /app/auth/register [post]
 func (authApi *AuthApi) Register(c *gin.Context) {
 	var r authReq.Register
 	err := c.ShouldBindJSON(&r)
@@ -192,7 +192,7 @@ func (authApi *AuthApi) Register(c *gin.Context) {
 // @Produce   application/json
 // @Param data body authReq.CaptchaReq true "获取短信验证码"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"发送成功"}"
-// @Router    /app/user/getSmsVerification [post]
+// @Router    /app/auth/getSmsVerification [post]
 func (authApi *AuthApi) GetSmsVerification(c *gin.Context) {
 	var obj authReq.CaptchaReq
 	_ = c.ShouldBindJSON(&obj)
@@ -261,7 +261,7 @@ func (authApi *AuthApi) GetSmsVerification(c *gin.Context) {
 // @Produce  application/json
 // @Param     data  body      authReq.ResetPasswordReq    true  "重置密码"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
-// @Router    /app/user/resetPassword [post]
+// @Router    /app/auth/resetPassword [post]
 func (authApi *AuthApi) ResetPassword(c *gin.Context) {
 	var req authReq.ResetPasswordReq
 	err := c.ShouldBindJSON(&req)
@@ -366,7 +366,7 @@ func TokenNext(c *gin.Context, user community.User) {
 	}
 }
 
-//ImRegiser 调用IM注册
+// ImRegiser 调用IM注册
 func ImRegiser(user community.User) {
 	var req imReq.RegisterReq
 	req.Accid = user.Account

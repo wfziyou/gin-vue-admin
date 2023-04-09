@@ -40,7 +40,7 @@ func (hkChannelApi *HkChannelApi) GetChannelList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200 {object}  response.Response{data=[]community.HkChannel,msg=string} "返回[]community.HkChannel"
+// @Success 200 {object}  response.Response{data=[]community.ChannelInfo,msg=string} "返回[]community.HkChannel"
 // @Router /app/Channel/getUserChannelList [get]
 func (hkChannelApi *HkChannelApi) GetUserChannelList(c *gin.Context) {
 	var pageInfo communityReq.HkChannelSearch
@@ -57,6 +57,15 @@ func (hkChannelApi *HkChannelApi) GetUserChannelList(c *gin.Context) {
 	}
 
 	if list, _, err := hkChannelService.GetChannelInfoListById(channelIds); err != nil {
+		tmp := utils.SplitToUint64List(channelIds, ",")
+		for index, id := range tmp {
+			for _, obj := range list {
+				if obj.ID == id {
+					obj.Sort = index
+					break
+				}
+			}
+		}
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
