@@ -59,10 +59,25 @@ https://github.com/go-oauth2/gin-server
 
 文档  
 [GORM 指南](https://gorm.io/zh_CN/docs/)  
+# 按照go环境
+
+# 下载源码：
+```
+git clone https://github.com/wfziyou/gin-vue-admin.git
+```
 
 # 安装swagger
 ```
 go install github.com/swaggo/swag/cmd/swag@latest
+```
+swag 安装在 /root/bin/go/中的，所以，需要在环境变量（/etc/profile）中增加上
+`export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:/root/bin/go`
+让环境变量生效
+`source /etc/profile`
+安装依赖
+```
+go get -u github.com/swaggo/gin-swagger
+go get -u github.com/swaggo/gin-swagger/swaggerFiles
 ```
 无法翻墙 由于国内没法安装 go.org/x 包下面的东西，推荐使用 goproxy.cn 或者 goproxy.cn/
 ```
@@ -91,7 +106,7 @@ go generate -x // -x 显示并执行命令
 windows:
 go build -o myserver.exe main.go
 linux:
-go build -o server . main.go
+go build -o server .
 ```
 docker 打包
 ```

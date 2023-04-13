@@ -1,13 +1,11 @@
 package service
 
 import (
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/oneLogin/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/oneLogin/model"
 	utils "github.com/flipped-aurora/gin-vue-admin/server/plugin/oneLogin/utils"
-	"golang.org/x/text/encoding/unicode"
 	"math/rand"
 	"time"
 )
@@ -62,7 +60,7 @@ func (e *OneLoginService) LoginTokenValidate(token string) (result *model.LoginT
 	}
 	msgId := fmt.Sprintf("%08v", rand.New(rand.NewSource(time.Now().UnixNano())).Int63n(100000000))
 
-	sign, err := utils.SHA256withRSA(global.GlobalConfig.Appid+token, global.GlobalConfig.RsaPrivateKey)
+	sign, err := utils.Sha256WithRsa(global.GlobalConfig.Appid+token, global.GlobalConfig.RsaPrivateKey)
 	if err != nil {
 		return nil, errors.New("签名错误")
 	}
@@ -88,18 +86,18 @@ func (e *OneLoginService) LoginTokenValidate(token string) (result *model.LoginT
 	}
 	if result.ResultCode == "103000" {
 		if utils.Encryptionalgorithm == "RSA" {
-			data, err := hex.DecodeString(result.Msisdn)
-			if err != nil {
-				return nil, errors.New("返回结果解密错误")
-			}
-			output, err := utils.RsaDecrypt(data, "")
-			if err != nil {
-				return nil, errors.New("返回结果解密错误")
-			}
-			var decoder = unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM).NewDecoder()
-			telephoneData, _ := decoder.Bytes(output)
-			telephone := string(telephoneData)
-			result.Telephone = telephone
+			//data, err := hex.DecodeString(result.Msisdn)
+			//if err != nil {
+			//	return nil, errors.New("返回结果解密错误")
+			//}
+			//output, err := utils.RsaDecrypt(data, "")
+			//if err != nil {
+			//	return nil, errors.New("返回结果解密错误")
+			//}
+			//var decoder = unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM).NewDecoder()
+			//telephoneData, _ := decoder.Bytes(output)
+			//telephone := string(telephoneData)
+			result.Telephone = "telephone"
 		}
 	} else {
 		return nil, errors.New(fmt.Sprintf("ErrorCode(%s):%s", result.ResultCode, e.GetErrorDes(result.ResultCode)))

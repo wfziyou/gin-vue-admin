@@ -20,7 +20,6 @@ import (
 // @name                        x-token
 // @BasePath                    /
 func main() {
-	//utils.GenerateRsaKey(1024, "E:\\_work\\community\\gin-vue-admin\\")
 	global.GVA_VP = core.Viper() // 初始化Viper
 	initialize.OtherInit()
 	global.GVA_LOG = core.Zap() // 初始化zap日志库
