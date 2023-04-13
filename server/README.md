@@ -60,7 +60,22 @@ https://github.com/go-oauth2/gin-server
 文档  
 [GORM 指南](https://gorm.io/zh_CN/docs/)  
 
-生成swag文档
+# 安装swagger
+```
+go install github.com/swaggo/swag/cmd/swag@latest
+```
+无法翻墙 由于国内没法安装 go.org/x 包下面的东西，推荐使用 goproxy.cn 或者 goproxy.cn/
+```
+# Go 版本 是 1.16 ~ 最新版 可以忽略以下步骤一
+# 步骤一、启用 Go Modules 功能
+go env -w GO111MODULE=on 
+# 步骤二、配置 GOPROXY 环境变量
+go env -w GOPROXY=https://goproxy.cn,direct
+
+# 使用如下命令下载swag
+go install github.com/swaggo/swag/cmd/swag@latest
+```
+# 生成swag文档
 ```
 swag init
 ```
@@ -71,9 +86,12 @@ go mod tidy
 go generate -x // -x 显示并执行命令
 ```
 
-打包exe
+# 打包
 ```
+windows:
 go build -o myserver.exe main.go
+linux:
+go build -o server . main.go
 ```
 docker 打包
 ```
