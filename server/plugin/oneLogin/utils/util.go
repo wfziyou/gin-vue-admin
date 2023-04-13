@@ -121,7 +121,7 @@ func GetKey(filePath string) (*pem.Block, error) {
 	return block, err
 }
 
-const hextable = "0123456789abcdef"
+const hextable = "0123456789ABCDEF"
 
 func EncodeToString(src []byte) string {
 	dst := make([]byte, hex.EncodedLen(len(src)))

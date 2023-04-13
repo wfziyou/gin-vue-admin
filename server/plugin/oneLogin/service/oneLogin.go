@@ -1,6 +1,7 @@
 package service
 
 import (
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/oneLogin/global"
@@ -86,18 +87,17 @@ func (e *OneLoginService) LoginTokenValidate(token string) (result *model.LoginT
 	}
 	if result.ResultCode == "103000" {
 		if utils.Encryptionalgorithm == "RSA" {
-			//data, err := hex.DecodeString(result.Msisdn)
-			//if err != nil {
-			//	return nil, errors.New("返回结果解密错误")
-			//}
-			//output, err := utils.RsaDecrypt(data, "")
-			//if err != nil {
-			//	return nil, errors.New("返回结果解密错误")
-			//}
-			//var decoder = unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM).NewDecoder()
-			//telephoneData, _ := decoder.Bytes(output)
-			//telephone := string(telephoneData)
-			result.Telephone = "telephone"
+			data, err := hex.DecodeString(result.Msisdn)
+			if err != nil {
+				return nil, errors.New("返回结果解密错误")
+			}
+			output, err := utils.RSA_Decrypt(data, global.GlobalConfig.RsaPrivateKey)
+			if err != nil {
+				return nil, errors.New("返回结果解密错误")
+			}
+			result.Telephone = string(output)
+		} else {
+			return nil, errors.New("错误加密算法")
 		}
 	} else {
 		return nil, errors.New(fmt.Sprintf("ErrorCode(%s):%s", result.ResultCode, e.GetErrorDes(result.ResultCode)))
