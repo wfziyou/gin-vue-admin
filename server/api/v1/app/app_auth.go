@@ -11,6 +11,7 @@ import (
 	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
 	imReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/im/model/request"
 	imService "github.com/flipped-aurora/gin-vue-admin/server/plugin/im/service"
+	oneLoginService "github.com/flipped-aurora/gin-vue-admin/server/plugin/oneLogin/service"
 	smsService "github.com/flipped-aurora/gin-vue-admin/server/plugin/sms/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
@@ -138,8 +139,6 @@ func (authApi *AuthApi) LoginThird(c *gin.Context) {
 // LoginOneClick 一键登录
 // @Tags 鉴权认证
 // @Summary 一键登录
-// @Security ApiKeyAuth
-// @accept application/json
 // @Produce application/json
 // @Param data body authReq.LoginOneClick true "一键登录"
 // @Success  200   {object}  response.Response{data=authRes.LoginResponse,msg=string}  "返回LoginResponse"
@@ -149,6 +148,34 @@ func (authApi *AuthApi) LoginOneClick(c *gin.Context) {
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if rsp, err := oneLoginService.ServiceGroupApp.LoginTokenValidate(req.Token); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if user, err := appUserService.GetUserByPhone(rsp.Telephone); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if user == nil {
+		userInfo := &community.User{Phone: rsp.Telephone}
+		userObj, err := appUserService.Register(*userInfo)
+		if err != nil {
+			global.GVA_LOG.Error("注册失败!", zap.Error(err))
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		user = &userObj
+		ImRegiser(userObj)
+		TokenNext(c, *user)
+		return
+	} else {
+		if user.Status != 0 {
+			global.GVA_LOG.Error("登陆失败! 用户被禁止登录!")
+			response.FailWithMessage("用户被禁止登录", c)
+			return
+		}
+		TokenNext(c, *user)
 		return
 	}
 }
@@ -257,7 +284,6 @@ func (authApi *AuthApi) GetSmsVerification(c *gin.Context) {
 // ResetPassword 重置密码
 // @Tags 鉴权认证
 // @Summary   重置密码
-// @Security  ApiKeyAuth
 // @Produce  application/json
 // @Param     data  body      authReq.ResetPasswordReq    true  "重置密码"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"

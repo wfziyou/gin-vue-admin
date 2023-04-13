@@ -16,7 +16,7 @@ type Circle struct {
 	Des              string `json:"des" form:"des" gorm:"column:des;comment:圈子简介;size:1000;"`                                                                           //圈子简介;size:1000
 	Protocol         string `json:"protocol" form:"protocol" gorm:"column:protocol;comment:圈子规约;size:1000;"`                                                            //圈子规约;size:1000
 	BackImage        string `json:"backImage" form:"backImage" gorm:"column:back_image;comment:圈子背景图;size:500;"`                                                        //圈子背景图;size:500
-	SupportCategory  string `json:"supportCategory" form:"supportCategory" gorm:"column:support_category;comment:支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7建议;size:500;"` //支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7建议;size:500;
+	SupportCategory  string `json:"supportCategory" form:"supportCategory" gorm:"column:support_category;comment:支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:500;"` //支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:500;
 	Pay              int    `json:"pay" form:"pay" gorm:"column:pay;comment:付费：0否、1是;size:10;"`                                                                         //付费：0否、1是;size:10
 	Process          int    `json:"process" form:"process" gorm:"column:process;comment:是否开启版块内容人工审核：0 否，1是;size:10;"`                                                  //是否开启版块内容人工审核：0 否，1是
 	Property         int    `json:"property" form:"property" gorm:"column:property;comment:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）;size:10;"`                               //:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）

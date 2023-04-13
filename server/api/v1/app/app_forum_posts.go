@@ -18,6 +18,94 @@ type ForumPostsApi struct {
 帖子
 **************************************/
 
+// GetGlobalTopInfoList 分页获全局置顶资讯列表
+// @Tags 帖子
+// @Summary 分页获全局置顶资讯列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.GlobalTopInfoSearch true "分页获全局置顶资讯列表"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Router /app/forumPosts/getGlobalTopInfoList [get]
+func (forumPostsApi *ForumPostsApi) GetGlobalTopInfoList(c *gin.Context) {
+	var pageInfo communityReq.GlobalTopInfoSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+}
+
+// GetGlobalRecommendInfoList 分页获全局推荐资讯列表
+// @Tags 帖子
+// @Summary 分页获全局推荐资讯列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.GlobalRecommendInfoSearch true "分页获全局推荐资讯列表"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Router /app/forumPosts/getGlobalRecommendInfoList [get]
+func (forumPostsApi *ForumPostsApi) GetGlobalRecommendInfoList(c *gin.Context) {
+	var pageInfo communityReq.GlobalRecommendInfoSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+}
+
+// GetNearbyRecommendPostsList 分页获附近推荐帖子列表
+// @Tags 帖子
+// @Summary 分页获附近推荐帖子列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.GlobalRecommendDynamicSearch true "分页获附近推荐帖子列表"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Router /app/forumPosts/getNearbyRecommendPostsList [get]
+func (forumPostsApi *ForumPostsApi) GetNearbyRecommendPostsList(c *gin.Context) {
+	var pageInfo communityReq.GlobalRecommendDynamicSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+}
+
+// GetRecommendPostsList 分页获取推荐帖子列表
+// @Tags 帖子
+// @Summary 分页获取推荐帖子列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.GetRecommendPostsSearch true "分页获取推荐帖子列表"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Router /app/forumPosts/getRecommendPostsList [get]
+func (forumPostsApi *ForumPostsApi) GetRecommendPostsList(c *gin.Context) {
+	var pageInfo communityReq.GetRecommendPostsSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//if list, total, err := appForumPostsService.GetForumPostsInfoList(pageInfo); err != nil {
+	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	var userId = utils.GetUserID(c)
+	//	appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
+	//	appUserCollectService.GetUserIsCollect(userId, list)
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
+}
+
 // CreateForumPosts 创建帖子
 // @Tags 帖子
 // @Summary 创建帖子

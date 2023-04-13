@@ -17,3 +17,6 @@ type ForumTopicSearch struct {
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）
 	request.PageInfo
 }
+type HotTopicSearch struct {
+	request.PageInfo
+}

@@ -6,6 +6,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/middleware"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/email"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/oneLogin"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/sms"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/plugin"
 	"github.com/gin-gonic/gin"
@@ -44,5 +45,10 @@ func InstallPlugin(Router *gin.Engine) {
 		global.GVA_CONFIG.YunXinIm.Url,
 		global.GVA_CONFIG.YunXinIm.AppKey,
 		global.GVA_CONFIG.YunXinIm.AppSecret,
+	))
+	PluginInit(PrivateGroup, oneLogin.CreateOneLoginPlug(
+		global.GVA_CONFIG.OneLogin.Appid,
+		global.GVA_CONFIG.OneLogin.StrictCheck,
+		global.GVA_CONFIG.OneLogin.RsaPrivateKey,
 	))
 }

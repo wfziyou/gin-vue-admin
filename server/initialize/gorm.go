@@ -72,7 +72,6 @@ func RegisterTables() {
 		community.ForbiddenSpeakDuration{},
 		community.ForbiddenSpeakReason{},
 		community.ForumComment{},
-		community.ForumPostsGroup{},
 		community.ForumTag{},
 		community.ForumTagGroup{},
 		community.ForumThumbsUp{},

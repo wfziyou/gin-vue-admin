@@ -122,71 +122,154 @@ definitions:
     type: object
   community.Activity:
     properties:
-      address:
+      activityAddress:
+        description: 活动地址
         type: string
-      addressPos:
+      activityChatGroupId:
+        description: 活动聊天群编号
+        type: integer
+      activityCurUserNum:
+        description: 活动参加人数
+        type: integer
+      activityEndAt:
+        description: 活动结束时间
         type: string
-      addressZone:
+      activityStartAt:
+        description: 活动开始时间
         type: string
-      chatGroupId:
+      activityUserNum:
+        description: 活动用户人数
+        type: integer
+      anonymity:
+        description: 匿名发布：0否、1是
+        type: integer
+      attachment:
+        description: 附件
+        type: string
+      category:
+        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        type: integer
+      channelId:
+        description: 帖子分类编号
         type: integer
       checkStatus:
+        description: 审核状态：1草稿、2未审批、3通过、4拒绝
+        type: integer
+      checkTime:
+        description: 审核时间
+        type: string
+      checkUser:
+        description: 审核人
         type: integer
       circleId:
+        description: 圈子_编号
         type: integer
-      classifyId:
-        type: integer
+      circleInfo:
+        $ref: '#/definitions/community.CircleBaseInfo'
+        description: 圈子基本信息
       collect:
+        description: 是否收藏：0否、1是
         type: integer
       collectNum:
+        description: 收藏次数
+        type: integer
+      commentId:
+        description: 问答最佳答案ID
+        type: integer
+      commentNum:
+        description: 评论次数
         type: integer
       contentHtml:
+        description: html内容
         type: string
-      createDept:
+      contentMarkdown:
+        description: markdown内容
+        type: string
+      contentType:
+        description: 内容类型：1markdown、2html
         type: integer
-      createUser:
-        type: integer
+      coverImage:
+        description: 封面
+        type: string
       createdAt:
         description: 创建时间
-        type: string
-      curUserNum:
-        type: integer
-      des:
-        type: string
-      dynamicNum:
-        type: integer
-      endAt:
         type: string
       id:
         description: 主键ID
         type: integer
-      isDel:
-        type: integer
       isPublic:
+        description: 是否公开：0 否 1 是
+        type: integer
+      likeNum:
+        description: 点赞次数
+        type: integer
+      marrow:
+        description: 精华：0否、1是
         type: integer
       pay:
+        description: 付费：0否、1是
+        type: integer
+      payAttachment:
+        description: 附件付费：0否、1是
+        type: integer
+      payContent:
+        description: 内容付费：0否、1是
+        type: integer
+      payContentLook:
+        description: 内容付费可查看百分比例
         type: integer
       payCurrency:
+        description: 付费货币：1人民、2积分、3代币
         type: integer
       payNum:
+        description: 付费金额
         type: integer
-      startAt:
-        type: string
-      status:
+      powerComment:
+        description: 评论权限：0关闭、1开启
         type: integer
-      tenantId:
+      powerCommentAnonymity:
+        description: 匿名评论：0关闭、1开启
+        type: integer
+      readNum:
+        description: 阅读次数
+        type: integer
+      seoIntroduce:
+        description: 简介(SEO简介)
         type: string
+      seoKey:
+        description: SEO关键词
+        type: string
+      shareNum:
+        description: 分享次数
+        type: integer
+      source:
+        description: 来源
+        type: string
+      tag:
+        description: 标签
+        type: string
+      thumbsUp:
+        description: 是否点赞：0否、1是
+        type: integer
       title:
+        description: 标题
         type: string
-      updateUser:
+      top:
+        description: 置顶：0否、1是
         type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
+      topicInfo:
+        items:
+          $ref: '#/definitions/community.ForumTopicBaseInfo'
+        type: array
       userId:
+        description: 发布者编号
         type: integer
-      userNum:
-        type: integer
+      userInfo:
+        $ref: '#/definitions/community.UserBaseInfo'
+        description: 用户基本信息
+      video:
+        description: 视频地址
+        type: string
     type: object
   community.ActivityClassify:
     properties:
@@ -348,7 +431,7 @@ definitions:
         description: 排序
         type: integer
       supportCategory:
-        description: 支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7建议;size:500;
+        description: 支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:500;
         type: string
       type:
         description: 类型：0官方圈子、1用户圈子、2小区
@@ -615,6 +698,24 @@ definitions:
     type: object
   community.ForumPosts:
     properties:
+      activityAddress:
+        description: 活动地址
+        type: string
+      activityChatGroupId:
+        description: 活动聊天群编号
+        type: integer
+      activityCurUserNum:
+        description: 活动参加人数
+        type: integer
+      activityEndAt:
+        description: 活动结束时间
+        type: string
+      activityStartAt:
+        description: 活动开始时间
+        type: string
+      activityUserNum:
+        description: 活动用户人数
+        type: integer
       anonymity:
         description: 匿名发布：0否、1是
         type: integer
@@ -622,7 +723,10 @@ definitions:
         description: 附件
         type: string
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        type: integer
+      channelId:
+        description: 帖子分类编号
         type: integer
       checkStatus:
         description: 审核状态：1草稿、2未审批、3通过、4拒绝
@@ -666,11 +770,11 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
-      groupId:
-        description: 帖子分类编号
-        type: integer
       id:
         description: 主键ID
+        type: integer
+      isPublic:
+        description: 是否公开：0 否 1 是
         type: integer
       likeNum:
         description: 点赞次数
@@ -752,7 +856,7 @@ definitions:
         description: 附件
         type: string
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         type: integer
       circleId:
         description: 圈子_编号
@@ -1469,6 +1573,18 @@ definitions:
         description: 数据库用户名
         type: string
     type: object
+  config.OneLogin:
+    properties:
+      appid:
+        description: 是 业务在统一认证申请的应用id
+        type: string
+      rsaPrivateKey:
+        description: rsa 私有key
+        type: string
+      strictcheck:
+        description: 是 暂时填写"0"，填写“1”时，将对服务器 IP 白名单进行强校验（后续将强制要求 IP 强校验）
+        type: string
+    type: object
   config.Oracle:
     properties:
       config:
@@ -1646,8 +1762,8 @@ definitions:
       timer:
         $ref: '#/definitions/config.Timer'
       yunxin-im:
-        $ref: '#/definitions/config.YunXinIm'
-        description: im
+        $ref: '#/definitions/config.OneLogin'
+        description: oneLogin
       zap:
         $ref: '#/definitions/config.Zap'
     type: object
@@ -2056,7 +2172,7 @@ definitions:
   general.UserCollect:
     properties:
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         type: integer
       createdAt:
         description: 创建时间
@@ -2279,7 +2395,7 @@ definitions:
         description: 附件
         type: string
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         type: integer
       circleId:
         description: 圈子_编号
@@ -2463,6 +2579,10 @@ definitions:
         type: string
     type: object
   request.LoginOneClick:
+    properties:
+      token:
+        description: 令牌
+        type: string
     type: object
   request.LoginPwd:
     properties:
@@ -3705,79 +3825,6 @@ paths:
       summary: 修改基础api
       tags:
       - SysApi
-  /app/Channel/getChannelList:
-    get:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回[]community.HkChannel
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/community.HkChannel'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 获取频道列表
-      tags:
-      - 频道
-  /app/Channel/getUserChannelList:
-    get:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回[]community.HkChannel
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/community.ChannelInfo'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 获取用户频道
-      tags:
-      - 频道
-  /app/Channel/setUserChannel:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 设置用户频道
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.ParamSetUserChannel'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 设置用户频道
-      tags:
-      - 频道
   /app/activity/createActivity:
     post:
       consumes:
@@ -3944,102 +3991,190 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
-        name: address
+      - description: 活动地址
+        in: query
+        name: activityAddress
         type: string
-      - in: query
-        name: addressPos
-        type: string
-      - in: query
-        name: addressZone
-        type: string
-      - in: query
-        name: chatGroupId
+      - description: 活动聊天群编号
+        in: query
+        name: activityChatGroupId
         type: integer
-      - in: query
+      - description: 活动参加人数
+        in: query
+        name: activityCurUserNum
+        type: integer
+      - description: 活动结束时间
+        in: query
+        name: activityEndAt
+        type: string
+      - description: 活动开始时间
+        in: query
+        name: activityStartAt
+        type: string
+      - description: 活动用户人数
+        in: query
+        name: activityUserNum
+        type: integer
+      - description: 匿名发布：0否、1是
+        in: query
+        name: anonymity
+        type: integer
+      - description: 附件
+        in: query
+        name: attachment
+        type: string
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        in: query
+        name: category
+        type: integer
+      - description: 帖子分类编号
+        in: query
+        name: channelId
+        type: integer
+      - description: 审核状态：1草稿、2未审批、3通过、4拒绝
+        in: query
         name: checkStatus
         type: integer
-      - in: query
+      - description: 审核时间
+        in: query
+        name: checkTime
+        type: string
+      - description: 审核人
+        in: query
+        name: checkUser
+        type: integer
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
-        name: classifyId
-        type: integer
-      - in: query
+      - description: 是否收藏：0否、1是
+        in: query
         name: collect
         type: integer
-      - in: query
+      - description: 收藏次数
+        in: query
         name: collectNum
         type: integer
-      - in: query
+      - description: 问答最佳答案ID
+        in: query
+        name: commentId
+        type: integer
+      - description: 评论次数
+        in: query
+        name: commentNum
+        type: integer
+      - description: html内容
+        in: query
         name: contentHtml
         type: string
-      - in: query
-        name: createDept
+      - description: markdown内容
+        in: query
+        name: contentMarkdown
+        type: string
+      - description: 内容类型：1markdown、2html
+        in: query
+        name: contentType
         type: integer
-      - in: query
-        name: createUser
-        type: integer
+      - description: 封面
+        in: query
+        name: coverImage
+        type: string
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - in: query
-        name: curUserNum
-        type: integer
-      - in: query
-        name: des
-        type: string
-      - in: query
-        name: dynamicNum
-        type: integer
-      - in: query
-        name: endAt
         type: string
       - description: 主键ID
         in: query
         name: id
         type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
+      - description: 是否公开：0 否 1 是
+        in: query
         name: isPublic
         type: integer
-      - in: query
+      - description: 点赞次数
+        in: query
+        name: likeNum
+        type: integer
+      - description: 精华：0否、1是
+        in: query
+        name: marrow
+        type: integer
+      - description: 付费：0否、1是
+        in: query
         name: pay
         type: integer
-      - in: query
+      - description: 附件付费：0否、1是
+        in: query
+        name: payAttachment
+        type: integer
+      - description: 内容付费：0否、1是
+        in: query
+        name: payContent
+        type: integer
+      - description: 内容付费可查看百分比例
+        in: query
+        name: payContentLook
+        type: integer
+      - description: 付费货币：1人民、2积分、3代币
+        in: query
         name: payCurrency
         type: integer
-      - in: query
+      - description: 付费金额
+        in: query
         name: payNum
         type: integer
-      - in: query
-        name: startAt
-        type: string
-      - in: query
-        name: status
+      - description: 评论权限：0关闭、1开启
+        in: query
+        name: powerComment
         type: integer
-      - in: query
-        name: tenantId
+      - description: 匿名评论：0关闭、1开启
+        in: query
+        name: powerCommentAnonymity
+        type: integer
+      - description: 阅读次数
+        in: query
+        name: readNum
+        type: integer
+      - description: 简介(SEO简介)
+        in: query
+        name: seoIntroduce
         type: string
-      - in: query
+      - description: SEO关键词
+        in: query
+        name: seoKey
+        type: string
+      - description: 分享次数
+        in: query
+        name: shareNum
+        type: integer
+      - description: 来源
+        in: query
+        name: source
+        type: string
+      - description: 标签
+        in: query
+        name: tag
+        type: string
+      - description: 是否点赞：0否、1是
+        in: query
+        name: thumbsUp
+        type: integer
+      - description: 标题
+        in: query
         name: title
         type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
+      - description: 置顶：0否、1是
         in: query
-        name: updatedAt
-        type: string
-      - in: query
+        name: top
+        type: integer
+      - description: 发布者编号
+        in: query
         name: userId
         type: integer
-      - in: query
-        name: userNum
-        type: integer
+      - description: 视频地址
+        in: query
+        name: video
+        type: string
       produces:
       - application/json
       responses:
@@ -4249,57 +4384,97 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
-        name: address
+      - description: 活动地址
+        in: query
+        name: activityAddress
         type: string
-      - in: query
-        name: addressPos
-        type: string
-      - in: query
-        name: addressZone
-        type: string
-      - in: query
-        name: chatGroupId
+      - description: 活动聊天群编号
+        in: query
+        name: activityChatGroupId
         type: integer
-      - in: query
+      - description: 活动参加人数
+        in: query
+        name: activityCurUserNum
+        type: integer
+      - description: 活动结束时间
+        in: query
+        name: activityEndAt
+        type: string
+      - description: 活动开始时间
+        in: query
+        name: activityStartAt
+        type: string
+      - description: 活动用户人数
+        in: query
+        name: activityUserNum
+        type: integer
+      - description: 匿名发布：0否、1是
+        in: query
+        name: anonymity
+        type: integer
+      - description: 附件
+        in: query
+        name: attachment
+        type: string
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        in: query
+        name: category
+        type: integer
+      - description: 帖子分类编号
+        in: query
+        name: channelId
+        type: integer
+      - description: 审核状态：1草稿、2未审批、3通过、4拒绝
+        in: query
         name: checkStatus
         type: integer
-      - in: query
+      - description: 审核时间
+        in: query
+        name: checkTime
+        type: string
+      - description: 审核人
+        in: query
+        name: checkUser
+        type: integer
+      - description: 圈子_编号
+        in: query
         name: circleId
         type: integer
-      - in: query
-        name: classifyId
-        type: integer
-      - in: query
+      - description: 是否收藏：0否、1是
+        in: query
         name: collect
         type: integer
-      - in: query
+      - description: 收藏次数
+        in: query
         name: collectNum
         type: integer
-      - in: query
+      - description: 问答最佳答案ID
+        in: query
+        name: commentId
+        type: integer
+      - description: 评论次数
+        in: query
+        name: commentNum
+        type: integer
+      - description: html内容
+        in: query
         name: contentHtml
         type: string
-      - in: query
-        name: createDept
+      - description: markdown内容
+        in: query
+        name: contentMarkdown
+        type: string
+      - description: 内容类型：1markdown、2html
+        in: query
+        name: contentType
         type: integer
-      - in: query
-        name: createUser
-        type: integer
+      - description: 封面
+        in: query
+        name: coverImage
+        type: string
       - description: 创建时间
         in: query
         name: createdAt
-        type: string
-      - in: query
-        name: curUserNum
-        type: integer
-      - in: query
-        name: des
-        type: string
-      - in: query
-        name: dynamicNum
-        type: integer
-      - in: query
-        name: endAt
         type: string
       - in: query
         name: endCreatedAt
@@ -4308,16 +4483,22 @@ paths:
         in: query
         name: id
         type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
+      - description: 是否公开：0 否 1 是
+        in: query
         name: isPublic
         type: integer
       - description: 关键字
         in: query
         name: keyword
         type: string
+      - description: 点赞次数
+        in: query
+        name: likeNum
+        type: integer
+      - description: 精华：0否、1是
+        in: query
+        name: marrow
+        type: integer
       - description: 页码
         in: query
         name: page
@@ -4326,43 +4507,85 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 付费：0否、1是
+        in: query
         name: pay
         type: integer
-      - in: query
+      - description: 附件付费：0否、1是
+        in: query
+        name: payAttachment
+        type: integer
+      - description: 内容付费：0否、1是
+        in: query
+        name: payContent
+        type: integer
+      - description: 内容付费可查看百分比例
+        in: query
+        name: payContentLook
+        type: integer
+      - description: 付费货币：1人民、2积分、3代币
+        in: query
         name: payCurrency
         type: integer
-      - in: query
+      - description: 付费金额
+        in: query
         name: payNum
         type: integer
-      - in: query
-        name: startAt
+      - description: 评论权限：0关闭、1开启
+        in: query
+        name: powerComment
+        type: integer
+      - description: 匿名评论：0关闭、1开启
+        in: query
+        name: powerCommentAnonymity
+        type: integer
+      - description: 阅读次数
+        in: query
+        name: readNum
+        type: integer
+      - description: 简介(SEO简介)
+        in: query
+        name: seoIntroduce
+        type: string
+      - description: SEO关键词
+        in: query
+        name: seoKey
+        type: string
+      - description: 分享次数
+        in: query
+        name: shareNum
+        type: integer
+      - description: 来源
+        in: query
+        name: source
         type: string
       - in: query
         name: startCreatedAt
         type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
+      - description: 标签
+        in: query
+        name: tag
         type: string
-      - in: query
+      - description: 是否点赞：0否、1是
+        in: query
+        name: thumbsUp
+        type: integer
+      - description: 标题
+        in: query
         name: title
         type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
+      - description: 置顶：0否、1是
         in: query
-        name: updatedAt
-        type: string
-      - in: query
+        name: top
+        type: integer
+      - description: 发布者编号
+        in: query
         name: userId
         type: integer
-      - in: query
-        name: userNum
-        type: integer
+      - description: 视频地址
+        in: query
+        name: video
+        type: string
       produces:
       - application/json
       responses:
@@ -4453,6 +4676,35 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取活动的用户列表
+      tags:
+      - 活动
+  /app/activity/getGlobalRecommendActivityList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获全局推荐活动列表
       tags:
       - 活动
   /app/activity/joinActivity:
@@ -4591,8 +4843,6 @@ paths:
       - 鉴权认证
   /app/auth/loginOneClick:
     post:
-      consumes:
-      - application/json
       parameters:
       - description: 一键登录
         in: body
@@ -4614,8 +4864,6 @@ paths:
                 msg:
                   type: string
               type: object
-      security:
-      - ApiKeyAuth: []
       summary: 一键登录
       tags:
       - 鉴权认证
@@ -4739,11 +4987,82 @@ paths:
           description: '{"success":true,"data":{},"msg":"修改成功"}'
           schema:
             type: string
-      security:
-      - ApiKeyAuth: []
       summary: 重置密码
       tags:
       - 鉴权认证
+  /app/channel/getChannelList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.HkChannel
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.HkChannel'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取频道列表
+      tags:
+      - 频道
+  /app/channel/getUserChannelList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.HkChannel
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.ChannelInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户频道
+      tags:
+      - 频道
+  /app/channel/setUserChannel:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 设置用户频道
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamSetUserChannel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 设置用户频道
+      tags:
+      - 频道
   /app/circle/applyEnterCircle:
     post:
       consumes:
@@ -5160,7 +5479,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         in: query
         name: category
         type: integer
@@ -5462,7 +5781,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         in: query
         name: category
         type: integer
@@ -6304,44 +6623,6 @@ paths:
       summary: 分页获取粉丝列表
       tags:
       - 关注/粉丝
-  /app/focus/getFocusUserDynamicList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回community.ForumPosts
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.PageResult'
-            - properties:
-                List:
-                  items:
-                    $ref: '#/definitions/community.ForumPosts'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取关注用户动态列表
-      tags:
-      - 关注/粉丝
   /app/focus/getFocusUserList:
     get:
       consumes:
@@ -6417,6 +6698,44 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取关注用户列表
+      tags:
+      - 关注/粉丝
+  /app/focus/getFocusUserPostsList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPosts
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取关注用户列子列表
       tags:
       - 关注/粉丝
   /app/focus/getFrequentBrowsingUserList:
@@ -6848,7 +7167,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         in: query
         name: category
         type: integer
@@ -6915,6 +7234,162 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取ForumPosts列表
+      tags:
+      - 帖子
+  /app/forumPosts/getGlobalRecommendInfoList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPosts
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获全局推荐资讯列表
+      tags:
+      - 帖子
+  /app/forumPosts/getGlobalTopInfoList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPosts
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获全局置顶资讯列表
+      tags:
+      - 帖子
+  /app/forumPosts/getNearbyRecommendPostsList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPosts
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获附近推荐帖子列表
+      tags:
+      - 帖子
+  /app/forumPosts/getRecommendPostsList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 频道标识
+        in: query
+        name: channelCode
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPosts
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPosts'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取推荐帖子列表
       tags:
       - 帖子
   /app/forumPosts/updateForumPosts:
@@ -7355,7 +7830,7 @@ paths:
       summary: 分页获取圈子问题列表
       tags:
       - 问答
-  /app/question/getGlobalQuestionList:
+  /app/question/getGlobalRecommendQuestionList:
     get:
       consumes:
       - application/json
@@ -7394,7 +7869,7 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取全局问题列表
+      summary: 分页获取全局推荐问题列表
       tags:
       - 问答
   /app/question/setBestAnswer:
@@ -7981,6 +8456,44 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取话题列表
+      tags:
+      - 话题
+  /app/topic/getNearbyHotTopicList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumTopic
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumTopic'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取附近热门话题列表
       tags:
       - 话题
   /app/topic/updateForumTopic:

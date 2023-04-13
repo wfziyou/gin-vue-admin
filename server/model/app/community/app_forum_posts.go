@@ -10,8 +10,8 @@ import (
 type ForumPosts struct {
 	global.GvaModelApp
 	CircleId              uint64               `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                                        //圈子_编号
-	Category              int                  `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议;size:10;"`                        //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
-	GroupId               uint64               `json:"groupId" form:"groupId" gorm:"type:bigint(20);column:group_id;comment:帖子分类编号;"`                                          //帖子分类编号
+	Category              int                  `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:10;"`                        //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	ChannelId             uint64               `json:"channelId" form:"channelId" gorm:"type:bigint(20);column:channel_id;comment:频道_编号;"`                                     //帖子分类编号
 	Title                 string               `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                                             //标题
 	SeoKey                string               `json:"seoKey" form:"seoKey" gorm:"column:seo_key;comment:SEO关键词;size:500;"`                                                    //SEO关键词
 	SeoIntroduce          string               `json:"seoIntroduce" form:"seoIntroduce" gorm:"column:seo_introduce;comment:简介(SEO简介);size:150;"`                               //简介(SEO简介)
@@ -44,6 +44,13 @@ type ForumPosts struct {
 	PayAttachment         int                  `json:"payAttachment" form:"payAttachment" gorm:"column:pay_attachment;comment:附件付费：0否、1是;size:10;"`                            //附件付费：0否、1是
 	PayCurrency           int                  `json:"payCurrency" form:"payCurrency" gorm:"column:pay_currency;comment:付费货币：1人民、2积分、3代币;size:10;"`                            //付费货币：1人民、2积分、3代币
 	PayNum                int                  `json:"payNum" form:"payNum" gorm:"column:pay_num;comment:付费金额;size:10;"`                                                       //付费金额
+	ActivityStartAt       *time.Time           `json:"activityStartAt" form:"activityStartAt" gorm:"column:activity_start_at;comment:活动开始时间;"`                                 //活动开始时间
+	ActivityEndAt         *time.Time           `json:"activityEndAt" form:"activityEndAt" gorm:"column:activity_end_at;comment:活动结束时间;"`                                       //活动结束时间
+	ActivityAddress       string               `json:"activityAddress" form:"activityAddress" gorm:"column:activity_address;comment:活动地址;size:500;"`                           //活动地址
+	ActivityUserNum       int                  `json:"activityUserNum" form:"activityUserNum" gorm:"column:activity_user_num;comment:活动用户人数;size:10;"`                         //活动用户人数
+	ActivityCurUserNum    int                  `json:"activityCurUserNum" form:"activityCurUserNum" gorm:"column:activity_cur_user_num;comment:活动参加人数;size:10;"`               //活动参加人数
+	ActivityChatGroupId   uint64               `json:"activityChatGroupId" form:"activityChatGroupId" gorm:"type:bigint(20);column:activity_chat_group_id;comment:活动聊天群编号;"`   //活动聊天群编号
+	IsPublic              int                  `json:"isPublic" form:"isPublic" gorm:"column:is_public;comment:是否公开：0 否 1 是;size:10;"`                                         //是否公开：0 否 1 是
 	TopicInfo             []ForumTopicBaseInfo `json:"topicInfo" gorm:"many2many:hk_forum_topic_posts_mapping;foreignKey:ID;joinForeignKey:PostsId;References:ID;joinReferences:TopicId"`
 	CircleInfo            CircleBaseInfo       `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"` //圈子基本信息
 	UserInfo              UserBaseInfo         `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`     //用户基本信息
@@ -60,7 +67,7 @@ func (ForumPosts) TableName() string {
 type ForumPostsBaseInfo struct {
 	global.GvaModelApp
 	CircleId   uint64               `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                 //圈子_编号
-	Category   int                  `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议;size:10;"` //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+	Category   int                  `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
 	GroupId    uint64               `json:"groupId" form:"groupId" gorm:"type:bigint(20);column:group_id;comment:帖子分类编号;"`                   //帖子分类编号
 	Title      string               `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                      //标题
 	CoverImage string               `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:封面;size:500;"`                     //封面

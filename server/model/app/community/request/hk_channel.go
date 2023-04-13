@@ -16,3 +16,14 @@ type HkChannelSearch struct {
 type ParamSetUserChannel struct {
 	ChannelIds string `json:"channelIds" form:"channelIds" example:"1,2"` //频道编号，通过逗号分割
 }
+
+type GlobalTopInfoSearch struct {
+	request.PageInfo
+}
+type GlobalRecommendInfoSearch struct {
+	request.PageInfo
+}
+
+type GlobalRecommendDynamicSearch struct {
+	request.PageInfo
+}

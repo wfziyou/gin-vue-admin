@@ -250,3 +250,32 @@ func (topicApi *TopicApi) GetForumTopicList(c *gin.Context) {
 		}, "获取成功", c)
 	}
 }
+
+// GetNearbyHotTopicList 分页获取附近热门话题列表
+// @Tags 话题
+// @Summary 分页获取附近热门话题列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.HotTopicSearch true "分页获取附近热门话题列表"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumTopic,msg=string} "返回community.ForumTopic"
+// @Router /app/topic/getNearbyHotTopicList [get]
+func (topicApi *TopicApi) GetNearbyHotTopicList(c *gin.Context) {
+	var pageInfo communityReq.HotTopicSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//if list, total, err := appForumTopicService.GetForumTopicInfoList(pageInfo); err != nil {
+	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
+}

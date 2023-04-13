@@ -14,7 +14,6 @@ type ServiceGroup struct {
 	AppForbiddenSpeakDurationService
 	AppForbiddenSpeakReasonService
 	AppForumCommentService
-	AppForumPostsGroupService
 	AppForumTagService
 	AppForumTagGroupService
 	AppForumThumbsUpService

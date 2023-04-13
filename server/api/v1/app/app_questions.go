@@ -10,17 +10,17 @@ import (
 type QuestionApi struct {
 }
 
-// GetGlobalQuestionList 分页获取全局问题列表
+// GetGlobalRecommendQuestionList 分页获取全局推荐问题列表
 // @Tags 问答
-// @Summary 分页获取全局问题列表
+// @Summary 分页获取全局推荐问题列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.GlobalQuestionSearch true "分页获取全局问题列表"
+// @Param data query communityReq.GlobalRecommendQuestionSearch true "分页获取全局推荐问题列表"
 // @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
-// @Router /app/question/getGlobalQuestionList [get]
-func (questionApi *QuestionApi) GetGlobalQuestionList(c *gin.Context) {
-	var pageInfo communityReq.GlobalQuestionSearch
+// @Router /app/question/getGlobalRecommendQuestionList [get]
+func (questionApi *QuestionApi) GetGlobalRecommendQuestionList(c *gin.Context) {
+	var pageInfo communityReq.GlobalRecommendQuestionSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

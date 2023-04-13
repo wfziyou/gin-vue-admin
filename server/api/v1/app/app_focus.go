@@ -34,16 +34,16 @@ func (focusApi *FocusApi) GetFrequentBrowsingUserList(c *gin.Context) {
 	}
 }
 
-// GetFocusUserDynamicList 分页获取关注用户动态列表
+// GetFocusUserPostsList 分页获取关注用户列子列表
 // @Tags 关注/粉丝
-// @Summary 分页获取关注用户动态列表
+// @Summary 分页获取关注用户列子列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.FocusUserDynamicSearch true "分页获取关注用户动态列表"
+// @Param data query communityReq.FocusUserDynamicSearch true "分页获取关注用户列子列表"
 // @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
-// @Router /app/focus/getFocusUserDynamicList [get]
-func (focusApi *FocusApi) GetFocusUserDynamicList(c *gin.Context) {
+// @Router /app/focus/getFocusUserPostsList [get]
+func (focusApi *FocusApi) GetFocusUserPostsList(c *gin.Context) {
 	var req communityReq.FocusUserDynamicSearch
 	err := c.ShouldBindQuery(&req)
 	if err != nil {

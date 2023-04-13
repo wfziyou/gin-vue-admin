@@ -4,11 +4,10 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
-type GlobalQuestionSearch struct {
+type GlobalRecommendQuestionSearch struct {
 	CurPos string `json:"curPos" form:"curPos"` //当前位置
 	request.PageInfo
 }
-
 type CircleQuestionSearch struct {
 	CircleId uint64 `json:"circleId" form:"circleId"` //圈子_编号
 	request.PageInfo

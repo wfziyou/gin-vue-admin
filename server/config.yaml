@@ -1,5 +1,22 @@
 # github.com/flipped-aurora/gin-vue-admin/server Global Configuration
 
+oneLogin:
+  strictcheck: 0
+  appid: 300012349007
+  rsaPrivateKey: |
+    MIICXAIBAAKBgQDLg3q08ADJS5ZK8yrf5o7HUQJpYzZ1p46ukMO7McU9498MEHnZ
+    ANLdOCRk1qaD1KPhZLCawGE19Pdh212ANUzeMvf47w4llOSrES/lDQvZuepgoKiP
+    /zklowwmq4gtbqUCWrb30SR1483goZbPBCMS19foZDcEyFsXPpmLaJ99+QIDAQAB
+    AoGAIYv7xyWky4m1LYel8qB7uqlE34BmMsC7CVV9njbXD5unYcK5gybam3KstR6Y
+    9jQwC3BgmDHMFGvb93qEkCS5Fb/dkRqZ9IcDLnlP2ffyM10L1T5Hx2qaGeB8g1nO
+    t0oTmPl+58CCmKUKWgL32da0nfJJhFdkgF5hNGkiVimuEB0CQQDNMpakpeGnMnGa
+    v5jdW2rk67kjUNgKYH5txH35MquYiDSpUSmFZ8IKm3yo0ZpExzwFPfvp/W7bzynx
+    wShr0egvAkEA/eYoZQSLeItlpWYNxdqVMRnN5mQ20mDgZihoBQL90xsMduRv+LG0
+    Ef+5juUVT9pdx7CKIvPBgX48J/qA5JRKVwJBAIXBBv71/dv9fp3PbDZF46yqlriV
+    du10rpSgczjftYisqB8B/52s34gIiD6GuhdBAzeriqygfQWcyQuDy/RUFBMCQBbv
+    U3bMkkyxSt1F+riEpjVpP1AwfUNDvQF9ZOgO/R60ssuKlxK/+qQllX1y9Bnif9Yp
+    /FBr9G7eGFEEL+B2BMECQHo52TU7JnATqUBFdN4FFsAR6LaRx8YHG4a9aaPlHSWq
+    vdfDkpXFo+cSEVOWKqU0CLf/EDQTcaVXQgHhnOL1bik=
 aliyun-sms:
   accessKeyId: LTAI9DHp7LBDXkbR
   accessSecret: mFfYI7R8lw43dFrUDX3Bnj4Nwnz0gm

@@ -59,10 +59,23 @@ func (appUserService *AppUserService) Login(u *community.User) (userInter *commu
 				user.UserExtend.CircleName = hkCircle.Name
 			}
 		}
-	} else {
-
 	}
 	return &user, err
+}
+func (appUserService *AppUserService) GetUserByPhone(phone string) (userInter *community.User, err error) {
+	if nil == global.GVA_DB {
+		return nil, fmt.Errorf("db not init")
+	}
+	var user *community.User
+	var users []community.User
+	err = global.GVA_DB.Where("phone = ?", phone).Preload("Authorities").Preload("Authority").Preload("UserExtend").Find(&users).Error
+	if err != nil {
+		return nil, errors.New("数据库错误")
+	}
+	if len(users) > 0 {
+		user = &users[0]
+	}
+	return user, err
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)

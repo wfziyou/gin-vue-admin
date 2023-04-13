@@ -12,3 +12,6 @@ type ActivitySearch struct {
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`
 	request.PageInfo
 }
+type GlobalRecommendActivitySearch struct {
+	request.PageInfo
+}

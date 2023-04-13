@@ -20,7 +20,7 @@ type LoginThird struct {
 
 // LoginOneClick 一键登录
 type LoginOneClick struct {
-	param string `json:"param"`
+	Token string `json:"token"` //令牌
 }
 
 // CaptchaReq  验证码请求

@@ -93,7 +93,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 
-	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}
@@ -144,7 +144,7 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 
-	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}
@@ -193,7 +193,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
 
-	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7建议
+	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}

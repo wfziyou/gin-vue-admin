@@ -440,3 +440,32 @@ func (activityApi *ActivityApi) GetActivityUserList(c *gin.Context) {
 		}, "获取成功", c)
 	}
 }
+
+// GetGlobalRecommendActivityList 分页获全局推荐活动列表
+// @Tags 活动
+// @Summary 分页获全局推荐活动列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.GlobalRecommendActivitySearch true "分页获全局推荐活动列表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /app/activity/getGlobalRecommendActivityList [get]
+func (activityApi *ActivityApi) GetGlobalRecommendActivityList(c *gin.Context) {
+	var pageInfo communityReq.GlobalRecommendActivitySearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//if list, total, err := hkActivityService.GetActivityInfoList(pageInfo); err != nil {
+	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
+}
