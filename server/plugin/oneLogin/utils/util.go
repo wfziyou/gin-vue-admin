@@ -2,6 +2,7 @@ package utils
 
 import (
 	"bytes"
+	"encoding/hex"
 	"encoding/pem"
 	"fmt"
 	"os"
@@ -118,4 +119,22 @@ func GetKey(filePath string) (*pem.Block, error) {
 	}
 	block, _ := pem.Decode(buf)
 	return block, err
+}
+
+const hextable = "0123456789abcdef"
+
+func EncodeToString(src []byte) string {
+	dst := make([]byte, hex.EncodedLen(len(src)))
+	Encode(dst, src)
+	return string(dst)
+}
+
+func Encode(dst, src []byte) int {
+	j := 0
+	for _, v := range src {
+		dst[j] = hextable[v>>4]
+		dst[j+1] = hextable[v&0x0f]
+		j += 2
+	}
+	return len(src) * 2
 }

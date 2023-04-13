@@ -6,7 +6,6 @@ import (
 	"crypto/rsa"
 	"crypto/sha256"
 	"crypto/x509"
-	"encoding/hex"
 	"encoding/pem"
 	"fmt"
 	"strings"
@@ -43,7 +42,8 @@ func Sha256WithRsa(msg string, privateRaw string) (string, error) {
 		return "", err
 	}
 	//encodedSig := base64.StdEncoding.EncodeToString(signature)
-	encodedSig := hex.EncodeToString(signature)
+	//encodedSig := hex.EncodeToString(signature)
+	encodedSig := EncodeToString(signature)
 	return encodedSig, nil
 }
 
