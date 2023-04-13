@@ -64,6 +64,12 @@ https://github.com/go-oauth2/gin-server
 ```
 swag init
 ```
+拉依赖
+```
+go mod tidy
+# 选择上下命令其一执行即可
+go generate -x // -x 显示并执行命令
+```
 
 打包exe
 ```
@@ -71,6 +77,8 @@ go build -o myserver.exe main.go
 ```
 docker 打包
 ```
+修改配置：config.yaml 中mysql.path 为本地地址10.0.4.10
+
 docker build -t server .
 
 docker run -d --name myserver -p 8888:8888 server
