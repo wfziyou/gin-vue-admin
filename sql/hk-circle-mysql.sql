@@ -371,7 +371,7 @@ CREATE TABLE `hk_channel`  (
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
    `icon` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图标',
-   `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标识',
+   `code` int(11) NULL DEFAULT 0 COMMENT '标识：0常规、1资讯、2关注、3附近、4活动、5问答',
    `fixed_type` tinyint(1) NULL DEFAULT NULL COMMENT '固定标识(不固定:0，固定:1)',
    `type` tinyint(1) NULL DEFAULT NULL COMMENT '类型：0系统 1自定义',
    `sort` int(11) NULL DEFAULT NULL COMMENT '排序',

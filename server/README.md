@@ -116,3 +116,8 @@ docker build -t server .
 
 docker run -d --name myserver -p 8888:8888 server
 ```
+# 常见问题
+## 服务端是否启动
+netstat -anp | grep 8888
+## go环境是已安装，却提示没有安装
+配置go的环境变量生效 `source /etc/profile`

@@ -21,7 +21,7 @@ var hkChannelService = service.ServiceGroupApp.AppServiceGroup.Community.HkChann
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200 {object}  response.Response{data=[]community.HkChannel,msg=string} "返回[]community.HkChannel"
+// @Success 200 {object}  response.Response{data=[]community.ChannelInfo,msg=string} "返回[]community.HkChannel"
 // @Router /app/channel/getChannelList [get]
 func (hkChannelApi *HkChannelApi) GetChannelList(c *gin.Context) {
 	list, _, err := hkChannelService.GetChannelInfoList()

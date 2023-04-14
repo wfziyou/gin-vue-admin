@@ -17,7 +17,7 @@ type QuestionApi struct {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.GlobalRecommendQuestionSearch true "分页获取全局推荐问题列表"
-// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/question/getGlobalRecommendQuestionList [get]
 func (questionApi *QuestionApi) GetGlobalRecommendQuestionList(c *gin.Context) {
 	var pageInfo communityReq.GlobalRecommendQuestionSearch
@@ -35,7 +35,7 @@ func (questionApi *QuestionApi) GetGlobalRecommendQuestionList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.CircleQuestionSearch true "分页获取圈子问题列表"
-// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/question/getCircleQuestionList [get]
 func (questionApi *QuestionApi) GetCircleQuestionList(c *gin.Context) {
 	var pageInfo communityReq.CircleQuestionSearch

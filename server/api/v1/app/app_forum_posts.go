@@ -25,7 +25,7 @@ type ForumPostsApi struct {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.GlobalTopInfoSearch true "分页获全局置顶资讯列表"
-// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/forumPosts/getGlobalTopInfoList [get]
 func (forumPostsApi *ForumPostsApi) GetGlobalTopInfoList(c *gin.Context) {
 	var pageInfo communityReq.GlobalTopInfoSearch
@@ -44,7 +44,7 @@ func (forumPostsApi *ForumPostsApi) GetGlobalTopInfoList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.GlobalRecommendInfoSearch true "分页获全局推荐资讯列表"
-// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/forumPosts/getGlobalRecommendInfoList [get]
 func (forumPostsApi *ForumPostsApi) GetGlobalRecommendInfoList(c *gin.Context) {
 	var pageInfo communityReq.GlobalRecommendInfoSearch
@@ -62,7 +62,7 @@ func (forumPostsApi *ForumPostsApi) GetGlobalRecommendInfoList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.GlobalRecommendDynamicSearch true "分页获附近推荐帖子列表"
-// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/forumPosts/getNearbyRecommendPostsList [get]
 func (forumPostsApi *ForumPostsApi) GetNearbyRecommendPostsList(c *gin.Context) {
 	var pageInfo communityReq.GlobalRecommendDynamicSearch
@@ -81,7 +81,7 @@ func (forumPostsApi *ForumPostsApi) GetNearbyRecommendPostsList(c *gin.Context) 
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.GetRecommendPostsSearch true "分页获取推荐帖子列表"
-// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/forumPosts/getRecommendPostsList [get]
 func (forumPostsApi *ForumPostsApi) GetRecommendPostsList(c *gin.Context) {
 	var pageInfo communityReq.GetRecommendPostsSearch
@@ -307,7 +307,7 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.ForumPostsSearch true "分页获取ForumPosts列表"
-// @Success 200 {object} response.PageResult{List=[]community.ForumPosts,msg=string} "返回community.ForumPosts"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/forumPosts/getForumPostsList [get]
 func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
 	var pageInfo communityReq.ForumPostsSearch

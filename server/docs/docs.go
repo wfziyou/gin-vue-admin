@@ -733,7 +733,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "帖子分类编号",
+                        "description": "频道_编号",
                         "name": "channelId",
                         "in": "query"
                     },
@@ -1352,7 +1352,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "帖子分类编号",
+                        "description": "频道_编号",
                         "name": "channelId",
                         "in": "query"
                     },
@@ -2296,7 +2296,7 @@ var doc = `{
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.HkChannel"
+                                                "$ref": "#/definitions/community.ChannelInfo"
                                             }
                                         },
                                         "msg": {
@@ -5168,7 +5168,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.ForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -5180,7 +5180,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -5997,7 +5997,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.ForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -6009,7 +6009,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -6062,7 +6062,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.ForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -6074,7 +6074,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -6127,7 +6127,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.ForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -6139,7 +6139,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -6192,7 +6192,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.ForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -6204,7 +6204,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -6237,9 +6237,9 @@ var doc = `{
                 "summary": "分页获取推荐帖子列表",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "频道标识",
-                        "name": "channelCode",
+                        "type": "integer",
+                        "description": "频道_编号",
+                        "name": "channelId",
                         "in": "query"
                     },
                     {
@@ -6263,7 +6263,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.ForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -6275,7 +6275,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -7007,7 +7007,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.ForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -7019,7 +7019,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -7078,7 +7078,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.ForumPosts",
+                        "description": "返回community.ForumPostsBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -7090,7 +7090,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ForumPosts"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -13342,7 +13342,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "channelId": {
-                    "description": "帖子分类编号",
+                    "description": "频道_编号",
                     "type": "integer"
                 },
                 "checkStatus": {
@@ -13603,8 +13603,8 @@ var doc = `{
             "type": "object",
             "properties": {
                 "code": {
-                    "description": "标识",
-                    "type": "string"
+                    "description": "标识：0常规、1资讯、2关注、3附近、4活动、5问答",
+                    "type": "integer"
                 },
                 "fixedType": {
                     "description": "固定标识(不固定:0，固定:1)",
@@ -14135,7 +14135,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "channelId": {
-                    "description": "帖子分类编号",
+                    "description": "频道_编号",
                     "type": "integer"
                 },
                 "checkStatus": {
@@ -14485,56 +14485,6 @@ var doc = `{
                 "sort": {
                     "description": "排序",
                     "type": "integer"
-                }
-            }
-        },
-        "community.HkChannel": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "string"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "fixedType": {
-                    "type": "integer"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDel": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "sort": {
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "tenantId": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
                 }
             }
         },
@@ -15554,6 +15504,10 @@ var doc = `{
                     "description": "gorm",
                     "$ref": "#/definitions/config.Mysql"
                 },
+                "oneLogin": {
+                    "description": "oneLogin",
+                    "$ref": "#/definitions/config.OneLogin"
+                },
                 "oracle": {
                     "$ref": "#/definitions/config.Oracle"
                 },
@@ -15576,8 +15530,8 @@ var doc = `{
                     "$ref": "#/definitions/config.Timer"
                 },
                 "yunxin-im": {
-                    "description": "oneLogin",
-                    "$ref": "#/definitions/config.OneLogin"
+                    "description": "im",
+                    "$ref": "#/definitions/config.YunXinIm"
                 },
                 "zap": {
                     "$ref": "#/definitions/config.Zap"
