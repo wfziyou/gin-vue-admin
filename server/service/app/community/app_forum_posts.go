@@ -71,6 +71,158 @@ func (appForumPostsService *AppForumPostsService) GetForumPosts(id uint64) (hkFo
 	return
 }
 
+// GetRecommendPostsList 分页获取推荐帖子列表
+func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(channelId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := page.PageSize
+	offset := page.PageSize * (page.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var hkForumPostss []community.ForumPostsBaseInfo
+
+	if len(page.Keyword) > 0 {
+		db = db.Where("title LIKE '%?%'", page.Keyword)
+	}
+
+	db = db.Where("channel_id = ?", channelId)
+
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	return hkForumPostss, total, err
+}
+
+// GetGlobalTopInfoList 分页获全局置顶资讯列表
+func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList() (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := 3
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var hkForumPostss []community.ForumPostsBaseInfo
+
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Find(&hkForumPostss).Error
+	return hkForumPostss, total, err
+}
+
+// GetGlobalRecommendInfoList 分页获全局推荐资讯列表
+func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := page.PageSize
+	offset := page.PageSize * (page.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var hkForumPostss []community.ForumPostsBaseInfo
+
+	if len(page.Keyword) > 0 {
+		db = db.Where("title LIKE '%?%'", page.Keyword)
+	}
+
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	return hkForumPostss, total, err
+}
+
+// GetNearbyRecommendPostsList 分页获附近推荐帖子列表
+func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(curPos string, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := page.PageSize
+	offset := page.PageSize * (page.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var hkForumPostss []community.ForumPostsBaseInfo
+
+	if len(page.Keyword) > 0 {
+		db = db.Where("title LIKE '%?%'", page.Keyword)
+	}
+
+	db = db.Where("channel_id = 0 and is_public = 1 and check_status=?",
+		community.PostsCheckStatusPass)
+
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	return hkForumPostss, total, err
+}
+
+// GetGlobalRecommendQuestionList 分页获取全局推荐问题列表
+func (appForumPostsService *AppForumPostsService) GetGlobalRecommendQuestionList(curPos string, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := page.PageSize
+	offset := page.PageSize * (page.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var hkForumPostss []community.ForumPostsBaseInfo
+
+	if len(page.Keyword) > 0 {
+		db = db.Where("title LIKE '%?%'", page.Keyword)
+	}
+
+	db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
+		community.PostsCheckStatusPass,
+		community.PostsCategoryQuestion)
+
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	return hkForumPostss, total, err
+}
+
+//GetGlobalRecommendActivityList 分页获全局推荐活动列表
+func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList(page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := page.PageSize
+	offset := page.PageSize * (page.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var hkForumPostss []community.ForumPostsBaseInfo
+
+	if len(page.Keyword) > 0 {
+		db = db.Where("title LIKE '%?%'", page.Keyword)
+	}
+
+	db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
+		community.PostsCheckStatusPass,
+		community.PostsCategoryActivity)
+
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	return hkForumPostss, total, err
+}
+
 // GetForumPostsInfoList 分页获取ForumPosts记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info communityReq.ForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {

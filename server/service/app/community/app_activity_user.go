@@ -31,6 +31,11 @@ func (hkActivityUserService *ActivityUserService) DeleteActivityUserByIds(ids re
 	return err
 }
 
+func (hkActivityUserService *ActivityUserService) DeleteActivityUserByUserIds(activityId uint64, userIds []uint64) (err error) {
+	err = global.GVA_DB.Delete(&[]community.ActivityUser{}, "activity_id=? and user_id in ?", activityId, userIds).Error
+	return err
+}
+
 // UpdateActivityUser 更新ActivityUser记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkActivityUserService *ActivityUserService) UpdateActivityUser(hkActivityUser community.ActivityUser) (err error) {
@@ -53,10 +58,7 @@ func (hkActivityUserService *ActivityUserService) GetActivityUserInfoList(info c
 	// 创建db
 	db := global.GVA_DB.Model(&community.ActivityUser{})
 	var hkActivityUsers []community.ActivityUser
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return

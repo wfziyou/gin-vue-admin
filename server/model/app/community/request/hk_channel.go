@@ -17,13 +17,15 @@ type ParamSetUserChannel struct {
 	ChannelIds string `json:"channelIds" form:"channelIds" example:"1,2"` //频道编号，通过逗号分割
 }
 
-type GlobalTopInfoSearch struct {
-	request.PageInfo
-}
 type GlobalRecommendInfoSearch struct {
 	request.PageInfo
 }
 
 type GlobalRecommendDynamicSearch struct {
+	request.PageInfo
+}
+
+type NearbyRecommendPostsSearch struct {
+	CurPos string `json:"curPos" form:"curPos"` //当前位置
 	request.PageInfo
 }

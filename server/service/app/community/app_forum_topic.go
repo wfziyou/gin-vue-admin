@@ -83,3 +83,36 @@ func (appForumTopicService *AppForumTopicService) GetForumTopicInfoList(info com
 	err = db.Limit(limit).Offset(offset).Find(&hkForumTopics).Error
 	return hkForumTopics, total, err
 }
+
+func (appForumTopicService *AppForumTopicService) GetNearbyHotTopicList(curPos string) (list []community.ForumTopic, err error) {
+	limit := 4
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumTopic{})
+	var hkForumTopics []community.ForumTopic
+
+	//// 如果有条件搜索 下方会自动创建搜索语句
+	//if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
+	//	db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	//}
+	//if len(info.Name) > 0 {
+	//	db = db.Where("name LIKE '?%'", info.Name)
+	//}
+	//if info.TopicGroupId != 0 {
+	//	db = db.Where("topic_group_id = ?", info.TopicGroupId)
+	//}
+	//if info.Type != nil {
+	//	db = db.Where("type = ?", info.Type)
+	//}
+	//if info.Hot != nil {
+	//	db = db.Where("hot = ?", info.Hot)
+	//}
+	//if info.CircleId != 0 {
+	//	db = db.Where("circle_id = ?", info.CircleId)
+	//}
+	//if info.ReviewStatus != nil {
+	//	db = db.Where("review_status = ?", info.ReviewStatus)
+	//}
+
+	err = db.Limit(limit).Find(&hkForumTopics).Error
+	return hkForumTopics, err
+}

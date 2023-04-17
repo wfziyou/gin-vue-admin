@@ -29,9 +29,7 @@ func (hkChannelApi *HkChannelApi) GetChannelList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	}
-	response.OkWithDetailed(response.Response{
-		Data: list,
-	}, "获取成功", c)
+	response.OkWithDetailed(list, "获取成功", c)
 }
 
 // GetUserChannelList 获取用户频道
@@ -69,9 +67,7 @@ func (hkChannelApi *HkChannelApi) GetUserChannelList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithDetailed(response.Response{
-			Data: list,
-		}, "获取成功", c)
+		response.OkWithDetailed(list, "获取成功", c)
 	}
 }
 

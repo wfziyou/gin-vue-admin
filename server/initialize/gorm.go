@@ -85,8 +85,6 @@ func RegisterTables() {
 		community.User{},
 		community.HkChannel{},
 		community.FocusUser{},
-		community.Activity{},
-		community.ActivityClassify{},
 		community.ActivityUser{},
 		//应用
 		apply.Apply{},

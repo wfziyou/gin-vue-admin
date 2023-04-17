@@ -769,7 +769,7 @@ func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.CircleClassifySearch true "获取圈子分类列表"
-// @Success 200 {object} response.DataResult{data=[]community.CircleClassify,msg=string} "返回community.CircleClassify"
+// @Success 200 {object} response.Response{data=[]community.CircleClassify,msg=string} "返回community.CircleClassify"
 // @Router /app/circle/getCircleClassifyListAll [get]
 func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {
 	var pageInfo communityReq.CircleClassifySearch

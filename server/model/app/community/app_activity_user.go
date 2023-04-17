@@ -7,7 +7,7 @@ import (
 
 // ActivityUser 结构体
 type ActivityUser struct {
-	global.GVA_MODEL
+	global.GvaModelApp
 	TenantId   string `json:"tenantId" form:"tenantId" gorm:"column:tenant_id;comment:租户ID;size:12;"`
 	ActivityId *int   `json:"activityId" form:"activityId" gorm:"column:activity_id;comment:活动编号;size:19;"`
 	UserId     *int   `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`

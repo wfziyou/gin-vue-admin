@@ -77,7 +77,7 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.ForumTopicGroupSearch true "获取话题分组列表"
-// @Success 200 {object}  response.DataResult{data=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
+// @Success 200 {object}  response.Response{data=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupListAll [get]
 func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 	var pageInfo communityReq.ForumTopicGroupSearch
@@ -251,31 +251,26 @@ func (topicApi *TopicApi) GetForumTopicList(c *gin.Context) {
 	}
 }
 
-// GetNearbyHotTopicList 分页获取附近热门话题列表
+// GetNearbyHotTopicList 获取附近热门话题列表
 // @Tags 话题
-// @Summary 分页获取附近热门话题列表
+// @Summary 获取附近热门话题列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.HotTopicSearch true "分页获取附近热门话题列表"
+// @Param data query communityReq.NearbyHotTopicSearch true "获取附近热门话题列表"
 // @Success 200 {object}  response.PageResult{List=[]community.ForumTopic,msg=string} "返回community.ForumTopic"
 // @Router /app/topic/getNearbyHotTopicList [get]
 func (topicApi *TopicApi) GetNearbyHotTopicList(c *gin.Context) {
-	var pageInfo communityReq.HotTopicSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.NearbyHotTopicSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if list, total, err := appForumTopicService.GetForumTopicInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, err := appForumTopicService.GetNearbyHotTopicList(req.CurPos); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(list, "获取成功", c)
+	}
 }

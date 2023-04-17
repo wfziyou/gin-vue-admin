@@ -479,7 +479,7 @@ CREATE TABLE `hk_forum_posts`  (
   `activity_start_at` datetime(3) NULL DEFAULT NULL COMMENT '活动开始时间',
   `activity_end_at` datetime(3) NULL DEFAULT NULL COMMENT '活动结束时间',
   `activity_address` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '活动地址',
-  `activity_user_num` int(11) NULL DEFAULT 0 COMMENT '活动用户人数',
+  `activity_user_num` int(11) NULL DEFAULT 0 COMMENT '活动用户人数（0不限制活动人数，否则为活动人数）',
   `activity_cur_user_num` int(11) NULL DEFAULT 0 COMMENT '活动参加人数',
   `activity_chat_group_id` bigint(20) NOT NULL COMMENT '活动聊天群编号',
   `is_public` int(2) NULL DEFAULT 0 COMMENT '是否公开：0 否 1 是',
@@ -1502,3 +1502,46 @@ CREATE TABLE `hk_order` (
   KEY `is_del` (`is_del`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='订单表';
 
+-- ----------------------------
+-- Table structure for hk_record_browsing_user_homepage
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_record_browsing_user_homepage`;
+CREATE TABLE `hk_record_browsing_user_homepage`  (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+   `browser` bigint(20) NOT NULL COMMENT '浏览者编号',
+   `browse_time` datetime(3) NULL DEFAULT NULL COMMENT '浏览时间',
+   `browse_num` int(11) NULL DEFAULT NULL COMMENT '浏览次数',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '记录浏览用户主页';
+
+-- ----------------------------
+-- Table structure for hk_record_browsing_circle_homepage
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_record_browsing_circle_homepage`;
+CREATE TABLE `hk_record_browsing_circle_homepage`  (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `circle_id` bigint(20) NOT NULL COMMENT '圈子编号',
+   `browser` bigint(20) NOT NULL COMMENT '浏览者编号',
+   `browse_time` datetime(3) NULL DEFAULT NULL COMMENT '浏览时间',
+   `browse_num` int(11) NULL DEFAULT NULL COMMENT '浏览次数',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '记录浏览圈子主页';

@@ -5,6 +5,21 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
+const (
+	//ChannelCodeGeneral 0常规
+	ChannelCodeGeneral = 0
+	//ChannelCodeInformation 1资讯
+	ChannelCodeInformation = 1
+	//ChannelCodeFocus 2关注
+	ChannelCodeFocus = 2
+	//ChannelCodeNearby 3附近
+	ChannelCodeNearby = 3
+	//ChannelCodeActivity 4活动
+	ChannelCodeActivity = 4
+	//ChannelCodeQuestion 5问答
+	ChannelCodeQuestion = 5
+)
+
 type ChannelInfo struct {
 	ID        uint64 `json:"id" gorm:"not null;unique;primary_key;"`                                          //编号
 	Name      string `json:"name" form:"name" gorm:"column:name;comment:名称;size:20;"`                         //名称

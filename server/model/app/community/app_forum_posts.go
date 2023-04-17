@@ -6,6 +6,33 @@ import (
 	"time"
 )
 
+const (
+	//PostsCategoryVideo 1视频
+	PostsCategoryVideo = 1
+	//PostsCategoryDynamic 2动态
+	PostsCategoryDynamic = 2
+	//PostsCategoryNews 3资讯
+	PostsCategoryNews = 3
+	//PostsCategoryNotice 4公告
+	PostsCategoryNotice = 4
+	//PostsCategoryArticle 5文章
+	PostsCategoryArticle = 5
+	//PostsCategoryQuestion 6问答
+	PostsCategoryQuestion = 6
+	//PostsCategoryActivity 7活动
+	PostsCategoryActivity = 7
+)
+const (
+	//PostsCheckStatusDraft 1草稿
+	PostsCheckStatusDraft = 1
+	//PostsCheckStatusNotProcessor 2未审批
+	PostsCheckStatusNotProcessor = 2
+	//PostsCheckStatusPass 3通过
+	PostsCheckStatusPass = 3
+	//PostsCheckStatusRefuse 4拒绝
+	PostsCheckStatusRefuse = 4
+)
+
 // ForumPosts 结构体
 type ForumPosts struct {
 	global.GvaModelApp
@@ -47,7 +74,7 @@ type ForumPosts struct {
 	ActivityStartAt       *time.Time           `json:"activityStartAt" form:"activityStartAt" gorm:"column:activity_start_at;comment:活动开始时间;"`                                 //活动开始时间
 	ActivityEndAt         *time.Time           `json:"activityEndAt" form:"activityEndAt" gorm:"column:activity_end_at;comment:活动结束时间;"`                                       //活动结束时间
 	ActivityAddress       string               `json:"activityAddress" form:"activityAddress" gorm:"column:activity_address;comment:活动地址;size:500;"`                           //活动地址
-	ActivityUserNum       int                  `json:"activityUserNum" form:"activityUserNum" gorm:"column:activity_user_num;comment:活动用户人数;size:10;"`                         //活动用户人数
+	ActivityUserNum       int                  `json:"activityUserNum" form:"activityUserNum" gorm:"column:activity_user_num;comment:活动用户人数（0不限制活动人数，否则为活动人数）;size:10;"`       //活动用户人数（0不限制活动人数，否则为活动人数）
 	ActivityCurUserNum    int                  `json:"activityCurUserNum" form:"activityCurUserNum" gorm:"column:activity_cur_user_num;comment:活动参加人数;size:10;"`               //活动参加人数
 	ActivityChatGroupId   uint64               `json:"activityChatGroupId" form:"activityChatGroupId" gorm:"type:bigint(20);column:activity_chat_group_id;comment:活动聊天群编号;"`   //活动聊天群编号
 	IsPublic              int                  `json:"isPublic" form:"isPublic" gorm:"column:is_public;comment:是否公开：0 否 1 是;size:10;"`                                         //是否公开：0 否 1 是

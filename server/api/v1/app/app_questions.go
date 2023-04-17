@@ -1,10 +1,13 @@
 package app
 
 import (
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type QuestionApi struct {
@@ -20,11 +23,26 @@ type QuestionApi struct {
 // @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/question/getGlobalRecommendQuestionList [get]
 func (questionApi *QuestionApi) GetGlobalRecommendQuestionList(c *gin.Context) {
-	var pageInfo communityReq.GlobalRecommendQuestionSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.GlobalRecommendQuestionSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+
+	if list, total, err := appForumPostsService.GetGlobalRecommendQuestionList(req.CurPos, req.PageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		var userId = utils.GetUserID(c)
+		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
+		appUserCollectService.GetUserIsCollect(userId, list)
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
 	}
 }
 
