@@ -87,6 +87,7 @@ func Routers() *gin.Engine {
 		appRouter.InitHkChannelRouter(PrivateGroup)
 		appRouter.InitFocusUserRouter(PrivateGroup)
 		appRouter.InitActivityRouter(PrivateGroup)
+		appRouter.InitQuestionRouter(PrivateGroup)
 	}
 
 	global.GVA_LOG.Info("router register success")

@@ -22,7 +22,7 @@ func (s *FocusUserRouter) InitFocusUserRouter(Router *gin.RouterGroup) {
 	}
 	{
 		hkFocusUserRouterWithoutRecord.GET("getFrequentBrowsingUserList", focusApi.GetFrequentBrowsingUserList) // 分页获取经常浏览用户列表
-		hkFocusUserRouterWithoutRecord.GET("getFocusUserDynamicList", focusApi.GetFocusUserPostsList)           // 分页获取关注用户动态列表
+		hkFocusUserRouterWithoutRecord.GET("getFocusUserPostsList", focusApi.GetFocusUserPostsList)             // 分页获取关注用户动态列表
 		hkFocusUserRouterWithoutRecord.GET("getFocusUserList", focusApi.GetFocusUserList)                       //分页获取关注用户列表
 		hkFocusUserRouterWithoutRecord.GET("getFansList", focusApi.GetFansList)                                 //分页获取粉丝列表
 		hkFocusUserRouterWithoutRecord.GET("findFocusUser", focusApi.FindFocusUser)                             // 用id查询关注用户

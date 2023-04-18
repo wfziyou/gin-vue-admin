@@ -21,6 +21,8 @@ func (router *TopicRouter) InitTopicRouter(Router *gin.RouterGroup) (R gin.IRout
 		topicRouter.PUT("updateForumTopic", topicApi.UpdateForumTopic)              //更新话题
 	}
 	{
+		topicRouterWithoutRecord.GET("getNearbyHotTopicList", topicApi.GetNearbyHotTopicList) //获取附近热门话题列表
+
 		topicRouterWithoutRecord.GET("findForumTopicGroup", topicApi.FindForumTopicGroup)             //用id查询话题分组
 		topicRouterWithoutRecord.GET("getForumTopicGroupList", topicApi.GetForumTopicGroupList)       //分页获取话题分组列表
 		topicRouterWithoutRecord.GET("getForumTopicGroupListAll", topicApi.GetForumTopicGroupListAll) //获取话题分组列表
