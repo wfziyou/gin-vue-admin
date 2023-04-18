@@ -22,9 +22,9 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 		circleRouter.POST("exitCircle", circleApi.ExitCircle)                   //退出圈子
 		circleRouter.POST("applyEnterCircle", circleApi.ApplyEnterCircle)       //申请加入圈子
 
-		circleRouter.DELETE("deleteCircleUser", circleApi.DeleteCircleUser)           //删除圈子用户
-		circleRouter.DELETE("deleteCircleUserByIds", circleApi.DeleteCircleUserByIds) //批量删除圈子用户
-		circleRouter.PUT("updateCircleUser", circleApi.UpdateCircleUser)              //更新圈子用户
+		circleRouter.DELETE("deleteCircleUser", circleApi.DeleteCircleUser)   //删除圈子用户
+		circleRouter.DELETE("deleteCircleUsers", circleApi.DeleteCircleUsers) //批量删除圈子用户
+		circleRouter.PUT("updateCircleUser", circleApi.UpdateCircleUser)      //更新圈子用户
 	}
 	{
 		circleRouterWithoutRecord.GET("getCircleForumPostsList", circleApi.GetCircleForumPostsList)         // 分页获取圈子的帖子列表

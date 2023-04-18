@@ -53,9 +53,9 @@ func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoL
 	// 创建db
 	db := global.GVA_DB.Model(&community.CircleClassify{})
 	var hkCircleClassifys []community.CircleClassify
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+
+	if len(info.Keyword) > 0 {
+		db = db.Where("title LIKE '%?%'", info.Keyword)
 	}
 	err = db.Count(&total).Error
 	if err != nil {
@@ -73,8 +73,8 @@ func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoL
 	db := global.GVA_DB.Model(&community.CircleClassify{})
 	var hkCircleClassifys []community.CircleClassify
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	if len(info.Keyword) > 0 {
+		db = db.Where("title LIKE '%?%'", info.Keyword)
 	}
 	err = db.Count(&total).Error
 	if err != nil {

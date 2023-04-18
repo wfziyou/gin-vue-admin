@@ -2,7 +2,6 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
@@ -24,17 +23,17 @@ type UserBrowsingHistoryApi struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body general.UserBrowsingHistory true "删除浏览历史"
+// @Param data body request.IdDelete true "删除浏览历史"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/userBrowsingHistory/deleteUserBrowsingHistory [delete]
 func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistory(c *gin.Context) {
-	var hkUserBrowsingHistory general.UserBrowsingHistory
-	err := c.ShouldBindJSON(&hkUserBrowsingHistory)
+	var req request.IdDelete
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appUserBrowsingHistoryService.DeleteUserBrowsingHistory(hkUserBrowsingHistory); err != nil {
+	if err := appUserBrowsingHistoryService.DeleteUserBrowsingHistoryById(req.ID); err != nil {
 		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {

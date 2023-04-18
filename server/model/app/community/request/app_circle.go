@@ -70,6 +70,10 @@ type DeleteCircleUserReq struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 	UserId   uint64 `json:"userId" form:"userId" `     //用户ID
 }
+type DeleteCircleUsersReq struct {
+	CircleId uint64   `json:"circleId" form:"circleId" ` //圈子_编号
+	UserIds  []uint64 `json:"userIds" form:"userIds" `   //用户Ids
+}
 type UpdateCircleUserReq struct {
 	CircleId *int `json:"circleId" form:"circleId" ` //圈子_编号
 	UserId   *int `json:"userId" form:"userId" `     //用户ID

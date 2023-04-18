@@ -27,9 +27,12 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleUserInfo(hkCircleU
 	err = global.GVA_DB.Delete(&hkCircleUser).Error
 	return err
 }
+func (appCircleUserService *AppCircleUserService) DeleteCircleUsers(circleId uint64, userIds []uint64) (err error) {
+	err = global.GVA_DB.Delete(&[]community.CircleUser{}, "circle_id = ? and user_id in ?", circleId, userIds).Error
+	return err
+}
 
 // DeleteCircleUserByIds 批量删除圈子用户记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (appCircleUserService *AppCircleUserService) DeleteCircleUserByIds(ids request.IdsReq) (err error) {
 	err = global.GVA_DB.Delete(&[]community.CircleUser{}, "id in ?", ids.Ids).Error
 	return err

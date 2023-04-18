@@ -23,6 +23,10 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBr
 	err = global.GVA_DB.Delete(&hkUserBrowsingHistory).Error
 	return err
 }
+func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistoryById(id uint64) (err error) {
+	err = global.GVA_DB.Delete(&general.UserBrowsingHistory{}, "id in =", id).Error
+	return err
+}
 
 // DeleteUserBrowsingHistoryByIds 批量删除浏览历史记录
 // Author [piexlmax](https://github.com/piexlmax)

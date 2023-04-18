@@ -524,7 +524,7 @@ func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 	pageInfo.CircleId = req.CircleId
 	pageInfo.UserId = req.UserId
 	if list, total, err := appCircleUserService.GetCircleUserInfoList(pageInfo); err == nil {
-		if total != 1 {
+		if total == 0 {
 			response.FailWithMessage("圈子成员不存在", c)
 			return
 		}
@@ -540,7 +540,7 @@ func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 	}
 }
 
-// DeleteCircleUserByIds 批量删除圈子用户
+// DeleteCircleUsers 批量删除圈子用户
 // @Tags 圈子
 // @Summary 批量删除圈子用户
 // @Security ApiKeyAuth
@@ -548,15 +548,15 @@ func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 // @Produce application/json
 // @Param data body request.IdsReq true "批量删除圈子用户"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
-// @Router /app/circle/deleteCircleUserByIds [delete]
-func (circleApi *CircleApi) DeleteCircleUserByIds(c *gin.Context) {
-	var IDS request.IdsReq
-	err := c.ShouldBindJSON(&IDS)
+// @Router /app/circle/deleteCircleUsers [delete]
+func (circleApi *CircleApi) DeleteCircleUsers(c *gin.Context) {
+	var req communityReq.DeleteCircleUsersReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appCircleUserService.DeleteCircleUserByIds(IDS); err != nil {
+	if err := appCircleUserService.DeleteCircleUsers(req.CircleId, req.UserIds); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {

@@ -216,7 +216,7 @@ INSERT INTO `casbin_rule` VALUES (1104, 'p', '888', '/app/circle/getCircleList',
 INSERT INTO `casbin_rule` VALUES (1105, 'p', '888', '/app/circle/updateCircle', 'PUT', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1106, 'p', '888', '/app/circle/setUserCurCircle', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1107, 'p', '888', '/app/circle/deleteCircleUser', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1108, 'p', '888', '/app/circle/deleteCircleUserByIds', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1108, 'p', '888', '/app/circle/deleteCircleUsers', 'DELETE', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1109, 'p', '888', '/app/circle/updateCircleUser', 'PUT', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1110, 'p', '888', '/app/circle/findCircleUser', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1111, 'p', '888', '/app/circle/getCircleUserList', 'GET', '', '', '', '', '');
@@ -670,7 +670,7 @@ INSERT INTO `sys_apis` VALUES (104, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (105, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/updateCircle', '(圈子管理者)更新Circle', 1, 'PUT');
 INSERT INTO `sys_apis` VALUES (106, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/setUserCurCircle', '设置用户当前圈子', 1, 'POST');
 INSERT INTO `sys_apis` VALUES (107, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/deleteCircleUser', '删除CircleUser', 1, 'DELETE');
-INSERT INTO `sys_apis` VALUES (108, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/deleteCircleUserByIds', '批量删除CircleUser', 1, 'DELETE');
+INSERT INTO `sys_apis` VALUES (108, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/deleteCircleUsers', '批量删除CircleUser', 1, 'DELETE');
 INSERT INTO `sys_apis` VALUES (109, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/updateCircleUser', '更新CircleUser', 1, 'PUT');
 INSERT INTO `sys_apis` VALUES (110, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/findCircleUser', '用id查询CircleUser', 1, 'GET');
 INSERT INTO `sys_apis` VALUES (111, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/getCircleUserList', '分页获取CircleUser列表', 1, 'GET');

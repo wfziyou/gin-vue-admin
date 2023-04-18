@@ -816,12 +816,8 @@ CREATE TABLE `hk_forum_topic`  (
    `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
    `cover_image` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '封面',
    `topic_group_id` bigint(20) NOT NULL COMMENT'分组id',
-   `type` int(2) NOT NULL DEFAULT 0 COMMENT '话题类型：0 全局，1圈子',
    `hot` int(2) NULL DEFAULT 0 COMMENT '是否热门：0 否 1 是',
    `discuss_num` int(11) NULL DEFAULT NULL COMMENT '讨论数',
-   `attention_num` int(11) NULL DEFAULT NULL COMMENT '关注数',
-   `circle_id` bigint(20) NOT NULL DEFAULT 0 COMMENT '圈子_编号',
-   `review_status` int(2) NULL DEFAULT 0 COMMENT '审核状态：0 未处理 1 通过，2驳回',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
    `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
@@ -836,8 +832,8 @@ CREATE TABLE `hk_forum_topic`  (
 -- ----------------------------
 -- Records of hk_forum_topic
 -- ----------------------------
-INSERT INTO `hk_forum_topic` VALUES (1, '000000', 'topic_1_1', NULL, 1, 0, NULL, NULL, NULL, 0, 0, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_forum_topic` VALUES (2, '000000', 'topic_1_2', NULL, 1, 0, NULL, NULL, NULL, 0, 0, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic` VALUES (1, '000000', 'topic_1_1', NULL, 1, NULL, NULL, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic` VALUES (2, '000000', 'topic_1_2', NULL, 1, NULL, NULL, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_forum_topic_posts_mapping
