@@ -483,6 +483,9 @@ definitions:
     type: object
   community.ForumPosts:
     properties:
+      activityAddApprove:
+        description: 参加活动是否需要审批：0不审批、1审批
+        type: integer
       activityAddress:
         description: 活动地址
         type: string
@@ -495,6 +498,9 @@ definitions:
       activityEndAt:
         description: 活动结束时间
         type: string
+      activityId:
+        description: 活动_编号
+        type: integer
       activityStartAt:
         description: 活动开始时间
         type: string
@@ -793,6 +799,70 @@ definitions:
         type: integer
       userId:
         description: 回答者
+        type: integer
+    type: object
+  community.RecordBrowsingCircleHomepage:
+    properties:
+      browseNum:
+        type: integer
+      browseTime:
+        type: string
+      browser:
+        type: integer
+      circleId:
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  community.RecordBrowsingUserHomepage:
+    properties:
+      browseNum:
+        type: integer
+      browseTime:
+        type: string
+      browser:
+        type: integer
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      userBaseInfo:
+        $ref: '#/definitions/community.UserBaseInfo'
+        description: 用户基本信息
+      userId:
         type: integer
     type: object
   community.Report:
@@ -2120,6 +2190,9 @@ definitions:
         type: integer
       content:
         description: 活动内容
+        type: string
+      coverImage:
+        description: 封面
         type: string
       payCurrency:
         description: 付费货币：1人民、2积分、3代币
@@ -3782,7 +3855,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 编号
+      - description: 活动编号
         in: query
         name: id
         type: integer
@@ -3799,7 +3872,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 用id查询活动的用户
+      summary: 查询活动的用户
       tags:
       - 活动
   /app/activity/getActivityUserList:
@@ -5916,7 +5989,7 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取关注用户列子列表
+      summary: 分页获取关注用户动态列表
       tags:
       - 关注/粉丝
   /app/focus/getFrequentBrowsingUserList:
@@ -5940,7 +6013,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回community.ForumPosts
+          description: 返回[]community.UserBaseInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -9139,6 +9212,454 @@ paths:
       summary: 上传文件示例
       tags:
       - ExaFileUploadAndDownload
+  /hkRecordBrowsingCircleHomepage/createRecordBrowsingCircleHomepage:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建RecordBrowsingCircleHomepage
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.RecordBrowsingCircleHomepage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建RecordBrowsingCircleHomepage
+      tags:
+      - RecordBrowsingCircleHomepage
+  /hkRecordBrowsingCircleHomepage/deleteRecordBrowsingCircleHomepage:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除RecordBrowsingCircleHomepage
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.RecordBrowsingCircleHomepage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除RecordBrowsingCircleHomepage
+      tags:
+      - RecordBrowsingCircleHomepage
+  /hkRecordBrowsingCircleHomepage/deleteRecordBrowsingCircleHomepageByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除RecordBrowsingCircleHomepage
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除RecordBrowsingCircleHomepage
+      tags:
+      - RecordBrowsingCircleHomepage
+  /hkRecordBrowsingCircleHomepage/findRecordBrowsingCircleHomepage:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: browseNum
+        type: integer
+      - in: query
+        name: browseTime
+        type: string
+      - in: query
+        name: browser
+        type: integer
+      - in: query
+        name: circleId
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询RecordBrowsingCircleHomepage
+      tags:
+      - RecordBrowsingCircleHomepage
+  /hkRecordBrowsingCircleHomepage/getRecordBrowsingCircleHomepageList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: browseNum
+        type: integer
+      - in: query
+        name: browseTime
+        type: string
+      - in: query
+        name: browser
+        type: integer
+      - in: query
+        name: circleId
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取RecordBrowsingCircleHomepage列表
+      tags:
+      - RecordBrowsingCircleHomepage
+  /hkRecordBrowsingCircleHomepage/updateRecordBrowsingCircleHomepage:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新RecordBrowsingCircleHomepage
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.RecordBrowsingCircleHomepage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新RecordBrowsingCircleHomepage
+      tags:
+      - RecordBrowsingCircleHomepage
+  /hkRecordBrowsingUserHomepage/createRecordBrowsingUserHomepage:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建RecordBrowsingUserHomepage
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.RecordBrowsingUserHomepage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建RecordBrowsingUserHomepage
+      tags:
+      - RecordBrowsingUserHomepage
+  /hkRecordBrowsingUserHomepage/deleteRecordBrowsingUserHomepage:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除RecordBrowsingUserHomepage
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.RecordBrowsingUserHomepage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除RecordBrowsingUserHomepage
+      tags:
+      - RecordBrowsingUserHomepage
+  /hkRecordBrowsingUserHomepage/deleteRecordBrowsingUserHomepageByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除RecordBrowsingUserHomepage
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除RecordBrowsingUserHomepage
+      tags:
+      - RecordBrowsingUserHomepage
+  /hkRecordBrowsingUserHomepage/findRecordBrowsingUserHomepage:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: browseNum
+        type: integer
+      - in: query
+        name: browseTime
+        type: string
+      - in: query
+        name: browser
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询RecordBrowsingUserHomepage
+      tags:
+      - RecordBrowsingUserHomepage
+  /hkRecordBrowsingUserHomepage/getRecordBrowsingUserHomepageList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: browseNum
+        type: integer
+      - in: query
+        name: browseTime
+        type: string
+      - in: query
+        name: browser
+        type: integer
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取RecordBrowsingUserHomepage列表
+      tags:
+      - RecordBrowsingUserHomepage
+  /hkRecordBrowsingUserHomepage/updateRecordBrowsingUserHomepage:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新RecordBrowsingUserHomepage
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.RecordBrowsingUserHomepage'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新RecordBrowsingUserHomepage
+      tags:
+      - RecordBrowsingUserHomepage
   /init/checkdb:
     post:
       produces:

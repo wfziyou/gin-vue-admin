@@ -1527,6 +1527,11 @@ CREATE TABLE `hk_record_browsing_user_homepage`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '记录浏览用户主页';
 
 -- ----------------------------
+-- Records of hk_record_browsing_user_homepage
+-- ----------------------------
+INSERT INTO `hk_record_browsing_user_homepage` VALUES (1, NULL, 2, 2, NULL, NULL, '2023-04-18 16:53:40.000', '2023-04-18 16:53:44.000', NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
 -- Table structure for hk_record_browsing_circle_homepage
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_record_browsing_circle_homepage`;

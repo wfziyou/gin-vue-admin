@@ -24,6 +24,7 @@ type ActivityUserSearch struct {
 
 type CreateActivityReq struct {
 	Title           string     `json:"title" form:"title" `                    //标题
+	CoverImage      string     `json:"coverImage" form:"coverImage"`           //封面
 	Content         string     `json:"content" form:"content"`                 //活动内容
 	ActivityStartAt *time.Time `json:"activityStartAt" form:"activityStartAt"` //活动开始时间
 	ActivityEndAt   *time.Time `json:"activityEndAt" form:"activityEndAt"`     //活动结束时间

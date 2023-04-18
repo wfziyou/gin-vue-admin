@@ -595,11 +595,11 @@
                 "tags": [
                     "活动"
                 ],
-                "summary": "用id查询活动的用户",
+                "summary": "查询活动的用户",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "编号",
+                        "description": "活动编号",
                         "name": "id",
                         "in": "query"
                     },
@@ -4122,7 +4122,7 @@
                 "tags": [
                     "关注/粉丝"
                 ],
-                "summary": "分页获取关注用户列子列表",
+                "summary": "分页获取关注用户动态列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -4210,7 +4210,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.ForumPosts",
+                        "description": "返回[]community.UserBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -9659,6 +9659,742 @@
                 }
             }
         },
+        "/hkRecordBrowsingCircleHomepage/createRecordBrowsingCircleHomepage": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingCircleHomepage"
+                ],
+                "summary": "创建RecordBrowsingCircleHomepage",
+                "parameters": [
+                    {
+                        "description": "创建RecordBrowsingCircleHomepage",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.RecordBrowsingCircleHomepage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingCircleHomepage/deleteRecordBrowsingCircleHomepage": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingCircleHomepage"
+                ],
+                "summary": "删除RecordBrowsingCircleHomepage",
+                "parameters": [
+                    {
+                        "description": "删除RecordBrowsingCircleHomepage",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.RecordBrowsingCircleHomepage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingCircleHomepage/deleteRecordBrowsingCircleHomepageByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingCircleHomepage"
+                ],
+                "summary": "批量删除RecordBrowsingCircleHomepage",
+                "parameters": [
+                    {
+                        "description": "批量删除RecordBrowsingCircleHomepage",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingCircleHomepage/findRecordBrowsingCircleHomepage": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingCircleHomepage"
+                ],
+                "summary": "用id查询RecordBrowsingCircleHomepage",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "browseNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "browseTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "browser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingCircleHomepage/getRecordBrowsingCircleHomepageList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingCircleHomepage"
+                ],
+                "summary": "分页获取RecordBrowsingCircleHomepage列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "browseNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "browseTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "browser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingCircleHomepage/updateRecordBrowsingCircleHomepage": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingCircleHomepage"
+                ],
+                "summary": "更新RecordBrowsingCircleHomepage",
+                "parameters": [
+                    {
+                        "description": "更新RecordBrowsingCircleHomepage",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.RecordBrowsingCircleHomepage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingUserHomepage/createRecordBrowsingUserHomepage": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingUserHomepage"
+                ],
+                "summary": "创建RecordBrowsingUserHomepage",
+                "parameters": [
+                    {
+                        "description": "创建RecordBrowsingUserHomepage",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.RecordBrowsingUserHomepage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingUserHomepage/deleteRecordBrowsingUserHomepage": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingUserHomepage"
+                ],
+                "summary": "删除RecordBrowsingUserHomepage",
+                "parameters": [
+                    {
+                        "description": "删除RecordBrowsingUserHomepage",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.RecordBrowsingUserHomepage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingUserHomepage/deleteRecordBrowsingUserHomepageByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingUserHomepage"
+                ],
+                "summary": "批量删除RecordBrowsingUserHomepage",
+                "parameters": [
+                    {
+                        "description": "批量删除RecordBrowsingUserHomepage",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingUserHomepage/findRecordBrowsingUserHomepage": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingUserHomepage"
+                ],
+                "summary": "用id查询RecordBrowsingUserHomepage",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "browseNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "browseTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "browser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingUserHomepage/getRecordBrowsingUserHomepageList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingUserHomepage"
+                ],
+                "summary": "分页获取RecordBrowsingUserHomepage列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "browseNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "browseTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "browser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkRecordBrowsingUserHomepage/updateRecordBrowsingUserHomepage": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "RecordBrowsingUserHomepage"
+                ],
+                "summary": "更新RecordBrowsingUserHomepage",
+                "parameters": [
+                    {
+                        "description": "更新RecordBrowsingUserHomepage",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.RecordBrowsingUserHomepage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/init/checkdb": {
             "post": {
                 "produces": [
@@ -12752,6 +13488,10 @@
         "community.ForumPosts": {
             "type": "object",
             "properties": {
+                "activityAddApprove": {
+                    "description": "参加活动是否需要审批：0不审批、1审批",
+                    "type": "integer"
+                },
                 "activityAddress": {
                     "description": "活动地址",
                     "type": "string"
@@ -12767,6 +13507,10 @@
                 "activityEndAt": {
                     "description": "活动结束时间",
                     "type": "string"
+                },
+                "activityId": {
+                    "description": "活动_编号",
+                    "type": "integer"
                 },
                 "activityStartAt": {
                     "description": "活动开始时间",
@@ -13171,6 +13915,100 @@
                 },
                 "userId": {
                     "description": "回答者",
+                    "type": "integer"
+                }
+            }
+        },
+        "community.RecordBrowsingCircleHomepage": {
+            "type": "object",
+            "properties": {
+                "browseNum": {
+                    "type": "integer"
+                },
+                "browseTime": {
+                    "type": "string"
+                },
+                "browser": {
+                    "type": "integer"
+                },
+                "circleId": {
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "community.RecordBrowsingUserHomepage": {
+            "type": "object",
+            "properties": {
+                "browseNum": {
+                    "type": "integer"
+                },
+                "browseTime": {
+                    "type": "string"
+                },
+                "browser": {
+                    "type": "integer"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "userBaseInfo": {
+                    "description": "用户基本信息",
+                    "$ref": "#/definitions/community.UserBaseInfo"
+                },
+                "userId": {
                     "type": "integer"
                 }
             }
@@ -15036,6 +15874,10 @@
                 },
                 "content": {
                     "description": "活动内容",
+                    "type": "string"
+                },
+                "coverImage": {
+                    "description": "封面",
                     "type": "string"
                 },
                 "payCurrency": {

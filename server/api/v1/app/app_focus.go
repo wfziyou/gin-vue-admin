@@ -23,7 +23,7 @@ var hkFocusUserService = service.ServiceGroupApp.AppServiceGroup.Community.Focus
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.FrequentBrowsingUserSearch true "分页获取经常浏览用户列表"
-// @Success 200 {object}  response.Response{data=[]community.UserBaseInfo,msg=string}  "返回community.ForumPosts"
+// @Success 200 {object}  response.Response{data=[]community.UserBaseInfo,msg=string}  "返回[]community.UserBaseInfo"
 // @Router /app/focus/getFrequentBrowsingUserList [get]
 func (focusApi *FocusApi) GetFrequentBrowsingUserList(c *gin.Context) {
 	var req communityReq.FrequentBrowsingUserSearch
@@ -32,15 +32,27 @@ func (focusApi *FocusApi) GetFrequentBrowsingUserList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	userId := utils.GetUserID(c)
+	if list, total, err := hkRecordBrowsingUserHomepageService.GetFrequentBrowsingUserList(userId, req.PageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
+	}
 }
 
-// GetFocusUserPostsList 分页获取关注用户列子列表
+// GetFocusUserPostsList 分页获取关注用户动态列表
 // @Tags 关注/粉丝
-// @Summary 分页获取关注用户列子列表
+// @Summary 分页获取关注用户动态列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.FocusUserDynamicSearch true "分页获取关注用户列子列表"
+// @Param data query communityReq.FocusUserDynamicSearch true "分页获取关注用户动态列表"
 // @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/focus/getFocusUserPostsList [get]
 func (focusApi *FocusApi) GetFocusUserPostsList(c *gin.Context) {
