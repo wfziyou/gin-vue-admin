@@ -79,6 +79,7 @@ func RegisterTables() {
 		community.HkChannel{},
 		community.FocusUser{},
 		community.ActivityUser{},
+		community.ActivityAddRequest{},
 		community.RecordBrowsingUserHomepage{},
 		community.RecordBrowsingCircleHomepage{},
 

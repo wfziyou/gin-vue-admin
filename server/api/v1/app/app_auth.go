@@ -337,7 +337,7 @@ func TokenNext(c *gin.Context, user community.User) {
 	}
 
 	var req imReq.UserGetUinfosActionReq
-	req.Accids = []string{user.Account}
+	req.Accids = []string{utils.UuidTo32String(user.Uuid)}
 
 	if rsp, err := imService.ServiceGroupApp.UserGetUinfosAction(req); err != nil {
 		global.GVA_LOG.Debug("调用IM失败：UserGetUinfosAction."+err.Error(), zap.Error(err))

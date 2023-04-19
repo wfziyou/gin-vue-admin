@@ -338,6 +338,8 @@ CREATE TABLE `hk_circle_user`  (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+   `remark` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+   `tag` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
    `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
    `power` int(2) NULL DEFAULT 0 COMMENT '权限：0普通 1圈主',
    `sort` int(11) NULL DEFAULT NULL COMMENT '用户的圈子排序',
@@ -1296,6 +1298,8 @@ CREATE TABLE `hk_focus_user`  (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+   `remark` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+   `tag` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
    `focus_user_id` bigint(20) NOT NULL COMMENT '关注用户ID',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
@@ -1317,6 +1321,8 @@ CREATE TABLE `hk_activity_user`  (
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `activity_id` bigint(20) NOT NULL COMMENT '活动编号',
    `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+   `remark` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+   `tag` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
    `power` int(2) NULL DEFAULT 0 COMMENT '权限：0普通 1管理员 2发起者',
    `pay` int(2) NULL DEFAULT 0 COMMENT '是否付费：0 否 1 是',
    `order_id` bigint(20) NULL DEFAULT NULL COMMENT '订单编号',
@@ -1548,3 +1554,27 @@ CREATE TABLE `hk_record_browsing_circle_homepage`  (
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
    PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '记录浏览圈子主页';
+
+-- ----------------------------
+-- Table structure for hk_activity_add_request
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_activity_add_request`;
+CREATE TABLE `hk_activity_add_request`  (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+   `activity_id` bigint(20) NOT NULL COMMENT '活动_编号',
+   `reason` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '申请理由',
+   `check_user` bigint(20) NULL DEFAULT NULL COMMENT '审核人',
+   `check_time` datetime(3) NULL DEFAULT NULL COMMENT '审核时间',
+   `check_status` int(2) NULL DEFAULT 0 COMMENT '审核状态：0 未处理、1通过、2驳回',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '加入活动申请';

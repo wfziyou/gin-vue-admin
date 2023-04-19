@@ -98,7 +98,7 @@ type ForumPostsBaseInfo struct {
 	global.GvaModelApp
 	CircleId   uint64               `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                 //圈子_编号
 	Category   int                  `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
-	GroupId    uint64               `json:"groupId" form:"groupId" gorm:"type:bigint(20);column:group_id;comment:帖子分类编号;"`                   //帖子分类编号
+	ChannelId  uint64               `json:"channelId" form:"channelId" gorm:"type:bigint(20);column:channel_id;comment:频道_编号;"`              //频道_编号
 	Title      string               `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                      //标题
 	CoverImage string               `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:封面;size:500;"`                     //封面
 	Source     string               `json:"source" form:"source" gorm:"column:source;comment:来源;size:40;"`                                   //来源

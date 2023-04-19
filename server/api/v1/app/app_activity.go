@@ -239,7 +239,7 @@ func (activityApi *ActivityApi) FindActivityUser(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.ActivityUserSearch true "分页获取活动的用户列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]community.ActivityUser,msg=string} "返回[]community.ActivityUser"
 // @Router /app/activity/getActivityUserList [get]
 func (activityApi *ActivityApi) GetActivityUserList(c *gin.Context) {
 	var pageInfo communityReq.ActivityUserSearch
@@ -259,6 +259,35 @@ func (activityApi *ActivityApi) GetActivityUserList(c *gin.Context) {
 			PageSize: pageInfo.PageSize,
 		}, "获取成功", c)
 	}
+}
+
+// GetActivityDynamicList 分页获取活动的动态列表
+// @Tags 活动
+// @Summary 分页获取活动的动态列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.ActivityDynamicSearch true "分页获取活动的动态列表"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回[]community.ForumPostsBaseInfo"
+// @Router /app/activity/getActivityDynamicList [get]
+func (activityApi *ActivityApi) GetActivityDynamicList(c *gin.Context) {
+	var pageInfo communityReq.ActivityDynamicSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//if list, total, err := hkActivityUserService.GetActivityUserInfoList(pageInfo); err != nil {
+	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
 }
 
 // GetCircleRecommendActivityList 分页获圈子推荐活动列表
@@ -316,5 +345,60 @@ func (activityApi *ActivityApi) GetGlobalRecommendActivityList(c *gin.Context) {
 			Page:     req.Page,
 			PageSize: req.PageSize,
 		}, "获取成功", c)
+	}
+}
+
+// CreateActivityDynamic 创建活动动态
+// @Tags 活动
+// @Summary 创建活动动态
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.CreateActivityDynamicReq true "创建活动动态"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /app/activity/createActivityDynamic [post]
+func (activityApi *ActivityApi) CreateActivityDynamic(c *gin.Context) {
+	var hkActivity communityReq.CreateActivityDynamicReq
+	err := c.ShouldBindJSON(&hkActivity)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+}
+
+// DeleteActivityDynamic 删除活动动态
+// @Tags 活动
+// @Summary 删除活动动态
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.IdDelete true "删除活动动态"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /app/activity/deleteActivityDynamic [delete]
+func (activityApi *ActivityApi) DeleteActivityDynamic(c *gin.Context) {
+	var req request.IdDelete
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+}
+
+// DeleteActivityDynamicByIds 批量删除活动动态
+// @Tags 活动
+// @Summary 批量删除活动动态
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.IdsReq true "批量删除活动动态"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
+// @Router /app/activity/deleteActivityDynamicByIds [delete]
+func (activityApi *ActivityApi) DeleteActivityDynamicByIds(c *gin.Context) {
+	var IDS request.IdsReq
+	err := c.ShouldBindJSON(&IDS)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
 }

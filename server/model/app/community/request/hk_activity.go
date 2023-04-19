@@ -22,6 +22,14 @@ type ActivityUserSearch struct {
 	request.PageInfo
 }
 
+type CreateActivityDynamicReq struct {
+	Content    string `json:"content" form:"content"`       //活动内容
+	Attachment string `json:"attachment" form:"attachment"` //附件
+}
+type ActivityDynamicSearch struct {
+	request.PageInfo
+}
+
 type CreateActivityReq struct {
 	Title           string     `json:"title" form:"title" `                    //标题
 	CoverImage      string     `json:"coverImage" form:"coverImage"`           //封面
@@ -50,7 +58,8 @@ type UpdateActivityReq struct {
 }
 
 type JoinActivityReq struct {
-	Id uint64 `json:"id" form:"id"` // 活动编号
+	Id     uint64 `json:"id" form:"id"`         // 活动编号
+	Reason string `json:"reason" form:"reason"` // 申请理由
 }
 type ExitActivityReq struct {
 	Id uint64 `json:"id" form:"id"` // 活动编号

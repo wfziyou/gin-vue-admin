@@ -8,17 +8,13 @@ import (
 // ActivityUser 结构体
 type ActivityUser struct {
 	global.GvaModelApp
-	TenantId   string `json:"tenantId" form:"tenantId" gorm:"column:tenant_id;comment:租户ID;size:12;"`
-	ActivityId *int   `json:"activityId" form:"activityId" gorm:"column:activity_id;comment:活动编号;size:19;"`
-	UserId     *int   `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`
-	Power      *int   `json:"power" form:"power" gorm:"column:power;comment:权限：0普通 1管理员 2发起者;size:10;"`
-	Pay        *int   `json:"pay" form:"pay" gorm:"column:pay;comment:是否付费：0 否 1 是;size:10;"`
-	OrderId    *int   `json:"orderId" form:"orderId" gorm:"column:order_id;comment:订单编号;size:19;"`
-	CreateUser *int   `json:"createUser" form:"createUser" gorm:"column:create_user;comment:创建人;size:19;"`
-	CreateDept *int   `json:"createDept" form:"createDept" gorm:"column:create_dept;comment:创建部门;size:19;"`
-	UpdateUser *int   `json:"updateUser" form:"updateUser" gorm:"column:update_user;comment:修改人;size:19;"`
-	Status     *int   `json:"status" form:"status" gorm:"column:status;comment:状态;size:10;"`
-	IsDel      *int   `json:"isDel" form:"isDel" gorm:"column:is_del;comment:是否已删除;size:10;"`
+	ActivityId uint64 `json:"activityId" form:"activityId" gorm:"column:activity_id;comment:活动编号;size:19;"` //活动编号
+	UserId     uint64 `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`             //用户编号
+	Remark     string `json:"remark" form:"remark" gorm:"column:remark;comment:备注;size:40;"`                //备注
+	Tag        string `json:"tag" form:"tag" gorm:"column:tag;comment:标签;size:512;"`                        //标签
+	Power      int    `json:"power" form:"power" gorm:"column:power;comment:权限：0普通 1管理员 2发起者;size:10;"`     //权限：0普通 1管理员 2发起者
+	Pay        int    `json:"pay" form:"pay" gorm:"column:pay;comment:是否付费：0 否 1 是;size:10;"`               //是否付费：0 否 1 是
+	OrderId    uint64 `json:"orderId" form:"orderId" gorm:"column:order_id;comment:订单编号;size:19;"`          //订单编号
 }
 
 // TableName ActivityUser 表名
