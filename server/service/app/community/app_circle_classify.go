@@ -68,7 +68,7 @@ func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoL
 
 // GetCircleClassifyInfoList 分页获取圈子分类记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoListAll(info communityReq.CircleClassifySearch) (list []community.CircleClassify, total int64, err error) {
+func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoListAll(info communityReq.CircleClassifyAllSearch) (list []community.CircleClassify, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&community.CircleClassify{})
 	var hkCircleClassifys []community.CircleClassify
@@ -76,11 +76,7 @@ func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoL
 	if len(info.Keyword) > 0 {
 		db = db.Where("title LIKE '%?%'", info.Keyword)
 	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
 
 	err = db.Find(&hkCircleClassifys).Error
-	return hkCircleClassifys, total, err
+	return hkCircleClassifys, err
 }

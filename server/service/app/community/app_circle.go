@@ -115,9 +115,6 @@ func (appCircleService *AppCircleService) GetCircleInfoList(info communityReq.Ci
 	db := global.GVA_DB.Model(&community.CircleBaseInfo{})
 	var hkCircles []community.CircleBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
 
 	if info.Type != nil {
 		db = db.Where("type = ?", info.Type)
@@ -125,8 +122,8 @@ func (appCircleService *AppCircleService) GetCircleInfoList(info communityReq.Ci
 	if info.CircleClassifyId != 0 {
 		db = db.Where("circle_classify_id = ?", info.CircleClassifyId)
 	}
-	if len(info.Name) > 0 {
-		db = db.Where("name LIKE '%?%'", info.Name)
+	if len(info.Keyword) > 0 {
+		db = db.Where("name LIKE '%?%'", info.Keyword)
 	}
 
 	err = db.Count(&total).Error

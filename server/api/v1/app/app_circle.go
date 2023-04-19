@@ -787,17 +787,17 @@ func (circleApi *CircleApi) GetCircleClassifyList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.CircleClassifySearch true "获取圈子分类列表"
+// @Param data query communityReq.CircleClassifyAllSearch true "获取圈子分类列表"
 // @Success 200 {object} response.Response{data=[]community.CircleClassify,msg=string} "返回community.CircleClassify"
 // @Router /app/circle/getCircleClassifyListAll [get]
 func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {
-	var pageInfo communityReq.CircleClassifySearch
+	var pageInfo communityReq.CircleClassifyAllSearch
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, _, err := appCircleClassifyService.GetCircleClassifyInfoListAll(pageInfo); err != nil {
+	if list, err := appCircleClassifyService.GetCircleClassifyInfoListAll(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

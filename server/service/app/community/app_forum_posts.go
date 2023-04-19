@@ -195,7 +195,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendQuestionList
 	return hkForumPostss, total, err
 }
 
-//GetGlobalRecommendActivityList 分页获全局推荐活动列表
+// GetGlobalRecommendActivityList 分页获全局推荐活动列表
 func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList(page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
@@ -288,9 +288,6 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
 	//圈子_编号
 	if info.CircleId != 0 {
 		db = db.Where("circle_id = ?", info.CircleId)

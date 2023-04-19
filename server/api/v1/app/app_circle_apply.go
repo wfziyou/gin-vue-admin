@@ -155,26 +155,21 @@ func (circleApplyApi *CircleApplyApi) GetApplyList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query applyReq.ApplySearchReq true "获取Apply列表"
+// @Param data query applyReq.ApplyAllSearchReq true "获取Apply列表"
 // @Success 200 {object}  response.PageResult{List=[]apply.Apply,msg=string} "返回apply.Apply"
 // @Router /app/circleApply/getApplyListAll [get]
 func (circleApplyApi *CircleApplyApi) GetApplyListAll(c *gin.Context) {
-	var pageInfo applyReq.ApplySearchReq
+	var pageInfo applyReq.ApplyAllSearchReq
 	err := c.ShouldBindQuery(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appApplyService.GetApplyInfoListAll(pageInfo); err != nil {
+	if list, err := appApplyService.GetApplyInfoListAll(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithDetailed(response.PageResult{
-			List:     list,
-			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
-		}, "获取成功", c)
+		response.OkWithDetailed(list, "获取成功", c)
 	}
 }
 
@@ -300,7 +295,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupListAll(c *gin.Context)
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, _, err := appCircleApplyGroupService.GetCircleApplyGroupInfoListAll(pageInfo); err != nil {
+	if list, err := appCircleApplyGroupService.GetCircleApplyGroupInfoListAll(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

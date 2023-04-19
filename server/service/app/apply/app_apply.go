@@ -80,7 +80,7 @@ func (appApplyService *AppApplyService) GetApplyInfoList(info applyReq.ApplySear
 
 // GetApplyInfoListAll 分页获取Apply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appApplyService *AppApplyService) GetApplyInfoListAll(info applyReq.ApplySearchReq) (list []apply.Apply, total int64, err error) {
+func (appApplyService *AppApplyService) GetApplyInfoListAll(info applyReq.ApplyAllSearchReq) (list []apply.Apply, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&apply.Apply{})
 	var hkApplys []apply.Apply
@@ -96,14 +96,10 @@ func (appApplyService *AppApplyService) GetApplyInfoListAll(info applyReq.ApplyS
 			db = db.Where("user_id = ?", info.UserId)
 		}
 	}
-	if len(info.Name) > 0 {
-		db = db.Where("name LIKE '?%'", info.Name)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
+	if len(info.Keyword) > 0 {
+		db = db.Where("name LIKE '%?%'", info.Keyword)
 	}
 
 	err = db.Find(&hkApplys).Error
-	return hkApplys, total, err
+	return hkApplys, err
 }

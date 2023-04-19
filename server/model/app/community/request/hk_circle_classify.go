@@ -7,3 +7,6 @@ import (
 type CircleClassifySearch struct {
 	request.PageInfo
 }
+type CircleClassifyAllSearch struct {
+	Keyword string `json:"keyword" form:"keyword"` //关键字
+}
