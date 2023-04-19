@@ -111,11 +111,7 @@ func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
 		return
 	}
 	if err := appForumTopicService.CreateForumTopic(community.ForumTopic{
-		Name:         req.Name,
-		CoverImage:   req.CoverImage,
-		TopicGroupId: req.TopicGroupId,
-		Type:         req.Type,
-		CircleId:     req.CircleId,
+		Name: req.Name,
 	}); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
