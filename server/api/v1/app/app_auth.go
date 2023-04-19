@@ -166,7 +166,11 @@ func (authApi *AuthApi) LoginOneClick(c *gin.Context) {
 			return
 		}
 		user = &userObj
-		ImRegiser(userObj)
+		err = ImRegiser(userObj)
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
 		TokenNext(c, *user)
 		return
 	} else {
@@ -207,7 +211,11 @@ func (authApi *AuthApi) Register(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	} else {
-		ImRegiser(userInfo)
+		err = ImRegiser(userInfo)
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
 	}
 	response.OkWithDetailed(authRes.RegisterResponse{User: userInfo}, "注册成功", c)
 }
@@ -334,7 +342,11 @@ func TokenNext(c *gin.Context, user community.User) {
 	if rsp, err := imService.ServiceGroupApp.UserGetUinfosAction(req); err != nil {
 		global.GVA_LOG.Debug("调用IM失败：UserGetUinfosAction."+err.Error(), zap.Error(err))
 	} else if rsp.Code == 414 {
-		ImRegiser(user)
+		err = ImRegiser(user)
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
 	} else {
 		global.GVA_LOG.Debug("调用IM：UserGetUinfosAction code:" + strconv.Itoa(rsp.Code))
 	}
@@ -393,17 +405,18 @@ func TokenNext(c *gin.Context, user community.User) {
 }
 
 // ImRegiser 调用IM注册
-func ImRegiser(user community.User) {
+func ImRegiser(user community.User) error {
 	var req imReq.RegisterReq
-	req.Accid = user.Account
-	req.Token = user.Uuid.String()
+	req.Accid = utils.UuidTo32String(user.Uuid)
+	req.Token = utils.UuidTo32String(user.Uuid)
 	req.Name = user.NickName
 	req.Icon = user.HeaderImg
 	if rsp, err := imService.ServiceGroupApp.UserCreateAction(req); err != nil {
 		global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
-		return
+		return err
 	} else if rsp.Code != 414 && rsp.Code != 200 {
 		global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
-		return
+		return err
 	}
+	return nil
 }
