@@ -14,3 +14,8 @@ type CircleSearch struct {
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）
 	request.PageInfo
 }
+
+type ChildCircleSearch struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+	request.PageInfo
+}

@@ -386,8 +386,7 @@ CREATE TABLE `hk_channel`  (
    `status` int(2) NULL DEFAULT 0 COMMENT '状态',
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
    PRIMARY KEY (`id`) USING BTREE,
-   UNIQUE INDEX `idx_hk_channel_name`(`name`) USING BTREE,
-   UNIQUE INDEX `idx_hk_channel_code`(`code`) USING BTREE
+   UNIQUE INDEX `idx_hk_channel_name`(`name`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '频道' ROW_FORMAT = Dynamic;
 
 -- ----------------------------

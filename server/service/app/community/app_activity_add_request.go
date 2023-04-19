@@ -53,10 +53,10 @@ func (hkActivityAddRequestService *ActivityAddRequestService) GetActivityAddRequ
 	// 创建db
 	db := global.GVA_DB.Model(&community.ActivityAddRequest{})
 	var hkActivityAddRequests []community.ActivityAddRequest
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
+	//// 如果有条件搜索 下方会自动创建搜索语句
+	//if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
+	//	db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	//}
 	err = db.Count(&total).Error
 	if err != nil {
 		return

@@ -38,15 +38,9 @@ func (hkChannelApi *HkChannelApi) GetChannelList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200 {object}  response.Response{data=[]community.ChannelInfo,msg=string} "返回[]community.HkChannel"
+// @Success 200 {object}  response.Response{data=[]community.ChannelInfo,msg=string} "返回[]community.ChannelInfo"
 // @Router /app/channel/getUserChannelList [get]
 func (hkChannelApi *HkChannelApi) GetUserChannelList(c *gin.Context) {
-	var pageInfo communityReq.HkChannelSearch
-	err := c.ShouldBindQuery(&pageInfo)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
 	userId := utils.GetUserID(c)
 	channelIds, err := appUserService.GetUserChannel(userId)
 	if err != nil {

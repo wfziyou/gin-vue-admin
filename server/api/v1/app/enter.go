@@ -62,6 +62,7 @@ var (
 	jwtService                   = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	cacheSmsService              = service.ServiceGroupApp.SystemServiceGroup.CacheSmsService
 
+	hkActivityAddRequestService = service.ServiceGroupApp.AppServiceGroup.Community.ActivityAddRequestService
 	//apiService              = service.ServiceGroupApp.SystemServiceGroup.ApiService
 	//jwtService              = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	//menuService             = service.ServiceGroupApp.SystemServiceGroup.MenuService

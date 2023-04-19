@@ -13,6 +13,7 @@ type ActivitySearch struct {
 type GlobalRecommendActivitySearch struct {
 	request.PageInfo
 }
+
 type CircleRecommendActivitySearch struct {
 	CircleId uint64 `json:"circleId" form:"circleId"` // 圈子_编号
 	request.PageInfo
@@ -57,10 +58,6 @@ type UpdateActivityReq struct {
 	PayNum          int        `json:"payNum" form:"payNum"`                   //付费金额
 }
 
-type JoinActivityReq struct {
-	Id     uint64 `json:"id" form:"id"`         // 活动编号
-	Reason string `json:"reason" form:"reason"` // 申请理由
-}
 type ExitActivityReq struct {
 	Id uint64 `json:"id" form:"id"` // 活动编号
 }
@@ -68,4 +65,17 @@ type ExitActivityReq struct {
 type FindActivityUserReq struct {
 	Id     uint64 `json:"id" form:"id"`         // 活动编号
 	UserId uint64 `json:"userId" form:"userId"` // 用户_编号
+}
+
+type JoinActivityReq struct {
+	Id     uint64 `json:"id" form:"id"`         // 活动编号
+	Reason string `json:"reason" form:"reason"` // 申请理由
+}
+
+type ActivityAddRequestSearch struct {
+	request.PageInfo
+}
+type UpdateActivityAddRequestReq struct {
+	Id          uint64 `json:"id" form:"id"`                   // 活动申请编号
+	CheckStatus int    `json:"checkStatus" form:"checkStatus"` //审核状态：0 未处理、1通过、2驳回
 }

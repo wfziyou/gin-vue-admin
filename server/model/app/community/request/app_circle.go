@@ -65,7 +65,10 @@ type ApproveEnterCircleReq struct {
 	UserId      uint64 `json:"-"`           //用户ID
 	CheckStatus int32  `json:"checkStatus"` //审核状态：1通过、2驳回
 }
-
+type DeleteCircleForumPostsReq struct {
+	CircleId uint64   `json:"circleId" form:"circleId" ` //圈子_编号
+	Ids      []uint64 `json:"ids" form:"ids" `           //帖子Ids
+}
 type DeleteCircleUserReq struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 	UserId   uint64 `json:"userId" form:"userId" `     //用户ID
@@ -75,8 +78,8 @@ type DeleteCircleUsersReq struct {
 	UserIds  []uint64 `json:"userIds" form:"userIds" `   //用户Ids
 }
 type UpdateCircleUserReq struct {
-	CircleId *int `json:"circleId" form:"circleId" ` //圈子_编号
-	UserId   *int `json:"userId" form:"userId" `     //用户ID
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+	UserId   uint64 `json:"userId" form:"userId" `     //用户ID
 }
 
 // CreateCircleRequestReq 创建圈子申请参数
@@ -111,4 +114,9 @@ type UpdateCircleReq struct {
 	PowerCommentUser string `json:"powerCommentUser" form:"powerCommentUser" gorm:"column:power_comment_user;comment:圈子内评论权限_指定部门和用户(json数组);size:500;"` //圈子内评论权限_指定部门和用户(json数组);size:500
 	NoLimitUserGroup string `json:"noLimitUserGroup" form:"noLimitUserGroup" gorm:"column:no_limit_user_group;comment:不受限用户组(json数组);size:500;"`         //不受限用户组(json数组);size:500
 	NewUserFocus     *int   `json:"newUserFocus" form:"newUserFocus" gorm:"column:new_user_focus;comment:新注册用户默认关注：0 否，1是;size:10;"`                     //新注册用户默认关注：0 否，1是
+}
+
+type ParamSetCircleChannel struct {
+	CircleId   uint64 `json:"circleId" form:"circleId" `                  //圈子_编号
+	ChannelIds string `json:"channelIds" form:"channelIds" example:"1,2"` //频道编号，通过逗号分割
 }

@@ -152,7 +152,7 @@ func (activityApi *ActivityApi) JoinActivity(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkActivityUserService.CreateActivityUser(hkActivityUser); err != nil {
+	//if err := hkActivityAddRequestService.CreateActivityAddRequest(&activityAddRequest); err != nil {
 	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
 	//	response.FailWithMessage("创建失败", c)
 	//} else {
@@ -261,35 +261,6 @@ func (activityApi *ActivityApi) GetActivityUserList(c *gin.Context) {
 	}
 }
 
-// GetActivityDynamicList 分页获取活动的动态列表
-// @Tags 活动
-// @Summary 分页获取活动的动态列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query communityReq.ActivityDynamicSearch true "分页获取活动的动态列表"
-// @Success 200 {object}  response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回[]community.ForumPostsBaseInfo"
-// @Router /app/activity/getActivityDynamicList [get]
-func (activityApi *ActivityApi) GetActivityDynamicList(c *gin.Context) {
-	var pageInfo communityReq.ActivityDynamicSearch
-	err := c.ShouldBindQuery(&pageInfo)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	//if list, total, err := hkActivityUserService.GetActivityUserInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
-}
-
 // GetCircleRecommendActivityList 分页获圈子推荐活动列表
 // @Tags 活动
 // @Summary 分页获圈子推荐活动列表
@@ -319,13 +290,13 @@ func (activityApi *ActivityApi) GetCircleRecommendActivityList(c *gin.Context) {
 	}
 }
 
-// GetGlobalRecommendActivityList 分页获全局推荐活动列表
+// GetGlobalRecommendActivityList 分页获取全局推荐活动列表
 // @Tags 活动
-// @Summary 分页获全局推荐活动列表
+// @Summary 分页获取全局推荐活动列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.GlobalRecommendActivitySearch true "分页获全局推荐活动列表"
+// @Param data query communityReq.GlobalRecommendActivitySearch true "分页获取全局推荐活动列表"
 // @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/activity/getGlobalRecommendActivityList [get]
 func (activityApi *ActivityApi) GetGlobalRecommendActivityList(c *gin.Context) {
@@ -400,5 +371,161 @@ func (activityApi *ActivityApi) DeleteActivityDynamicByIds(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+}
+
+// GetActivityDynamicList 分页获取活动的动态列表
+// @Tags 活动
+// @Summary 分页获取活动的动态列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.ActivityDynamicSearch true "分页获取活动的动态列表"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回[]community.ForumPostsBaseInfo"
+// @Router /app/activity/getActivityDynamicList [get]
+func (activityApi *ActivityApi) GetActivityDynamicList(c *gin.Context) {
+	var pageInfo communityReq.ActivityDynamicSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//if list, total, err := hkActivityUserService.GetActivityUserInfoList(pageInfo); err != nil {
+	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
+}
+
+// DeleteActivityAddRequest 删除活动报名申请
+// @Tags ActivityAddRequest
+// @Summary 删除活动报名申请
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.IdDelete true "删除活动报名申请"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /app/activity/deleteActivityAddRequest [delete]
+func (activityApi *ActivityApi) DeleteActivityAddRequest(c *gin.Context) {
+	var activityAddRequest request.IdDelete
+
+	err := c.ShouldBindJSON(&activityAddRequest)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//if err := hkActivityAddRequestService.DeleteActivityAddRequest(activityAddRequest); err != nil {
+	//	global.GVA_LOG.Error("删除失败!", zap.Error(err))
+	//	response.FailWithMessage("删除失败", c)
+	//} else {
+	//	response.OkWithMessage("删除成功", c)
+	//}
+}
+
+// DeleteActivityAddRequestByIds 批量删除活动报名申请
+// @Tags ActivityAddRequest
+// @Summary 批量删除活动报名申请
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.IdsReq true "批量删除活动报名申请"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
+// @Router /app/activity/deleteActivityAddRequestByIds [delete]
+func (activityApi *ActivityApi) DeleteActivityAddRequestByIds(c *gin.Context) {
+	var IDS request.IdsReq
+	err := c.ShouldBindJSON(&IDS)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if err := hkActivityAddRequestService.DeleteActivityAddRequestByIds(IDS); err != nil {
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		response.FailWithMessage("批量删除失败", c)
+	} else {
+		response.OkWithMessage("批量删除成功", c)
+	}
+}
+
+// UpdateActivityAddRequest 活动报名申请审批
+// @Tags ActivityAddRequest
+// @Summary 活动报名申请审批
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.UpdateActivityAddRequestReq true "活动报名申请审批"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /app/activity/updateActivityAddRequest [put]
+func (activityApi *ActivityApi) UpdateActivityAddRequest(c *gin.Context) {
+	var activityAddRequest communityReq.UpdateActivityAddRequestReq
+	err := c.ShouldBindJSON(&activityAddRequest)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//if err := hkActivityAddRequestService.UpdateActivityAddRequest(activityAddRequest); err != nil {
+	//	global.GVA_LOG.Error("更新失败!", zap.Error(err))
+	//	response.FailWithMessage("更新失败", c)
+	//} else {
+	//	response.OkWithMessage("更新成功", c)
+	//}
+}
+
+// FindActivityAddRequest 用id查询活动报名申请
+// @Tags ActivityAddRequest
+// @Summary 用id查询活动报名申请
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query request.IdSearch true "用id查询活动报名申请"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Router /app/activity/findActivityAddRequest [get]
+func (activityApi *ActivityApi) FindActivityAddRequest(c *gin.Context) {
+	var req request.IdSearch
+
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if rehkActivityAddRequest, err := hkActivityAddRequestService.GetActivityAddRequest(req.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+	} else {
+		response.OkWithData(gin.H{"rehkActivityAddRequest": rehkActivityAddRequest}, c)
+	}
+}
+
+// GetActivityAddRequestList 分页获取活动报名申请列表
+// @Tags 活动
+// @Summary 分页获取活动报名申请列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.ActivityAddRequestSearch true "分页获取活动报名申请列表"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
+// @Router /app/activity/getActivityAddRequestList [get]
+func (activityApi *ActivityApi) GetActivityAddRequestList(c *gin.Context) {
+	var req communityReq.ActivityAddRequestSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if list, total, err := hkActivityAddRequestService.GetActivityAddRequestInfoList(req); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
 	}
 }
