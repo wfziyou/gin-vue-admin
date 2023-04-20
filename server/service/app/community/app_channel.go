@@ -1,6 +1,7 @@
 package community
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
@@ -61,7 +62,15 @@ func (hkChannelService *HkChannelService) GetChannelInfoListById(ids string) (li
 	// 创建db
 	db := global.GVA_DB.Model(&community.ChannelInfo{})
 	var hkChannels []community.ChannelInfo
-
-	err = db.Where("id in(?)", ids).Find(&hkChannels).Error
+	sql := fmt.Sprintf("id in(%s)", ids)
+	err = db.Where(sql).Find(&hkChannels).Error
 	return hkChannels, total, err
+}
+
+func (hkChannelService *HkChannelService) GetDefaultChannelInfoList() (list []community.ChannelInfo, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&community.ChannelInfo{})
+	var hkChannels []community.ChannelInfo
+	err = db.Where("type = 1").Find(&hkChannels).Error
+	return hkChannels, err
 }

@@ -367,6 +367,10 @@ INSERT INTO `casbin_rule` VALUES (11406, 'p', '888', '/app/focus/getFocusUserLis
 INSERT INTO `casbin_rule` VALUES (11407, 'p', '888', '/app/focus/getFansList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11408, 'p', '888', '/app/focus/findFocusUser', 'GET', '', '', '', '', '');
 
+INSERT INTO `casbin_rule` VALUES (11501, 'p', '888', '/app/channel/getChannelList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11502, 'p', '888', '/app/channel/getUserChannelList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11503, 'p', '888', '/app/channel/setUserChannel', 'POST', '', '', '', '', '');
+
 -- ----------------------------
 -- Table structure for exa_customers
 -- ----------------------------
@@ -537,6 +541,7 @@ INSERT INTO `sys_apis_group` VALUES (11, '000000', '2023-02-06 18:19:13.303', '2
 INSERT INTO `sys_apis_group` VALUES (12, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'APP权限_活动', '', 12);
 INSERT INTO `sys_apis_group` VALUES (13, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'APP权限_问答', '', 13);
 INSERT INTO `sys_apis_group` VALUES (14, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'APP权限_关注', '', 14);
+INSERT INTO `sys_apis_group` VALUES (15, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'APP权限_频道', '', 15);
 
 INSERT INTO `sys_apis_group` VALUES (51, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'base', '', 51);
 INSERT INTO `sys_apis_group` VALUES (52, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'jwt', '', 52);
@@ -833,6 +838,10 @@ INSERT INTO `sys_apis` VALUES (1405, '000000', '2023-02-06 18:19:13.303', '2023-
 INSERT INTO `sys_apis` VALUES (1406, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/focus/getFocusUserList', '分页获取关注用户列表', 14, 'GET');
 INSERT INTO `sys_apis` VALUES (1407, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/focus/getFansList', '分页获取粉丝列表', 14, 'GET');
 INSERT INTO `sys_apis` VALUES (1408, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/focus/findFocusUser', '用id查询关注用户', 14, 'GET');
+
+INSERT INTO `sys_apis` VALUES (1501, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/channel/getChannelList', '获取频道列表', 15, 'GET');
+INSERT INTO `sys_apis` VALUES (1502, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/channel/getUserChannelList', '获取用户频道', 15, 'GET');
+INSERT INTO `sys_apis` VALUES (1503, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/channel/setUserChannel', '设置用户频道', 15, 'POST');
 -- ----------------------------
 -- Table structure for sys_authorities
 -- ----------------------------

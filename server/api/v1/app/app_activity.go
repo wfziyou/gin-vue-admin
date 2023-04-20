@@ -404,7 +404,7 @@ func (activityApi *ActivityApi) GetActivityDynamicList(c *gin.Context) {
 }
 
 // DeleteActivityAddRequest 删除活动报名申请
-// @Tags ActivityAddRequest
+// @Tags 活动
 // @Summary 删除活动报名申请
 // @Security ApiKeyAuth
 // @accept application/json
@@ -429,7 +429,7 @@ func (activityApi *ActivityApi) DeleteActivityAddRequest(c *gin.Context) {
 }
 
 // DeleteActivityAddRequestByIds 批量删除活动报名申请
-// @Tags ActivityAddRequest
+// @Tags 活动
 // @Summary 批量删除活动报名申请
 // @Security ApiKeyAuth
 // @accept application/json
@@ -453,7 +453,7 @@ func (activityApi *ActivityApi) DeleteActivityAddRequestByIds(c *gin.Context) {
 }
 
 // UpdateActivityAddRequest 活动报名申请审批
-// @Tags ActivityAddRequest
+// @Tags 活动
 // @Summary 活动报名申请审批
 // @Security ApiKeyAuth
 // @accept application/json
@@ -477,7 +477,7 @@ func (activityApi *ActivityApi) UpdateActivityAddRequest(c *gin.Context) {
 }
 
 // FindActivityAddRequest 用id查询活动报名申请
-// @Tags ActivityAddRequest
+// @Tags 活动
 // @Summary 用id查询活动报名申请
 // @Security ApiKeyAuth
 // @accept application/json

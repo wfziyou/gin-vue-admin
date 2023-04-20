@@ -431,6 +431,44 @@ var doc = `{
                 }
             }
         },
+        "/app/activity/createActivityDynamic": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "创建活动动态",
+                "parameters": [
+                    {
+                        "description": "创建活动动态",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CreateActivityDynamicReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/activity/deleteActivity": {
             "delete": {
                 "security": [
@@ -469,6 +507,82 @@ var doc = `{
                 }
             }
         },
+        "/app/activity/deleteActivityAddRequest": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "删除活动报名申请",
+                "parameters": [
+                    {
+                        "description": "删除活动报名申请",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdDelete"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/deleteActivityAddRequestByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "批量删除活动报名申请",
+                "parameters": [
+                    {
+                        "description": "批量删除活动报名申请",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/activity/deleteActivityByIds": {
             "delete": {
                 "security": [
@@ -489,6 +603,82 @@ var doc = `{
                 "parameters": [
                     {
                         "description": "批量删除活动",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/deleteActivityDynamic": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "删除活动动态",
+                "parameters": [
+                    {
+                        "description": "删除活动动态",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdDelete"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/deleteActivityDynamicByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "批量删除活动动态",
+                "parameters": [
+                    {
+                        "description": "批量删除活动动态",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -595,6 +785,41 @@ var doc = `{
                 }
             }
         },
+        "/app/activity/findActivityAddRequest": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "用id查询活动报名申请",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "编号",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/activity/findActivityUser": {
             "get": {
                 "security": [
@@ -631,6 +856,136 @@ var doc = `{
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/getActivityAddRequestList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "分页获取活动报名申请列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumPostsBaseInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/getActivityDynamicList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "分页获取活动的动态列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.ForumPostsBaseInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -675,9 +1030,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回[]community.ActivityUser",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ActivityUser"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -770,7 +1143,7 @@ var doc = `{
                 "tags": [
                     "活动"
                 ],
-                "summary": "分页获全局推荐活动列表",
+                "summary": "分页获取全局推荐活动列表",
                 "parameters": [
                     {
                         "type": "string",
@@ -920,6 +1293,44 @@ var doc = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/request.UpdateActivityReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/activity/updateActivityAddRequest": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "活动"
+                ],
+                "summary": "活动报名申请审批",
+                "parameters": [
+                    {
+                        "description": "活动报名申请审批",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.UpdateActivityAddRequestReq"
                         }
                     }
                 ],
@@ -1322,7 +1733,7 @@ var doc = `{
                 "summary": "获取用户频道",
                 "responses": {
                     "200": {
-                        "description": "返回[]community.HkChannel",
+                        "description": "返回[]community.ChannelInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -1500,6 +1911,44 @@ var doc = `{
                 }
             }
         },
+        "/app/circle/deleteCircleForumPosts": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "删除圈子的帖子",
+                "parameters": [
+                    {
+                        "description": "删除圈子的帖子",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteCircleForumPostsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/deleteCircleUser": {
             "delete": {
                 "security": [
@@ -1538,7 +1987,7 @@ var doc = `{
                 }
             }
         },
-        "/app/circle/deleteCircleUserByIds": {
+        "/app/circle/deleteCircleUsers": {
             "delete": {
                 "security": [
                     {
@@ -1897,6 +2346,122 @@ var doc = `{
                 }
             }
         },
+        "/app/circle/getChildCircleList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "分页获取子圈子列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.CircleBaseInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.CircleBaseInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/getCircleChannelList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "获取圈子频道",
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.ChannelInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ChannelInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/getCircleClassifyList": {
             "get": {
                 "security": [
@@ -1917,26 +2482,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "描述",
-                        "name": "des",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "名称",
-                        "name": "name",
                         "in": "query"
                     },
                     {
@@ -1949,12 +2496,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -2006,44 +2547,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "描述",
-                        "name": "des",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "名称",
-                        "name": "name",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -2106,12 +2611,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "帖子分类编号",
                         "name": "groupId",
@@ -2139,12 +2638,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     },
                     {
@@ -2214,20 +2707,8 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "搜索名字：圈子名称或圈子简介",
-                        "name": "name",
                         "in": "query"
                     },
                     {
@@ -2240,12 +2721,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     },
                     {
@@ -2681,6 +3156,44 @@ var doc = `{
                 }
             }
         },
+        "/app/circle/setCircleChannel": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "设置圈子频道",
+                "parameters": [
+                    {
+                        "description": "设置圈子频道",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamSetCircleChannel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/setUserCurCircle": {
             "post": {
                 "security": [
@@ -3015,27 +3528,9 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "名称",
-                        "name": "name",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "拥有者：0平台、1圈子、2个人",
                         "name": "owerType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
                         "in": "query"
                     },
                     {
@@ -3099,20 +3594,8 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "名称",
-                        "name": "name",
                         "in": "query"
                     },
                     {
@@ -3131,12 +3614,6 @@ var doc = `{
                         "type": "integer",
                         "description": "父节点编号",
                         "name": "parentId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -3194,44 +3671,14 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "名称",
                         "name": "name",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "父节点编号",
                         "name": "parentId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -4016,16 +4463,6 @@ var doc = `{
                 "summary": "分页获取关注用户列表",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
@@ -4038,6 +4475,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "关注用户ID",
                         "name": "focusUserId",
                         "in": "query"
                     },
@@ -4045,11 +4483,6 @@ var doc = `{
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
                         "in": "query"
                     },
                     {
@@ -4072,6 +4505,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "备注",
                         "name": "remark",
                         "in": "query"
                     },
@@ -4081,33 +4515,14 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
+                        "description": "标签",
                         "name": "tag",
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "name": "tenantId",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
+                        "description": "用户ID",
                         "name": "userId",
                         "in": "query"
                     }
@@ -7411,7 +7826,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/general.UserBrowsingHistory"
+                            "$ref": "#/definitions/request.IdDelete"
                         }
                     }
                 ],
@@ -13005,6 +13420,47 @@ var doc = `{
                 }
             }
         },
+        "community.ActivityUser": {
+            "type": "object",
+            "properties": {
+                "activityId": {
+                    "description": "活动编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "orderId": {
+                    "description": "订单编号",
+                    "type": "integer"
+                },
+                "pay": {
+                    "description": "是否付费：0 否 1 是",
+                    "type": "integer"
+                },
+                "power": {
+                    "description": "权限：0普通 1管理员 2发起者",
+                    "type": "integer"
+                },
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
+                },
+                "tag": {
+                    "description": "标签",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户编号",
+                    "type": "integer"
+                }
+            }
+        },
         "community.ChannelInfo": {
             "type": "object",
             "properties": {
@@ -13334,9 +13790,17 @@ var doc = `{
                     "description": "权限：0普通 1圈主",
                     "type": "integer"
                 },
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
+                },
                 "sort": {
                     "description": "用户的圈子排序",
                     "type": "integer"
+                },
+                "tag": {
+                    "description": "标签",
+                    "type": "string"
                 },
                 "userId": {
                     "description": "用户ID",
@@ -13360,46 +13824,28 @@ var doc = `{
         "community.FocusUser": {
             "type": "object",
             "properties": {
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
                 },
                 "focusUserId": {
+                    "description": "关注用户ID",
                     "type": "integer"
                 },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "isDel": {
-                    "type": "integer"
-                },
                 "remark": {
+                    "description": "备注",
                     "type": "string"
-                },
-                "status": {
-                    "type": "integer"
                 },
                 "tag": {
-                    "type": "string"
-                },
-                "tenantId": {
-                    "type": "string"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
+                    "description": "标签",
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户ID",
                     "type": "integer"
                 }
             }
@@ -13727,6 +14173,10 @@ var doc = `{
                     "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
                     "type": "integer"
                 },
+                "channelId": {
+                    "description": "频道_编号",
+                    "type": "integer"
+                },
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
@@ -13754,10 +14204,6 @@ var doc = `{
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
-                },
-                "groupId": {
-                    "description": "帖子分类编号",
-                    "type": "integer"
                 },
                 "id": {
                     "description": "主键ID",
@@ -13822,14 +14268,6 @@ var doc = `{
         "community.ForumTopic": {
             "type": "object",
             "properties": {
-                "attentionNum": {
-                    "description": "关注数",
-                    "type": "integer"
-                },
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
                 "coverImage": {
                     "description": "封面",
                     "type": "string"
@@ -13854,16 +14292,8 @@ var doc = `{
                     "description": "名称",
                     "type": "string"
                 },
-                "reviewStatus": {
-                    "description": "审核状态：0 未处理 1 通过，2驳回",
-                    "type": "integer"
-                },
                 "topicGroupId": {
                     "description": "分组id",
-                    "type": "integer"
-                },
-                "type": {
-                    "description": "话题类型：0 全局，1圈子",
                     "type": "integer"
                 }
             }
@@ -15869,6 +16299,19 @@ var doc = `{
                 }
             }
         },
+        "request.CreateActivityDynamicReq": {
+            "type": "object",
+            "properties": {
+                "attachment": {
+                    "description": "附件",
+                    "type": "string"
+                },
+                "content": {
+                    "description": "活动内容",
+                    "type": "string"
+                }
+            }
+        },
         "request.CreateActivityReq": {
             "type": "object",
             "properties": {
@@ -16012,25 +16455,9 @@ var doc = `{
         "request.CreateForumTopicReq": {
             "type": "object",
             "properties": {
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
-                "coverImage": {
-                    "description": "封面",
-                    "type": "string"
-                },
                 "name": {
                     "description": "名称",
                     "type": "string"
-                },
-                "topicGroupId": {
-                    "description": "分组id",
-                    "type": "integer"
-                },
-                "type": {
-                    "description": "话题类型：0 全局，1圈子",
-                    "type": "integer"
                 }
             }
         },
@@ -16060,6 +16487,22 @@ var doc = `{
                 "title": {
                     "description": "标题",
                     "type": "string"
+                }
+            }
+        },
+        "request.DeleteCircleForumPostsReq": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "ids": {
+                    "description": "帖子Ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             }
         },
@@ -16228,6 +16671,10 @@ var doc = `{
                 "id": {
                     "description": "活动编号",
                     "type": "integer"
+                },
+                "reason": {
+                    "description": "申请理由",
+                    "type": "string"
                 }
             }
         },
@@ -16329,6 +16776,20 @@ var doc = `{
                 },
                 "pageSize": {
                     "description": "每页大小",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamSetCircleChannel": {
+            "type": "object",
+            "properties": {
+                "channelIds": {
+                    "description": "频道编号，通过逗号分割",
+                    "type": "string",
+                    "example": "1,2"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
                     "type": "integer"
                 }
             }
@@ -16553,6 +17014,19 @@ var doc = `{
                 },
                 "pageSize": {
                     "description": "每页大小",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.UpdateActivityAddRequestReq": {
+            "type": "object",
+            "properties": {
+                "checkStatus": {
+                    "description": "审核状态：0 未处理、1通过、2驳回",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "活动申请编号",
                     "type": "integer"
                 }
             }

@@ -120,6 +120,36 @@ definitions:
         description: 性别： 0未知、1男、2女
         type: integer
     type: object
+  community.ActivityUser:
+    properties:
+      activityId:
+        description: 活动编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      orderId:
+        description: 订单编号
+        type: integer
+      pay:
+        description: 是否付费：0 否 1 是
+        type: integer
+      power:
+        description: 权限：0普通 1管理员 2发起者
+        type: integer
+      remark:
+        description: 备注
+        type: string
+      tag:
+        description: 标签
+        type: string
+      userId:
+        description: 用户编号
+        type: integer
+    type: object
   community.ChannelInfo:
     properties:
       code:
@@ -362,9 +392,15 @@ definitions:
       power:
         description: 权限：0普通 1圈主
         type: integer
+      remark:
+        description: 备注
+        type: string
       sort:
         description: 用户的圈子排序
         type: integer
+      tag:
+        description: 标签
+        type: string
       userId:
         description: 用户ID
         type: integer
@@ -380,34 +416,23 @@ definitions:
     type: object
   community.FocusUser:
     properties:
-      createDept:
-        type: integer
-      createUser:
-        type: integer
       createdAt:
         description: 创建时间
         type: string
       focusUserId:
+        description: 关注用户ID
         type: integer
       id:
         description: 主键ID
         type: integer
-      isDel:
-        type: integer
       remark:
+        description: 备注
         type: string
-      status:
-        type: integer
       tag:
-        type: string
-      tenantId:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
+        description: 标签
         type: string
       userId:
+        description: 用户ID
         type: integer
     type: object
   community.FocusUserInfo:
@@ -649,6 +674,9 @@ definitions:
       category:
         description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         type: integer
+      channelId:
+        description: 频道_编号
+        type: integer
       circleId:
         description: 圈子_编号
         type: integer
@@ -670,9 +698,6 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
-      groupId:
-        description: 帖子分类编号
-        type: integer
       id:
         description: 主键ID
         type: integer
@@ -719,12 +744,6 @@ definitions:
     type: object
   community.ForumTopic:
     properties:
-      attentionNum:
-        description: 关注数
-        type: integer
-      circleId:
-        description: 圈子_编号
-        type: integer
       coverImage:
         description: 封面
         type: string
@@ -743,14 +762,8 @@ definitions:
       name:
         description: 名称
         type: string
-      reviewStatus:
-        description: 审核状态：0 未处理 1 通过，2驳回
-        type: integer
       topicGroupId:
         description: 分组id
-        type: integer
-      type:
-        description: 话题类型：0 全局，1圈子
         type: integer
     type: object
   community.ForumTopicBaseInfo:
@@ -2174,6 +2187,15 @@ definitions:
         description: 问题_编号
         type: integer
     type: object
+  request.CreateActivityDynamicReq:
+    properties:
+      attachment:
+        description: 附件
+        type: string
+      content:
+        description: 活动内容
+        type: string
+    type: object
   request.CreateActivityReq:
     properties:
       activityAddress:
@@ -2278,21 +2300,9 @@ definitions:
     type: object
   request.CreateForumTopicReq:
     properties:
-      circleId:
-        description: 圈子_编号
-        type: integer
-      coverImage:
-        description: 封面
-        type: string
       name:
         description: 名称
         type: string
-      topicGroupId:
-        description: 分组id
-        type: integer
-      type:
-        description: 话题类型：0 全局，1圈子
-        type: integer
     type: object
   request.CreateQuestion:
     properties:
@@ -2314,6 +2324,17 @@ definitions:
       title:
         description: 标题
         type: string
+    type: object
+  request.DeleteCircleForumPostsReq:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      ids:
+        description: 帖子Ids
+        items:
+          type: integer
+        type: array
     type: object
   request.DeleteCircleUserReq:
     properties:
@@ -2428,6 +2449,9 @@ definitions:
       id:
         description: 活动编号
         type: integer
+      reason:
+        description: 申请理由
+        type: string
     type: object
   request.KickOutActivityUsersReq:
     properties:
@@ -2498,6 +2522,16 @@ definitions:
         type: integer
       pageSize:
         description: 每页大小
+        type: integer
+    type: object
+  request.ParamSetCircleChannel:
+    properties:
+      channelIds:
+        description: 频道编号，通过逗号分割
+        example: 1,2
+        type: string
+      circleId:
+        description: 圈子_编号
         type: integer
     type: object
   request.ParamSetUserChannel:
@@ -2655,6 +2689,15 @@ definitions:
         type: integer
       pageSize:
         description: 每页大小
+        type: integer
+    type: object
+  request.UpdateActivityAddRequestReq:
+    properties:
+      checkStatus:
+        description: 审核状态：0 未处理、1通过、2驳回
+        type: integer
+      id:
+        description: 活动申请编号
         type: integer
     type: object
   request.UpdateActivityReq:
@@ -3753,6 +3796,29 @@ paths:
       summary: 创建活动
       tags:
       - 活动
+  /app/activity/createActivityDynamic:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建活动动态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateActivityDynamicReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建活动动态
+      tags:
+      - 活动
   /app/activity/deleteActivity:
     delete:
       consumes:
@@ -3776,6 +3842,52 @@ paths:
       summary: 删除活动
       tags:
       - 活动
+  /app/activity/deleteActivityAddRequest:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除活动报名申请
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdDelete'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除活动报名申请
+      tags:
+      - 活动
+  /app/activity/deleteActivityAddRequestByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除活动报名申请
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除活动报名申请
+      tags:
+      - 活动
   /app/activity/deleteActivityByIds:
     delete:
       consumes:
@@ -3797,6 +3909,52 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 批量删除活动
+      tags:
+      - 活动
+  /app/activity/deleteActivityDynamic:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除活动动态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdDelete'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除活动动态
+      tags:
+      - 活动
+  /app/activity/deleteActivityDynamicByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除活动动态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除活动动态
       tags:
       - 活动
   /app/activity/exitActivity:
@@ -3850,6 +4008,27 @@ paths:
       summary: 用id查询活动详情
       tags:
       - 活动
+  /app/activity/findActivityAddRequest:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 编号
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询活动报名申请
+      tags:
+      - 活动
   /app/activity/findActivityUser:
     get:
       consumes:
@@ -3875,6 +4054,82 @@ paths:
       summary: 查询活动的用户
       tags:
       - 活动
+  /app/activity/getActivityAddRequestList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPostsBaseInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPostsBaseInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取活动报名申请列表
+      tags:
+      - 活动
+  /app/activity/getActivityDynamicList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.ForumPostsBaseInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPostsBaseInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取活动的动态列表
+      tags:
+      - 活动
   /app/activity/getActivityUserList:
     get:
       consumes:
@@ -3896,9 +4151,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回[]community.ActivityUser
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ActivityUser'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取活动的用户列表
@@ -3981,7 +4245,7 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获全局推荐活动列表
+      summary: 分页获取全局推荐活动列表
       tags:
       - 活动
   /app/activity/joinActivity:
@@ -4051,6 +4315,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 更新活动
+      tags:
+      - 活动
+  /app/activity/updateActivityAddRequest:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 活动报名申请审批
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateActivityAddRequestReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 活动报名申请审批
       tags:
       - 活动
   /app/auth/getSmsVerification:
@@ -4277,7 +4564,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回[]community.HkChannel
+          description: 返回[]community.ChannelInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -4386,6 +4673,29 @@ paths:
       summary: 创建圈子请求
       tags:
       - 圈子
+  /app/circle/deleteCircleForumPosts:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除圈子的帖子
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DeleteCircleForumPostsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除圈子的帖子
+      tags:
+      - 圈子
   /app/circle/deleteCircleUser:
     delete:
       consumes:
@@ -4409,7 +4719,7 @@ paths:
       summary: 删除圈子用户
       tags:
       - 圈子
-  /app/circle/deleteCircleUserByIds:
+  /app/circle/deleteCircleUsers:
     delete:
       consumes:
       - application/json
@@ -4620,26 +4930,18 @@ paths:
       summary: 用id查询圈子用户信息
       tags:
       - 圈子
-  /app/circle/getCircleClassifyList:
+  /app/circle/getChildCircleList:
     get:
       consumes:
       - application/json
       parameters:
-      - description: 描述
+      - description: 圈子_编号
         in: query
-        name: des
-        type: string
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
+        name: circleId
+        type: integer
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 名称
-        in: query
-        name: name
         type: string
       - description: 页码
         in: query
@@ -4649,10 +4951,69 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 创建时间（开始）
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.CircleBaseInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.CircleBaseInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取子圈子列表
+      tags:
+      - 圈子
+  /app/circle/getCircleChannelList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.ChannelInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.ChannelInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取圈子频道
+      tags:
+      - 圈子
+  /app/circle/getCircleClassifyList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
         in: query
-        name: startCreatedAt
+        name: keyword
         type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
       produces:
       - application/json
       responses:
@@ -4679,33 +5040,9 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 描述
-        in: query
-        name: des
-        type: string
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 名称
-        in: query
-        name: name
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
         type: string
       produces:
       - application/json
@@ -4741,10 +5078,6 @@ paths:
         in: query
         name: circleId
         type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 帖子分类编号
         in: query
         name: groupId
@@ -4765,10 +5098,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       - description: 标题
         in: query
         name: title
@@ -4807,17 +5136,9 @@ paths:
         in: query
         name: circleClassifyId
         type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 搜索名字：圈子名称或圈子简介
-        in: query
-        name: name
         type: string
       - description: 页码
         in: query
@@ -4827,10 +5148,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       - description: 类型：0官方圈子、1用户圈子、2小区
         in: query
         name: type
@@ -5100,6 +5417,29 @@ paths:
       summary: 用户加入圈子的所有动态列表
       tags:
       - 圈子
+  /app/circle/setCircleChannel:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 设置圈子频道
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamSetCircleChannel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 设置圈子频道
+      tags:
+      - 圈子
   /app/circle/setUserCurCircle:
     post:
       consumes:
@@ -5292,21 +5632,9 @@ paths:
         in: query
         name: keyword
         type: string
-      - description: 名称
-        in: query
-        name: name
-        type: string
       - description: 拥有者：0平台、1圈子、2个人
         in: query
         name: owerType
-        type: integer
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
         type: integer
       - description: 用户_编号
         in: query
@@ -5342,17 +5670,9 @@ paths:
         in: query
         name: circleId
         type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 名称
-        in: query
-        name: name
         type: string
       - description: 页码
         in: query
@@ -5366,10 +5686,6 @@ paths:
         in: query
         name: parentId
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       produces:
       - application/json
       responses:
@@ -5400,34 +5716,14 @@ paths:
         in: query
         name: circleId
         type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
       - description: 名称
         in: query
         name: name
         type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
       - description: 父节点编号
         in: query
         name: parentId
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       produces:
       - application/json
       responses:
@@ -5882,12 +6178,6 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
       - description: 创建时间
         in: query
         name: createdAt
@@ -5895,15 +6185,13 @@ paths:
       - in: query
         name: endCreatedAt
         type: string
-      - in: query
+      - description: 关注用户ID
+        in: query
         name: focusUserId
         type: integer
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDel
         type: integer
       - description: 关键字
         in: query
@@ -5917,29 +6205,19 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 备注
+        in: query
         name: remark
         type: string
       - in: query
         name: startCreatedAt
         type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
+      - description: 标签
+        in: query
         name: tag
         type: string
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
+      - description: 用户ID
         in: query
-        name: updatedAt
-        type: string
-      - in: query
         name: userId
         type: integer
       produces:
@@ -7911,7 +8189,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/general.UserBrowsingHistory'
+          $ref: '#/definitions/request.IdDelete'
       produces:
       - application/json
       responses:

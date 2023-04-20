@@ -806,7 +806,7 @@ func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {
 }
 
 // SetCircleChannel 设置圈子频道
-// @Tags 频道
+// @Tags 圈子
 // @Summary 设置圈子频道
 // @Security ApiKeyAuth
 // @accept application/json
@@ -831,7 +831,7 @@ func (circleApi *CircleApi) SetCircleChannel(c *gin.Context) {
 }
 
 // GetCircleChannelList 获取圈子频道
-// @Tags 频道
+// @Tags 圈子
 // @Summary 获取圈子频道
 // @Security ApiKeyAuth
 // @accept application/json

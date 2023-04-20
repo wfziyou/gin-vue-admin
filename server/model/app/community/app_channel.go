@@ -39,7 +39,7 @@ type HkChannel struct {
 	Name       string `json:"name" form:"name" gorm:"column:name;comment:名称;size:20;"`
 	Code       int    `json:"code" form:"code" gorm:"column:code;comment:标识：0常规、1资讯、2关注、3附近、4活动、5问答;size:10;"`
 	FixedType  int    `json:"fixedType" form:"fixedType" gorm:"column:fixed_type;comment:固定标识(不固定:0，固定:1);"`
-	Type       int    `json:"type" form:"type" gorm:"column:type;comment:类型：0系统 1自定义;"`
+	Type       int    `json:"type" form:"type" gorm:"column:type;comment:类型：0系统 1默认频道;"`
 	Sort       int    `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`
 	CreateUser *int   `json:"createUser" form:"createUser" gorm:"column:create_user;comment:创建人;size:19;"`
 	CreateDept *int   `json:"createDept" form:"createDept" gorm:"column:create_dept;comment:创建部门;size:19;"`

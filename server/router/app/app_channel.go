@@ -12,8 +12,8 @@ type HkChannelRouter struct {
 // InitHkChannelRouter 初始化 HkChannel 路由信息
 func (s *HkChannelRouter) InitHkChannelRouter(Router *gin.RouterGroup) {
 	appRouter := Router.Group("app")
-	hkChannelRouter := appRouter.Group("hkChannel").Use(middleware.OperationRecord())
-	hkChannelRouterWithoutRecord := appRouter.Group("hkChannel")
+	hkChannelRouter := appRouter.Group("channel").Use(middleware.OperationRecord())
+	hkChannelRouterWithoutRecord := appRouter.Group("channel")
 	var hkChannelApi = v1.ApiGroupApp.AppApiGroup.HkChannelApi
 	{
 		hkChannelRouter.POST("setUserChannel", hkChannelApi.SetUserChannel)                     // 设置用户频道

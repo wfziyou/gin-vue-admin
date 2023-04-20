@@ -357,12 +357,12 @@ CREATE TABLE `hk_circle_user`  (
 -- ----------------------------
 -- Records of hk_circle_user
 -- ----------------------------
-INSERT INTO `hk_circle_user` VALUES (1, '000000', 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (2, '000000', 2, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (3, '000000', 3, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (4, '000000', 2, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (5, '000000', 3, 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (6, '000000', 3, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (1, '000000', 1, '', '', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (2, '000000', 2, '', '', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (3, '000000', 3, '', '', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (4, '000000', 2, '', '', 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (5, '000000', 3, '', '', 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (6, '000000', 3, '', '', 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_channel
@@ -375,7 +375,7 @@ CREATE TABLE `hk_channel`  (
    `icon` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图标',
    `code` int(11) NULL DEFAULT 0 COMMENT '标识：0常规、1资讯、2关注、3附近、4活动、5问答',
    `fixed_type` tinyint(1) NULL DEFAULT NULL COMMENT '固定标识(不固定:0，固定:1)',
-   `type` tinyint(1) NULL DEFAULT NULL COMMENT '类型：0系统 1自定义',
+   `type` tinyint(1) NULL DEFAULT NULL COMMENT '类型：0系统 1默认频道',
    `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
@@ -388,6 +388,19 @@ CREATE TABLE `hk_channel`  (
    PRIMARY KEY (`id`) USING BTREE,
    UNIQUE INDEX `idx_hk_channel_name`(`name`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '频道' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hk_channel
+-- ----------------------------
+INSERT INTO `hk_channel` VALUES (1, '000000', '资讯', NULL, 1, 1, 1, NULL, '2023-04-20 14:16:38.000', '2023-04-20 14:16:40.000', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hk_channel` VALUES (2, '000000', '关注', NULL, 2, 1, 1, NULL, '2023-04-20 14:16:38.000', '2023-04-20 14:16:38.000', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hk_channel` VALUES (3, '000000', '附近', NULL, 3, 1, 1, NULL, '2023-04-20 14:16:38.000', '2023-04-20 14:16:38.000', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hk_channel` VALUES (4, '000000', '活动', NULL, 4, 1, 1, NULL, '2023-04-20 14:16:38.000', '2023-04-20 14:16:38.000', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hk_channel` VALUES (5, '000000', '问答', NULL, 5, 1, 1, NULL, '2023-04-20 14:16:38.000', '2023-04-20 14:16:38.000', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hk_channel` VALUES (6, '000000', '频道1', NULL, 0, 0, 1, NULL, '2023-04-20 14:16:38.000', '2023-04-20 14:16:38.000', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hk_channel` VALUES (7, '000000', '频道2', NULL, 0, 0, 0, NULL, '2023-04-20 14:16:38.000', '2023-04-20 14:16:38.000', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hk_channel` VALUES (8, '000000', '频道3', NULL, 0, 0, 0, NULL, '2023-04-20 14:16:38.000', '2023-04-20 14:16:38.000', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hk_channel` VALUES (9, '000000', '频道4', NULL, 0, 0, 0, NULL, '2023-04-20 14:16:38.000', '2023-04-20 14:16:38.000', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for hk_circle_channel

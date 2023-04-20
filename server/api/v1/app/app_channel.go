@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
@@ -8,6 +9,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 type HkChannelApi struct {
@@ -43,24 +45,33 @@ func (hkChannelApi *HkChannelApi) GetChannelList(c *gin.Context) {
 func (hkChannelApi *HkChannelApi) GetUserChannelList(c *gin.Context) {
 	userId := utils.GetUserID(c)
 	channelIds, err := appUserService.GetUserChannel(userId)
-	if err != nil {
+
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		list, err := hkChannelService.GetDefaultChannelInfoList()
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		response.OkWithDetailed(list, "获取成功", c)
+		return
+	} else if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
 	if list, _, err := hkChannelService.GetChannelInfoListById(channelIds); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
 		tmp := utils.SplitToUint64List(channelIds, ",")
 		for index, id := range tmp {
-			for _, obj := range list {
+			for i, obj := range list {
 				if obj.ID == id {
-					obj.Sort = index
+					list[i].Sort = index
 					break
 				}
 			}
 		}
-		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-		response.FailWithMessage("获取失败", c)
-	} else {
 		response.OkWithDetailed(list, "获取成功", c)
 	}
 }
@@ -83,9 +94,9 @@ func (hkChannelApi *HkChannelApi) SetUserChannel(c *gin.Context) {
 	}
 	userId := utils.GetUserID(c)
 	if err := appUserService.UpdateUserChannel(userId, req.ChannelIds); err != nil {
-		global.GVA_LOG.Error("创建失败!", zap.Error(err))
-		response.FailWithMessage("创建失败", c)
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
 	} else {
-		response.OkWithMessage("创建成功", c)
+		response.OkWithMessage("成功", c)
 	}
 }
