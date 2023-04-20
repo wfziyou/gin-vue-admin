@@ -9,10 +9,7 @@ import (
 type ServiceGroup struct {
 	SystemServiceGroup  system.ServiceGroup
 	ExampleServiceGroup example.ServiceGroup
-	//CommunityServiceGroup community.ServiceGroup
-	//ApplyServiceGroup     apply.ServiceGroup
-	//GeneralServiceGroup   general.ServiceGroup
-	AppServiceGroup app.ServiceGroup
+	AppServiceGroup     app.ServiceGroup
 }
 
 var ServiceGroupApp = new(ServiceGroup)

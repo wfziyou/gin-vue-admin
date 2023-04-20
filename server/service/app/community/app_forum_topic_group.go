@@ -58,7 +58,7 @@ func (appForumTopicGroupService *AppForumTopicGroupService) GetForumTopicGroupIn
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
 	if len(info.Name) > 0 {
-		db = db.Where("name LIKE '%?%'", info.Name)
+		db = db.Where("name LIKE %", "%"+info.Name+"%")
 	}
 
 	err = db.Count(&total).Error
@@ -81,7 +81,7 @@ func (appForumTopicGroupService *AppForumTopicGroupService) GetForumTopicGroupIn
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
 	if len(info.Name) > 0 {
-		db = db.Where("name LIKE '%?%'", info.Name)
+		db = db.Where("name LIKE ?", "%"+info.Name+"%")
 	}
 
 	err = db.Count(&total).Error

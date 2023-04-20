@@ -61,7 +61,7 @@ func (appCircleRequestService *AppCircleRequestService) GetCircleRequestInfoList
 		db = db.Where("type = ?", info.Type)
 	}
 	if len(info.Name) > 0 {
-		db = db.Where("name LIKE '%?%'", info.Name)
+		db = db.Where("name LIKE ?", "%"+info.Name+"%")
 	}
 	if info.CircleClassifyId != 0 {
 		db = db.Where("circle_classify_id = ?", info.CircleClassifyId)

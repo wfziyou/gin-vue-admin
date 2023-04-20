@@ -3,10 +3,10 @@ package response
 import "github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 
 type ThirdPlatInfo struct {
-	Plat  string `json:"Plat"`  // 平台
-	Name  string `json:"name"`  // 平台名称
-	Icon  string `json:"icon"`  // 平台图标
-	Appid string `json:"appid"` // 平台的应用编号
+	Platform string `json:"platform"` // 平台
+	Name     string `json:"name"`     // 平台名称
+	Icon     string `json:"icon"`     // 平台图标
+	Appid    string `json:"appid"`    // 平台的应用编号
 }
 
 type LoginResponse struct {

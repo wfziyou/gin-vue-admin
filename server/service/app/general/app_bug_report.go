@@ -87,7 +87,7 @@ func (appBugReportService *AppBugReportService) AppGetBugReportInfoList(info gen
 		db = db.Where("check_status = ?", info.CheckStatus)
 	}
 	if len(info.Title) > 0 {
-		db = db.Where("title LIKE '%?%'", info.Title)
+		db = db.Where("title LIKE ?", "%"+info.Title+"%")
 	}
 	err = db.Count(&total).Error
 	if err != nil {

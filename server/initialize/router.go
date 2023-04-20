@@ -91,6 +91,7 @@ func Routers() *gin.Engine {
 		appRouter.InitRecordBrowsingUserHomepageRouter(PrivateGroup)
 		appRouter.InitRecordBrowsingCircleHomepageRouter(PrivateGroup)
 	}
+
 	global.GVA_LOG.Info("router register success")
 	return Router
 }

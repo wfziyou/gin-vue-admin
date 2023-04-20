@@ -9,10 +9,7 @@ import (
 type RouterGroup struct {
 	System  system.RouterGroup
 	Example example.RouterGroup
-	//Community community.RouterGroup
-	//Apply     apply.RouterGroup
-	//General   general.RouterGroup
-	App app.RouterGroup
+	App     app.RouterGroup
 }
 
 var RouterGroupApp = new(RouterGroup)

@@ -94,7 +94,7 @@ func RegisterTables() {
 		general.Protocol{},
 		general.BugReport{},
 		general.UserCollect{},
-		general.UserBrowsingHistory{},
+		general.UserBrowsingHistory{}, community.HkThirdPlatform{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

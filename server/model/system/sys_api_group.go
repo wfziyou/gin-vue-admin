@@ -16,5 +16,5 @@ type SysApiGroup struct {
 }
 
 func (SysApiGroup) TableName() string {
-	return "sys_api_group"
+	return "sys_apis_group"
 }

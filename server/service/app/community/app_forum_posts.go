@@ -80,7 +80,7 @@ func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(channelI
 	var hkForumPostss []community.ForumPostsBaseInfo
 
 	if len(page.Keyword) > 0 {
-		db = db.Where("title LIKE '%?%'", page.Keyword)
+		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
 	db = db.Where("channel_id = ?", channelId)
@@ -125,7 +125,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(pag
 	var hkForumPostss []community.ForumPostsBaseInfo
 
 	if len(page.Keyword) > 0 {
-		db = db.Where("title LIKE '%?%'", page.Keyword)
+		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
 	//创建时间降序排列
@@ -149,7 +149,7 @@ func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(cu
 	var hkForumPostss []community.ForumPostsBaseInfo
 
 	if len(page.Keyword) > 0 {
-		db = db.Where("title LIKE '%?%'", page.Keyword)
+		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
 	db = db.Where("channel_id = 0 and is_public = 1 and check_status=?",
@@ -176,7 +176,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendQuestionList
 	var hkForumPostss []community.ForumPostsBaseInfo
 
 	if len(page.Keyword) > 0 {
-		db = db.Where("title LIKE '%?%'", page.Keyword)
+		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
 	db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
@@ -204,7 +204,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList
 	var hkForumPostss []community.ForumPostsBaseInfo
 
 	if len(page.Keyword) > 0 {
-		db = db.Where("title LIKE '%?%'", page.Keyword)
+		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
 	db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
@@ -256,7 +256,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 	}
 	//标题
 	if len(info.Title) != 0 {
-		db = db.Where("title LIKE '%?%'", info.Title)
+		db = db.Where("title LIKE ?", "%"+info.Title+"%")
 	}
 	//置顶：0否、1是
 	if info.Top != nil {
@@ -304,7 +304,7 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 	}
 	//标题
 	if len(info.Title) != 0 {
-		db = db.Where("title LIKE '%?%'", info.Title)
+		db = db.Where("title LIKE ?", "%"+info.Title+"%")
 	}
 	//置顶：0否、1是
 	if info.Top != nil {
@@ -353,7 +353,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 	}
 	//标题
 	if len(info.Title) != 0 {
-		db = db.Where("title LIKE '%?%'", info.Title)
+		db = db.Where("title LIKE ?", "%"+info.Title+"%")
 	}
 	//置顶：0否、1是
 	if info.Top != nil {

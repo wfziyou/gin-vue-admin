@@ -57,7 +57,7 @@ func (appCircleApplyGroupService *AppCircleApplyGroupService) GetCircleApplyGrou
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 	if len(info.Keyword) > 0 {
-		db = db.Where("name LIKE '%?%'", info.Keyword)
+		db = db.Where("name LIKE ?", "%"+info.Keyword+"%")
 	}
 	if info.ParentId != nil {
 		db = db.Where("parent_id = ?", info.ParentId)
@@ -82,7 +82,7 @@ func (appCircleApplyGroupService *AppCircleApplyGroupService) GetCircleApplyGrou
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 	if len(info.Name) > 0 {
-		db = db.Where("name LIKE '?%'", info.Name)
+		db = db.Where("name LIKE ?", "%"+info.Name+"%")
 	}
 	if info.ParentId != nil {
 		db = db.Where("parent_id = ?", info.ParentId)

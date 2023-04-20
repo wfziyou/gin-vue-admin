@@ -55,7 +55,7 @@ func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoL
 	var hkCircleClassifys []community.CircleClassify
 
 	if len(info.Keyword) > 0 {
-		db = db.Where("title LIKE '%?%'", info.Keyword)
+		db = db.Where("title LIKE ?", "%"+info.Keyword+"%")
 	}
 	err = db.Count(&total).Error
 	if err != nil {
@@ -74,7 +74,7 @@ func (appCircleClassifyService *AppCircleClassifyService) GetCircleClassifyInfoL
 	var hkCircleClassifys []community.CircleClassify
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if len(info.Keyword) > 0 {
-		db = db.Where("title LIKE '%?%'", info.Keyword)
+		db = db.Where("title LIKE ?", "%"+info.Keyword+"%")
 	}
 
 	err = db.Find(&hkCircleClassifys).Error

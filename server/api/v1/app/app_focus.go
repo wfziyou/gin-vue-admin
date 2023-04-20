@@ -80,13 +80,17 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
-	//if err := hkFocusUserService.CreateFocusUser(hkFocusUser); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage("创建失败", c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+	userInfo := utils.GetUserInfo(c)
+	if focusUser, err := appUserService.GetUser(req.UserId); err != nil {
+		global.GVA_LOG.Error("关注用户不存在!", zap.Error(err))
+		response.FailWithMessage("关注用户不存在", c)
+		return
+	} else if err := hkFocusUserService.CreateFocusUser(userInfo.ID, userInfo.NickName, focusUser); err != nil {
+		global.GVA_LOG.Error("关注用户失败", zap.Error(err))
+		response.FailWithMessage("关注用户失败", c)
+	} else {
+		response.OkWithMessage("成功", c)
+	}
 }
 
 // FocusUserCancel 取消用户关注
@@ -107,10 +111,10 @@ func (focusApi *FocusApi) FocusUserCancel(c *gin.Context) {
 	}
 	var userId = utils.GetUserID(c)
 	if err := hkFocusUserService.DeleteFocusUser(userId, req.UserId); err != nil {
-		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
-		response.FailWithMessage("批量删除失败", c)
+		global.GVA_LOG.Error("取消用户关注失败!", zap.Error(err))
+		response.FailWithMessage("失败", c)
 	} else {
-		response.OkWithMessage("批量删除成功", c)
+		response.OkWithMessage("成功", c)
 	}
 }
 
@@ -130,7 +134,8 @@ func (focusApi *FocusApi) GetFocusUserList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkFocusUserService.GetFocusUserInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := hkFocusUserService.GetFocusUserInfoList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -153,11 +158,23 @@ func (focusApi *FocusApi) GetFocusUserList(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router /app/focus/getFansList [get]
 func (focusApi *FocusApi) GetFansList(c *gin.Context) {
-	var pageInfo communityReq.FansSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.FansSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+	var userId = utils.GetUserID(c)
+	if list, total, err := hkFocusUserService.GetFansList(userId, req.PageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
 	}
 }
 

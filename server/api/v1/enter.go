@@ -10,9 +10,6 @@ type ApiGroup struct {
 	AppApiGroup     app.ApiGroup
 	SystemApiGroup  system.ApiGroup
 	ExampleApiGroup example.ApiGroup
-	//CommunityApiGroup community.ApiGroup
-	//ApplyApiGroup     apply.ApiGroup
-	//GeneralApiGroup   general.ApiGroup
 }
 
 var ApiGroupApp = new(ApiGroup)

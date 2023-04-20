@@ -32,7 +32,12 @@ type AuthApi struct {
 // @Success  200   {object}  response.Response{data=[]authRes.ThirdPlatInfo,msg=string}  "返回[]authRes.ThirdPlatInfo"
 // @Router   /app/auth/getThirdPlat [post]
 func (authApi *AuthApi) GetThirdPlat(c *gin.Context) {
-
+	if list, err := hkThirdPlatformService.GetThirdPlatformInfoList(); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(list, "获取成功", c)
+	}
 }
 
 // LoginPwd 用户登录(账号密码)
@@ -115,8 +120,57 @@ func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 // @Success  200   {object}  response.Response{data=authRes.LoginResponse,msg=string}  "返回LoginResponse"
 // @Router   /app/auth/loginTelephone [post]
 func (authApi *AuthApi) LoginTelephone(c *gin.Context) {
-	//var l authReq.LoginTelephone
-
+	var req authReq.LoginTelephone
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	key := fmt.Sprintf("%d-%s", utils.VerificationLogin, req.Telephone)
+	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
+		response.FailWithMessage("验证码失效", c)
+		return
+	} else if err != nil {
+		global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
+		response.FailWithMessage("获取验证码失败", c)
+		return
+	} else {
+		if cacheCaptcha.Overtime.Before(time.Now()) {
+			response.FailWithMessage("验证码失效", c)
+			return
+		}
+		if cacheCaptcha.Code != req.Captcha {
+			response.FailWithMessage("验证码错误", c)
+			return
+		} else if user, err := appUserService.GetUserByPhone(req.Telephone); err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		} else if user == nil {
+			userInfo := &community.User{Phone: req.Telephone}
+			userObj, err := appUserService.Register(*userInfo)
+			if err != nil {
+				global.GVA_LOG.Error("注册失败!", zap.Error(err))
+				response.FailWithMessage(err.Error(), c)
+				return
+			}
+			user = &userObj
+			err = ImRegiser(userObj)
+			if err != nil {
+				response.FailWithMessage(err.Error(), c)
+				return
+			}
+			TokenNext(c, *user)
+			return
+		} else {
+			if user.Status != 0 {
+				global.GVA_LOG.Error("登陆失败! 用户被禁止登录!")
+				response.FailWithMessage("用户被禁止登录", c)
+				return
+			}
+			TokenNext(c, *user)
+			return
+		}
+	}
 }
 
 // LoginThird 用户登录(第三方授权)
@@ -234,15 +288,15 @@ func (authApi *AuthApi) GetSmsVerification(c *gin.Context) {
 
 	//类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
 	var TemplateCode string = global.GVA_CONFIG.AliyunSms.SmsTemplate.Test
-	if obj.Type == 1 {
+	if obj.Type == utils.VerificationRegister {
 		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.Register
-	} else if obj.Type == 2 {
+	} else if obj.Type == utils.VerificationChangePwd {
 		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.ChangePwd
-	} else if obj.Type == 3 {
+	} else if obj.Type == utils.VerificationBindTel {
 		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.BindTel
-	} else if obj.Type == 4 {
+	} else if obj.Type == utils.VerificationResetPwd {
 		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.ResetPwd
-	} else if obj.Type == 5 {
+	} else if obj.Type == utils.VerificationBindBank {
 		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.BindBank
 	}
 	code := fmt.Sprintf("{\"code\":\"%06v\"}", rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
@@ -303,20 +357,44 @@ func (authApi *AuthApi) ResetPassword(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	err = utils.Verify(req, utils.ResetPasswordVerify)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
+	key := fmt.Sprintf("%d-%s", utils.VerificationResetPwd, req.Telephone)
+	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
+		response.FailWithMessage("验证码失效", c)
 		return
-	}
-	uid := utils.GetUserID(c)
-	u := &community.User{GvaModelApp: global.GvaModelApp{ID: uid}, Password: req.Password}
-	_, err = appUserService.ChangePassword(u, req.Password)
-	if err != nil {
-		global.GVA_LOG.Error("修改失败!", zap.Error(err))
-		response.FailWithMessage("修改失败，原密码与当前账户不符", c)
+	} else if err != nil {
+		global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
+		response.FailWithMessage("获取验证码失败", c)
 		return
+	} else {
+		if cacheCaptcha.Overtime.Before(time.Now()) {
+			response.FailWithMessage("验证码失效", c)
+			return
+		}
+		if cacheCaptcha.Code != req.Captcha {
+			response.FailWithMessage("验证码错误", c)
+			return
+		} else if user, err := appUserService.GetUserByPhone(req.Telephone); err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		} else if user == nil {
+			response.FailWithMessage("账号不存在", c)
+			return
+		} else {
+			if user.Status != 0 {
+				global.GVA_LOG.Error("账号被禁止")
+				response.FailWithMessage("账号被禁止", c)
+				return
+			}
+			err = appUserService.ResetPassword(user, req.Password)
+			if err != nil {
+				global.GVA_LOG.Error("修改密码失败!", zap.Error(err))
+				response.FailWithMessage("修改密码失败", c)
+				return
+			}
+			response.OkWithMessage("修改成功", c)
+			return
+		}
 	}
-	response.OkWithMessage("修改成功", c)
 }
 
 // TokenNext 登录以后签发jwt

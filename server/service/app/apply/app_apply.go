@@ -66,7 +66,7 @@ func (appApplyService *AppApplyService) GetApplyInfoList(info applyReq.ApplySear
 		}
 	}
 	if len(info.Name) > 0 {
-		db = db.Where("name LIKE '?%'", info.Name)
+		db = db.Where("name LIKE ?", "%"+info.Name+"%")
 	}
 
 	err = db.Count(&total).Error
@@ -97,7 +97,7 @@ func (appApplyService *AppApplyService) GetApplyInfoListAll(info applyReq.ApplyA
 		}
 	}
 	if len(info.Keyword) > 0 {
-		db = db.Where("name LIKE '%?%'", info.Keyword)
+		db = db.Where("name LIKE ?", "%"+info.Keyword+"%")
 	}
 
 	err = db.Find(&hkApplys).Error

@@ -7,6 +7,22 @@ import (
 	"strings"
 )
 
+// 类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
+const (
+	//VerificationLogin 0登录
+	VerificationLogin = 0
+	//VerificationRegister 1注册
+	VerificationRegister = 1
+	//VerificationChangePwd 2修改密码
+	VerificationChangePwd = 2
+	//VerificationBindTel 3绑定电话
+	VerificationBindTel = 3
+	//VerificationResetPwd 4忘记密码
+	VerificationResetPwd = 4
+	//VerificationBindBank 5绑定银行
+	VerificationBindBank = 5
+)
+
 func UuidTo32String(u uuid.UUID) string {
 	buf := make([]byte, 32)
 	hex.Encode(buf[0:8], u[0:4])

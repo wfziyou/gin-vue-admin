@@ -123,7 +123,7 @@ func (appCircleService *AppCircleService) GetCircleInfoList(info communityReq.Ci
 		db = db.Where("circle_classify_id = ?", info.CircleClassifyId)
 	}
 	if len(info.Keyword) > 0 {
-		db = db.Where("name LIKE '%?%'", info.Keyword)
+		db = db.Where("name LIKE ?", "%"+info.Keyword+"%")
 	}
 
 	err = db.Count(&total).Error

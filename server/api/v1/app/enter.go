@@ -62,6 +62,7 @@ var (
 	cacheSmsService              = service.ServiceGroupApp.SystemServiceGroup.CacheSmsService
 
 	hkActivityAddRequestService = service.ServiceGroupApp.AppServiceGroup.Community.ActivityAddRequestService
+	hkThirdPlatformService      = service.ServiceGroupApp.AppServiceGroup.Community.ThirdPlatformService
 	//apiService              = service.ServiceGroupApp.SystemServiceGroup.ApiService
 	//jwtService              = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	//menuService             = service.ServiceGroupApp.SystemServiceGroup.MenuService

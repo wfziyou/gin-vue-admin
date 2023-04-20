@@ -4464,29 +4464,6 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "关注用户ID",
-                        "name": "focusUserId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
                         "in": "query"
@@ -4501,29 +4478,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "备注",
-                        "name": "remark",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "标签",
-                        "name": "tag",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "用户ID",
-                        "name": "userId",
                         "in": "query"
                     }
                 ],
@@ -6749,12 +6703,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "处理状态：0 未处理、1 处理中、2 拒绝、3 完成",
                         "name": "curStatus",
@@ -6866,6 +6814,12 @@ var doc = `{
                         "type": "integer",
                         "description": "是否解除：0 否、是",
                         "name": "unlock",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
                         "in": "query"
                     },
                     {
@@ -7983,7 +7937,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -10622,12 +10576,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
@@ -10651,6 +10599,12 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
                         "in": "query"
                     },
                     {
@@ -10714,12 +10668,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "endCreatedAt",
                         "in": "query"
                     },
@@ -10770,6 +10718,12 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
                         "in": "query"
                     },
                     {
@@ -13271,10 +13225,6 @@ var doc = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "icon": {
                     "description": "图标",
                     "type": "string"
@@ -13307,6 +13257,10 @@ var doc = `{
                     "description": "类型(0小程序、1第三方链接)",
                     "type": "integer"
                 },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
                 "userId": {
                     "description": "用户_编号",
                     "type": "integer"
@@ -13332,10 +13286,6 @@ var doc = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -13343,6 +13293,10 @@ var doc = `{
                 "sort": {
                     "description": "排序",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
@@ -13352,10 +13306,6 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
                 },
                 "icon": {
                     "description": "图标",
@@ -13376,6 +13326,10 @@ var doc = `{
                 "sort": {
                     "description": "排序",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
@@ -13427,10 +13381,6 @@ var doc = `{
                     "description": "活动编号",
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -13453,6 +13403,10 @@ var doc = `{
                 },
                 "tag": {
                     "description": "标签",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
                     "type": "string"
                 },
                 "userId": {
@@ -13500,10 +13454,6 @@ var doc = `{
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
                 },
                 "des": {
                     "description": "圈子简介;size:1000",
@@ -13597,6 +13547,10 @@ var doc = `{
                     "description": "类型：0官方圈子、1用户圈子、2小区",
                     "type": "integer"
                 },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
                 "view": {
                     "description": "板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到",
                     "type": "integer"
@@ -13622,16 +13576,16 @@ var doc = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
                 },
                 "reason": {
                     "description": "申请理由",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
                     "type": "string"
                 },
                 "userId": {
@@ -13646,10 +13600,6 @@ var doc = `{
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
                 },
                 "haveCircle": {
                     "description": "是在圈子里：0否、1是",
@@ -13686,16 +13636,16 @@ var doc = `{
                 "type": {
                     "description": "类型：0官方圈子、1用户圈子、2小区",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
         "community.CircleClassify": {
             "type": "object",
             "properties": {
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "des": {
                     "description": "描述",
                     "type": "string"
@@ -13715,6 +13665,10 @@ var doc = `{
                 "sort": {
                     "description": "排序",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
@@ -13732,10 +13686,6 @@ var doc = `{
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
                 },
                 "des": {
                     "description": "圈子简介",
@@ -13764,6 +13714,10 @@ var doc = `{
                 "type": {
                     "description": "类型：0官方圈子 ，1用户圈子",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
@@ -13777,10 +13731,6 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
@@ -13800,6 +13750,10 @@ var doc = `{
                 },
                 "tag": {
                     "description": "标签",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
                     "type": "string"
                 },
                 "userId": {
@@ -13824,8 +13778,8 @@ var doc = `{
         "community.FocusUser": {
             "type": "object",
             "properties": {
-                "createdAt": {
-                    "description": "创建时间",
+                "focusNickName": {
+                    "description": "关注用户昵称",
                     "type": "string"
                 },
                 "focusUserId": {
@@ -13836,12 +13790,20 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "nickName": {
+                    "description": "用户昵称",
+                    "type": "string"
+                },
                 "remark": {
                     "description": "备注",
                     "type": "string"
                 },
                 "tag": {
                     "description": "标签",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
                     "type": "string"
                 },
                 "userId": {
@@ -13913,10 +13875,6 @@ var doc = `{
                     "description": "评论内容",
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -13936,6 +13894,10 @@ var doc = `{
                 "thumbsUp": {
                     "description": "是否点赞：0否、1是",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 },
                 "userId": {
                     "description": "评论者",
@@ -14050,10 +14012,6 @@ var doc = `{
                     "description": "封面",
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14144,6 +14102,10 @@ var doc = `{
                         "$ref": "#/definitions/community.ForumTopicBaseInfo"
                     }
                 },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
                 "userId": {
                     "description": "发布者编号",
                     "type": "integer"
@@ -14201,10 +14163,6 @@ var doc = `{
                     "description": "封面",
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14251,6 +14209,10 @@ var doc = `{
                         "$ref": "#/definitions/community.ForumTopicBaseInfo"
                     }
                 },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
                 "userId": {
                     "description": "发布者编号",
                     "type": "integer"
@@ -14272,10 +14234,6 @@ var doc = `{
                     "description": "封面",
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "discussNum": {
                     "description": "讨论数",
                     "type": "integer"
@@ -14295,6 +14253,10 @@ var doc = `{
                 "topicGroupId": {
                     "description": "分组id",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
@@ -14314,10 +14276,6 @@ var doc = `{
         "community.ForumTopicGroup": {
             "type": "object",
             "properties": {
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14329,6 +14287,10 @@ var doc = `{
                 "sort": {
                     "description": "排序",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
@@ -14337,10 +14299,6 @@ var doc = `{
             "properties": {
                 "content": {
                     "description": "回答内容",
-                    "type": "string"
-                },
-                "createdAt": {
-                    "description": "创建时间",
                     "type": "string"
                 },
                 "id": {
@@ -14358,6 +14316,10 @@ var doc = `{
                 "thumbsUp": {
                     "description": "是否点赞：0否、1是",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 },
                 "userId": {
                     "description": "回答者",
@@ -14430,10 +14392,6 @@ var doc = `{
                 "createUser": {
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14449,6 +14407,10 @@ var doc = `{
                 },
                 "updateUser": {
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 },
                 "userBaseInfo": {
                     "description": "用户基本信息",
@@ -14472,10 +14434,6 @@ var doc = `{
                 },
                 "contentAttachment": {
                     "description": "内容附件",
-                    "type": "string"
-                },
-                "createdAt": {
-                    "description": "创建时间",
                     "type": "string"
                 },
                 "curStatus": {
@@ -14534,6 +14492,10 @@ var doc = `{
                     "description": "是否解除：0 否、是",
                     "type": "integer"
                 },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
                 "userId": {
                     "description": "举报用户编号",
                     "type": "integer"
@@ -14543,10 +14505,6 @@ var doc = `{
         "community.ReportReason": {
             "type": "object",
             "properties": {
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14558,6 +14516,10 @@ var doc = `{
                 "sort": {
                     "description": "排序",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
@@ -14579,10 +14541,6 @@ var doc = `{
                     "$ref": "#/definitions/system.SysAuthority"
                 },
                 "birthday": {
-                    "type": "string"
-                },
-                "createdAt": {
-                    "description": "创建时间",
                     "type": "string"
                 },
                 "description": {
@@ -14624,6 +14582,10 @@ var doc = `{
                 "sex": {
                     "description": "性别： 0未知、1男、2女",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 },
                 "userExtend": {
                     "description": "用户扩展",
@@ -14691,10 +14653,6 @@ var doc = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14702,6 +14660,10 @@ var doc = `{
                 "sort": {
                     "description": "排序",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 },
                 "userId": {
                     "description": "用户编号",
@@ -14741,10 +14703,6 @@ var doc = `{
                     "description": "当前圈子名称",
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "github": {
                     "description": "github",
                     "type": "string"
@@ -14767,6 +14725,10 @@ var doc = `{
                 },
                 "qq": {
                     "description": "qq",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
                     "type": "string"
                 },
                 "weibo": {
@@ -15919,10 +15881,6 @@ var doc = `{
                     "description": "操作步骤附件",
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "expectedResult": {
                     "description": "预期结果",
                     "type": "string"
@@ -15937,6 +15895,10 @@ var doc = `{
                 },
                 "title": {
                     "description": "标题",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
                     "type": "string"
                 },
                 "userId": {
@@ -15989,10 +15951,6 @@ var doc = `{
                     "description": "协议内容",
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "des": {
                     "description": "协议说明",
                     "type": "string"
@@ -16012,16 +15970,16 @@ var doc = `{
                 "pos": {
                     "description": "显示位置",
                     "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
         "general.UserBrowsingHistory": {
             "type": "object",
             "properties": {
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -16032,6 +15990,10 @@ var doc = `{
                 },
                 "time": {
                     "description": "浏览时间",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
                     "type": "string"
                 },
                 "userId": {
@@ -16047,10 +16009,6 @@ var doc = `{
                     "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -16058,6 +16016,10 @@ var doc = `{
                 "postsId": {
                     "description": "帖子编号",
                     "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 },
                 "userId": {
                     "description": "用户编号",
@@ -16816,6 +16778,10 @@ var doc = `{
                     "description": "密码",
                     "type": "string",
                     "example": "pwd"
+                },
+                "telephone": {
+                    "description": "电话号码",
+                    "type": "string"
                 }
             }
         },
@@ -17410,10 +17376,6 @@ var doc = `{
         "response.ThirdPlatInfo": {
             "type": "object",
             "properties": {
-                "Plat": {
-                    "description": "平台",
-                    "type": "string"
-                },
                 "appid": {
                     "description": "平台的应用编号",
                     "type": "string"
@@ -17424,6 +17386,10 @@ var doc = `{
                 },
                 "name": {
                     "description": "平台名称",
+                    "type": "string"
+                },
+                "platform": {
+                    "description": "平台",
                     "type": "string"
                 }
             }

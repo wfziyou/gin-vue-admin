@@ -25,7 +25,7 @@ type UserCollectApi struct {
 // @accept application/json
 // @Produce application/json
 // @Param data body generalReq.UserCollectReq true "收藏帖子"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router /app/userCollect/createUserCollect [post]
 func (userCollectApi *UserCollectApi) CreateUserCollect(c *gin.Context) {
 	var req generalReq.UserCollectReq
@@ -34,16 +34,15 @@ func (userCollectApi *UserCollectApi) CreateUserCollect(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
-	var hkUserCollect = general.UserCollect{
-		UserId:  utils.GetUserID(c),
-		PostsId: req.PostsId,
-	}
-	if err := appUserCollectService.CreateUserCollect(hkUserCollect); err != nil {
-		global.GVA_LOG.Error("创建失败!", zap.Error(err))
-		response.FailWithMessage("创建失败", c)
+	userId := utils.GetUserID(c)
+	if posts, err := appForumPostsService.GetForumPosts(req.PostsId); err != nil {
+		response.FailWithMessage("帖子不存在", c)
+		return
+	} else if err := appUserCollectService.CreateUserCollect(userId, posts); err != nil {
+		global.GVA_LOG.Error("收藏失败!", zap.Error(err))
+		response.FailWithMessage("收藏失败", c)
 	} else {
-		response.OkWithMessage("创建成功", c)
+		response.OkWithMessage("成功", c)
 	}
 }
 
@@ -114,7 +113,6 @@ func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 		return
 	}
 	pageInfo.UserId = utils.GetUserID(c)
-	//var aa general.UserCollect
 	if list, total, err := appUserCollectService.GetUserCollectInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)

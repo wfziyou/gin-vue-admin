@@ -21,10 +21,12 @@ type FocusUserInfo struct {
 // FocusUser 结构体
 type FocusUser struct {
 	global.GvaModelApp
-	UserId      uint64 `json:"userId" form:"userId" gorm:"column:user_id;comment:用户ID;size:19;"`                   //用户ID
-	Remark      string `json:"remark" form:"remark" gorm:"column:remark;comment:备注;size:40;"`                      //备注
-	Tag         string `json:"tag" form:"tag" gorm:"column:tag;comment:标签;size:512;"`                              //标签
-	FocusUserId uint64 `json:"focusUserId" form:"focusUserId" gorm:"column:focus_user_id;comment:关注用户ID;size:19;"` //关注用户ID
+	UserId        uint64 `json:"userId" form:"userId" gorm:"column:user_id;comment:用户ID;size:19;"`                         //用户ID
+	NickName      string `json:"nickName" form:"nickName" gorm:"column:nick_name;comment:用户昵称;size:20;"`                   //用户昵称
+	Remark        string `json:"remark" form:"remark" gorm:"column:remark;comment:备注;size:40;"`                            //备注
+	Tag           string `json:"tag" form:"tag" gorm:"column:tag;comment:标签;size:512;"`                                    //标签
+	FocusUserId   uint64 `json:"focusUserId" form:"focusUserId" gorm:"column:focus_user_id;comment:关注用户ID;size:19;"`       //关注用户ID
+	FocusNickName string `json:"focusNickName" form:"focusNickName" gorm:"column:focus_nick_name;comment:关注用户昵称;size:20;"` //关注用户昵称
 }
 
 // TableName FocusUser 表名

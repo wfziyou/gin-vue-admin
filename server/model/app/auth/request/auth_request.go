@@ -38,6 +38,7 @@ type Register struct {
 
 // ResetPasswordReq 重置密码
 type ResetPasswordReq struct {
-	Captcha  string `json:"captcha" example:"666666"` // 验证码
-	Password string `json:"password" example:"pwd"`   // 密码
+	Telephone string `json:"telephone"`                // 电话号码
+	Captcha   string `json:"captcha" example:"666666"` // 验证码
+	Password  string `json:"password" example:"pwd"`   // 密码
 }

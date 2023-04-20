@@ -12,9 +12,9 @@ type AppUserCollectService struct {
 }
 
 // CreateUserCollect 创建UserCollect记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appUserCollectService *AppUserCollectService) CreateUserCollect(hkUserCollect general.UserCollect) (err error) {
-	err = global.GVA_DB.Where("user_id = ? and posts_id = ?", hkUserCollect.UserId, hkUserCollect.PostsId).First(&hkUserCollect).Error
+func (appUserCollectService *AppUserCollectService) CreateUserCollect(userId uint64, posts community.ForumPosts) (err error) {
+	var hkUserCollect = general.UserCollect{UserId: userId, PostsId: posts.ID, Category: posts.Category}
+	err = global.GVA_DB.Where("user_id = ? and posts_id = ?", userId, posts.ID).First(&hkUserCollect).Error
 	if err == nil {
 		err = global.GVA_DB.Save(&hkUserCollect).Error
 		err = appUserCollectService.UpdateCollectNum(hkUserCollect.PostsId)
@@ -103,7 +103,7 @@ func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(info 
 	var hkUserCollects []general.UserCollect
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+		db = db.Where("updated_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt, info.StartCreatedAt, info.EndCreatedAt)
 	}
 	db = db.Where("user_id = ?", info.UserId)
 	err = db.Count(&total).Error

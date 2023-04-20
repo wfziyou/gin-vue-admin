@@ -78,12 +78,7 @@ func (appUserService *AppUserService) GetUserByPhone(phone string) (userInter *c
 	return user, err
 }
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: ChangePassword
-//@description: 修改用户密码
-//@param: u *model.SysUser, newPassword string
-//@return: userInter *model.SysUser,err error
-
+// ChangePassword 修改用户密码
 func (appUserService *AppUserService) ChangePassword(u *community.User, newPassword string) (userInter *community.User, err error) {
 	var user community.User
 	if err = global.GVA_DB.Where("id = ?", u.ID).First(&user).Error; err != nil {
@@ -95,7 +90,16 @@ func (appUserService *AppUserService) ChangePassword(u *community.User, newPassw
 	user.Password = utils.BcryptHash(newPassword)
 	err = global.GVA_DB.Save(&user).Error
 	return &user, err
+}
 
+// ResetPassword 重置密码
+func (appUserService *AppUserService) ResetPassword(user *community.User, newPassword string) (err error) {
+	db := global.GVA_DB.Model(user)
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	updateData["password"] = utils.BcryptHash(newPassword)
+	err = db.Where("id = ?", user.ID).Updates(updateData).Error
+	return err
 }
 
 // CreateUser 创建User记录
@@ -196,7 +200,7 @@ func (appUserService *AppUserService) AppGetUserInfoList(info communityReq.UserS
 	}
 
 	if len(info.NickName) > 0 {
-		db = db.Where("nick_name LIKE '?%'", info.NickName)
+		db = db.Where("nick_name LIKE ?", "%"+info.NickName+"%")
 	}
 	if info.Sex != nil {
 		db = db.Where("sex = ?", info.Sex)
