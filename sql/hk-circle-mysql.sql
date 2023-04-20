@@ -1307,22 +1307,34 @@ CREATE TABLE `hk_files`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_focus_user`;
 CREATE TABLE `hk_focus_user`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-   `remark` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-   `tag` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
-   `focus_user_id` bigint(20) NOT NULL COMMENT '关注用户ID',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户关注';
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `nick_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户昵称',
+  `remark` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `tag` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
+  `focus_user_id` bigint(20) NOT NULL COMMENT '关注用户ID',
+  `focus_nick_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '关注用户昵称',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `focus_user` (`user_id`, `focus_user_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户关注' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hk_focus_user
+-- ----------------------------
+INSERT INTO `hk_focus_user` VALUES (2, '000000', 2, '范杰2', '', '', 3, '用户3', '2023-04-21 00:24:22.097', '2023-04-21 00:51:09.831', '2023-04-21 00:51:15.312', NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_focus_user` VALUES (3, '000000', 3, '用户3', NULL, NULL, 2, '范杰2', '2023-04-21 00:24:22.097', '2023-04-21 00:24:22.097', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_focus_user` VALUES (4, '000000', 2, '范杰2', '', '', 3, '用户3', '2023-04-21 00:51:19.809', '2023-04-21 00:51:19.809', '2023-04-21 00:55:36.640', NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_focus_user` VALUES (5, '000000', 2, '范杰2', '', '', 3, '用户3', '2023-04-21 00:56:51.739', '2023-04-21 00:56:51.739', NULL, NULL, NULL, NULL, 0, 0);
+
 
 -- ----------------------------
 -- Table structure for hk_activity_user 
