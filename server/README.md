@@ -121,3 +121,7 @@ docker run -d --name myserver -p 8888:8888 server
 netstat -anp | grep 8888
 ## go环境是已安装，却提示没有安装
 配置go的环境变量生效 `source /etc/profile`
+## 撤销生成的接口文档
+git checkout server/docs/docs.go
+git checkout server/docs/swagger.yaml
+git checkout server/docs/swagger.json

@@ -214,7 +214,7 @@ func (appUserService *AppUserService) AppGetUserInfoList(info communityReq.UserS
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserService *AppUserService) GetUserChannel(userId uint64) (channel string, err error) {
 	var data = community.UserExtend{}
-	err = global.GVA_DB.Where("user_id = ?", userId).Select("channel_id").First(&data).Error
+	err = global.GVA_DB.Where("id = ?", userId).Select("channel_id").First(&data).Error
 	channel = data.ChannelId
 	return
 }
