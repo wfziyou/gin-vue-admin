@@ -14,12 +14,10 @@ type CircleQuestionSearch struct {
 }
 
 type CreateQuestion struct {
-	Title       string `json:"title" form:"title"`             //标题
-	Content     string `json:"content" form:"content"`         //内容
-	Attachment  string `json:"attachment" form:"attachment"`   //附件
-	Pay         int    `json:"pay" form:"pay"`                 //付费：0否、1是
-	PayCurrency int    `json:"payCurrency" form:"payCurrency"` //付费货币：1人民、2积分、3代币
-	PayNum      int    `json:"payNum" form:"payNum"`           //付费金额
+	Title      string `json:"title" form:"title"`           //标题
+	Content    string `json:"content" form:"content"`       //内容
+	Attachment string `json:"attachment" form:"attachment"` //附件
+	PayNum     int    `json:"payNum" form:"payNum"`         //付费金额
 }
 
 type CloseQuestion struct {
