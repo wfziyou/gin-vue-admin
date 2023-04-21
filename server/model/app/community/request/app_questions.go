@@ -17,7 +17,7 @@ type CreateQuestion struct {
 	Title      string `json:"title" form:"title"`           //标题
 	Content    string `json:"content" form:"content"`       //内容
 	Attachment string `json:"attachment" form:"attachment"` //附件
-	PayNum     int    `json:"payNum" form:"payNum"`         //付费金额
+	PayNum     uint64 `json:"payNum" form:"payNum"`         //付费金额
 }
 
 type CloseQuestion struct {

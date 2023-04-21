@@ -5,6 +5,7 @@ import (
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -12,6 +13,8 @@ import (
 
 type QuestionApi struct {
 }
+
+var hkQuestionService = service.ServiceGroupApp.AppServiceGroup.Community.QuestionService
 
 // GetGlobalRecommendQuestionList 分页获取全局推荐问题列表
 // @Tags 问答
@@ -74,18 +77,29 @@ func (questionApi *QuestionApi) GetCircleQuestionList(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/question/createQuestion [post]
 func (questionApi *QuestionApi) CreateQuestion(c *gin.Context) {
-	var param communityReq.CreateQuestion
-	err := c.ShouldBindJSON(&param)
+	var req communityReq.CreateQuestion
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := hkActivityService.CreateActivity(hkActivity); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage("创建失败", c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+	userId := utils.GetUserID(c)
+	user, err := appUserService.GetUser(userId)
+	if err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+		return
+	}
+	if user.UserExtend.CurrencyGold < req.PayNum {
+		response.FailWithMessage("金币不够", c)
+		return
+	}
+
+	err = appUserService.DecreaseGold(userId, req.PayNum, "发布问题", "", "")
+	if err == nil {
+		hkQuestionService.CreateQuestion(userId, req)
+	}
+	response.OkWithMessage("成功", c)
 }
 
 // CloseQuestion 关闭问题

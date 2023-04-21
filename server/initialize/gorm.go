@@ -82,7 +82,13 @@ func RegisterTables() {
 		community.ActivityAddRequest{},
 		community.RecordBrowsingUserHomepage{},
 		community.RecordBrowsingCircleHomepage{},
-
+		community.HkThirdPlatform{},
+		community.HkGoldBill{},
+		community.HkUserBill{},
+		community.HkUserRecharge{},
+		community.HkUserExtract{},
+		community.HkOrder{},
+		
 		apply.Apply{},
 		apply.CircleApply{},
 		apply.CircleApplyGroup{},
@@ -94,7 +100,7 @@ func RegisterTables() {
 		general.Protocol{},
 		general.BugReport{},
 		general.UserCollect{},
-		general.UserBrowsingHistory{}, community.HkThirdPlatform{},
+		general.UserBrowsingHistory{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

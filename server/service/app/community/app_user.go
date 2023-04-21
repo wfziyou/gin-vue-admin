@@ -109,6 +109,89 @@ func (appUserService *AppUserService) BindTelephone(userId uint64, telephone str
 	err = db.Where("id = ?", userId).Updates(updateData).Error
 	return err
 }
+func (appUserService *AppUserService) DecreaseGold(userId uint64, num uint64, title string, titleIcon string, mark string) (err error) {
+	if num == 0 {
+		return nil
+	}
+	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}}
+	db := global.GVA_DB.Model(&obj)
+	err = db.Where("id = ?", userId).First(&obj).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return errors.New("金币不够")
+	} else if err != nil {
+		return err
+	} else {
+		if obj.CurrencyGold < num {
+			return errors.New("金币不够")
+		}
+		beforeNumber := obj.CurrencyGold
+		currency := obj.CurrencyGold - num
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["currency_gold"] = currency
+		err = db.Where("id = ?", userId).Updates(updateData).Error
+		if err == nil {
+			err = global.GVA_DB.Create(&community.HkGoldBill{
+				UserId:       userId,
+				Pm:           community.GoldBillTypeDecrease,
+				Title:        title,
+				TitleIcon:    titleIcon,
+				BeforeNumber: beforeNumber,
+				ChangeNumber: num,
+				Balance:      currency,
+				Mark:         mark,
+			}).Error
+		}
+	}
+	return err
+}
+func (appUserService *AppUserService) IncreaseGold(userId uint64, num uint64, title string, titleIcon string, mark string) (err error) {
+	if num == 0 {
+		return nil
+	}
+	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}}
+	db := global.GVA_DB.Model(&obj)
+	err = db.Where("id = ?", userId).First(&obj).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		obj.CurrencyGold = num
+		err = global.GVA_DB.Create(&obj).Error
+		if err == nil {
+			if err == nil {
+				err = global.GVA_DB.Create(&community.HkGoldBill{
+					UserId:       userId,
+					Pm:           community.GoldBillTypeIncrease,
+					Title:        title,
+					TitleIcon:    titleIcon,
+					BeforeNumber: 0,
+					ChangeNumber: num,
+					Balance:      num,
+					Mark:         mark,
+				}).Error
+			}
+		}
+		return err
+	} else if err == nil {
+		beforeNumber := obj.CurrencyGold
+		currency := obj.CurrencyGold + num
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["currency_gold"] = currency
+		err = db.Where("id = ?", userId).Updates(updateData).Error
+		if err == nil {
+			err = global.GVA_DB.Create(&community.HkGoldBill{
+				UserId:       userId,
+				Pm:           community.GoldBillTypeIncrease,
+				Title:        title,
+				TitleIcon:    titleIcon,
+				BeforeNumber: beforeNumber,
+				ChangeNumber: num,
+				Balance:      currency,
+				Mark:         mark,
+			}).Error
+		}
+	}
+	return err
+}
 
 // CreateUser 创建User记录
 // Author [piexlmax](https://github.com/piexlmax)

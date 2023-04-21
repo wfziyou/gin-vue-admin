@@ -1417,6 +1417,37 @@ CREATE TABLE `hk_user_bill` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户账单表';
 
 -- ----------------------------
+-- Table structure for hk_gold_bill
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_gold_bill`;
+CREATE TABLE `hk_gold_bill` (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+   `link_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '关联id',
+   `pm` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '0 = 支出 1 = 获得',
+   `title` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '账单标题',
+   `title_icon` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题图标',
+   `type` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '类型',
+   `before_number` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '之前金额',
+   `change_number` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '改变金额',
+   `balance` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '余额',
+   `mark` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '备注',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态:0带确定 1有效 -1无效',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE,
+   KEY `user_id` (`user_id`) USING BTREE,
+   KEY `status` (`status`) USING BTREE,
+   KEY `add_time` (`created_at`) USING BTREE,
+   KEY `pm` (`pm`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='金币账单';
+
+-- ----------------------------
 -- Table structure for hk_user_recharge
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_user_recharge`;
