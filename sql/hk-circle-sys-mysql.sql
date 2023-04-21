@@ -291,12 +291,11 @@ INSERT INTO `casbin_rule` VALUES (1606, 'p', '888', '/app/topic/updateForumTopic
 INSERT INTO `casbin_rule` VALUES (1607, 'p', '888', '/app/topic/findForumTopic', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1608, 'p', '888', '/app/topic/getForumTopicList', 'GET', '', '', '', '', '');
 
-INSERT INTO `casbin_rule` VALUES (1701, 'p', '888', '/app/user/getCaptcha', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1702, 'p', '888', '/app/user/bindTelephone', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1703, 'p', '888', '/app/user/bindEmail', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1704, 'p', '888', '/app/user/getUserBaseInfo', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1705, 'p', '888', '/app/user/setSelfBaseInfo', 'PUT', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1706, 'p', '888', '/app/user/getUserList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1701, 'p', '888', '/app/user/bindTelephone', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1702, 'p', '888', '/app/user/bindEmail', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1703, 'p', '888', '/app/user/getUserBaseInfo', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1704, 'p', '888', '/app/user/setSelfBaseInfo', 'PUT', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1705, 'p', '888', '/app/user/getUserList', 'GET', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (1800, 'p', '888', '/app/userBrowsingHistory/deleteUserBrowsingHistory', 'DELETE', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1801, 'p', '888', '/app/userBrowsingHistory/deleteUserBrowsingHistoryByIds', 'DELETE', '', '', '', '', '');
@@ -763,12 +762,11 @@ INSERT INTO `sys_apis` VALUES (606, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (607, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/topic/findForumTopic', '用id查询ForumTopic', 6, 'GET');
 INSERT INTO `sys_apis` VALUES (608, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/topic/getForumTopicList', '分页获取ForumTopic列表', 6, 'GET');
 
-INSERT INTO `sys_apis` VALUES (701, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/getCaptcha', '获取验证码', 7, 'POST');
-INSERT INTO `sys_apis` VALUES (702, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/bindTelephone', '绑定手机', 7, 'POST');
-INSERT INTO `sys_apis` VALUES (703, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/bindEmail', '绑定邮箱', 7, 'POST');
-INSERT INTO `sys_apis` VALUES (704, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/getUserBaseInfo', '用id查询UserBaseInfo', 7, 'GET');
-INSERT INTO `sys_apis` VALUES (705, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/setSelfBaseInfo', '设置用户基础信息', 7, 'PUT');
-INSERT INTO `sys_apis` VALUES (706, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/getUserList', '分页获取User列表', 7, 'GET');
+INSERT INTO `sys_apis` VALUES (701, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/bindTelephone', '绑定手机', 7, 'POST');
+INSERT INTO `sys_apis` VALUES (702, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/bindEmail', '绑定邮箱', 7, 'POST');
+INSERT INTO `sys_apis` VALUES (703, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/getUserBaseInfo', '用id查询UserBaseInfo', 7, 'GET');
+INSERT INTO `sys_apis` VALUES (704, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/setSelfBaseInfo', '设置用户基础信息', 7, 'PUT');
+INSERT INTO `sys_apis` VALUES (705, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/getUserList', '分页获取User列表', 7, 'GET');
 
 INSERT INTO `sys_apis` VALUES (800, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/deleteUserBrowsingHistory', '删除UserBrowsingHistory', 8, 'DELETE');
 INSERT INTO `sys_apis` VALUES (801, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/deleteUserBrowsingHistoryByIds', '批量删除UserBrowsingHistory', 8, 'DELETE');

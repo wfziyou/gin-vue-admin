@@ -1,6 +1,8 @@
 package app
 
 import (
+	"errors"
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common"
@@ -8,7 +10,9 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis/v8"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -27,8 +31,46 @@ type UserApi struct {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router   /app/user/bindTelephone [post]
 func (userApi *UserApi) BindTelephone(c *gin.Context) {
-	//var l communityReq.BindTelephoneReq
-
+	var req communityReq.BindTelephoneReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	key := fmt.Sprintf("%d-%s", utils.VerificationBindTel, req.Telephone)
+	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
+		response.FailWithMessage("验证码失效", c)
+		return
+	} else if err != nil {
+		global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
+		response.FailWithMessage("获取验证码失败", c)
+		return
+	} else {
+		if cacheCaptcha.Overtime.Before(time.Now()) {
+			response.FailWithMessage("验证码失效", c)
+			return
+		}
+		if cacheCaptcha.Code != req.Captcha {
+			response.FailWithMessage("验证码错误", c)
+			return
+		} else if _, err := appUserService.GetUserByPhone(req.Telephone); err == nil {
+			response.FailWithMessage("电话号码被使用", c)
+			return
+		} else if errors.Is(err, gorm.ErrRecordNotFound) {
+			userId := utils.GetUserID(c)
+			err = appUserService.BindTelephone(userId, req.Telephone)
+			if err != nil {
+				global.GVA_LOG.Error("绑定电话失败!", zap.Error(err))
+				response.FailWithMessage("绑定电话失败", c)
+				return
+			}
+			response.OkWithMessage("成功", c)
+			return
+		} else {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+	}
 }
 
 // BindEmail 绑定邮箱
@@ -65,15 +107,16 @@ func (userApi *UserApi) GetUserBaseInfo(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		time.ParseDuration("20")
 		response.OkWithData(common.UserBaseInfo{
-			ID:        user.ID,
-			NickName:  user.NickName,
-			Phone:     user.Phone,
-			Email:     user.Email,
-			HeaderImg: user.HeaderImg,
-			Birthday:  user.Birthday,
-			Sex:       user.Sex,
+			ID:          user.ID,
+			Account:     user.Account,
+			NickName:    user.NickName,
+			Phone:       user.Phone,
+			Email:       user.Email,
+			HeaderImg:   user.HeaderImg,
+			Birthday:    user.Birthday,
+			Sex:         user.Sex,
+			Description: user.Description,
 		}, c)
 	}
 }
@@ -88,14 +131,14 @@ func (userApi *UserApi) GetUserBaseInfo(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router    /app/user/setSelfBaseInfo [put]
 func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
-	var user communityReq.SetSelfBaseInfoReq
-	err := c.ShouldBindJSON(&user)
+	var req communityReq.SetSelfBaseInfoReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	user.ID = utils.GetUserID(c)
-	err = appUserService.SetSelfBaseInfo(user)
+	userId := utils.GetUserID(c)
+	err = appUserService.SetSelfBaseInfo(userId, req)
 
 	if err != nil {
 		global.GVA_LOG.Error("设置失败!", zap.Error(err))
@@ -115,21 +158,21 @@ func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
 // @Success 200 {object}  response.PageResult{List=[]community.User,msg=string} "返回common.User"
 // @Router /app/user/getUserList [get]
 func (userApi *UserApi) GetUserList(c *gin.Context) {
-	var pageInfo communityReq.UserSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.UserSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appUserService.AppGetUserInfoList(pageInfo); err != nil {
+	if list, total, err := appUserService.GetUserInfoList(req); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     req.Page,
+			PageSize: req.PageSize,
 		}, "获取成功", c)
 	}
 }

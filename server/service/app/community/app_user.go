@@ -101,6 +101,14 @@ func (appUserService *AppUserService) ResetPassword(user *community.User, newPas
 	err = db.Where("id = ?", user.ID).Updates(updateData).Error
 	return err
 }
+func (appUserService *AppUserService) BindTelephone(userId uint64, telephone string) (err error) {
+	db := global.GVA_DB.Model(&community.User{GvaModelApp: global.GvaModelApp{ID: userId}})
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	updateData["phone"] = telephone
+	err = db.Where("id = ?", userId).Updates(updateData).Error
+	return err
+}
 
 // CreateUser 创建User记录
 // Author [piexlmax](https://github.com/piexlmax)
@@ -130,7 +138,7 @@ func (appUserService *AppUserService) UpdateUser(hkUser community.User) (err err
 	return err
 }
 
-func (appUserService *AppUserService) SetSelfBaseInfo(req communityReq.SetSelfBaseInfoReq) (err error) {
+func (appUserService *AppUserService) SetSelfBaseInfo(userId uint64, req communityReq.SetSelfBaseInfoReq) (err error) {
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
 	if len(req.NickName) > 0 {
@@ -151,7 +159,7 @@ func (appUserService *AppUserService) SetSelfBaseInfo(req communityReq.SetSelfBa
 	}
 
 	db := global.GVA_DB.Model(&community.User{})
-	err = db.Where("id = ?", req.ID).Updates(updateData).Error
+	err = db.Where("id = ?", userId).Updates(updateData).Error
 	return err
 }
 
@@ -171,39 +179,11 @@ func (appUserService *AppUserService) GetUserInfoList(info communityReq.UserSear
 	db := global.GVA_DB.Model(&community.User{})
 	var hkUsers []community.User
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Limit(limit).Offset(offset).Find(&hkUsers).Error
-	return hkUsers, total, err
-}
-
-// AppGetUserInfoList 分页获取User记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) AppGetUserInfoList(info communityReq.UserSearch) (list []community.User, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
-	// 创建db
-	db := global.GVA_DB.Model(&community.User{})
-	var hkUsers []community.User
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	if len(info.Account) > 0 {
-		db = db.Where("title account '?%'", info.Account)
-	}
-
-	if len(info.NickName) > 0 {
-		db = db.Where("nick_name LIKE ?", "%"+info.NickName+"%")
-	}
-	if info.Sex != nil {
-		db = db.Where("sex = ?", info.Sex)
+	if len(info.Keyword) > 0 {
+		account := "%" + info.Keyword + "%"
+		nickName := "%" + info.Keyword + "%"
+		phone := "%" + info.Keyword + "%"
+		db = db.Where("account LIKE ? OR nick_name LIKE ? OR phone = ?", account, nickName, phone)
 	}
 	err = db.Count(&total).Error
 	if err != nil {

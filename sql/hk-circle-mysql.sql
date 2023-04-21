@@ -47,7 +47,8 @@ CREATE TABLE `hk_user`  (
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
    PRIMARY KEY (`id`) USING BTREE,
    UNIQUE INDEX `idx_hk_user_account`(`tenant_id`,`account`) USING BTREE,
-   INDEX `idx_hk_user_uuid`(`uuid`) USING BTREE
+   INDEX `idx_hk_user_uuid`(`uuid`) USING BTREE,
+   KEY `phone` (`phone`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '终端用户';
 
 -- ----------------------------

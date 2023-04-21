@@ -2,7 +2,6 @@ package request
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-	"time"
 )
 
 // BindTelephoneReq 绑定手机
@@ -19,7 +18,6 @@ type BindEmailReq struct {
 
 // SetSelfBaseInfoReq 设置用户基本信息
 type SetSelfBaseInfoReq struct {
-	ID          uint64 `json:"-" gorm:"primarykey"`                                                          // 主键ID
 	NickName    string `json:"nickName" gorm:"default:系统用户;comment:用户昵称"`                                    // 用户昵称
 	HeaderImg   string `json:"headerImg" gorm:"comment:用户头像"`                                                // 用户头像
 	Birthday    string `json:"birthday" gorm:"comment:生日"`                                                   //生日
@@ -28,11 +26,5 @@ type SetSelfBaseInfoReq struct {
 }
 
 type UserSearch struct {
-	Account  string `json:"account" gorm:"comment:账号"`        //账号
-	NickName string `json:"nickName" gorm:"comment:用户昵称"`     // 用户昵称
-	Sex      *int   `json:"sex" gorm:"comment:性别： 0未知、1男、2女"` //性别： 0未知、1男、2女
-
-	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"`
-	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`
 	request.PageInfo
 }
