@@ -32,6 +32,10 @@ const (
 	//PostsCheckStatusRefuse 4拒绝
 	PostsCheckStatusRefuse = 4
 )
+const (
+	ContentTypeMarkdown = 1
+	ContentTypeHtml     = 2
+)
 
 // ForumPosts 结构体
 type ForumPosts struct {
@@ -70,8 +74,8 @@ type ForumPosts struct {
 	PayContent            int        `json:"payContent" form:"payContent" gorm:"column:pay_content;comment:内容付费：0否、1是;size:10;"`                                     //内容付费：0否、1是
 	PayContentLook        int        `json:"payContentLook" form:"payContentLook" gorm:"column:pay_content_look;comment:内容付费可查看百分比例;size:10;"`                       //内容付费可查看百分比例
 	PayAttachment         int        `json:"payAttachment" form:"payAttachment" gorm:"column:pay_attachment;comment:附件付费：0否、1是;size:10;"`                            //附件付费：0否、1是
-	PayCurrency           int        `json:"payCurrency" form:"payCurrency" gorm:"column:pay_currency;comment:付费货币：1人民、2积分、3代币;size:10;"`                            //付费货币：1人民、2积分、3代币
-	PayNum                int        `json:"payNum" form:"payNum" gorm:"column:pay_num;comment:付费金额;size:10;"`                                                       //付费金额
+	PayCurrency           int        `json:"payCurrency" form:"payCurrency" gorm:"column:pay_currency;comment:付费货币：1人民、2积分、3金币;size:10;"`                            //付费货币：1人民、2积分、3金币
+	PayNum                uint64     `json:"payNum" form:"payNum" gorm:"column:pay_num;comment:付费金额;size:19;"`                                                       //付费金额
 	ActivityStartAt       *time.Time `json:"activityStartAt" form:"activityStartAt" gorm:"column:activity_start_at;comment:活动开始时间;"`                                 //活动开始时间
 	ActivityEndAt         *time.Time `json:"activityEndAt" form:"activityEndAt" gorm:"column:activity_end_at;comment:活动结束时间;"`                                       //活动结束时间
 	ActivityAddress       string     `json:"activityAddress" form:"activityAddress" gorm:"column:activity_address;comment:活动地址;size:500;"`                           //活动地址

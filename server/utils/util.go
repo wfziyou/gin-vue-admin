@@ -23,6 +23,19 @@ const (
 	VerificationBindBank = 5
 )
 
+//
+const (
+	QuestionStatusOpen  = 0
+	QuestionStatusClose = 1
+)
+
+//付费货币：1人民、2积分、3金币
+const (
+	CurrencyGold  = 1
+	CurrencyMoney = 2
+	CurrencyScore
+)
+
 func UuidTo32String(u uuid.UUID) string {
 	buf := make([]byte, 32)
 	hex.Encode(buf[0:8], u[0:4])

@@ -249,18 +249,22 @@ func (appUserService *AppUserService) SetSelfBaseInfo(userId uint64, req communi
 // GetUser 根据id获取User记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserService *AppUserService) GetUser(id uint64) (hkUser community.User, err error) {
+	err = global.GVA_DB.Where("id = ?", id).Preload("UserExtend").First(&hkUser).Error
+	return
+}
+func (appUserService *AppUserService) GetUserInfo(id uint64) (hkUser community.User, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkUser).Error
 	return
 }
 
 // GetUserInfoList 分页获取User记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserService *AppUserService) GetUserInfoList(info communityReq.UserSearch) (list []community.User, total int64, err error) {
+func (appUserService *AppUserService) GetUserInfoList(info communityReq.UserSearch) (list []community.UserBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.User{})
-	var hkUsers []community.User
+	db := global.GVA_DB.Model(&community.UserBaseInfo{})
+	var hkUsers []community.UserBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if len(info.Keyword) > 0 {
 		account := "%" + info.Keyword + "%"

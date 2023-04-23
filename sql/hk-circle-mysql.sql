@@ -490,8 +490,8 @@ CREATE TABLE `hk_forum_posts`  (
   `pay_content` smallint(6) NULL DEFAULT NULL COMMENT '内容付费：0否、1是',
   `pay_content_look` smallint(6) NULL DEFAULT NULL COMMENT '内容付费可查看百分比例',
   `pay_attachment` smallint(6) NULL DEFAULT NULL COMMENT '附件付费：0否、1是',
-  `pay_currency` smallint(6) NULL DEFAULT NULL COMMENT '付费货币：1人民、2积分、3代币',
-  `pay_num` smallint(6) NULL DEFAULT NULL COMMENT '付费金额',
+  `pay_currency` smallint(6) NULL DEFAULT 3 COMMENT '付费货币：1人民、2积分、3金币',
+  `pay_num` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '付费金额',
   `activity_start_at` datetime(3) NULL DEFAULT NULL COMMENT '活动开始时间',
   `activity_end_at` datetime(3) NULL DEFAULT NULL COMMENT '活动结束时间',
   `activity_address` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '活动地址',
@@ -841,7 +841,8 @@ CREATE TABLE `hk_forum_topic`  (
    `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
    `status` int(2) NULL DEFAULT 0 COMMENT '状态',
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-     PRIMARY KEY (`id`) USING BTREE
+     PRIMARY KEY (`id`) USING BTREE,
+     UNIQUE INDEX `idx_hk_topic_name`(`tenant_id`,`name`) USING BTREE,
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '话题';
 
 -- ----------------------------

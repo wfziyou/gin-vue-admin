@@ -33,11 +33,11 @@ func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkForumTopicGroup, err := appForumTopicGroupService.GetForumTopicGroup(idSearch.ID); err != nil {
+	if forumTopicGroup, err := appForumTopicGroupService.GetForumTopicGroup(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(rehkForumTopicGroup, c)
+		response.OkWithData(forumTopicGroup, c)
 	}
 }
 
@@ -51,21 +51,21 @@ func (topicApi *TopicApi) FindForumTopicGroup(c *gin.Context) {
 // @Success 200 {object}  response.PageResult{List=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupList [get]
 func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
-	var pageInfo communityReq.ForumTopicGroupSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.ForumTopicGroupSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumTopicGroupService.GetForumTopicGroupInfoList(pageInfo); err != nil {
+	if list, total, err := appForumTopicGroupService.GetForumTopicGroupInfoList(req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     req.Page,
+			PageSize: req.PageSize,
 		}, "获取成功", c)
 	}
 }
@@ -80,13 +80,13 @@ func (topicApi *TopicApi) GetForumTopicGroupList(c *gin.Context) {
 // @Success 200 {object}  response.Response{data=[]community.ForumTopicGroup,msg=string} "返回community.ForumTopicGroup"
 // @Router /app/topic/getForumTopicGroupListAll [get]
 func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
-	var pageInfo communityReq.ForumTopicGroupSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.ForumTopicGroupListAllSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if data, _, err := appForumTopicGroupService.GetForumTopicGroupInfoListAll(pageInfo); err != nil {
+	if data, _, err := appForumTopicGroupService.GetForumTopicGroupInfoListAll(req.Keyword); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
@@ -9,6 +10,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 type QuestionApi struct {
@@ -59,11 +61,29 @@ func (questionApi *QuestionApi) GetGlobalRecommendQuestionList(c *gin.Context) {
 // @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
 // @Router /app/question/getCircleQuestionList [get]
 func (questionApi *QuestionApi) GetCircleQuestionList(c *gin.Context) {
-	var pageInfo communityReq.CircleQuestionSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.CircleQuestionSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+	circle, err := appCircleService.GetCircle(req.CircleId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("圈子不存在", c)
+	}
+	if list, total, err := hkQuestionService.GetCircleQuestionList(circle.ID, req.PageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		var userId = utils.GetUserID(c)
+		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
+		appUserCollectService.GetUserIsCollect(userId, list)
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
 	}
 }
 
@@ -112,12 +132,18 @@ func (questionApi *QuestionApi) CreateQuestion(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router /app/question/closeQuestion [post]
 func (questionApi *QuestionApi) CloseQuestion(c *gin.Context) {
-	var param communityReq.CloseQuestion
-	err := c.ShouldBindJSON(&param)
+	var req communityReq.CloseQuestion
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	userId := utils.GetUserID(c)
+	err = hkQuestionService.CloseQuestion(userId, req.Id)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+	}
+	response.OkWithMessage("成功", c)
 }
 
 // GetAnswerList 分页获取问题的回答列表
@@ -130,13 +156,24 @@ func (questionApi *QuestionApi) CloseQuestion(c *gin.Context) {
 // @Success 200 {object} response.PageResult{List=[]community.QuestionAnswer,msg=string} "返回community.QuestionAnswer"
 // @Router /app/question/getAnswerList [get]
 func (questionApi *QuestionApi) GetAnswerList(c *gin.Context) {
-	var pageInfo communityReq.QuestionAnswerSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.QuestionAnswerSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
+	if list, total, err := hkQuestionService.GetAnswerList(req.QuestionId, req.PageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 // AnswerQuestion 回答问题
@@ -154,8 +191,14 @@ func (questionApi *QuestionApi) AnswerQuestion(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
-
 	}
+	userId := utils.GetUserID(c)
+	err = hkQuestionService.AnswerQuestion(userId, req.QuestionId, req.Content)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	response.OkWithMessage("成功", c)
 }
 
 // DelSelfAnswer 删除自己的回答
@@ -174,6 +217,13 @@ func (questionApi *QuestionApi) DelSelfAnswer(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	userId := utils.GetUserID(c)
+	err = hkQuestionService.DelSelfAnswer(userId, req.ID)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	response.OkWithMessage("成功", c)
 }
 
 // SetBestAnswer 设置最佳答案
@@ -191,9 +241,30 @@ func (questionApi *QuestionApi) SetBestAnswer(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
-
 	}
 
+	userId := utils.GetUserID(c)
+	user, err := appUserService.GetUser(userId)
+	question, err := hkQuestionService.GetQuestion(req.QuestionId)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if question.Status == utils.QuestionStatusClose {
+		response.FailWithMessage("问题已关闭", c)
+		return
+	}
+	if question.UserId != userId {
+		response.FailWithMessage("只能给自己问题设置答案", c)
+		return
+	}
+	answer, err := hkQuestionService.SetBestAnswer(question, req.AnswerId)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if question.PayNum > 0 {
+		appUserService.IncreaseGold(answer.UserId, question.PayNum, user.NickName, user.HeaderImg, "")
+	}
 }
 
 // SetQuestionScore 给问题打分（1-5星）

@@ -6703,6 +6703,12 @@ var doc = `{
                         "in": "query"
                     },
                     {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "description": "处理状态：0 未处理、1 处理中、2 拒绝、3 完成",
                         "name": "curStatus",
@@ -7645,25 +7651,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "账号",
-                        "name": "account",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "用户昵称",
-                        "name": "nickName",
                         "in": "query"
                     },
                     {
@@ -7676,17 +7665,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "性别： 0未知、1男、2女",
-                        "name": "sex",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -10044,6 +10022,640 @@ var doc = `{
                 }
             }
         },
+        "/hkGoldBill/findHkGoldBill": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "用id查询HkGoldBill",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "balance",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "beforeNumber",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "changeNumber",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "linkId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "mark",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pm",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "titleIcon",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkGoldBill/getHkGoldBillList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "分页获取HkGoldBill列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "balance",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "beforeNumber",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "changeNumber",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "linkId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "mark",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pm",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "titleIcon",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkOrder/findHkOrder": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "用id查询HkOrder",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "name": "backIntegral",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "cartNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "cost",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "extendOrderId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "gainIntegral",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "mark",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "paid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "payPrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "payTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "payType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "productId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "refundPrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReason",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReasonTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReasonWap",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReasonWapExplain",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReasonWapImg",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "refundStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "remark",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "totalPrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "unique",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "verifyCode",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkOrder/getHkOrderList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "分页获取HkOrder列表",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "name": "backIntegral",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "cartNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "cost",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "extendOrderId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "gainIntegral",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "mark",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "paid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "payPrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "payTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "payType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "productId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "refundPrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReason",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReasonTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReasonWap",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReasonWapExplain",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "refundReasonWapImg",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "refundStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "remark",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "totalPrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "unique",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "verifyCode",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/hkRecordBrowsingCircleHomepage/createRecordBrowsingCircleHomepage": {
             "post": {
                 "security": [
@@ -10576,6 +11188,12 @@ var doc = `{
                         "in": "query"
                     },
                     {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "description": "主键ID",
                         "name": "id",
@@ -10664,6 +11282,12 @@ var doc = `{
                     {
                         "type": "integer",
                         "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
                         "in": "query"
                     },
                     {
@@ -10773,6 +11397,568 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkUserBill/findHkUserBill": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "用id查询HkUserBill",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "name": "balance",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "category",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "linkId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "mark",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "pm",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkUserBill/getHkUserBillList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "分页获取HkUserBill列表",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "name": "balance",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "category",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "linkId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "mark",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "pm",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkUserRecharge/createHkUserRecharge": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "创建HkUserRecharge",
+                "parameters": [
+                    {
+                        "description": "创建HkUserRecharge",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.HkUserRecharge"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkUserRecharge/findHkUserRecharge": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "用id查询HkUserRecharge",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "givePrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "nickname",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "paid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "payTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "price",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "rechargeType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "refundPrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hkUserRecharge/getHkUserRechargeList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "分页获取HkUserRecharge列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "createDept",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "givePrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "isDel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "nickname",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "paid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "payTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "price",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "rechargeType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "name": "refundPrice",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updateUser",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -13225,6 +14411,10 @@ var doc = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "icon": {
                     "description": "图标",
                     "type": "string"
@@ -13286,6 +14476,10 @@ var doc = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -13306,6 +14500,10 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
                 },
                 "icon": {
                     "description": "图标",
@@ -13381,6 +14579,10 @@ var doc = `{
                     "description": "活动编号",
                     "type": "integer"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -13454,6 +14656,10 @@ var doc = `{
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
                 },
                 "des": {
                     "description": "圈子简介;size:1000",
@@ -13576,6 +14782,10 @@ var doc = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -13600,6 +14810,10 @@ var doc = `{
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
                 },
                 "haveCircle": {
                     "description": "是在圈子里：0否、1是",
@@ -13646,6 +14860,10 @@ var doc = `{
         "community.CircleClassify": {
             "type": "object",
             "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "des": {
                     "description": "描述",
                     "type": "string"
@@ -13686,6 +14904,10 @@ var doc = `{
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
                 },
                 "des": {
                     "description": "圈子简介",
@@ -13731,6 +14953,10 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
@@ -13778,6 +15004,10 @@ var doc = `{
         "community.FocusUser": {
             "type": "object",
             "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "focusNickName": {
                     "description": "关注用户昵称",
                     "type": "string"
@@ -13873,6 +15103,10 @@ var doc = `{
                 },
                 "commentContent": {
                     "description": "评论内容",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
                     "type": "string"
                 },
                 "id": {
@@ -14012,6 +15246,10 @@ var doc = `{
                     "description": "封面",
                     "type": "string"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14045,7 +15283,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "payCurrency": {
-                    "description": "付费货币：1人民、2积分、3代币",
+                    "description": "付费货币：1人民、2积分、3金币",
                     "type": "integer"
                 },
                 "payNum": {
@@ -14163,6 +15401,10 @@ var doc = `{
                     "description": "封面",
                     "type": "string"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14234,6 +15476,10 @@ var doc = `{
                     "description": "封面",
                     "type": "string"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "discussNum": {
                     "description": "讨论数",
                     "type": "integer"
@@ -14276,6 +15522,10 @@ var doc = `{
         "community.ForumTopicGroup": {
             "type": "object",
             "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14294,11 +15544,74 @@ var doc = `{
                 }
             }
         },
+        "community.HkUserRecharge": {
+            "type": "object",
+            "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "givePrice": {
+                    "type": "number"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "orderId": {
+                    "type": "string"
+                },
+                "paid": {
+                    "type": "boolean"
+                },
+                "payTime": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "rechargeType": {
+                    "type": "string"
+                },
+                "refundPrice": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
         "community.QuestionAnswer": {
             "type": "object",
             "properties": {
                 "content": {
                     "description": "回答内容",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
                     "type": "string"
                 },
                 "id": {
@@ -14392,6 +15705,10 @@ var doc = `{
                 "createUser": {
                     "type": "integer"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14434,6 +15751,10 @@ var doc = `{
                 },
                 "contentAttachment": {
                     "description": "内容附件",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
                     "type": "string"
                 },
                 "curStatus": {
@@ -14505,6 +15826,10 @@ var doc = `{
         "community.ReportReason": {
             "type": "object",
             "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14541,6 +15866,10 @@ var doc = `{
                     "$ref": "#/definitions/system.SysAuthority"
                 },
                 "birthday": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
                     "type": "string"
                 },
                 "description": {
@@ -14653,6 +15982,10 @@ var doc = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -14702,6 +16035,18 @@ var doc = `{
                 "circleName": {
                     "description": "当前圈子名称",
                     "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "currencyGold": {
+                    "description": "货币_金币",
+                    "type": "integer"
+                },
+                "currencyMoney": {
+                    "description": "货币_零钱",
+                    "type": "integer"
                 },
                 "github": {
                     "description": "github",
@@ -15881,6 +17226,10 @@ var doc = `{
                     "description": "操作步骤附件",
                     "type": "string"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "expectedResult": {
                     "description": "预期结果",
                     "type": "string"
@@ -15951,6 +17300,10 @@ var doc = `{
                     "description": "协议内容",
                     "type": "string"
                 },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "des": {
                     "description": "协议说明",
                     "type": "string"
@@ -15980,6 +17333,10 @@ var doc = `{
         "general.UserBrowsingHistory": {
             "type": "object",
             "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -16008,6 +17365,10 @@ var doc = `{
                 "category": {
                     "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
                     "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
@@ -16302,7 +17663,7 @@ var doc = `{
                     "type": "string"
                 },
                 "payCurrency": {
-                    "description": "付费货币：1人民、2积分、3代币",
+                    "description": "付费货币：1人民、2积分、3金币",
                     "type": "integer"
                 },
                 "payNum": {
@@ -16433,14 +17794,6 @@ var doc = `{
                 "content": {
                     "description": "内容",
                     "type": "string"
-                },
-                "pay": {
-                    "description": "付费：0否、1是",
-                    "type": "integer"
-                },
-                "payCurrency": {
-                    "description": "付费货币：1人民、2积分、3代币",
-                    "type": "integer"
                 },
                 "payNum": {
                     "description": "付费金额",
@@ -17025,7 +18378,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "payCurrency": {
-                    "description": "付费货币：1人民、2积分、3代币",
+                    "description": "付费货币：1人民、2积分、3金币",
                     "type": "integer"
                 },
                 "payNum": {
