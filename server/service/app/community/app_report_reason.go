@@ -54,8 +54,8 @@ func (appReportReasonService *AppReportReasonService) GetReportReasonInfoList(in
 	db := global.GVA_DB.Model(&community.ReportReason{})
 	var hkReportReasons []community.ReportReason
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if len(info.Reason) > 0 {
-		db = db.Where("reason LIKE ?", "%"+info.Reason+"%")
+	if len(info.Keyword) > 0 {
+		db = db.Where("reason LIKE ?", "%"+info.Keyword+"%")
 	}
 	err = db.Count(&total).Error
 	if err != nil {

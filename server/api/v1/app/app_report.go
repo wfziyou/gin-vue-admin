@@ -2,7 +2,6 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
@@ -24,18 +23,18 @@ type ReportApi struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.Report true "举报"
+// @Param data body communityReq.CreateReportReq true "举报"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/report/createReport [post]
 func (reportApi *ReportApi) CreateReport(c *gin.Context) {
-	var hkReport community.Report
-	err := c.ShouldBindJSON(&hkReport)
+	var req communityReq.CreateReportReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	hkReport.UserId = utils.GetUserID(c)
-	if err := appReportService.CreateReport(hkReport); err != nil {
+	userId := utils.GetUserID(c)
+	if err := appReportService.CreateReport(userId, req); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {

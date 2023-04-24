@@ -267,12 +267,16 @@ INSERT INTO `casbin_rule` VALUES (1317, 'p', '888', '/app/forumPosts/getForumPos
 INSERT INTO `casbin_rule` VALUES (1318, 'p', '888', '/app/forumPosts/findForumComment', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1319, 'p', '888', '/app/forumPosts/getForumCommentList', 'GET', '', '', '', '', '');
 
-INSERT INTO `casbin_rule` VALUES (1400, 'p', '888', '/app/general/findProtocol', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1401, 'p', '888', '/app/general/findProtocolByName', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1402, 'p', '888', '/app/general/createBugReport', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1403, 'p', '888', '/app/general/findBugReport', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1404, 'p', '888', '/app/general/getBugReportList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1405, 'p', '888', '/app/general/findMiniProgram', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1401, 'p', '888', '/app/general/findProtocol', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1402, 'p', '888', '/app/general/findProtocolByName', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1403, 'p', '888', '/app/general/findMiniProgram', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1404, 'p', '888', '/app/general/getFeedbackTypeList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1405, 'p', '888', '/app/general/createFeedback', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1406, 'p', '888', '/app/general/deleteFeedback', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1407, 'p', '888', '/app/general/deleteFeedbackByIds', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1408, 'p', '888', '/app/general/updateFeedback', 'PUT', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1409, 'p', '888', '/app/general/findFeedback', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (14010, 'p', '888', '/app/general/getFeedbackList', 'GET', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (1500, 'p', '888', '/app/report/createReport', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1501, 'p', '888', '/app/report/findReport', 'GET', '', '', '', '', '');
@@ -739,12 +743,18 @@ INSERT INTO `sys_apis` VALUES (317, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (318, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/findForumComment', '用id查询评论', 3, 'GET');
 INSERT INTO `sys_apis` VALUES (319, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getForumCommentList', '分页获取评论列表', 3, 'GET');
 
-INSERT INTO `sys_apis` VALUES (400, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocol', '用id查询协议', 4, 'GET');
-INSERT INTO `sys_apis` VALUES (401, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocolByName', '用名字查询协议', 4, 'GET');
-INSERT INTO `sys_apis` VALUES (402, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/createBugReport', 'Bug反馈', 4, 'POST');
-INSERT INTO `sys_apis` VALUES (403, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findBugReport', '用id查询BugReport', 4, 'GET');
-INSERT INTO `sys_apis` VALUES (404, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/getBugReportList', '分页获取BugReport列表', 4, 'GET');
-INSERT INTO `sys_apis` VALUES (405, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findMiniProgram', '用id查询MiniProgram', 4, 'GET');
+INSERT INTO `sys_apis` VALUES (401, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocol', '用id查询协议', 4, 'GET');
+INSERT INTO `sys_apis` VALUES (402, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocolByName', '用名字查询协议', 4, 'GET');
+INSERT INTO `sys_apis` VALUES (403, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findMiniProgram', '用id查询MiniProgram', 4, 'GET');
+INSERT INTO `sys_apis` VALUES (404, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/getFeedbackTypeList', '获取反馈类型列表', 4, 'GET');
+INSERT INTO `sys_apis` VALUES (405, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/createFeedback', '创建反馈', 4, 'POST');
+INSERT INTO `sys_apis` VALUES (406, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/deleteFeedback', '删除反馈', 4, 'DELETE');
+INSERT INTO `sys_apis` VALUES (407, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/deleteFeedbackByIds', '批量删除反馈', 4, 'DELETE');
+INSERT INTO `sys_apis` VALUES (408, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/updateFeedback', '更新反馈', 4, 'PUT');
+INSERT INTO `sys_apis` VALUES (409, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findFeedback', '用id查询反馈', 4, 'GET');
+INSERT INTO `sys_apis` VALUES (410, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/getFeedbackList', '分页获取反馈列表', 4, 'GET');
+
+
 
 INSERT INTO `sys_apis` VALUES (500, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/createReport', '举报', 5, 'POST');
 INSERT INTO `sys_apis` VALUES (501, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/findReport', '用id查询Report', 5, 'GET');

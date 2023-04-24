@@ -1014,7 +1014,7 @@ definitions:
         description: 举报原因_编号
         type: integer
       reportType:
-        description: 举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题
+        description: 举报类型:1用户、2圈子、3群、4帖子、5帖子评论
         type: integer
       reportUserId:
         description: 被举报用户编号
@@ -7685,7 +7685,7 @@ paths:
         in: query
         name: reasonId
         type: integer
-      - description: 举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题
+      - description: 举报类型:1用户、2圈子、3群、4帖子、5帖子评论
         in: query
         name: reportType
         type: integer

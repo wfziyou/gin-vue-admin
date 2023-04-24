@@ -6776,7 +6776,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题",
+                        "description": "举报类型:1用户、2圈子、3群、4帖子、5帖子评论",
                         "name": "reportType",
                         "in": "query"
                     },
@@ -15786,7 +15786,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "reportType": {
-                    "description": "举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题",
+                    "description": "举报类型:1用户、2圈子、3群、4帖子、5帖子评论",
                     "type": "integer"
                 },
                 "reportUserId": {

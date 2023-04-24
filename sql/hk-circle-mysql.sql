@@ -1084,11 +1084,10 @@ DROP TABLE IF EXISTS `hk_report`;
 CREATE TABLE `hk_report`  (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `report_user_id` bigint(20) NOT NULL COMMENT '被举报用户编号',
    `user_id` bigint(20) NOT NULL COMMENT '举报用户编号',
-   `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
    `reason_id` bigint(20) NOT NULL COMMENT '举报原因_编号',
-   `report_type` int(2) NOT NULL COMMENT '举报类型:0用户举报、1评论举报、2内容举报-帖子、3内容举报-视频、4内容举报-动态、5内容举报-话题',
+   `report_type` int(2) NOT NULL COMMENT '举报类型:1用户、2圈子、3群、4帖子、5帖子评论',
+   `report_id` bigint(20) NOT NULL COMMENT '被举报编号',
    `content` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '举报内容',
    `content_attachment` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '内容附件',
    `cur_status` int(2) NULL DEFAULT NULL COMMENT '处理状态：0 未处理、1 处理中、2 拒绝、3 完成',

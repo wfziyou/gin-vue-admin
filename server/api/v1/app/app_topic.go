@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
@@ -8,6 +9,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 type TopicApi struct {
@@ -102,6 +104,7 @@ func (topicApi *TopicApi) GetForumTopicGroupListAll(c *gin.Context) {
 // @Produce application/json
 // @Param data body communityReq.CreateForumTopicReq true "创建话题"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.Response{data=community.ForumTopic,msg=string} "返回community.ForumTopic"
 // @Router /app/topic/createForumTopic [post]
 func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
 	var req communityReq.CreateForumTopicReq
@@ -110,13 +113,23 @@ func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appForumTopicService.CreateForumTopic(community.ForumTopic{
-		Name: req.Name,
-	}); err != nil {
-		global.GVA_LOG.Error("创建失败!", zap.Error(err))
-		response.FailWithMessage("创建失败", c)
+	if topic, err := appForumTopicService.GetForumTopicByName(req.Name); err == nil {
+		response.OkWithDetailed(topic, "成功", c)
+		return
+	} else if errors.Is(err, gorm.ErrRecordNotFound) {
+		if err := appForumTopicService.CreateForumTopic(community.ForumTopic{
+			Name: req.Name,
+		}); err != nil {
+			global.GVA_LOG.Error("创建失败!", zap.Error(err))
+			response.FailWithMessage(err.Error(), c)
+			return
+		} else {
+			response.OkWithDetailed(topic, "成功", c)
+			return
+		}
 	} else {
-		response.OkWithMessage("创建成功", c)
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
 }
 
@@ -176,11 +189,11 @@ func (topicApi *TopicApi) DeleteForumTopicByIds(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.ForumTopic true "更新话题"
+// @Param data body communityReq.ForumTopicUpdate true "更新话题"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/topic/updateForumTopic [put]
 func (topicApi *TopicApi) UpdateForumTopic(c *gin.Context) {
-	var hkForumTopic community.ForumTopic
+	var hkForumTopic communityReq.ForumTopicUpdate
 	err := c.ShouldBindJSON(&hkForumTopic)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

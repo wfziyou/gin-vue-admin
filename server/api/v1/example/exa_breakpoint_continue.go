@@ -106,7 +106,7 @@ func (b *FileUploadAndDownloadApi) FindFile(c *gin.Context) {
 // @Produce   application/json
 // @Param     file  formData  file                                                            true  "上传文件完成"
 // @Success   200   {object}  response.Response{data=exampleRes.FilePathResponse,msg=string}  "创建文件,返回包括文件路径"
-// @Router    /fileUploadAndDownload/findFile [post]
+// @Router    /fileUploadAndDownload/breakpointContinueFinish [post]
 func (b *FileUploadAndDownloadApi) BreakpointContinueFinish(c *gin.Context) {
 	fileMd5 := c.Query("fileMd5")
 	fileName := c.Query("fileName")

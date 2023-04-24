@@ -12,8 +12,15 @@ type AppReportService struct {
 
 // CreateReport 创建Report记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appReportService *AppReportService) CreateReport(hkReport community.Report) (err error) {
-	err = global.GVA_DB.Create(&hkReport).Error
+func (appReportService *AppReportService) CreateReport(userId uint64, info communityReq.CreateReportReq) (err error) {
+	obj := community.Report{
+		UserId:            userId,
+		ReportType:        info.ReportType,
+		ReportId:          info.ReportId,
+		Content:           info.Content,
+		ContentAttachment: info.ContentAttachment,
+	}
+	err = global.GVA_DB.Create(&obj).Error
 	return err
 }
 
