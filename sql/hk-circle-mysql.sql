@@ -842,7 +842,7 @@ CREATE TABLE `hk_forum_topic`  (
    `status` int(2) NULL DEFAULT 0 COMMENT '状态',
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
      PRIMARY KEY (`id`) USING BTREE,
-     UNIQUE INDEX `idx_hk_topic_name`(`tenant_id`,`name`) USING BTREE,
+     UNIQUE INDEX `idx_hk_topic_name`(`tenant_id`,`name`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '话题';
 
 -- ----------------------------
@@ -1010,6 +1010,51 @@ CREATE TABLE `hk_forbidden_speak`  (
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
    PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '禁言';
+
+-- ----------------------------
+-- Table structure for hk_feedback_type
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_feedback_type`;
+CREATE TABLE `hk_feedback_type`  (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
+   `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '反馈类型';
+
+-- ----------------------------
+-- Table structure for hk_feedback
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_feedback`;
+CREATE TABLE `hk_feedback`  (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+   `type_id` bigint(20) NOT NULL COMMENT '类型编号',
+   `type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型',
+   `des` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+   `attachment` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '附件',
+   `check_status` int(2) NULL DEFAULT NULL COMMENT '处理状态：0 未处理、1 处理中、2 拒绝、3 完成',
+   `process` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '处理描述',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '反馈';
 
 -- ----------------------------
 -- Table structure for hk_report_reason
