@@ -41,7 +41,7 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 		circleRouter.DELETE("deleteCircleUser", circleApi.DeleteCircleUser)             //删除圈子用户
 		circleRouter.DELETE("deleteCircleUsers", circleApi.DeleteCircleUsers)           //批量删除圈子用户
 		circleRouter.PUT("updateCircleUser", circleApi.UpdateCircleUser)                //更新圈子用户
-		circleRouterWithoutRecord.GET("findCircleUser", circleApi.FindCircleUser)       // 用id查询圈子用户信息
+		circleRouterWithoutRecord.GET("findCircleUser", circleApi.FindCircleUser)       // 查询圈子用户信息
 		circleRouterWithoutRecord.GET("getCircleUserList", circleApi.GetCircleUserList) // 分页获取圈子的用户信息列表
 	}
 	{

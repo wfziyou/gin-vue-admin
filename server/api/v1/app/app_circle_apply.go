@@ -18,7 +18,7 @@ type CircleApplyApi struct {
 用户圈子应用
 **************************************/
 
-// GetUserCircleApplyListALL 获取UserCircleApply列表
+// GetUserCircleApplyListAll 获取UserCircleApply列表
 // @Tags 圈子应用
 // @Summary 获取UserCircleApply列表
 // @Security ApiKeyAuth
@@ -27,7 +27,7 @@ type CircleApplyApi struct {
 // @Param data query communityReq.UserCircleApplySearch true "获取UserCircleApply列表"
 // @Success 200 {object}  response.Response{data=[]community.UserCircleApply,msg=string} "返回communityReq.UserCircleApplySearch"
 // @Router /app/circleApply/getUserCircleApplyListAll [get]
-func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListALL(c *gin.Context) {
+func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListAll(c *gin.Context) {
 	var req communityReq.UserCircleApplySearch
 	err := c.ShouldBindQuery(&req)
 	if err != nil {

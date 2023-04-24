@@ -401,6 +401,12 @@ definitions:
       updatedAt:
         description: 更新时间
         type: string
+      userId:
+        description: 用户_编号
+        type: integer
+      userNickName:
+        description: 用户昵称
+        type: string
     type: object
   community.CircleUserInfo:
     properties:
@@ -980,9 +986,6 @@ definitions:
     type: object
   community.Report:
     properties:
-      circleId:
-        description: 圈子_编号
-        type: integer
       content:
         description: 举报内容
         type: string
@@ -1013,11 +1016,11 @@ definitions:
       reasonId:
         description: 举报原因_编号
         type: integer
+      reportId:
+        description: 被举报编号
+        type: integer
       reportType:
         description: 举报类型:1用户、2圈子、3群、4帖子、5帖子评论
-        type: integer
-      reportUserId:
-        description: 被举报用户编号
         type: integer
       scoreBuy:
         description: 购物积分
@@ -2061,6 +2064,62 @@ definitions:
         description: 用户编号
         type: integer
     type: object
+  general.Feedback:
+    properties:
+      attachment:
+        type: string
+      checkStatus:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      des:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      process:
+        type: string
+      tenantId:
+        type: string
+      type:
+        type: string
+      typeId:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
+    type: object
+  general.FeedbackType:
+    properties:
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      name:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
   general.MiniProgramBaseInfo:
     properties:
       code:
@@ -2452,6 +2511,21 @@ definitions:
         description: 标题
         type: string
     type: object
+  request.CreateReportReq:
+    properties:
+      content:
+        description: 举报内容
+        type: string
+      contentAttachment:
+        description: 内容附件
+        type: string
+      reportId:
+        description: 被举报编号
+        type: integer
+      reportType:
+        description: 举报类型:1用户、2圈子、3群、4帖子、5帖子评论
+        type: integer
+    type: object
   request.DeleteCircleForumPostsReq:
     properties:
       circleId:
@@ -2520,6 +2594,21 @@ definitions:
     properties:
       postsId:
         description: 帖子编号
+        type: integer
+    type: object
+  request.ForumTopicUpdate:
+    properties:
+      coverImage:
+        description: 封面
+        type: string
+      hot:
+        description: 是否热门：0 否 1 是
+        type: integer
+      id:
+        description: 话题编号
+        type: integer
+      topicGroupId:
+        description: 分组id
         type: integer
     type: object
   request.GetAuthorityId:
@@ -2850,9 +2939,6 @@ definitions:
       id:
         description: 活动编号
         type: integer
-      payCurrency:
-        description: 付费货币：1人民、2积分、3金币
-        type: integer
       payNum:
         description: 付费金额
         type: integer
@@ -2928,6 +3014,18 @@ definitions:
       circleId:
         description: 圈子_编号
         type: integer
+      power:
+        description: 权限：0普通 1圈主
+        type: integer
+      remark:
+        description: 备注
+        type: string
+      sort:
+        description: 用户的圈子排序
+        type: integer
+      tag:
+        description: 标签
+        type: string
       userId:
         description: 用户ID
         type: integer
@@ -5037,9 +5135,9 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 编号
+      - description: 圈子_编号
         in: query
-        name: id
+        name: circleId
         type: integer
       produces:
       - application/json
@@ -5057,7 +5155,7 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 用id查询圈子用户信息
+      summary: 查询圈子用户信息
       tags:
       - 圈子
   /app/circle/getChildCircleList:
@@ -5204,13 +5302,13 @@ paths:
         in: query
         name: category
         type: integer
+      - description: 频道_编号
+        in: query
+        name: channelId
+        type: integer
       - description: 圈子_编号
         in: query
         name: circleId
-        type: integer
-      - description: 帖子分类编号
-        in: query
-        name: groupId
         type: integer
       - description: 关键字
         in: query
@@ -5428,17 +5526,9 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 搜索名字：圈子名称或圈子简介
-        in: query
-        name: name
         type: string
       - description: 页码
         in: query
@@ -5447,14 +5537,6 @@ paths:
       - description: 每页大小
         in: query
         name: pageSize
-        type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
-      - description: 类型：0官方圈子、1用户圈子、2小区
-        in: query
-        name: type
         type: integer
       produces:
       - application/json
@@ -5880,18 +5962,10 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 应用分组_编号
-        in: query
-        name: applyGroupId
-        type: integer
       - description: 圈子_编号
         in: query
         name: circleId
         type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
@@ -5904,14 +5978,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 名称别名
-        in: query
-        name: showName
-        type: string
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       produces:
       - application/json
       responses:
@@ -6059,6 +6125,35 @@ paths:
       summary: 断点续传到服务器
       tags:
       - 文件
+  /app/fileUploadAndDownload/breakpointContinueFinish:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: 上传文件完成
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建文件,返回包括文件路径
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.FilePathResponse'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 创建文件
+      tags:
+      - 文件
   /app/fileUploadAndDownload/deleteFile:
     post:
       parameters:
@@ -6090,7 +6185,7 @@ paths:
       consumes:
       - multipart/form-data
       parameters:
-      - description: 上传文件完成
+      - description: Find the file, 查找文件
         in: formData
         name: file
         required: true
@@ -6099,19 +6194,19 @@ paths:
       - application/json
       responses:
         "200":
-          description: 创建文件,返回包括文件路径
+          description: 查找文件,返回包括文件详情
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/response.FilePathResponse'
+                  $ref: '#/definitions/response.FileResponse'
                 msg:
                   type: string
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 创建文件
+      summary: 查找文件
       tags:
       - 文件
   /app/fileUploadAndDownload/getFileList:
@@ -7061,6 +7156,75 @@ paths:
       summary: Bug反馈
       tags:
       - 常规方法
+  /app/general/createFeedback:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建反馈
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/general.Feedback'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建反馈
+      tags:
+      - Feedback
+  /app/general/deleteFeedback:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除反馈
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/general.Feedback'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除反馈
+      tags:
+      - Feedback
+  /app/general/deleteFeedbackByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除反馈
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除反馈
+      tags:
+      - Feedback
   /app/general/findBugReport:
     get:
       consumes:
@@ -7089,6 +7253,59 @@ paths:
       summary: 用id查询Bug反馈
       tags:
       - 常规方法
+  /app/general/findFeedback:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: attachment
+        type: string
+      - in: query
+        name: checkStatus
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: des
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: process
+        type: string
+      - in: query
+        name: tenantId
+        type: string
+      - in: query
+        name: type
+        type: string
+      - in: query
+        name: typeId
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Feedback
+      tags:
+      - Feedback
   /app/general/findMiniProgram:
     get:
       consumes:
@@ -7229,21 +7446,14 @@ paths:
       summary: 分页获取Bug反馈列表
       tags:
       - 常规方法
-  /app/general/getProtocolList:
+  /app/general/getFeedbackList:
     get:
       consumes:
       - application/json
       parameters:
-      - in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 协议名称
-        in: query
-        name: name
         type: string
       - description: 页码
         in: query
@@ -7253,30 +7463,75 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: 返回general.Protocol
+          description: 返回[]general.Feedback
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/general.Protocol'
+                    $ref: '#/definitions/general.Feedback'
                   type: array
                 msg:
                   type: string
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 分页获取协议列表
+      summary: 分页获取反馈列表
       tags:
-      - 常规方法
+      - Feedback
+  /app/general/getFeedbackTypeList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]general.FeedbackType
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/general.FeedbackType'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取反馈类型列表
+      tags:
+      - FeedbackType
+  /app/general/updateFeedback:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新反馈
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/general.Feedback'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新反馈
+      tags:
+      - Feedback
   /app/question/answerQuestion:
     post:
       consumes:
@@ -7551,7 +7806,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.Report'
+          $ref: '#/definitions/request.CreateReportReq'
       produces:
       - application/json
       responses:
@@ -7625,10 +7880,6 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 圈子_编号
-        in: query
-        name: circleId
-        type: integer
       - description: 举报内容
         in: query
         name: content
@@ -7685,13 +7936,13 @@ paths:
         in: query
         name: reasonId
         type: integer
+      - description: 被举报编号
+        in: query
+        name: reportId
+        type: integer
       - description: 举报类型:1用户、2圈子、3群、4帖子、5帖子评论
         in: query
         name: reportType
-        type: integer
-      - description: 被举报用户编号
-        in: query
-        name: reportUserId
         type: integer
       - description: 购物积分
         in: query
@@ -7763,10 +8014,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 举报理由
-        in: query
-        name: reason
-        type: string
       produces:
       - application/json
       responses:
@@ -7803,9 +8050,16 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回community.ForumTopic
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.ForumTopic'
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 创建话题
@@ -7920,17 +8174,9 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 名称
-        in: query
-        name: name
         type: string
       - description: 页码
         in: query
@@ -7940,10 +8186,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       produces:
       - application/json
       responses:
@@ -7970,17 +8212,9 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 名称
-        in: query
-        name: name
         type: string
       - description: 页码
         in: query
@@ -7990,10 +8224,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       produces:
       - application/json
       responses:
@@ -8020,14 +8250,6 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 圈子_编号
-        in: query
-        name: circleId
-        type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 是否热门：0 否 1 是
         in: query
         name: hot
@@ -8035,10 +8257,6 @@ paths:
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - description: 名称
-        in: query
-        name: name
         type: string
       - description: 页码
         in: query
@@ -8048,21 +8266,9 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 审核状态：0 未处理 1 通过，2驳回
-        in: query
-        name: reviewStatus
-        type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       - description: 分组id
         in: query
         name: topicGroupId
-        type: integer
-      - description: 话题类型：0 全局，1圈子
-        in: query
-        name: type
         type: integer
       produces:
       - application/json
@@ -8125,7 +8331,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.ForumTopic'
+          $ref: '#/definitions/request.ForumTopicUpdate'
       produces:
       - application/json
       responses:
@@ -9435,6 +9641,35 @@ paths:
       summary: 断点续传到服务器
       tags:
       - ExaFileUploadAndDownload
+  /fileUploadAndDownload/breakpointContinueFinish:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: 上传文件完成
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建文件,返回包括文件路径
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.FilePathResponse'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 创建文件
+      tags:
+      - ExaFileUploadAndDownload
   /fileUploadAndDownload/deleteFile:
     post:
       parameters:
@@ -9466,7 +9701,7 @@ paths:
       consumes:
       - multipart/form-data
       parameters:
-      - description: 上传文件完成
+      - description: Find the file, 查找文件
         in: formData
         name: file
         required: true
@@ -9475,19 +9710,19 @@ paths:
       - application/json
       responses:
         "200":
-          description: 创建文件,返回包括文件路径
+          description: 查找文件,返回包括文件详情
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/response.FilePathResponse'
+                  $ref: '#/definitions/response.FileResponse'
                 msg:
                   type: string
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 创建文件
+      summary: 查找文件
       tags:
       - ExaFileUploadAndDownload
   /fileUploadAndDownload/getFileList:

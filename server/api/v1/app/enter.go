@@ -27,8 +27,10 @@ type ApiGroup struct {
 }
 
 var (
-	appUserService             = service.ServiceGroupApp.AppServiceGroup.Community.AppUserService
-	appCircleService           = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleService
+	appUserService           = service.ServiceGroupApp.AppServiceGroup.Community.AppUserService
+	appCircleService         = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleService
+	appCircleRelationService = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRelationService
+
 	appCircleClassifyService   = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleClassifyService
 	appCircleRequestService    = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRequestService
 	appCircleUserService       = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleUserService

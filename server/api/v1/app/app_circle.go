@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
@@ -9,6 +10,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 type CircleApi struct {
@@ -119,8 +121,8 @@ func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	pageInfo.UserId = utils.GetUserID(c)
-	if list, total, err := appCircleService.GetSelfCircleList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appCircleService.GetSelfCircleList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -209,7 +211,16 @@ func (circleApi *CircleApi) UpdateCircle(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
+	userId := utils.GetUserID(c)
+	circle, err := appCircleService.GetCircle(req.ID)
+	if err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	if circle.ID != userId {
+		response.FailWithMessage("用户没有权限修改圈子", c)
+		return
+	}
 	if err := appCircleService.UpdateCircle(req); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
@@ -297,10 +308,11 @@ func (circleApi *CircleApi) EnterCircle(c *gin.Context) {
 	}
 	//圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
 	if circleInfo.Property == 0 {
-		appCircleUserService.UpdateCircleUser(community.CircleUser{
-			UserId:   userId,
-			CircleId: req.CircleId,
-			Sort:     1,
+		appCircleUserService.CreateCircleUser(community.CircleUser{
+			UserId:     userId,
+			CircleId:   req.CircleId,
+			CircleName: circleInfo.Name,
+			Sort:       1,
 		})
 		response.OkWithMessage("加入圈子成功", c)
 		return
@@ -414,10 +426,11 @@ func (circleApi *CircleApi) ApplyEnterCircle(c *gin.Context) {
 	}
 	//圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
 	if circleInfo.Property == 0 {
-		appCircleUserService.UpdateCircleUser(community.CircleUser{
-			UserId:   userId,
-			CircleId: req.CircleId,
-			Sort:     1,
+		appCircleUserService.CreateCircleUser(community.CircleUser{
+			UserId:     userId,
+			CircleId:   req.CircleId,
+			CircleName: circleInfo.Name,
+			Sort:       1,
 		})
 		response.OkWithMessage("加入圈子成功", c)
 		return
@@ -593,37 +606,37 @@ func (circleApi *CircleApi) DeleteCircleUsers(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/circle/updateCircleUser [put]
 func (circleApi *CircleApi) UpdateCircleUser(c *gin.Context) {
-	var hkCircleUser communityReq.UpdateCircleUserReq
-	err := c.ShouldBindJSON(&hkCircleUser)
+	var req communityReq.UpdateCircleUserReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//if err := appCircleUserService.UpdateCircleUser(hkCircleUser); err != nil {
-	//	global.GVA_LOG.Error("更新失败!", zap.Error(err))
-	//	response.FailWithMessage("更新失败", c)
-	//} else {
-	//	response.OkWithMessage("更新成功", c)
-	//}
+	if err := appCircleUserService.UpdateCircleUser(req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
 }
 
-// FindCircleUser 用id查询圈子用户信息
+// FindCircleUser 查询圈子用户信息
 // @Tags 圈子
-// @Summary 用id查询圈子用户信息
+// @Summary 查询圈子用户信息
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询圈子用户信息"
+// @Param data query communityReq.FindCircleUserReq true "查询圈子用户信息"
 // @Success 200  {object}  response.Response{data=community.CircleUserInfo,msg=string}  "返回community.CircleUserInfo"
 // @Router /app/circle/findCircleUser [get]
 func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
-	var idSearch request.IdSearch
-	err := c.ShouldBindQuery(&idSearch)
+	var req communityReq.FindCircleUserReq
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkCircleUser, err := appCircleUserService.GetCircleUserInfo(idSearch.ID); err != nil {
+	if rehkCircleUser, err := appCircleUserService.GetCircleUserInfo(req.CircleId, req.UserId); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -676,6 +689,7 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 		return
 	}
 
+	user := utils.GetUserInfo(c)
 	if _, err := appCircleClassifyService.GetCircleClassify(hkCircleRequest.CircleClassifyId); err != nil {
 		response.FailWithMessage("没有找到圈子分类", c)
 		return
@@ -683,6 +697,8 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 
 	//hkCircleRequest community.CircleRequest
 	if err := appCircleRequestService.CreateCircleRequest(community.CircleRequest{
+		UserId:           user.ID,
+		UserNickName:     user.NickName,
 		Type:             1,
 		Name:             hkCircleRequest.Name,
 		Logo:             hkCircleRequest.Logo,
@@ -821,13 +837,22 @@ func (circleApi *CircleApi) SetCircleChannel(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//userId := utils.GetUserID(c)
-	//if err := appUserService.UpdateUserChannel(userId, req.ChannelIds); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage("创建失败", c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+
+	circle, err := appCircleService.GetCircle(req.CircleId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err := appUserService.UpdateUserChannel(circle.ID, req.ChannelIds); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+	} else {
+		response.OkWithMessage("创建成功", c)
+	}
 }
 
 // GetCircleChannelList 获取圈子频道
@@ -839,28 +864,37 @@ func (circleApi *CircleApi) SetCircleChannel(c *gin.Context) {
 // @Success 200 {object}  response.Response{data=[]community.ChannelInfo,msg=string} "返回[]community.ChannelInfo"
 // @Router /app/circle/getCircleChannelList [get]
 func (circleApi *CircleApi) GetCircleChannelList(c *gin.Context) {
-	//userId := utils.GetUserID(c)
-	//channelIds, err := appUserService.GetUserChannel(userId)
-	//if err != nil {
-	//	response.FailWithMessage(err.Error(), c)
-	//	return
-	//}
-	//
-	//if list, _, err := hkChannelService.GetChannelInfoListById(channelIds); err != nil {
-	//	tmp := utils.SplitToUint64List(channelIds, ",")
-	//	for index, id := range tmp {
-	//		for _, obj := range list {
-	//			if obj.ID == id {
-	//				obj.Sort = index
-	//				break
-	//			}
-	//		}
-	//	}
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(list, "获取成功", c)
-	//}
+	var req communityReq.ParamGetCircleChannel
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	circle, err := appCircleService.GetCircle(req.CircleId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if list, _, err := hkChannelService.GetChannelInfoListById(circle.ChannelId); err != nil {
+		tmp := utils.SplitToUint64List(circle.ChannelId, ",")
+		for index, id := range tmp {
+			for _, obj := range list {
+				if obj.ID == id {
+					obj.Sort = index
+					break
+				}
+			}
+		}
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(list, "获取成功", c)
+	}
 }
 
 // GetChildCircleList 分页获取子圈子列表
@@ -873,10 +907,21 @@ func (circleApi *CircleApi) GetCircleChannelList(c *gin.Context) {
 // @Success 200 {object}  response.PageResult{List=[]community.CircleBaseInfo,msg=string} "返回[]community.CircleBaseInfo"
 // @Router /app/circle/getChildCircleList [get]
 func (circleApi *CircleApi) GetChildCircleList(c *gin.Context) {
-	var pageInfo communityReq.ChildCircleSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.ChildCircleSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+	if list, total, err := appCircleRelationService.GetChildCircleList(req.CircleId, req.PageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
 	}
 }

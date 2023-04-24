@@ -8,6 +8,8 @@ import (
 // CircleRequest 结构体
 type CircleRequest struct {
 	global.GvaModelApp
+	UserId           uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户_编号;"`                                  //用户_编号
+	UserNickName     string `json:"userNickName" form:"userNickName" gorm:"column:user_nick_name;comment:用户昵称;size:80;"`                        //用户昵称
 	Type             int    `json:"type" form:"type" gorm:"column:type;comment:类型：0官方圈子 ，1用户圈子;size:10;"`                                       //类型：0官方圈子 ，1用户圈子
 	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                  //圈子名称
 	Logo             string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                               //圈子Logo

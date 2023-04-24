@@ -18,7 +18,7 @@ func (router *CircleApplyRouter) InitCircleApplyRouter(Router *gin.RouterGroup) 
 		circleApplyRouter.POST("setUserCircleApply", circleApplyApi.SetUserCircleApply) //设置UserCircleApply
 	}
 	{
-		circleApplyRouterWithoutRecord.GET("getUserCircleApplyListAll", circleApplyApi.GetUserCircleApplyListALL)   //获取UserCircleApply列表
+		circleApplyRouterWithoutRecord.GET("getUserCircleApplyListAll", circleApplyApi.GetUserCircleApplyListAll)   //获取UserCircleApply列表
 		circleApplyRouterWithoutRecord.GET("findApply", circleApplyApi.FindApply)                                   //用id查询Apply
 		circleApplyRouterWithoutRecord.GET("getApplyList", circleApplyApi.GetApplyList)                             //分页获取Apply列表
 		circleApplyRouterWithoutRecord.GET("getApplyListAll", circleApplyApi.GetApplyListAll)                       //获取Apply列表

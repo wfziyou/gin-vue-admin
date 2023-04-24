@@ -2312,12 +2312,12 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "用id查询圈子用户信息",
+                "summary": "查询圈子用户信息",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "编号",
-                        "name": "id",
+                        "description": "圈子_编号",
+                        "name": "circleId",
                         "in": "query"
                     }
                 ],
@@ -2606,14 +2606,14 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "圈子_编号",
-                        "name": "circleId",
+                        "description": "频道_编号",
+                        "name": "channelId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "帖子分类编号",
-                        "name": "groupId",
+                        "description": "圈子_编号",
+                        "name": "circleId",
                         "in": "query"
                     },
                     {
@@ -2974,20 +2974,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "搜索名字：圈子名称或圈子简介",
-                        "name": "name",
                         "in": "query"
                     },
                     {
@@ -3000,18 +2988,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "类型：0官方圈子、1用户圈子、2小区",
-                        "name": "type",
                         "in": "query"
                     }
                 ],
@@ -3730,20 +3706,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "应用分组_编号",
-                        "name": "applyGroupId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
                         "in": "query"
                     },
                     {
@@ -3762,18 +3726,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "名称别名",
-                        "name": "showName",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -4021,6 +3973,57 @@ var doc = `{
                 }
             }
         },
+        "/app/fileUploadAndDownload/breakpointContinueFinish": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件"
+                ],
+                "summary": "创建文件",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "上传文件完成",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "创建文件,返回包括文件路径",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.FilePathResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/fileUploadAndDownload/deleteFile": {
             "post": {
                 "security": [
@@ -4084,11 +4087,11 @@ var doc = `{
                 "tags": [
                     "文件"
                 ],
-                "summary": "创建文件",
+                "summary": "查找文件",
                 "parameters": [
                     {
                         "type": "file",
-                        "description": "上传文件完成",
+                        "description": "Find the file, 查找文件",
                         "name": "file",
                         "in": "formData",
                         "required": true
@@ -4096,7 +4099,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "创建文件,返回包括文件路径",
+                        "description": "查找文件,返回包括文件详情",
                         "schema": {
                             "allOf": [
                                 {
@@ -4106,7 +4109,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/response.FilePathResponse"
+                                            "$ref": "#/definitions/response.FileResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -5713,6 +5716,120 @@ var doc = `{
                 }
             }
         },
+        "/app/general/createFeedback": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feedback"
+                ],
+                "summary": "创建反馈",
+                "parameters": [
+                    {
+                        "description": "创建反馈",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/general.Feedback"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/deleteFeedback": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feedback"
+                ],
+                "summary": "删除反馈",
+                "parameters": [
+                    {
+                        "description": "删除反馈",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/general.Feedback"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/deleteFeedbackByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feedback"
+                ],
+                "summary": "批量删除反馈",
+                "parameters": [
+                    {
+                        "description": "批量删除反馈",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/general/findBugReport": {
             "get": {
                 "security": [
@@ -5758,6 +5875,93 @@ var doc = `{
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/findFeedback": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feedback"
+                ],
+                "summary": "用id查询Feedback",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "attachment",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "checkStatus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "des",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "process",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tenantId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "typeId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -6006,7 +6210,7 @@ var doc = `{
                 }
             }
         },
-        "/app/general/getProtocolList": {
+        "/app/general/getFeedbackList": {
             "get": {
                 "security": [
                     {
@@ -6020,25 +6224,14 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "常规方法"
+                    "Feedback"
                 ],
-                "summary": "分页获取协议列表",
+                "summary": "分页获取反馈列表",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
                     {
                         "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "协议名称",
-                        "name": "name",
                         "in": "query"
                     },
                     {
@@ -6052,16 +6245,11 @@ var doc = `{
                         "description": "每页大小",
                         "name": "pageSize",
                         "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回general.Protocol",
+                        "description": "返回[]general.Feedback",
                         "schema": {
                             "allOf": [
                                 {
@@ -6073,7 +6261,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/general.Protocol"
+                                                "$ref": "#/definitions/general.Feedback"
                                             }
                                         },
                                         "msg": {
@@ -6082,6 +6270,89 @@ var doc = `{
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/getFeedbackTypeList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "FeedbackType"
+                ],
+                "summary": "获取反馈类型列表",
+                "responses": {
+                    "200": {
+                        "description": "返回[]general.FeedbackType",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/general.FeedbackType"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/updateFeedback": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feedback"
+                ],
+                "summary": "更新反馈",
+                "parameters": [
+                    {
+                        "description": "更新反馈",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/general.Feedback"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -6552,7 +6823,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.Report"
+                            "$ref": "#/definitions/request.CreateReportReq"
                         }
                     }
                 ],
@@ -6685,12 +6956,6 @@ var doc = `{
                 "summary": "分页获取举报列表",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "圈子_编号",
-                        "name": "circleId",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "description": "举报内容",
                         "name": "content",
@@ -6776,14 +7041,14 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "举报类型:1用户、2圈子、3群、4帖子、5帖子评论",
-                        "name": "reportType",
+                        "description": "被举报编号",
+                        "name": "reportId",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "被举报用户编号",
-                        "name": "reportUserId",
+                        "description": "举报类型:1用户、2圈子、3群、4帖子、5帖子评论",
+                        "name": "reportType",
                         "in": "query"
                     },
                     {
@@ -6898,12 +7163,6 @@ var doc = `{
                         "description": "每页大小",
                         "name": "pageSize",
                         "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "举报理由",
-                        "name": "reason",
-                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -6964,9 +7223,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回community.ForumTopic",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.ForumTopic"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -7171,20 +7445,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "名称",
-                        "name": "name",
                         "in": "query"
                     },
                     {
@@ -7197,12 +7459,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -7254,20 +7510,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "名称",
-                        "name": "name",
                         "in": "query"
                     },
                     {
@@ -7280,12 +7524,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -7337,18 +7575,6 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "圈子_编号",
-                        "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "是否热门：0 否 1 是",
                         "name": "hot",
                         "in": "query"
@@ -7357,12 +7583,6 @@ var doc = `{
                         "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "名称",
-                        "name": "name",
                         "in": "query"
                     },
                     {
@@ -7379,26 +7599,8 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "审核状态：0 未处理 1 通过，2驳回",
-                        "name": "reviewStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "分组id",
                         "name": "topicGroupId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "话题类型：0 全局，1圈子",
-                        "name": "type",
                         "in": "query"
                     }
                 ],
@@ -7507,7 +7709,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.ForumTopic"
+                            "$ref": "#/definitions/request.ForumTopicUpdate"
                         }
                     }
                 ],
@@ -9772,6 +9974,57 @@ var doc = `{
                 }
             }
         },
+        "/fileUploadAndDownload/breakpointContinueFinish": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ExaFileUploadAndDownload"
+                ],
+                "summary": "创建文件",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "上传文件完成",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "创建文件,返回包括文件路径",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.FilePathResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/fileUploadAndDownload/deleteFile": {
             "post": {
                 "security": [
@@ -9835,11 +10088,11 @@ var doc = `{
                 "tags": [
                     "ExaFileUploadAndDownload"
                 ],
-                "summary": "创建文件",
+                "summary": "查找文件",
                 "parameters": [
                     {
                         "type": "file",
-                        "description": "上传文件完成",
+                        "description": "Find the file, 查找文件",
                         "name": "file",
                         "in": "formData",
                         "required": true
@@ -9847,7 +10100,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "创建文件,返回包括文件路径",
+                        "description": "查找文件,返回包括文件详情",
                         "schema": {
                             "allOf": [
                                 {
@@ -9857,7 +10110,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/response.FilePathResponse"
+                                            "$ref": "#/definitions/response.FileResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -14940,6 +15193,14 @@ var doc = `{
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
+                },
+                "userId": {
+                    "description": "用户_编号",
+                    "type": "integer"
+                },
+                "userNickName": {
+                    "description": "用户昵称",
+                    "type": "string"
                 }
             }
         },
@@ -15741,10 +16002,6 @@ var doc = `{
         "community.Report": {
             "type": "object",
             "properties": {
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
                 "content": {
                     "description": "举报内容",
                     "type": "string"
@@ -15785,12 +16042,12 @@ var doc = `{
                     "description": "举报原因_编号",
                     "type": "integer"
                 },
-                "reportType": {
-                    "description": "举报类型:1用户、2圈子、3群、4帖子、5帖子评论",
+                "reportId": {
+                    "description": "被举报编号",
                     "type": "integer"
                 },
-                "reportUserId": {
-                    "description": "被举报用户编号",
+                "reportType": {
+                    "description": "举报类型:1用户、2圈子、3群、4帖子、5帖子评论",
                     "type": "integer"
                 },
                 "scoreBuy": {
@@ -17256,6 +17513,88 @@ var doc = `{
                 }
             }
         },
+        "general.Feedback": {
+            "type": "object",
+            "properties": {
+                "attachment": {
+                    "type": "string"
+                },
+                "checkStatus": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "des": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "process": {
+                    "type": "string"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "typeId": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "general.FeedbackType": {
+            "type": "object",
+            "properties": {
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "tenantId": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
         "general.MiniProgramBaseInfo": {
             "type": "object",
             "properties": {
@@ -17805,6 +18144,27 @@ var doc = `{
                 }
             }
         },
+        "request.CreateReportReq": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "description": "举报内容",
+                    "type": "string"
+                },
+                "contentAttachment": {
+                    "description": "内容附件",
+                    "type": "string"
+                },
+                "reportId": {
+                    "description": "被举报编号",
+                    "type": "integer"
+                },
+                "reportType": {
+                    "description": "举报类型:1用户、2圈子、3群、4帖子、5帖子评论",
+                    "type": "integer"
+                }
+            }
+        },
         "request.DeleteCircleForumPostsReq": {
             "type": "object",
             "properties": {
@@ -17905,6 +18265,27 @@ var doc = `{
             "properties": {
                 "postsId": {
                     "description": "帖子编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ForumTopicUpdate": {
+            "type": "object",
+            "properties": {
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
+                "hot": {
+                    "description": "是否热门：0 否 1 是",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "话题编号",
+                    "type": "integer"
+                },
+                "topicGroupId": {
+                    "description": "分组id",
                     "type": "integer"
                 }
             }
@@ -18377,10 +18758,6 @@ var doc = `{
                     "description": "活动编号",
                     "type": "integer"
                 },
-                "payCurrency": {
-                    "description": "付费货币：1人民、2积分、3金币",
-                    "type": "integer"
-                },
                 "payNum": {
                     "description": "付费金额",
                     "type": "integer"
@@ -18482,6 +18859,22 @@ var doc = `{
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
+                },
+                "power": {
+                    "description": "权限：0普通 1圈主",
+                    "type": "integer"
+                },
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "用户的圈子排序",
+                    "type": "integer"
+                },
+                "tag": {
+                    "description": "标签",
+                    "type": "string"
                 },
                 "userId": {
                     "description": "用户ID",

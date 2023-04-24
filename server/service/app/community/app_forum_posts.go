@@ -45,10 +45,6 @@ func (appForumPostsService *AppForumPostsService) DeleteForumPosts(info communit
 	err = global.GVA_DB.Delete(&info).Error
 	return err
 }
-func (appForumPostsService *AppForumPostsService) DeleteSelfForumPosts(info community.ForumPosts) (err error) {
-	err = global.GVA_DB.Where("user_id = ?", info.UserId).Delete(&info).Error
-	return err
-}
 
 // DeleteForumPostsByIds 批量删除帖子记录
 // Author [piexlmax](https://github.com/piexlmax)
@@ -78,10 +74,6 @@ func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(channelI
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
-
-	if len(page.Keyword) > 0 {
-		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
-	}
 
 	db = db.Where("channel_id = ?", channelId)
 
@@ -289,9 +281,7 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 	var hkForumPostss []community.ForumPostsBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	//圈子_编号
-	if info.CircleId != 0 {
-		db = db.Where("circle_id = ?", info.CircleId)
-	}
+	db = db.Where("circle_id = ?", info.CircleId)
 
 	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
 	if info.Category != nil {
@@ -299,8 +289,8 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 	}
 
 	//帖子分类编号
-	if info.GroupId != nil {
-		db = db.Where("group_id = ?", info.GroupId)
+	if info.ChannelId != nil {
+		db = db.Where("channel_id = ?", info.ChannelId)
 	}
 	//标题
 	if len(info.Title) != 0 {

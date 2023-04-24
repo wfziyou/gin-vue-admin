@@ -54,15 +54,8 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoList(info 
 	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
 	var hkCircleApplys []apply.CircleApply
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	if info.CircleId != 0 {
-		db.Where("circle_id = ?", info.CircleId)
-	}
-	if info.ApplyGroupId != 0 {
-		db.Where("apply_group_id = ?", info.ApplyGroupId)
-	}
+	db.Where("circle_id = ?", info.CircleId)
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return

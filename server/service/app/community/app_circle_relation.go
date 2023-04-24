@@ -65,3 +65,24 @@ func (appCircleRelationService *AppCircleRelationService) GetCircleRelationInfoL
 	err = db.Limit(limit).Offset(offset).Find(&hkCircleRelations).Error
 	return hkCircleRelations, total, err
 }
+
+func (appCircleRelationService *AppCircleRelationService) GetChildCircleList(circleId uint64, page request.PageInfo) (list []community.CircleRelation, total int64, err error) {
+	limit := page.PageSize
+	offset := page.PageSize * (page.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.CircleRelation{})
+	var hkCircleRelations []community.CircleRelation
+
+	db = db.Where("circle_id = ? and relation_type = 0", circleId)
+	if len(page.Keyword) > 0 {
+		db = db.Where("other_circle_name LIKE ?", "%"+page.Keyword+"%")
+	}
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkCircleRelations).Error
+	return hkCircleRelations, total, err
+}

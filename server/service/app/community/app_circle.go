@@ -137,21 +137,15 @@ func (appCircleService *AppCircleService) GetCircleInfoList(info communityReq.Ci
 
 // GetSelfCircleList 分页获取Circle记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleService *AppCircleService) GetSelfCircleList(info communityReq.SelfCircleSearch) (list []community.CircleBaseInfo, total int64, err error) {
+func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info communityReq.SelfCircleSearch) (list []community.CircleBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.CircleUser{})
 	var circleUser []community.CircleUser
 
-	if info.CircleId != 0 {
-		db = db.Where("circle_id = ?'", info.CircleId)
-	}
-	if info.UserId != 0 {
-		db = db.Where("user_id = ?", info.UserId)
-	}
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
+	if len(info.Keyword) > 0 {
+		db = db.Where("circle_name LIKE ?", "%"+info.Keyword+"%")
 	}
 
 	err = db.Count(&total).Error
@@ -172,4 +166,14 @@ func (appCircleService *AppCircleService) GetSelfCircleList(info communityReq.Se
 	err = global.GVA_DB.Where("id in ?", circleIds).Find(&hkCircles).Error
 
 	return hkCircles, total, err
+}
+
+// UpdateUserChannel 更新用户频道
+// Author [piexlmax](https://github.com/piexlmax)
+func (appCircleService *AppCircleService) UpdateUserChannel(circleId uint64, channel string) (err error) {
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	updateData["channel_id"] = channel
+	err = global.GVA_DB.Model(&community.Circle{}).Where("id = ?", circleId).Updates(updateData).Error
+	return err
 }

@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
@@ -9,6 +10,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 type ForumPostsApi struct {
@@ -200,10 +202,17 @@ func (forumPostsApi *ForumPostsApi) DeleteForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	var data community.ForumPosts
-	data.ID = req.ID
-	data.UserId = utils.GetUserID(c)
-	if err := appForumPostsService.DeleteForumPosts(data); err != nil {
+
+	posts, err := appForumPostsService.GetForumPosts(req.ID)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("帖子不存在", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err := appForumPostsService.DeleteForumPosts(posts); err != nil {
 		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
@@ -235,7 +244,7 @@ func (forumPostsApi *ForumPostsApi) DeleteSelfForumPosts(c *gin.Context) {
 		response.FailWithMessage("不是自己的帖子", c)
 		return
 	} else {
-		if err := appForumPostsService.DeleteSelfForumPosts(data); err != nil {
+		if err := appForumPostsService.DeleteForumPosts(data); err != nil {
 			global.GVA_LOG.Error("删除失败!", zap.Error(err))
 			response.FailWithMessage("删除失败", c)
 		} else {
@@ -376,6 +385,20 @@ func (forumPostsApi *ForumPostsApi) CreateForumComment(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	posts, err := appForumPostsService.GetForumPosts(req.PostsId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("帖子不存在", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if posts.PowerComment == 0 {
+		response.FailWithMessage("此帖子不能被评论", c)
+		return
+	}
+
 	req.UserId = utils.GetUserID(c)
 	if err := appForumCommentService.CreateForumComment(req); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))

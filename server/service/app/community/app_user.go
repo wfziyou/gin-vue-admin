@@ -286,7 +286,9 @@ func (appUserService *AppUserService) GetUserInfoList(info communityReq.UserSear
 func (appUserService *AppUserService) GetUserChannel(userId uint64) (channel string, err error) {
 	var data = community.UserExtend{}
 	err = global.GVA_DB.Where("id = ?", userId).Select("channel_id").First(&data).Error
-	channel = data.ChannelId
+	if err == nil {
+		channel = data.ChannelId
+	}
 	return
 }
 

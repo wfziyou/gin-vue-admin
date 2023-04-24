@@ -67,8 +67,22 @@ func (appCircleUserService *AppCircleUserService) GetUserHaveCircle(userId uint6
 
 // UpdateCircleUser 更新圈子用户记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleUserService *AppCircleUserService) UpdateCircleUser(hkCircleUser community.CircleUser) (err error) {
-	err = global.GVA_DB.Save(&hkCircleUser).Error
+func (appCircleUserService *AppCircleUserService) UpdateCircleUser(info communityReq.UpdateCircleUserReq) (err error) {
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	if len(info.Remark) > 0 {
+		updateData["remark"] = info.Remark
+	}
+	if len(info.Tag) > 0 {
+		updateData["tag"] = info.Tag
+	}
+	if info.Power != nil {
+		updateData["power"] = info.Power
+	}
+	if info.Sort != nil {
+		updateData["sort"] = info.Sort
+	}
+	err = global.GVA_DB.Model(&community.CircleUser{}).Where("circle_id = ? AND user_id = ?", info.CircleId, info.UserId).Updates(updateData).Error
 	return err
 }
 
@@ -84,8 +98,8 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserEx(circleId uint6
 	return
 }
 
-func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(id uint64) (hkCircleUser community.CircleUserInfo, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleUser).Error
+func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(circleId uint64, userId uint64) (hkCircleUser community.CircleUserInfo, err error) {
+	err = global.GVA_DB.Where("circle_id = ? and user_id = ?", circleId, userId).Preload("UserInfo").First(&hkCircleUser).Error
 	return
 }
 
@@ -117,12 +131,12 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(info com
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
-
+	db = db.Where("circle_id = ? AND user_id = ?", info.CircleId, info.UserId)
 	if info.CircleId != 0 {
-		db = db.Where("circle_id = ?", info.CircleId)
+
 	}
-	if info.UserId != 0 {
-		db = db.Where("user_id = ?", info.UserId)
+	if len(info.Keyword) > 0 {
+		db = db.Where("remark = ?", "%"+info.Keyword+"%")
 	}
 
 	err = db.Count(&total).Error

@@ -260,6 +260,8 @@ DROP TABLE IF EXISTS `hk_circle_request`;
 CREATE TABLE `hk_circle_request`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `user_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '用户ID',
+  `user_nick_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户昵称',
   `type` int(2) NOT NULL DEFAULT 1 COMMENT '类型：0官方圈子 ，1用户圈子',
   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子名称',
   `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子Logo',
@@ -319,7 +321,9 @@ CREATE TABLE `hk_circle_relation`  (
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `relation_type` int(2) NULL DEFAULT NULL COMMENT '关系类型：0父子节点 1关注',
    `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
+   `circle_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子名称',
    `other_circle_id` bigint(20) NOT NULL COMMENT '关系圈子_编号（ 关系类型0：父节点编号； 关系类型1：关注圈子编号）',
+   `other_circle_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '关系圈子名称',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
    `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
@@ -342,6 +346,7 @@ CREATE TABLE `hk_circle_user`  (
    `remark` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
    `tag` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
    `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
+   `circle_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子名称',
    `power` int(2) NULL DEFAULT 0 COMMENT '权限：0普通 1圈主',
    `sort` int(11) NULL DEFAULT NULL COMMENT '用户的圈子排序',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
@@ -358,12 +363,12 @@ CREATE TABLE `hk_circle_user`  (
 -- ----------------------------
 -- Records of hk_circle_user
 -- ----------------------------
-INSERT INTO `hk_circle_user` VALUES (1, '000000', 1, '', '', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (2, '000000', 2, '', '', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (3, '000000', 3, '', '', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (4, '000000', 2, '', '', 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (5, '000000', 3, '', '', 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_user` VALUES (6, '000000', 3, '', '', 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (1, '000000', 1, '', '', 1, "圈子名称1", 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (2, '000000', 2, '', '', 1, "圈子名称1", 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (3, '000000', 3, '', '', 1, "圈子名称1", 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (4, '000000', 2, '', '', 2, "圈子名称2", 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (5, '000000', 3, '', '', 2, "圈子名称2", 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_user` VALUES (6, '000000', 3, '', '', 3, "圈子名称3", 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_channel
