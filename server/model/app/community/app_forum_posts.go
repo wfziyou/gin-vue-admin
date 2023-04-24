@@ -32,6 +32,8 @@ const (
 	//PostsCheckStatusRefuse 4拒绝
 	PostsCheckStatusRefuse = 4
 )
+
+//内容类型：1markdown、2html
 const (
 	ContentTypeMarkdown = 1
 	ContentTypeHtml     = 2

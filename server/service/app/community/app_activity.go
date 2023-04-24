@@ -5,6 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 )
 
 type ActivityService struct {
@@ -12,8 +13,20 @@ type ActivityService struct {
 
 // CreateActivity 创建Activity记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityService *ActivityService) CreateActivity(hkActivity communityReq.CreateActivityReq) (err error) {
-	//err = global.GVA_DB.Create(&hkActivity).Error
+func (hkActivityService *ActivityService) CreateActivity(userId uint64, info communityReq.CreateActivityReq) (err error) {
+	err = global.GVA_DB.Create(&community.ForumPosts{
+		UserId:          userId,
+		Title:           info.Title,
+		CoverImage:      info.CoverImage,
+		ContentType:     community.ContentTypeHtml,
+		ContentHtml:     info.Content,
+		ActivityStartAt: info.ActivityStartAt,
+		ActivityEndAt:   info.ActivityEndAt,
+		ActivityAddress: info.ActivityAddress,
+		ActivityUserNum: info.ActivityUserNum,
+		PayCurrency:     utils.CurrencyGold,
+		PayNum:          info.PayNum,
+	}).Error
 	return err
 }
 
@@ -25,7 +38,7 @@ func (hkActivityService *ActivityService) DeleteActivity(hkActivity community.Fo
 }
 
 func (hkActivityService *ActivityService) DeleteActivityById(id uint64) (err error) {
-	err = global.GVA_DB.Delete(&[]community.ForumPosts{}, "id in =", id).Error
+	err = global.GVA_DB.Where("id = ?", id).Delete(&community.ForumPosts{}).Error
 	return err
 }
 
@@ -38,8 +51,34 @@ func (hkActivityService *ActivityService) DeleteActivityByIds(ids request.IdsReq
 
 // UpdateActivity 更新Activity记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityService *ActivityService) UpdateActivity(hkActivity communityReq.UpdateActivityReq) (err error) {
+func (hkActivityService *ActivityService) UpdateActivity(info communityReq.UpdateActivityReq) (err error) {
 	//err = global.GVA_DB.Save(&hkActivity).Error
+	db := global.GVA_DB.Model(&community.ForumPosts{})
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+
+	if len(info.Title) > 0 {
+		updateData["title"] = info.Title
+	}
+	if len(info.Content) > 0 {
+		updateData["content_html"] = info.Content
+	}
+	if info.ActivityStartAt != nil {
+		updateData["activity_start_at"] = info.ActivityStartAt
+	}
+	if info.ActivityEndAt != nil {
+		updateData["activity_end_at"] = info.ActivityEndAt
+	}
+	if len(info.ActivityAddress) > 0 {
+		updateData["activity_address"] = info.ActivityAddress
+	}
+	if info.ActivityUserNum != nil {
+		updateData["activity_user_num"] = info.ActivityUserNum
+	}
+	if info.PayNum != nil {
+		updateData["pay_num"] = info.PayNum
+	}
+	err = db.Where("id = ?", info.Id).Updates(updateData).Error
 	return err
 }
 

@@ -1,13 +1,16 @@
 package app
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 type ActivityApi struct {
@@ -26,13 +29,15 @@ var hkActivityUserService = service.ServiceGroupApp.AppServiceGroup.Community.Ac
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/activity/createActivity [post]
 func (activityApi *ActivityApi) CreateActivity(c *gin.Context) {
-	var hkActivity communityReq.CreateActivityReq
-	err := c.ShouldBindJSON(&hkActivity)
+	var req communityReq.CreateActivityReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkActivityService.CreateActivity(hkActivity); err != nil {
+	userId := utils.GetUserID(c)
+
+	if err := hkActivityService.CreateActivity(userId, req); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -104,6 +109,16 @@ func (activityApi *ActivityApi) UpdateActivity(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
+	_, err = hkActivityService.GetActivity(req.Id)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("活动不存在", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
 	if err := hkActivityService.UpdateActivity(req); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)

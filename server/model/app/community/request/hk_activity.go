@@ -40,7 +40,7 @@ type CreateActivityReq struct {
 	ActivityAddress string     `json:"activityAddress" form:"activityAddress"` //活动地址
 	ActivityUserNum int        `json:"activityUserNum" form:"activityUserNum"` //活动用户人数（0不限制活动人数，否则为活动人数）
 	PayCurrency     int        `json:"payCurrency" form:"payCurrency"`         //付费货币：1人民、2积分、3金币
-	PayNum          int        `json:"payNum" form:"payNum"`                   //付费金额
+	PayNum          uint64     `json:"payNum" form:"payNum"`                   //付费金额
 }
 type KickOutActivityUsersReq struct {
 	Id  uint64   `json:"id" form:"id"`   // 活动编号
@@ -53,9 +53,8 @@ type UpdateActivityReq struct {
 	ActivityStartAt *time.Time `json:"activityStartAt" form:"activityStartAt"` //活动开始时间
 	ActivityEndAt   *time.Time `json:"activityEndAt" form:"activityEndAt"`     //活动结束时间
 	ActivityAddress string     `json:"activityAddress" form:"activityAddress"` //活动地址
-	ActivityUserNum int        `json:"activityUserNum" form:"activityUserNum"` //活动用户人数（0不限制活动人数，否则为活动人数）
-	PayCurrency     int        `json:"payCurrency" form:"payCurrency"`         //付费货币：1人民、2积分、3金币
-	PayNum          int        `json:"payNum" form:"payNum"`                   //付费金额
+	ActivityUserNum *int       `json:"activityUserNum" form:"activityUserNum"` //活动用户人数（0不限制活动人数，否则为活动人数）
+	PayNum          *int       `json:"payNum" form:"payNum"`                   //付费金额
 }
 
 type ExitActivityReq struct {
