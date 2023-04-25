@@ -101,8 +101,8 @@ CREATE TABLE `hk_user_extend`  (
 -- ----------------------------
 -- Records of hk_user_extend
 -- ----------------------------
-INSERT INTO `hk_user_extend` VALUES (2, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.708', '2023-04-25 18:44:05.776', NULL, NULL, NULL, NULL, 0, 0, '');
-INSERT INTO `hk_user_extend` VALUES (3, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.719', '2023-04-25 18:44:05.785', NULL, NULL, NULL, NULL, 0, 0, '');
+INSERT INTO `hk_user_extend` VALUES (2, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.708', '2023-04-25 18:44:05.776', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_extend` VALUES (3, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.719', '2023-04-25 18:44:05.785', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_user_address
