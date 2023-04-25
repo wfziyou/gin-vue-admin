@@ -24,10 +24,12 @@ type ActivityUserSearch struct {
 }
 
 type CreateActivityDynamicReq struct {
+	Id         uint64 `json:"id" form:"id"`                 // 活动编号
 	Content    string `json:"content" form:"content"`       //活动内容
 	Attachment string `json:"attachment" form:"attachment"` //附件
 }
 type ActivityDynamicSearch struct {
+	Id uint64 `json:"id" form:"id"` // 活动编号
 	request.PageInfo
 }
 

@@ -116,7 +116,7 @@ func (hkRecordBrowsingCircleHomepageApi *RecordBrowsingCircleHomepageApi) Update
 // @accept application/json
 // @Produce application/json
 // @Param data query community.RecordBrowsingCircleHomepage true "用id查询RecordBrowsingCircleHomepage"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object} response.Response{data=community.RecordBrowsingCircleHomepage,msg=string}  "返回community.RecordBrowsingCircleHomepage"
 // @Router /hkRecordBrowsingCircleHomepage/findRecordBrowsingCircleHomepage [get]
 func (hkRecordBrowsingCircleHomepageApi *RecordBrowsingCircleHomepageApi) FindRecordBrowsingCircleHomepage(c *gin.Context) {
 	var hkRecordBrowsingCircleHomepage community.RecordBrowsingCircleHomepage
@@ -129,7 +129,7 @@ func (hkRecordBrowsingCircleHomepageApi *RecordBrowsingCircleHomepageApi) FindRe
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkRecordBrowsingCircleHomepage": rehkRecordBrowsingCircleHomepage}, c)
+		response.OkWithDetailed(rehkRecordBrowsingCircleHomepage, "成功", c)
 	}
 }
 

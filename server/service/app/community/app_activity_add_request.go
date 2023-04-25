@@ -12,8 +12,16 @@ type ActivityAddRequestService struct {
 
 // CreateActivityAddRequest 创建ActivityAddRequest记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityAddRequestService *ActivityAddRequestService) CreateActivityAddRequest(activityAddRequest *community.ActivityAddRequest) (err error) {
-	err = global.GVA_DB.Create(activityAddRequest).Error
+func (hkActivityAddRequestService *ActivityAddRequestService) CreateActivityAddRequest(userId uint64, activityId uint64, reason string) (err error) {
+	var obj = community.ActivityAddRequest{}
+	err = global.GVA_DB.Where("user_id = ? and activity_id = ?", userId, activityId).First(&obj).Error
+	if err == nil {
+		obj.Reason = reason
+		err = global.GVA_DB.Save(&obj).Error
+	} else {
+		var newObj = community.ActivityAddRequest{UserId: userId, ActivityId: activityId, Reason: reason}
+		err = global.GVA_DB.Create(&newObj).Error
+	}
 	return err
 }
 
@@ -21,6 +29,10 @@ func (hkActivityAddRequestService *ActivityAddRequestService) CreateActivityAddR
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkActivityAddRequestService *ActivityAddRequestService) DeleteActivityAddRequest(activityAddRequest community.ActivityAddRequest) (err error) {
 	err = global.GVA_DB.Delete(&activityAddRequest).Error
+	return err
+}
+func (hkActivityAddRequestService *ActivityAddRequestService) DeleteActivityAddRequestById(id uint64) (err error) {
+	err = global.GVA_DB.Delete(&[]community.ActivityAddRequest{}, "id = ?", id).Error
 	return err
 }
 
@@ -35,6 +47,15 @@ func (hkActivityAddRequestService *ActivityAddRequestService) DeleteActivityAddR
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkActivityAddRequestService *ActivityAddRequestService) UpdateActivityAddRequest(activityAddRequest community.ActivityAddRequest) (err error) {
 	err = global.GVA_DB.Save(&activityAddRequest).Error
+	return err
+}
+func (hkActivityAddRequestService *ActivityAddRequestService) UpdateActivityAddRequestStatus(id uint64, checkUserId uint64, checkStatus int) (err error) {
+	db := global.GVA_DB.Model(&community.ActivityAddRequest{})
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	updateData["check_user"] = checkUserId
+	updateData["check_status"] = checkStatus
+	err = db.Where("id = ?", id).Updates(updateData).Error
 	return err
 }
 
@@ -53,10 +74,7 @@ func (hkActivityAddRequestService *ActivityAddRequestService) GetActivityAddRequ
 	// 创建db
 	db := global.GVA_DB.Model(&community.ActivityAddRequest{})
 	var hkActivityAddRequests []community.ActivityAddRequest
-	//// 如果有条件搜索 下方会自动创建搜索语句
-	//if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-	//	db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	//}
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return

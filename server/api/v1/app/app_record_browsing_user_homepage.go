@@ -116,7 +116,7 @@ func (hkRecordBrowsingUserHomepageApi *RecordBrowsingUserHomepageApi) UpdateReco
 // @accept application/json
 // @Produce application/json
 // @Param data query community.RecordBrowsingUserHomepage true "用id查询RecordBrowsingUserHomepage"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object} response.Response{data=community.RecordBrowsingUserHomepage,msg=string}  "返回community.RecordBrowsingUserHomepage"
 // @Router /hkRecordBrowsingUserHomepage/findRecordBrowsingUserHomepage [get]
 func (hkRecordBrowsingUserHomepageApi *RecordBrowsingUserHomepageApi) FindRecordBrowsingUserHomepage(c *gin.Context) {
 	var hkRecordBrowsingUserHomepage community.RecordBrowsingUserHomepage
@@ -129,7 +129,7 @@ func (hkRecordBrowsingUserHomepageApi *RecordBrowsingUserHomepageApi) FindRecord
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkRecordBrowsingUserHomepage": rehkRecordBrowsingUserHomepage}, c)
+		response.OkWithDetailed(rehkRecordBrowsingUserHomepage, "成功", c)
 	}
 }
 

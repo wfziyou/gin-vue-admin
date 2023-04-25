@@ -117,14 +117,14 @@ func (topicApi *TopicApi) CreateForumTopic(c *gin.Context) {
 		response.OkWithDetailed(topic, "成功", c)
 		return
 	} else if errors.Is(err, gorm.ErrRecordNotFound) {
-		if err := appForumTopicService.CreateForumTopic(community.ForumTopic{
+		if newTopic, err := appForumTopicService.CreateForumTopic(community.ForumTopic{
 			Name: req.Name,
 		}); err != nil {
 			global.GVA_LOG.Error("创建失败!", zap.Error(err))
 			response.FailWithMessage(err.Error(), c)
 			return
 		} else {
-			response.OkWithDetailed(topic, "成功", c)
+			response.OkWithDetailed(newTopic, "成功", c)
 			return
 		}
 	} else {

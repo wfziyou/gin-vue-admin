@@ -1,10 +1,12 @@
 package community
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"gorm.io/gorm"
 )
 
 type AppCircleUserService struct {
@@ -112,8 +114,8 @@ func (appCircleUserService *AppCircleUserService) SetUserCurCircle(userId uint64
 	if err == nil {
 		db := global.GVA_DB.Model(&userExtend)
 		err = db.Where("id = ?", userId).Update("circle_id", circleId).Error
-	} else {
-		err = global.GVA_DB.Save(&userExtend).Error
+	} else if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&userExtend).Error
 		return err
 	}
 	return err

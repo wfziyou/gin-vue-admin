@@ -307,3 +307,67 @@ func (appUserService *AppUserService) UpdateUserChannel(userId uint64, channel s
 	}
 	return err
 }
+
+func (appUserService *AppUserService) UpdateUserNumFocus(userId uint64) (err error) {
+	focusCount := int64(0)
+	err = global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ?", userId).Count(&focusCount).Error
+	if err != nil {
+		return
+	}
+
+	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}, NumFocus: focusCount}
+	db := global.GVA_DB.Model(&obj)
+	if errors.Is(db.Where("id = ?", userId).First(&obj).Error, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&obj).Error
+	} else {
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["num_focus"] = focusCount
+		err = db.Where("id = ?", userId).Updates(updateData).Error
+	}
+	return err
+}
+func (appUserService *AppUserService) UpdateUserNumFan(userId uint64) (err error) {
+	fanCount := int64(0)
+	err = global.GVA_DB.Model(&community.FocusUser{}).Where("focus_user_id = ?", userId).Count(&fanCount).Error
+	if err != nil {
+		return
+	}
+
+	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}, NumFan: fanCount}
+	db := global.GVA_DB.Model(&obj)
+	if errors.Is(db.Where("id = ?", userId).First(&obj).Error, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&obj).Error
+	} else {
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["num_fan"] = fanCount
+		err = db.Where("id = ?", userId).Updates(updateData).Error
+	}
+	return err
+}
+func (appUserService *AppUserService) UpdateUserFocus(userId uint64) (err error) {
+	focusCount := int64(0)
+	fanCount := int64(0)
+	err = global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ?", userId).Count(&focusCount).Error
+	if err != nil {
+		return
+	}
+	err = global.GVA_DB.Model(&community.FocusUser{}).Where("focus_user_id = ?", userId).Count(&fanCount).Error
+	if err != nil {
+		return
+	}
+
+	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}, NumFocus: focusCount, NumFan: fanCount}
+	db := global.GVA_DB.Model(&obj)
+	if errors.Is(db.Where("id = ?", userId).First(&obj).Error, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&obj).Error
+	} else {
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["num_focus"] = focusCount
+		updateData["num_fan"] = fanCount
+		err = db.Where("id = ?", userId).Updates(updateData).Error
+	}
+	return err
+}

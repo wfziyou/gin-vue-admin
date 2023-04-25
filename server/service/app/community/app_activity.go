@@ -1,11 +1,13 @@
 package community
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"gorm.io/gorm"
 )
 
 type ActivityService struct {
@@ -101,6 +103,61 @@ func (hkActivityService *ActivityService) GetActivityInfoList(info communityReq.
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkActivitys).Error
+	return hkActivitys, total, err
+}
+
+func (hkActivityService *ActivityService) CreateActivityDynamic(userId uint64, activity community.ForumPosts, content string, attachment string) (err error) {
+	err = global.GVA_DB.Create(&community.ForumPosts{
+		CircleId:   activity.CircleId,
+		ActivityId: activity.ID,
+		Category:   community.PostsCategoryDynamic,
+		UserId:     userId,
+		Title:      content,
+		Attachment: attachment,
+	}).Error
+	return err
+}
+func (hkActivityService *ActivityService) GetActivityDynamic(id uint64) (dynamic community.ForumPosts, err error) {
+	err = global.GVA_DB.Where("id = ?", id).First(&dynamic).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = errors.New("动态不存在")
+		return
+	} else if err != nil {
+		return
+	}
+	if dynamic.ActivityId == 0 {
+		err = errors.New("不是活动动态")
+		return
+	}
+	return
+}
+func (hkActivityService *ActivityService) DeleteActivityDynamic(id uint64) (err error) {
+	err = global.GVA_DB.Where("id = ?", id).Delete(&community.ForumPosts{}).Error
+	return err
+}
+
+func (hkActivityService *ActivityService) GetActivityDynamicList(activityId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := page.PageSize
+	offset := page.PageSize * (page.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPosts{})
+	var hkActivitys []community.ForumPostsBaseInfo
+
+	db = db.Where("activity_id = ?", activityId)
+
+	if len(page.Keyword) > 0 {
+		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
+	}
+	
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return

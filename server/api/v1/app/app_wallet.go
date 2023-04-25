@@ -19,7 +19,7 @@ type WalletApi struct {
 // @accept application/json
 // @Produce application/json
 // @Param data query community.HkGoldBill true "用id查询HkGoldBill"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object} response.Response{data=community.HkGoldBill,msg=string}  "返回community.HkGoldBill"
 // @Router /hkGoldBill/findHkGoldBill [get]
 func (api *WalletApi) FindHkGoldBill(c *gin.Context) {
 	var hkGoldBill community.HkGoldBill
@@ -32,7 +32,7 @@ func (api *WalletApi) FindHkGoldBill(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkGoldBill": rehkGoldBill}, c)
+		response.OkWithDetailed(rehkGoldBill, "成功", c)
 	}
 }
 
@@ -72,7 +72,7 @@ func (api *WalletApi) GetHkGoldBillList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query community.HkOrder true "用id查询HkOrder"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object} response.Response{data=community.HkOrder,msg=string}  "返回community.HkOrder"
 // @Router /hkOrder/findHkOrder [get]
 func (api *WalletApi) FindHkOrder(c *gin.Context) {
 	var hkOrder community.HkOrder
@@ -85,7 +85,7 @@ func (api *WalletApi) FindHkOrder(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkOrder": rehkOrder}, c)
+		response.OkWithDetailed(rehkOrder, "成功", c)
 	}
 }
 
@@ -126,6 +126,7 @@ func (api *WalletApi) GetHkOrderList(c *gin.Context) {
 // @Produce application/json
 // @Param data query community.HkUserBill true "用id查询HkUserBill"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object} response.Response{data=community.HkUserBill,msg=string}  "返回community.HkUserBill"
 // @Router /hkUserBill/findHkUserBill [get]
 func (api *WalletApi) FindHkUserBill(c *gin.Context) {
 	var hkUserBill community.HkUserBill
@@ -138,7 +139,7 @@ func (api *WalletApi) FindHkUserBill(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkUserBill": rehkUserBill}, c)
+		response.OkWithDetailed(rehkUserBill, "成功", c)
 	}
 }
 
@@ -202,7 +203,7 @@ func (api *WalletApi) CreateHkUserRecharge(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query community.HkUserRecharge true "用id查询HkUserRecharge"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object} response.Response{data=community.HkUserRecharge,msg=string}  "返回community.HkUserRecharge"
 // @Router /hkUserRecharge/findHkUserRecharge [get]
 func (api *WalletApi) FindHkUserRecharge(c *gin.Context) {
 	var hkUserRecharge community.HkUserRecharge
@@ -215,7 +216,7 @@ func (api *WalletApi) FindHkUserRecharge(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkUserRecharge": rehkUserRecharge}, c)
+		response.OkWithDetailed(rehkUserRecharge, "成功", c)
 	}
 }
 

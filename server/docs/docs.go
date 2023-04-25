@@ -812,9 +812,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.ActivityAddRequest",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.ActivityAddRequest"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -853,9 +868,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.ActivityUser",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.ActivityUser"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -944,6 +974,12 @@ var doc = `{
                 ],
                 "summary": "分页获取活动的动态列表",
                 "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "活动编号",
+                        "name": "id",
+                        "in": "query"
+                    },
                     {
                         "type": "string",
                         "description": "关键字",
@@ -4439,9 +4475,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "description": "返回[]community.FocusUserInfo",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.FocusUserInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -4486,9 +4540,27 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回[]community.FocusUserInfo",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.FocusUserInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -5959,9 +6031,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回general.Feedback",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/general.Feedback"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -10364,9 +10451,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkGoldBill",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkGoldBill"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -10681,9 +10783,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkOrder",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkOrder"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -11112,9 +11229,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.RecordBrowsingCircleHomepage",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.RecordBrowsingCircleHomepage"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -11486,9 +11618,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.RecordBrowsingUserHomepage",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.RecordBrowsingUserHomepage"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -11766,9 +11913,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkUserBill",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkUserBill"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -12066,9 +12228,24 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "description": "返回community.HkUserRecharge",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.HkUserRecharge"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -14825,6 +15002,47 @@ var doc = `{
                 }
             }
         },
+        "community.ActivityAddRequest": {
+            "type": "object",
+            "properties": {
+                "activityId": {
+                    "description": "活动_编号",
+                    "type": "integer"
+                },
+                "checkStatus": {
+                    "description": "审核状态：0 未处理、1通过、2驳回",
+                    "type": "integer"
+                },
+                "checkTime": {
+                    "description": "审核时间",
+                    "type": "string"
+                },
+                "checkUser": {
+                    "description": "审核人",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "reason": {
+                    "description": "申请理由",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户ID",
+                    "type": "integer"
+                }
+            }
+        },
         "community.ActivityUser": {
             "type": "object",
             "properties": {
@@ -15281,6 +15499,10 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "mutual": {
+                    "description": "是否相互关注:0否 1是",
+                    "type": "integer"
+                },
                 "nickName": {
                     "description": "用户昵称",
                     "type": "string"
@@ -15314,36 +15536,45 @@ var doc = `{
                     "description": "描述",
                     "type": "string"
                 },
-                "focusUserId": {
-                    "type": "integer"
-                },
                 "headerImg": {
                     "description": "头像",
                     "type": "string"
                 },
                 "id": {
-                    "description": "编号",
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "mutual": {
+                    "description": "是否相互关注:0否 1是",
                     "type": "integer"
                 },
                 "nickName": {
                     "description": "昵称",
                     "type": "string"
                 },
+                "numCircle": {
+                    "description": "圈子数",
+                    "type": "integer"
+                },
+                "numFan": {
+                    "description": "粉丝数",
+                    "type": "integer"
+                },
+                "numFocus": {
+                    "description": "关注数",
+                    "type": "integer"
+                },
                 "realName": {
                     "description": "真名",
-                    "type": "string"
-                },
-                "remark": {
-                    "description": "备注",
                     "type": "string"
                 },
                 "sex": {
                     "description": "性别： 0未知、1男、2女",
                     "type": "integer"
                 },
-                "tag": {
-                    "description": "标签",
-                    "type": "string"
+                "userType": {
+                    "description": "用户平台: 1web、2app、3other",
+                    "type": "integer"
                 }
             }
         },
@@ -15802,6 +16033,216 @@ var doc = `{
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
+                }
+            }
+        },
+        "community.HkGoldBill": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "integer"
+                },
+                "beforeNumber": {
+                    "type": "integer"
+                },
+                "changeNumber": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "linkId": {
+                    "type": "string"
+                },
+                "mark": {
+                    "type": "string"
+                },
+                "pm": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "titleIcon": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "community.HkOrder": {
+            "type": "object",
+            "properties": {
+                "backIntegral": {
+                    "type": "number"
+                },
+                "cartNum": {
+                    "type": "integer"
+                },
+                "cost": {
+                    "type": "number"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "extendOrderId": {
+                    "type": "string"
+                },
+                "gainIntegral": {
+                    "type": "number"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "mark": {
+                    "type": "string"
+                },
+                "orderId": {
+                    "type": "string"
+                },
+                "paid": {
+                    "type": "boolean"
+                },
+                "payPrice": {
+                    "type": "number"
+                },
+                "payTime": {
+                    "type": "string"
+                },
+                "payType": {
+                    "type": "string"
+                },
+                "productId": {
+                    "type": "integer"
+                },
+                "refundPrice": {
+                    "type": "number"
+                },
+                "refundReason": {
+                    "type": "string"
+                },
+                "refundReasonTime": {
+                    "type": "string"
+                },
+                "refundReasonWap": {
+                    "type": "string"
+                },
+                "refundReasonWapExplain": {
+                    "type": "string"
+                },
+                "refundReasonWapImg": {
+                    "type": "string"
+                },
+                "refundStatus": {
+                    "type": "boolean"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "totalPrice": {
+                    "type": "number"
+                },
+                "unique": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                },
+                "verifyCode": {
+                    "type": "string"
+                }
+            }
+        },
+        "community.HkUserBill": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "number"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "createDept": {
+                    "type": "integer"
+                },
+                "createUser": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "isDel": {
+                    "type": "integer"
+                },
+                "linkId": {
+                    "type": "string"
+                },
+                "mark": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "number"
+                },
+                "pm": {
+                    "type": "boolean"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updateUser": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
                 }
             }
         },
@@ -17971,6 +18412,10 @@ var doc = `{
                 "content": {
                     "description": "活动内容",
                     "type": "string"
+                },
+                "id": {
+                    "description": "活动编号",
+                    "type": "integer"
                 }
             }
         },

@@ -322,7 +322,7 @@ func (generalApi *GeneralApi) UpdateFeedback(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query general.Feedback true "用id查询Feedback"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
+// @Success 200 {object} response.Response{data=general.Feedback,msg=string}  "返回general.Feedback"
 // @Router /app/general/findFeedback [get]
 func (generalApi *GeneralApi) FindFeedback(c *gin.Context) {
 	var hkFeedback general.Feedback
@@ -335,7 +335,7 @@ func (generalApi *GeneralApi) FindFeedback(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(gin.H{"rehkFeedback": rehkFeedback}, c)
+		response.OkWithDetailed(rehkFeedback, "成功", c)
 	}
 }
 

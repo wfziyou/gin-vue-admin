@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
@@ -9,6 +10,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 type FocusApi struct {
@@ -81,15 +83,49 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 		return
 	}
 	userInfo := utils.GetUserInfo(c)
-	if focusUser, err := appUserService.GetUser(req.UserId); err != nil {
+	focusUser, err := appUserService.GetUser(req.UserId)
+	if err != nil {
 		global.GVA_LOG.Error("关注用户不存在!", zap.Error(err))
 		response.FailWithMessage("关注用户不存在", c)
 		return
-	} else if err := hkFocusUserService.CreateFocusUser(userInfo.ID, userInfo.NickName, focusUser); err != nil {
-		global.GVA_LOG.Error("关注用户失败", zap.Error(err))
-		response.FailWithMessage("关注用户失败", c)
+	}
+	otherFocus, err := hkFocusUserService.GetFocusUserObj(req.UserId, userInfo.ID)
+	isOtherFocus := false
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		isOtherFocus = false
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else {
+		isOtherFocus = true
+	}
+
+	_, err = hkFocusUserService.GetFocusUserObj(userInfo.ID, req.UserId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		mutual := 0
+		if isOtherFocus == true {
+			mutual = 1
+		}
+		if err := hkFocusUserService.CreateFocusUser(userInfo.ID, userInfo.NickName, focusUser, mutual); err != nil {
+			global.GVA_LOG.Error("关注用户失败", zap.Error(err))
+			response.FailWithMessage("关注用户失败", c)
+			return
+		} else {
+			if isOtherFocus == true {
+				otherFocus.Mutual = mutual
+				hkFocusUserService.UpdateFocusUser(otherFocus)
+			}
+			appUserService.UpdateUserNumFocus(userInfo.ID)
+			appUserService.UpdateUserNumFan(req.UserId)
+			response.OkWithMessage("成功", c)
+			return
+		}
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
 	} else {
 		response.OkWithMessage("成功", c)
+		return
 	}
 }
 
@@ -110,12 +146,44 @@ func (focusApi *FocusApi) FocusUserCancel(c *gin.Context) {
 		return
 	}
 	var userId = utils.GetUserID(c)
-	if err := hkFocusUserService.DeleteFocusUser(userId, req.UserId); err != nil {
-		global.GVA_LOG.Error("取消用户关注失败!", zap.Error(err))
-		response.FailWithMessage("失败", c)
-	} else {
-		response.OkWithMessage("成功", c)
+	_, err = appUserService.GetUser(req.UserId)
+	if err != nil {
+		global.GVA_LOG.Error("关注用户不存在!", zap.Error(err))
+		response.FailWithMessage("关注用户不存在", c)
+		return
 	}
+	otherFocus, err := hkFocusUserService.GetFocusUserObj(req.UserId, userId)
+	isOtherFocus := false
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		isOtherFocus = false
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else {
+		isOtherFocus = true
+	}
+
+	focus, err := hkFocusUserService.GetFocusUserObj(userId, req.UserId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.OkWithMessage("成功", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else {
+		if err := hkFocusUserService.DeleteFocusUserObj(focus); err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		} else {
+			if isOtherFocus == true {
+				otherFocus.Mutual = 0
+				hkFocusUserService.UpdateFocusUser(otherFocus)
+			}
+			appUserService.UpdateUserNumFocus(userId)
+			appUserService.UpdateUserNumFan(req.UserId)
+		}
+	}
+	response.OkWithMessage("成功", c)
 }
 
 // GetFocusUserList 分页获取关注用户列表
@@ -125,7 +193,7 @@ func (focusApi *FocusApi) FocusUserCancel(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.FocusUserSearch true "分页获取关注用户列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object} response.PageResult{List=[]community.FocusUserInfo,msg=string} "返回[]community.FocusUserInfo"
 // @Router /app/focus/getFocusUserList [get]
 func (focusApi *FocusApi) GetFocusUserList(c *gin.Context) {
 	var pageInfo communityReq.FocusUserSearch
@@ -155,7 +223,7 @@ func (focusApi *FocusApi) GetFocusUserList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.FansSearch true "分页获取粉丝列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
+// @Success 200 {object} response.PageResult{List=[]community.FocusUserInfo,msg=string} "返回[]community.FocusUserInfo"
 // @Router /app/focus/getFansList [get]
 func (focusApi *FocusApi) GetFansList(c *gin.Context) {
 	var req communityReq.FansSearch

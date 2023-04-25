@@ -12,9 +12,9 @@ type AppForumTopicService struct {
 
 // CreateForumTopic 创建话题记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumTopicService *AppForumTopicService) CreateForumTopic(hkForumTopic community.ForumTopic) (err error) {
+func (appForumTopicService *AppForumTopicService) CreateForumTopic(hkForumTopic community.ForumTopic) (obj community.ForumTopic, err error) {
 	err = global.GVA_DB.Create(&hkForumTopic).Error
-	return err
+	return hkForumTopic, err
 }
 
 // DeleteForumTopic 删除话题记录

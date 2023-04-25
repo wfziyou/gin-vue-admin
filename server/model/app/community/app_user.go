@@ -45,6 +45,12 @@ type UserBaseInfo struct {
 	Sex         int    `json:"sex" form:"sex" gorm:"column:sex;comment:性别： 0未知、1男、2女;size:10;"`                          //性别： 0未知、1男、2女
 	Description string `json:"description" form:"description" gorm:"column:description;comment:描述;size:45;"`             //描述
 }
+type UserInfo struct {
+	UserBaseInfo
+	NumCircle int64 `json:"numCircle" form:"numCircle" gorm:"type:bigint(20);column:num_circle;comment:圈子数;"` //圈子数
+	NumFocus  int64 `json:"numFocus" form:"numFocus" gorm:"type:bigint(20);column:num_focus;comment:关注数;"`    //关注数
+	NumFan    int64 `json:"numFan" form:"numFan" gorm:"type:bigint(20);column:num_fan;comment:粉丝数;"`          //粉丝数
+}
 
 // TableName User 表名
 func (UserBaseInfo) TableName() string {

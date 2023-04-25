@@ -1,11 +1,13 @@
 package general
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"gorm.io/gorm"
 )
 
 type AppUserCollectService struct {
@@ -18,8 +20,8 @@ func (appUserCollectService *AppUserCollectService) CreateUserCollect(userId uin
 	if err == nil {
 		err = global.GVA_DB.Save(&hkUserCollect).Error
 		err = appUserCollectService.UpdateCollectNum(hkUserCollect.PostsId)
-	} else {
-		err = global.GVA_DB.Save(&hkUserCollect).Error
+	} else if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&hkUserCollect).Error
 	}
 	return err
 }

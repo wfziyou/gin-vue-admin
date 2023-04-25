@@ -99,6 +99,12 @@ CREATE TABLE `hk_user_extend`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '终端用户拓展';
 
 -- ----------------------------
+-- Records of hk_user_extend
+-- ----------------------------
+INSERT INTO `hk_user_extend` VALUES (2, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.708', '2023-04-25 18:44:05.776', NULL, NULL, NULL, NULL, 0, 0, '');
+INSERT INTO `hk_user_extend` VALUES (3, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.719', '2023-04-25 18:44:05.785', NULL, NULL, NULL, NULL, 0, 0, '');
+
+-- ----------------------------
 -- Table structure for hk_user_address
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_user_address`;
@@ -283,10 +289,6 @@ CREATE TABLE `hk_circle_request`  (
   INDEX `idx_hk_circle_request_deleted_at`(`deleted_at`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子申请' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of hk_circle_request
--- ----------------------------
-INSERT INTO `hk_circle_request` VALUES (1, '000000', 1, 'aa', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_circle_add_request
@@ -1366,6 +1368,7 @@ CREATE TABLE `hk_focus_user`  (
   `tag` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
   `focus_user_id` bigint(20) NOT NULL COMMENT '关注用户ID',
   `focus_nick_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '关注用户昵称',
+  `mutual` int(2) NULL DEFAULT 0 COMMENT '是否相互关注:0否 1是',
   `created_at` datetime(3) NULL DEFAULT NULL,
   `updated_at` datetime(3) NULL DEFAULT NULL,
   `deleted_at` datetime(3) NULL DEFAULT NULL,
@@ -1381,10 +1384,8 @@ CREATE TABLE `hk_focus_user`  (
 -- ----------------------------
 -- Records of hk_focus_user
 -- ----------------------------
-INSERT INTO `hk_focus_user` VALUES (2, '000000', 2, '范杰2', '', '', 3, '用户3', '2023-04-21 00:24:22.097', '2023-04-21 00:51:09.831', '2023-04-21 00:51:15.312', NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_focus_user` VALUES (3, '000000', 3, '用户3', NULL, NULL, 2, '范杰2', '2023-04-21 00:24:22.097', '2023-04-21 00:24:22.097', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_focus_user` VALUES (4, '000000', 2, '范杰2', '', '', 3, '用户3', '2023-04-21 00:51:19.809', '2023-04-21 00:51:19.809', '2023-04-21 00:55:36.640', NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_focus_user` VALUES (5, '000000', 2, '范杰2', '', '', 3, '用户3', '2023-04-21 00:56:51.739', '2023-04-21 00:56:51.739', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_focus_user` VALUES (2, '000000', 2, '范杰2', '', '', 3, '用户3', 0, '2023-04-21 00:24:22.097', '2023-04-21 00:51:09.831', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_focus_user` VALUES (3, '000000', 3, '用户3', NULL, NULL, 2, '范杰2', 0, '2023-04-21 00:24:22.097', '2023-04-21 00:24:22.097', NULL, NULL, NULL, NULL, 0, 0);
 
 
 -- ----------------------------
