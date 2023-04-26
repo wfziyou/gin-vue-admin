@@ -33,7 +33,8 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistory(
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appUserBrowsingHistoryService.DeleteUserBrowsingHistoryById(req.ID); err != nil {
+	userId := utils.GetUserID(c)
+	if err := appUserBrowsingHistoryService.DeleteUserBrowsingHistoryById(userId, req.ID); err != nil {
 		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
@@ -57,7 +58,8 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistoryB
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appUserBrowsingHistoryService.DeleteUserBrowsingHistoryByIds(IDS); err != nil {
+	userId := utils.GetUserID(c)
+	if err := appUserBrowsingHistoryService.DeleteUserBrowsingHistoryByIds(userId, IDS); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {

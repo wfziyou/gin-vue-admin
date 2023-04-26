@@ -1887,10 +1887,10 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "审批加入圈子申请",
+                "summary": "(圈子管理员)审批加入圈子申请",
                 "parameters": [
                     {
-                        "description": "审批加入圈子申请",
+                        "description": "(圈子管理员)审批加入圈子申请",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -1963,10 +1963,10 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "删除圈子的帖子",
+                "summary": "(圈子管理员)删除圈子的帖子",
                 "parameters": [
                     {
-                        "description": "删除圈子的帖子",
+                        "description": "(圈子管理员)删除圈子的帖子",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -2115,7 +2115,7 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "分页获取加入圈子申请",
+                "summary": "(圈子管理员)分页获取加入圈子申请",
                 "parameters": [
                     {
                         "type": "integer",
@@ -2157,12 +2157,6 @@ var doc = `{
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "用户_编号",
-                        "name": "userId",
                         "in": "query"
                     }
                 ],
@@ -7040,26 +7034,8 @@ var doc = `{
                 "tags": [
                     "举报"
                 ],
-                "summary": "分页获取举报列表",
+                "summary": "(管理员)分页获取举报列表",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "举报内容",
-                        "name": "content",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "内容附件",
-                        "name": "contentAttachment",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
                     {
                         "type": "integer",
                         "description": "处理状态：0 未处理、1 处理中、2 拒绝、3 完成",
@@ -7067,21 +7043,9 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "description": "禁言时长_编号",
-                        "name": "durationId",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "description": "创建时间（结束）",
                         "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "积分处理:0不扣分、1扣分",
-                        "name": "handleScore",
                         "in": "query"
                     },
                     {
@@ -7094,12 +7058,6 @@ var doc = `{
                         "type": "integer",
                         "description": "操作用户_编号",
                         "name": "handleUserId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
                         "in": "query"
                     },
                     {
@@ -7128,56 +7086,14 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "被举报编号",
-                        "name": "reportId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "举报类型:1用户、2圈子、3群、4帖子、5帖子评论",
                         "name": "reportType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "购物积分",
-                        "name": "scoreBuy",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "社区积分",
-                        "name": "scoreCommunity",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "下载值",
-                        "name": "scoreDownload",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "经验",
-                        "name": "scoreExperience",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "是否解除：0 否、是",
-                        "name": "unlock",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
                         "in": "query"
                     },
                     {
@@ -15853,6 +15769,34 @@ var doc = `{
         "community.ForumPostsBaseInfo": {
             "type": "object",
             "properties": {
+                "activityAddApprove": {
+                    "description": "参加活动是否需要审批：0不审批、1审批",
+                    "type": "integer"
+                },
+                "activityAddress": {
+                    "description": "活动地址",
+                    "type": "string"
+                },
+                "activityChatGroupId": {
+                    "description": "活动聊天群编号",
+                    "type": "integer"
+                },
+                "activityCurUserNum": {
+                    "description": "活动参加人数",
+                    "type": "integer"
+                },
+                "activityEndAt": {
+                    "description": "活动结束时间",
+                    "type": "string"
+                },
+                "activityStartAt": {
+                    "description": "活动开始时间",
+                    "type": "string"
+                },
+                "activityUserNum": {
+                    "description": "活动用户人数（0不限制活动人数，否则为活动人数）",
+                    "type": "integer"
+                },
                 "anonymity": {
                     "description": "匿名发布：0否、1是",
                     "type": "integer"
@@ -15907,6 +15851,10 @@ var doc = `{
                 },
                 "marrow": {
                     "description": "精华：0否、1是",
+                    "type": "integer"
+                },
+                "payNum": {
+                    "description": "付费金额",
                     "type": "integer"
                 },
                 "readNum": {
@@ -18305,6 +18253,10 @@ var doc = `{
                     "description": "审核状态：1通过、2驳回",
                     "type": "integer"
                 },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
                 "id": {
                     "description": "申请编号",
                     "type": "integer"
@@ -18438,6 +18390,10 @@ var doc = `{
                     "description": "活动用户人数（0不限制活动人数，否则为活动人数）",
                     "type": "integer"
                 },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
                 "content": {
                     "description": "活动内容",
                     "type": "string"
@@ -18456,6 +18412,10 @@ var doc = `{
                 },
                 "title": {
                     "description": "标题",
+                    "type": "string"
+                },
+                "topicId": {
+                    "description": "话题_编号",
                     "type": "string"
                 }
             }
@@ -18551,7 +18511,7 @@ var doc = `{
                 },
                 "topicId": {
                     "description": "话题_编号",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "video": {
                     "description": "视频地址",

@@ -16,11 +16,14 @@ type ActivityService struct {
 // CreateActivity 创建Activity记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkActivityService *ActivityService) CreateActivity(userId uint64, info communityReq.CreateActivityReq) (err error) {
-	err = global.GVA_DB.Create(&community.ForumPosts{
+	obj := community.ForumPosts{
+		//TopicId:         info.TopicId,
+		CircleId:        info.CircleId,
 		UserId:          userId,
 		Title:           info.Title,
 		CoverImage:      info.CoverImage,
 		ContentType:     community.ContentTypeHtml,
+		Category:        community.PostsCategoryActivity,
 		ContentHtml:     info.Content,
 		ActivityStartAt: info.ActivityStartAt,
 		ActivityEndAt:   info.ActivityEndAt,
@@ -28,7 +31,17 @@ func (hkActivityService *ActivityService) CreateActivity(userId uint64, info com
 		ActivityUserNum: info.ActivityUserNum,
 		PayCurrency:     utils.CurrencyGold,
 		PayNum:          info.PayNum,
-	}).Error
+	}
+	err = global.GVA_DB.Create(&obj).Error
+	if err == nil && len(info.TopicId) > 0 {
+		tmp := utils.SplitToUint64List(info.TopicId, ",")
+		for _, topicId := range tmp {
+			err = global.GVA_DB.Create(&community.ForumTopicPostsMapping{
+				TopicId: topicId,
+				PostsId: obj.ID,
+			}).Error
+		}
+	}
 	return err
 }
 
@@ -154,7 +167,7 @@ func (hkActivityService *ActivityService) GetActivityDynamicList(activityId uint
 	if len(page.Keyword) > 0 {
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
-	
+
 	//创建时间降序排列
 	db = db.Order("hk_forum_posts.created_at desc")
 

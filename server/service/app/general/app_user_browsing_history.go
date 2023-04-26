@@ -23,15 +23,15 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBr
 	err = global.GVA_DB.Delete(&hkUserBrowsingHistory).Error
 	return err
 }
-func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistoryById(id uint64) (err error) {
-	err = global.GVA_DB.Delete(&general.UserBrowsingHistory{}, "id in =", id).Error
+func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistoryById(userId uint64, id uint64) (err error) {
+	err = global.GVA_DB.Delete(&general.UserBrowsingHistory{}, "user_id = ? AND id in =", userId, id).Error
 	return err
 }
 
 // DeleteUserBrowsingHistoryByIds 批量删除浏览历史记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistoryByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]general.UserBrowsingHistory{}, "id in ?", ids.Ids).Error
+func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistoryByIds(userId uint64, ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]general.UserBrowsingHistory{}, "user_id = ? AND id in ?", userId, ids.Ids).Error
 	return err
 }
 
@@ -61,7 +61,9 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) GetUserBrows
 	if info.StartUpdatedAt != nil && info.EndUpdatedAt != nil {
 		db = db.Where("updated_at BETWEEN ? AND ?", info.StartUpdatedAt, info.EndUpdatedAt)
 	}
-	db = db.Where("user_id = ?", info.UserId)
+	if info.UserId > 0 {
+		db = db.Where("user_id = ?", info.UserId)
+	}
 
 	err = db.Count(&total).Error
 	if err != nil {

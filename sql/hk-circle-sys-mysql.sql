@@ -685,7 +685,7 @@ INSERT INTO `sys_apis` VALUES (88, '000000', '2023-02-06 18:19:13.303', '2023-02
 INSERT INTO `sys_apis` VALUES (89, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/authorityBtn/canRemoveAuthorityBtn', '删除按钮', 70, 'POST');
 
 INSERT INTO `sys_apis` VALUES (100, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/getCircleForumPostsList', '分页获取圈子ForumPosts列表', 1, 'GET');
-INSERT INTO `sys_apis` VALUES (101, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/deleteCircleForumPosts', '删除圈子的帖子', 1, 'DELETE');
+INSERT INTO `sys_apis` VALUES (101, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/deleteCircleForumPosts', '(圈子管理员)删除圈子的帖子', 1, 'DELETE');
 INSERT INTO `sys_apis` VALUES (102, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/getUserCircleForumPostsList', '用户加入圈子的所有动态列表', 1, 'GET');
 INSERT INTO `sys_apis` VALUES (103, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/getSelfCircleList', '分页获取用户加入的Circle列表', 1, 'GET');
 INSERT INTO `sys_apis` VALUES (104, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/findCircle', '用id查询Circle', 1, 'GET');

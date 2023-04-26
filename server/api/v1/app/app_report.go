@@ -66,13 +66,13 @@ func (reportApi *ReportApi) FindReport(c *gin.Context) {
 	}
 }
 
-// GetReportList 分页获取举报列表
+// GetReportList (管理员)分页获取举报列表
 // @Tags 举报
-// @Summary 分页获取举报列表
+// @Summary (管理员)分页获取举报列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.ReportSearch true "分页获取举报列表"
+// @Param data query communityReq.ReportSearch true "(管理员)分页获取举报列表"
 // @Success 200 {object}  response.PageResult{List=[]community.Report,msg=string} "返回community.Report"
 // @Router /app/report/getReportList [get]
 func (reportApi *ReportApi) GetReportList(c *gin.Context) {
@@ -82,7 +82,7 @@ func (reportApi *ReportApi) GetReportList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	pageInfo.UserId = utils.GetUserID(c)
+
 	if list, total, err := appReportService.GetReportInfoList(pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)

@@ -6,6 +6,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 )
 
 type AppForumPostsService struct {
@@ -28,10 +29,11 @@ func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communit
 		Anonymity:       info.Anonymity,
 	}
 	err = global.GVA_DB.Create(&forumPosts).Error
-	if err == nil {
-		if info.TopicId != 0 {
+	if err == nil && len(info.TopicId) > 0 {
+		tmp := utils.SplitToUint64List(info.TopicId, ",")
+		for _, topicId := range tmp {
 			err = global.GVA_DB.Create(&community.ForumTopicPostsMapping{
-				TopicId: info.TopicId,
+				TopicId: topicId,
 				PostsId: forumPosts.ID,
 			}).Error
 		}
@@ -50,6 +52,10 @@ func (appForumPostsService *AppForumPostsService) DeleteForumPosts(info communit
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) DeleteForumPostsByIds(ids request.IdsReq) (err error) {
 	err = global.GVA_DB.Delete(&[]community.ForumPosts{}, "id in ?", ids.Ids).Error
+	return err
+}
+func (appForumPostsService *AppForumPostsService) DeleteCircleForumPostsByIds(circleId uint64, ids []uint64) (err error) {
+	err = global.GVA_DB.Delete(&[]community.ForumPosts{}, "circle_id = ? AND id in ?", circleId, ids).Error
 	return err
 }
 
@@ -199,10 +205,11 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
-	db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
-		community.PostsCheckStatusPass,
+	//db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
+	//	community.PostsCheckStatusPass,
+	//	community.PostsCategoryActivity)
+	db = db.Where("channel_id = 0 and is_public = 1 and category = ?",
 		community.PostsCategoryActivity)
-
 	//创建时间降序排列
 	db = db.Order("hk_forum_posts.created_at desc")
 

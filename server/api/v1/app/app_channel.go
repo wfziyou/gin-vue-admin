@@ -59,6 +59,15 @@ func (hkChannelApi *HkChannelApi) GetUserChannelList(c *gin.Context) {
 		return
 	}
 
+	if len(channelIds) == 0 {
+		list, err := hkChannelService.GetDefaultChannelInfoList()
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		response.OkWithDetailed(list, "获取成功", c)
+		return
+	}
 	if list, _, err := hkChannelService.GetChannelInfoListById(channelIds); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)

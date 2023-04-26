@@ -152,11 +152,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if req.TopicId != 0 {
-		if _, err := appForumTopicService.GetForumTopic(uint64(req.TopicId)); err != nil {
-			response.FailWithMessage("话题不存在", c)
-		}
-	}
+
 	if req.CircleId != 0 {
 		if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
 			response.FailWithMessage("圈子不存在", c)

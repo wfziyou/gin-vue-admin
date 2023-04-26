@@ -34,15 +34,17 @@ type ActivityDynamicSearch struct {
 }
 
 type CreateActivityReq struct {
-	Title           string     `json:"title" form:"title" `                    //标题
-	CoverImage      string     `json:"coverImage" form:"coverImage"`           //封面
-	Content         string     `json:"content" form:"content"`                 //活动内容
-	ActivityStartAt *time.Time `json:"activityStartAt" form:"activityStartAt"` //活动开始时间
-	ActivityEndAt   *time.Time `json:"activityEndAt" form:"activityEndAt"`     //活动结束时间
-	ActivityAddress string     `json:"activityAddress" form:"activityAddress"` //活动地址
-	ActivityUserNum int        `json:"activityUserNum" form:"activityUserNum"` //活动用户人数（0不限制活动人数，否则为活动人数）
-	PayCurrency     int        `json:"payCurrency" form:"payCurrency"`         //付费货币：1人民、2积分、3金币
-	PayNum          uint64     `json:"payNum" form:"payNum"`                   //付费金额
+	TopicId         string `json:"topicId" form:"topicId"`                 //话题_编号
+	CircleId        uint64 `json:"circleId" form:"circleId"`               //圈子_编号
+	Title           string `json:"title" form:"title" `                    //标题
+	CoverImage      string `json:"coverImage" form:"coverImage"`           //封面
+	Content         string `json:"content" form:"content"`                 //活动内容
+	ActivityStartAt string `json:"activityStartAt" form:"activityStartAt"` //活动开始时间
+	ActivityEndAt   string `json:"activityEndAt" form:"activityEndAt"`     //活动结束时间
+	ActivityAddress string `json:"activityAddress" form:"activityAddress"` //活动地址
+	ActivityUserNum int    `json:"activityUserNum" form:"activityUserNum"` //活动用户人数（0不限制活动人数，否则为活动人数）
+	PayCurrency     int    `json:"payCurrency" form:"payCurrency"`         //付费货币：1人民、2积分、3金币
+	PayNum          uint64 `json:"payNum" form:"payNum"`                   //付费金额
 }
 type KickOutActivityUsersReq struct {
 	Id  uint64   `json:"id" form:"id"`   // 活动编号

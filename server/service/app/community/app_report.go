@@ -61,6 +61,24 @@ func (appReportService *AppReportService) GetReportInfoList(info communityReq.Re
 	db := global.GVA_DB.Model(&community.Report{})
 	var hkReports []community.Report
 	// 如果有条件搜索 下方会自动创建搜索语句
+	if info.UserId != nil {
+		db = db.Where("user_id = ?", info.UserId)
+	}
+	if info.ReasonId != nil {
+		db = db.Where("reason_id = ?", info.ReasonId)
+	}
+	if info.ReportType != nil {
+		db = db.Where("report_type = ?", info.ReportType)
+	}
+	if info.CurStatus != nil {
+		db = db.Where("cur_status = ?", info.CurStatus)
+	}
+	if info.HandleUserId != nil {
+		db = db.Where("handle_user_id = ?", info.HandleUserId)
+	}
+	if info.HandleType != nil {
+		db = db.Where("handle_type = ?", info.HandleType)
+	}
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}

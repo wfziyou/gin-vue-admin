@@ -7,7 +7,6 @@ import (
 
 type CircleAddRequestSearch struct {
 	CircleId    uint64 `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"` //圈子_编号
-	UserId      uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户_编号;"`       //用户_编号
 	CheckStatus *int   `json:"checkStatus" form:"checkStatus"`                                                  //审核状态：0 未处理 1 通过，2驳回
 
 	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"` //创建时间（开始）

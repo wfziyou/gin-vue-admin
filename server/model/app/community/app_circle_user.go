@@ -6,6 +6,14 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common"
 )
 
+//权限：0普通 1圈主
+const (
+	//CircleUserPowerGeneral 0普通
+	CircleUserPowerGeneral = 0
+	//CircleUserPowerManager 1圈主
+	CircleUserPowerManager = 1
+)
+
 // CircleUser 结构体
 type CircleUser struct {
 	global.GvaModelApp
