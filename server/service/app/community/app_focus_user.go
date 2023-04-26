@@ -38,9 +38,22 @@ func (hkFocusUserService *FocusUserService) DeleteFocusUserByIds(Ids []uint64) (
 }
 
 // UpdateFocusUser 更新FocusUser记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (hkFocusUserService *FocusUserService) UpdateFocusUser(hkFocusUser community.FocusUser) (err error) {
 	err = global.GVA_DB.Save(&hkFocusUser).Error
+	return err
+}
+
+func (hkFocusUserService *FocusUserService) UpdateFocusUserEx(userId uint64, info communityReq.UpdateFocusUserReq) (err error) {
+	db := global.GVA_DB.Model(&community.FocusUser{})
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	if len(info.Remark) > 0 {
+		updateData["remark"] = info.Remark
+	}
+	if len(info.Remark) > 0 {
+		updateData["tag"] = info.Tag
+	}
+	err = db.Where("user_id = ? AND focus_user_id = ?", userId, info.UserId).Updates(updateData).Error
 	return err
 }
 

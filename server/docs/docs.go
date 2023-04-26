@@ -4714,7 +4714,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.FocusUser"
+                            "$ref": "#/definitions/request.UpdateFocusUserReq"
                         }
                     }
                 ],
@@ -5994,6 +5994,11 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "process",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
                         "in": "query"
                     },
                     {
@@ -10339,6 +10344,11 @@ var doc = `{
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "name": "title",
                         "in": "query"
@@ -10476,6 +10486,11 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "status",
                         "in": "query"
                     },
                     {
@@ -14789,6 +14804,9 @@ var doc = `{
                     "description": "排序",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "type": {
                     "description": "类型(0小程序、1第三方链接)",
                     "type": "integer"
@@ -14834,6 +14852,9 @@ var doc = `{
                     "description": "排序",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -14869,6 +14890,9 @@ var doc = `{
                 },
                 "sort": {
                     "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -14949,6 +14973,9 @@ var doc = `{
                     "description": "申请理由",
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -14989,6 +15016,9 @@ var doc = `{
                 "remark": {
                     "description": "备注",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 },
                 "tag": {
                     "description": "标签",
@@ -15132,6 +15162,9 @@ var doc = `{
                     "description": "排序",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "supportCategory": {
                     "description": "支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:500;",
                     "type": "string"
@@ -15180,6 +15213,9 @@ var doc = `{
                 "reason": {
                     "description": "申请理由",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -15234,6 +15270,9 @@ var doc = `{
                     "description": "排序",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "type": {
                     "description": "类型：0官方圈子、1用户圈子、2小区",
                     "type": "integer"
@@ -15269,6 +15308,9 @@ var doc = `{
                 },
                 "sort": {
                     "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -15320,6 +15362,9 @@ var doc = `{
                     "description": "圈子标语",
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "type": {
                     "description": "类型：0官方圈子 ，1用户圈子",
                     "type": "integer"
@@ -15369,6 +15414,9 @@ var doc = `{
                     "description": "用户的圈子排序",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "tag": {
                     "description": "标签",
                     "type": "string"
@@ -15392,51 +15440,6 @@ var doc = `{
                 },
                 "userId": {
                     "description": "用户id \t//点赞时间",
-                    "type": "integer"
-                }
-            }
-        },
-        "community.FocusUser": {
-            "type": "object",
-            "properties": {
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "focusNickName": {
-                    "description": "关注用户昵称",
-                    "type": "string"
-                },
-                "focusUserId": {
-                    "description": "关注用户ID",
-                    "type": "integer"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "mutual": {
-                    "description": "是否相互关注:0否 1是",
-                    "type": "integer"
-                },
-                "nickName": {
-                    "description": "用户昵称",
-                    "type": "string"
-                },
-                "remark": {
-                    "description": "备注",
-                    "type": "string"
-                },
-                "tag": {
-                    "description": "标签",
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户ID",
                     "type": "integer"
                 }
             }
@@ -15531,6 +15534,9 @@ var doc = `{
                 },
                 "postsId": {
                     "description": "帖子编号",
+                    "type": "integer"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "thumbsUp": {
@@ -15726,6 +15732,9 @@ var doc = `{
                     "description": "来源",
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "tag": {
                     "description": "标签",
                     "type": "string"
@@ -15813,6 +15822,10 @@ var doc = `{
                     "description": "频道_编号",
                     "type": "integer"
                 },
+                "checkStatus": {
+                    "description": "审核状态：1草稿、2未审批、3通过、4拒绝",
+                    "type": "integer"
+                },
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
@@ -15827,6 +15840,10 @@ var doc = `{
                 },
                 "collectNum": {
                     "description": "收藏次数",
+                    "type": "integer"
+                },
+                "commentId": {
+                    "description": "问答最佳答案ID",
                     "type": "integer"
                 },
                 "commentNum": {
@@ -15868,6 +15885,9 @@ var doc = `{
                 "source": {
                     "description": "来源",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 },
                 "tag": {
                     "description": "标签",
@@ -15936,6 +15956,9 @@ var doc = `{
                     "description": "名称",
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "topicGroupId": {
                     "description": "分组id",
                     "type": "integer"
@@ -15978,6 +16001,9 @@ var doc = `{
                     "description": "排序",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -16011,6 +16037,9 @@ var doc = `{
                     "type": "string"
                 },
                 "pm": {
+                    "type": "integer"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "title": {
@@ -16276,6 +16305,9 @@ var doc = `{
                     "description": "问题编号",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "thumbsUp": {
                     "description": "是否点赞：0否、1是",
                     "type": "integer"
@@ -16455,6 +16487,9 @@ var doc = `{
                     "description": "经验",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "unlock": {
                     "description": "是否解除：0 否、是",
                     "type": "integer"
@@ -16486,6 +16521,9 @@ var doc = `{
                 },
                 "sort": {
                     "description": "排序",
+                    "type": "integer"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -16556,6 +16594,9 @@ var doc = `{
                 },
                 "sex": {
                     "description": "性别： 0未知、1男、2女",
+                    "type": "integer"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -16640,6 +16681,9 @@ var doc = `{
                     "description": "排序",
                     "type": "integer"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -16717,6 +16761,9 @@ var doc = `{
                 "qq": {
                     "description": "qq",
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -17888,6 +17935,9 @@ var doc = `{
                     "description": "其他信息",
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "title": {
                     "description": "标题",
                     "type": "string"
@@ -17924,6 +17974,9 @@ var doc = `{
                 },
                 "process": {
                     "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 },
                 "tenantId": {
                     "type": "string"
@@ -18052,6 +18105,9 @@ var doc = `{
                     "description": "显示位置",
                     "type": "string"
                 },
+                "status": {
+                    "type": "integer"
+                },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
@@ -18071,6 +18127,9 @@ var doc = `{
                 },
                 "postsId": {
                     "description": "帖子编号",
+                    "type": "integer"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "time": {
@@ -18104,6 +18163,9 @@ var doc = `{
                 },
                 "postsId": {
                     "description": "帖子编号",
+                    "type": "integer"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -19276,6 +19338,23 @@ var doc = `{
                 "sort": {
                     "description": "用户的圈子排序",
                     "type": "integer"
+                },
+                "tag": {
+                    "description": "标签",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.UpdateFocusUserReq": {
+            "type": "object",
+            "properties": {
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
                 },
                 "tag": {
                     "description": "标签",

@@ -3,7 +3,6 @@ package app
 import (
 	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/service"
@@ -64,6 +63,19 @@ func (focusApi *FocusApi) GetFocusUserPostsList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetFocusUserPostsList(userId, req.PageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 // FocusUser 关注用户
@@ -89,7 +101,7 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 		response.FailWithMessage("关注用户不存在", c)
 		return
 	}
-	otherFocus, err := hkFocusUserService.GetFocusUserObj(req.UserId, userInfo.ID)
+	otherFocus, err := hkFocusUserService.GetFocusUserObj(req.UserId, userInfo.GetUserId())
 	isOtherFocus := false
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		isOtherFocus = false
@@ -100,13 +112,13 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 		isOtherFocus = true
 	}
 
-	_, err = hkFocusUserService.GetFocusUserObj(userInfo.ID, req.UserId)
+	_, err = hkFocusUserService.GetFocusUserObj(userInfo.GetUserId(), req.UserId)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		mutual := 0
 		if isOtherFocus == true {
 			mutual = 1
 		}
-		if err := hkFocusUserService.CreateFocusUser(userInfo.ID, userInfo.NickName, focusUser, mutual); err != nil {
+		if err := hkFocusUserService.CreateFocusUser(userInfo.GetUserId(), userInfo.NickName, focusUser, mutual); err != nil {
 			global.GVA_LOG.Error("关注用户失败", zap.Error(err))
 			response.FailWithMessage("关注用户失败", c)
 			return
@@ -115,7 +127,7 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 				otherFocus.Mutual = mutual
 				hkFocusUserService.UpdateFocusUser(otherFocus)
 			}
-			appUserService.UpdateUserNumFocus(userInfo.ID)
+			appUserService.UpdateUserNumFocus(userInfo.GetUserId())
 			appUserService.UpdateUserNumFan(req.UserId)
 			response.OkWithMessage("成功", c)
 			return
@@ -252,17 +264,18 @@ func (focusApi *FocusApi) GetFansList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.FocusUser true "更新关注用户"
+// @Param data body communityReq.UpdateFocusUserReq true "更新关注用户"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /app/focus/updateFocusUser [put]
 func (focusApi *FocusApi) UpdateFocusUser(c *gin.Context) {
-	var hkFocusUser community.FocusUser
-	err := c.ShouldBindJSON(&hkFocusUser)
+	var req communityReq.UpdateFocusUserReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkFocusUserService.UpdateFocusUser(hkFocusUser); err != nil {
+	userId := utils.GetUserID(c)
+	if err := hkFocusUserService.UpdateFocusUserEx(userId, req); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {

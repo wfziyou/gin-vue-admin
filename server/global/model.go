@@ -26,7 +26,7 @@ type GvaModelApp struct {
 	UpdatedAt  time.Time             // 更新时间
 	DeletedAt  gorm.DeletedAt        `json:"-" gorm:"index"`                                                                    // 删除时间                         // 删除时间
 	IsDel      soft_delete.DeletedAt `json:"-" gorm:"softDelete:flag,DeletedAtField:DeletedAt;default:0;comment:刪除标志;size:10;"` // 刪除标志
-	Status     int                   `json:"-" form:"status" gorm:"column:status;default:0;comment:状态;size:10;"`
+	Status     int                   `json:"status" form:"status" gorm:"column:status;default:0;comment:状态;size:10;"`
 	CreateUser *int                  `json:"-" form:"createUser" gorm:"column:create_user;comment:创建人;size:19;"`
 	CreateDept *int                  `json:"-" form:"createDept" gorm:"column:create_dept;comment:创建部门;size:19;"`
 	UpdateUser *int                  `json:"-" form:"updateUser" gorm:"column:update_user;comment:修改人;size:19;"`

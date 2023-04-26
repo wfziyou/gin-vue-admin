@@ -116,9 +116,16 @@ func (questionApi *QuestionApi) CreateQuestion(c *gin.Context) {
 	}
 
 	err = appUserService.DecreaseGold(userId, req.PayNum, "发布问题", "", "")
-	if err == nil {
-		hkQuestionService.CreateQuestion(userId, req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+	err = hkQuestionService.CreateQuestion(userId, req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	appUserService.UpdatePostsTime(userId)
 	response.OkWithMessage("成功", c)
 }
 

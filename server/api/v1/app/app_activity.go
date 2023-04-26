@@ -42,6 +42,7 @@ func (activityApi *ActivityApi) CreateActivity(c *gin.Context) {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
+		appUserService.UpdatePostsTime(userId)
 		response.OkWithMessage("创建成功", c)
 	}
 }

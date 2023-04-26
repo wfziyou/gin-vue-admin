@@ -16,15 +16,18 @@ type QuestionService struct {
 // CreateQuestion 创建Question记录
 func (questionService *QuestionService) CreateQuestion(userId uint64, info communityReq.CreateQuestion) (err error) {
 	forumPosts := community.ForumPosts{
-		UserId:      userId,
-		CircleId:    0,
-		Category:    community.PostsCategoryQuestion,
-		Title:       info.Title,
-		ContentType: community.ContentTypeHtml,
-		ContentHtml: info.Content,
-		Attachment:  info.Attachment,
-		PayCurrency: utils.CurrencyGold,
-		PayNum:      info.PayNum,
+		UserId:       userId,
+		CircleId:     0,
+		Category:     community.PostsCategoryQuestion,
+		Title:        info.Title,
+		ContentType:  community.ContentTypeHtml,
+		ContentHtml:  info.Content,
+		Attachment:   info.Attachment,
+		PayCurrency:  utils.CurrencyGold,
+		PayNum:       info.PayNum,
+		CheckStatus:  community.PostsCheckStatusPass,
+		IsPublic:     community.ForumPostsIsPublicTrue,
+		PowerComment: community.ForumPostsPowerCommentOpen,
 	}
 	err = global.GVA_DB.Create(&forumPosts).Error
 	return err

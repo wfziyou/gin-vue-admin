@@ -35,6 +35,8 @@ definitions:
       sort:
         description: 排序
         type: integer
+      status:
+        type: integer
       type:
         description: 类型(0小程序、1第三方链接)
         type: integer
@@ -68,6 +70,8 @@ definitions:
       sort:
         description: 排序
         type: integer
+      status:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -94,6 +98,8 @@ definitions:
         type: integer
       sort:
         description: 排序
+        type: integer
+      status:
         type: integer
       updatedAt:
         description: 更新时间
@@ -152,6 +158,8 @@ definitions:
       reason:
         description: 申请理由
         type: string
+      status:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -182,6 +190,8 @@ definitions:
       remark:
         description: 备注
         type: string
+      status:
+        type: integer
       tag:
         description: 标签
         type: string
@@ -287,6 +297,8 @@ definitions:
       sort:
         description: 排序
         type: integer
+      status:
+        type: integer
       supportCategory:
         description: 支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:500;
         type: string
@@ -323,6 +335,8 @@ definitions:
       reason:
         description: 申请理由
         type: string
+      status:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -362,6 +376,8 @@ definitions:
       sort:
         description: 排序
         type: integer
+      status:
+        type: integer
       type:
         description: 类型：0官方圈子、1用户圈子、2小区
         type: integer
@@ -388,6 +404,8 @@ definitions:
         type: integer
       sort:
         description: 排序
+        type: integer
+      status:
         type: integer
       updatedAt:
         description: 更新时间
@@ -425,6 +443,8 @@ definitions:
       slogan:
         description: 圈子标语
         type: string
+      status:
+        type: integer
       type:
         description: 类型：0官方圈子 ，1用户圈子
         type: integer
@@ -461,6 +481,8 @@ definitions:
       sort:
         description: 用户的圈子排序
         type: integer
+      status:
+        type: integer
       tag:
         description: 标签
         type: string
@@ -478,39 +500,6 @@ definitions:
         type: integer
       userId:
         description: "用户id \t//点赞时间"
-        type: integer
-    type: object
-  community.FocusUser:
-    properties:
-      createdAt:
-        description: 创建时间
-        type: string
-      focusNickName:
-        description: 关注用户昵称
-        type: string
-      focusUserId:
-        description: 关注用户ID
-        type: integer
-      id:
-        description: 主键ID
-        type: integer
-      mutual:
-        description: 是否相互关注:0否 1是
-        type: integer
-      nickName:
-        description: 用户昵称
-        type: string
-      remark:
-        description: 备注
-        type: string
-      tag:
-        description: 标签
-        type: string
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        description: 用户ID
         type: integer
     type: object
   community.FocusUserInfo:
@@ -580,6 +569,8 @@ definitions:
         type: integer
       postsId:
         description: 帖子编号
+        type: integer
+      status:
         type: integer
       thumbsUp:
         description: 是否点赞：0否、1是
@@ -725,6 +716,8 @@ definitions:
       source:
         description: 来源
         type: string
+      status:
+        type: integer
       tag:
         description: 标签
         type: string
@@ -789,6 +782,9 @@ definitions:
       channelId:
         description: 频道_编号
         type: integer
+      checkStatus:
+        description: 审核状态：1草稿、2未审批、3通过、4拒绝
+        type: integer
       circleId:
         description: 圈子_编号
         type: integer
@@ -800,6 +796,9 @@ definitions:
         type: integer
       collectNum:
         description: 收藏次数
+        type: integer
+      commentId:
+        description: 问答最佳答案ID
         type: integer
       commentNum:
         description: 评论次数
@@ -831,6 +830,8 @@ definitions:
       source:
         description: 来源
         type: string
+      status:
+        type: integer
       tag:
         description: 标签
         type: string
@@ -880,6 +881,8 @@ definitions:
       name:
         description: 名称
         type: string
+      status:
+        type: integer
       topicGroupId:
         description: 分组id
         type: integer
@@ -910,6 +913,8 @@ definitions:
       sort:
         description: 排序
         type: integer
+      status:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -933,6 +938,8 @@ definitions:
       mark:
         type: string
       pm:
+        type: integer
+      status:
         type: integer
       title:
         type: string
@@ -1113,6 +1120,8 @@ definitions:
       questionId:
         description: 问题编号
         type: integer
+      status:
+        type: integer
       thumbsUp:
         description: 是否点赞：0否、1是
         type: integer
@@ -1240,6 +1249,8 @@ definitions:
       scoreExperience:
         description: 经验
         type: integer
+      status:
+        type: integer
       unlock:
         description: 是否解除：0 否、是
         type: integer
@@ -1263,6 +1274,8 @@ definitions:
         type: string
       sort:
         description: 排序
+        type: integer
+      status:
         type: integer
       updatedAt:
         description: 更新时间
@@ -1314,6 +1327,8 @@ definitions:
         type: integer
       sex:
         description: 性别： 0未知、1男、2女
+        type: integer
+      status:
         type: integer
       updatedAt:
         description: 更新时间
@@ -1375,6 +1390,8 @@ definitions:
       sort:
         description: 排序
         type: integer
+      status:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -1432,6 +1449,8 @@ definitions:
       qq:
         description: qq
         type: string
+      status:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -2260,6 +2279,8 @@ definitions:
       otherInfo:
         description: 其他信息
         type: string
+      status:
+        type: integer
       title:
         description: 标题
         type: string
@@ -2286,6 +2307,8 @@ definitions:
         type: integer
       process:
         type: string
+      status:
+        type: integer
       tenantId:
         type: string
       type:
@@ -2376,6 +2399,8 @@ definitions:
       pos:
         description: 显示位置
         type: string
+      status:
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -2390,6 +2415,8 @@ definitions:
         type: integer
       postsId:
         description: 帖子编号
+        type: integer
+      status:
         type: integer
       time:
         description: 浏览时间
@@ -2414,6 +2441,8 @@ definitions:
         type: integer
       postsId:
         description: 帖子编号
+        type: integer
+      status:
         type: integer
       updatedAt:
         description: 更新时间
@@ -3241,6 +3270,18 @@ definitions:
       sort:
         description: 用户的圈子排序
         type: integer
+      tag:
+        description: 标签
+        type: string
+      userId:
+        description: 用户ID
+        type: integer
+    type: object
+  request.UpdateFocusUserReq:
+    properties:
+      remark:
+        description: 备注
+        type: string
       tag:
         description: 标签
         type: string
@@ -6763,7 +6804,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.FocusUser'
+          $ref: '#/definitions/request.UpdateFocusUserReq'
       produces:
       - application/json
       responses:
@@ -7528,6 +7569,9 @@ paths:
       - in: query
         name: process
         type: string
+      - in: query
+        name: status
+        type: integer
       - in: query
         name: tenantId
         type: string
@@ -10048,6 +10092,9 @@ paths:
         name: pm
         type: integer
       - in: query
+        name: status
+        type: integer
+      - in: query
         name: title
         type: string
       - in: query
@@ -10131,6 +10178,9 @@ paths:
       - in: query
         name: startCreatedAt
         type: string
+      - in: query
+        name: status
+        type: integer
       - in: query
         name: title
         type: string

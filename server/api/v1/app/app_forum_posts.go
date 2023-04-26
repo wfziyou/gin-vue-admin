@@ -152,7 +152,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
+	userId := utils.GetUserID(c)
 	if req.CircleId != 0 {
 		if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
 			response.FailWithMessage("圈子不存在", c)
@@ -161,7 +161,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 
 		if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
 			CircleId: req.CircleId,
-			UserId:   utils.GetUserID(c),
+			UserId:   userId,
 			PageInfo: request.PageInfo{Page: 1, PageSize: 2},
 		}); err != nil {
 			response.FailWithMessage(err.Error(), c)
@@ -171,13 +171,13 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 			return
 		}
 	}
-	req.UserId = utils.GetUserID(c)
+	req.UserId = userId
 	if err := appForumPostsService.CreateForumPosts(req); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 		return
 	} else {
-
+		appUserService.UpdatePostsTime(userId)
 		response.OkWithMessage("创建成功", c)
 	}
 }
@@ -390,7 +390,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumComment(c *gin.Context) {
 		return
 	}
 
-	if posts.PowerComment == 0 {
+	if posts.PowerComment == community.ForumPostsPowerCommentClose {
 		response.FailWithMessage("此帖子不能被评论", c)
 		return
 	}

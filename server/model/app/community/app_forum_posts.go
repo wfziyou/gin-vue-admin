@@ -39,6 +39,18 @@ const (
 	ContentTypeHtml     = 2
 )
 
+//是否公开：0 否 1 是
+const (
+	ForumPostsIsPublicFalse = 0
+	ForumPostsIsPublicTrue  = 1
+)
+
+//评论权限：0关闭、1开启;size:10;
+const (
+	ForumPostsPowerCommentClose = 0
+	ForumPostsPowerCommentOpen  = 1
+)
+
 // ForumPosts 结构体
 type ForumPosts struct {
 	global.GvaModelApp
@@ -113,6 +125,7 @@ type ForumPostsBaseInfo struct {
 	Tag                 string               `json:"tag" form:"tag" gorm:"column:tag;comment:标签;size:400;"`                                                                //标签
 	Top                 int                  `json:"top" form:"top" gorm:"column:top;comment:置顶：0否、1是;size:10;"`                                                           //置顶：0否、1是
 	Marrow              int                  `json:"marrow" form:"marrow" gorm:"column:marrow;comment:精华：0否、1是;size:10;"`                                                  //精华：0否、1是
+	CommentId           uint64               `json:"commentId" form:"commentId" gorm:"type:bigint(20);column:comment_id;comment:问答最佳答案ID;"`                                //问答最佳答案ID
 	Anonymity           int                  `json:"anonymity" form:"anonymity" gorm:"column:anonymity;comment:匿名发布：0否、1是;size:10;"`                                       //匿名发布：0否、1是
 	UserId              uint64               `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:发布者编号;"`                                            //发布者编号
 	ReadNum             int                  `json:"readNum" form:"readNum" gorm:"column:read_num;comment:阅读次数;size:10;"`                                                  //阅读次数
@@ -129,10 +142,12 @@ type ForumPostsBaseInfo struct {
 	ActivityChatGroupId uint64               `json:"activityChatGroupId" form:"activityChatGroupId" gorm:"type:bigint(20);column:activity_chat_group_id;comment:活动聊天群编号;"` //活动聊天群编号
 	ActivityAddApprove  int                  `json:"activityAddApprove" form:"activityAddApprove" gorm:"column:activity_add_approve;comment:参加活动是否需要审批：0不审批、1审批;size:10;"` //参加活动是否需要审批：0不审批、1审批
 	TopicInfo           []ForumTopicBaseInfo `json:"topicInfo" gorm:"many2many:hk_forum_topic_posts_mapping;foreignKey:ID;joinForeignKey:PostsId;References:ID;joinReferences:TopicId"`
-	CircleInfo          CircleBaseInfo       `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"` //圈子基本信息
-	UserInfo            UserBaseInfo         `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`     //用户基本信息
-	ThumbsUp            int                  `json:"thumbsUp"`                                                           //是否点赞：0否、1是
-	Collect             int                  `json:"collect"`                                                            //是否收藏：0否、1是
+	CircleInfo          CircleBaseInfo       `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"`                               //圈子基本信息
+	UserInfo            UserBaseInfo         `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`                                   //用户基本信息
+	ThumbsUp            int                  `json:"thumbsUp"`                                                                                         //是否点赞：0否、1是
+	Collect             int                  `json:"collect"`                                                                                          //是否收藏：0否、1是
+	CheckStatus         int                  `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态：1草稿、2未审批、3通过、4拒绝;size:10;"` //审核状态：1草稿、2未审批、3通过、4拒绝
+
 }
 
 // TableName ForumPosts 表名

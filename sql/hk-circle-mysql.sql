@@ -87,6 +87,7 @@ CREATE TABLE `hk_user_extend`  (
    `add_ip` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '添加ip',
    `last_ip` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '最后一次登录ip',
    `channel_id` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '频道_编号',
+   `update_forum_posts_time` datetime(3) NULL DEFAULT NULL COMMENT '发布帖子时间',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
    `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
@@ -101,8 +102,8 @@ CREATE TABLE `hk_user_extend`  (
 -- ----------------------------
 -- Records of hk_user_extend
 -- ----------------------------
-INSERT INTO `hk_user_extend` VALUES (2, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.708', '2023-04-25 18:44:05.776', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_user_extend` VALUES (3, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.719', '2023-04-25 18:44:05.785', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_extend` VALUES (2, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.708','2023-04-25 18:42:39.708', '2023-04-25 18:44:05.776', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_extend` VALUES (3, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.708','2023-04-25 18:42:39.719', '2023-04-25 18:44:05.785', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_user_address

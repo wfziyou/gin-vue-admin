@@ -7,6 +7,7 @@ import (
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"time"
 )
 
 type AppForumPostsService struct {
@@ -27,6 +28,9 @@ func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communit
 		Video:           info.Video,
 		Attachment:      info.Attachment,
 		Anonymity:       info.Anonymity,
+		CheckStatus:     community.PostsCheckStatusPass,
+		IsPublic:        community.ForumPostsIsPublicTrue,
+		PowerComment:    community.ForumPostsPowerCommentOpen,
 	}
 	err = global.GVA_DB.Create(&forumPosts).Error
 	if err == nil && len(info.TopicId) > 0 {
@@ -163,6 +167,69 @@ func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(cu
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
 	return hkForumPostss, total, err
+}
+
+func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := page.PageSize
+	offset := page.PageSize * (page.Page - 1)
+
+	//查询关注用户
+	type tmp struct {
+		ID         uint64
+		UserExtend community.UserExtend `gorm:"foreignKey:ID;references:ID;"` //用户扩展
+	}
+	var focusUsers []tmp
+	focusUserDb := global.GVA_DB.Model(&community.FocusUser{}).Select("focus_user_id as id").Where("user_id = ?", userId)
+	err = focusUserDb.Find(&focusUsers).Error
+	if err != nil {
+		return
+	}
+	var focusUsersSize = len(focusUsers)
+	if focusUsersSize == 0 {
+		return
+	}
+	var ids = make([]uint64, focusUsersSize)
+	for index, v := range focusUsers {
+		ids[index] = v.ID
+	}
+
+	//查询最近发布帖子的关注用户
+	type tmpUpdate struct {
+		ID uint64
+		Tm *time.Time
+	}
+	var focusUsersTm []tmpUpdate
+	db1 := global.GVA_DB.Model(&community.UserExtend{}).Select("id,update_forum_posts_time as tm").Where("id in ?", ids)
+	db1 = db1.Order("update_forum_posts_time desc")
+	err = db1.Limit(limit).Offset(offset).Find(&focusUsersTm).Error
+	if err != nil {
+		return
+	}
+	var size = len(focusUsersTm)
+	if size == 0 {
+		return
+	}
+	var idEx = make([]uint64, size)
+	for index, v := range focusUsersTm {
+		idEx[index] = v.ID
+	}
+	//查询最新发布的帖子
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var hkForumPosts []community.ForumPostsBaseInfo
+	db = db.Where("user_id in ?", idEx)
+	db = db.Where("channel_id = 0 and is_public = 1 and check_status=?",
+		community.PostsCheckStatusPass)
+
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPosts).Error
+	return hkForumPosts, total, err
 }
 
 // GetGlobalRecommendQuestionList 分页获取全局推荐问题列表

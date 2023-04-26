@@ -25,8 +25,8 @@ func (s *QuestionRouter) InitQuestionRouter(Router *gin.RouterGroup) {
 		router.POST("setQuestionScore", api.SetQuestionScore) // 给问题打分（1-5星）
 	}
 	{
-		routerWithoutRecord.GET("getGlobalRecommendQuestionList ", api.GetGlobalRecommendQuestionList) // 分页获取全局推荐问题列表
-		routerWithoutRecord.GET("getCircleQuestionList", api.GetCircleQuestionList)                    // 分页获取圈子问题列表
-		routerWithoutRecord.GET("getAnswerList", api.GetAnswerList)                                    // 分页获取问题的回答列表
+		routerWithoutRecord.GET("getGlobalRecommendQuestionList", api.GetGlobalRecommendQuestionList) // 分页获取全局推荐问题列表
+		routerWithoutRecord.GET("getCircleQuestionList", api.GetCircleQuestionList)                   // 分页获取圈子问题列表
+		routerWithoutRecord.GET("getAnswerList", api.GetAnswerList)                                   // 分页获取问题的回答列表
 	}
 }

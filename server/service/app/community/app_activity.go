@@ -31,6 +31,9 @@ func (hkActivityService *ActivityService) CreateActivity(userId uint64, info com
 		ActivityUserNum: info.ActivityUserNum,
 		PayCurrency:     utils.CurrencyGold,
 		PayNum:          info.PayNum,
+		CheckStatus:     community.PostsCheckStatusPass,
+		IsPublic:        community.ForumPostsIsPublicTrue,
+		PowerComment:    community.ForumPostsPowerCommentOpen,
 	}
 	err = global.GVA_DB.Create(&obj).Error
 	if err == nil && len(info.TopicId) > 0 {

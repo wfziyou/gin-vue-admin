@@ -444,7 +444,7 @@ func TokenNext(c *gin.Context, user community.User) {
 		response.OkWithDetailed(authRes.LoginResponse{
 			User:      user,
 			Token:     token,
-			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
+			ExpiresAt: claims.RegisteredClaims.ExpiresAt.Unix() * 1000,
 		}, "登录成功", c)
 		return
 	}
@@ -458,7 +458,7 @@ func TokenNext(c *gin.Context, user community.User) {
 		response.OkWithDetailed(authRes.LoginResponse{
 			User:      user,
 			Token:     token,
-			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
+			ExpiresAt: claims.RegisteredClaims.ExpiresAt.Unix() * 1000,
 		}, "登录成功", c)
 	} else if err != nil {
 		global.GVA_LOG.Error("设置登录状态失败!", zap.Error(err))
@@ -477,7 +477,7 @@ func TokenNext(c *gin.Context, user community.User) {
 		response.OkWithDetailed(authRes.LoginResponse{
 			User:      user,
 			Token:     token,
-			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
+			ExpiresAt: claims.RegisteredClaims.ExpiresAt.Unix() * 1000,
 		}, "登录成功", c)
 	}
 }

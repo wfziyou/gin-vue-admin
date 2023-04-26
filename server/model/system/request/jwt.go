@@ -9,7 +9,7 @@ import (
 type CustomClaims struct {
 	BaseClaims
 	BufferTime int64
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 type BaseClaims struct {
@@ -18,4 +18,8 @@ type BaseClaims struct {
 	Username    string
 	NickName    string
 	AuthorityId uint64
+}
+
+func (obj *CustomClaims) GetUserId() (userId uint64) {
+	return obj.BaseClaims.ID
 }

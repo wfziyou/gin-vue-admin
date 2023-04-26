@@ -10,6 +10,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
+	"time"
 )
 
 type AppUserService struct {
@@ -307,7 +308,20 @@ func (appUserService *AppUserService) UpdateUserChannel(userId uint64, channel s
 	}
 	return err
 }
-
+func (appUserService *AppUserService) UpdatePostsTime(userId uint64) (err error) {
+	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}}
+	db := global.GVA_DB.Model(&obj)
+	if errors.Is(db.Where("id = ?", userId).First(&obj).Error, gorm.ErrRecordNotFound) {
+		obj.UpdateForumPostsTime = time.Now()
+		err = global.GVA_DB.Create(&obj).Error
+	} else {
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["update_forum_posts_time"] = time.Now()
+		err = db.Where("id = ?", userId).Updates(updateData).Error
+	}
+	return err
+}
 func (appUserService *AppUserService) UpdateUserNumFocus(userId uint64) (err error) {
 	focusCount := int64(0)
 	err = global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ?", userId).Count(&focusCount).Error
