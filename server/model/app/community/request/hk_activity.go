@@ -83,3 +83,7 @@ type UpdateActivityAddRequestReq struct {
 	Id          uint64 `json:"id" form:"id"`                   // 活动申请编号
 	CheckStatus int    `json:"checkStatus" form:"checkStatus"` //审核状态：0 未处理、1通过、2驳回
 }
+type DeleteActivityDynamicReq struct {
+	Id  uint64   `json:"id" form:"id"`   // 活动编号
+	Ids []uint64 `json:"ids" form:"ids"` //动态编号
+}

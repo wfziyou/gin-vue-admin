@@ -462,22 +462,44 @@ func (activityApi *ActivityApi) DeleteActivityDynamic(c *gin.Context) {
 	response.OkWithMessage("成功", c)
 }
 
-// DeleteActivityDynamicByIds 批量删除活动动态
+// DeleteActivityDynamicByIds (活动管理员)批量删除活动动态
 // @Tags 活动
-// @Summary 批量删除活动动态
+// @Summary (活动管理员)批量删除活动动态
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdsReq true "批量删除活动动态"
+// @Param data body communityReq.DeleteActivityDynamicReq true "(活动管理员)批量删除活动动态"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /app/activity/deleteActivityDynamicByIds [delete]
 func (activityApi *ActivityApi) DeleteActivityDynamicByIds(c *gin.Context) {
-	var IDS request.IdsReq
-	err := c.ShouldBindJSON(&IDS)
+	var req communityReq.DeleteActivityDynamicReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
+	activity, err := hkActivityService.GetActivity(req.Id)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("活动不存在", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	if activity.UserId != userId {
+		response.FailWithMessage("没有权限删除", c)
+		return
+	}
+
+	err = hkActivityService.DeleteActivityDynamicByIds(activity.ID, req.Ids)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	response.OkWithMessage("删除成功", c)
 }
 
 // GetActivityDynamicList 分页获取活动的动态列表
@@ -529,6 +551,7 @@ func (activityApi *ActivityApi) DeleteActivityAddRequest(c *gin.Context) {
 	if err := hkActivityAddRequestService.DeleteActivityAddRequestById(req.ID); err != nil {
 		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
+		return
 	} else {
 		response.OkWithMessage("删除成功", c)
 	}

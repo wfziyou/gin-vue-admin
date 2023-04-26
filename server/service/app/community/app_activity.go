@@ -161,6 +161,10 @@ func (hkActivityService *ActivityService) DeleteActivityDynamic(id uint64) (err 
 	err = global.GVA_DB.Where("id = ?", id).Delete(&community.ForumPosts{}).Error
 	return err
 }
+func (hkActivityService *ActivityService) DeleteActivityDynamicByIds(activityId uint64, ids []uint64) (err error) {
+	err = global.GVA_DB.Delete(&[]community.ForumPosts{}, "activity_id = ? AND id = ?", activityId, ids).Error
+	return err
+}
 
 func (hkActivityService *ActivityService) GetActivityDynamicList(activityId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
