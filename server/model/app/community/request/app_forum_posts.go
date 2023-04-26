@@ -34,6 +34,7 @@ type CreateForumPostsReq struct {
 	Video           string `json:"video" form:"video"`                     //视频地址
 	Attachment      string `json:"attachment" form:"attachment"`           //附件
 	Anonymity       int    `json:"anonymity" form:"anonymity"`             //匿名发布：0否、1是
+	Draft           int    `json:"draft" form:"draft"`                     //是否是草稿：0不是，1是
 }
 
 type GetRecommendPostsSearch struct {

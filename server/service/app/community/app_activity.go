@@ -16,6 +16,10 @@ type ActivityService struct {
 // CreateActivity 创建Activity记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkActivityService *ActivityService) CreateActivity(userId uint64, info communityReq.CreateActivityReq) (err error) {
+	checkStatus := community.PostsCheckStatusPass
+	if info.Draft == community.DraftTrue {
+		checkStatus = community.PostsCheckStatusDraft
+	}
 	obj := community.ForumPosts{
 		//TopicId:         info.TopicId,
 		CircleId:        info.CircleId,
@@ -31,7 +35,7 @@ func (hkActivityService *ActivityService) CreateActivity(userId uint64, info com
 		ActivityUserNum: info.ActivityUserNum,
 		PayCurrency:     utils.CurrencyGold,
 		PayNum:          info.PayNum,
-		CheckStatus:     community.PostsCheckStatusPass,
+		CheckStatus:     checkStatus,
 		IsPublic:        community.ForumPostsIsPublicTrue,
 		PowerComment:    community.ForumPostsPowerCommentOpen,
 	}

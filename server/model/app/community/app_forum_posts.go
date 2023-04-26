@@ -32,6 +32,10 @@ const (
 	//PostsCheckStatusRefuse 4拒绝
 	PostsCheckStatusRefuse = 4
 )
+const (
+	DraftFalse = 0
+	DraftTrue  = 1
+)
 
 //内容类型：1markdown、2html
 const (

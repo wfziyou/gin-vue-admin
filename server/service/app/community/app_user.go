@@ -52,14 +52,13 @@ func (appUserService *AppUserService) Login(u *community.User) (userInter *commu
 		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
 			return nil, errors.New("密码错误")
 		}
-		//need to do
-		//MenuServiceApp.UserAuthorityDefaultRouter(&user)
-		if user.UserExtend.CircleId != 0 {
-			var hkCircle community.Circle
-			if global.GVA_DB.Where("id = ?", user.UserExtend.CircleId).First(&hkCircle).Error == nil {
-				user.UserExtend.CircleName = hkCircle.Name
-			}
-		}
+
+		//if user.UserExtend.CircleId != 0 {
+		//	var hkCircle community.Circle
+		//	if global.GVA_DB.Where("id = ?", user.UserExtend.CircleId).First(&hkCircle).Error == nil {
+		//		user.UserExtend.CircleName = hkCircle.Name
+		//	}
+		//}
 	}
 	return &user, err
 }

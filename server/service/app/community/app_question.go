@@ -15,6 +15,10 @@ type QuestionService struct {
 
 // CreateQuestion 创建Question记录
 func (questionService *QuestionService) CreateQuestion(userId uint64, info communityReq.CreateQuestion) (err error) {
+	checkStatus := community.PostsCheckStatusPass
+	if info.Draft == community.DraftTrue {
+		checkStatus = community.PostsCheckStatusDraft
+	}
 	forumPosts := community.ForumPosts{
 		UserId:       userId,
 		CircleId:     0,
@@ -25,7 +29,7 @@ func (questionService *QuestionService) CreateQuestion(userId uint64, info commu
 		Attachment:   info.Attachment,
 		PayCurrency:  utils.CurrencyGold,
 		PayNum:       info.PayNum,
-		CheckStatus:  community.PostsCheckStatusPass,
+		CheckStatus:  checkStatus,
 		IsPublic:     community.ForumPostsIsPublicTrue,
 		PowerComment: community.ForumPostsPowerCommentOpen,
 	}

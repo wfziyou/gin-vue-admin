@@ -65,45 +65,45 @@ INSERT INTO `hk_user` VALUES (4, '000000', '7d43462c-a441-46e8-8981-2d7c332268b9
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_user_extend`;
 CREATE TABLE `hk_user_extend`  (
-   `id` bigint(20) UNSIGNED NOT NULL COMMENT '用户ID',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `circle_id` bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '当前圈子编号',
-   `github` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL comment 'github',
-   `weibo` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL comment '微博',
-   `weixin` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL comment '微信',
-   `wx_profile` json DEFAULT NULL COMMENT '微信用户json信息',
-   `qq`varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL comment 'qq',
-   `blog` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL comment '博客',
-   `num_circle` bigint(20) NOT NULL DEFAULT 0 comment '圈子数',
-   `num_focus` bigint(20) NOT NULL DEFAULT 0 comment '关注数',
-   `num_fan` bigint(20) NOT NULL DEFAULT 0 comment '粉丝数',
-   `currency_money` bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '货币_零钱',
-   `currency_gold` bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '货币_金币',
-   `sign_num` int NOT NULL DEFAULT '0' COMMENT '连续签到天数',
-   `spread_uid` bigint(20) unsigned DEFAULT '0' COMMENT '推广元id',
-   `spread_time` datetime DEFAULT NULL COMMENT '推广员关联时间',
-   `is_promoter` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否为推广员',
-   `spread_count` int DEFAULT '0' COMMENT '下级人数',
-   `add_ip` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '添加ip',
-   `last_ip` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '最后一次登录ip',
-   `channel_id` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '频道_编号',
-   `update_forum_posts_time` datetime(3) NULL DEFAULT NULL COMMENT '发布帖子时间',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '终端用户拓展';
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '用户ID',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `github` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'github',
+  `weibo` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微博',
+  `weixin` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信',
+  `wx_profile` json NULL COMMENT '微信用户json信息',
+  `qq` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'qq',
+  `blog` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '博客',
+  `num_circle` bigint(20) NULL DEFAULT NULL COMMENT '圈子数',
+  `num_focus` bigint(20) NULL DEFAULT NULL COMMENT '关注数',
+  `num_fan` bigint(20) NULL DEFAULT NULL COMMENT '粉丝数',
+  `currency_money` bigint(20) NULL DEFAULT NULL COMMENT '货币_零钱',
+  `currency_gold` bigint(20) NULL DEFAULT NULL COMMENT '货币_金币',
+  `sign_num` int(11) NOT NULL DEFAULT 0 COMMENT '连续签到天数',
+  `spread_uid` bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '推广元id',
+  `spread_time` datetime NULL DEFAULT NULL COMMENT '推广员关联时间',
+  `is_promoter` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否为推广员',
+  `spread_count` int(11) NULL DEFAULT 0 COMMENT '下级人数',
+  `add_ip` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '添加ip',
+  `last_ip` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '最后一次登录ip',
+  `channel_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '频道_编号',
+  `update_forum_posts_time` datetime(3) NULL DEFAULT NULL COMMENT '发布帖子时间',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',  
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_hk_user_extend_deleted_at`(`deleted_at`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '终端用户拓展' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of hk_user_extend
 -- ----------------------------
-INSERT INTO `hk_user_extend` VALUES (2, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.708','2023-04-25 18:42:39.708', '2023-04-25 18:44:05.776', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_user_extend` VALUES (3, '000000', 0, '', '', '', NULL, '', '', 0, 1, 1, 0, 0, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.708','2023-04-25 18:42:39.719', '2023-04-25 18:44:05.785', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_extend` VALUES (2, '000000', '', '', '', NULL, '', '', 0, 1, 1, 0, 999998, 0, 0, NULL, 0, 0, '', '', '', '2023-04-26 16:55:00.384', '2023-04-25 18:42:39.708', '2023-04-26 16:55:00.384', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_extend` VALUES (3, '000000', '', '', '', NULL, '', '', 0, 1, 1, 0, 1000000, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.719', '2023-04-25 18:42:39.719', '2023-04-25 18:44:05.785', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_user_address
@@ -500,14 +500,14 @@ CREATE TABLE `hk_forum_posts`  (
   `pay_attachment` smallint(6) NULL DEFAULT NULL COMMENT '附件付费：0否、1是',
   `pay_currency` smallint(6) NULL DEFAULT 3 COMMENT '付费货币：1人民、2积分、3金币',
   `pay_num` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '付费金额',
-  `activity_start_at` varchar(20) NULL DEFAULT NULL COMMENT '活动开始时间',
-  `activity_end_at` varchar(20) NULL DEFAULT NULL COMMENT '活动结束时间',
+  `activity_start_at` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '活动开始时间',
+  `activity_end_at` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '活动结束时间',
   `activity_address` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '活动地址',
-  `activity_user_num` int(11) NULL DEFAULT 0 COMMENT '活动用户人数（0不限制活动人数，否则为活动人数）',
-  `activity_cur_user_num` int(11) NULL DEFAULT 0 COMMENT '活动参加人数',
+  `activity_user_num` smallint(6) NULL DEFAULT NULL COMMENT '活动用户人数（0不限制活动人数，否则为活动人数）',
+  `activity_cur_user_num` smallint(6) NULL DEFAULT NULL COMMENT '活动参加人数',
   `activity_chat_group_id` bigint(20) NOT NULL COMMENT '活动聊天群编号',
-  `activity_add_approve` smallint(6) NULL DEFAULT 0 COMMENT '参加活动是否需要审批：0不审批、1审批',
-  `is_public` int(2) NULL DEFAULT 1 COMMENT '是否公开：0 否 1 是',
+  `activity_add_approve` smallint(6) NULL DEFAULT NULL COMMENT '参加活动是否需要审批：0不审批、1审批',
+  `is_public` smallint(6) NULL DEFAULT NULL COMMENT '是否公开：0 否 1 是',
   `created_at` datetime(3) NULL DEFAULT NULL,
   `updated_at` datetime(3) NULL DEFAULT NULL,
   `deleted_at` datetime(3) NULL DEFAULT NULL,
@@ -520,22 +520,24 @@ CREATE TABLE `hk_forum_posts`  (
   `collect` smallint(6) NULL DEFAULT 0 COMMENT '是否收藏：0否、1是',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_hk_forum_posts_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '帖子' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '帖子' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of hk_forum_posts
 -- ----------------------------
-INSERT INTO `hk_forum_posts` VALUES (1, '000000', 1, 0, 2, 0, '圈子1_标题（用户1）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, NULL, 2, 0, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (2, '000000', 1, 0, 2, 0, '圈子1_标题（用户2）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 2, 0, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (3, '000000', 1, 0, 2, 0, '圈子1_标题（用户3）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, NULL, 2, 0, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (4, '000000', 2, 0, 2, 0, '圈子2_标题（用户2）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 2, 0, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (5, '000000', 2, 0, 2, 0, '圈子2_标题（用户3）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, NULL, 2, 0, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (6, '000000', 3, 0, 2, 0, '圈子3_标题（用户3）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, NULL, 2, 0, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (7, '000000', 1, 0, 0, 0, 'testtest', '', '', '', '', 0, '', '', '', '', '', 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-18 11:41:17.115', '2023-02-18 11:41:17.115', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (8, '000000', 1, 0, 1, 0, '有附件', '', '', '', '', 1, '', '有附件', '', '[{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker4029652423983233700.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-20/image_picker4029652423983233700.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-20/image_picker4029652423983233700.jpg\"}]', '', 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-20 09:52:01.938', '2023-02-20 09:52:01.938', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (9, '000000', 1, 0, 1, 0, '两个附件', '', '', '', '', 1, '', '两个附件', '', '[]', '', 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-20 10:06:26.981', '2023-02-24 14:40:05.945', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (10, '000000', 1, 0, 1, 0, '两个附件2', '', '', '', '', 1, '', '两个附件2', '', '[{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker9222995987695013449.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-20/image_picker9222995987695013449.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-20/image_picker9222995987695013449.jpg\"},{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker6600262919828096699.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-20/image_picker6600262919828096699.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-20/image_picker6600262919828096699.jpg\"}]', '', 0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-20 10:07:13.517', '2023-02-24 14:39:58.682', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
-INSERT INTO `hk_forum_posts` VALUES (11, '000000', 1, 0, 1, 0, '今天没赚钱顶级精明和李敏李丽丽你家里', '', '', '', '', 1, '', '今天没赚钱顶级精明和李敏李丽丽你家里', '', '[{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker4577751758068097584.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-21/image_picker4577751758068097584.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-21/image_picker4577751758068097584.jpg\"},{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker7462903158421350833.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-21/image_picker7462903158421350833.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-21/image_picker7462903158421350833.jpg\"},{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker2631187621018139806.png\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-21/image_picker2631187621018139806.png\",\"tag\":\"png\",\"key\":\"test/uploads/2023-02-21/image_picker2631187621018139806.png\"}]', '', 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 0, '2023-02-21 17:42:57.034', '2023-02-27 11:15:12.257', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (1, '000000', 1, 0, 2, 0, '圈子1_标题（用户1）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (2, '000000', 1, 0, 2, 0, '圈子1_标题（用户2）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (3, '000000', 1, 0, 2, 0, '圈子1_标题（用户3）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (4, '000000', 2, 0, 2, 0, '圈子2_标题（用户2）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (5, '000000', 2, 0, 2, 0, '圈子2_标题（用户3）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (6, '000000', 3, 0, 2, 0, '圈子3_标题（用户3）', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 2, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-15 20:29:57.000', '2023-02-15 20:29:57.000', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (7, '000000', 1, 0, 0, 0, 'testtest', '', '', '', '', 0, '', '', '', '', '', 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-18 11:41:17.115', '2023-02-18 11:41:17.115', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (8, '000000', 1, 0, 1, 0, '有附件', '', '', '', '', 1, '', '有附件', '', '[{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker4029652423983233700.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-20/image_picker4029652423983233700.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-20/image_picker4029652423983233700.jpg\"}]', '', 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-20 09:52:01.938', '2023-02-20 09:52:01.938', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (9, '000000', 1, 0, 1, 0, '两个附件', '', '', '', '', 1, '', '两个附件', '', '[]', '', 0, 0, 0, 0, 2, 0, 0, 0, 1, 1, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-20 10:06:26.981', '2023-04-26 16:22:23.958', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (10, '000000', 1, 0, 1, 0, '两个附件2', '', '', '', '', 1, '', '两个附件2', '', '[{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker9222995987695013449.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-20/image_picker9222995987695013449.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-20/image_picker9222995987695013449.jpg\"},{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker6600262919828096699.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-20/image_picker6600262919828096699.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-20/image_picker6600262919828096699.jpg\"}]', '', 0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-20 10:07:13.517', '2023-02-24 14:39:58.682', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (11, '000000', 1, 0, 1, 0, '今天没赚钱顶级精明和李敏李丽丽你家里', '', '', '', '', 1, '', '今天没赚钱顶级精明和李敏李丽丽你家里', '', '[{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker4577751758068097584.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-21/image_picker4577751758068097584.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-21/image_picker4577751758068097584.jpg\"},{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker7462903158421350833.jpg\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-21/image_picker7462903158421350833.jpg\",\"tag\":\"jpg\",\"key\":\"test/uploads/2023-02-21/image_picker7462903158421350833.jpg\"},{\"id\":0,\"CreatedAt\":\"0001-01-01T00:00:00Z\",\"UpdatedAt\":\"0001-01-01T00:00:00Z\",\"status\":0,\"createUser\":null,\"createDept\":null,\"updateUser\":null,\"name\":\"image_picker2631187621018139806.png\",\"url\":\"https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-02-21/image_picker2631187621018139806.png\",\"tag\":\"png\",\"key\":\"test/uploads/2023-02-21/image_picker2631187621018139806.png\"}]', '', 0, 0, 0, 0, 2, 0, 1, 0, 0, 1, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, '', 0, 0, 0, 0, 1, '2023-02-21 17:42:57.034', '2023-04-26 16:32:02.897', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (12, '000000', 1, 0, 7, 0, '走近科学', '', '', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-04-26/image_picker1125034918347843884.jpg', '', 2, '', '醒一醒他了吗？发票抬头：***有限公司', '', '', '', 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 1, 30, '2023-04-26 13:45:00', '2023-04-26 15:45:00', '四川省成都市高新区桂溪东路三瓦窑街347号', 0, 0, 0, 0, 1, '2023-04-26 13:46:29.823', '2023-04-26 13:46:29.823', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+INSERT INTO `hk_forum_posts` VALUES (13, '000000', 3, 0, 7, 0, '微信小游戏', '', '', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-04-26/image_picker6175649061815111165.jpg', '', 2, '', '麻烦放收发室，谢谢。', '', '', '', 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, NULL, 3, 1, 0, 0, 0, 0, 0, 1, 100, '2023-04-26 13:51:00', '2023-04-28 13:51:00', '四川省成都市武侯区三瓦窑街202号-附10', 99, 0, 0, 0, 1, '2023-04-26 13:52:07.558', '2023-04-26 13:52:07.558', NULL, NULL, NULL, NULL, 0, 0, 0, 0);
 
 
 -- ----------------------------

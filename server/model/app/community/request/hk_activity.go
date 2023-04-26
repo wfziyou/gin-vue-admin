@@ -45,6 +45,7 @@ type CreateActivityReq struct {
 	ActivityUserNum int    `json:"activityUserNum" form:"activityUserNum"` //活动用户人数（0不限制活动人数，否则为活动人数）
 	PayCurrency     int    `json:"payCurrency" form:"payCurrency"`         //付费货币：1人民、2积分、3金币
 	PayNum          uint64 `json:"payNum" form:"payNum"`                   //付费金额
+	Draft           int    `json:"draft" form:"draft"`                     //是否是草稿：0不是，1是
 }
 type KickOutActivityUsersReq struct {
 	Id  uint64   `json:"id" form:"id"`   // 活动编号

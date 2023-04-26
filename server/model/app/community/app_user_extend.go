@@ -9,8 +9,6 @@ import (
 // UserExtend 结构体
 type UserExtend struct {
 	global.GvaModelApp
-	CircleId             uint64    `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:当前圈子编号;"`               //当前圈子编号
-	CircleName           string    `json:"circleName" `                                                                                    //当前圈子名称
 	Github               string    `json:"github" form:"github" gorm:"column:github;comment:github;size:64;"`                              //github
 	Weibo                string    `json:"weibo" form:"weibo" gorm:"column:weibo;comment:微博;size:32;"`                                     //微博
 	Weixin               string    `json:"weixin" form:"weixin" gorm:"column:weixin;comment:微信;size:32;"`                                  //微信

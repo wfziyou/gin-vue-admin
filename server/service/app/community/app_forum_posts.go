@@ -16,6 +16,10 @@ type AppForumPostsService struct {
 // CreateForumPosts 创建帖子记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communityReq.CreateForumPostsReq) (err error) {
+	checkStatus := community.PostsCheckStatusPass
+	if info.Draft == community.DraftTrue {
+		checkStatus = community.PostsCheckStatusDraft
+	}
 	forumPosts := community.ForumPosts{
 		UserId:          info.UserId,
 		CircleId:        uint64(info.CircleId),
@@ -28,7 +32,7 @@ func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communit
 		Video:           info.Video,
 		Attachment:      info.Attachment,
 		Anonymity:       info.Anonymity,
-		CheckStatus:     community.PostsCheckStatusPass,
+		CheckStatus:     checkStatus,
 		IsPublic:        community.ForumPostsIsPublicTrue,
 		PowerComment:    community.ForumPostsPowerCommentOpen,
 	}
