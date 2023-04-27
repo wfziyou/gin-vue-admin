@@ -41,8 +41,9 @@ type UserBaseInfo struct {
 	NickName    string `json:"nickName" form:"nickName" gorm:"column:nick_name;comment:昵称;size:20;"`                     //昵称
 	RealName    string `json:"realName" form:"realName" gorm:"column:real_name;comment:真名;size:10;"`                     //真名
 	HeaderImg   string `json:"headerImg" form:"headerImg" gorm:"column:header_img;comment:头像;size:500;"`                 //头像
-	Sex         int    `json:"sex" form:"sex" gorm:"column:sex;comment:性别： 0未知、1男、2女;size:10;"`                          //性别： 0未知、1男、2女
-	Description string `json:"description" form:"description" gorm:"column:description;comment:描述;size:45;"`             //描述
+	Birthday    string `json:"birthday" form:"birthday" gorm:"column:birthday;comment:生日;size:20;"`
+	Sex         int    `json:"sex" form:"sex" gorm:"column:sex;comment:性别： 0未知、1男、2女;size:10;"`              //性别： 0未知、1男、2女
+	Description string `json:"description" form:"description" gorm:"column:description;comment:描述;size:45;"` //描述
 }
 type UserInfo struct {
 	UserBaseInfo

@@ -105,36 +105,6 @@ definitions:
         description: 更新时间
         type: string
     type: object
-  common.UserBaseInfo:
-    properties:
-      account:
-        description: 账号
-        type: string
-      birthday:
-        description: 生日
-        type: string
-      description:
-        description: 描述
-        type: string
-      email:
-        description: 用户邮箱
-        type: string
-      headerImg:
-        description: 用户头像
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      nickName:
-        description: 用户昵称
-        type: string
-      phone:
-        description: 用户手机号
-        type: string
-      sex:
-        description: 性别： 0未知、1男、2女
-        type: integer
-    type: object
   community.ActivityAddRequest:
     properties:
       activityId:
@@ -461,7 +431,7 @@ definitions:
   community.CircleUserInfo:
     properties:
       UserInfo:
-        $ref: '#/definitions/common.UserBaseInfo'
+        $ref: '#/definitions/community.UserBaseInfo'
         description: 用户基本信息
       circleId:
         description: 圈子_编号
@@ -506,6 +476,8 @@ definitions:
     properties:
       account:
         description: 账号
+        type: string
+      birthday:
         type: string
       description:
         description: 描述
@@ -667,6 +639,9 @@ definitions:
         type: string
       id:
         description: 主键ID
+        type: integer
+      isAddActivity:
+        description: 是否参加活动：0否、1是
         type: integer
       isPublic:
         description: 是否公开：0 否 1 是
@@ -919,7 +894,7 @@ definitions:
         description: 更新时间
         type: string
     type: object
-  community.HkGoldBill:
+  community.GoldBill:
     properties:
       balance:
         type: integer
@@ -953,7 +928,7 @@ definitions:
       userId:
         type: integer
     type: object
-  community.HkOrder:
+  community.Order:
     properties:
       backIntegral:
         type: number
@@ -1023,86 +998,6 @@ definitions:
       verifyCode:
         type: string
     type: object
-  community.HkUserBill:
-    properties:
-      balance:
-        type: number
-      category:
-        type: string
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      linkId:
-        type: string
-      mark:
-        type: string
-      number:
-        type: number
-      pm:
-        type: boolean
-      status:
-        type: integer
-      title:
-        type: string
-      type:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        type: integer
-    type: object
-  community.HkUserRecharge:
-    properties:
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      givePrice:
-        type: number
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      nickname:
-        type: string
-      orderId:
-        type: string
-      paid:
-        type: boolean
-      payTime:
-        type: string
-      price:
-        type: number
-      rechargeType:
-        type: string
-      refundPrice:
-        type: number
-      status:
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        type: integer
-    type: object
   community.QuestionAnswer:
     properties:
       content:
@@ -1166,15 +1061,13 @@ definitions:
     type: object
   community.RecordBrowsingUserHomepage:
     properties:
+      browseData:
+        type: string
       browseNum:
         type: integer
       browseTime:
         type: string
       browser:
-        type: integer
-      createDept:
-        type: integer
-      createUser:
         type: integer
       createdAt:
         description: 创建时间
@@ -1182,13 +1075,7 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      isDel:
-        type: integer
       status:
-        type: integer
-      tenantId:
-        type: string
-      updateUser:
         type: integer
       updatedAt:
         description: 更新时间
@@ -1348,6 +1235,8 @@ definitions:
       account:
         description: 账号
         type: string
+      birthday:
+        type: string
       description:
         description: 描述
         type: string
@@ -1368,6 +1257,46 @@ definitions:
         type: integer
       userType:
         description: '用户平台: 1web、2app、3other'
+        type: integer
+    type: object
+  community.UserBill:
+    properties:
+      balance:
+        type: number
+      category:
+        type: string
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      linkId:
+        type: string
+      mark:
+        type: string
+      number:
+        type: number
+      pm:
+        type: boolean
+      status:
+        type: integer
+      title:
+        type: string
+      type:
+        type: string
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
         type: integer
     type: object
   community.UserCircleApply:
@@ -1416,12 +1345,6 @@ definitions:
       channelId:
         description: 频道_编号
         type: string
-      circleId:
-        description: 当前圈子编号
-        type: integer
-      circleName:
-        description: 当前圈子名称
-        type: string
       createdAt:
         description: 创建时间
         type: string
@@ -1460,6 +1383,84 @@ definitions:
       weixin:
         description: 微信
         type: string
+    type: object
+  community.UserInfo:
+    properties:
+      account:
+        description: 账号
+        type: string
+      birthday:
+        type: string
+      description:
+        description: 描述
+        type: string
+      headerImg:
+        description: 头像
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      nickName:
+        description: 昵称
+        type: string
+      numCircle:
+        description: 圈子数
+        type: integer
+      numFan:
+        description: 粉丝数
+        type: integer
+      numFocus:
+        description: 关注数
+        type: integer
+      realName:
+        description: 真名
+        type: string
+      sex:
+        description: 性别： 0未知、1男、2女
+        type: integer
+      userType:
+        description: '用户平台: 1web、2app、3other'
+        type: integer
+    type: object
+  community.UserRecharge:
+    properties:
+      createDept:
+        type: integer
+      createUser:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      givePrice:
+        type: number
+      id:
+        description: 主键ID
+        type: integer
+      isDel:
+        type: integer
+      nickname:
+        type: string
+      orderId:
+        type: string
+      paid:
+        type: boolean
+      payTime:
+        type: string
+      price:
+        type: number
+      rechargeType:
+        type: string
+      refundPrice:
+        type: number
+      status:
+        type: integer
+      updateUser:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        type: integer
     type: object
   config.AliyunOSS:
     properties:
@@ -2652,6 +2653,9 @@ definitions:
       coverImage:
         description: 封面
         type: string
+      draft:
+        description: 是否是草稿：0不是，1是
+        type: integer
       payCurrency:
         description: 付费货币：1人民、2积分、3金币
         type: integer
@@ -2727,6 +2731,9 @@ definitions:
       coverImage:
         description: 封面
         type: string
+      draft:
+        description: 是否是草稿：0不是，1是
+        type: integer
       title:
         description: 标题
         type: string
@@ -2751,6 +2758,9 @@ definitions:
       content:
         description: 内容
         type: string
+      draft:
+        description: 是否是草稿：0不是，1是
+        type: integer
       payNum:
         description: 付费金额
         type: integer
@@ -2772,6 +2782,17 @@ definitions:
       reportType:
         description: 举报类型:1用户、2圈子、3群、4帖子、5帖子评论
         type: integer
+    type: object
+  request.DeleteActivityDynamicReq:
+    properties:
+      id:
+        description: 活动编号
+        type: integer
+      ids:
+        description: 动态编号
+        items:
+          type: integer
+        type: array
     type: object
   request.DeleteCircleForumPostsReq:
     properties:
@@ -4426,12 +4447,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 批量删除活动动态
+      - description: (活动管理员)批量删除活动动态
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.IdsReq'
+          $ref: '#/definitions/request.DeleteActivityDynamicReq'
       produces:
       - application/json
       responses:
@@ -4441,7 +4462,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 批量删除活动动态
+      summary: (活动管理员)批量删除活动动态
       tags:
       - 活动
   /app/activity/exitActivity:
@@ -7469,7 +7490,7 @@ paths:
       - ApiKeyAuth: []
       summary: 创建反馈
       tags:
-      - Feedback
+      - 常规方法
   /app/general/deleteFeedback:
     delete:
       consumes:
@@ -7492,7 +7513,7 @@ paths:
       - ApiKeyAuth: []
       summary: 删除反馈
       tags:
-      - Feedback
+      - 常规方法
   /app/general/deleteFeedbackByIds:
     delete:
       consumes:
@@ -7515,7 +7536,7 @@ paths:
       - ApiKeyAuth: []
       summary: 批量删除反馈
       tags:
-      - Feedback
+      - 常规方法
   /app/general/findBugReport:
     get:
       consumes:
@@ -7606,7 +7627,7 @@ paths:
       - ApiKeyAuth: []
       summary: 用id查询Feedback
       tags:
-      - Feedback
+      - 常规方法
   /app/general/findMiniProgram:
     get:
       consumes:
@@ -7784,7 +7805,7 @@ paths:
       - ApiKeyAuth: []
       summary: 分页获取反馈列表
       tags:
-      - Feedback
+      - 常规方法
   /app/general/getFeedbackTypeList:
     get:
       consumes:
@@ -7809,7 +7830,7 @@ paths:
       - ApiKeyAuth: []
       summary: 获取反馈类型列表
       tags:
-      - FeedbackType
+      - 常规方法
   /app/general/updateFeedback:
     put:
       consumes:
@@ -7832,7 +7853,7 @@ paths:
       - ApiKeyAuth: []
       summary: 更新反馈
       tags:
-      - Feedback
+      - 常规方法
   /app/question/answerQuestion:
     post:
       consumes:
@@ -8650,13 +8671,41 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/common.UserBaseInfo'
+                  $ref: '#/definitions/community.UserBaseInfo'
                 msg:
                   type: string
               type: object
       security:
       - ApiKeyAuth: []
       summary: 用id查询用户基本信息
+      tags:
+      - 用户
+  /app/user/getUserInfo:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 编号
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.UserInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.UserInfo'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询用户信息
       tags:
       - 用户
   /app/user/getUserList:
@@ -8925,6 +8974,769 @@ paths:
       summary: 分页获取收藏列表
       tags:
       - 收藏
+  /app/wallet/createUserRecharge:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建用户充值
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.UserRecharge'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建用户充值
+      tags:
+      - 钱包
+  /app/wallet/findGoldBill:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: balance
+        type: integer
+      - in: query
+        name: beforeNumber
+        type: integer
+      - in: query
+        name: changeNumber
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: linkId
+        type: string
+      - in: query
+        name: mark
+        type: string
+      - in: query
+        name: pm
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: titleIcon
+        type: string
+      - in: query
+        name: type
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.GoldBill
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.GoldBill'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询金币账单
+      tags:
+      - 钱包
+  /app/wallet/findOrder:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: backIntegral
+        type: number
+      - in: query
+        name: cartNum
+        type: integer
+      - in: query
+        name: cost
+        type: number
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: extendOrderId
+        type: string
+      - in: query
+        name: gainIntegral
+        type: number
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: mark
+        type: string
+      - in: query
+        name: orderId
+        type: string
+      - in: query
+        name: paid
+        type: boolean
+      - in: query
+        name: payPrice
+        type: number
+      - in: query
+        name: payTime
+        type: string
+      - in: query
+        name: payType
+        type: string
+      - in: query
+        name: productId
+        type: integer
+      - in: query
+        name: refundPrice
+        type: number
+      - in: query
+        name: refundReason
+        type: string
+      - in: query
+        name: refundReasonTime
+        type: string
+      - in: query
+        name: refundReasonWap
+        type: string
+      - in: query
+        name: refundReasonWapExplain
+        type: string
+      - in: query
+        name: refundReasonWapImg
+        type: string
+      - in: query
+        name: refundStatus
+        type: boolean
+      - in: query
+        name: remark
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: totalPrice
+        type: number
+      - in: query
+        name: unique
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      - in: query
+        name: verifyCode
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.Order
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.Order'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询订单
+      tags:
+      - 钱包
+  /app/wallet/findUserBill:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: balance
+        type: number
+      - in: query
+        name: category
+        type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: linkId
+        type: string
+      - in: query
+        name: mark
+        type: string
+      - in: query
+        name: number
+        type: number
+      - in: query
+        name: pm
+        type: boolean
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: type
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.UserBill
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.UserBill'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询用户账单
+      tags:
+      - 钱包
+  /app/wallet/findUserRecharge:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: givePrice
+        type: number
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - in: query
+        name: nickname
+        type: string
+      - in: query
+        name: orderId
+        type: string
+      - in: query
+        name: paid
+        type: boolean
+      - in: query
+        name: payTime
+        type: string
+      - in: query
+        name: price
+        type: number
+      - in: query
+        name: rechargeType
+        type: string
+      - in: query
+        name: refundPrice
+        type: number
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.UserRecharge
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.UserRecharge'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询用户充值
+      tags:
+      - 钱包
+  /app/wallet/getGoldBillList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: balance
+        type: integer
+      - in: query
+        name: beforeNumber
+        type: integer
+      - in: query
+        name: changeNumber
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: linkId
+        type: string
+      - in: query
+        name: mark
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: pm
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: titleIcon
+        type: string
+      - in: query
+        name: type
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取金币账单列表
+      tags:
+      - 钱包
+  /app/wallet/getOrderList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: backIntegral
+        type: number
+      - in: query
+        name: cartNum
+        type: integer
+      - in: query
+        name: cost
+        type: number
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: extendOrderId
+        type: string
+      - in: query
+        name: gainIntegral
+        type: number
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: mark
+        type: string
+      - in: query
+        name: orderId
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: paid
+        type: boolean
+      - in: query
+        name: payPrice
+        type: number
+      - in: query
+        name: payTime
+        type: string
+      - in: query
+        name: payType
+        type: string
+      - in: query
+        name: productId
+        type: integer
+      - in: query
+        name: refundPrice
+        type: number
+      - in: query
+        name: refundReason
+        type: string
+      - in: query
+        name: refundReasonTime
+        type: string
+      - in: query
+        name: refundReasonWap
+        type: string
+      - in: query
+        name: refundReasonWapExplain
+        type: string
+      - in: query
+        name: refundReasonWapImg
+        type: string
+      - in: query
+        name: refundStatus
+        type: boolean
+      - in: query
+        name: remark
+        type: string
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: totalPrice
+        type: number
+      - in: query
+        name: unique
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      - in: query
+        name: verifyCode
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取订单列表
+      tags:
+      - 钱包
+  /app/wallet/getUserBillList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: balance
+        type: number
+      - in: query
+        name: category
+        type: string
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: linkId
+        type: string
+      - in: query
+        name: mark
+        type: string
+      - in: query
+        name: number
+        type: number
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: pm
+        type: boolean
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: type
+        type: string
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取用户账单列表
+      tags:
+      - 钱包
+  /app/wallet/getUserRechargeList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: createDept
+        type: integer
+      - in: query
+        name: createUser
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - in: query
+        name: givePrice
+        type: number
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: isDel
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: nickname
+        type: string
+      - in: query
+        name: orderId
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: paid
+        type: boolean
+      - in: query
+        name: payTime
+        type: string
+      - in: query
+        name: price
+        type: number
+      - in: query
+        name: rechargeType
+        type: string
+      - in: query
+        name: refundPrice
+        type: number
+      - in: query
+        name: startCreatedAt
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: updateUser
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取用户充值列表
+      tags:
+      - 钱包
   /authority/copyAuthority:
     post:
       consumes:
@@ -10060,412 +10872,6 @@ paths:
       summary: 上传文件示例
       tags:
       - ExaFileUploadAndDownload
-  /hkGoldBill/findHkGoldBill:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: balance
-        type: integer
-      - in: query
-        name: beforeNumber
-        type: integer
-      - in: query
-        name: changeNumber
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: linkId
-        type: string
-      - in: query
-        name: mark
-        type: string
-      - in: query
-        name: pm
-        type: integer
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: titleIcon
-        type: string
-      - in: query
-        name: type
-        type: string
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回community.HkGoldBill
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/community.HkGoldBill'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkGoldBill
-      tags:
-      - 钱包
-  /hkGoldBill/getHkGoldBillList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: balance
-        type: integer
-      - in: query
-        name: beforeNumber
-        type: integer
-      - in: query
-        name: changeNumber
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: linkId
-        type: string
-      - in: query
-        name: mark
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: pm
-        type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: titleIcon
-        type: string
-      - in: query
-        name: type
-        type: string
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkGoldBill列表
-      tags:
-      - 钱包
-  /hkOrder/findHkOrder:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: backIntegral
-        type: number
-      - in: query
-        name: cartNum
-        type: integer
-      - in: query
-        name: cost
-        type: number
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: extendOrderId
-        type: string
-      - in: query
-        name: gainIntegral
-        type: number
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: mark
-        type: string
-      - in: query
-        name: orderId
-        type: string
-      - in: query
-        name: paid
-        type: boolean
-      - in: query
-        name: payPrice
-        type: number
-      - in: query
-        name: payTime
-        type: string
-      - in: query
-        name: payType
-        type: string
-      - in: query
-        name: productId
-        type: integer
-      - in: query
-        name: refundPrice
-        type: number
-      - in: query
-        name: refundReason
-        type: string
-      - in: query
-        name: refundReasonTime
-        type: string
-      - in: query
-        name: refundReasonWap
-        type: string
-      - in: query
-        name: refundReasonWapExplain
-        type: string
-      - in: query
-        name: refundReasonWapImg
-        type: string
-      - in: query
-        name: refundStatus
-        type: boolean
-      - in: query
-        name: remark
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: totalPrice
-        type: number
-      - in: query
-        name: unique
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      - in: query
-        name: verifyCode
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回community.HkOrder
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/community.HkOrder'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkOrder
-      tags:
-      - 钱包
-  /hkOrder/getHkOrderList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: backIntegral
-        type: number
-      - in: query
-        name: cartNum
-        type: integer
-      - in: query
-        name: cost
-        type: number
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - in: query
-        name: extendOrderId
-        type: string
-      - in: query
-        name: gainIntegral
-        type: number
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: mark
-        type: string
-      - in: query
-        name: orderId
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: paid
-        type: boolean
-      - in: query
-        name: payPrice
-        type: number
-      - in: query
-        name: payTime
-        type: string
-      - in: query
-        name: payType
-        type: string
-      - in: query
-        name: productId
-        type: integer
-      - in: query
-        name: refundPrice
-        type: number
-      - in: query
-        name: refundReason
-        type: string
-      - in: query
-        name: refundReasonTime
-        type: string
-      - in: query
-        name: refundReasonWap
-        type: string
-      - in: query
-        name: refundReasonWapExplain
-        type: string
-      - in: query
-        name: refundReasonWapImg
-        type: string
-      - in: query
-        name: refundStatus
-        type: boolean
-      - in: query
-        name: remark
-        type: string
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: totalPrice
-        type: number
-      - in: query
-        name: unique
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      - in: query
-        name: verifyCode
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkOrder列表
-      tags:
-      - 钱包
   /hkRecordBrowsingCircleHomepage/createRecordBrowsingCircleHomepage:
     post:
       consumes:
@@ -10776,6 +11182,9 @@ paths:
       - application/json
       parameters:
       - in: query
+        name: browseData
+        type: string
+      - in: query
         name: browseNum
         type: integer
       - in: query
@@ -10783,12 +11192,6 @@ paths:
         type: string
       - in: query
         name: browser
-        type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
         type: integer
       - description: 创建时间
         in: query
@@ -10799,16 +11202,7 @@ paths:
         name: id
         type: integer
       - in: query
-        name: isDel
-        type: integer
-      - in: query
         name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
         type: integer
       - description: 更新时间
         in: query
@@ -10842,6 +11236,9 @@ paths:
       - application/json
       parameters:
       - in: query
+        name: browseData
+        type: string
+      - in: query
         name: browseNum
         type: integer
       - in: query
@@ -10849,12 +11246,6 @@ paths:
         type: string
       - in: query
         name: browser
-        type: integer
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
         type: integer
       - description: 创建时间
         in: query
@@ -10866,9 +11257,6 @@ paths:
       - description: 主键ID
         in: query
         name: id
-        type: integer
-      - in: query
-        name: isDel
         type: integer
       - description: 关键字
         in: query
@@ -10887,12 +11275,6 @@ paths:
         type: string
       - in: query
         name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: updateUser
         type: integer
       - description: 更新时间
         in: query
@@ -10936,363 +11318,6 @@ paths:
       summary: 更新RecordBrowsingUserHomepage
       tags:
       - RecordBrowsingUserHomepage
-  /hkUserBill/findHkUserBill:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: balance
-        type: number
-      - in: query
-        name: category
-        type: string
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: linkId
-        type: string
-      - in: query
-        name: mark
-        type: string
-      - in: query
-        name: number
-        type: number
-      - in: query
-        name: pm
-        type: boolean
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: type
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回community.HkUserBill
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/community.HkUserBill'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkUserBill
-      tags:
-      - 钱包
-  /hkUserBill/getHkUserBillList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: balance
-        type: number
-      - in: query
-        name: category
-        type: string
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: linkId
-        type: string
-      - in: query
-        name: mark
-        type: string
-      - in: query
-        name: number
-        type: number
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: pm
-        type: boolean
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: type
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkUserBill列表
-      tags:
-      - 钱包
-  /hkUserRecharge/createHkUserRecharge:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建HkUserRecharge
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.HkUserRecharge'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建HkUserRecharge
-      tags:
-      - 钱包
-  /hkUserRecharge/findHkUserRecharge:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: givePrice
-        type: number
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: nickname
-        type: string
-      - in: query
-        name: orderId
-        type: string
-      - in: query
-        name: paid
-        type: boolean
-      - in: query
-        name: payTime
-        type: string
-      - in: query
-        name: price
-        type: number
-      - in: query
-        name: rechargeType
-        type: string
-      - in: query
-        name: refundPrice
-        type: number
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回community.HkUserRecharge
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/community.HkUserRecharge'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询HkUserRecharge
-      tags:
-      - 钱包
-  /hkUserRecharge/getHkUserRechargeList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - in: query
-        name: givePrice
-        type: number
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: nickname
-        type: string
-      - in: query
-        name: orderId
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: paid
-        type: boolean
-      - in: query
-        name: payTime
-        type: string
-      - in: query
-        name: price
-        type: number
-      - in: query
-        name: rechargeType
-        type: string
-      - in: query
-        name: refundPrice
-        type: number
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取HkUserRecharge列表
-      tags:
-      - 钱包
   /init/checkdb:
     post:
       produces:

@@ -329,6 +329,7 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 		if _, num, err := appUserCollectService.GetUserCollectEx(userId, []uint64{idSearch.ID}); err == nil && num > 0 {
 			rehkForumPosts.Collect = 1
 		}
+		hkRecordBrowsingUserHomepageService.BrowsingUser(userId, rehkForumPosts.UserId)
 		response.OkWithData(rehkForumPosts, c)
 	}
 }

@@ -1,10 +1,16 @@
 package community
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"gorm.io/gorm"
+	"strconv"
+	"strings"
+	"time"
 )
 
 type RecordBrowsingUserHomepageService struct {
@@ -73,9 +79,9 @@ func (hkRecordBrowsingUserHomepageService *RecordBrowsingUserHomepageService) Ge
 	db := global.GVA_DB.Model(&community.RecordBrowsingUserHomepage{}).Preload("UserBaseInfo")
 	var hkRecordBrowsingUserHomepages []community.RecordBrowsingUserHomepage
 
-	db = db.Where("user_id = ?", userId)
+	db = db.Where("browser = ?", userId)
 	//更新时间降序排列
-	db = db.Order("updated_at desc")
+	db = db.Order("browse_time desc")
 
 	err = db.Count(&total).Error
 	if err != nil {
@@ -94,4 +100,50 @@ func (hkRecordBrowsingUserHomepageService *RecordBrowsingUserHomepageService) Ge
 	}
 
 	return userBaseInfos, total, err
+}
+
+func (hkRecordBrowsingUserHomepageService *RecordBrowsingUserHomepageService) BrowsingUser(browser uint64, userId uint64) (err error) {
+	obj := community.RecordBrowsingUserHomepage{}
+	err = global.GVA_DB.Where("browser= ? AND user_id = ?", browser, userId).First(&obj).Error
+	curTime := time.Now()
+	curTimeStr := strconv.FormatInt(curTime.Unix(), 10)
+
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		obj.Browser = browser
+		obj.UserId = userId
+		obj.BrowseTime = curTime
+		obj.BrowseNum = 1
+		obj.BrowseData = curTimeStr
+		err = global.GVA_DB.Create(&obj).Error
+		return
+	} else if err != nil {
+		return
+	}
+
+	browseTime := curTime
+	strList := strings.Split(obj.BrowseData, ",")
+	len := len(strList)
+	if len >= utils.BrowsingUserNum {
+		browseData := ""
+		strList = append(strList, curTimeStr)
+		for index, item := range strList {
+			if index > 1 {
+				browseData = browseData + "," + item
+			} else if index == 1 {
+				browseData = item
+			} else {
+				if tmp, err := strconv.ParseInt(item, 10, 64); err == nil {
+					browseTime = time.Unix(tmp, 0)
+				}
+			}
+		}
+		browseData = browseData + "," + curTimeStr
+		obj.BrowseTime = browseTime
+		obj.BrowseData = browseData
+	} else {
+		obj.BrowseNum = len + 1
+		obj.BrowseData = obj.BrowseData + "," + curTimeStr
+	}
+	err = global.GVA_DB.Updates(obj).Error
+	return
 }

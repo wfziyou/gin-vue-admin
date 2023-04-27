@@ -7,52 +7,52 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
-type HkOrderService struct {
+type OrderService struct {
 }
 
-// CreateHkOrder 创建HkOrder记录
+// CreateOrder 创建Order记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkOrderService *HkOrderService) CreateHkOrder(hkOrder *community.HkOrder) (err error) {
+func (hkOrderService *OrderService) CreateOrder(hkOrder *community.Order) (err error) {
 	err = global.GVA_DB.Create(hkOrder).Error
 	return err
 }
 
-// DeleteHkOrder 删除HkOrder记录
+// DeleteOrder 删除Order记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkOrderService *HkOrderService) DeleteHkOrder(hkOrder community.HkOrder) (err error) {
+func (hkOrderService *OrderService) DeleteOrder(hkOrder community.Order) (err error) {
 	err = global.GVA_DB.Delete(&hkOrder).Error
 	return err
 }
 
-// DeleteHkOrderByIds 批量删除HkOrder记录
+// DeleteOrderByIds 批量删除Order记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkOrderService *HkOrderService) DeleteHkOrderByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.HkOrder{}, "id in ?", ids.Ids).Error
+func (hkOrderService *OrderService) DeleteOrderByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]community.Order{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkOrder 更新HkOrder记录
+// UpdateOrder 更新Order记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkOrderService *HkOrderService) UpdateHkOrder(hkOrder community.HkOrder) (err error) {
+func (hkOrderService *OrderService) UpdateOrder(hkOrder community.Order) (err error) {
 	err = global.GVA_DB.Save(&hkOrder).Error
 	return err
 }
 
-// GetHkOrder 根据id获取HkOrder记录
+// GetOrder 根据id获取Order记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkOrderService *HkOrderService) GetHkOrder(id uint64) (hkOrder community.HkOrder, err error) {
+func (hkOrderService *OrderService) GetOrder(id uint64) (hkOrder community.Order, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkOrder).Error
 	return
 }
 
-// GetHkOrderInfoList 分页获取HkOrder记录
+// GetOrderInfoList 分页获取Order记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkOrderService *HkOrderService) GetHkOrderInfoList(info communityReq.HkOrderSearch) (list []community.HkOrder, total int64, err error) {
+func (hkOrderService *OrderService) GetOrderInfoList(info communityReq.OrderSearch) (list []community.Order, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkOrder{})
-	var hkOrders []community.HkOrder
+	db := global.GVA_DB.Model(&community.Order{})
+	var hkOrders []community.Order
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

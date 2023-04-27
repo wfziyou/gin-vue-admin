@@ -15,41 +15,48 @@ type ActivityService struct {
 
 // CreateActivity 创建Activity记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkActivityService *ActivityService) CreateActivity(userId uint64, info communityReq.CreateActivityReq) (err error) {
+func (hkActivityService *ActivityService) CreateActivity(userId uint64, info communityReq.CreateActivityReq) (activity community.ForumPosts, err error) {
 	checkStatus := community.PostsCheckStatusPass
 	if info.Draft == community.DraftTrue {
 		checkStatus = community.PostsCheckStatusDraft
 	}
 	obj := community.ForumPosts{
 		//TopicId:         info.TopicId,
-		CircleId:        info.CircleId,
-		UserId:          userId,
-		Title:           info.Title,
-		CoverImage:      info.CoverImage,
-		ContentType:     community.ContentTypeHtml,
-		Category:        community.PostsCategoryActivity,
-		ContentHtml:     info.Content,
-		ActivityStartAt: info.ActivityStartAt,
-		ActivityEndAt:   info.ActivityEndAt,
-		ActivityAddress: info.ActivityAddress,
-		ActivityUserNum: info.ActivityUserNum,
-		PayCurrency:     utils.CurrencyGold,
-		PayNum:          info.PayNum,
-		CheckStatus:     checkStatus,
-		IsPublic:        community.ForumPostsIsPublicTrue,
-		PowerComment:    community.ForumPostsPowerCommentOpen,
+		CircleId:           info.CircleId,
+		UserId:             userId,
+		Title:              info.Title,
+		CoverImage:         info.CoverImage,
+		ContentType:        community.ContentTypeHtml,
+		Category:           community.PostsCategoryActivity,
+		ContentHtml:        info.Content,
+		ActivityStartAt:    info.ActivityStartAt,
+		ActivityEndAt:      info.ActivityEndAt,
+		ActivityAddress:    info.ActivityAddress,
+		ActivityUserNum:    info.ActivityUserNum,
+		ActivityCurUserNum: 1,
+		PayCurrency:        utils.CurrencyGold,
+		PayNum:             info.PayNum,
+		CheckStatus:        checkStatus,
+		IsPublic:           community.ForumPostsIsPublicTrue,
+		PowerComment:       community.ForumPostsPowerCommentOpen,
 	}
 	err = global.GVA_DB.Create(&obj).Error
-	if err == nil && len(info.TopicId) > 0 {
-		tmp := utils.SplitToUint64List(info.TopicId, ",")
-		for _, topicId := range tmp {
-			err = global.GVA_DB.Create(&community.ForumTopicPostsMapping{
-				TopicId: topicId,
-				PostsId: obj.ID,
-			}).Error
+	if err == nil {
+		err = global.GVA_DB.Create(&community.ActivityUser{
+			ActivityId: obj.ActivityId,
+			UserId:     userId,
+		}).Error
+		if len(info.TopicId) > 0 {
+			tmp := utils.SplitToUint64List(info.TopicId, ",")
+			for _, topicId := range tmp {
+				err = global.GVA_DB.Create(&community.ForumTopicPostsMapping{
+					TopicId: topicId,
+					PostsId: obj.ID,
+				}).Error
+			}
 		}
 	}
-	return err
+	return obj, err
 }
 
 // DeleteActivity 删除Activity记录
@@ -107,7 +114,7 @@ func (hkActivityService *ActivityService) UpdateActivity(info communityReq.Updat
 // GetActivity 根据id获取Activity记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkActivityService *ActivityService) GetActivity(id uint64) (hkActivity community.ForumPosts, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&hkActivity).Error
+	err = global.GVA_DB.Where("id = ?", id).Preload("UserInfo").First(&hkActivity).Error
 	return
 }
 
@@ -117,7 +124,7 @@ func (hkActivityService *ActivityService) GetActivityInfoList(info communityReq.
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var hkActivitys []community.ForumPostsBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
@@ -170,7 +177,7 @@ func (hkActivityService *ActivityService) GetActivityDynamicList(activityId uint
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.ForumPosts{})
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var hkActivitys []community.ForumPostsBaseInfo
 
 	db = db.Where("activity_id = ?", activityId)

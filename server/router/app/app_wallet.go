@@ -16,23 +16,14 @@ func (s *WalletRouter) InitWalletRouter(Router *gin.RouterGroup) {
 	routerWithoutRecord := appRouter.Group("wallet")
 	var api = v1.ApiGroupApp.AppApiGroup.WalletApi
 	{
-		router.POST("createHkUserRecharge", api.CreateHkUserRecharge)               // 新建HkUserRecharge
-		routerWithoutRecord.GET("findHkUserRecharge", api.FindHkUserRecharge)       // 根据ID获取HkUserRecharge
-		routerWithoutRecord.GET("getHkUserRechargeList", api.GetHkUserRechargeList) // 获取HkUserRecharge列表
-	}
-
-	{
-		routerWithoutRecord.GET("findHkGoldBill", api.FindHkGoldBill)       // 根据ID获取HkGoldBill
-		routerWithoutRecord.GET("getHkGoldBillList", api.GetHkGoldBillList) // 获取HkGoldBill列表
-	}
-
-	{
-		routerWithoutRecord.GET("findHkOrder", api.FindHkOrder)       // 根据ID获取HkOrder
-		routerWithoutRecord.GET("getHkOrderList", api.GetHkOrderList) // 获取HkOrder列表
-	}
-
-	{
-		routerWithoutRecord.GET("findHkUserBill", api.FindHkUserBill)       // 根据ID获取HkUserBill
-		routerWithoutRecord.GET("getHkUserBillList", api.GetHkUserBillList) // 获取HkUserBill列表
+		router.POST("createUserRecharge", api.CreateUserRecharge)               // 新建用户充值
+		routerWithoutRecord.GET("findUserRecharge", api.FindUserRecharge)       // 根据ID获取用户充值
+		routerWithoutRecord.GET("getUserRechargeList", api.GetUserRechargeList) // 获取用户充值列表
+		routerWithoutRecord.GET("findGoldBill", api.FindGoldBill)               // 根据ID获取金币账单
+		routerWithoutRecord.GET("getGoldBillList", api.GetGoldBillList)         // 获取金币账单列表
+		routerWithoutRecord.GET("findOrder", api.FindOrder)                     // 根据ID获取订单
+		routerWithoutRecord.GET("getOrderList", api.GetOrderList)               // 获取订单列表
+		routerWithoutRecord.GET("findUserBill", api.FindUserBill)               // 根据ID获取用户账单
+		routerWithoutRecord.GET("getUserBillList", api.GetUserBillList)         // 获取用户账单列表
 	}
 }

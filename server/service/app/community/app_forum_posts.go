@@ -105,10 +105,13 @@ func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(channelI
 
 // GetGlobalTopInfoList 分页获全局置顶资讯列表
 func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList() (list []community.ForumPostsBaseInfo, total int64, err error) {
-	limit := 3
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
+
+	db = db.Where("top = 1 and is_public = 1 and check_status=? and category = ?",
+		community.PostsCheckStatusPass,
+		community.PostsCategoryNews)
 
 	//创建时间降序排列
 	db = db.Order("hk_forum_posts.created_at desc")
@@ -118,7 +121,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList() (list [
 		return
 	}
 
-	err = db.Limit(limit).Find(&hkForumPostss).Error
+	err = db.Limit(utils.HomePageTopNewsNum).Find(&hkForumPostss).Error
 	return hkForumPostss, total, err
 }
 
@@ -129,6 +132,10 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(pag
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
+
+	db = db.Where("is_public = 1 and check_status=? and category = ?",
+		community.PostsCheckStatusPass,
+		community.PostsCategoryNews)
 
 	if len(page.Keyword) > 0 {
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
@@ -276,11 +283,10 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
-	//db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
-	//	community.PostsCheckStatusPass,
-	//	community.PostsCategoryActivity)
-	db = db.Where("channel_id = 0 and is_public = 1 and category = ?",
+	db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
+		community.PostsCheckStatusPass,
 		community.PostsCategoryActivity)
+
 	//创建时间降序排列
 	db = db.Order("hk_forum_posts.created_at desc")
 

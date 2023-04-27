@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-type HkUserRechargeSearch struct {
-	community.HkUserRecharge
+type UserRechargeSearch struct {
+	community.UserRecharge
 	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"`
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`
 	request.PageInfo

@@ -127,6 +127,7 @@ func (hkFocusUserService *FocusUserService) GetFocusUserInfoList(userId uint64, 
 							hkFocusUsers[i].NickName = user.NickName
 							hkFocusUsers[i].RealName = user.RealName
 							hkFocusUsers[i].HeaderImg = user.HeaderImg
+							hkFocusUsers[i].Birthday = user.Birthday
 							hkFocusUsers[i].Sex = user.Sex
 							hkFocusUsers[i].Description = user.Description
 							hkFocusUsers[i].NumCircle = user.UserExtend.NumCircle

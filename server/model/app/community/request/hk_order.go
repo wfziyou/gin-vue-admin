@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-type HkOrderSearch struct {
-	community.HkOrder
+type OrderSearch struct {
+	community.Order
 	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"`
 	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`
 	request.PageInfo

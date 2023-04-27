@@ -38,7 +38,7 @@ func (activityApi *ActivityApi) CreateActivity(c *gin.Context) {
 	}
 	userId := utils.GetUserID(c)
 
-	if err := hkActivityService.CreateActivity(userId, req); err != nil {
+	if _, err := hkActivityService.CreateActivity(userId, req); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -145,11 +145,22 @@ func (activityApi *ActivityApi) FindActivity(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkActivity, err := hkActivityService.GetActivity(req.ID); err != nil {
+	var userId = utils.GetUserID(c)
+	if activity, err := hkActivityService.GetActivity(req.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithDetailed(rehkActivity, "成功", c)
+		if _, num, err := appForumThumbsUpService.GetForumThumbsUpEx(userId, []uint64{req.ID}); err == nil && num > 0 {
+			activity.ThumbsUp = 1
+		}
+		if _, num, err := appUserCollectService.GetUserCollectEx(userId, []uint64{req.ID}); err == nil && num > 0 {
+			activity.Collect = 1
+		}
+		if _, err := hkActivityUserService.GetActivityUser(req.ID, userId); err == nil {
+			activity.IsAddActivity = 1
+		}
+		hkRecordBrowsingUserHomepageService.BrowsingUser(userId, activity.UserId)
+		response.OkWithData(activity, c)
 	}
 }
 
@@ -198,10 +209,17 @@ func (activityApi *ActivityApi) JoinActivity(c *gin.Context) {
 				return
 			}
 		}
-		hkActivityUserService.AddActivityUser(community.ActivityUser{
+		err = hkActivityUserService.AddActivityUser(community.ActivityUser{
 			ActivityId: activity.ActivityId,
 			UserId:     userId,
 		})
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		} else {
+			response.OkWithMessage("成功", c)
+			return
+		}
 	} else {
 		if err := hkActivityAddRequestService.CreateActivityAddRequest(userId, activity.ID, req.Reason); err != nil {
 			global.GVA_LOG.Error("创建失败!", zap.Error(err))

@@ -7,6 +7,11 @@ import (
 	"strings"
 )
 
+const BrowsingUserNum = 20
+
+//HomePageTopNewsNum 首页置顶资讯数
+const HomePageTopNewsNum = 3
+
 // 类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
 const (
 	//VerificationLogin 0登录
@@ -78,7 +83,7 @@ func SplitToUint64List(str string, sep string) (i32List []uint64) {
 		if item == "" {
 			continue
 		}
-		val, err := strconv.ParseUint(item, 10, 32)
+		val, err := strconv.ParseUint(item, 10, 64)
 		if err != nil {
 			// logs.CtxError(ctx, "ParseInt fail, err=%v, str=%v, sep=%v", err, str, sep) // 此处打印出log报错信息
 			continue

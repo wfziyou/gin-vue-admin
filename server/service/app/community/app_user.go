@@ -131,7 +131,7 @@ func (appUserService *AppUserService) DecreaseGold(userId uint64, num uint64, ti
 		updateData["currency_gold"] = currency
 		err = db.Where("id = ?", userId).Updates(updateData).Error
 		if err == nil {
-			err = global.GVA_DB.Create(&community.HkGoldBill{
+			err = global.GVA_DB.Create(&community.GoldBill{
 				UserId:       userId,
 				Pm:           community.GoldBillTypeDecrease,
 				Title:        title,
@@ -157,7 +157,7 @@ func (appUserService *AppUserService) IncreaseGold(userId uint64, num uint64, ti
 		err = global.GVA_DB.Create(&obj).Error
 		if err == nil {
 			if err == nil {
-				err = global.GVA_DB.Create(&community.HkGoldBill{
+				err = global.GVA_DB.Create(&community.GoldBill{
 					UserId:       userId,
 					Pm:           community.GoldBillTypeIncrease,
 					Title:        title,
@@ -178,7 +178,7 @@ func (appUserService *AppUserService) IncreaseGold(userId uint64, num uint64, ti
 		updateData["currency_gold"] = currency
 		err = db.Where("id = ?", userId).Updates(updateData).Error
 		if err == nil {
-			err = global.GVA_DB.Create(&community.HkGoldBill{
+			err = global.GVA_DB.Create(&community.GoldBill{
 				UserId:       userId,
 				Pm:           community.GoldBillTypeIncrease,
 				Title:        title,
@@ -252,8 +252,23 @@ func (appUserService *AppUserService) GetUser(id uint64) (hkUser community.User,
 	err = global.GVA_DB.Where("id = ?", id).Preload("UserExtend").First(&hkUser).Error
 	return
 }
-func (appUserService *AppUserService) GetUserInfo(id uint64) (hkUser community.User, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&hkUser).Error
+func (appUserService *AppUserService) GetUserInfo(id uint64) (userInfo community.UserInfo, err error) {
+	user := community.User{}
+	err = global.GVA_DB.Where("id = ?", id).Preload("UserExtend").First(&user).Error
+	if err == nil {
+		userInfo.ID = user.ID
+		userInfo.UserType = user.UserType
+		userInfo.Account = user.Account
+		userInfo.NickName = user.NickName
+		userInfo.RealName = user.RealName
+		userInfo.HeaderImg = user.HeaderImg
+		userInfo.Birthday = user.Birthday
+		userInfo.Sex = user.Sex
+		userInfo.Description = user.Description
+		userInfo.NumCircle = user.UserExtend.NumCircle
+		userInfo.NumFocus = user.UserExtend.NumFocus
+		userInfo.NumFan = user.UserExtend.NumFan
+	}
 	return
 }
 

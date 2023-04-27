@@ -7,52 +7,52 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
-type HkUserRechargeService struct {
+type UserRechargeService struct {
 }
 
-// CreateHkUserRecharge 创建HkUserRecharge记录
+// CreateUserRecharge 创建UserRecharge记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkUserRechargeService *HkUserRechargeService) CreateHkUserRecharge(hkUserRecharge *community.HkUserRecharge) (err error) {
+func (hkUserRechargeService *UserRechargeService) CreateUserRecharge(hkUserRecharge *community.UserRecharge) (err error) {
 	err = global.GVA_DB.Create(hkUserRecharge).Error
 	return err
 }
 
-// DeleteHkUserRecharge 删除HkUserRecharge记录
+// DeleteUserRecharge 删除UserRecharge记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkUserRechargeService *HkUserRechargeService) DeleteHkUserRecharge(hkUserRecharge community.HkUserRecharge) (err error) {
+func (hkUserRechargeService *UserRechargeService) DeleteUserRecharge(hkUserRecharge community.UserRecharge) (err error) {
 	err = global.GVA_DB.Delete(&hkUserRecharge).Error
 	return err
 }
 
-// DeleteHkUserRechargeByIds 批量删除HkUserRecharge记录
+// DeleteUserRechargeByIds 批量删除UserRecharge记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkUserRechargeService *HkUserRechargeService) DeleteHkUserRechargeByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.HkUserRecharge{}, "id in ?", ids.Ids).Error
+func (hkUserRechargeService *UserRechargeService) DeleteUserRechargeByIds(ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&[]community.UserRecharge{}, "id in ?", ids.Ids).Error
 	return err
 }
 
-// UpdateHkUserRecharge 更新HkUserRecharge记录
+// UpdateUserRecharge 更新UserRecharge记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkUserRechargeService *HkUserRechargeService) UpdateHkUserRecharge(hkUserRecharge community.HkUserRecharge) (err error) {
+func (hkUserRechargeService *UserRechargeService) UpdateUserRecharge(hkUserRecharge community.UserRecharge) (err error) {
 	err = global.GVA_DB.Save(&hkUserRecharge).Error
 	return err
 }
 
-// GetHkUserRecharge 根据id获取HkUserRecharge记录
+// GetUserRecharge 根据id获取UserRecharge记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkUserRechargeService *HkUserRechargeService) GetHkUserRecharge(id uint64) (hkUserRecharge community.HkUserRecharge, err error) {
+func (hkUserRechargeService *UserRechargeService) GetUserRecharge(id uint64) (hkUserRecharge community.UserRecharge, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkUserRecharge).Error
 	return
 }
 
-// GetHkUserRechargeInfoList 分页获取HkUserRecharge记录
+// GetUserRechargeInfoList 分页获取UserRecharge记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkUserRechargeService *HkUserRechargeService) GetHkUserRechargeInfoList(info communityReq.HkUserRechargeSearch) (list []community.HkUserRecharge, total int64, err error) {
+func (hkUserRechargeService *UserRechargeService) GetUserRechargeInfoList(info communityReq.UserRechargeSearch) (list []community.UserRecharge, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.HkUserRecharge{})
-	var hkUserRecharges []community.HkUserRecharge
+	db := global.GVA_DB.Model(&community.UserRecharge{})
+	var hkUserRecharges []community.UserRecharge
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)

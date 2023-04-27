@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
@@ -92,7 +92,7 @@ func (userApi *UserApi) BindEmail(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询用户基本信息"
-// @Success  200   {object}  response.Response{data=common.UserBaseInfo,msg=string}  "返回common.UserBaseInfo"
+// @Success  200   {object}  response.Response{data=community.UserBaseInfo,msg=string}  "返回common.UserBaseInfo"
 // @Router /app/user/getUserBaseInfo [get]
 func (userApi *UserApi) GetUserBaseInfo(c *gin.Context) {
 	var idSearch request.IdSearch
@@ -107,17 +107,45 @@ func (userApi *UserApi) GetUserBaseInfo(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		response.OkWithData(common.UserBaseInfo{
+		response.OkWithData(community.UserBaseInfo{
 			ID:          user.ID,
+			UserType:    user.UserType,
 			Account:     user.Account,
 			NickName:    user.NickName,
-			Phone:       user.Phone,
-			Email:       user.Email,
+			RealName:    user.RealName,
 			HeaderImg:   user.HeaderImg,
 			Birthday:    user.Birthday,
 			Sex:         user.Sex,
 			Description: user.Description,
 		}, c)
+	}
+}
+
+// GetUserInfo 用id查询用户信息
+// @Tags 用户
+// @Summary 用id查询用户信息
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query request.IdSearch true "用id查询用户信息"
+// @Success  200   {object}  response.Response{data=community.UserInfo,msg=string}  "返回community.UserInfo"
+// @Router /app/user/getUserInfo [get]
+func (userApi *UserApi) GetUserInfo(c *gin.Context) {
+	var idSearch request.IdSearch
+
+	err := c.ShouldBindQuery(&idSearch)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	if userInfo, err := appUserService.GetUserInfo(idSearch.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+	} else {
+		hkRecordBrowsingUserHomepageService.BrowsingUser(userId, userInfo.ID)
+		response.OkWithData(userInfo, c)
 	}
 }
 

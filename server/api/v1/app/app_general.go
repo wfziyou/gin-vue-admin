@@ -184,7 +184,7 @@ func (generalApi *GeneralApi) FindMiniProgram(c *gin.Context) {
 }
 
 // GetFeedbackTypeList 获取反馈类型列表
-// @Tags FeedbackType
+// @Tags 常规方法
 // @Summary 获取反馈类型列表
 // @Security ApiKeyAuth
 // @accept application/json
@@ -201,7 +201,7 @@ func (generalApi *GeneralApi) GetFeedbackTypeList(c *gin.Context) {
 }
 
 // CreateFeedback 创建反馈
-// @Tags Feedback
+// @Tags 常规方法
 // @Summary 创建反馈
 // @Security ApiKeyAuth
 // @accept application/json
@@ -234,7 +234,7 @@ func (generalApi *GeneralApi) CreateFeedback(c *gin.Context) {
 }
 
 // DeleteFeedback 删除反馈
-// @Tags Feedback
+// @Tags 常规方法
 // @Summary 删除反馈
 // @Security ApiKeyAuth
 // @accept application/json
@@ -268,7 +268,7 @@ func (generalApi *GeneralApi) DeleteFeedback(c *gin.Context) {
 }
 
 // DeleteFeedbackByIds 批量删除反馈
-// @Tags Feedback
+// @Tags 常规方法
 // @Summary 批量删除反馈
 // @Security ApiKeyAuth
 // @accept application/json
@@ -292,7 +292,7 @@ func (generalApi *GeneralApi) DeleteFeedbackByIds(c *gin.Context) {
 }
 
 // UpdateFeedback 更新反馈
-// @Tags Feedback
+// @Tags 常规方法
 // @Summary 更新反馈
 // @Security ApiKeyAuth
 // @accept application/json
@@ -316,7 +316,7 @@ func (generalApi *GeneralApi) UpdateFeedback(c *gin.Context) {
 }
 
 // FindFeedback 用id查询反馈
-// @Tags Feedback
+// @Tags 常规方法
 // @Summary 用id查询Feedback
 // @Security ApiKeyAuth
 // @accept application/json
@@ -340,7 +340,7 @@ func (generalApi *GeneralApi) FindFeedback(c *gin.Context) {
 }
 
 // GetFeedbackList 分页获取反馈列表
-// @Tags Feedback
+// @Tags 常规方法
 // @Summary 分页获取反馈列表
 // @Security ApiKeyAuth
 // @accept application/json

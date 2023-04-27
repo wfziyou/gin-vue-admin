@@ -1,4 +1,4 @@
-// 自动生成模板HkGoldBill
+// 自动生成模板GoldBill
 package community
 
 import (
@@ -10,8 +10,8 @@ const (
 	GoldBillTypeDecrease = 1
 )
 
-// HkGoldBill 结构体
-type HkGoldBill struct {
+// GoldBill 结构体
+type GoldBill struct {
 	global.GvaModelApp
 	UserId       uint64 `json:"userId" form:"userId" gorm:"column:user_id;comment:用户编号;size:19;"`
 	LinkId       string `json:"linkId" form:"linkId" gorm:"column:link_id;comment:关联id;size:32;"`
@@ -25,7 +25,7 @@ type HkGoldBill struct {
 	Mark         string `json:"mark" form:"mark" gorm:"column:mark;comment:备注;size:512;"`
 }
 
-// TableName HkGoldBill 表名
-func (HkGoldBill) TableName() string {
+// TableName GoldBill 表名
+func (GoldBill) TableName() string {
 	return "hk_gold_bill"
 }

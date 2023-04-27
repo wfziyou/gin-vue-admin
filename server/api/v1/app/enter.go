@@ -66,11 +66,11 @@ var (
 
 	hkActivityAddRequestService = service.ServiceGroupApp.AppServiceGroup.Community.ActivityAddRequestService
 	hkThirdPlatformService      = service.ServiceGroupApp.AppServiceGroup.Community.ThirdPlatformService
-	hkGoldBillService           = service.ServiceGroupApp.AppServiceGroup.Community.HkGoldBillService
-	hkOrderService              = service.ServiceGroupApp.AppServiceGroup.Community.HkOrderService
-	hkUserBillService           = service.ServiceGroupApp.AppServiceGroup.Community.HkUserBillService
+	hkGoldBillService           = service.ServiceGroupApp.AppServiceGroup.Community.GoldBillService
+	hkOrderService              = service.ServiceGroupApp.AppServiceGroup.Community.OrderService
+	hkUserBillService           = service.ServiceGroupApp.AppServiceGroup.Community.UserBillService
 	hkUserExtractService        = service.ServiceGroupApp.AppServiceGroup.Community.HkUserExtractService
-	hkUserRechargeService       = service.ServiceGroupApp.AppServiceGroup.Community.HkUserRechargeService
+	hkUserRechargeService       = service.ServiceGroupApp.AppServiceGroup.Community.UserRechargeService
 
 	//apiService              = service.ServiceGroupApp.SystemServiceGroup.ApiService
 	//jwtService              = service.ServiceGroupApp.SystemServiceGroup.JwtService
