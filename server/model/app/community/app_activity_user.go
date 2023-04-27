@@ -15,6 +15,8 @@ type ActivityUser struct {
 	Power      int    `json:"power" form:"power" gorm:"column:power;comment:权限：0普通 1管理员 2发起者;size:10;"`     //权限：0普通 1管理员 2发起者
 	Pay        int    `json:"pay" form:"pay" gorm:"column:pay;comment:是否付费：0 否 1 是;size:10;"`               //是否付费：0 否 1 是
 	OrderId    uint64 `json:"orderId" form:"orderId" gorm:"column:order_id;comment:订单编号;size:19;"`          //订单编号
+	NickName   string `json:"nickName" form:"nickName"`                                                     //昵称
+	HeaderImg  string `json:"headerImg" form:"headerImg"`                                                   //头像
 }
 
 // TableName ActivityUser 表名

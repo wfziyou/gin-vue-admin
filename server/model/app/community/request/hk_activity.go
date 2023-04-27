@@ -20,6 +20,7 @@ type CircleRecommendActivitySearch struct {
 }
 
 type ActivityUserSearch struct {
+	Id uint64 `json:"id" form:"id"` // 活动编号
 	request.PageInfo
 }
 

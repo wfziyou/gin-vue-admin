@@ -188,8 +188,17 @@ func (activityApi *ActivityApi) JoinActivity(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
 	userId := utils.GetUserID(c)
+	_, err1 := hkActivityUserService.GetActivityUser(activity.ID, userId)
+	if err1 == nil {
+		response.OkWithMessage("成功", c)
+		return
+	} else if errors.Is(err1, gorm.ErrRecordNotFound) {
+
+	} else {
+		response.FailWithMessage(err1.Error(), c)
+		return
+	}
 	if activity.ActivityAddApprove == 0 {
 		if activity.PayNum > 0 {
 			user, err := appUserService.GetUser(userId)
@@ -209,14 +218,15 @@ func (activityApi *ActivityApi) JoinActivity(c *gin.Context) {
 				return
 			}
 		}
-		err = hkActivityUserService.AddActivityUser(community.ActivityUser{
-			ActivityId: activity.ActivityId,
-			UserId:     userId,
-		})
+
 		if err != nil {
 			response.FailWithMessage(err.Error(), c)
 			return
 		} else {
+			err = hkActivityUserService.AddActivityUser(community.ActivityUser{
+				ActivityId: activity.ID,
+				UserId:     userId,
+			})
 			response.OkWithMessage("成功", c)
 			return
 		}
@@ -332,21 +342,21 @@ func (activityApi *ActivityApi) FindActivityUser(c *gin.Context) {
 // @Success 200 {object}  response.PageResult{List=[]community.ActivityUser,msg=string} "返回[]community.ActivityUser"
 // @Router /app/activity/getActivityUserList [get]
 func (activityApi *ActivityApi) GetActivityUserList(c *gin.Context) {
-	var pageInfo communityReq.ActivityUserSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.ActivityUserSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkActivityUserService.GetActivityUserInfoList(pageInfo); err != nil {
+	if list, total, err := hkActivityUserService.GetActivityUserInfoList(req.Id, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     req.Page,
+			PageSize: req.PageSize,
 		}, "获取成功", c)
 	}
 }

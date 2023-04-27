@@ -171,6 +171,9 @@ definitions:
       userId:
         description: 用户编号
         type: integer
+      userInfo:
+        $ref: '#/definitions/community.UserBaseInfo'
+        description: 用户基本信息
     type: object
   community.ChannelInfo:
     properties:
@@ -4661,6 +4664,10 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: 活动编号
+        in: query
+        name: id
+        type: integer
       - description: 关键字
         in: query
         name: keyword

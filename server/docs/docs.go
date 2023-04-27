@@ -1046,6 +1046,12 @@ var doc = `{
                 "summary": "分页获取活动的用户列表",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "description": "活动编号",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "关键字",
                         "name": "keyword",
@@ -15000,6 +15006,10 @@ var doc = `{
                 "userId": {
                     "description": "用户编号",
                     "type": "integer"
+                },
+                "userInfo": {
+                    "description": "用户基本信息",
+                    "$ref": "#/definitions/community.UserBaseInfo"
                 }
             }
         },

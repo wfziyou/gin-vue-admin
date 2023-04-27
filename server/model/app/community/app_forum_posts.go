@@ -147,7 +147,7 @@ type ForumPostsBaseInfo struct {
 	ActivityChatGroupId uint64               `json:"activityChatGroupId" form:"activityChatGroupId" gorm:"type:bigint(20);column:activity_chat_group_id;comment:活动聊天群编号;"` //活动聊天群编号
 	ActivityAddApprove  int                  `json:"activityAddApprove" form:"activityAddApprove" gorm:"column:activity_add_approve;comment:参加活动是否需要审批：0不审批、1审批;size:10;"` //参加活动是否需要审批：0不审批、1审批
 	TopicInfo           []ForumTopicBaseInfo `json:"topicInfo" gorm:"many2many:hk_forum_topic_posts_mapping;foreignKey:ID;joinForeignKey:PostsId;References:ID;joinReferences:TopicId"`
-	CircleInfo          CircleBaseInfo       `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"`                               //圈子基本信息
+	CircleInfo          *CircleBaseInfo      `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"`                               //圈子基本信息
 	UserInfo            UserBaseInfo         `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`                                   //用户基本信息
 	ThumbsUp            int                  `json:"thumbsUp"`                                                                                         //是否点赞：0否、1是
 	Collect             int                  `json:"collect"`                                                                                          //是否收藏：0否、1是
