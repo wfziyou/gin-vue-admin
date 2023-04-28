@@ -34,7 +34,9 @@ var (
 	appCircleClassifyService   = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleClassifyService
 	appCircleRequestService    = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRequestService
 	appCircleUserService       = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleUserService
+	appCircleTagService        = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleTagService
 	appCircleAddRequestService = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleAddRequestService
+	appCircleChannelService    = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleChannelService
 
 	appForumPostsService      = service.ServiceGroupApp.AppServiceGroup.Community.AppForumPostsService
 	appForumCommentService    = service.ServiceGroupApp.AppServiceGroup.Community.AppForumCommentService

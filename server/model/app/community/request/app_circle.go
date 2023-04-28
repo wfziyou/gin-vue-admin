@@ -6,13 +6,8 @@ import (
 )
 
 type CircleForumPostsSearch struct {
-	CircleId  uint64 `json:"circleId" form:"circleId" "`                      //圈子_编号
-	Category  *int   `json:"category" form:"category" "`                      //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
-	ChannelId *int   `json:"channelId" form:"channelId" "`                    //频道_编号
-	Title     string `json:"title" form:"title" gorm:"column:title;size:80;"` //标题
-	Top       *int   `json:"top" form:"top" `                                 //置顶：0否、1是
-	Marrow    *int   `json:"marrow" form:"marrow" `                           //精华：0否、1是
-
+	CircleId  uint64 `json:"circleId" form:"circleId" "`   //圈子_编号
+	ChannelId uint64 `json:"channelId" form:"channelId" "` //频道_编号
 	request.PageInfo
 }
 
@@ -121,5 +116,18 @@ type ParamSetCircleChannel struct {
 	ChannelIds string `json:"channelIds" form:"channelIds" example:"1,2"` //频道编号，通过逗号分割
 }
 type ParamGetCircleChannel struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+}
+
+type ParamCreateCircleTag struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+	Name     string `json:"name" form:"name"`          //标签名称
+}
+
+type ParamDeleteCircleTags struct {
+	CircleId uint64   `json:"circleId" form:"circleId" ` //圈子_编号
+	Names    []string `json:"names" form:"names"`        //标签名称
+}
+type ParamGetCircleTags struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 }

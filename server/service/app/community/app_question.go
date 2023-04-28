@@ -20,10 +20,11 @@ func (questionService *QuestionService) CreateQuestion(userId uint64, info commu
 		checkStatus = community.PostsCheckStatusDraft
 	}
 	forumPosts := community.ForumPosts{
+		CircleId:     info.CircleId,
 		UserId:       userId,
-		CircleId:     0,
-		Category:     community.PostsCategoryQuestion,
 		Title:        info.Title,
+		ChannelId:    community.ChannelCodeQuestion,
+		Category:     community.PostsCategoryQuestion,
 		ContentType:  community.ContentTypeHtml,
 		ContentHtml:  info.Content,
 		Attachment:   info.Attachment,

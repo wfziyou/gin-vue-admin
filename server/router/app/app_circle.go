@@ -52,5 +52,10 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 		circleRouter.POST("setCircleChannel", circleApi.SetCircleChannel)                     //设置圈子频道
 		circleRouterWithoutRecord.GET("getCircleChannelList", circleApi.GetCircleChannelList) //获取圈子频道
 	}
+	{
+		circleRouter.POST("createCircleTag", circleApi.CreateCircleTag)               //新建圈子标签
+		circleRouter.DELETE("deleteCircleTags", circleApi.DeleteCircleTags)           //删除圈子标签
+		circleRouterWithoutRecord.GET("getCircleTagList", circleApi.GetCircleTagList) // 获取圈子的标签
+	}
 	return circleRouter
 }

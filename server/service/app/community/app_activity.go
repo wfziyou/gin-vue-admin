@@ -21,11 +21,11 @@ func (hkActivityService *ActivityService) CreateActivity(userId uint64, info com
 		checkStatus = community.PostsCheckStatusDraft
 	}
 	obj := community.ForumPosts{
-		//TopicId:         info.TopicId,
 		CircleId:           info.CircleId,
 		UserId:             userId,
 		Title:              info.Title,
 		CoverImage:         info.CoverImage,
+		ChannelId:          community.ChannelCodeActivity,
 		ContentType:        community.ContentTypeHtml,
 		Category:           community.PostsCategoryActivity,
 		ContentHtml:        info.Content,

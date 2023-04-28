@@ -259,6 +259,15 @@ CREATE TABLE `hk_circle`  (
 INSERT INTO `hk_circle` VALUES (1, '000000', 0, '圈子名称1', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 1, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
 INSERT INTO `hk_circle` VALUES (2, '000000', 0, '圈子名称2', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 2, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
 INSERT INTO `hk_circle` VALUES (3, '000000', 0, '圈子名称3', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (4, '000000', 0, '圈子名称4', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (5, '000000', 0, '圈子名称5', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (6, '000000', 0, '圈子名称6', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (7, '000000', 0, '圈子名称7', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (8, '000000', 0, '圈子名称8', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (9, '000000', 0, '圈子名称9', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (10, '000000', 0, '圈子名称10', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (11, '000000', 0, '圈子名称11', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (12, '000000', 0, '圈子名称12', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_circle_request
@@ -339,6 +348,51 @@ CREATE TABLE `hk_circle_relation`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子关系';
 
 -- ----------------------------
+-- Table structure for hk_circle_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_circle_tag`;
+CREATE TABLE `hk_circle_tag`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
+  `sort` int(11) NULL DEFAULT NULL COMMENT '用户的圈子排序',
+  `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+  `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+  `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子标签' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hk_circle_tag
+-- ----------------------------
+INSERT INTO `hk_circle_tag` VALUES (1, '000000', '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (2, '000000', '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (3, '000000', '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (4, '000000', '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+
+-- ----------------------------
+-- Table structure for hk_circle_tags
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_circle_tags`;
+CREATE TABLE `hk_circle_tags`  (
+  `circle_id` bigint(20) UNSIGNED NOT NULL,
+  `circle_tag_id` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`circle_id`, `circle_tag_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hk_circle_tags
+-- ----------------------------
+INSERT INTO `hk_circle_tags` VALUES (2, 1);
+INSERT INTO `hk_circle_tags` VALUES (2, 2);
+INSERT INTO `hk_circle_tags` VALUES (2, 3);
+
+-- ----------------------------
 -- Table structure for hk_circle_user
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_circle_user`;
@@ -416,22 +470,32 @@ INSERT INTO `hk_channel` VALUES (9, '000000', '频道4', NULL, 0, 0, 0, NULL, '2
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_circle_channel`;
 CREATE TABLE `hk_circle_channel`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `circle_id` bigint(20) NULL DEFAULT NULL COMMENT '圈子_编号',
-   `channel_id` bigint(20) NULL DEFAULT NULL COMMENT '频道_编号',
-   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
-   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子频道' ROW_FORMAT = Dynamic;
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `circle_id` bigint(20) NULL DEFAULT NULL COMMENT '圈子_编号',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
+  `icon` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `code` int(11) NULL DEFAULT 0 COMMENT '标识：0常规、1资讯、2关注、3附近、4活动、5问答',
+  `fixed_type` tinyint(1) NULL DEFAULT NULL COMMENT '固定标识(不固定:0，固定:1)',
+  `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+  `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+  `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子频道' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of hk_circle_channel
+-- ----------------------------
+INSERT INTO `hk_circle_channel` VALUES (1, '000000', 0, '问答', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (2, '000000', 0, '动态', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (3, '000000', 0, '资讯', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (4, '000000', 0, '活动', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_user_channel

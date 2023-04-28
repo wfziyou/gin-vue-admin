@@ -183,14 +183,15 @@ func (circleApi *CircleApi) FindCircle(c *gin.Context) {
 		return
 	}
 	var userId = utils.GetUserID(c)
-	if rehkCircle, err := appCircleService.GetCircle(idSearch.ID); err != nil {
+	if circle, err := appCircleService.GetCircle(idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		if _, num, err := appCircleUserService.GetUserHaveCircles(userId, []uint64{idSearch.ID}); err == nil && num > 0 {
-			rehkCircle.HaveCircle = 1
+			circle.HaveCircle = 1
 		}
-		response.OkWithData(rehkCircle, c)
+
+		response.OkWithData(circle, c)
 	}
 }
 
@@ -903,7 +904,7 @@ func (circleApi *CircleApi) SetCircleChannel(c *gin.Context) {
 		return
 	}
 
-	if err := appUserService.UpdateUserChannel(circle.ID, req.ChannelIds); err != nil {
+	if err := appCircleService.UpdateCircleChannel(circle.ID, req.ChannelIds); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -917,11 +918,12 @@ func (circleApi *CircleApi) SetCircleChannel(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
+// @Param data query communityReq.ParamGetCircleChannel true "获取圈子频道"
 // @Success 200 {object}  response.Response{data=[]community.ChannelInfo,msg=string} "返回[]community.ChannelInfo"
 // @Router /app/circle/getCircleChannelList [get]
 func (circleApi *CircleApi) GetCircleChannelList(c *gin.Context) {
 	var req communityReq.ParamGetCircleChannel
-	err := c.ShouldBindJSON(&req)
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
@@ -937,12 +939,18 @@ func (circleApi *CircleApi) GetCircleChannelList(c *gin.Context) {
 	}
 
 	if len(circle.ChannelId) == 0 {
-		var hkChannels []community.ChannelInfo
-		response.OkWithDetailed(hkChannels, "获取成功", c)
+		list, err := appCircleChannelService.GetDefaultChannelInfoList(circle.ID)
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		response.OkWithDetailed(list, "获取成功", c)
+		return
 	}
-	if list, _, err := hkChannelService.GetChannelInfoListById(circle.ChannelId); err != nil {
+	if list, _, err := appCircleChannelService.GetChannelInfoListById(circle.ChannelId); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
+		return
 	} else {
 		tmp := utils.SplitToUint64List(circle.ChannelId, ",")
 		for index, id := range tmp {
@@ -983,5 +991,89 @@ func (circleApi *CircleApi) GetChildCircleList(c *gin.Context) {
 			Page:     req.Page,
 			PageSize: req.PageSize,
 		}, "获取成功", c)
+	}
+}
+
+// CreateCircleTag 新建圈子标签
+// @Tags 圈子
+// @Summary 新建圈子标签
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamCreateCircleTag true "新建圈子标签"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circle/createCircleTag [post]
+func (circleApi *CircleApi) CreateCircleTag(c *gin.Context) {
+	var req communityReq.ParamCreateCircleTag
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("创建成功", c)
+	}
+}
+
+// DeleteCircleTags 删除圈子标签
+// @Tags 圈子
+// @Summary 删除圈子标签
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamDeleteCircleTags true "删除圈子标签"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
+// @Router /app/circle/deleteCircleTags [delete]
+func (circleApi *CircleApi) DeleteCircleTags(c *gin.Context) {
+	var req communityReq.ParamDeleteCircleTags
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	if err := appCircleTagService.DeleteCircleTags(req.CircleId, req.Names); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("成功", c)
+	}
+}
+
+// GetCircleTagList 获取圈子的标签
+// @Tags 圈子
+// @Summary 获取圈子的标签
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.ParamGetCircleTags true "获取圈子的标签"
+// @Success 200 {object}  response.PageResult{List=[]community.CircleTag,msg=string} "返回[]community.CircleTag"
+// @Router /app/circle/getCircleTagList [get]
+func (circleApi *CircleApi) GetCircleTagList(c *gin.Context) {
+	var req communityReq.ParamGetCircleTags
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if list, err := appCircleTagService.GetCircleTagList(req.CircleId); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(list, "获取成功", c)
 	}
 }

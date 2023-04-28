@@ -14,6 +14,7 @@ type CircleQuestionSearch struct {
 }
 
 type CreateQuestion struct {
+	CircleId   uint64 `json:"circleId" form:"circleId"`     //圈子_编号
 	Title      string `json:"title" form:"title"`           //标题
 	Content    string `json:"content" form:"content"`       //内容
 	Attachment string `json:"attachment" form:"attachment"` //附件

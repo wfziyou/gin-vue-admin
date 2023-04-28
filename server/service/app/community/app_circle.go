@@ -102,7 +102,7 @@ func (appCircleService *AppCircleService) UpdateCircle(req communityReq.UpdateCi
 // GetCircle 根据id获取Circle记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleService *AppCircleService) GetCircle(id uint64) (hkCircle community.Circle, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&hkCircle).Error
+	err = global.GVA_DB.Where("id = ?", id).Preload("Tags").First(&hkCircle).Error
 	return
 }
 
@@ -168,9 +168,9 @@ func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info 
 	return hkCircles, total, err
 }
 
-// UpdateUserChannel 更新用户频道
+// UpdateCircleChannel 更新用户频道
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleService *AppCircleService) UpdateUserChannel(circleId uint64, channel string) (err error) {
+func (appCircleService *AppCircleService) UpdateCircleChannel(circleId uint64, channel string) (err error) {
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
 	updateData["channel_id"] = channel

@@ -66,7 +66,7 @@ func (appCircleRelationService *AppCircleRelationService) GetCircleRelationInfoL
 	return hkCircleRelations, total, err
 }
 
-func (appCircleRelationService *AppCircleRelationService) GetChildCircleList(circleId uint64, page request.PageInfo) (list []community.CircleRelation, total int64, err error) {
+func (appCircleRelationService *AppCircleRelationService) GetChildCircleList(circleId uint64, page request.PageInfo) (list []community.CircleBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
@@ -82,7 +82,15 @@ func (appCircleRelationService *AppCircleRelationService) GetChildCircleList(cir
 	if err != nil {
 		return
 	}
-
+	//
 	err = db.Limit(limit).Offset(offset).Find(&hkCircleRelations).Error
-	return hkCircleRelations, total, err
+	size := len(hkCircleRelations)
+	if err == nil && size > 0 {
+		var ids = make([]uint64, size)
+		for index, v := range hkCircleRelations {
+			ids[index] = v.ID
+		}
+		err = global.GVA_DB.Model(&community.CircleBaseInfo{}).Where("id in ?", ids).Find(&list).Error
+	}
+	return list, total, err
 }

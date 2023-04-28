@@ -1953,6 +1953,44 @@ var doc = `{
                 }
             }
         },
+        "/app/circle/createCircleTag": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "新建圈子标签",
+                "parameters": [
+                    {
+                        "description": "新建圈子标签",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateCircleTag"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/deleteCircleForumPosts": {
             "delete": {
                 "security": [
@@ -1984,6 +2022,44 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/deleteCircleTags": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "删除圈子标签",
+                "parameters": [
+                    {
+                        "description": "删除圈子标签",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamDeleteCircleTags"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -2470,6 +2546,14 @@ var doc = `{
                     "圈子"
                 ],
                 "summary": "获取圈子频道",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "返回[]community.ChannelInfo",
@@ -2636,12 +2720,6 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
-                        "name": "category",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "频道_编号",
                         "name": "channelId",
                         "in": "query"
@@ -2660,12 +2738,6 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "精华：0否、1是",
-                        "name": "marrow",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "页码",
                         "name": "page",
                         "in": "query"
@@ -2674,18 +2746,6 @@ var doc = `{
                         "type": "integer",
                         "description": "每页大小",
                         "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "标题",
-                        "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "置顶：0否、1是",
-                        "name": "top",
                         "in": "query"
                     }
                 ],
@@ -2894,6 +2954,59 @@ var doc = `{
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/community.CircleRequest"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/getCircleTagList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "获取圈子的标签",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.CircleTag",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.CircleTag"
                                             }
                                         },
                                         "msg": {
@@ -14972,9 +15085,17 @@ var doc = `{
                     "description": "创建时间",
                     "type": "string"
                 },
+                "headerImg": {
+                    "description": "头像",
+                    "type": "string"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
+                },
+                "nickName": {
+                    "description": "昵称",
+                    "type": "string"
                 },
                 "orderId": {
                     "description": "订单编号",
@@ -15006,10 +15127,6 @@ var doc = `{
                 "userId": {
                     "description": "用户编号",
                     "type": "integer"
-                },
-                "userInfo": {
-                    "description": "用户基本信息",
-                    "$ref": "#/definitions/community.UserBaseInfo"
                 }
             }
         },
@@ -15147,6 +15264,12 @@ var doc = `{
                 "supportCategory": {
                     "description": "支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:500;",
                     "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/community.CircleTag"
+                    }
                 },
                 "type": {
                     "description": "类型：0官方圈子、1用户圈子、2小区",
@@ -15359,6 +15482,23 @@ var doc = `{
                 "userNickName": {
                     "description": "用户昵称",
                     "type": "string"
+                }
+            }
+        },
+        "community.CircleTag": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "标签名称",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
                 }
             }
         },
@@ -18626,6 +18766,10 @@ var doc = `{
                     "description": "附件",
                     "type": "string"
                 },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
                 "content": {
                     "description": "内容",
                     "type": "string"
@@ -18989,6 +19133,35 @@ var doc = `{
                 "pageSize": {
                     "description": "每页大小",
                     "type": "integer"
+                }
+            }
+        },
+        "request.ParamCreateCircleTag": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "标签名称",
+                    "type": "string"
+                }
+            }
+        },
+        "request.ParamDeleteCircleTags": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "names": {
+                    "description": "标签名称",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },

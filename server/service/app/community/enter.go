@@ -9,6 +9,8 @@ type ServiceGroup struct {
 	AppCircleRelationService
 	AppCircleRequestService
 	AppCircleUserService
+	AppCircleTagService
+	AppCircleChannelService
 	AppCommentThumbsUpService
 	AppForbiddenSpeakService
 	AppForbiddenSpeakDurationService

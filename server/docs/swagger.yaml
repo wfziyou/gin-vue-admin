@@ -145,9 +145,15 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
+      headerImg:
+        description: 头像
+        type: string
       id:
         description: 主键ID
         type: integer
+      nickName:
+        description: 昵称
+        type: string
       orderId:
         description: 订单编号
         type: integer
@@ -171,9 +177,6 @@ definitions:
       userId:
         description: 用户编号
         type: integer
-      userInfo:
-        $ref: '#/definitions/community.UserBaseInfo'
-        description: 用户基本信息
     type: object
   community.ChannelInfo:
     properties:
@@ -275,6 +278,10 @@ definitions:
       supportCategory:
         description: 支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:500;
         type: string
+      tags:
+        items:
+          $ref: '#/definitions/community.CircleTag'
+        type: array
       type:
         description: 类型：0官方圈子、1用户圈子、2小区
         type: integer
@@ -430,6 +437,18 @@ definitions:
       userNickName:
         description: 用户昵称
         type: string
+    type: object
+  community.CircleTag:
+    properties:
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 标签名称
+        type: string
+      sort:
+        description: 排序
+        type: integer
     type: object
   community.CircleUserInfo:
     properties:
@@ -2758,6 +2777,9 @@ definitions:
       attachment:
         description: 附件
         type: string
+      circleId:
+        description: 圈子_编号
+        type: integer
       content:
         description: 内容
         type: string
@@ -3010,6 +3032,26 @@ definitions:
       pageSize:
         description: 每页大小
         type: integer
+    type: object
+  request.ParamCreateCircleTag:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      name:
+        description: 标签名称
+        type: string
+    type: object
+  request.ParamDeleteCircleTags:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      names:
+        description: 标签名称
+        items:
+          type: string
+        type: array
     type: object
   request.ParamSetCircleChannel:
     properties:
@@ -5206,6 +5248,29 @@ paths:
       summary: 创建圈子请求
       tags:
       - 圈子
+  /app/circle/createCircleTag:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 新建圈子标签
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateCircleTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 新建圈子标签
+      tags:
+      - 圈子
   /app/circle/deleteCircleForumPosts:
     delete:
       consumes:
@@ -5227,6 +5292,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: (圈子管理员)删除圈子的帖子
+      tags:
+      - 圈子
+  /app/circle/deleteCircleTags:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除圈子标签
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamDeleteCircleTags'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除圈子标签
       tags:
       - 圈子
   /app/circle/deleteCircleUser:
@@ -5505,6 +5593,11 @@ paths:
     get:
       consumes:
       - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
       produces:
       - application/json
       responses:
@@ -5599,10 +5692,6 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
-        in: query
-        name: category
-        type: integer
       - description: 频道_编号
         in: query
         name: channelId
@@ -5615,10 +5704,6 @@ paths:
         in: query
         name: keyword
         type: string
-      - description: 精华：0否、1是
-        in: query
-        name: marrow
-        type: integer
       - description: 页码
         in: query
         name: page
@@ -5626,14 +5711,6 @@ paths:
       - description: 每页大小
         in: query
         name: pageSize
-        type: integer
-      - description: 标题
-        in: query
-        name: title
-        type: string
-      - description: 置顶：0否、1是
-        in: query
-        name: top
         type: integer
       produces:
       - application/json
@@ -5770,6 +5847,36 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取创建圈子请求列表
+      tags:
+      - 圈子
+  /app/circle/getCircleTagList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.CircleTag
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.CircleTag'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取圈子的标签
       tags:
       - 圈子
   /app/circle/getCircleUserList:

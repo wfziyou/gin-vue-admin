@@ -367,26 +367,12 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 	//圈子_编号
 	db = db.Where("circle_id = ?", info.CircleId)
 
-	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
-	if info.Category != nil {
-		db = db.Where("category = ?", info.Category)
-	}
-
 	//帖子分类编号
-	if info.ChannelId != nil {
+	if info.ChannelId > 0 {
 		db = db.Where("channel_id = ?", info.ChannelId)
 	}
-	//标题
-	if len(info.Title) != 0 {
-		db = db.Where("title LIKE ?", "%"+info.Title+"%")
-	}
-	//置顶：0否、1是
-	if info.Top != nil {
-		db = db.Where("top = ?", info.Top)
-	}
-	//精华：0否、1是
-	if info.Marrow != nil {
-		db = db.Where("marrow = ?", info.Marrow)
+	if len(info.Keyword) != 0 {
+		db = db.Where("title LIKE ?", "%"+info.Keyword+"%")
 	}
 	//创建时间降序排列
 	db = db.Order("hk_forum_posts.created_at desc")
