@@ -2,6 +2,7 @@ package general
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
@@ -51,18 +52,18 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) GetUserBrows
 
 // GetUserBrowsingHistoryInfoList 分页获取UserBrowsingHistory记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) GetUserBrowsingHistoryInfoList(info generalReq.UserBrowsingHistorySearch) (list []general.UserBrowsingHistory, total int64, err error) {
+func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) GetUserBrowsingHistoryInfoList(userId uint64, info generalReq.UserBrowsingHistorySearch) (list []general.UserBrowsingHistoryInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&general.UserBrowsingHistory{})
-	var hkUserBrowsingHistorys []general.UserBrowsingHistory
+	db := global.GVA_DB.Model(&general.UserBrowsingHistoryInfo{})
+	var hkUserBrowsingHistorys []general.UserBrowsingHistoryInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartUpdatedAt != nil && info.EndUpdatedAt != nil {
 		db = db.Where("updated_at BETWEEN ? AND ?", info.StartUpdatedAt, info.EndUpdatedAt)
 	}
-	if info.UserId > 0 {
-		db = db.Where("user_id = ?", info.UserId)
+	if userId > 0 {
+		db = db.Where("user_id = ?", userId)
 	}
 
 	err = db.Count(&total).Error
@@ -71,5 +72,32 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) GetUserBrows
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkUserBrowsingHistorys).Error
+	if err == nil {
+		var size = len(hkUserBrowsingHistorys)
+		if size > 0 {
+			var ids = make([]uint64, size)
+			for index, v := range hkUserBrowsingHistorys {
+				ids[index] = v.PostsId
+			}
+			//查询最新发布的帖子
+			db1 := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
+			var hkForumPosts []community.ForumPostsBaseInfo
+			db1 = db1.Where("id in ?", ids)
+			err = db1.Find(&hkForumPosts).Error
+			if err == nil {
+				for x, obj := range hkUserBrowsingHistorys {
+					for _, posts := range hkForumPosts {
+						if obj.PostsId == posts.ID {
+							hkUserBrowsingHistorys[x].Title = posts.Title
+							hkUserBrowsingHistorys[x].Category = posts.Category
+							hkUserBrowsingHistorys[x].Attachment = posts.Attachment
+							hkUserBrowsingHistorys[x].CoverImage = posts.CoverImage
+							break
+						}
+					}
+				}
+			}
+		}
+	}
 	return hkUserBrowsingHistorys, total, err
 }

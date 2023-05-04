@@ -30,11 +30,11 @@ func (m *SysAutoCodeHistory) ToRequestIds() request.IdsReq {
 		return request.IdsReq{}
 	}
 	slice := strings.Split(m.ApiIDs, ";")
-	ids := make([]int, 0, len(slice))
+	ids := make([]uint64, 0, len(slice))
 	length := len(slice)
 	for i := 0; i < length; i++ {
-		id, _ := strconv.ParseInt(slice[i], 10, 32)
-		ids = append(ids, int(id))
+		id, _ := strconv.ParseInt(slice[i], 10, 64)
+		ids = append(ids, uint64(id))
 	}
 	return request.IdsReq{Ids: ids}
 }

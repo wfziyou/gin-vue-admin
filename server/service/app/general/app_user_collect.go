@@ -6,7 +6,6 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"gorm.io/gorm"
 )
 
@@ -38,18 +37,23 @@ func (appUserCollectService *AppUserCollectService) UpdateCollectNum(postsIdd ui
 
 // DeleteUserCollect 删除收藏记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserCollectService *AppUserCollectService) DeleteUserCollect(hkUserCollect general.UserCollect) (err error) {
-	err = global.GVA_DB.Unscoped().Delete(&hkUserCollect).Error
+func (appUserCollectService *AppUserCollectService) DeleteUserCollect(userId uint64, postsId uint64) (err error) {
+	err = global.GVA_DB.Unscoped().Delete(&general.UserCollect{}, "user_id = ? AND posts_id = ?", userId, postsId).Error
 	if err == nil {
-		err = appUserCollectService.UpdateCollectNum(hkUserCollect.PostsId)
+		err = appUserCollectService.UpdateCollectNum(postsId)
 	}
 	return err
 }
 
 // DeleteUserCollectByIds 批量删除收藏记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserCollectService *AppUserCollectService) DeleteUserCollectByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Unscoped().Delete(&[]general.UserCollect{}, "id in ?", ids.Ids).Error
+func (appUserCollectService *AppUserCollectService) DeleteUserCollectByIds(userId uint64, ids []uint64) (err error) {
+	err = global.GVA_DB.Unscoped().Delete(&[]general.UserCollect{}, "user_id = ? AND posts_id in ?", userId, ids).Error
+	if err == nil {
+		for _, postsId := range ids {
+			err = appUserCollectService.UpdateCollectNum(postsId)
+		}
+	}
 	return err
 }
 
@@ -127,8 +131,8 @@ func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(info 
 			db1 := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 			var hkForumPosts []community.ForumPostsBaseInfo
 			db1 = db1.Where("id in ?", ids)
-			//db1 = db1.Where("is_public = 1 and check_status=?",
-			//	community.PostsCheckStatusPass)
+			db1 = db1.Where("check_status = ?",
+				community.PostsCheckStatusPass)
 			err = db1.Find(&hkForumPosts).Error
 			return hkForumPosts, total, err
 		}

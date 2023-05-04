@@ -73,11 +73,11 @@ func (autoCodeHistoryService *AutoCodeHistoryService) RollBack(info *systemReq.R
 	ids := request.IdsReq{}
 	idsStr := strings.Split(md.ApiIDs, ";")
 	for i := range idsStr[0 : len(idsStr)-1] {
-		id, err := strconv.Atoi(idsStr[i])
+		id, err := strconv.ParseInt(idsStr[i], 10, 64)
 		if err != nil {
 			return err
 		}
-		ids.Ids = append(ids.Ids, id)
+		ids.Ids = append(ids.Ids, uint64(id))
 	}
 	err := ApiServiceApp.DeleteApisByIds(ids)
 	if err != nil {

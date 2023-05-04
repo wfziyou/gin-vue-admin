@@ -788,9 +788,9 @@ INSERT INTO `sys_apis` VALUES (704, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (705, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/setSelfBaseInfo', '设置用户基础信息', 7, 'PUT');
 INSERT INTO `sys_apis` VALUES (706, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/getUserList', '分页获取User列表', 7, 'GET');
 
-INSERT INTO `sys_apis` VALUES (800, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/deleteUserBrowsingHistory', '删除UserBrowsingHistory', 8, 'DELETE');
-INSERT INTO `sys_apis` VALUES (801, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/deleteUserBrowsingHistoryByIds', '批量删除UserBrowsingHistory', 8, 'DELETE');
-INSERT INTO `sys_apis` VALUES (802, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/getUserBrowsingHistoryList', '分页获取UserBrowsingHistory列表', 8, 'GET');
+INSERT INTO `sys_apis` VALUES (800, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/deleteUserBrowsingHistory', '删除浏览历史', 8, 'DELETE');
+INSERT INTO `sys_apis` VALUES (801, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/deleteUserBrowsingHistoryByIds', '批量删除浏览历史', 8, 'DELETE');
+INSERT INTO `sys_apis` VALUES (802, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/getUserBrowsingHistoryList', '分页获取浏览历史列表', 8, 'GET');
 
 INSERT INTO `sys_apis` VALUES (900, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/createUserCollect', '收藏帖子', 9, 'POST');
 INSERT INTO `sys_apis` VALUES (901, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/deleteUserCollect', '删除UserCollect', 9, 'DELETE');

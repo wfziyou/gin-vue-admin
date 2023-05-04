@@ -2,7 +2,6 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
@@ -62,9 +61,8 @@ func (userCollectApi *UserCollectApi) DeleteUserCollect(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	var data = general.UserCollect{}
-	data.ID = req.ID
-	if err := appUserCollectService.DeleteUserCollect(data); err != nil {
+	userId := utils.GetUserID(c)
+	if err := appUserCollectService.DeleteUserCollect(userId, req.ID); err != nil {
 		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
@@ -82,13 +80,14 @@ func (userCollectApi *UserCollectApi) DeleteUserCollect(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /app/userCollect/deleteUserCollectByIds [delete]
 func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
-	var IDS request.IdsReq
-	err := c.ShouldBindJSON(&IDS)
+	var req request.IdsReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := appUserCollectService.DeleteUserCollectByIds(IDS); err != nil {
+	userId := utils.GetUserID(c)
+	if err := appUserCollectService.DeleteUserCollectByIds(userId, req.Ids); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {

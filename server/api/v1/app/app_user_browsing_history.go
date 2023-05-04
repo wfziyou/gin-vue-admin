@@ -74,7 +74,7 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistoryB
 // @accept application/json
 // @Produce application/json
 // @Param data query generalReq.UserBrowsingHistorySearch true "分页获取浏览历史列表"
-// @Success 200 {object}  response.PageResult{List=[]general.UserBrowsingHistory,msg=string} "返回general.UserBrowsingHistory"
+// @Success 200 {object}  response.PageResult{List=[]general.UserBrowsingHistoryInfo,msg=string} "返回general.UserBrowsingHistoryInfo"
 // @Router /app/userBrowsingHistory/getUserBrowsingHistoryList [get]
 func (userBrowsingHistoryApi *UserBrowsingHistoryApi) GetUserBrowsingHistoryList(c *gin.Context) {
 	var pageInfo generalReq.UserBrowsingHistorySearch
@@ -83,8 +83,8 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) GetUserBrowsingHistoryList
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	pageInfo.UserId = utils.GetUserID(c)
-	if list, total, err := appUserBrowsingHistoryService.GetUserBrowsingHistoryInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appUserBrowsingHistoryService.GetUserBrowsingHistoryInfoList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
