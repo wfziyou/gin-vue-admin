@@ -103,7 +103,7 @@ func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query generalReq.UserCollectSearch true "分页获取收藏列表"
-// @Success 200 {object}  response.PageResult{List=[]general.UserCollect,msg=string} "返回general.UserCollect"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回general.UserCollect"
 // @Router /app/userCollect/getUserCollectList [get]
 func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 	var pageInfo generalReq.UserCollectSearch

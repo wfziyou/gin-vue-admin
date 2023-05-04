@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-const BrowsingUserNum = 20
+const BrowsingUserNum = 5
 
 //HomePageTopNewsNum 首页置顶资讯数
 const HomePageTopNewsNum = 3

@@ -75,9 +75,7 @@ func (appForumCommentService *AppForumCommentService) GetForumCommentInfoList(in
 	db := global.GVA_DB.Model(&community.ForumComment{}).Preload("UserInfo")
 	var hkForumComments []community.ForumComment
 	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
+
 	db = db.Where("posts_id = ?", info.PostsId)
 	if info.ParentId > 0 {
 		db = db.Where("parent_id = ?", info.ParentId)

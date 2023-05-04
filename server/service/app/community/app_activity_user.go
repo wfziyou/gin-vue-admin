@@ -113,7 +113,7 @@ func UpdateActivityUserNum(activityId uint64) (err error) {
 	var activityUserNum int64
 	err = global.GVA_DB.Model(&community.ActivityUser{}).Where("activity_id = ?", activityId).Count(&activityUserNum).Error
 	if err == nil {
-		db := global.GVA_DB.Model(community.ForumPosts{})
+		db := global.GVA_DB.Model(&community.ForumPosts{})
 		var updateData map[string]interface{}
 		updateData = make(map[string]interface{})
 		updateData["activity_cur_user_num"] = activityUserNum

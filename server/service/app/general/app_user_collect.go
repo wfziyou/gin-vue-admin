@@ -97,22 +97,41 @@ func (appUserCollectService *AppUserCollectService) GetUserIsCollect(userId uint
 
 // GetUserCollectInfoList 分页获取UserCollect记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(info generalReq.UserCollectSearch) (list []general.UserCollect, total int64, err error) {
+func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(info generalReq.UserCollectSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&general.UserCollect{})
 	var hkUserCollects []general.UserCollect
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("updated_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt, info.StartCreatedAt, info.EndCreatedAt)
-	}
+
 	db = db.Where("user_id = ?", info.UserId)
+	if info.Category > 0 {
+		db = db.Where("category = ?", info.Category)
+	}
+	//创建时间降序排列
+	db = db.Order("created_at desc")
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkUserCollects).Error
-	return hkUserCollects, total, err
+	if err == nil {
+		var size = len(hkUserCollects)
+		if size > 0 {
+			var ids = make([]uint64, size)
+			for index, v := range hkUserCollects {
+				ids[index] = v.PostsId
+			}
+			//查询最新发布的帖子
+			db1 := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+			var hkForumPosts []community.ForumPostsBaseInfo
+			db1 = db1.Where("id in ?", ids)
+			//db1 = db1.Where("is_public = 1 and check_status=?",
+			//	community.PostsCheckStatusPass)
+			err = db1.Find(&hkForumPosts).Error
+			return hkForumPosts, total, err
+		}
+	}
+	return []community.ForumPostsBaseInfo{}, total, err
 }

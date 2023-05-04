@@ -4871,7 +4871,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.CommentThumbsUp"
+                            "$ref": "#/definitions/request.CommentThumbsUpReq"
                         }
                     }
                 ],
@@ -5385,12 +5385,6 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
                         "in": "query"
@@ -5417,12 +5411,6 @@ var doc = `{
                         "type": "integer",
                         "description": "帖子编号",
                         "name": "postsId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
                         "in": "query"
                     }
                 ],
@@ -8397,9 +8385,9 @@ var doc = `{
                 "summary": "分页获取收藏列表",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
+                        "type": "integer",
+                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "name": "category",
                         "in": "query"
                     },
                     {
@@ -8419,12 +8407,6 @@ var doc = `{
                         "description": "每页大小",
                         "name": "pageSize",
                         "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
-                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -8441,7 +8423,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/general.UserCollect"
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -15550,19 +15532,6 @@ var doc = `{
                 }
             }
         },
-        "community.CommentThumbsUp": {
-            "type": "object",
-            "properties": {
-                "commentId": {
-                    "description": "评论编号",
-                    "type": "integer"
-                },
-                "userId": {
-                    "description": "用户id \t//点赞时间",
-                    "type": "integer"
-                }
-            }
-        },
         "community.FocusUserInfo": {
             "type": "object",
             "properties": {
@@ -18307,38 +18276,6 @@ var doc = `{
                 }
             }
         },
-        "general.UserCollect": {
-            "type": "object",
-            "properties": {
-                "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "postsId": {
-                    "description": "帖子编号",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户编号",
-                    "type": "integer"
-                }
-            }
-        },
         "github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register": {
             "type": "object",
             "properties": {
@@ -18573,6 +18510,15 @@ var doc = `{
             "properties": {
                 "id": {
                     "description": "问题_编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.CommentThumbsUpReq": {
+            "type": "object",
+            "properties": {
+                "commentId": {
+                    "description": "评论编号",
                     "type": "integer"
                 }
             }

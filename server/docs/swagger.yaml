@@ -485,15 +485,6 @@ definitions:
         description: 用户ID
         type: integer
     type: object
-  community.CommentThumbsUp:
-    properties:
-      commentId:
-        description: 评论编号
-        type: integer
-      userId:
-        description: "用户id \t//点赞时间"
-        type: integer
-    type: object
   community.FocusUserInfo:
     properties:
       account:
@@ -2451,29 +2442,6 @@ definitions:
         description: 用户编号
         type: integer
     type: object
-  general.UserCollect:
-    properties:
-      category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      postsId:
-        description: 帖子编号
-        type: integer
-      status:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        description: 用户编号
-        type: integer
-    type: object
   github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register:
     properties:
       account:
@@ -2638,6 +2606,12 @@ definitions:
     properties:
       id:
         description: 问题_编号
+        type: integer
+    type: object
+  request.CommentThumbsUpReq:
+    properties:
+      commentId:
+        description: 评论编号
         type: integer
     type: object
   request.CreateActivityDynamicReq:
@@ -6962,7 +6936,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.CommentThumbsUp'
+          $ref: '#/definitions/request.CommentThumbsUpReq'
       produces:
       - application/json
       responses:
@@ -7266,10 +7240,6 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
@@ -7290,10 +7260,6 @@ paths:
         in: query
         name: postsId
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       produces:
       - application/json
       responses:
@@ -9047,10 +9013,10 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 创建时间（结束）
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         in: query
-        name: endCreatedAt
-        type: string
+        name: category
+        type: integer
       - description: 关键字
         in: query
         name: keyword
@@ -9063,10 +9029,6 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
-        type: string
       produces:
       - application/json
       responses:
@@ -9078,7 +9040,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/general.UserCollect'
+                    $ref: '#/definitions/community.ForumPostsBaseInfo'
                   type: array
                 msg:
                   type: string

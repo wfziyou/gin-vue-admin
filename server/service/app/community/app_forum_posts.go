@@ -22,7 +22,7 @@ func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communit
 	}
 	forumPosts := community.ForumPosts{
 		UserId:          info.UserId,
-		CircleId:        uint64(info.CircleId),
+		CircleId:        info.CircleId,
 		Category:        info.Category,
 		Title:           info.Title,
 		CoverImage:      info.CoverImage,

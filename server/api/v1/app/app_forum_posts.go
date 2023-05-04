@@ -580,18 +580,23 @@ func (forumPostsApi *ForumPostsApi) DeleteForumThumbsUp(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.CommentThumbsUp true "评论点赞"
+// @Param data body communityReq.CommentThumbsUpReq true "评论点赞"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/forumPosts/createCommentThumbsUp [post]
 func (forumPostsApi *ForumPostsApi) CreateCommentThumbsUp(c *gin.Context) {
-	var req community.CommentThumbsUp
+	var req communityReq.CommentThumbsUpReq
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	req.UserId = utils.GetUserID(c)
-	if err := appCommentThumbsUpService.CreateCommentThumbsUp(req); err != nil {
+	userId := utils.GetUserID(c)
+	if _, err := appForumCommentService.GetForumComment(req.CommentId); err != nil {
+		response.FailWithMessage("评论不存在", c)
+		return
+	}
+
+	if err := appCommentThumbsUpService.CreateCommentThumbsUp(userId, req.CommentId); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {

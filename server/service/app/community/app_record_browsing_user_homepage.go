@@ -127,19 +127,24 @@ func (hkRecordBrowsingUserHomepageService *RecordBrowsingUserHomepageService) Br
 		browseData := ""
 		strList = append(strList, curTimeStr)
 		for index, item := range strList {
-			if index > 1 {
+			if index > 1 && index < utils.BrowsingUserNum {
 				browseData = browseData + "," + item
 			} else if index == 1 {
 				browseData = item
-			} else {
 				if tmp, err := strconv.ParseInt(item, 10, 64); err == nil {
 					browseTime = time.Unix(tmp, 0)
 				}
+			} else if index > utils.BrowsingUserNum {
+				obj.BrowseNum = utils.BrowsingUserNum
+				break
 			}
 		}
 		browseData = browseData + "," + curTimeStr
 		obj.BrowseTime = browseTime
 		obj.BrowseData = browseData
+	} else if len == 0 {
+		obj.BrowseNum = 1
+		obj.BrowseData = curTimeStr
 	} else {
 		obj.BrowseNum = len + 1
 		obj.BrowseData = obj.BrowseData + "," + curTimeStr

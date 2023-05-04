@@ -11,10 +11,19 @@ type AppCommentThumbsUpService struct {
 
 // CreateCommentThumbsUp 创建CommentThumbsUp记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCommentThumbsUpService *AppCommentThumbsUpService) CreateCommentThumbsUp(hkCommentThumbsUp community.CommentThumbsUp) (err error) {
-	err = global.GVA_DB.Create(&hkCommentThumbsUp).Error
+func (appCommentThumbsUpService *AppCommentThumbsUpService) CreateCommentThumbsUp(userId uint64, commentId uint64) (err error) {
+	var count int64
+	err = global.GVA_DB.Model(&community.CommentThumbsUp{}).Where("user_id = ? AND comment_id = ?", userId, commentId).Count(&count).Error
 	if err == nil {
-		err = appCommentThumbsUpService.UpdateCommentLikeNum(hkCommentThumbsUp.CommentId)
+		if count == 0 {
+			err = global.GVA_DB.Create(&community.CommentThumbsUp{
+				UserId:    userId,
+				CommentId: commentId,
+			}).Error
+			if err == nil {
+				err = appCommentThumbsUpService.UpdateCommentLikeNum(commentId)
+			}
+		}
 	}
 	return err
 }
