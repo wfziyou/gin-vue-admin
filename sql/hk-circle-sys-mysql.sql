@@ -308,13 +308,14 @@ INSERT INTO `casbin_rule` VALUES (1706, 'p', '888', '/app/user/getUserList', 'GE
 
 INSERT INTO `casbin_rule` VALUES (1800, 'p', '888', '/app/userBrowsingHistory/deleteUserBrowsingHistory', 'DELETE', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1801, 'p', '888', '/app/userBrowsingHistory/deleteUserBrowsingHistoryByIds', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1802, 'p', '888', '/app/userBrowsingHistory/getUserBrowsingHistoryList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1802, 'p', '888', '/app/userBrowsingHistory/deleteAllUserBrowsingHistory', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1803, 'p', '888', '/app/userBrowsingHistory/getUserBrowsingHistoryList', 'GET', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (1900, 'p', '888', '/app/userCollect/createUserCollect', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1901, 'p', '888', '/app/userCollect/deleteUserCollect', 'DELETE', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1902, 'p', '888', '/app/userCollect/deleteUserCollectByIds', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1903, 'p', '888', '/app/userCollect/getUserCollectList', 'GET', '', '', '', '', '');
-
+INSERT INTO `casbin_rule` VALUES (1903, 'p', '888', '/app/userCollect/deleteAllUserCollect', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1904, 'p', '888', '/app/userCollect/getUserCollectList', 'GET', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (11001, 'p', '888', '/app/fileUploadAndDownload/breakpointContinue', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11002, 'p', '888', '/app/fileUploadAndDownload/breakpointContinueFinish', 'POST', '', '', '', '', '');
@@ -790,12 +791,14 @@ INSERT INTO `sys_apis` VALUES (706, '000000', '2023-02-06 18:19:13.303', '2023-0
 
 INSERT INTO `sys_apis` VALUES (800, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/deleteUserBrowsingHistory', '删除浏览历史', 8, 'DELETE');
 INSERT INTO `sys_apis` VALUES (801, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/deleteUserBrowsingHistoryByIds', '批量删除浏览历史', 8, 'DELETE');
-INSERT INTO `sys_apis` VALUES (802, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/getUserBrowsingHistoryList', '分页获取浏览历史列表', 8, 'GET');
+INSERT INTO `sys_apis` VALUES (802, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/deleteAllUserBrowsingHistory', '删除所有浏览历史', 8, 'DELETE');
+INSERT INTO `sys_apis` VALUES (803, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userBrowsingHistory/getUserBrowsingHistoryList', '分页获取浏览历史列表', 8, 'GET');
 
 INSERT INTO `sys_apis` VALUES (900, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/createUserCollect', '收藏帖子', 9, 'POST');
-INSERT INTO `sys_apis` VALUES (901, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/deleteUserCollect', '删除UserCollect', 9, 'DELETE');
-INSERT INTO `sys_apis` VALUES (902, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/deleteUserCollectByIds', '批量删除UserCollect', 9, 'DELETE');
-INSERT INTO `sys_apis` VALUES (903, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/getUserCollectList', '分页获取UserCollect列表', 9, 'GET');
+INSERT INTO `sys_apis` VALUES (901, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/deleteUserCollect', '删除收藏', 9, 'DELETE');
+INSERT INTO `sys_apis` VALUES (902, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/deleteUserCollectByIds', '批量删除收藏', 9, 'DELETE');
+INSERT INTO `sys_apis` VALUES (903, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/deleteAllUserCollect', '删除所有收藏', 9, 'DELETE');
+INSERT INTO `sys_apis` VALUES (904, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/userCollect/getUserCollectList', '分页获取收藏列表', 9, 'GET');
 
 INSERT INTO `sys_apis` VALUES (1001, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/fileUploadAndDownload/findFile', '寻找目标文件（秒传）', 10, 'GET');
 INSERT INTO `sys_apis` VALUES (1002, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/fileUploadAndDownload/breakpointContinue', '断点续传', 10, 'POST');

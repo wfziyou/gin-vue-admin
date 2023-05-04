@@ -15,11 +15,10 @@ func (router *UserCollectRouter) InitUserCollectRouter(Router *gin.RouterGroup) 
 	userCollectRouterWithoutRecord := appRouter.Group("userCollect")
 	var userCollectApi = v1.ApiGroupApp.AppApiGroup.UserCollectApi
 	{
-		userCollectRouter.POST("createUserCollect", userCollectApi.CreateUserCollect)             //收藏帖子
-		userCollectRouter.DELETE("deleteUserCollect", userCollectApi.DeleteUserCollect)           //删除收藏
-		userCollectRouter.DELETE("deleteUserCollectByIds", userCollectApi.DeleteUserCollectByIds) //批量删除收藏
-	}
-	{
+		userCollectRouter.POST("createUserCollect", userCollectApi.CreateUserCollect)               //收藏帖子
+		userCollectRouter.DELETE("deleteUserCollect", userCollectApi.DeleteUserCollect)             //删除收藏
+		userCollectRouter.DELETE("deleteUserCollectByIds", userCollectApi.DeleteUserCollectByIds)   //批量删除收藏
+		userCollectRouter.DELETE("deleteAllUserCollect", userCollectApi.DeleteAllUserCollect)       //删除所有收藏
 		userCollectRouterWithoutRecord.GET("getUserCollectList", userCollectApi.GetUserCollectList) //分页获取收藏列表
 
 	}

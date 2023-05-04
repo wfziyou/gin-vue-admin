@@ -67,6 +67,31 @@ func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteUserBrowsingHistoryB
 	}
 }
 
+// DeleteAllUserBrowsingHistory 删除所有浏览历史
+// @Tags 浏览历史
+// @Summary 删除所有浏览历史
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body generalReq.DeleteAllUserBrowsingHistoryReq true "删除所有浏览历史"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /app/userBrowsingHistory/deleteAllUserBrowsingHistory [delete]
+func (userBrowsingHistoryApi *UserBrowsingHistoryApi) DeleteAllUserBrowsingHistory(c *gin.Context) {
+	var req generalReq.DeleteAllUserBrowsingHistoryReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if err := appUserBrowsingHistoryService.DeletAlleUserBrowsingHistory(userId, req.Category); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
+}
+
 // GetUserBrowsingHistoryList 分页获取浏览历史列表
 // @Tags 浏览历史
 // @Summary 分页获取浏览历史列表

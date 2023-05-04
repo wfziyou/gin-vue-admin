@@ -330,6 +330,7 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 			rehkForumPosts.Collect = 1
 		}
 		hkRecordBrowsingUserHomepageService.BrowsingUser(userId, rehkForumPosts.UserId)
+		appUserBrowsingHistoryService.CreateUserBrowsingHistory(userId, rehkForumPosts.ID, rehkForumPosts.Category)
 		response.OkWithData(rehkForumPosts, c)
 	}
 }

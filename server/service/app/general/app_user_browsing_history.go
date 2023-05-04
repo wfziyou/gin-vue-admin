@@ -1,11 +1,13 @@
 package general
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"gorm.io/gorm"
 )
 
 type AppUserBrowsingHistoryService struct {
@@ -13,26 +15,41 @@ type AppUserBrowsingHistoryService struct {
 
 // CreateUserBrowsingHistory 创建UserBrowsingHistory记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) CreateUserBrowsingHistory(hkUserBrowsingHistory general.UserBrowsingHistory) (err error) {
-	err = global.GVA_DB.Create(&hkUserBrowsingHistory).Error
+func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) CreateUserBrowsingHistory(userId uint64, postsId uint64, category int) (err error) {
+	var hkUserCollect = general.UserCollect{UserId: userId, PostsId: postsId, Category: category}
+	err = global.GVA_DB.Where("user_id = ? and posts_id = ?", userId, postsId).First(&hkUserCollect).Error
+	if err == nil {
+		err = global.GVA_DB.Save(&hkUserCollect).Error
+	} else if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&hkUserCollect).Error
+	}
 	return err
 }
 
 // DeleteUserBrowsingHistory 删除浏览历史记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistory(hkUserBrowsingHistory general.UserBrowsingHistory) (err error) {
-	err = global.GVA_DB.Delete(&hkUserBrowsingHistory).Error
+	err = global.GVA_DB.Unscoped().Delete(&hkUserBrowsingHistory).Error
 	return err
 }
 func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistoryById(userId uint64, id uint64) (err error) {
-	err = global.GVA_DB.Delete(&general.UserBrowsingHistory{}, "user_id = ? AND id in =", userId, id).Error
+	err = global.GVA_DB.Unscoped().Delete(&general.UserBrowsingHistory{}, "user_id = ? AND id in =", userId, id).Error
 	return err
 }
 
 // DeleteUserBrowsingHistoryByIds 批量删除浏览历史记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeleteUserBrowsingHistoryByIds(userId uint64, ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]general.UserBrowsingHistory{}, "user_id = ? AND id in ?", userId, ids.Ids).Error
+	err = global.GVA_DB.Unscoped().Delete(&[]general.UserBrowsingHistory{}, "user_id = ? AND id in ?", userId, ids.Ids).Error
+	return err
+}
+func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) DeletAlleUserBrowsingHistory(userId uint64, category int) (err error) {
+	if category > 0 {
+		err = global.GVA_DB.Unscoped().Delete(&general.UserBrowsingHistory{}, "user_id = ? AND category = ?", userId, category).Error
+	} else {
+		err = global.GVA_DB.Unscoped().Delete(&general.UserBrowsingHistory{}, "user_id = ?", userId).Error
+
+	}
 	return err
 }
 
@@ -88,6 +105,7 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) GetUserBrows
 				for x, obj := range hkUserBrowsingHistorys {
 					for _, posts := range hkForumPosts {
 						if obj.PostsId == posts.ID {
+							hkUserBrowsingHistorys[x].ID = posts.ID
 							hkUserBrowsingHistorys[x].Title = posts.Title
 							hkUserBrowsingHistorys[x].Category = posts.Category
 							hkUserBrowsingHistorys[x].Attachment = posts.Attachment

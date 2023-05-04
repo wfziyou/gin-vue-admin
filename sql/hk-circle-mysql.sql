@@ -1310,6 +1310,7 @@ CREATE TABLE `hk_user_browsing_history`  (
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `user_id` bigint(20) NOT NULL COMMENT '用户编号',
    `posts_id` bigint(20) NOT NULL COMMENT '帖子编号',
+   `category` smallint(6) NULL DEFAULT NULL COMMENT '类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动',
    `time` datetime(3) NULL DEFAULT NULL COMMENT '浏览时间',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',

@@ -86,12 +86,38 @@ func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
 	userId := utils.GetUserID(c)
 	if err := appUserCollectService.DeleteUserCollectByIds(userId, req.Ids); err != nil {
 		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
 		response.OkWithMessage("批量删除成功", c)
+	}
+}
+
+// DeleteAllUserCollect 删除所有收藏
+// @Tags 收藏
+// @Summary 删除所有收藏
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body generalReq.DeleteAllUserCollectReq true "删除所有收藏"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /app/userCollect/deleteAllUserCollect [delete]
+func (userCollectApi *UserCollectApi) DeleteAllUserCollect(c *gin.Context) {
+	var req generalReq.DeleteAllUserCollectReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if err := appUserCollectService.DeleteAllUserCollect(userId, req.Category); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
 	}
 }
 
@@ -102,7 +128,7 @@ func (userCollectApi *UserCollectApi) DeleteUserCollectByIds(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query generalReq.UserCollectSearch true "分页获取收藏列表"
-// @Success 200 {object}  response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回general.UserCollect"
+// @Success 200 {object}  response.PageResult{List=[]general.UserCollectInfo,msg=string} "返回general.UserCollectInfo"
 // @Router /app/userCollect/getUserCollectList [get]
 func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 	var pageInfo generalReq.UserCollectSearch

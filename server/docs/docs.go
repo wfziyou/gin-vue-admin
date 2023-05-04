@@ -8101,6 +8101,44 @@ var doc = `{
                 }
             }
         },
+        "/app/userBrowsingHistory/deleteAllUserBrowsingHistory": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "浏览历史"
+                ],
+                "summary": "删除所有浏览历史",
+                "parameters": [
+                    {
+                        "description": "删除所有浏览历史",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteAllUserBrowsingHistoryReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/userBrowsingHistory/deleteUserBrowsingHistory": {
             "delete": {
                 "security": [
@@ -8226,7 +8264,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回general.UserBrowsingHistory",
+                        "description": "返回general.UserBrowsingHistoryInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -8238,7 +8276,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/general.UserBrowsingHistory"
+                                                "$ref": "#/definitions/general.UserBrowsingHistoryInfo"
                                             }
                                         },
                                         "msg": {
@@ -8283,6 +8321,44 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/userCollect/deleteAllUserCollect": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "收藏"
+                ],
+                "summary": "删除所有收藏",
+                "parameters": [
+                    {
+                        "description": "删除所有收藏",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteAllUserCollectReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -8411,7 +8487,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回general.UserCollect",
+                        "description": "返回general.UserCollectInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -8423,7 +8499,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
+                                                "$ref": "#/definitions/general.UserCollectInfo"
                                             }
                                         },
                                         "msg": {
@@ -18244,9 +18320,58 @@ var doc = `{
                 }
             }
         },
-        "general.UserBrowsingHistory": {
+        "general.UserBrowsingHistoryInfo": {
             "type": "object",
             "properties": {
+                "attachment": {
+                    "description": "附件",
+                    "type": "string"
+                },
+                "category": {
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "type": "integer"
+                },
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "postsId": {
+                    "description": "帖子编号",
+                    "type": "integer"
+                },
+                "time": {
+                    "description": "浏览时间",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "标题",
+                    "type": "string"
+                }
+            }
+        },
+        "general.UserCollectInfo": {
+            "type": "object",
+            "properties": {
+                "attachment": {
+                    "description": "附件",
+                    "type": "string"
+                },
+                "category": {
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "type": "integer"
+                },
+                "commentNum": {
+                    "description": "评论次数",
+                    "type": "integer"
+                },
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -18259,20 +18384,17 @@ var doc = `{
                     "description": "帖子编号",
                     "type": "integer"
                 },
-                "status": {
-                    "type": "integer"
-                },
-                "time": {
-                    "description": "浏览时间",
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
+                "title": {
+                    "description": "标题",
                     "type": "string"
                 },
                 "userId": {
                     "description": "用户编号",
                     "type": "integer"
+                },
+                "userInfo": {
+                    "description": "用户基本信息",
+                    "$ref": "#/definitions/community.UserBaseInfo"
                 }
             }
         },
@@ -18768,6 +18890,24 @@ var doc = `{
                     "items": {
                         "type": "integer"
                     }
+                }
+            }
+        },
+        "request.DeleteAllUserBrowsingHistoryReq": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.DeleteAllUserCollectReq": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "type": "integer"
                 }
             }
         },

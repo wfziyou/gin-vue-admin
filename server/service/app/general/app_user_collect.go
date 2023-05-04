@@ -24,6 +24,7 @@ func (appUserCollectService *AppUserCollectService) CreateUserCollect(userId uin
 	}
 	return err
 }
+
 func (appUserCollectService *AppUserCollectService) UpdateCollectNum(postsIdd uint64) (err error) {
 	var total int64 = 0
 	db := global.GVA_DB.Model(&general.UserCollect{}).Where("posts_id = ?", postsIdd)
@@ -45,13 +46,40 @@ func (appUserCollectService *AppUserCollectService) DeleteUserCollect(userId uin
 	return err
 }
 
+func (appUserCollectService *AppUserCollectService) DeleteAllUserCollect(userId uint64, category int) (err error) {
+	type tmp struct {
+		PostsId uint64 `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"` //帖子编号
+	}
+	var userCollect []tmp
+	db := global.GVA_DB.Model(&general.UserCollect{}).Select("posts_id")
+	db = db.Where("user_id = ?", userId)
+	if category > 0 {
+		db = db.Where("category = ?", category)
+	}
+	err = db.Find(&userCollect).Error
+	if err == nil {
+		if category > 0 {
+			err = global.GVA_DB.Unscoped().Delete(&general.UserCollect{}, "user_id = ? AND category = ?", userId, category).Error
+		} else {
+			err = global.GVA_DB.Unscoped().Delete(&general.UserCollect{}, "user_id = ?", userId).Error
+		}
+
+		if err == nil {
+			for _, obj := range userCollect {
+				appUserCollectService.UpdateCollectNum(obj.PostsId)
+			}
+		}
+	}
+	return err
+}
+
 // DeleteUserCollectByIds 批量删除收藏记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserCollectService *AppUserCollectService) DeleteUserCollectByIds(userId uint64, ids []uint64) (err error) {
 	err = global.GVA_DB.Unscoped().Delete(&[]general.UserCollect{}, "user_id = ? AND posts_id in ?", userId, ids).Error
 	if err == nil {
 		for _, postsId := range ids {
-			err = appUserCollectService.UpdateCollectNum(postsId)
+			err = appUserCollectService.UpdateCollectNum(uint64(postsId))
 		}
 	}
 	return err
@@ -101,12 +129,12 @@ func (appUserCollectService *AppUserCollectService) GetUserIsCollect(userId uint
 
 // GetUserCollectInfoList 分页获取UserCollect记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(info generalReq.UserCollectSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(info generalReq.UserCollectSearch) (list []general.UserCollectInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&general.UserCollect{})
-	var hkUserCollects []general.UserCollect
+	db := global.GVA_DB.Model(&general.UserCollectInfo{})
+	var hkUserCollects []general.UserCollectInfo
 
 	db = db.Where("user_id = ?", info.UserId)
 	if info.Category > 0 {
@@ -131,11 +159,25 @@ func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(info 
 			db1 := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 			var hkForumPosts []community.ForumPostsBaseInfo
 			db1 = db1.Where("id in ?", ids)
-			db1 = db1.Where("check_status = ?",
-				community.PostsCheckStatusPass)
 			err = db1.Find(&hkForumPosts).Error
-			return hkForumPosts, total, err
+			if err == nil {
+				for x, obj := range hkUserCollects {
+					for _, posts := range hkForumPosts {
+						if obj.PostsId == posts.ID {
+							hkUserCollects[x].ID = posts.ID
+							hkUserCollects[x].Title = posts.Title
+							hkUserCollects[x].Category = posts.Category
+							hkUserCollects[x].Attachment = posts.Attachment
+							hkUserCollects[x].CoverImage = posts.CoverImage
+							hkUserCollects[x].CommentNum = posts.CommentNum
+							hkUserCollects[x].UserInfo = posts.UserInfo
+							hkUserCollects[x].CreatedAt = posts.CreatedAt
+							break
+						}
+					}
+				}
+			}
 		}
 	}
-	return []community.ForumPostsBaseInfo{}, total, err
+	return hkUserCollects, total, err
 }

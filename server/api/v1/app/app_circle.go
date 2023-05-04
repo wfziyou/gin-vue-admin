@@ -752,7 +752,6 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 		return
 	}
 
-	//hkCircleRequest community.CircleRequest
 	if err := appCircleRequestService.CreateCircleRequest(community.CircleRequest{
 		UserId:           user.GetUserId(),
 		UserNickName:     user.NickName,
