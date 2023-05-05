@@ -59,9 +59,9 @@ func (appUserCollectService *AppUserCollectService) DeleteAllUserCollect(userId 
 	err = db.Find(&userCollect).Error
 	if err == nil {
 		if category > 0 {
-			err = global.GVA_DB.Unscoped().Delete(&general.UserCollect{}, "user_id = ? AND category = ?", userId, category).Error
+			err = global.GVA_DB.Unscoped().Delete(&[]general.UserCollect{}, "user_id = ? AND category = ?", userId, category).Error
 		} else {
-			err = global.GVA_DB.Unscoped().Delete(&general.UserCollect{}, "user_id = ?", userId).Error
+			err = global.GVA_DB.Unscoped().Delete(&[]general.UserCollect{}, "user_id = ?", userId).Error
 		}
 
 		if err == nil {

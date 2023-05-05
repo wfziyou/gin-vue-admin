@@ -280,6 +280,12 @@ INSERT INTO `casbin_rule` VALUES (1407, 'p', '888', '/app/general/deleteFeedback
 INSERT INTO `casbin_rule` VALUES (1408, 'p', '888', '/app/general/updateFeedback', 'PUT', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1409, 'p', '888', '/app/general/findFeedback', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (14010, 'p', '888', '/app/general/getFeedbackList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (14011, 'p', '888', '/app/general/findDraft', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (14012, 'p', '888', '/app/general/getDraftList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (14013, 'p', '888', '/app/general/deleteAllDraft', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (14014, 'p', '888', '/app/general/deleteDraft', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (14015, 'p', '888', '/app/general/deleteDraftByIds', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (14016, 'p', '888', '/app/general/updateDraft', 'POST', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (1500, 'p', '888', '/app/report/createReport', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1501, 'p', '888', '/app/report/findReport', 'GET', '', '', '', '', '');
@@ -762,8 +768,12 @@ INSERT INTO `sys_apis` VALUES (407, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (408, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/updateFeedback', '更新反馈', 4, 'PUT');
 INSERT INTO `sys_apis` VALUES (409, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findFeedback', '用id查询反馈', 4, 'GET');
 INSERT INTO `sys_apis` VALUES (410, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/getFeedbackList', '分页获取反馈列表', 4, 'GET');
-
-
+INSERT INTO `sys_apis` VALUES (411, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findDraft', '用id查询草稿', 4, 'GET');
+INSERT INTO `sys_apis` VALUES (412, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/getDraftList', '分页获取草稿列表', 4, 'GET');
+INSERT INTO `sys_apis` VALUES (413, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/deleteAllDraft', '删除所有草稿', 4, 'DELETE');
+INSERT INTO `sys_apis` VALUES (414, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/deleteDraft', '删除草稿', 4, 'DELETE');
+INSERT INTO `sys_apis` VALUES (415, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/deleteDraftByIds', '批量删除草稿', 4, 'DELETE');
+INSERT INTO `sys_apis` VALUES (416, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/updateDraft', '更新草稿', 4, 'POST');
 
 INSERT INTO `sys_apis` VALUES (500, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/createReport', '举报', 5, 'POST');
 INSERT INTO `sys_apis` VALUES (501, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/findReport', '用id查询Report', 5, 'GET');

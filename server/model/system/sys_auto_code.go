@@ -75,6 +75,10 @@ type SysAutoCode struct {
 	Desc        string `json:"desc" gorm:"comment:描述"`
 }
 
+func (s *SysAutoCode) TableName() string {
+	return "sys_auto_codes"
+}
+
 type AutoPlugReq struct {
 	PlugName    string         `json:"plugName"` // 必然大写开头
 	Snake       string         `json:"snake"`    // 后端自动转为 snake

@@ -368,3 +368,158 @@ func (generalApi *GeneralApi) GetFeedbackList(c *gin.Context) {
 		}, "获取成功", c)
 	}
 }
+
+// FindDraft 用id查询草稿
+// @Tags 帖子
+// @Summary 用id查询草稿
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query request.IdSearch true "用id查询草稿"
+// @Success 200 {object}  response.Response{data=community.ForumPosts,msg=string}  "返回community.ForumPosts"
+// @Router /app/general/findDraft [get]
+func (generalApi *GeneralApi) FindDraft(c *gin.Context) {
+	var idSearch request.IdSearch
+	err := c.ShouldBindQuery(&idSearch)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if rehkForumPosts, err := appForumPostsService.GetDraft(idSearch.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+	} else {
+		response.OkWithData(rehkForumPosts, c)
+	}
+}
+
+// GetDraftList 分页获取草稿列表
+// @Tags 常规方法
+// @Summary 分页获取草稿列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query generalReq.DraftSearch true "分页获取草稿列表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.PageResult{List=[]general.Feedback,msg=string} "返回[]general.Feedback"
+// @Router /app/general/getDraftList [get]
+func (generalApi *GeneralApi) GetDraftList(c *gin.Context) {
+	var req generalReq.DraftSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetDraftList(userId, req); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
+	}
+}
+
+// DeleteAllDraft 删除所有草稿
+// @Tags 常规方法
+// @Summary 删除所有草稿
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body generalReq.DeleteAllDraftReq true "删除所有草稿"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /app/general/deleteAllDraft [delete]
+func (generalApi *GeneralApi) DeleteAllDraft(c *gin.Context) {
+	var req generalReq.DeleteAllDraftReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if err := appForumPostsService.DeleteAllDraft(userId, req.Category); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
+}
+
+// DeleteDraft 删除草稿
+// @Tags 常规方法
+// @Summary 删除草稿
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.IdDelete true "删除草稿"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /app/general/deleteDraft [delete]
+func (generalApi *GeneralApi) DeleteDraft(c *gin.Context) {
+	var req request.IdDelete
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if err := appForumPostsService.DeleteDraft(userId, req.ID); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
+}
+
+// DeleteDraftByIds 批量删除草稿
+// @Tags 常规方法
+// @Summary 批量删除草稿
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.IdsReq true "批量删除草稿"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
+// @Router /app/general/deleteDraftByIds [delete]
+func (generalApi *GeneralApi) DeleteDraftByIds(c *gin.Context) {
+	var IDS request.IdsReq
+	err := c.ShouldBindJSON(&IDS)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if err := appForumPostsService.DeleteDraftByIds(userId, IDS); err != nil {
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		response.FailWithMessage("批量删除失败", c)
+	} else {
+		response.OkWithMessage("批量删除成功", c)
+	}
+}
+
+// UpdateDraft 更新草稿
+// @Tags 常规方法
+// @Summary 更新草稿
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body generalReq.UpdateDraftReq true "更新草稿"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /app/general/updateDraft [post]
+func (generalApi *GeneralApi) UpdateDraft(c *gin.Context) {
+	var req generalReq.UpdateDraftReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if err := appForumPostsService.UpdateDraft(userId, req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}

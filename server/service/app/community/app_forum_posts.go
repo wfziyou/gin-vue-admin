@@ -5,6 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
+	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"time"
@@ -433,4 +434,153 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
 	return hkForumPostss, total, err
+}
+func (appForumPostsService *AppForumPostsService) GetDraft(id uint64) (hkForumPosts community.ForumPosts, err error) {
+	err = global.GVA_DB.Where("id = ? AND check_status = ?", id, community.PostsCheckStatusDraft).First(&hkForumPosts).Error
+	return
+}
+func (appForumPostsService *AppForumPostsService) GetDraftList(userId uint64, info generalReq.DraftSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var hkForumPostss []community.ForumPostsBaseInfo
+
+	db = db.Where("check_status = ? AND user_id = ?", community.PostsCheckStatusDraft, userId)
+	if info.Category > 0 {
+		db = db.Where("category = ? ", info.Category)
+	}
+
+	//创建时间降序排列
+	db = db.Order("updated_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	return hkForumPostss, total, err
+}
+func (appForumPostsService *AppForumPostsService) DeleteAllDraft(userId uint64, category int) (err error) {
+	if category > 0 {
+		err = global.GVA_DB.Unscoped().Delete(&[]community.ForumPostsBaseInfo{}, "user_id = ? AND check_status = ? AND category = ?", userId, community.PostsCheckStatusDraft, category).Error
+	} else {
+		err = global.GVA_DB.Unscoped().Delete(&[]community.ForumPostsBaseInfo{}, "user_id = ? AND check_status = ?", userId, community.PostsCheckStatusDraft).Error
+	}
+	return err
+}
+func (appForumPostsService *AppForumPostsService) DeleteDraft(userId uint64, id uint64) (err error) {
+	err = global.GVA_DB.Unscoped().Delete(&community.ForumPostsBaseInfo{}, "id = ? AND user_id = ?", id, userId).Error
+	return err
+}
+func (appForumPostsService *AppForumPostsService) DeleteDraftByIds(userId uint64, ids request.IdsReq) (err error) {
+	err = global.GVA_DB.Unscoped().Delete(&[]community.ForumPostsBaseInfo{}, "id in ? AND user_id = ?", ids.Ids, userId).Error
+	return err
+}
+func (appForumPostsService *AppForumPostsService) UpdateDraft(userId uint64, info generalReq.UpdateDraftReq) (err error) {
+	var obj community.ForumPosts
+	err = global.GVA_DB.Where("id = ? AND user_id = ? AND check_status = ?", info.Id, userId, community.PostsCheckStatusDraft).First(&obj).Error
+	if err != nil {
+		return
+	}
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+
+	if obj.Category != *info.Category {
+		//TopicId: need to do
+		updateData["circle_id"] = ""
+		updateData["title"] = ""
+		updateData["cover_image"] = ""
+		updateData["attachment"] = ""
+		updateData["pay_content"] = 0
+		updateData["pay_content_look"] = 0
+		updateData["pay_attachment"] = 0
+		updateData["pay_num"] = 0
+		updateData["content_html"] = ""
+		updateData["video"] = ""
+		updateData["tag"] = ""
+		updateData["anonymity"] = 0
+		updateData["power_comment"] = 1
+		updateData["power_comment_anonymity"] = 0
+		updateData["is_public"] = 1
+		if obj.Category == community.PostsCategoryActivity {
+			updateData["activity_start_at"] = ""
+			updateData["activity_end_at"] = ""
+			updateData["activity_address"] = ""
+			updateData["activity_user_num"] = ""
+			updateData["activity_add_approve"] = ""
+		}
+	}
+
+	if info.CircleId != nil {
+		updateData["circle_id"] = info.CircleId
+	}
+	if info.Category != nil {
+		updateData["category"] = info.Category
+	}
+	if info.ChannelId != nil {
+		updateData["channel_id"] = info.ChannelId
+	}
+	if len(info.Title) > 0 {
+		updateData["title"] = info.Title
+	}
+	if len(info.CoverImage) > 0 {
+		updateData["cover_image"] = info.CoverImage
+	}
+	if len(info.ContentHtml) > 0 {
+		updateData["content_html"] = info.ContentHtml
+	}
+	if len(info.Video) > 0 {
+		updateData["video"] = info.Video
+	}
+	if len(info.Attachment) > 0 {
+		updateData["attachment"] = info.Attachment
+	}
+	if len(info.Tag) > 0 {
+		updateData["tag"] = info.Tag
+	}
+	if info.Anonymity != nil {
+		updateData["anonymity"] = info.Anonymity
+	}
+	if info.PowerComment != nil {
+		updateData["power_comment"] = info.PowerComment
+	}
+	if info.PowerCommentAnonymity != nil {
+		updateData["power_comment_anonymity"] = info.PowerCommentAnonymity
+	}
+	if info.PayContent != nil {
+		updateData["pay_content"] = info.PayContent
+	}
+	if info.PayContentLook != nil {
+		updateData["pay_content_look"] = info.PayContentLook
+	}
+	if info.PayAttachment != nil {
+		updateData["pay_attachment"] = info.PayAttachment
+	}
+	if info.PayNum != nil {
+		updateData["pay_num"] = info.PayNum
+	}
+	if len(info.ActivityStartAt) > 0 {
+		updateData["activity_start_at"] = info.ActivityStartAt
+	}
+	if len(info.ActivityEndAt) > 0 {
+		updateData["activity_end_at"] = info.ActivityEndAt
+	}
+	if len(info.ActivityAddress) > 0 {
+		updateData["activity_address"] = info.ActivityAddress
+	}
+	if info.ActivityUserNum != nil {
+		updateData["activity_user_num"] = info.ActivityUserNum
+	}
+	if info.ActivityAddApprove != nil {
+		updateData["activity_add_approve"] = info.ActivityAddApprove
+	}
+	if info.IsPublic != nil {
+		updateData["is_public"] = info.IsPublic
+	}
+
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
+	err = db.Where("id = ? AND user_id = ? AND check_status = ?", info.Id, userId, community.PostsCheckStatusDraft).Updates(updateData).Error
+	return err
 }

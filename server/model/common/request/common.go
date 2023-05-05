@@ -29,9 +29,6 @@ func (r *GetById) Uint() uint {
 type IdsReq struct {
 	Ids []uint64 `json:"ids" form:"ids"`
 }
-type IdsReqStr struct {
-	Ids string `json:"ids" form:"ids"`
-}
 
 // GetAuthorityId Get role by id structure
 type GetAuthorityId struct {

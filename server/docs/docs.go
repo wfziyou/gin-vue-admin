@@ -5927,6 +5927,120 @@ var doc = `{
                 }
             }
         },
+        "/app/general/deleteAllDraft": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "删除所有草稿",
+                "parameters": [
+                    {
+                        "description": "删除所有草稿",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteAllDraftReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/deleteDraft": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "删除草稿",
+                "parameters": [
+                    {
+                        "description": "删除草稿",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdDelete"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/deleteDraftByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "批量删除草稿",
+                "parameters": [
+                    {
+                        "description": "批量删除草稿",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/general/deleteFeedback": {
             "delete": {
                 "security": [
@@ -6041,6 +6155,56 @@ var doc = `{
                                     "properties": {
                                         "data": {
                                             "$ref": "#/definitions/general.BugReport"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/findDraft": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子"
+                ],
+                "summary": "用id查询草稿",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "编号",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumPosts",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.ForumPosts"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -6403,6 +6567,77 @@ var doc = `{
                 }
             }
         },
+        "/app/general/getDraftList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "分页获取草稿列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "name": "category",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回[]general.Feedback",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/general.Feedback"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/general/getFeedbackList": {
             "get": {
                 "security": [
@@ -6508,6 +6743,44 @@ var doc = `{
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/updateDraft": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "更新草稿",
+                "parameters": [
+                    {
+                        "description": "更新草稿",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.UpdateDraftReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -18893,6 +19166,15 @@ var doc = `{
                 }
             }
         },
+        "request.DeleteAllDraftReq": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "type": "integer"
+                }
+            }
+        },
         "request.DeleteAllUserBrowsingHistoryReq": {
             "type": "object",
             "properties": {
@@ -19654,6 +19936,107 @@ var doc = `{
                 "userId": {
                     "description": "用户ID",
                     "type": "integer"
+                }
+            }
+        },
+        "request.UpdateDraftReq": {
+            "type": "object",
+            "properties": {
+                "activityAddApprove": {
+                    "description": "参加活动是否需要审批：0不审批、1审批",
+                    "type": "integer"
+                },
+                "activityAddress": {
+                    "description": "活动地址",
+                    "type": "string"
+                },
+                "activityEndAt": {
+                    "description": "活动结束时间",
+                    "type": "string"
+                },
+                "activityStartAt": {
+                    "description": "活动开始时间",
+                    "type": "string"
+                },
+                "activityUserNum": {
+                    "description": "活动用户人数（0不限制活动人数，否则为活动人数）",
+                    "type": "integer"
+                },
+                "anonymity": {
+                    "description": "匿名发布：0否、1是",
+                    "type": "integer"
+                },
+                "attachment": {
+                    "description": "附件",
+                    "type": "string"
+                },
+                "category": {
+                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "type": "integer"
+                },
+                "channelId": {
+                    "description": "频道_编号",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "contentHtml": {
+                    "description": "html内容",
+                    "type": "string"
+                },
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "反馈编号",
+                    "type": "integer"
+                },
+                "isPublic": {
+                    "description": "是否公开：0 否 1 是",
+                    "type": "integer"
+                },
+                "pay": {
+                    "description": "付费：0否、1是",
+                    "type": "integer"
+                },
+                "payAttachment": {
+                    "description": "附件付费：0否、1是",
+                    "type": "integer"
+                },
+                "payContent": {
+                    "description": "内容付费：0否、1是",
+                    "type": "integer"
+                },
+                "payContentLook": {
+                    "description": "内容付费可查看百分比例",
+                    "type": "integer"
+                },
+                "payNum": {
+                    "description": "付费金额",
+                    "type": "integer"
+                },
+                "powerComment": {
+                    "description": "评论权限：0关闭、1开启",
+                    "type": "integer"
+                },
+                "powerCommentAnonymity": {
+                    "description": "匿名评论：0关闭、1开启",
+                    "type": "integer"
+                },
+                "tag": {
+                    "description": "标签",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "标题",
+                    "type": "string"
+                },
+                "video": {
+                    "description": "视频地址",
+                    "type": "string"
                 }
             }
         },
