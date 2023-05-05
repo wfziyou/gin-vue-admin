@@ -501,6 +501,12 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isFan:
+        description: 是否是粉丝:0 否、1是
+        type: integer
+      isFocus:
+        description: 是否关注:0 否、1是
+        type: integer
       mutual:
         description: 是否相互关注:0否 1是
         type: integer
@@ -1413,6 +1419,12 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isFan:
+        description: 是否是粉丝:0 否、1是
+        type: integer
+      isFocus:
+        description: 是否关注:0 否、1是
+        type: integer
       nickName:
         description: 昵称
         type: string
@@ -1825,6 +1837,12 @@ definitions:
         description: 数据库用户名
         type: string
     type: object
+  config.Param:
+    properties:
+      createCircleCheck:
+        description: 创建圈子是否需要审核
+        type: boolean
+    type: object
   config.Pgsql:
     properties:
       config:
@@ -1949,6 +1967,9 @@ definitions:
         description: oneLogin
       oracle:
         $ref: '#/definitions/config.Oracle'
+      param:
+        $ref: '#/definitions/config.Param'
+        description: 参数
       pgsql:
         $ref: '#/definitions/config.Pgsql'
       qiniu:
@@ -3407,14 +3428,14 @@ definitions:
       coverImage:
         description: 封面
         type: string
+      draft:
+        description: 是否是草稿：0不是，1是
+        type: integer
       id:
         description: 反馈编号
         type: integer
       isPublic:
         description: 是否公开：0 否 1 是
-        type: integer
-      pay:
-        description: 付费：0否、1是
         type: integer
       payAttachment:
         description: 附件付费：0否、1是
@@ -7629,6 +7650,52 @@ paths:
       summary: 分页获取推荐帖子列表
       tags:
       - 帖子
+  /app/forumPosts/getUserForumPostsList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        in: query
+        name: category
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 用户编号
+        in: query
+        name: userId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPostsBaseInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPostsBaseInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取用户帖子列表
+      tags:
+      - 帖子
   /app/forumPosts/updateForumPosts:
     put:
       consumes:
@@ -8178,7 +8245,7 @@ paths:
       tags:
       - 常规方法
   /app/general/updateDraft:
-    put:
+    post:
       consumes:
       - application/json
       parameters:

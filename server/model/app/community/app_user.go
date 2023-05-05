@@ -50,6 +50,8 @@ type UserInfo struct {
 	NumCircle int64 `json:"numCircle" form:"numCircle" gorm:"type:bigint(20);column:num_circle;comment:圈子数;"` //圈子数
 	NumFocus  int64 `json:"numFocus" form:"numFocus" gorm:"type:bigint(20);column:num_focus;comment:关注数;"`    //关注数
 	NumFan    int64 `json:"numFan" form:"numFan" gorm:"type:bigint(20);column:num_fan;comment:粉丝数;"`          //粉丝数
+	IsFocus   int   `json:"isFocus" form:"isFocus"`                                                           //是否关注:0 否、1是
+	IsFan     int   `json:"isFan" form:"isFan"`                                                               //是否是粉丝:0 否、1是
 }
 
 // TableName User 表名

@@ -269,6 +269,7 @@ INSERT INTO `casbin_rule` VALUES (1316, 'p', '888', '/app/forumPosts/findForumPo
 INSERT INTO `casbin_rule` VALUES (1317, 'p', '888', '/app/forumPosts/getForumPostsList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1318, 'p', '888', '/app/forumPosts/findForumComment', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1319, 'p', '888', '/app/forumPosts/getForumCommentList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1320, 'p', '888', '/app/forumPosts/getUserForumPostsList', 'GET', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (1401, 'p', '888', '/app/general/findProtocol', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1402, 'p', '888', '/app/general/findProtocolByName', 'GET', '', '', '', '', '');
@@ -757,6 +758,7 @@ INSERT INTO `sys_apis` VALUES (316, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (317, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getForumPostsList', '分页获取帖子列表', 3, 'GET');
 INSERT INTO `sys_apis` VALUES (318, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/findForumComment', '用id查询评论', 3, 'GET');
 INSERT INTO `sys_apis` VALUES (319, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getForumCommentList', '分页获取评论列表', 3, 'GET');
+INSERT INTO `sys_apis` VALUES (320, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getUserForumPostsList', '分页获取用户帖子列表', 7, 'GET');
 
 INSERT INTO `sys_apis` VALUES (401, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocol', '用id查询协议', 4, 'GET');
 INSERT INTO `sys_apis` VALUES (402, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocolByName', '用名字查询协议', 4, 'GET');

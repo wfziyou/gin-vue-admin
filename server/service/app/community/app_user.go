@@ -252,7 +252,7 @@ func (appUserService *AppUserService) GetUser(id uint64) (hkUser community.User,
 	err = global.GVA_DB.Where("id = ?", id).Preload("UserExtend").First(&hkUser).Error
 	return
 }
-func (appUserService *AppUserService) GetUserInfo(id uint64) (userInfo community.UserInfo, err error) {
+func (appUserService *AppUserService) GetUserInfo(selectUserId uint64, id uint64) (userInfo community.UserInfo, err error) {
 	user := community.User{}
 	err = global.GVA_DB.Where("id = ?", id).Preload("UserExtend").First(&user).Error
 	if err == nil {
@@ -268,6 +268,20 @@ func (appUserService *AppUserService) GetUserInfo(id uint64) (userInfo community
 		userInfo.NumCircle = user.UserExtend.NumCircle
 		userInfo.NumFocus = user.UserExtend.NumFocus
 		userInfo.NumFan = user.UserExtend.NumFan
+
+		if selectUserId != id {
+			var num1, num2 int64
+			err1 := global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ? AND focus_user_id = ?", selectUserId, id).Count(&num1).Error
+			err2 := global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ? AND focus_user_id = ?", id, selectUserId).Count(&num2).Error
+			if err1 == nil && err2 == nil {
+				if num1 > 0 {
+					userInfo.IsFocus = 1
+				}
+				if num2 > 0 {
+					userInfo.IsFan = 1
+				}
+			}
+		}
 	}
 	return
 }

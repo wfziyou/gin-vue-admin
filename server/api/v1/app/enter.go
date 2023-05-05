@@ -65,6 +65,7 @@ var (
 	fileUploadAndDownloadService = service.ServiceGroupApp.ExampleServiceGroup.FileUploadAndDownloadService
 	jwtService                   = service.ServiceGroupApp.SystemServiceGroup.JwtService
 	cacheSmsService              = service.ServiceGroupApp.SystemServiceGroup.CacheSmsService
+	systemConfigService          = service.ServiceGroupApp.SystemServiceGroup.SystemConfigService
 
 	hkActivityAddRequestService = service.ServiceGroupApp.AppServiceGroup.Community.ActivityAddRequestService
 	hkThirdPlatformService      = service.ServiceGroupApp.AppServiceGroup.Community.ThirdPlatformService

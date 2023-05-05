@@ -629,3 +629,41 @@ func (forumPostsApi *ForumPostsApi) DeleteCommentThumbsUp(c *gin.Context) {
 		response.OkWithMessage("删除成功", c)
 	}
 }
+
+// GetUserForumPostsList 分页获取用户帖子列表
+// @Tags 帖子
+// @Summary 分页获取用户帖子列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.UserForumPostsSearch true "分页获取用户帖子列表"
+// @Success 200 {object} response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
+// @Router /app/forumPosts/getUserForumPostsList [get]
+func (forumPostsApi *ForumPostsApi) GetUserForumPostsList(c *gin.Context) {
+	var req communityReq.UserForumPostsSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	var isSelf = true
+	if req.UserId > 0 && userId != req.UserId {
+		userId = req.UserId
+		isSelf = false
+	}
+	if list, total, err := appForumPostsService.GetUserForumPostsList(userId, isSelf, req); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		var userId = utils.GetUserID(c)
+		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
+		appUserCollectService.GetUserIsCollect(userId, list)
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
+	}
+}

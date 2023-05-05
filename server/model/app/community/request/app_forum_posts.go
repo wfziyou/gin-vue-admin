@@ -41,3 +41,8 @@ type GetRecommendPostsSearch struct {
 	ChannelId uint64 `json:"channelId" form:"channelId"` //频道_编号
 	request.PageInfo
 }
+type UserForumPostsSearch struct {
+	UserId   uint64 `json:"userId" form:"userId"`      //用户编号
+	Category int    `json:"category" form:"category" ` //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	request.PageInfo
+}

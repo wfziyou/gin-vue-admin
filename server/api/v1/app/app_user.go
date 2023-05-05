@@ -140,7 +140,7 @@ func (userApi *UserApi) GetUserInfo(c *gin.Context) {
 	}
 
 	userId := utils.GetUserID(c)
-	if userInfo, err := appUserService.GetUserInfo(idSearch.ID); err != nil {
+	if userInfo, err := appUserService.GetUserInfo(userId, idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {

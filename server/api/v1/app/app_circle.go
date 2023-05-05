@@ -739,35 +739,50 @@ func (circleApi *CircleApi) GetCircleUserList(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/circle/createCircleRequest [post]
 func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
-	var hkCircleRequest communityReq.CreateCircleRequestReq
-	err := c.ShouldBindJSON(&hkCircleRequest)
+	var req communityReq.CreateCircleRequestReq
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
 	user := utils.GetUserInfo(c)
-	if _, err := appCircleClassifyService.GetCircleClassify(hkCircleRequest.CircleClassifyId); err != nil {
+	if _, err := appCircleClassifyService.GetCircleClassify(req.CircleClassifyId); err != nil {
 		response.FailWithMessage("没有找到圈子分类", c)
 		return
 	}
 
-	if err := appCircleRequestService.CreateCircleRequest(community.CircleRequest{
-		UserId:           user.GetUserId(),
-		UserNickName:     user.NickName,
-		Type:             1,
-		Name:             hkCircleRequest.Name,
-		Logo:             hkCircleRequest.Logo,
-		CircleClassifyId: hkCircleRequest.CircleClassifyId,
-		Slogan:           hkCircleRequest.Slogan,
-		Des:              hkCircleRequest.Des,
-		Protocol:         hkCircleRequest.Protocol,
-		BackImage:        hkCircleRequest.BackImage,
-	}); err != nil {
-		global.GVA_LOG.Error("创建失败!", zap.Error(err))
-		response.FailWithMessage(err.Error(), c)
+	obj, err := systemConfigService.GetParam()
+	if obj.CreateCircleCheck == true {
+		if err := appCircleRequestService.CreateCircleRequest(community.CircleRequest{
+			UserId:           user.GetUserId(),
+			UserNickName:     user.NickName,
+			Type:             community.CircleTypeUser,
+			Name:             req.Name,
+			Logo:             req.Logo,
+			CircleClassifyId: req.CircleClassifyId,
+			Slogan:           req.Slogan,
+			Des:              req.Des,
+			Protocol:         req.Protocol,
+			BackImage:        req.BackImage,
+		}); err != nil {
+			global.GVA_LOG.Error("创建失败!", zap.Error(err))
+			response.FailWithMessage(err.Error(), c)
+		} else {
+			response.OkWithMessage("创建成功", c)
+		}
+		return
 	} else {
-		response.OkWithMessage("创建成功", c)
+		appCircleService.CreateCircle(community.Circle{
+			Type:             community.CircleTypeUser,
+			Name:             req.Name,
+			Logo:             req.Logo,
+			CircleClassifyId: req.CircleClassifyId,
+			Slogan:           req.Slogan,
+			Des:              req.Des,
+			Protocol:         req.Protocol,
+			BackImage:        req.BackImage,
+		})
 	}
 }
 

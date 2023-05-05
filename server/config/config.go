@@ -38,4 +38,7 @@ type Server struct {
 
 	// 跨域配置
 	Cors CORS `mapstructure:"cors" json:"cors" yaml:"cors"`
+
+	//参数
+	Param Param `mapstructure:"param" json:"param" yaml:"param"`
 }

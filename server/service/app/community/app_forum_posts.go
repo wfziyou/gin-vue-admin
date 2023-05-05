@@ -356,6 +356,37 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 	return hkForumPostss, total, err
 }
 
+func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(userId uint64, isSelf bool, info communityReq.UserForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var hkForumPostss []community.ForumPostsBaseInfo
+
+	db = db.Where("user_id = ?", userId)
+	if isSelf == false {
+		db = db.Where("is_public = ? AND check_status = ?", community.ForumPostsIsPublicTrue, community.PostsCheckStatusPass)
+	} else {
+		db = db.Where("check_status != ?", community.PostsCheckStatusDraft)
+	}
+
+	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	if info.Category != 0 {
+		db = db.Where("category = ?", info.Category)
+	}
+	
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	return hkForumPostss, total, err
+}
+
 // GetCircleForumPostsList 分页获取ForumPosts记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info communityReq.CircleForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
@@ -489,7 +520,7 @@ func (appForumPostsService *AppForumPostsService) UpdateDraft(userId uint64, inf
 
 	if obj.Category != *info.Category {
 		//TopicId: need to do
-		updateData["circle_id"] = ""
+		updateData["circle_id"] = 0
 		updateData["title"] = ""
 		updateData["cover_image"] = ""
 		updateData["attachment"] = ""
@@ -580,6 +611,9 @@ func (appForumPostsService *AppForumPostsService) UpdateDraft(userId uint64, inf
 		updateData["is_public"] = info.IsPublic
 	}
 
+	if info.Draft != nil && *info.Draft == 0 {
+		updateData["check_status"] = community.PostsCheckStatusPass
+	}
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
 	err = db.Where("id = ? AND user_id = ? AND check_status = ?", info.Id, userId, community.PostsCheckStatusDraft).Updates(updateData).Error
 	return err

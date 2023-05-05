@@ -5813,6 +5813,83 @@ var doc = `{
                 }
             }
         },
+        "/app/forumPosts/getUserForumPostsList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子"
+                ],
+                "summary": "分页获取用户帖子列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "name": "category",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户编号",
+                        "name": "userId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumPostsBaseInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/forumPosts/updateForumPosts": {
             "put": {
                 "security": [
@@ -6749,7 +6826,7 @@ var doc = `{
             }
         },
         "/app/general/updateDraft": {
-            "put": {
+            "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -15903,6 +15980,14 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isFan": {
+                    "description": "是否是粉丝:0 否、1是",
+                    "type": "integer"
+                },
+                "isFocus": {
+                    "description": "是否关注:0 否、1是",
+                    "type": "integer"
+                },
                 "mutual": {
                     "description": "是否相互关注:0否 1是",
                     "type": "integer"
@@ -17169,6 +17254,14 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isFan": {
+                    "description": "是否是粉丝:0 否、1是",
+                    "type": "integer"
+                },
+                "isFocus": {
+                    "description": "是否关注:0 否、1是",
+                    "type": "integer"
+                },
                 "nickName": {
                     "description": "昵称",
                     "type": "string"
@@ -17756,6 +17849,15 @@ var doc = `{
                 }
             }
         },
+        "config.Param": {
+            "type": "object",
+            "properties": {
+                "createCircleCheck": {
+                    "description": "创建圈子是否需要审核",
+                    "type": "boolean"
+                }
+            }
+        },
         "config.Pgsql": {
             "type": "object",
             "properties": {
@@ -17927,6 +18029,10 @@ var doc = `{
                 },
                 "oracle": {
                     "$ref": "#/definitions/config.Oracle"
+                },
+                "param": {
+                    "description": "参数",
+                    "$ref": "#/definitions/config.Param"
                 },
                 "pgsql": {
                     "$ref": "#/definitions/config.Pgsql"
@@ -19990,16 +20096,16 @@ var doc = `{
                     "description": "封面",
                     "type": "string"
                 },
+                "draft": {
+                    "description": "是否是草稿：0不是，1是",
+                    "type": "integer"
+                },
                 "id": {
                     "description": "反馈编号",
                     "type": "integer"
                 },
                 "isPublic": {
                     "description": "是否公开：0 否 1 是",
-                    "type": "integer"
-                },
-                "pay": {
-                    "description": "付费：0否、1是",
                     "type": "integer"
                 },
                 "payAttachment": {

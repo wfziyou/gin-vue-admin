@@ -52,4 +52,5 @@ type UpdateDraftReq struct {
 	ActivityUserNum       *int    `json:"activityUserNum" form:"activityUserNum" gorm:"column:activity_user_num;comment:活动用户人数（0不限制活动人数，否则为活动人数）;size:10;"`       //活动用户人数（0不限制活动人数，否则为活动人数）
 	ActivityAddApprove    *int    `json:"activityAddApprove" form:"activityAddApprove" gorm:"column:activity_add_approve;comment:参加活动是否需要审批：0不审批、1审批;size:10;"`   //参加活动是否需要审批：0不审批、1审批
 	IsPublic              *int    `json:"isPublic" form:"isPublic" gorm:"column:is_public;comment:是否公开：0 否 1 是;size:10;"`                                         //是否公开：0 否 1 是
+	Draft                 *int    `json:"draft" form:"draft"`                                                                                                     //是否是草稿：0不是，1是
 }

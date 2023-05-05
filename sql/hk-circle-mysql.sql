@@ -896,10 +896,27 @@ CREATE TABLE `hk_forum_topic_group`  (
 -- ----------------------------
 -- Records of hk_forum_topic_group
 -- ----------------------------
-INSERT INTO `hk_forum_topic_group` VALUES (1, '000000', NULL, 'topic_1组', 1, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_forum_topic_group` VALUES (2, '000000', NULL, 'topic_2组', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_forum_topic_group` VALUES (3, '000000', 1, 'topic_1组', 1, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_forum_topic_group` VALUES (4, '000000', 1, 'topic_2组', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (1, '000000', NULL, '美食', 1, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (2, '000000', NULL, '时尚美妆', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (3, '000000', 1, '动漫', 1, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (4, '000000', 1, '搞笑', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (5, '000000', 1, '旅游', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (6, '000000', 1, '明星', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (7, '000000', 1, '游戏', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (8, '000000', 1, '摄影', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (9, '000000', 1, '萌宠', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (10, '000000', 1, '运动健身', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (11, '000000', 1, '电视剧', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (12, '000000', 1, '综艺', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (13, '000000', 1, '电影', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (14, '000000', 1, '情感', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (15, '000000', 1, '艺术', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (16, '000000', 1, '读书', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (17, '000000', 1, '互联网', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (18, '000000', 1, '数码', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (19, '000000', 1, '育儿', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (20, '000000', 1, '音乐', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_forum_topic_group` VALUES (21, '000000', 1, '教育', 2, '2023-02-16 12:36:21.000', '2023-02-16 12:36:21.000', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_forum_topic

@@ -5,10 +5,20 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
+//圈子类型：0官方圈子、1用户圈子、2小区
+const (
+	//CircleTypeOfficial 0官方圈子
+	CircleTypeOfficial = 0
+	//CircleTypeUser 1用户圈子
+	CircleTypeUser = 1
+	//CircleTypeCommunity 2小区
+	CircleTypeCommunity = 2
+)
+
 // Circle 结构体
 type Circle struct {
 	global.GvaModelApp
-	Type             *int        `json:"type" form:"type" gorm:"column:type;comment:类型：0官方圈子、1用户圈子、2小区;size:10;"`                                                            //类型：0官方圈子、1用户圈子、2小区
+	Type             int         `json:"type" form:"type" gorm:"column:type;comment:类型：0官方圈子、1用户圈子、2小区;size:10;"`                                                            //类型：0官方圈子、1用户圈子、2小区
 	Name             string      `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                                          //圈子名称
 	Logo             string      `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                                                       //圈子Logo
 	CircleClassifyId uint64      `json:"circleClassifyId" form:"circleClassifyId" gorm:"type:bigint(20);column:circle_classify_id;comment:圈子分类_编号"`                          //圈子分类_编号

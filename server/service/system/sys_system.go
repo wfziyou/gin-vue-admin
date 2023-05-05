@@ -19,6 +19,10 @@ func (systemConfigService *SystemConfigService) GetSystemConfig() (conf config.S
 	return global.GVA_CONFIG, nil
 }
 
+func (systemConfigService *SystemConfigService) GetParam() (conf config.Param, err error) {
+	return global.GVA_CONFIG.Param, nil
+}
+
 // @description   set system config,
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: SetSystemConfig
