@@ -34,8 +34,8 @@ func (questionApi *QuestionApi) GetGlobalRecommendQuestionList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
-	if list, total, err := appForumPostsService.GetGlobalRecommendQuestionList(req.CurPos, req.PageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetGlobalRecommendQuestionList(userId, req.CurPos, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -71,7 +71,8 @@ func (questionApi *QuestionApi) GetCircleQuestionList(c *gin.Context) {
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		response.FailWithMessage("圈子不存在", c)
 	}
-	if list, total, err := hkQuestionService.GetCircleQuestionList(circle.ID, req.PageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := hkQuestionService.GetCircleQuestionList(userId, circle.ID, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -169,8 +170,8 @@ func (questionApi *QuestionApi) GetAnswerList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
-	if list, total, err := hkQuestionService.GetAnswerList(req.QuestionId, req.PageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := hkQuestionService.GetAnswerList(userId, req.QuestionId, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

@@ -12,7 +12,6 @@ type CircleForumPostsSearch struct {
 }
 
 type UserCircleForumPostsSearch struct {
-	UserId   uint64 `json:"userId" form:"userId" `                           //用户ID
 	Category *int   `json:"category" form:"category" "`                      //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
 	GroupId  *int   `json:"groupId" form:"groupId" "`                        //帖子分类编号
 	Title    string `json:"title" form:"title" gorm:"column:title;size:80;"` //标题

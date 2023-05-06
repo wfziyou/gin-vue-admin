@@ -127,7 +127,7 @@ func (hkActivityService *ActivityService) GetActivityByUser(selectUserId uint64,
 }
 
 // GetActivityInfoList 分页获取Activity记录
-func (hkActivityService *ActivityService) GetActivityInfoList(info communityReq.ActivitySearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (hkActivityService *ActivityService) GetActivityInfoList(selectUserId uint64, info communityReq.ActivitySearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -143,6 +143,9 @@ func (hkActivityService *ActivityService) GetActivityInfoList(info communityReq.
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkActivitys).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkActivitys)
+	}
 	return hkActivitys, total, err
 }
 
@@ -180,12 +183,12 @@ func (hkActivityService *ActivityService) DeleteActivityDynamicByIds(activityId 
 	return err
 }
 
-func (hkActivityService *ActivityService) GetActivityDynamicList(activityId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (hkActivityService *ActivityService) GetActivityDynamicList(selectUserId uint64, activityId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkActivitys []community.ForumPostsBaseInfo
+	var activityDynamicList []community.ForumPostsBaseInfo
 
 	db = db.Where("activity_id = ?", activityId)
 
@@ -201,6 +204,9 @@ func (hkActivityService *ActivityService) GetActivityDynamicList(activityId uint
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkActivitys).Error
-	return hkActivitys, total, err
+	err = db.Limit(limit).Offset(offset).Find(&activityDynamicList).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, activityDynamicList)
+	}
+	return activityDynamicList, total, err
 }

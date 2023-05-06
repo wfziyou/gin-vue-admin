@@ -100,8 +100,13 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserEx(circleId uint6
 	return
 }
 
-func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(circleId uint64, userId uint64) (hkCircleUser community.CircleUserInfo, err error) {
+func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(selectUserId uint64, circleId uint64, userId uint64) (hkCircleUser community.CircleUserInfo, err error) {
 	err = global.GVA_DB.Where("circle_id = ? and user_id = ?", circleId, userId).Preload("UserInfo").First(&hkCircleUser).Error
+	if err == nil {
+		isFocus, isFan, _ := GetIsFocusAndIsFan(selectUserId, &hkCircleUser.UserInfo)
+		hkCircleUser.UserInfo.IsFocus = isFocus
+		hkCircleUser.UserInfo.IsFan = isFan
+	}
 	return
 }
 
@@ -123,7 +128,7 @@ func (appCircleUserService *AppCircleUserService) SetUserCurCircle(userId uint64
 
 // GetCircleUserInfoList 分页获取CircleUser记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(info communityReq.CircleUserSearch) (list []community.CircleUserInfo, total int64, err error) {
+func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(selectUserId uint64, info communityReq.CircleUserSearch) (list []community.CircleUserInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -147,6 +152,9 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(info com
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkCircleUsers).Error
+	if err == nil {
+		SetCircleUserUserIsFocus(selectUserId, hkCircleUsers)
+	}
 	return hkCircleUsers, total, err
 }
 

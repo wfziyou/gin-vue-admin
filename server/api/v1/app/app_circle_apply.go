@@ -65,14 +65,14 @@ func (circleApplyApi *CircleApplyApi) SetUserCircleApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	var userId = utils.GetUserID(c)
+	userId := utils.GetUserID(c)
 	req.UserId = userId
 	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
 		response.FailWithMessage("圈子不存在", c)
 		return
 	}
 
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
 		CircleId: req.CircleId,
 		UserId:   userId,
 		PageInfo: request.PageInfo{Page: 1, PageSize: 2},

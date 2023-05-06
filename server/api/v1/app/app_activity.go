@@ -377,7 +377,8 @@ func (activityApi *ActivityApi) GetCircleRecommendActivityList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumPostsService.GetGlobalRecommendActivityList(req.PageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetGlobalRecommendActivityList(userId, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -406,7 +407,8 @@ func (activityApi *ActivityApi) GetGlobalRecommendActivityList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumPostsService.GetGlobalRecommendActivityList(req.PageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetGlobalRecommendActivityList(userId, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -546,7 +548,8 @@ func (activityApi *ActivityApi) GetActivityDynamicList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkActivityService.GetActivityDynamicList(req.Id, req.PageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := hkActivityService.GetActivityDynamicList(userId, req.Id, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

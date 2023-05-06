@@ -3245,12 +3245,6 @@ var doc = `{
                         "description": "置顶：0否、1是",
                         "name": "top",
                         "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "用户ID",
-                        "name": "userId",
-                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -17036,6 +17030,14 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isFan": {
+                    "description": "是否是粉丝:0 否、1是",
+                    "type": "integer"
+                },
+                "isFocus": {
+                    "description": "是否关注:0 否、1是",
                     "type": "integer"
                 },
                 "nickName": {

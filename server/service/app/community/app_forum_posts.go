@@ -76,14 +76,23 @@ func (appForumPostsService *AppForumPostsService) UpdateForumPosts(hkForumPosts 
 }
 
 // GetForumPosts 根据id获取ForumPosts记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) GetForumPosts(id uint64) (hkForumPosts community.ForumPosts, err error) {
+	err = global.GVA_DB.Where("id = ?", id).First(&hkForumPosts).Error
+	return
+}
+
+func (appForumPostsService *AppForumPostsService) FindForumPosts(selectUserId uint64, id uint64) (hkForumPosts community.ForumPosts, err error) {
 	err = global.GVA_DB.Where("id = ?", id).Preload("UserInfo").First(&hkForumPosts).Error
+	if err == nil {
+		isFocus, isFan, _ := GetIsFocusAndIsFan(selectUserId, &hkForumPosts.UserInfo)
+		hkForumPosts.UserInfo.IsFocus = isFocus
+		hkForumPosts.UserInfo.IsFan = isFan
+	}
 	return
 }
 
 // GetRecommendPostsList 分页获取推荐帖子列表
-func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(channelId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(selectUserId uint64, channelId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
@@ -101,11 +110,14 @@ func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(channelI
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 
 // GetGlobalTopInfoList 分页获全局置顶资讯列表
-func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList() (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList(selectUserId uint64) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
@@ -123,11 +135,14 @@ func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList() (list [
 	}
 
 	err = db.Limit(utils.HomePageTopNewsNum).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 
 // GetGlobalRecommendInfoList 分页获全局推荐资讯列表
-func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(selectUserId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
@@ -151,11 +166,14 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(pag
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 
 // GetNearbyRecommendPostsList 分页获附近推荐帖子列表
-func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(curPos string, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(selectUserId uint64, curPos string, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
@@ -178,6 +196,9 @@ func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(cu
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 
@@ -241,11 +262,19 @@ func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId u
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPosts).Error
+	if err == nil {
+		//因为是关注用户的帖子，所以帖子的用户都是关注状态
+		for index, _ := range hkForumPosts {
+			hkForumPosts[index].UserInfo.IsFocus = 1
+		}
+		//SetPostsListUserIsFocus(userId, hkForumPosts)
+	}
+
 	return hkForumPosts, total, err
 }
 
 // GetGlobalRecommendQuestionList 分页获取全局推荐问题列表
-func (appForumPostsService *AppForumPostsService) GetGlobalRecommendQuestionList(curPos string, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetGlobalRecommendQuestionList(selectUserId uint64, curPos string, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
@@ -269,11 +298,14 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendQuestionList
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 
 // GetGlobalRecommendActivityList 分页获全局推荐活动列表
-func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList(page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList(selectUserId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
@@ -297,12 +329,15 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 
 // GetForumPostsInfoList 分页获取ForumPosts记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info communityReq.ForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(selectUserId uint64, info communityReq.ForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -353,10 +388,13 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(info com
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 
-func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(userId uint64, isSelf bool, info communityReq.UserForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(selectUserId uint64, userId uint64, info communityReq.UserForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -364,7 +402,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(userId u
 	var hkForumPostss []community.ForumPostsBaseInfo
 
 	db = db.Where("user_id = ?", userId)
-	if isSelf == false {
+	if selectUserId != userId {
 		db = db.Where("is_public = ? AND check_status = ?", community.ForumPostsIsPublicTrue, community.PostsCheckStatusPass)
 	} else {
 		db = db.Where("check_status != ?", community.PostsCheckStatusDraft)
@@ -374,7 +412,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(userId u
 	if info.Category != 0 {
 		db = db.Where("category = ?", info.Category)
 	}
-	
+
 	//创建时间降序排列
 	db = db.Order("hk_forum_posts.created_at desc")
 
@@ -384,12 +422,27 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(userId u
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		size := len(list)
+		if size > 0 {
+			if selectUserId != list[0].UserInfo.ID {
+				isFocus, isFan, _ := GetIsFocusAndIsFan(selectUserId, &list[0].UserInfo)
+				for i := 0; i < size; i++ {
+					list[i].UserInfo.IsFocus = isFocus
+					list[i].UserInfo.IsFan = isFan
+				}
+			}
+		}
+	}
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 
 // GetCircleForumPostsList 分页获取ForumPosts记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info communityReq.CircleForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(selectUserId uint64, info communityReq.CircleForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -415,19 +468,23 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(info c
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 
 // GetUserForumPostsInfoList 分页获取用户加入圈子的所有动态列表
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info communityReq.UserCircleForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(userId uint64, info communityReq.UserCircleForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	//优化，need to do
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
 	db.Joins(",`hk_circle_user`")
-	db = db.Where("hk_circle_user.circle_id = hk_forum_posts.circle_id and hk_circle_user.user_id =@userId", sql.Named("userId", info.UserId))
+	db = db.Where("hk_circle_user.circle_id = hk_forum_posts.circle_id and hk_circle_user.user_id =@userId", sql.Named("userId", userId))
 
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
@@ -464,6 +521,9 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(info
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(userId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }
 func (appForumPostsService *AppForumPostsService) GetDraft(id uint64) (hkForumPosts community.ForumPosts, err error) {
@@ -474,7 +534,7 @@ func (appForumPostsService *AppForumPostsService) GetDraftList(userId uint64, in
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("CircleInfo")
 	var hkForumPostss []community.ForumPostsBaseInfo
 
 	db = db.Where("check_status = ? AND user_id = ?", community.PostsCheckStatusDraft, userId)

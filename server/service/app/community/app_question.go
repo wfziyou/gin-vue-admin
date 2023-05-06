@@ -148,7 +148,7 @@ func (questionService *QuestionService) DeleteQuestionByIds(ids request.IdsReq) 
 }
 
 // GetForumCommentInfoList 分页获取评论记录
-func (questionService *QuestionService) GetAnswerList(questionId uint64, info request.PageInfo) (list []community.ForumComment, total int64, err error) {
+func (questionService *QuestionService) GetAnswerList(selectUserId uint64, questionId uint64, info request.PageInfo) (list []community.ForumComment, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -162,10 +162,13 @@ func (questionService *QuestionService) GetAnswerList(questionId uint64, info re
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumComments).Error
+	if err == nil {
+		SetForumCommentUserIsFocus(selectUserId, hkForumComments)
+	}
 	return hkForumComments, total, err
 }
 
-func (questionService *QuestionService) GetCircleQuestionList(circleId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+func (questionService *QuestionService) GetCircleQuestionList(selectUserId uint64, circleId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
@@ -188,5 +191,8 @@ func (questionService *QuestionService) GetCircleQuestionList(circleId uint64, p
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+	}
 	return hkForumPostss, total, err
 }

@@ -161,6 +161,7 @@ func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(userI
 			db1 = db1.Where("id in ?", ids)
 			err = db1.Find(&hkForumPosts).Error
 			if err == nil {
+				SetPostsListUserIsFocus(userId, hkForumPosts)
 				for x, obj := range hkUserCollects {
 					for _, posts := range hkForumPosts {
 						if obj.PostsId == posts.ID {
@@ -180,4 +181,37 @@ func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(userI
 		}
 	}
 	return hkUserCollects, total, err
+}
+func SetPostsListUserIsFocus(selectUserId uint64, list []community.ForumPostsBaseInfo) {
+	size := len(list)
+	if size == 0 {
+		return
+	}
+	var ids = make([]uint64, 0, size)
+	num := 0
+	for _, obj := range list {
+		if obj.UserInfo.ID != selectUserId {
+			ids = append(ids, obj.UserInfo.ID)
+			num++
+		}
+	}
+	if num == 0 {
+		return
+	}
+	var focusUserList []community.FocusUser
+	err := global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ? AND focus_user_id in ?", selectUserId, ids).Find(&focusUserList).Error
+	if err != nil {
+		return
+	}
+
+	for index, obj := range list {
+		if obj.UserInfo.ID != selectUserId {
+			for _, focus := range focusUserList {
+				if obj.UserId == focus.FocusUserId {
+					list[index].UserInfo.IsFocus = 1
+					break
+				}
+			}
+		}
+	}
 }

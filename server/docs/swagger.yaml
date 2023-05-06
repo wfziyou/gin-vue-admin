@@ -1265,6 +1265,12 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      isFan:
+        description: 是否是粉丝:0 否、1是
+        type: integer
+      isFocus:
+        description: 是否关注:0 否、1是
+        type: integer
       nickName:
         description: 昵称
         type: string
@@ -6133,10 +6139,6 @@ paths:
       - description: 置顶：0否、1是
         in: query
         name: top
-        type: integer
-      - description: 用户ID
-        in: query
-        name: userId
         type: integer
       produces:
       - application/json

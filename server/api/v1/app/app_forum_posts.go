@@ -36,11 +36,11 @@ func (forumPostsApi *ForumPostsApi) GetRecommendPostsList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumPostsService.GetRecommendPostsList(req.ChannelId, req.PageInfo); err != nil {
+	var userId = utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetRecommendPostsList(userId, req.ChannelId, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		var userId = utils.GetUserID(c)
 		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
 		appUserCollectService.GetUserIsCollect(userId, list)
 		response.OkWithDetailed(response.PageResult{
@@ -61,11 +61,11 @@ func (forumPostsApi *ForumPostsApi) GetRecommendPostsList(c *gin.Context) {
 // @Success 200 {object} response.Response{data=[]community.ForumPostsBaseInfo,msg=string} "返回[]community.ForumPostsBaseInfo"
 // @Router /app/forumPosts/getGlobalTopInfoList [get]
 func (forumPostsApi *ForumPostsApi) GetGlobalTopInfoList(c *gin.Context) {
-	if list, _, err := appForumPostsService.GetGlobalTopInfoList(); err != nil {
+	userId := utils.GetUserID(c)
+	if list, _, err := appForumPostsService.GetGlobalTopInfoList(userId); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		var userId = utils.GetUserID(c)
 		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
 		appUserCollectService.GetUserIsCollect(userId, list)
 		response.OkWithDetailed(list, "获取成功", c)
@@ -88,11 +88,11 @@ func (forumPostsApi *ForumPostsApi) GetGlobalRecommendInfoList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumPostsService.GetGlobalRecommendInfoList(req.PageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetGlobalRecommendInfoList(userId, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		var userId = utils.GetUserID(c)
 		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
 		appUserCollectService.GetUserIsCollect(userId, list)
 		response.OkWithDetailed(response.PageResult{
@@ -120,11 +120,11 @@ func (forumPostsApi *ForumPostsApi) GetNearbyRecommendPostsList(c *gin.Context) 
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumPostsService.GetNearbyRecommendPostsList(req.CurPos, req.PageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetNearbyRecommendPostsList(userId, req.CurPos, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		var userId = utils.GetUserID(c)
 		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
 		appUserCollectService.GetUserIsCollect(userId, list)
 		response.OkWithDetailed(response.PageResult{
@@ -159,7 +159,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 			return
 		}
 
-		if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+		if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
 			CircleId: req.CircleId,
 			UserId:   userId,
 			PageInfo: request.PageInfo{Page: 1, PageSize: 2},
@@ -319,7 +319,7 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 		return
 	}
 	var userId = utils.GetUserID(c)
-	if rehkForumPosts, err := appForumPostsService.GetForumPosts(idSearch.ID); err != nil {
+	if rehkForumPosts, err := appForumPostsService.FindForumPosts(userId, idSearch.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -351,7 +351,8 @@ func (forumPostsApi *ForumPostsApi) GetForumPostsList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumPostsService.GetForumPostsInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetForumPostsInfoList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -507,11 +508,11 @@ func (forumPostsApi *ForumPostsApi) GetForumCommentList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appForumCommentService.GetForumCommentInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumCommentService.GetForumCommentInfoList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		var userId = utils.GetUserID(c)
 		appCommentThumbsUpService.GetUserCommentThumbsUp(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
@@ -646,30 +647,18 @@ func (forumPostsApi *ForumPostsApi) GetUserForumPostsList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	userId := utils.GetUserID(c)
-	var isSelf = true
+	selectUserId := utils.GetUserID(c)
+	userId := selectUserId
 	if req.UserId > 0 && userId != req.UserId {
 		userId = req.UserId
-		isSelf = false
 	}
-	if list, total, err := appForumPostsService.GetUserForumPostsList(userId, isSelf, req); err != nil {
+	if list, total, err := appForumPostsService.GetUserForumPostsList(selectUserId, userId, req); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
 		selectUserId := utils.GetUserID(c)
 		appForumThumbsUpService.GetUserForumThumbsUp(selectUserId, list)
 		appUserCollectService.GetUserIsCollect(selectUserId, list)
-		size := len(list)
-		if size > 0 {
-			if selectUserId != list[0].UserInfo.ID {
-				isFocus, isFan, _ := appUserService.GetIsFocusAndIsFan(selectUserId, &list[0].UserInfo)
-				for i := 0; i < size; i++ {
-					list[i].UserInfo.IsFocus = isFocus
-					list[i].UserInfo.IsFan = isFan
-				}
-			}
-		}
-
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,

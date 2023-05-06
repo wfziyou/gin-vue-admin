@@ -68,7 +68,7 @@ func (appForumCommentService *AppForumCommentService) GetForumComment(id uint64)
 
 // GetForumCommentInfoList 分页获取评论记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appForumCommentService *AppForumCommentService) GetForumCommentInfoList(info communityReq.ForumCommentSearch) (list []community.ForumComment, total int64, err error) {
+func (appForumCommentService *AppForumCommentService) GetForumCommentInfoList(selectUserId uint64, info communityReq.ForumCommentSearch) (list []community.ForumComment, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -87,5 +87,8 @@ func (appForumCommentService *AppForumCommentService) GetForumCommentInfoList(in
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkForumComments).Error
+	if err == nil {
+		SetForumCommentUserIsFocus(selectUserId, hkForumComments)
+	}
 	return hkForumComments, total, err
 }

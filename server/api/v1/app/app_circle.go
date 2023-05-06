@@ -36,7 +36,8 @@ func (circleApi *CircleApi) GetCircleForumPostsList(c *gin.Context) {
 		response.FailWithMessage("请给circleId赋值", c)
 		return
 	}
-	if list, total, err := appForumPostsService.GetCircleForumPostsList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetCircleForumPostsList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -118,8 +119,8 @@ func (circleApi *CircleApi) GetUserCircleForumPostsList(c *gin.Context) {
 		return
 	}
 
-	pageInfo.UserId = utils.GetUserID(c)
-	if list, total, err := appForumPostsService.GetUserForumPostsInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appForumPostsService.GetUserForumPostsInfoList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -282,8 +283,8 @@ func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
 		return
 	}
 
-	var userId = utils.GetUserID(c)
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+	userId := utils.GetUserID(c)
+	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
 		CircleId: req.CircleId,
 		UserId:   userId,
 		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
@@ -325,8 +326,8 @@ func (circleApi *CircleApi) EnterCircle(c *gin.Context) {
 		return
 	}
 
-	var userId = utils.GetUserID(c)
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+	userId := utils.GetUserID(c)
+	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
 		CircleId: req.CircleId,
 		UserId:   userId,
 		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
@@ -388,8 +389,8 @@ func (circleApi *CircleApi) ExitCircle(c *gin.Context) {
 		return
 	}
 
-	var userId = utils.GetUserID(c)
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+	userId := utils.GetUserID(c)
+	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
 		CircleId: req.CircleId,
 		UserId:   userId,
 		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
@@ -438,8 +439,8 @@ func (circleApi *CircleApi) ApplyEnterCircle(c *gin.Context) {
 		return
 	}
 
-	var userId = utils.GetUserID(c)
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(communityReq.CircleUserSearch{
+	userId := utils.GetUserID(c)
+	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
 		CircleId: req.CircleId,
 		UserId:   userId,
 		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
@@ -612,7 +613,8 @@ func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 	pageInfo.PageSize = 10
 	pageInfo.CircleId = req.CircleId
 	pageInfo.UserId = req.UserId
-	if list, total, err := appCircleUserService.GetCircleUserInfoList(pageInfo); err == nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appCircleUserService.GetCircleUserInfoList(userId, pageInfo); err == nil {
 		if total == 0 {
 			response.FailWithMessage("圈子成员不存在", c)
 			return
@@ -693,7 +695,8 @@ func (circleApi *CircleApi) FindCircleUser(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkCircleUser, err := appCircleUserService.GetCircleUserInfo(req.CircleId, req.UserId); err != nil {
+	userId := utils.GetUserID(c)
+	if rehkCircleUser, err := appCircleUserService.GetCircleUserInfo(userId, req.CircleId, req.UserId); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
@@ -717,7 +720,8 @@ func (circleApi *CircleApi) GetCircleUserList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appCircleUserService.GetCircleUserInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appCircleUserService.GetCircleUserInfoList(userId, pageInfo); err != nil {
 		response.FailWithMessage("获取失败", c)
 	} else {
 		response.OkWithDetailed(response.PageResult{
