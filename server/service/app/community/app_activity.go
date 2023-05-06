@@ -112,14 +112,21 @@ func (hkActivityService *ActivityService) UpdateActivity(info communityReq.Updat
 }
 
 // GetActivity 根据id获取Activity记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (hkActivityService *ActivityService) GetActivity(id uint64) (hkActivity community.ForumPosts, err error) {
+	err = global.GVA_DB.Where("id = ?", id).First(&hkActivity).Error
+	return
+}
+func (hkActivityService *ActivityService) GetActivityByUser(selectUserId uint64, id uint64) (hkActivity community.ForumPosts, err error) {
 	err = global.GVA_DB.Where("id = ?", id).Preload("UserInfo").First(&hkActivity).Error
+	if err == nil {
+		isFocus, isFan, _ := GetIsFocusAndIsFan(selectUserId, &hkActivity.UserInfo)
+		hkActivity.UserInfo.IsFocus = isFocus
+		hkActivity.UserInfo.IsFan = isFan
+	}
 	return
 }
 
 // GetActivityInfoList 分页获取Activity记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (hkActivityService *ActivityService) GetActivityInfoList(info communityReq.ActivitySearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)

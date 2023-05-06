@@ -147,34 +147,6 @@ func (questionService *QuestionService) DeleteQuestionByIds(ids request.IdsReq) 
 	return err
 }
 
-//// UpdateQuestion 更新Question记录
-//// Author [piexlmax](https://github.com/piexlmax)
-//func (questionService *QuestionService) UpdateQuestion(hkQuestion communityReq.UpdateQuestionReq) (err error) {
-//	//err = global.GVA_DB.Save(&hkQuestion).Error
-//	return err
-//}
-
-//// GetQuestionInfoList 分页获取Question记录
-//// Author [piexlmax](https://github.com/piexlmax)
-//func (questionService *QuestionService) GetQuestionInfoList(info communityReq.QuestionSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
-//	limit := info.PageSize
-//	offset := info.PageSize * (info.Page - 1)
-//	// 创建db
-//	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
-//	var hkQuestions []community.ForumPostsBaseInfo
-//	// 如果有条件搜索 下方会自动创建搜索语句
-//	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-//		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-//	}
-//	err = db.Count(&total).Error
-//	if err != nil {
-//		return
-//	}
-//
-//	err = db.Limit(limit).Offset(offset).Find(&hkQuestions).Error
-//	return hkQuestions, total, err
-//}
-
 // GetForumCommentInfoList 分页获取评论记录
 func (questionService *QuestionService) GetAnswerList(questionId uint64, info request.PageInfo) (list []community.ForumComment, total int64, err error) {
 	limit := info.PageSize

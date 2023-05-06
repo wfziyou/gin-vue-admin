@@ -269,17 +269,26 @@ func (appUserService *AppUserService) GetUserInfo(selectUserId uint64, id uint64
 		userInfo.NumFocus = user.UserExtend.NumFocus
 		userInfo.NumFan = user.UserExtend.NumFan
 
-		if selectUserId != id {
-			var num1, num2 int64
-			err1 := global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ? AND focus_user_id = ?", selectUserId, id).Count(&num1).Error
-			err2 := global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ? AND focus_user_id = ?", id, selectUserId).Count(&num2).Error
-			if err1 == nil && err2 == nil {
-				if num1 > 0 {
-					userInfo.IsFocus = 1
-				}
-				if num2 > 0 {
-					userInfo.IsFan = 1
-				}
+		isFocus, isFan, _ := GetIsFocusAndIsFan(selectUserId, &userInfo.UserBaseInfo)
+		userInfo.IsFocus = isFocus
+		userInfo.IsFan = isFan
+	}
+	return
+}
+func SetPostsListUserIsFocus(selectUserId uint64, list *[]community.ForumPostsBaseInfo) {
+
+}
+func GetIsFocusAndIsFan(selectUserId uint64, userInfo *community.UserBaseInfo) (isFocus int, isFan int, err error) {
+	if selectUserId != userInfo.ID {
+		var num1, num2 int64
+		err1 := global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ? AND focus_user_id = ?", selectUserId, userInfo.ID).Count(&num1).Error
+		err2 := global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ? AND focus_user_id = ?", userInfo.ID, selectUserId).Count(&num2).Error
+		if err1 == nil && err2 == nil {
+			if num1 > 0 {
+				isFocus = 1
+			}
+			if num2 > 0 {
+				isFan = 1
 			}
 		}
 	}

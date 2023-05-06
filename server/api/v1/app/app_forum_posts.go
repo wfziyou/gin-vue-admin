@@ -656,9 +656,20 @@ func (forumPostsApi *ForumPostsApi) GetUserForumPostsList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		var userId = utils.GetUserID(c)
-		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
-		appUserCollectService.GetUserIsCollect(userId, list)
+		selectUserId := utils.GetUserID(c)
+		appForumThumbsUpService.GetUserForumThumbsUp(selectUserId, list)
+		appUserCollectService.GetUserIsCollect(selectUserId, list)
+		size := len(list)
+		if size > 0 {
+			if selectUserId != list[0].UserInfo.ID {
+				isFocus, isFan, _ := appUserService.GetIsFocusAndIsFan(selectUserId, &list[0].UserInfo)
+				for i := 0; i < size; i++ {
+					list[i].UserInfo.IsFocus = isFocus
+					list[i].UserInfo.IsFan = isFan
+				}
+			}
+		}
+
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,

@@ -137,8 +137,8 @@ func (userCollectApi *UserCollectApi) GetUserCollectList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	pageInfo.UserId = utils.GetUserID(c)
-	if list, total, err := appUserCollectService.GetUserCollectInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := appUserCollectService.GetUserCollectInfoList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

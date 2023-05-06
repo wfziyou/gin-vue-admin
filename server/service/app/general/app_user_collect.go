@@ -129,14 +129,14 @@ func (appUserCollectService *AppUserCollectService) GetUserIsCollect(userId uint
 
 // GetUserCollectInfoList 分页获取UserCollect记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(info generalReq.UserCollectSearch) (list []general.UserCollectInfo, total int64, err error) {
+func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(userId uint64, info generalReq.UserCollectSearch) (list []general.UserCollectInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&general.UserCollectInfo{})
 	var hkUserCollects []general.UserCollectInfo
 
-	db = db.Where("user_id = ?", info.UserId)
+	db = db.Where("user_id = ?", userId)
 	if info.Category > 0 {
 		db = db.Where("category = ?", info.Category)
 	}

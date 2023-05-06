@@ -146,7 +146,7 @@ func (activityApi *ActivityApi) FindActivity(c *gin.Context) {
 		return
 	}
 	var userId = utils.GetUserID(c)
-	if activity, err := hkActivityService.GetActivity(req.ID); err != nil {
+	if activity, err := hkActivityService.GetActivityByUser(userId, req.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
