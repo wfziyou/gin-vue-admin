@@ -18737,25 +18737,9 @@ var doc = `{
         "general.UserCollectInfo": {
             "type": "object",
             "properties": {
-                "attachment": {
-                    "description": "附件",
-                    "type": "string"
-                },
                 "category": {
                     "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
                     "type": "integer"
-                },
-                "commentNum": {
-                    "description": "评论次数",
-                    "type": "integer"
-                },
-                "coverImage": {
-                    "description": "封面",
-                    "type": "string"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
@@ -18765,17 +18749,8 @@ var doc = `{
                     "description": "帖子编号",
                     "type": "integer"
                 },
-                "title": {
-                    "description": "标题",
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户编号",
-                    "type": "integer"
-                },
-                "userInfo": {
-                    "description": "用户基本信息",
-                    "$ref": "#/definitions/community.UserBaseInfo"
+                "postsInfo": {
+                    "$ref": "#/definitions/community.ForumPostsBaseInfo"
                 }
             }
         },

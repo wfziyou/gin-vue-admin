@@ -97,19 +97,16 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) GetUserBrows
 				ids[index] = v.PostsId
 			}
 			//查询最新发布的帖子
-			db1 := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
+			db1 := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("UserInfo")
 			var hkForumPosts []community.ForumPostsBaseInfo
 			db1 = db1.Where("id in ?", ids)
 			err = db1.Find(&hkForumPosts).Error
 			if err == nil {
+				SetPostsListUserIsFocus(userId, hkForumPosts)
 				for x, obj := range hkUserBrowsingHistorys {
 					for _, posts := range hkForumPosts {
 						if obj.PostsId == posts.ID {
-							hkUserBrowsingHistorys[x].ID = posts.ID
-							hkUserBrowsingHistorys[x].Title = posts.Title
-							hkUserBrowsingHistorys[x].Category = posts.Category
-							hkUserBrowsingHistorys[x].Attachment = posts.Attachment
-							hkUserBrowsingHistorys[x].CoverImage = posts.CoverImage
+							hkUserBrowsingHistorys[x].PostsInfo = &posts
 							break
 						}
 					}

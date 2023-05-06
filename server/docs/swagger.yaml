@@ -2472,36 +2472,17 @@ definitions:
     type: object
   general.UserCollectInfo:
     properties:
-      attachment:
-        description: 附件
-        type: string
       category:
         description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         type: integer
-      commentNum:
-        description: 评论次数
-        type: integer
-      coverImage:
-        description: 封面
-        type: string
-      createdAt:
-        description: 创建时间
-        type: string
       id:
         description: 主键ID
         type: integer
       postsId:
         description: 帖子编号
         type: integer
-      title:
-        description: 标题
-        type: string
-      userId:
-        description: 用户编号
-        type: integer
-      userInfo:
-        $ref: '#/definitions/community.UserBaseInfo'
-        description: 用户基本信息
+      postsInfo:
+        $ref: '#/definitions/community.ForumPostsBaseInfo'
     type: object
   github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register:
     properties:

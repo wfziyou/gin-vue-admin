@@ -156,7 +156,7 @@ func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(userI
 				ids[index] = v.PostsId
 			}
 			//查询最新发布的帖子
-			db1 := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+			db1 := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("UserInfo")
 			var hkForumPosts []community.ForumPostsBaseInfo
 			db1 = db1.Where("id in ?", ids)
 			err = db1.Find(&hkForumPosts).Error
@@ -165,14 +165,7 @@ func (appUserCollectService *AppUserCollectService) GetUserCollectInfoList(userI
 				for x, obj := range hkUserCollects {
 					for _, posts := range hkForumPosts {
 						if obj.PostsId == posts.ID {
-							hkUserCollects[x].ID = posts.ID
-							hkUserCollects[x].Title = posts.Title
-							hkUserCollects[x].Category = posts.Category
-							hkUserCollects[x].Attachment = posts.Attachment
-							hkUserCollects[x].CoverImage = posts.CoverImage
-							hkUserCollects[x].CommentNum = posts.CommentNum
-							hkUserCollects[x].UserInfo = posts.UserInfo
-							hkUserCollects[x].CreatedAt = posts.CreatedAt
+							hkUserCollects[x].PostsInfo = &posts
 							break
 						}
 					}
