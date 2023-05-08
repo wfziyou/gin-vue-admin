@@ -1,10 +1,4 @@
-package response
-
-type UserGetUinfosActionRsp struct {
-	Code   int        `json:"code"`
-	Uinfos []UserInfo `json:"uinfos"`
-	Desc   string     `json:"desc"`
-}
+package model
 
 type UserInfo struct {
 	Accid  string `json:"accid"`  ////账号

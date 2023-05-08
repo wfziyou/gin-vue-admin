@@ -9,8 +9,10 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
-	imReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/im/model/request"
-	imService "github.com/flipped-aurora/gin-vue-admin/server/plugin/im/service"
+	openImReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open/model/request"
+	openImService "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open/service"
+	yunXinImReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-yunxin/model/request"
+	yunXinImService "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-yunxin/service"
 	oneLoginService "github.com/flipped-aurora/gin-vue-admin/server/plugin/oneLogin/service"
 	smsService "github.com/flipped-aurora/gin-vue-admin/server/plugin/sms/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
@@ -413,20 +415,9 @@ func TokenNext(c *gin.Context, user community.User) {
 		response.FailWithMessage("获取token失败", c)
 		return
 	}
-
-	var req imReq.UserGetUinfosActionReq
-	req.Accids = []string{utils.UuidTo32String(user.Uuid)}
-
-	if rsp, err := imService.ServiceGroupApp.UserGetUinfosAction(req); err != nil {
-		global.GVA_LOG.Debug("调用IM失败：UserGetUinfosAction."+err.Error(), zap.Error(err))
-	} else if rsp.Code == 414 {
-		err = ImRegiser(user)
-		if err != nil {
-			response.FailWithMessage(err.Error(), c)
-			return
-		}
-	} else {
-		global.GVA_LOG.Debug("调用IM：UserGetUinfosAction code:" + strconv.Itoa(rsp.Code))
+	if err := ImLogin(user); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
 
 	//var req imReq.UpdateActionReq
@@ -482,19 +473,60 @@ func TokenNext(c *gin.Context, user community.User) {
 	}
 }
 
+func ImLogin(user community.User) error {
+	if global.GVA_CONFIG.System.ImType == "open-im" {
+
+	} else if global.GVA_CONFIG.System.ImType == "yunxin-im" {
+		var req yunXinImReq.UserGetUinfosActionReq
+		req.Accids = []string{utils.UuidTo32String(user.Uuid)}
+		if rsp, err := yunXinImService.ServiceGroupApp.UserGetUinfosAction(req); err != nil {
+			global.GVA_LOG.Debug("调用IM失败：UserGetUinfosAction."+err.Error(), zap.Error(err))
+			return err
+		} else if rsp.Code == 414 {
+			err = ImRegiser(user)
+			if err != nil {
+				return err
+			}
+		} else {
+			global.GVA_LOG.Debug("调用IM：UserGetUinfosAction code:" + strconv.Itoa(rsp.Code))
+		}
+	}
+	return nil
+}
+
 // ImRegiser 调用IM注册
 func ImRegiser(user community.User) error {
-	var req imReq.RegisterReq
-	req.Accid = utils.UuidTo32String(user.Uuid)
-	req.Token = utils.UuidTo32String(user.Uuid)
-	req.Name = user.NickName
-	req.Icon = user.HeaderImg
-	if rsp, err := imService.ServiceGroupApp.UserCreateAction(req); err != nil {
-		global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
-		return err
-	} else if rsp.Code != 414 && rsp.Code != 200 {
-		global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
-		return err
+	if global.GVA_CONFIG.System.ImType == "open-im" {
+		var req openImReq.RegisterReq
+		req.UserID = utils.UuidTo32String(user.Uuid)
+		req.Nickname = user.NickName
+		req.FaceURL = user.HeaderImg
+		req.Gender = user.Sex
+		req.PhoneNumber = user.Phone
+		req.BirthStr = user.Birthday
+		req.Email = user.Email
+		req.CreateTime = user.CreatedAt.Unix()
+
+		if rsp, err := openImService.ServiceGroupApp.UserCreateAction(req); err != nil {
+			global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
+			return err
+		} else if rsp.Code != 414 && rsp.Code != 200 {
+			global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
+			return err
+		}
+	} else if global.GVA_CONFIG.System.ImType == "yunxin-im" {
+		var req yunXinImReq.RegisterReq
+		req.Accid = utils.UuidTo32String(user.Uuid)
+		req.Token = utils.UuidTo32String(user.Uuid)
+		req.Name = user.NickName
+		req.Icon = user.HeaderImg
+		if rsp, err := yunXinImService.ServiceGroupApp.UserCreateAction(req); err != nil {
+			global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
+			return err
+		} else if rsp.Code != 414 && rsp.Code != 200 {
+			global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
+			return err
+		}
 	}
 	return nil
 }

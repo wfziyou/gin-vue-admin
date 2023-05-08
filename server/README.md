@@ -96,6 +96,7 @@ swag init
 ```
 拉依赖
 ```
+go env -w GOPROXY=https://goproxy.cn,direct
 go mod tidy
 # 选择上下命令其一执行即可
 go generate -x // -x 显示并执行命令

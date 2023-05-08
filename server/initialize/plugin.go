@@ -5,7 +5,8 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/middleware"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/email"
-	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im-yunxin"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/oneLogin"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/sms"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/plugin"
@@ -41,10 +42,15 @@ func InstallPlugin(Router *gin.Engine) {
 		global.GVA_CONFIG.AliyunSms.SignName,
 	))
 
-	PluginInit(PrivateGroup, imYunXin.CreateYunXinImPlug(
+	PluginInit(PrivateGroup, imYunXin.CreateImPlug(
 		global.GVA_CONFIG.YunXinIm.Url,
 		global.GVA_CONFIG.YunXinIm.AppKey,
 		global.GVA_CONFIG.YunXinIm.AppSecret,
+	))
+	PluginInit(PrivateGroup, imOpen.CreateImPlug(
+		global.GVA_CONFIG.OpenIm.Url,
+		global.GVA_CONFIG.OpenIm.AppKey,
+		global.GVA_CONFIG.OpenIm.AppSecret,
 	))
 	PluginInit(PrivateGroup, oneLogin.CreateOneLoginPlug(
 		global.GVA_CONFIG.OneLogin.Appid,

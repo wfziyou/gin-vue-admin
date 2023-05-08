@@ -7,7 +7,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im/config"
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im-yunxin/config"
 	"io"
 	"io/ioutil"
 	"math/rand"

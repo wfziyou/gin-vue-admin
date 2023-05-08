@@ -33,6 +33,10 @@ yunxin-im:
   appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
   appSecret: 54699e9dd7a0
   url: https://api.netease.im/nimserver
+open-im:
+  appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
+  appSecret: 54699e9dd7a0
+  url: https://api.netease.im/nimserver
 # jwt configuration
 jwt:
   signing-key: qmPlus
@@ -80,7 +84,7 @@ system:
   iplimit-time: 3600
   #  路由全局前缀
   router-prefix: ""
-
+  im-type: yunxin-im # open-im yunxin-im
 # captcha configuration
 captcha:
   key-long: 6

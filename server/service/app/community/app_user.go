@@ -449,7 +449,8 @@ func (appUserService *AppUserService) UpdatePostsTime(userId uint64) (err error)
 	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}}
 	db := global.GVA_DB.Model(&obj)
 	if errors.Is(db.Where("id = ?", userId).First(&obj).Error, gorm.ErrRecordNotFound) {
-		obj.UpdateForumPostsTime = time.Now()
+		now := time.Now()
+		obj.UpdateForumPostsTime = &now
 		err = global.GVA_DB.Create(&obj).Error
 	} else {
 		var updateData map[string]interface{}
