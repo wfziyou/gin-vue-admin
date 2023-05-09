@@ -43,7 +43,7 @@ func (hkActivityService *ActivityService) CreateActivity(userId uint64, info com
 	err = global.GVA_DB.Create(&obj).Error
 	if err == nil {
 		err = global.GVA_DB.Create(&community.ActivityUser{
-			ActivityId: obj.ActivityId,
+			ActivityId: obj.ID,
 			UserId:     userId,
 		}).Error
 		if len(info.TopicId) > 0 {

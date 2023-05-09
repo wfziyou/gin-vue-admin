@@ -5,7 +5,6 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"gorm.io/gorm"
 )
 
@@ -16,6 +15,9 @@ type AppCircleUserService struct {
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleUserService *AppCircleUserService) CreateCircleUser(hkCircleUser community.CircleUser) (err error) {
 	err = global.GVA_DB.Create(&hkCircleUser).Error
+	if err == nil {
+		err = appCircleUserService.UpdateCircleUserCount(hkCircleUser.CircleId)
+	}
 	return err
 }
 
@@ -23,22 +25,26 @@ func (appCircleUserService *AppCircleUserService) CreateCircleUser(hkCircleUser 
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleUserService *AppCircleUserService) DeleteCircleUser(hkCircleUser community.CircleUser) (err error) {
 	err = global.GVA_DB.Delete(&hkCircleUser).Error
+	if err == nil {
+		err = appCircleUserService.UpdateCircleUserCount(hkCircleUser.CircleId)
+	}
 	return err
 }
 func (appCircleUserService *AppCircleUserService) DeleteCircleUserInfo(hkCircleUser community.CircleUserInfo) (err error) {
 	err = global.GVA_DB.Delete(&hkCircleUser).Error
+	if err == nil {
+		err = appCircleUserService.UpdateCircleUserCount(hkCircleUser.CircleId)
+	}
 	return err
 }
 func (appCircleUserService *AppCircleUserService) DeleteCircleUsers(circleId uint64, userIds []uint64) (err error) {
 	err = global.GVA_DB.Delete(&[]community.CircleUser{}, "circle_id = ? and user_id in ?", circleId, userIds).Error
+	if err == nil {
+		err = appCircleUserService.UpdateCircleUserCount(circleId)
+	}
 	return err
 }
 
-// DeleteCircleUserByIds 批量删除圈子用户记录
-func (appCircleUserService *AppCircleUserService) DeleteCircleUserByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.CircleUser{}, "id in ?", ids.Ids).Error
-	return err
-}
 func (appCircleUserService *AppCircleUserService) GetUserHaveCircles(userId uint64, circleIds []uint64) (hkCircleUser []community.CircleUser, num int, err error) {
 	err = global.GVA_DB.Where("user_id = ? and circle_id in  ?", userId, circleIds).Find(&hkCircleUser).Error
 	if err == nil {
@@ -127,7 +133,6 @@ func (appCircleUserService *AppCircleUserService) SetUserCurCircle(userId uint64
 }
 
 // GetCircleUserInfoList 分页获取CircleUser记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(selectUserId uint64, info communityReq.CircleUserSearch) (list []community.CircleUserInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
@@ -157,13 +162,15 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(selectUs
 	}
 	return hkCircleUsers, total, err
 }
-
-func (appCircleUserService *AppCircleUserService) GetCircleUserInfoListCount(info communityReq.CircleUserSearch) (total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
-	// 创建db
-	db := global.GVA_DB.Model(&community.CircleUser{})
-	err = db.Where(&community.CircleUser{CircleId: info.CircleId, UserId: info.UserId}).Limit(limit).Offset(offset).Count(&total).Error
-
+func (appCircleUserService *AppCircleUserService) GetCircleUserCount(circleId uint64) (total int64, err error) {
+	db := global.GVA_DB.Model(&community.CircleUser{}).Where("circle_id = ?", circleId)
+	err = db.Where("circle_id = ?", circleId).Count(&total).Error
 	return total, err
+}
+func (appCircleUserService *AppCircleUserService) UpdateCircleUserCount(circleId uint64) (err error) {
+	num, err := appCircleUserService.GetCircleUserCount(circleId)
+	if err == nil {
+		err = global.GVA_DB.Model(community.Circle{}).Where("id = ?", circleId).Update("user_num", num).Error
+	}
+	return err
 }

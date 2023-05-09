@@ -242,6 +242,7 @@ CREATE TABLE `hk_circle`  (
    `no_limit_user_group` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '不受限用户组(json数组)',  
    `new_user_focus` int(2) NOT NULL DEFAULT 0 COMMENT '新注册用户默认关注：0 否，1是',
    `channel_id` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '频道_编号',
+   `user_num` int(11) NULL DEFAULT 0 COMMENT '用户数',
    `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
@@ -256,18 +257,18 @@ CREATE TABLE `hk_circle`  (
 -- ----------------------------
 -- Records of hk_circle
 -- ----------------------------
-INSERT INTO `hk_circle` VALUES (1, '000000', 0, '圈子名称1', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 1, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (2, '000000', 0, '圈子名称2', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 2, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (3, '000000', 0, '圈子名称3', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (4, '000000', 0, '圈子名称4', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (5, '000000', 0, '圈子名称5', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (6, '000000', 0, '圈子名称6', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (7, '000000', 0, '圈子名称7', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (8, '000000', 0, '圈子名称8', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (9, '000000', 0, '圈子名称9', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (10, '000000', 0, '圈子名称10', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (11, '000000', 0, '圈子名称11', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (12, '000000', 0, '圈子名称12', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (1, '000000', 0, '圈子名称1', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 1, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (2, '000000', 0, '圈子名称2', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 2, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (3, '000000', 0, '圈子名称3', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (4, '000000', 0, '圈子名称4', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (5, '000000', 0, '圈子名称5', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (6, '000000', 0, '圈子名称6', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (7, '000000', 0, '圈子名称7', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (8, '000000', 0, '圈子名称8', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (9, '000000', 0, '圈子名称9', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (10, '000000', 0, '圈子名称10', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (11, '000000', 0, '圈子名称11', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (12, '000000', 0, '圈子名称12', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_circle_request
@@ -487,15 +488,17 @@ CREATE TABLE `hk_circle_channel`  (
   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子频道' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子频道' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of hk_circle_channel
 -- ----------------------------
-INSERT INTO `hk_circle_channel` VALUES (1, '000000', 0, '问答', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (2, '000000', 0, '动态', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (3, '000000', 0, '资讯', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (4, '000000', 0, '活动', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (1, '000000', 0, '全部', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (2, '000000', 0, '问答', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (3, '000000', 0, '动态', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (4, '000000', 0, '资讯', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (5, '000000', 0, '活动', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (6, '000000', 0, '文章', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_user_channel

@@ -15724,6 +15724,10 @@ var doc = `{
                     "description": "更新时间",
                     "type": "string"
                 },
+                "userNum": {
+                    "description": "用户数",
+                    "type": "integer"
+                },
                 "view": {
                     "description": "板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到",
                     "type": "integer"
@@ -15827,6 +15831,10 @@ var doc = `{
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
+                },
+                "userNum": {
+                    "description": "用户数",
+                    "type": "integer"
                 }
             }
         },

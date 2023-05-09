@@ -15,6 +15,22 @@ const (
 	CircleTypeCommunity = 2
 )
 
+//圈子频道 1全部 2问答 3动态 4资讯 5活动 6文章
+const (
+	//CircleChannelAll 1全部
+	CircleChannelAll = 1
+	//CircleChannelQuestion 2问答
+	CircleChannelQuestion = 2
+	//CircleChannelDynamic 3动态
+	CircleChannelDynamic = 3
+	//CircleChannelNews 4资讯
+	CircleChannelNews = 4
+	//CircleChannelActivity 5活动
+	CircleChannelActivity = 5
+	//CircleChannelArticle 6文章
+	CircleChannelArticle = 6
+)
+
 // Circle 结构体
 type Circle struct {
 	global.GvaModelApp
@@ -41,6 +57,7 @@ type Circle struct {
 	PowerCommentUser string      `json:"powerCommentUser" form:"powerCommentUser" gorm:"column:power_comment_user;comment:圈子内评论权限_指定部门和用户(json数组);size:500;"`                //圈子内评论权限_指定部门和用户(json数组);size:500
 	NoLimitUserGroup string      `json:"noLimitUserGroup" form:"noLimitUserGroup" gorm:"column:no_limit_user_group;comment:不受限用户组(json数组);size:500;"`                        //不受限用户组(json数组);size:500
 	NewUserFocus     int         `json:"newUserFocus" form:"newUserFocus" gorm:"column:new_user_focus;comment:新注册用户默认关注：0 否，1是;size:10;"`                                    //新注册用户默认关注：0 否，1是
+	UserNum          int         `json:"userNum" form:"userNum" gorm:"column:user_num;comment:用户数;size:10;"`                                                                 //用户数
 	Sort             int         `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                                                            //排序
 	HaveCircle       int         `json:"haveCircle"`                                                                                                                         //是在圈子里：0否、1是
 	ChannelId        string      `json:"channelId" form:"channelId" gorm:"column:channel_id;comment:频道_编号;"`                                                                 //频道_编号
@@ -62,6 +79,7 @@ type CircleBaseInfo struct {
 	Pay              int    `json:"pay" form:"pay" gorm:"column:pay;comment:付费：0否、1是;size:10;"`                                                //付费：0否、1是;size:10
 	Process          int    `json:"process" form:"process" gorm:"column:process;comment:是否开启版块内容人工审核：0 否，1是;size:10;"`                         //是否开启版块内容人工审核：0 否，1是
 	Property         int    `json:"property" form:"property" gorm:"column:property;comment:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）;size:10;"`      //:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
+	UserNum          int    `json:"userNum" form:"userNum" gorm:"column:user_num;comment:用户数;size:10;"`                                        //用户数
 	Sort             int    `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                                   //排序
 	HaveCircle       int    `json:"haveCircle"`                                                                                                //是在圈子里：0否、1是
 }

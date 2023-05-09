@@ -184,7 +184,7 @@ func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(se
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
-	db = db.Where("channel_id = 0 and is_public = 1 and check_status=?",
+	db = db.Where("circle_id = 0 and is_public = 1 and check_status=?",
 		community.PostsCheckStatusPass)
 
 	//创建时间降序排列
@@ -235,13 +235,13 @@ func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId u
 	var focusUsersTm []tmpUpdate
 	db1 := global.GVA_DB.Model(&community.UserExtend{}).Select("id,update_forum_posts_time as tm").Where("id in ?", ids)
 	db1 = db1.Order("update_forum_posts_time desc")
-	err = db1.Limit(limit).Offset(offset).Find(&focusUsersTm).Error
+	err = db1.Find(&focusUsersTm).Error
 	if err != nil {
 		return
 	}
 	var size = len(focusUsersTm)
 	if size == 0 {
-		return
+		return hkForumPosts, total, err
 	}
 	var idEx = make([]uint64, size)
 	for index, v := range focusUsersTm {
@@ -250,7 +250,7 @@ func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId u
 	//查询最新发布的帖子
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	db = db.Where("user_id in ?", idEx)
-	db = db.Where("channel_id = 0 and is_public = 1 and check_status=?",
+	db = db.Where("is_public = 1 and check_status=?",
 		community.PostsCheckStatusPass)
 
 	//创建时间降序排列
@@ -285,7 +285,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendQuestionList
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
-	db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
+	db = db.Where("circle_id = 0 and is_public = 1 AND check_status=? AND category = ?",
 		community.PostsCheckStatusPass,
 		community.PostsCategoryQuestion)
 
@@ -316,7 +316,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
 	}
 
-	db = db.Where("channel_id = 0 and is_public = 1 and check_status=? and category = ?",
+	db = db.Where("circle_id = 0 and is_public = 1 and check_status=? and category = ?",
 		community.PostsCheckStatusPass,
 		community.PostsCategoryActivity)
 
@@ -453,8 +453,20 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(select
 	db = db.Where("circle_id = ?", info.CircleId)
 
 	//帖子分类编号
-	if info.ChannelId > 0 {
-		db = db.Where("channel_id = ?", info.ChannelId)
+	if info.ChannelId > community.CircleChannelAll {
+		if info.ChannelId == community.CircleChannelQuestion {
+			db = db.Where("channel_id = 0 AND category = ?", community.PostsCategoryQuestion)
+		} else if info.ChannelId == community.CircleChannelDynamic {
+			db = db.Where("channel_id = 0 AND category = ?", community.PostsCategoryDynamic)
+		} else if info.ChannelId == community.CircleChannelNews {
+			db = db.Where("channel_id = 0 AND category = ?", community.PostsCategoryNews)
+		} else if info.ChannelId == community.CircleChannelActivity {
+			db = db.Where("channel_id = 0 AND category = ?", community.PostsCategoryActivity)
+		} else if info.ChannelId == community.CircleChannelArticle {
+			db = db.Where("channel_id = 0 AND category = ?", community.PostsCategoryArticle)
+		} else {
+			db = db.Where("channel_id = ?", info.ChannelId)
+		}
 	}
 	if len(info.Keyword) != 0 {
 		db = db.Where("title LIKE ?", "%"+info.Keyword+"%")

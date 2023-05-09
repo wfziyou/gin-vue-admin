@@ -70,6 +70,6 @@ func (circleChannelService *AppCircleChannelService) GetDefaultChannelInfoList(c
 	// 创建db
 	db := global.GVA_DB.Model(&community.CircleChannelInfo{})
 	var hkChannels []community.CircleChannelInfo
-	err = db.Where("circle_id = 0 OR circle_id = ?", circleId).Find(&hkChannels).Error
+	err = db.Where("circle_id = 0 OR circle_id = ?", circleId).Order("id").Find(&hkChannels).Error
 	return hkChannels, err
 }
