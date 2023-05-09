@@ -218,8 +218,9 @@ func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId u
 		return
 	}
 	var focusUsersSize = len(focusUsers)
+	var hkForumPosts []community.ForumPostsBaseInfo
 	if focusUsersSize == 0 {
-		return
+		return hkForumPosts, total, err
 	}
 	var ids = make([]uint64, focusUsersSize)
 	for index, v := range focusUsers {
@@ -248,7 +249,6 @@ func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId u
 	}
 	//查询最新发布的帖子
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPosts []community.ForumPostsBaseInfo
 	db = db.Where("user_id in ?", idEx)
 	db = db.Where("channel_id = 0 and is_public = 1 and check_status=?",
 		community.PostsCheckStatusPass)

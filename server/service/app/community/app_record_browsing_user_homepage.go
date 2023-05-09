@@ -103,6 +103,9 @@ func (hkRecordBrowsingUserHomepageService *RecordBrowsingUserHomepageService) Ge
 }
 
 func (hkRecordBrowsingUserHomepageService *RecordBrowsingUserHomepageService) BrowsingUser(browser uint64, userId uint64) (err error) {
+	if browser == userId {
+		return
+	}
 	obj := community.RecordBrowsingUserHomepage{}
 	err = global.GVA_DB.Where("browser= ? AND user_id = ?", browser, userId).First(&obj).Error
 	curTime := time.Now()

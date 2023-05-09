@@ -14,7 +14,7 @@ type RecordBrowsingUserHomepage struct {
 	BrowseTime   time.Time    `json:"browseTime" form:"browseTime" gorm:"column:browse_time;comment:浏览时间;"`
 	BrowseNum    int          `json:"browseNum" form:"browseNum" gorm:"column:browse_num;comment:浏览次数;size:10;"`
 	BrowseData   string       `json:"browseData" form:"browseData" gorm:"column:browse_data;comment:浏览数据;size:2048;"`
-	UserBaseInfo UserBaseInfo `json:"userBaseInfo" gorm:"foreignKey:ID;references:Browser;comment:用户基本信息"` //用户基本信息
+	UserBaseInfo UserBaseInfo `json:"userBaseInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"` //用户基本信息
 }
 
 // TableName RecordBrowsingUserHomepage 表名

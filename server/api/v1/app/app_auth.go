@@ -475,7 +475,19 @@ func TokenNext(c *gin.Context, user community.User) {
 
 func ImLogin(user community.User) error {
 	if global.GVA_CONFIG.System.ImType == "open-im" {
-
+		var req openImReq.UserGetUinfosActionReq
+		req.Accids = []string{utils.UuidTo32String(user.Uuid)}
+		if rsp, err := openImService.ServiceGroupApp.UserGetUinfosAction(req); err != nil {
+			global.GVA_LOG.Debug("调用IM失败：UserGetUinfosAction."+err.Error(), zap.Error(err))
+			return err
+		} else if rsp.Code == 414 {
+			err = ImRegiser(user)
+			if err != nil {
+				return err
+			}
+		} else {
+			global.GVA_LOG.Debug("调用IM：UserGetUinfosAction code:" + strconv.Itoa(rsp.Code))
+		}
 	} else if global.GVA_CONFIG.System.ImType == "yunxin-im" {
 		var req yunXinImReq.UserGetUinfosActionReq
 		req.Accids = []string{utils.UuidTo32String(user.Uuid)}

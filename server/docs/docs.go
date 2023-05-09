@@ -3920,20 +3920,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "应用分组_编号",
-                        "name": "applyGroupId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
                         "description": "圈子_编号",
                         "name": "circleId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
                         "in": "query"
                     },
                     {
@@ -3941,11 +3929,58 @@ var doc = `{
                         "description": "名称别名",
                         "name": "showName",
                         "in": "query"
-                    },
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回apply.CircleApply",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/apply.CircleApply"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circleApply/getCircleHotApplyList": {
+            "get": {
+                "security": [
                     {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子应用"
+                ],
+                "summary": "获取圈子热门应用列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
                         "in": "query"
                     }
                 ],
@@ -3993,7 +4028,7 @@ var doc = `{
                 "tags": [
                     "圈子应用"
                 ],
-                "summary": "获取UserCircleApply列表",
+                "summary": "(废掉)获取UserCircleApply列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -4046,10 +4081,10 @@ var doc = `{
                 "tags": [
                     "圈子应用"
                 ],
-                "summary": "设置UserCircleApply",
+                "summary": "(废掉)设置UserCircleApply",
                 "parameters": [
                     {
-                        "description": "设置UserCircleApply",
+                        "description": "(废掉)设置UserCircleApply",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -15367,6 +15402,10 @@ var doc = `{
                     "description": "应用_编号",
                     "type": "integer"
                 },
+                "browseNum": {
+                    "description": "浏览次数",
+                    "type": "integer"
+                },
                 "circleId": {
                     "description": "圈子_编号",
                     "type": "integer"
@@ -15377,6 +15416,10 @@ var doc = `{
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "power": {
+                    "description": "权限：0 所有可见 1 圈内成员可见",
                     "type": "integer"
                 },
                 "sort": {
@@ -17793,6 +17836,23 @@ var doc = `{
                 }
             }
         },
+        "config.OpenIm": {
+            "type": "object",
+            "properties": {
+                "appKey": {
+                    "description": "云信IM AppKey",
+                    "type": "string"
+                },
+                "appSecret": {
+                    "description": "云信IM AppSecret",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "云信IM 地址",
+                    "type": "string"
+                }
+            }
+        },
         "config.Oracle": {
             "type": "object",
             "properties": {
@@ -18029,6 +18089,9 @@ var doc = `{
                     "description": "oneLogin",
                     "$ref": "#/definitions/config.OneLogin"
                 },
+                "open-im": {
+                    "$ref": "#/definitions/config.OpenIm"
+                },
                 "oracle": {
                     "$ref": "#/definitions/config.Oracle"
                 },
@@ -18172,6 +18235,10 @@ var doc = `{
                 },
                 "env": {
                     "description": "环境值",
+                    "type": "string"
+                },
+                "im-type": {
+                    "description": "im类型",
                     "type": "string"
                 },
                 "iplimit-count": {
@@ -18704,17 +18771,9 @@ var doc = `{
         "general.UserBrowsingHistoryInfo": {
             "type": "object",
             "properties": {
-                "attachment": {
-                    "description": "附件",
-                    "type": "string"
-                },
                 "category": {
                     "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
                     "type": "integer"
-                },
-                "coverImage": {
-                    "description": "封面",
-                    "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
@@ -18724,12 +18783,10 @@ var doc = `{
                     "description": "帖子编号",
                     "type": "integer"
                 },
-                "time": {
-                    "description": "浏览时间",
-                    "type": "string"
+                "postsInfo": {
+                    "$ref": "#/definitions/community.ForumPostsBaseInfo"
                 },
-                "title": {
-                    "description": "标题",
+                "time": {
                     "type": "string"
                 }
             }

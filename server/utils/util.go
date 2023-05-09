@@ -12,6 +12,9 @@ const BrowsingUserNum = 5
 //HomePageTopNewsNum 首页置顶资讯数
 const HomePageTopNewsNum = 3
 
+//CircleHotApplyNum 圈子热门应用数
+const CircleHotApplyNum = 6
+
 // 类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
 const (
 	//VerificationLogin 0登录

@@ -58,6 +58,9 @@ definitions:
       applyId:
         description: 应用_编号
         type: integer
+      browseNum:
+        description: 浏览次数
+        type: integer
       circleId:
         description: 圈子_编号
         type: integer
@@ -66,6 +69,9 @@ definitions:
         type: string
       id:
         description: 主键ID
+        type: integer
+      power:
+        description: 权限：0 所有可见 1 圈内成员可见
         type: integer
       sort:
         description: 排序
@@ -1800,6 +1806,18 @@ definitions:
         description: 是 暂时填写"0"，填写“1”时，将对服务器 IP 白名单进行强校验（后续将强制要求 IP 强校验）
         type: string
     type: object
+  config.OpenIm:
+    properties:
+      appKey:
+        description: 云信IM AppKey
+        type: string
+      appSecret:
+        description: 云信IM AppSecret
+        type: string
+      url:
+        description: 云信IM 地址
+        type: string
+    type: object
   config.Oracle:
     properties:
       config:
@@ -1971,6 +1989,8 @@ definitions:
       oneLogin:
         $ref: '#/definitions/config.OneLogin'
         description: oneLogin
+      open-im:
+        $ref: '#/definitions/config.OpenIm'
       oracle:
         $ref: '#/definitions/config.Oracle'
       param:
@@ -2074,6 +2094,9 @@ definitions:
         type: string
       env:
         description: 环境值
+        type: string
+      im-type:
+        description: im类型
         type: string
       iplimit-count:
         type: integer
@@ -2448,26 +2471,18 @@ definitions:
     type: object
   general.UserBrowsingHistoryInfo:
     properties:
-      attachment:
-        description: 附件
-        type: string
       category:
         description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
         type: integer
-      coverImage:
-        description: 封面
-        type: string
       id:
         description: 主键ID
         type: integer
       postsId:
         description: 帖子编号
         type: integer
+      postsInfo:
+        $ref: '#/definitions/community.ForumPostsBaseInfo'
       time:
-        description: 浏览时间
-        type: string
-      title:
-        description: 标题
         type: string
     type: object
   general.UserCollectInfo:
@@ -6517,25 +6532,13 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 应用分组_编号
-        in: query
-        name: applyGroupId
-        type: integer
       - description: 圈子_编号
         in: query
         name: circleId
         type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 名称别名
         in: query
         name: showName
-        type: string
-      - description: 创建时间（开始）
-        in: query
-        name: startCreatedAt
         type: string
       produces:
       - application/json
@@ -6556,6 +6559,36 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 获取CircleApply列表
+      tags:
+      - 圈子应用
+  /app/circleApply/getCircleHotApplyList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回apply.CircleApply
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/apply.CircleApply'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取圈子热门应用列表
       tags:
       - 圈子应用
   /app/circleApply/getUserCircleApplyListAll:
@@ -6585,7 +6618,7 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 获取UserCircleApply列表
+      summary: (废掉)获取UserCircleApply列表
       tags:
       - 圈子应用
   /app/circleApply/setUserCircleApply:
@@ -6593,7 +6626,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 设置UserCircleApply
+      - description: (废掉)设置UserCircleApply
         in: body
         name: data
         required: true
@@ -6608,7 +6641,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 设置UserCircleApply
+      summary: (废掉)设置UserCircleApply
       tags:
       - 圈子应用
   /app/fileUploadAndDownload/breakpointContinue:

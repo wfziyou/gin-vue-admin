@@ -15,10 +15,10 @@ func (router *CircleApplyRouter) InitCircleApplyRouter(Router *gin.RouterGroup) 
 	circleApplyRouterWithoutRecord := appRouter.Group("circleApply")
 	var circleApplyApi = v1.ApiGroupApp.AppApiGroup.CircleApplyApi
 	{
-		circleApplyRouter.POST("setUserCircleApply", circleApplyApi.SetUserCircleApply) //设置UserCircleApply
+		circleApplyRouter.POST("setUserCircleApply", circleApplyApi.SetUserCircleApply) //(废掉)设置UserCircleApply
 	}
 	{
-		circleApplyRouterWithoutRecord.GET("getUserCircleApplyListAll", circleApplyApi.GetUserCircleApplyListAll)   //获取UserCircleApply列表
+		circleApplyRouterWithoutRecord.GET("getUserCircleApplyListAll", circleApplyApi.GetUserCircleApplyListAll)   //(废掉)获取UserCircleApply列表
 		circleApplyRouterWithoutRecord.GET("findApply", circleApplyApi.FindApply)                                   //用id查询Apply
 		circleApplyRouterWithoutRecord.GET("getApplyList", circleApplyApi.GetApplyList)                             //分页获取Apply列表
 		circleApplyRouterWithoutRecord.GET("getApplyListAll", circleApplyApi.GetApplyListAll)                       //获取Apply列表
@@ -28,6 +28,7 @@ func (router *CircleApplyRouter) InitCircleApplyRouter(Router *gin.RouterGroup) 
 		circleApplyRouterWithoutRecord.GET("getCircleApplyGroupList", circleApplyApi.GetCircleApplyGroupList)       //分页获取CircleApplyGroup列表
 		circleApplyRouterWithoutRecord.GET("getCircleApplyGroupListAll", circleApplyApi.GetCircleApplyGroupListAll) //获取CircleApplyGroup列表
 		circleApplyRouterWithoutRecord.GET("getCircleClassifyListAll", circleApplyApi.GetCircleApplyGroupListAll)   //获取CircleApplyGroup列表
+		circleApplyRouterWithoutRecord.GET("getCircleHotApplyList", circleApplyApi.GetCircleHotApplyList)           //获取圈子热门应用列表
 	}
 	return circleApplyRouter
 }
