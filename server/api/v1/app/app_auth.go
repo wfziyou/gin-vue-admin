@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	authReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/auth/request"
@@ -50,15 +51,15 @@ func (authApi *AuthApi) GetThirdPlat(c *gin.Context) {
 // @Success  200   {object}  response.Response{data=authRes.LoginResponse,msg=string}  "返回LoginResponse"
 // @Router   /app/auth/loginPwd [post]
 func (authApi *AuthApi) LoginPwd(c *gin.Context) {
-	var l authReq.LoginPwd
-	err := c.ShouldBindJSON(&l)
+	var req authReq.LoginPwd
+	err := c.ShouldBindJSON(&req)
 	key := c.ClientIP()
 
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	err = utils.Verify(l, utils.AppLoginVerify)
+	err = utils.Verify(req, utils.AppLoginVerify)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
@@ -75,7 +76,7 @@ func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 	var oc bool = openCaptcha == 0 || openCaptcha < utils.InterfaceToInt(v)
 
 	if !oc {
-		u := &community.User{Account: l.Account, Password: l.Password}
+		u := &community.User{Account: req.Account, Password: req.Password}
 		user, err := appUserService.Login(u)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
@@ -91,10 +92,10 @@ func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 			response.FailWithMessage("用户被禁止登录", c)
 			return
 		}
-		TokenNext(c, *user)
+		TokenNext(c, *user, req.Platform)
 		return
 	} else if openCaptcha == 0 {
-		u := &community.User{Account: l.Account, Password: l.Password}
+		u := &community.User{Account: req.Account, Password: req.Password}
 		user, err := appUserService.Login(u)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
@@ -106,7 +107,7 @@ func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 			response.FailWithMessage("用户被禁止登录", c)
 			return
 		}
-		TokenNext(c, *user)
+		TokenNext(c, *user, req.Platform)
 		return
 	}
 	// 验证码次数+1
@@ -156,12 +157,12 @@ func (authApi *AuthApi) LoginTelephone(c *gin.Context) {
 				return
 			}
 			user = &userObj
-			err = ImRegiser(userObj)
+			err = ImRegiser(userObj, req.Platform)
 			if err != nil {
 				response.FailWithMessage(err.Error(), c)
 				return
 			}
-			TokenNext(c, *user)
+			TokenNext(c, *user, req.Platform)
 			return
 		} else {
 			if user.Status != 0 {
@@ -169,7 +170,7 @@ func (authApi *AuthApi) LoginTelephone(c *gin.Context) {
 				response.FailWithMessage("用户被禁止登录", c)
 				return
 			}
-			TokenNext(c, *user)
+			TokenNext(c, *user, req.Platform)
 			return
 		}
 	}
@@ -222,12 +223,12 @@ func (authApi *AuthApi) LoginOneClick(c *gin.Context) {
 			return
 		}
 		user = &userObj
-		err = ImRegiser(userObj)
+		err = ImRegiser(userObj, req.Platform)
 		if err != nil {
 			response.FailWithMessage(err.Error(), c)
 			return
 		}
-		TokenNext(c, *user)
+		TokenNext(c, *user, req.Platform)
 		return
 	} else {
 		if user.Status != 0 {
@@ -235,7 +236,7 @@ func (authApi *AuthApi) LoginOneClick(c *gin.Context) {
 			response.FailWithMessage("用户被禁止登录", c)
 			return
 		}
-		TokenNext(c, *user)
+		TokenNext(c, *user, req.Platform)
 		return
 	}
 }
@@ -248,26 +249,26 @@ func (authApi *AuthApi) LoginOneClick(c *gin.Context) {
 // @Success  200   {object}  response.Response{data=authRes.RegisterResponse,msg=string}  "返回RegisterResponse"
 // @Router   /app/auth/register [post]
 func (authApi *AuthApi) Register(c *gin.Context) {
-	var r authReq.Register
-	err := c.ShouldBindJSON(&r)
+	var req authReq.Register
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	err = utils.Verify(r, utils.RegisterVerify)
+	err = utils.Verify(req, utils.RegisterVerify)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
-	user := &community.User{Account: r.Account, Password: r.Password}
+	user := &community.User{Account: req.Account, Password: req.Password}
 	userInfo, err := appUserService.Register(*user)
 	if err != nil {
 		global.GVA_LOG.Error("注册失败!", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
 		return
 	} else {
-		err = ImRegiser(userInfo)
+		err = ImRegiser(userInfo, req.Platform)
 		if err != nil {
 			response.FailWithMessage(err.Error(), c)
 			return
@@ -400,7 +401,7 @@ func (authApi *AuthApi) ResetPassword(c *gin.Context) {
 }
 
 // TokenNext 登录以后签发jwt
-func TokenNext(c *gin.Context, user community.User) {
+func TokenNext(c *gin.Context, user community.User, platform int) {
 	j := &utils.JWT{SigningKey: []byte(global.GVA_CONFIG.JWT.SigningKey)} // 唯一签名
 	claims := j.CreateClaims(systemReq.BaseClaims{
 		UUID:        user.Uuid,
@@ -409,13 +410,14 @@ func TokenNext(c *gin.Context, user community.User) {
 		Username:    user.Account,
 		AuthorityId: user.AuthorityId,
 	})
+	clientIp := c.ClientIP()
 	token, err := j.CreateToken(claims)
 	if err != nil {
 		global.GVA_LOG.Error("获取token失败!", zap.Error(err))
 		response.FailWithMessage("获取token失败", c)
 		return
 	}
-	if err := ImLogin(user); err != nil {
+	if err := ImLogin(user, platform, clientIp); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -473,20 +475,28 @@ func TokenNext(c *gin.Context, user community.User) {
 	}
 }
 
-func ImLogin(user community.User) error {
+func ImLogin(user community.User, platform int, clientIp string) error {
 	if global.GVA_CONFIG.System.ImType == "open-im" {
-		var req openImReq.UserGetUinfosActionReq
-		req.Accids = []string{utils.UuidTo32String(user.Uuid)}
-		if rsp, err := openImService.ServiceGroupApp.UserGetUinfosAction(req); err != nil {
-			global.GVA_LOG.Debug("调用IM失败：UserGetUinfosAction."+err.Error(), zap.Error(err))
+		userToken := openImReq.UserTokenReq{
+			Platform: platform,
+			UserID:   strconv.FormatUint(user.ID, 10),
+			LoginIp:  clientIp,
+		}
+		if rsp, err := openImService.ServiceGroupApp.UserToken(userToken); err != nil {
+			global.GVA_LOG.Debug("open-im：GetUserInfo."+err.Error(), zap.Error(err))
 			return err
 		} else if rsp.Code == 414 {
-			err = ImRegiser(user)
+			err = ImRegiser(user, platform)
 			if err != nil {
 				return err
+			} else {
+				_, err = openImService.ServiceGroupApp.UserToken(userToken)
 			}
+		} else if rsp.Code != 0 {
+			global.GVA_LOG.Debug("open-im：UserToken code:" + strconv.Itoa(rsp.Code))
+			return errors.New("open-im：UserToken code:" + strconv.Itoa(rsp.Code))
 		} else {
-			global.GVA_LOG.Debug("调用IM：UserGetUinfosAction code:" + strconv.Itoa(rsp.Code))
+			user.ImToken = rsp.UserToken.Token
 		}
 	} else if global.GVA_CONFIG.System.ImType == "yunxin-im" {
 		var req yunXinImReq.UserGetUinfosActionReq
@@ -495,7 +505,7 @@ func ImLogin(user community.User) error {
 			global.GVA_LOG.Debug("调用IM失败：UserGetUinfosAction."+err.Error(), zap.Error(err))
 			return err
 		} else if rsp.Code == 414 {
-			err = ImRegiser(user)
+			err = ImRegiser(user, platform)
 			if err != nil {
 				return err
 			}
@@ -507,10 +517,11 @@ func ImLogin(user community.User) error {
 }
 
 // ImRegiser 调用IM注册
-func ImRegiser(user community.User) error {
+func ImRegiser(user community.User, platform int) error {
 	if global.GVA_CONFIG.System.ImType == "open-im" {
 		var req openImReq.RegisterReq
-		req.UserID = utils.UuidTo32String(user.Uuid)
+		req.Platform = platform
+		req.UserID = strconv.FormatUint(user.ID, 10)
 		req.Nickname = user.NickName
 		req.FaceURL = user.HeaderImg
 		req.Gender = user.Sex
@@ -519,7 +530,7 @@ func ImRegiser(user community.User) error {
 		req.Email = user.Email
 		req.CreateTime = user.CreatedAt.Unix()
 
-		if rsp, err := openImService.ServiceGroupApp.UserCreateAction(req); err != nil {
+		if rsp, err := openImService.ServiceGroupApp.UserRegister(req); err != nil {
 			global.GVA_LOG.Error("调用IM失败：UserCreateAction."+err.Error(), zap.Error(err))
 			return err
 		} else if rsp.Code != 414 && rsp.Code != 200 {

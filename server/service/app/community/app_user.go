@@ -10,6 +10,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
+	"math/rand"
 	"time"
 )
 
@@ -22,16 +23,29 @@ type AppUserService struct {
 //@param: u model.SysUser
 //@return: userInter community.User, err error
 
-func (appUserService *AppUserService) Register(u community.User) (userInter community.User, err error) {
-	var user community.User
-	if !errors.Is(global.GVA_DB.Where("account = ?", u.Account).First(&user).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
+func (appUserService *AppUserService) Register(user community.User) (userInter community.User, err error) {
+	var userTmp community.User
+	if !errors.Is(global.GVA_DB.Where("account = ?", user.Account).First(&userTmp).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
 		return userInter, errors.New("用户名已注册")
 	}
 	// 否则 附加uuid 密码hash加密 注册
-	u.Password = utils.BcryptHash(u.Password)
-	u.Uuid = uuid.NewV4()
-	err = global.GVA_DB.Create(&u).Error
-	return u, err
+	user.Password = utils.BcryptHash(user.Password)
+	user.Uuid = uuid.NewV4()
+	err = global.GVA_DB.Create(&user).Error
+	if err == nil {
+		var userCovers []community.UserCoverImage
+		err := global.GVA_DB.Model(&community.UserCoverImage{}).Where("account = ?", user.Account).Find(&userCovers)
+		size := len(userCovers)
+		var coverImage string
+		if err == nil && size > 0 {
+			rand.Seed(time.Now().Unix())
+			coverImage = userCovers[rand.Intn(size)].CoverImage
+		}
+		if len(coverImage) > 0 {
+			appUserService.UpdateUserCover(user.ID, coverImage)
+		}
+	}
+	return user, err
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
@@ -265,6 +279,7 @@ func (appUserService *AppUserService) GetUserInfo(selectUserId uint64, id uint64
 		userInfo.Birthday = user.Birthday
 		userInfo.Sex = user.Sex
 		userInfo.Description = user.Description
+		userInfo.CoverImage = user.UserExtend.CoverImage
 		userInfo.NumCircle = user.UserExtend.NumCircle
 		userInfo.NumFocus = user.UserExtend.NumFocus
 		userInfo.NumFan = user.UserExtend.NumFan
@@ -456,6 +471,19 @@ func (appUserService *AppUserService) UpdatePostsTime(userId uint64) (err error)
 		var updateData map[string]interface{}
 		updateData = make(map[string]interface{})
 		updateData["update_forum_posts_time"] = time.Now()
+		err = db.Where("id = ?", userId).Updates(updateData).Error
+	}
+	return err
+}
+func (appUserService *AppUserService) UpdateUserCover(userId uint64, coverImage string) (err error) {
+	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}, CoverImage: coverImage}
+	db := global.GVA_DB.Model(&obj)
+	if errors.Is(db.Where("id = ?", userId).First(&obj).Error, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&obj).Error
+	} else {
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["cover_image"] = coverImage
 		err = db.Where("id = ?", userId).Updates(updateData).Error
 	}
 	return err

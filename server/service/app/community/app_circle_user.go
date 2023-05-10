@@ -17,6 +17,7 @@ func (appCircleUserService *AppCircleUserService) CreateCircleUser(hkCircleUser 
 	err = global.GVA_DB.Create(&hkCircleUser).Error
 	if err == nil {
 		err = appCircleUserService.UpdateCircleUserCount(hkCircleUser.CircleId)
+		appCircleUserService.UpdateUserNumCircle(hkCircleUser.UserId)
 	}
 	return err
 }
@@ -27,6 +28,7 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleUser(hkCircleUser 
 	err = global.GVA_DB.Delete(&hkCircleUser).Error
 	if err == nil {
 		err = appCircleUserService.UpdateCircleUserCount(hkCircleUser.CircleId)
+		appCircleUserService.UpdateUserNumCircle(hkCircleUser.UserId)
 	}
 	return err
 }
@@ -34,13 +36,20 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleUserInfo(hkCircleU
 	err = global.GVA_DB.Delete(&hkCircleUser).Error
 	if err == nil {
 		err = appCircleUserService.UpdateCircleUserCount(hkCircleUser.CircleId)
+		appCircleUserService.UpdateUserNumCircle(hkCircleUser.UserId)
 	}
 	return err
 }
 func (appCircleUserService *AppCircleUserService) DeleteCircleUsers(circleId uint64, userIds []uint64) (err error) {
+	if len(userIds) == 0 {
+		return nil
+	}
 	err = global.GVA_DB.Delete(&[]community.CircleUser{}, "circle_id = ? and user_id in ?", circleId, userIds).Error
 	if err == nil {
 		err = appCircleUserService.UpdateCircleUserCount(circleId)
+		for _, userId := range userIds {
+			appCircleUserService.UpdateUserNumCircle(userId)
+		}
 	}
 	return err
 }
@@ -171,6 +180,25 @@ func (appCircleUserService *AppCircleUserService) UpdateCircleUserCount(circleId
 	num, err := appCircleUserService.GetCircleUserCount(circleId)
 	if err == nil {
 		err = global.GVA_DB.Model(community.Circle{}).Where("id = ?", circleId).Update("user_num", num).Error
+	}
+	return err
+}
+func (appCircleUserService *AppCircleUserService) UpdateUserNumCircle(userId uint64) (err error) {
+	numCircle := int64(0)
+	err = global.GVA_DB.Model(&community.CircleUser{}).Where("user_id = ?", userId).Count(&numCircle).Error
+	if err != nil {
+		return
+	}
+
+	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}, NumCircle: numCircle}
+	db := global.GVA_DB.Model(&obj)
+	if errors.Is(db.Where("id = ?", userId).First(&obj).Error, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&obj).Error
+	} else {
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["num_circle"] = numCircle
+		err = db.Where("id = ?", userId).Updates(updateData).Error
 	}
 	return err
 }

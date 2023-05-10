@@ -1,7 +1,7 @@
 package service
 
 type ServiceGroup struct {
-	YunXinImService
+	OpenImService
 }
 
 var ServiceGroupApp = new(ServiceGroup)

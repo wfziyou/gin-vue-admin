@@ -14,6 +14,7 @@ type UserExtend struct {
 	Weixin               string     `json:"weixin" form:"weixin" gorm:"column:weixin;comment:微信;size:32;"`                                  //微信
 	Qq                   string     `json:"qq" form:"qq" gorm:"column:qq;comment:qq;size:32;"`                                              //qq
 	Blog                 string     `json:"blog" form:"blog" gorm:"column:blog;comment:博客;size:500;"`                                       //博客
+	CoverImage           string     `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:主页封面;size:256;"`                  //主页封面
 	NumCircle            int64      `json:"numCircle" form:"numCircle" gorm:"type:bigint(20);column:num_circle;comment:圈子数;"`               //圈子数
 	NumFocus             int64      `json:"numFocus" form:"numFocus" gorm:"type:bigint(20);column:num_focus;comment:关注数;"`                  //关注数
 	NumFan               int64      `json:"numFan" form:"numFan" gorm:"type:bigint(20);column:num_fan;comment:粉丝数;"`                        //粉丝数

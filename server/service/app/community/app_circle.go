@@ -51,8 +51,8 @@ func (appCircleService *AppCircleService) UpdateCircle(req communityReq.UpdateCi
 	if len(req.Protocol) > 0 {
 		updateData["protocol"] = req.Protocol
 	}
-	if len(req.BackImage) > 0 {
-		updateData["back_image"] = req.BackImage
+	if len(req.CoverImage) > 0 {
+		updateData["cover_image"] = req.CoverImage
 	}
 	if req.Process != nil {
 		updateData["process"] = req.Process
@@ -135,8 +135,6 @@ func (appCircleService *AppCircleService) GetCircleInfoList(info communityReq.Ci
 	return hkCircles, total, err
 }
 
-// GetSelfCircleList 分页获取Circle记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info communityReq.SelfCircleSearch) (list []community.CircleBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
@@ -144,6 +142,7 @@ func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info 
 	db := global.GVA_DB.Model(&community.CircleUser{})
 	var circleUser []community.CircleUser
 
+	db = db.Where("user_id = ?", userId)
 	if len(info.Keyword) > 0 {
 		db = db.Where("circle_name LIKE ?", "%"+info.Keyword+"%")
 	}

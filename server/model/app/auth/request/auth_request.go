@@ -2,25 +2,29 @@ package request
 
 // LoginPwd 登录（账号密码）
 type LoginPwd struct {
+	Platform int    `json:"platform"` // 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
 	Account  string `json:"account"`  // 用户名
 	Password string `json:"password"` // 密码
 }
 
 // LoginTelephone 登录（手机）
 type LoginTelephone struct {
+	Platform  int    `json:"platform"`  // 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
 	Telephone string `json:"telephone"` // 电话号码
 	Captcha   string `json:"captcha"`   // 验证码
 }
 
 // LoginThird 登录（第三方授权）
 type LoginThird struct {
-	Plat string `json:"plat"` //平台
-	Code string `json:"code"` //平台code
+	Platform int    `json:"platform"` // 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+	Plat     string `json:"plat"`     //平台
+	Code     string `json:"code"`     //平台code
 }
 
 // LoginOneClick 一键登录
 type LoginOneClick struct {
-	Token string `json:"token"` //令牌
+	Platform int    `json:"platform"` // 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+	Token    string `json:"token"`    //令牌
 }
 
 // CaptchaReq  验证码请求
@@ -31,6 +35,7 @@ type CaptchaReq struct {
 
 // Register User register structure
 type Register struct {
+	Platform int    `json:"platform"`                  // 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
 	Account  string `json:"account" example:"admin"`   // 用户名
 	Password string `json:"passWord" example:"123456"` // 密码
 	NickName string `json:"nickName" example:"昵称"`     // 昵称

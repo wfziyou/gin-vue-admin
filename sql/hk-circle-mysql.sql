@@ -73,6 +73,7 @@ CREATE TABLE `hk_user_extend`  (
   `wx_profile` json NULL COMMENT '微信用户json信息',
   `qq` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'qq',
   `blog` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '博客',
+  `cover_image` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '封面',
   `num_circle` bigint(20) NULL DEFAULT NULL COMMENT '圈子数',
   `num_focus` bigint(20) NULL DEFAULT NULL COMMENT '关注数',
   `num_fan` bigint(20) NULL DEFAULT NULL COMMENT '粉丝数',
@@ -102,8 +103,29 @@ CREATE TABLE `hk_user_extend`  (
 -- ----------------------------
 -- Records of hk_user_extend
 -- ----------------------------
-INSERT INTO `hk_user_extend` VALUES (2, '000000', '', '', '', NULL, '', '', 0, 1, 1, 0, 999998, 0, 0, NULL, 0, 0, '', '', '', '2023-04-26 16:55:00.384', '2023-04-25 18:42:39.708', '2023-04-26 16:55:00.384', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_user_extend` VALUES (3, '000000', '', '', '', NULL, '', '', 0, 1, 1, 0, 1000000, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.719', '2023-04-25 18:42:39.719', '2023-04-25 18:44:05.785', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_extend` VALUES (2, '000000', '', '', '', NULL, '', '', '', 0, 1, 1, 0, 999998, 0, 0, NULL, 0, 0, '', '', '', '2023-04-26 16:55:00.384', '2023-04-25 18:42:39.708', '2023-04-26 16:55:00.384', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_extend` VALUES (3, '000000', '', '', '', NULL, '', '',  '',0, 1, 1, 0, 1000000, 0, 0, NULL, 0, 0, '', '', '', '2023-04-25 18:42:39.719', '2023-04-25 18:42:39.719', '2023-04-25 18:44:05.785', NULL, NULL, NULL, NULL, 0, 0);
+
+-- ----------------------------
+-- Table structure for hk_user_cover_image
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_user_cover_image`;
+CREATE TABLE `hk_user_cover_image`  (
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '用户ID',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `cover_image` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '封面',
+  `type` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '类型',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',  
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_hk_user_extend_deleted_at`(`deleted_at`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户主页封面' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for hk_user_address
@@ -216,59 +238,61 @@ INSERT INTO `hk_circle_classify` VALUES (9, '000000', NULL, '分类9', NULL, 0, 
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_circle`;
 CREATE TABLE `hk_circle`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `type` int(2) NOT NULL DEFAULT 0 COMMENT '类型：0官方圈子、1用户圈子、2小区',
-   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子名称',
-   `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子Logo',
-   `circle_classify_id` bigint(20) NOT NULL DEFAULT 0 COMMENT '圈子分类_编号',
-   `slogan` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子标语',
-   `des` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子简介',
-   `protocol` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子规约',
-   `back_image` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子背景图',
-   `support_category` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '[1,2,3,4,5,6,7]' COMMENT '支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动',
-   `pay` int(2) NOT NULL DEFAULT 0 COMMENT '付费：0 否，1是',
-   `process` int(2) NOT NULL DEFAULT 0 COMMENT '是否开启版块内容人工审核：0 否，1是',
-   `property` int(2) NOT NULL DEFAULT 0 COMMENT '圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）',
-   `view` int(2) NOT NULL DEFAULT 0 COMMENT '板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到',
-   `power_add` int(2) NOT NULL DEFAULT 0 COMMENT '圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户',
-   `power_view` int(2) NOT NULL DEFAULT 0 COMMENT '圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组',
-   `power_publish` int(2) NOT NULL DEFAULT 0 COMMENT '圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组',
-   `power_comment` int(2) NOT NULL DEFAULT 0 COMMENT '圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组',
-   `power_add_user` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子加入权限_指定部门和成员(json数组)',
-   `power_view_user` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子内浏览权限_指定部门和用户(json数组)',
-   `power_publish_user` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子内发布权限_指定部门和用户(json数组)',
-   `power_comment_user` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子内评论权限_指定部门和用户(json数组)',
-   `no_limit_user_group` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '不受限用户组(json数组)',  
-   `new_user_focus` int(2) NOT NULL DEFAULT 0 COMMENT '新注册用户默认关注：0 否，1是',
-   `channel_id` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '频道_编号',
-   `user_num` int(11) NULL DEFAULT 0 COMMENT '用户数',
-   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子';
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `type` smallint(6) NULL DEFAULT NULL COMMENT '类型：0官方圈子、1用户圈子、2小区',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子名称',
+  `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子Logo',
+  `circle_classify_id` bigint(20) NULL DEFAULT NULL COMMENT '圈子分类_编号',
+  `slogan` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子标语',
+  `des` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子简介',
+  `protocol` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子规约',
+  `cover_image` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子背景图',
+  `support_category` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动',
+  `pay` smallint(6) NULL DEFAULT NULL COMMENT '付费：0否、1是',
+  `process` smallint(6) NULL DEFAULT NULL COMMENT '是否开启版块内容人工审核：0 否，1是',
+  `property` smallint(6) NULL DEFAULT NULL COMMENT '圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）',
+  `view` smallint(6) NULL DEFAULT NULL COMMENT '板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到',
+  `power_add` smallint(6) NULL DEFAULT NULL COMMENT '圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户',
+  `power_view` smallint(6) NULL DEFAULT NULL COMMENT '圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组',
+  `power_publish` smallint(6) NULL DEFAULT NULL COMMENT '圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组',
+  `power_comment` smallint(6) NULL DEFAULT NULL COMMENT '圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组',
+  `power_add_user` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子加入权限_指定部门和成员(json数组)',
+  `power_view_user` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子内浏览权限_指定部门和用户(json数组)',
+  `power_publish_user` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子内发布权限_指定部门和用户(json数组)',
+  `power_comment_user` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子内评论权限_指定部门和用户(json数组)',
+  `no_limit_user_group` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '不受限用户组(json数组)',
+  `new_user_focus` smallint(6) NULL DEFAULT NULL COMMENT '新注册用户默认关注：0 否，1是',
+  `channel_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '频道_编号',
+  `user_num` smallint(6) NULL DEFAULT NULL COMMENT '用户数',
+  `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_hk_circle_deleted_at`(`deleted_at`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子' ROW_FORMAT = Dynamic;
+
 -- ----------------------------
 -- Records of hk_circle
 -- ----------------------------
-INSERT INTO `hk_circle` VALUES (1, '000000', 0, '圈子名称1', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 1, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (2, '000000', 0, '圈子名称2', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 2, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (3, '000000', 0, '圈子名称3', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (4, '000000', 0, '圈子名称4', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (5, '000000', 0, '圈子名称5', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (6, '000000', 0, '圈子名称6', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (7, '000000', 0, '圈子名称7', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (8, '000000', 0, '圈子名称8', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (9, '000000', 0, '圈子名称9', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (10, '000000', 0, '圈子名称10', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (11, '000000', 0, '圈子名称11', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle` VALUES (12, '000000', 0, '圈子名称12', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', 1, '圈子标语内容', '圈子简介内容', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.493', '2023-02-23 10:16:26.493', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle` VALUES (1, '000000', 0, '伐木累', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/b02c8aad08dd7521970237e5cae29006.jpg', 1, 'we are family!', '圈主很懒，什么都没有留下、、、', '请遵守24字社会主义核心价值观', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230509/d83ddab0eaeab0ecccda2f4f8cee1421.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 1, '2023-02-23 10:16:26.000', '2023-05-10 11:00:42.606', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (2, '000000', 0, '音乐发烧友', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/6f0ae71d842f9a3cafd55d45c6a86f2a.png', 1, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/52f7bf7fb12ea2fa12a7ea7015eb3fe3.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 2, '2023-02-23 10:16:26.000', '2023-05-10 11:00:12.639', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (3, '000000', 0, '开黑', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/f05472796ad05bfce93c7c3d60dfaae7.jpg', 7, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/583813a9b9c54bd7b8de1f5e308b869f.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.000', '2023-05-10 10:58:43.683', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (4, '000000', 0, '有道是', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/135ac35db49bfbd90778eb8e8825ce89.jpg', 1, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/37518339a95d26159d8c8d17c4540030.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 1, 3, '2023-02-23 10:16:26.000', '2023-05-10 11:28:20.143', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (5, '000000', 0, '常言道', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/718d153ee540d036cdc12aab1ed8f527.jpg', 1, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/2e1d769d8f483c08d57ea5dad21ab847.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.000', '2023-05-10 10:59:32.186', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (6, '000000', 0, '日常两三事', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/7b715288b69697a6b14b1a1d76c4bf0f.jpg', 2, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/812fbdf567901e4825ff6c60571e54f9.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.000', '2023-05-10 10:57:33.655', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (7, '000000', 0, '靓仔集结地', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/a084db112e39236d0f6ecadc024664b4.jpg', 3, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/2af6a45790953d0aa60e489bb6d2cf0d.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.000', '2023-05-10 10:49:56.234', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (8, '000000', 0, '冲壳子', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/e4e92d12df8c454fffc1e61c90d21cb1.jpg', 5, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/1cec746aff131db639cb1cb4d8f66042.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.000', '2023-05-10 10:56:53.943', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (9, '000000', 0, '慢跑新生活', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/8dab91bf653219b64a607509ff090d0b.jpg', 6, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/135b0a605988a41c79620820997a7813.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.000', '2023-05-10 10:48:43.518', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (10, '000000', 0, '生命在于运动', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/c46e0a49cf261c6665b76074ad83e244.jpg', 8, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/f4f2a800825062b18fba0fb7114e0b5d.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.000', '2023-05-10 11:02:53.527', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (11, '000000', 0, '拒绝emo', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/fa586fc6948931b90c3f3b619bfdb803.jpg', 9, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/370616099cde20906753edd16b809533.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.000', '2023-05-10 10:47:18.889', NULL, -1, -1, 1123598821738675201, 0, 0);
+INSERT INTO `hk_circle` VALUES (12, '000000', 0, '舌尖上的美味', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/2d623d0de89ad33114c890ffa9620eb2.jpg', 4, '圈子标语内容', '圈子简介内容', NULL, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/0f7ac726eb31809c746068e720160e70.jpg', NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 3, '2023-02-23 10:16:26.000', '2023-05-10 10:46:37.760', NULL, -1, -1, 1123598821738675201, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_circle_request

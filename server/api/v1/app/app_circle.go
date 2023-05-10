@@ -768,7 +768,7 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 			Slogan:           req.Slogan,
 			Des:              req.Des,
 			Protocol:         req.Protocol,
-			BackImage:        req.BackImage,
+			CoverImage:       req.CoverImage,
 		}); err != nil {
 			global.GVA_LOG.Error("创建失败!", zap.Error(err))
 			response.FailWithMessage(err.Error(), c)
@@ -785,7 +785,7 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 			Slogan:           req.Slogan,
 			Des:              req.Des,
 			Protocol:         req.Protocol,
-			BackImage:        req.BackImage,
+			CoverImage:       req.CoverImage,
 		})
 	}
 }

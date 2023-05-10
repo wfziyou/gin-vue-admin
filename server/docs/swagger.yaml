@@ -504,6 +504,9 @@ definitions:
         type: string
       birthday:
         type: string
+      cover:
+        description: 主页封面
+        type: string
       description:
         description: 描述
         type: string
@@ -1228,6 +1231,9 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      imToken:
+        description: Im回话
+        type: string
       nickName:
         description: 昵称
         type: string
@@ -1382,6 +1388,9 @@ definitions:
       channelId:
         description: 频道_编号
         type: string
+      cover:
+        description: 主页封面
+        type: string
       createdAt:
         description: 创建时间
         type: string
@@ -1427,6 +1436,9 @@ definitions:
         description: 账号
         type: string
       birthday:
+        type: string
+      cover:
+        description: 主页封面
         type: string
       description:
         description: 描述
@@ -2519,6 +2531,9 @@ definitions:
         description: 密码
         example: "123456"
         type: string
+      platform:
+        description: 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+        type: integer
     type: object
   github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse:
     properties:
@@ -3045,6 +3060,9 @@ definitions:
     type: object
   request.LoginOneClick:
     properties:
+      platform:
+        description: 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+        type: integer
       token:
         description: 令牌
         type: string
@@ -3057,12 +3075,18 @@ definitions:
       password:
         description: 密码
         type: string
+      platform:
+        description: 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+        type: integer
     type: object
   request.LoginTelephone:
     properties:
       captcha:
         description: 验证码
         type: string
+      platform:
+        description: 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+        type: integer
       telephone:
         description: 电话号码
         type: string
@@ -3075,6 +3099,9 @@ definitions:
       plat:
         description: 平台
         type: string
+      platform:
+        description: 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+        type: integer
     type: object
   request.PageInfo:
     properties:

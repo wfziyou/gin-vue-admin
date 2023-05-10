@@ -16013,6 +16013,10 @@ var doc = `{
                 "birthday": {
                     "type": "string"
                 },
+                "cover": {
+                    "description": "主页封面",
+                    "type": "string"
+                },
                 "description": {
                     "description": "描述",
                     "type": "string"
@@ -17016,6 +17020,10 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "imToken": {
+                    "description": "Im回话",
+                    "type": "string"
+                },
                 "nickName": {
                     "description": "昵称",
                     "type": "string"
@@ -17232,6 +17240,10 @@ var doc = `{
                     "description": "频道_编号",
                     "type": "string"
                 },
+                "cover": {
+                    "description": "主页封面",
+                    "type": "string"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
@@ -17293,6 +17305,10 @@ var doc = `{
                     "type": "string"
                 },
                 "birthday": {
+                    "type": "string"
+                },
+                "cover": {
+                    "description": "主页封面",
                     "type": "string"
                 },
                 "description": {
@@ -18836,6 +18852,10 @@ var doc = `{
                     "description": "密码",
                     "type": "string",
                     "example": "123456"
+                },
+                "platform": {
+                    "description": "平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin",
+                    "type": "integer"
                 }
             }
         },
@@ -19590,6 +19610,10 @@ var doc = `{
         "request.LoginOneClick": {
             "type": "object",
             "properties": {
+                "platform": {
+                    "description": "平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin",
+                    "type": "integer"
+                },
                 "token": {
                     "description": "令牌",
                     "type": "string"
@@ -19606,6 +19630,10 @@ var doc = `{
                 "password": {
                     "description": "密码",
                     "type": "string"
+                },
+                "platform": {
+                    "description": "平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin",
+                    "type": "integer"
                 }
             }
         },
@@ -19615,6 +19643,10 @@ var doc = `{
                 "captcha": {
                     "description": "验证码",
                     "type": "string"
+                },
+                "platform": {
+                    "description": "平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin",
+                    "type": "integer"
                 },
                 "telephone": {
                     "description": "电话号码",
@@ -19632,6 +19664,10 @@ var doc = `{
                 "plat": {
                     "description": "平台",
                     "type": "string"
+                },
+                "platform": {
+                    "description": "平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin",
+                    "type": "integer"
                 }
             }
         },

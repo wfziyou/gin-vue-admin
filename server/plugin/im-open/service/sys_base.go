@@ -3,8 +3,6 @@ package service
 import (
 	"crypto/sha1"
 	"encoding/hex"
-	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/alibabacloud-go/tea/tea"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open/config"
@@ -16,13 +14,12 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"net/http"
-	"net/url"
 	"strconv"
 	"strings"
 	"time"
 )
 
-type YunXinImService struct{}
+type OpenImService struct{}
 
 /**
  * 使用AK&SK初始化账号Client
@@ -46,53 +43,48 @@ func CreateClient(url *string, appKey *string, appSecret *string) (_result *util
 	return _result, _err
 }
 
-func (e *YunXinImService) UserCreateAction(req imReq.RegisterReq) (result *response.RegisterRsp, err error) {
+func (e *OpenImService) UserRegister(req imReq.RegisterReq) (result *response.UserRegisterResp, err error) {
 	client, err := CreateClient(tea.String(global.GlobalConfig.Url), tea.String(global.GlobalConfig.AppKey), tea.String(global.GlobalConfig.AppSecret))
 	if err != nil {
 		return
 	}
 	req.Secret = global.GlobalConfig.AppSecret
-	result = &response.RegisterRsp{}
+	req.OperationID = global.GlobalConfig.AppKey
+	result = &response.UserRegisterResp{}
 	err = client.Post("/auth/user_register", req, result)
 	return
 }
 
-func (e *YunXinImService) UserGetUinfosAction(req imReq.UserGetUinfosActionReq) (result *response.UserGetUinfosActionRsp, err error) {
+func (e *OpenImService) GetUserInfo(req imReq.GetUserInfoReq) (result *response.GetSelfUserInfoResp, err error) {
 	client, err := CreateClient(tea.String(global.GlobalConfig.Url), tea.String(global.GlobalConfig.AppKey), tea.String(global.GlobalConfig.AppSecret))
 	if err != nil {
 		return
 	}
-	if len(req.Accids) == 0 {
-		return nil, errors.New("请输入im账号")
-	}
+	req.OperationID = global.GlobalConfig.AppKey
 
-	postData := url.Values{}
-	if data, err := json.Marshal(req.Accids); err == nil {
-		postData.Add("accids", string(data))
-	}
-
-	result = &response.UserGetUinfosActionRsp{}
-	err = client.Post("/user/getUinfos.action", postData, result)
+	result = &response.GetSelfUserInfoResp{}
+	err = client.Post("/user/get_self_user_info", req, result)
 	return
 }
 
-func (e *YunXinImService) UpdateAction(req imReq.UpdateActionReq) (result *response.ImResponse, err error) {
+func (e *OpenImService) UserToken(req imReq.UserTokenReq) (result *response.UserTokenResp, err error) {
 	client, err := CreateClient(tea.String(global.GlobalConfig.Url), tea.String(global.GlobalConfig.AppKey), tea.String(global.GlobalConfig.AppSecret))
 	if err != nil {
 		return
 	}
-	if len(req.Accid) == 0 {
-		return nil, errors.New("请输入im账号")
+	req.Secret = global.GlobalConfig.AppSecret
+	req.OperationID = global.GlobalConfig.AppKey
+	result = &response.UserTokenResp{}
+	err = client.Post("/auth/user_token", req, result)
+	return
+}
+func (e *OpenImService) ParseToken(req imReq.ParseTokenReq) (result *response.ParseTokenResp, err error) {
+	client, err := CreateClient(tea.String(global.GlobalConfig.Url), tea.String(global.GlobalConfig.AppKey), tea.String(global.GlobalConfig.AppSecret))
+	if err != nil {
+		return
 	}
-	postData := url.Values{}
-	if len(req.Accid) > 0 {
-		postData.Add("accid", req.Accid)
-	}
-	if len(req.Token) > 0 {
-		postData.Add("token", req.Token)
-	}
-	result = &response.ImResponse{}
-	err = client.Post("/user/update.action", postData, result)
+	result = &response.ParseTokenResp{}
+	err = client.Post("/auth/parse_token", req, result)
 	return
 }
 
