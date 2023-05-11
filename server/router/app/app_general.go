@@ -15,10 +15,7 @@ func (s *GeneralRouter) InitGeneralRouter(Router *gin.RouterGroup) (R gin.IRoute
 	withoutRecord := appRouter.Group("general")
 	var api = v1.ApiGroupApp.AppApiGroup.GeneralApi
 	{
-		router.POST("createBugReport", api.CreateBugReport)         //Bug反馈
-		withoutRecord.GET("findBugReport", api.FindBugReport)       //用id查询Bug反馈
-		withoutRecord.GET("getBugReportList", api.GetBugReportList) //分页获取Bug反馈列表
-		withoutRecord.GET("findMiniProgram", api.FindMiniProgram)   //用id查询小程序
+		withoutRecord.GET("findMiniProgram", api.FindMiniProgram) //用id查询小程序
 	}
 	{
 		withoutRecord.GET("getFeedbackTypeList", api.GetFeedbackTypeList) // 获取反馈类型列表

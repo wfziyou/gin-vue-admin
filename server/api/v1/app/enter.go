@@ -48,12 +48,10 @@ var (
 
 	appReportService                      = service.ServiceGroupApp.AppServiceGroup.Community.AppReportService
 	appReportReasonService                = service.ServiceGroupApp.AppServiceGroup.Community.AppReportReasonService
-	appUserCircleApplyService             = service.ServiceGroupApp.AppServiceGroup.Community.AppUserCircleApplyService
 	hkRecordBrowsingCircleHomepageService = service.ServiceGroupApp.AppServiceGroup.Community.RecordBrowsingCircleHomepageService
 	hkRecordBrowsingUserHomepageService   = service.ServiceGroupApp.AppServiceGroup.Community.RecordBrowsingUserHomepageService
 
 	appProtocolService            = service.ServiceGroupApp.AppServiceGroup.General.AppProtocolService
-	appBugReportService           = service.ServiceGroupApp.AppServiceGroup.General.AppBugReportService
 	appUserCollectService         = service.ServiceGroupApp.AppServiceGroup.General.AppUserCollectService
 	appUserBrowsingHistoryService = service.ServiceGroupApp.AppServiceGroup.General.AppUserBrowsingHistoryService
 	appMiniProgramService         = service.ServiceGroupApp.AppServiceGroup.General.AppMiniProgramService

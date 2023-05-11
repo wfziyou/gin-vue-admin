@@ -525,29 +525,6 @@ INSERT INTO `hk_circle_channel` VALUES (5, '000000', 0, '活动', NULL, 0, NULL,
 INSERT INTO `hk_circle_channel` VALUES (6, '000000', 0, '文章', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
--- Table structure for hk_user_channel
--- ----------------------------
-DROP TABLE IF EXISTS `hk_user_channel`;
-CREATE TABLE `hk_user_channel`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `user_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '用户ID',
-   `channel_id` bigint(20) NULL DEFAULT NULL COMMENT '频道_编号',
-   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
-   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户频道' ROW_FORMAT = Dynamic;
-
-
--- ----------------------------
 -- Table structure for hk_forum_posts
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_forum_posts`;
@@ -886,28 +863,6 @@ INSERT INTO `hk_circle_apply` VALUES (23, '000000', 1, 32, 23, 0, 0, 0, '2023-02
 INSERT INTO `hk_circle_apply` VALUES (24, '000000', 1, 32, 24, 0, 0, 0, '2023-02-21 15:27:07.114', '2023-02-21 15:27:07.114', NULL, 1123598821738675201, 1123598813738675201, 1123598821738675201, 1, 0);
 INSERT INTO `hk_circle_apply` VALUES (25, '000000', 1, 32, 25, 0, 0, 0, '2023-02-21 15:27:07.114', '2023-02-21 15:27:07.114', NULL, 1123598821738675201, 1123598813738675201, 1123598821738675201, 1, 0);
 INSERT INTO `hk_circle_apply` VALUES (26, '000000', 1, 33, 26, 0, 0, 0, '2023-02-21 15:27:07.114', '2023-02-21 15:27:07.114', NULL, 1123598821738675201, 1123598813738675201, 1123598821738675201, 1, 0);
-
--- ----------------------------
--- Table structure for hk_user_circle_apply
--- ----------------------------
-DROP TABLE IF EXISTS `hk_user_circle_apply`;
-CREATE TABLE `hk_user_circle_apply`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-   `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
-   `apply_id` bigint(20) NULL DEFAULT NULL COMMENT '应用_编号',
-   `sort` int(2) NULL DEFAULT 0 COMMENT '排序',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-    PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户圈子应用';
 
 -- ----------------------------
 -- Table structure for hk_forum_topic_group
@@ -1307,53 +1262,6 @@ CREATE TABLE `hk_mini_program_packet`  (
 -- ----------------------------
 INSERT INTO `hk_mini_program_packet` VALUES (1627927490628435969, '000000', 1627919042591342593, '123', 'v2.0',101, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230228/259d4a4197af616373672d2bbc774ff5.wgt', '2023-02-21 15:05:33.000', '2023-02-24 16:41:01.669', NULL, 1123598821738675201, 1123598813738675201, 1123598821738675201, 1, 0);
 INSERT INTO `hk_mini_program_packet` VALUES (1630083744511602690, '000000', 1629014834567827458, 'aaaa', 'v2.1',101, 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230228/259d4a4197af616373672d2bbc774ff5.wgt', '2023-02-24 14:43:28.000', '2023-02-24 15:08:26.394', NULL, 1123598821738675201, 1123598813738675201, 1123598821738675201, 1, 0);
-
--- ----------------------------
--- Table structure for hk_bug_report
--- ----------------------------
-DROP TABLE IF EXISTS `hk_bug_report`;
-CREATE TABLE `hk_bug_report`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-   `title` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '标题',
-   `content` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '操作步骤',
-   `content_attachment` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作步骤附件',
-   `expected_result` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '预期结果',
-   `actual_result` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '实际结果',
-   `actual_result_attachment` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '实际结果附件',
-   `other_info` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '其他信息',
-   `check_status` int(2) NULL DEFAULT NULL COMMENT '处理状态：0 未处理、1 处理中、2 拒绝、3 完成',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'Bug反馈';
-
--- ----------------------------
--- Table structure for hk_user_cur_circle
--- ----------------------------
-DROP TABLE IF EXISTS `hk_user_cur_circle`;
-CREATE TABLE `hk_user_cur_circle`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-   `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-      PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户当前圈子';
 
 -- ----------------------------
 -- Table structure for hk_user_browsing_history

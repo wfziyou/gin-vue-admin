@@ -3,7 +3,6 @@ package app
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/apply/request"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
@@ -12,83 +11,6 @@ import (
 )
 
 type CircleApplyApi struct {
-}
-
-/*************************************
-用户圈子应用
-**************************************/
-
-// GetUserCircleApplyListAll (废掉)获取UserCircleApply列表
-// @Tags 圈子应用
-// @Summary (废掉)获取UserCircleApply列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query communityReq.UserCircleApplySearch true "(废掉)获取UserCircleApply列表"
-// @Success 200 {object}  response.Response{data=[]community.UserCircleApply,msg=string} "返回communityReq.UserCircleApplySearch"
-// @Router /app/circleApply/getUserCircleApplyListAll [get]
-func (circleApplyApi *CircleApplyApi) GetUserCircleApplyListAll(c *gin.Context) {
-	var req communityReq.UserCircleApplySearch
-	err := c.ShouldBindQuery(&req)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-
-	req.UserId = utils.GetUserID(c)
-	if _, err := appCircleUserService.GetCircleUserEx(req.CircleId, req.UserId); err != nil {
-		response.FailWithMessage("用户没有在圈子中", c)
-		return
-	}
-
-	if list, _, err := appUserCircleApplyService.GetUserCircleApplyInfoListALL(req); err != nil {
-		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-		response.FailWithMessage("获取失败", c)
-	} else {
-		response.OkWithDetailed(list, "获取成功", c)
-	}
-}
-
-// SetUserCircleApply (废掉)设置UserCircleApply
-// @Tags 圈子应用
-// @Summary (废掉)设置UserCircleApply
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body communityReq.UserCircleApplyUpdate true "(废掉)设置UserCircleApply"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /app/circleApply/setUserCircleApply [post]
-func (circleApplyApi *CircleApplyApi) SetUserCircleApply(c *gin.Context) {
-	var req communityReq.UserCircleApplyUpdate
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	userId := utils.GetUserID(c)
-	req.UserId = userId
-	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
-		response.FailWithMessage("圈子不存在", c)
-		return
-	}
-
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
-		CircleId: req.CircleId,
-		UserId:   userId,
-		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
-	}); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	} else if len(data) == 0 {
-		response.FailWithMessage("用户不在圈子中", c)
-		return
-	}
-
-	if err = appUserCircleApplyService.SetUserCircleApply(req); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	response.OkWithMessage("设置成功", c)
 }
 
 /*************************************

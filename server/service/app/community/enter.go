@@ -23,7 +23,6 @@ type ServiceGroup struct {
 	AppForumTopicGroupService
 	AppReportService
 	AppReportReasonService
-	AppUserCircleApplyService
 	AppUserExtendService
 	AppUserService
 	AppForumTopicPostsMappingService
