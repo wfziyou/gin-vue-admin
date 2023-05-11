@@ -3,6 +3,7 @@ package app
 import (
 	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
@@ -433,5 +434,34 @@ func (generalApi *GeneralApi) UpdateDraft(c *gin.Context) {
 		response.FailWithMessage("更新失败", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
+	}
+}
+
+// GetUserCoverImageList 获取用户主页封面列表
+// @Tags 常规方法
+// @Summary 获取用户主页封面列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.UserCoverImageSearch true "获取用户主页封面列表"
+// @Success 200 {object}  response.PageResult{List=[]community.UserCoverImage,msg=string} "返回common.User"
+// @Router /app/general/getUserCoverImageList [get]
+func (generalApi *GeneralApi) GetUserCoverImageList(c *gin.Context) {
+	var req communityReq.UserCoverImageSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if list, total, err := hkUserCoverImageService.GetUserCoverImageList(req); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
 	}
 }

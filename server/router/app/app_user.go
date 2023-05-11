@@ -24,6 +24,9 @@ func (router *UserRouter) InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes
 		userRouter.PUT("setSelfBaseInfo", userApi.SetSelfBaseInfo)      //设置用户基础信息
 		userRouterWithoutRecord.GET("getUserList", userApi.GetUserList) // 分页获取用户列表
 	}
+	{
+		userRouter.POST("setUserCoverImage", userApi.SetUserCoverImage) //设置用户主页封面
+	}
 
 	return userRouter
 }

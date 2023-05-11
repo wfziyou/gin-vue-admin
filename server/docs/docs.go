@@ -1839,6 +1839,59 @@ var doc = `{
                 }
             }
         },
+        "/app/circle/addCircleChannel": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)添加圈子频道",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)添加圈子频道",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamAddCircleChannel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.CircleChannel",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.CircleChannel"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/applyEnterCircle": {
             "post": {
                 "security": [
@@ -1984,6 +2037,44 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/deleteCircleChannel": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)删除圈子频道",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)删除圈子频道",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamDeleteCircleChannel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -3291,10 +3382,10 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "设置圈子频道",
+                "summary": "(圈子管理者)设置圈子频道",
                 "parameters": [
                     {
-                        "description": "设置圈子频道",
+                        "description": "(圈子管理者)设置圈子频道",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -4007,97 +4098,6 @@ var doc = `{
                                     }
                                 }
                             ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/circleApply/getUserCircleApplyListAll": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "圈子应用"
-                ],
-                "summary": "(废掉)获取UserCircleApply列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "圈子_编号",
-                        "name": "circleId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回communityReq.UserCircleApplySearch",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/community.UserCircleApply"
-                                            }
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/circleApply/setUserCircleApply": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "圈子应用"
-                ],
-                "summary": "(废掉)设置UserCircleApply",
-                "parameters": [
-                    {
-                        "description": "(废掉)设置UserCircleApply",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.UserCircleApplyUpdate"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 }
@@ -5957,44 +5957,6 @@ var doc = `{
                 }
             }
         },
-        "/app/general/createBugReport": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "常规方法"
-                ],
-                "summary": "Bug反馈",
-                "parameters": [
-                    {
-                        "description": "Bug反馈",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/general.BugReport"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/app/general/createFeedback": {
             "post": {
                 "security": [
@@ -6223,56 +6185,6 @@ var doc = `{
                 }
             }
         },
-        "/app/general/findBugReport": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "常规方法"
-                ],
-                "summary": "用id查询Bug反馈",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "编号",
-                        "name": "id",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回general.BugReport",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/general.BugReport"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
         "/app/general/findDraft": {
             "get": {
                 "security": [
@@ -6457,7 +6369,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回general.BugReport",
+                        "description": "返回general.MiniProgramBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -6568,99 +6480,6 @@ var doc = `{
                                     "properties": {
                                         "data": {
                                             "$ref": "#/definitions/general.Protocol"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/general/getBugReportList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "常规方法"
-                ],
-                "summary": "分页获取Bug反馈列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "处理状态：0 未处理、1 处理中、2 拒绝、3 完成",
-                        "name": "checkStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "标题",
-                        "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "用户编号",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回general.BugReport",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.PageResult"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "List": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/general.BugReport"
-                                            }
                                         },
                                         "msg": {
                                             "type": "string"
@@ -6841,6 +6660,77 @@ var doc = `{
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/general.FeedbackType"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/getUserCoverImageList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "获取用户主页封面列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "类型",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回common.User",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.UserCoverImage"
                                             }
                                         },
                                         "msg": {
@@ -8467,6 +8357,44 @@ var doc = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/request.SetSelfBaseInfoReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/user/setUserCoverImage": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "设置用户主页封面",
+                "parameters": [
+                    {
+                        "description": "设置用户主页封面",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.SetUserCoverImageReq"
                         }
                     }
                 ],
@@ -15603,10 +15531,6 @@ var doc = `{
         "community.Circle": {
             "type": "object",
             "properties": {
-                "backImage": {
-                    "description": "圈子背景图;size:500",
-                    "type": "string"
-                },
                 "channelId": {
                     "description": "频道_编号",
                     "type": "string"
@@ -15614,6 +15538,10 @@ var doc = `{
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
+                },
+                "coverImage": {
+                    "description": "圈子背景图;size:500",
+                    "type": "string"
                 },
                 "createdAt": {
                     "description": "创建时间",
@@ -15838,6 +15766,34 @@ var doc = `{
                 }
             }
         },
+        "community.CircleChannel": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
         "community.CircleClassify": {
             "type": "object",
             "properties": {
@@ -15877,10 +15833,6 @@ var doc = `{
         "community.CircleRequest": {
             "type": "object",
             "properties": {
-                "backImage": {
-                    "description": "圈子背景图",
-                    "type": "string"
-                },
                 "checkStatus": {
                     "description": "审核状态：0 未处理 1 通过，2驳回",
                     "type": "integer"
@@ -15888,6 +15840,10 @@ var doc = `{
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
+                },
+                "coverImage": {
+                    "description": "圈子背景图",
+                    "type": "string"
                 },
                 "createdAt": {
                     "description": "创建时间",
@@ -16013,7 +15969,7 @@ var doc = `{
                 "birthday": {
                     "type": "string"
                 },
-                "cover": {
+                "coverImage": {
                     "description": "主页封面",
                     "type": "string"
                 },
@@ -17176,20 +17132,12 @@ var doc = `{
                 }
             }
         },
-        "community.UserCircleApply": {
+        "community.UserCoverImage": {
             "type": "object",
             "properties": {
-                "apply": {
-                    "description": "应用",
-                    "$ref": "#/definitions/apply.Apply"
-                },
-                "applyId": {
-                    "description": "应用_编号",
-                    "type": "integer"
-                },
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
+                "coverImage": {
+                    "description": "主页封面",
+                    "type": "string"
                 },
                 "createdAt": {
                     "description": "创建时间",
@@ -17199,33 +17147,16 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "sort": {
-                    "description": "排序",
+                "status": {
                     "type": "integer"
                 },
-                "status": {
+                "type": {
+                    "description": "类型",
                     "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
-                },
-                "userId": {
-                    "description": "用户编号",
-                    "type": "integer"
-                }
-            }
-        },
-        "community.UserCircleApplyBaseInfo": {
-            "type": "object",
-            "properties": {
-                "applyId": {
-                    "description": "应用_编号",
-                    "type": "integer"
-                },
-                "sort": {
-                    "description": "排序",
-                    "type": "integer"
                 }
             }
         },
@@ -17240,7 +17171,7 @@ var doc = `{
                     "description": "频道_编号",
                     "type": "string"
                 },
-                "cover": {
+                "coverImage": {
                     "description": "主页封面",
                     "type": "string"
                 },
@@ -17307,7 +17238,7 @@ var doc = `{
                 "birthday": {
                     "type": "string"
                 },
-                "cover": {
+                "coverImage": {
                     "description": "主页封面",
                     "type": "string"
                 },
@@ -18574,62 +18505,6 @@ var doc = `{
                 }
             }
         },
-        "general.BugReport": {
-            "type": "object",
-            "properties": {
-                "actualResult": {
-                    "description": "实际结果",
-                    "type": "string"
-                },
-                "actualResultAttachment": {
-                    "description": "实际结果附件",
-                    "type": "string"
-                },
-                "checkStatus": {
-                    "description": "处理状态：0 未处理、1 处理中、2 拒绝、3 完成",
-                    "type": "integer"
-                },
-                "content": {
-                    "description": "操作步骤",
-                    "type": "string"
-                },
-                "contentAttachment": {
-                    "description": "操作步骤附件",
-                    "type": "string"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "expectedResult": {
-                    "description": "预期结果",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "otherInfo": {
-                    "description": "其他信息",
-                    "type": "string"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "title": {
-                    "description": "标题",
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户编号",
-                    "type": "integer"
-                }
-            }
-        },
         "general.Feedback": {
             "type": "object",
             "properties": {
@@ -19159,13 +19034,13 @@ var doc = `{
         "request.CreateCircleRequestReq": {
             "type": "object",
             "properties": {
-                "backImage": {
-                    "description": "圈子背景图",
-                    "type": "string"
-                },
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
+                },
+                "coverImage": {
+                    "description": "圈子背景图",
+                    "type": "string"
                 },
                 "des": {
                     "description": "圈子简介",
@@ -19688,6 +19563,19 @@ var doc = `{
                 }
             }
         },
+        "request.ParamAddCircleChannel": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                }
+            }
+        },
         "request.ParamCreateCircleTag": {
             "type": "object",
             "properties": {
@@ -19698,6 +19586,21 @@ var doc = `{
                 "name": {
                     "description": "标签名称",
                     "type": "string"
+                }
+            }
+        },
+        "request.ParamDeleteCircleChannel": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             }
         },
@@ -19916,6 +19819,15 @@ var doc = `{
                 }
             }
         },
+        "request.SetUserCoverImageReq": {
+            "type": "object",
+            "properties": {
+                "coverImage": {
+                    "description": "主页封面",
+                    "type": "string"
+                }
+            }
+        },
         "request.SetUserCurCircleReq": {
             "type": "object",
             "properties": {
@@ -20012,7 +19924,7 @@ var doc = `{
         "request.UpdateCircleReq": {
             "type": "object",
             "properties": {
-                "backImage": {
+                "coverImage": {
                     "description": "圈子背景图;size:500",
                     "type": "string"
                 },
@@ -20237,22 +20149,6 @@ var doc = `{
                 },
                 "userId": {
                     "description": "用户ID",
-                    "type": "integer"
-                }
-            }
-        },
-        "request.UserCircleApplyUpdate": {
-            "type": "object",
-            "properties": {
-                "apply": {
-                    "description": "应用列表",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/community.UserCircleApplyBaseInfo"
-                    }
-                },
-                "circleId": {
-                    "description": "圈子_编号",
                     "type": "integer"
                 }
             }

@@ -204,3 +204,29 @@ func (userApi *UserApi) GetUserList(c *gin.Context) {
 		}, "获取成功", c)
 	}
 }
+
+// SetUserCoverImage 设置用户主页封面
+// @Tags      用户
+// @Summary   设置用户主页封面
+// @Security  ApiKeyAuth
+// @accept    application/json
+// @Produce   application/json
+// @Param     data  body      communityReq.SetUserCoverImageReq    true  "设置用户主页封面"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router    /app/user/setUserCoverImage [post]
+func (userApi *UserApi) SetUserCoverImage(c *gin.Context) {
+	var req communityReq.SetUserCoverImageReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	err = appUserService.UpdateUserCoverImage(userId, req.CoverImage)
+	if err != nil {
+		global.GVA_LOG.Error("设置失败!", zap.Error(err))
+		response.FailWithMessage("设置失败", c)
+		return
+	}
+	response.OkWithMessage("设置成功", c)
+}

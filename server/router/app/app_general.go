@@ -35,5 +35,8 @@ func (s *GeneralRouter) InitGeneralRouter(Router *gin.RouterGroup) (R gin.IRoute
 		router.DELETE("deleteDraftByIds", api.DeleteDraftByIds) // 批量删除草稿
 		router.POST("updateDraft", api.UpdateDraft)             // 更新草稿
 	}
+	{
+		withoutRecord.GET("getUserCoverImageList", api.GetUserCoverImageList) // 获取用户主页封面列表
+	}
 	return router
 }

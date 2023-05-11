@@ -499,10 +499,6 @@ CREATE TABLE `hk_circle_channel`  (
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
   `circle_id` bigint(20) NULL DEFAULT NULL COMMENT '圈子_编号',
   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
-  `icon` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图标',
-  `code` int(11) NULL DEFAULT 0 COMMENT '标识：0常规、1资讯、2关注、3附近、4活动、5问答',
-  `fixed_type` tinyint(1) NULL DEFAULT NULL COMMENT '固定标识(不固定:0，固定:1)',
-  `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
@@ -517,12 +513,12 @@ CREATE TABLE `hk_circle_channel`  (
 -- ----------------------------
 -- Records of hk_circle_channel
 -- ----------------------------
-INSERT INTO `hk_circle_channel` VALUES (1, '000000', 0, '全部', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (2, '000000', 0, '问答', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (3, '000000', 0, '动态', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (4, '000000', 0, '资讯', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (5, '000000', 0, '活动', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (6, '000000', 0, '文章', NULL, 0, NULL, NULL, '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (1, '000000', 0, '全部', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (2, '000000', 0, '问答', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (3, '000000', 0, '动态', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (4, '000000', 0, '资讯', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (5, '000000', 0, '活动', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (6, '000000', 0, '文章', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_forum_posts

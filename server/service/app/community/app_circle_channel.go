@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
 type AppCircleChannelService struct {
@@ -26,8 +25,8 @@ func (circleChannelService *AppCircleChannelService) DeleteCircleChannel(hkChann
 
 // DeleteCircleChannelByIds 批量删除CircleChannel记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (circleChannelService *AppCircleChannelService) DeleteCircleChannelByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.CircleChannel{}, "id in ?", ids.Ids).Error
+func (circleChannelService *AppCircleChannelService) DeleteCircleChannelByIds(circleId uint64, ids []uint64) (err error) {
+	err = global.GVA_DB.Delete(&[]community.CircleChannel{}, "circle_id = ? AND id in ?", circleId, ids).Error
 	return err
 }
 
@@ -56,13 +55,13 @@ func (circleChannelService *AppCircleChannelService) GetChannelInfoList() (list 
 }
 
 // GetChannelInfoListById 分页获取CircleChannel记录
-func (circleChannelService *AppCircleChannelService) GetChannelInfoListById(ids string) (list []community.CircleChannelInfo, total int64, err error) {
+func (circleChannelService *AppCircleChannelService) GetChannelInfoListById(ids string) (list []community.CircleChannelInfo, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&community.CircleChannelInfo{})
 	var hkChannels []community.CircleChannelInfo
 	sql := fmt.Sprintf("id in(%s)", ids)
 	err = db.Where(sql).Find(&hkChannels).Error
-	return hkChannels, total, err
+	return hkChannels, err
 }
 
 //GetDefaultChannelInfoList 获取默认频道列表

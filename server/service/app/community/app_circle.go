@@ -1,10 +1,12 @@
 package community
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"gorm.io/gorm"
 )
 
 type AppCircleService struct {
@@ -175,4 +177,14 @@ func (appCircleService *AppCircleService) UpdateCircleChannel(circleId uint64, c
 	updateData["channel_id"] = channel
 	err = global.GVA_DB.Model(&community.Circle{}).Where("id = ?", circleId).Updates(updateData).Error
 	return err
+}
+func (appCircleService *AppCircleService) AddCircleChannel(circleId uint64, name string) (channel community.CircleChannel, err error) {
+	err = global.GVA_DB.Where("circle_id = ? AND name = ?", circleId, name).First(&channel).Error
+	if err == nil {
+		return channel, nil
+	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
+		return
+	}
+	err = global.GVA_DB.Create(&channel).Error
+	return
 }

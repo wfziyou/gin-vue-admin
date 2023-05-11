@@ -28,3 +28,7 @@ type SetSelfBaseInfoReq struct {
 type UserSearch struct {
 	request.PageInfo
 }
+
+type SetUserCoverImageReq struct {
+	CoverImage string `json:"coverImage" form:"coverImage"` //主页封面
+}

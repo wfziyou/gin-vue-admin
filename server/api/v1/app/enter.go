@@ -70,6 +70,7 @@ var (
 	hkGoldBillService           = service.ServiceGroupApp.AppServiceGroup.Community.GoldBillService
 	hkOrderService              = service.ServiceGroupApp.AppServiceGroup.Community.OrderService
 	hkUserBillService           = service.ServiceGroupApp.AppServiceGroup.Community.UserBillService
+	hkUserCoverImageService     = service.ServiceGroupApp.AppServiceGroup.Community.UserCoverImageService
 	hkUserExtractService        = service.ServiceGroupApp.AppServiceGroup.Community.HkUserExtractService
 	hkUserRechargeService       = service.ServiceGroupApp.AppServiceGroup.Community.UserRechargeService
 

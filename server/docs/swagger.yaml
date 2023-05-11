@@ -204,15 +204,15 @@ definitions:
     type: object
   community.Circle:
     properties:
-      backImage:
-        description: 圈子背景图;size:500
-        type: string
       channelId:
         description: 频道_编号
         type: string
       circleClassifyId:
         description: 圈子分类_编号
         type: integer
+      coverImage:
+        description: 圈子背景图;size:500
+        type: string
       createdAt:
         description: 创建时间
         type: string
@@ -377,6 +377,26 @@ definitions:
         description: 用户数
         type: integer
     type: object
+  community.CircleChannel:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      status:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
   community.CircleClassify:
     properties:
       createdAt:
@@ -405,15 +425,15 @@ definitions:
     type: object
   community.CircleRequest:
     properties:
-      backImage:
-        description: 圈子背景图
-        type: string
       checkStatus:
         description: 审核状态：0 未处理 1 通过，2驳回
         type: integer
       circleClassifyId:
         description: 圈子分类_编号
         type: integer
+      coverImage:
+        description: 圈子背景图
+        type: string
       createdAt:
         description: 创建时间
         type: string
@@ -504,7 +524,7 @@ definitions:
         type: string
       birthday:
         type: string
-      cover:
+      coverImage:
         description: 主页封面
         type: string
       description:
@@ -1342,43 +1362,25 @@ definitions:
       userId:
         type: integer
     type: object
-  community.UserCircleApply:
+  community.UserCoverImage:
     properties:
-      apply:
-        $ref: '#/definitions/apply.Apply'
-        description: 应用
-      applyId:
-        description: 应用_编号
-        type: integer
-      circleId:
-        description: 圈子_编号
-        type: integer
+      coverImage:
+        description: 主页封面
+        type: string
       createdAt:
         description: 创建时间
         type: string
       id:
         description: 主键ID
         type: integer
-      sort:
-        description: 排序
-        type: integer
       status:
+        type: integer
+      type:
+        description: 类型
         type: integer
       updatedAt:
         description: 更新时间
         type: string
-      userId:
-        description: 用户编号
-        type: integer
-    type: object
-  community.UserCircleApplyBaseInfo:
-    properties:
-      applyId:
-        description: 应用_编号
-        type: integer
-      sort:
-        description: 排序
-        type: integer
     type: object
   community.UserExtend:
     properties:
@@ -1388,7 +1390,7 @@ definitions:
       channelId:
         description: 频道_编号
         type: string
-      cover:
+      coverImage:
         description: 主页封面
         type: string
       createdAt:
@@ -1437,7 +1439,7 @@ definitions:
         type: string
       birthday:
         type: string
-      cover:
+      coverImage:
         description: 主页封面
         type: string
       description:
@@ -2332,47 +2334,6 @@ definitions:
         description: 文件地址
         type: string
     type: object
-  general.BugReport:
-    properties:
-      actualResult:
-        description: 实际结果
-        type: string
-      actualResultAttachment:
-        description: 实际结果附件
-        type: string
-      checkStatus:
-        description: 处理状态：0 未处理、1 处理中、2 拒绝、3 完成
-        type: integer
-      content:
-        description: 操作步骤
-        type: string
-      contentAttachment:
-        description: 操作步骤附件
-        type: string
-      createdAt:
-        description: 创建时间
-        type: string
-      expectedResult:
-        description: 预期结果
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      otherInfo:
-        description: 其他信息
-        type: string
-      status:
-        type: integer
-      title:
-        description: 标题
-        type: string
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        description: 用户编号
-        type: integer
-    type: object
   general.Feedback:
     properties:
       attachment:
@@ -2745,12 +2706,12 @@ definitions:
     type: object
   request.CreateCircleRequestReq:
     properties:
-      backImage:
-        description: 圈子背景图
-        type: string
       circleClassifyId:
         description: 圈子分类_编号
         type: integer
+      coverImage:
+        description: 圈子背景图
+        type: string
       des:
         description: 圈子简介
         type: string
@@ -3115,6 +3076,15 @@ definitions:
         description: 每页大小
         type: integer
     type: object
+  request.ParamAddCircleChannel:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      name:
+        description: 名称
+        type: string
+    type: object
   request.ParamCreateCircleTag:
     properties:
       circleId:
@@ -3123,6 +3093,16 @@ definitions:
       name:
         description: 标签名称
         type: string
+    type: object
+  request.ParamDeleteCircleChannel:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      ids:
+        items:
+          type: integer
+        type: array
     type: object
   request.ParamDeleteCircleTags:
     properties:
@@ -3276,6 +3256,12 @@ definitions:
       id:
         type: integer
     type: object
+  request.SetUserCoverImageReq:
+    properties:
+      coverImage:
+        description: 主页封面
+        type: string
+    type: object
   request.SetUserCurCircleReq:
     properties:
       circleId:
@@ -3343,7 +3329,7 @@ definitions:
     type: object
   request.UpdateCircleReq:
     properties:
-      backImage:
+      coverImage:
         description: 圈子背景图;size:500
         type: string
       des:
@@ -3510,17 +3496,6 @@ definitions:
         type: string
       userId:
         description: 用户ID
-        type: integer
-    type: object
-  request.UserCircleApplyUpdate:
-    properties:
-      apply:
-        description: 应用列表
-        items:
-          $ref: '#/definitions/community.UserCircleApplyBaseInfo'
-        type: array
-      circleId:
-        description: 圈子_编号
         type: integer
     type: object
   request.UserCollectReq:
@@ -5336,6 +5311,36 @@ paths:
       summary: 设置用户频道
       tags:
       - 频道
+  /app/circle/addCircleChannel:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)添加圈子频道
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamAddCircleChannel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.CircleChannel
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.CircleChannel'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)添加圈子频道
+      tags:
+      - 圈子
   /app/circle/applyEnterCircle:
     post:
       consumes:
@@ -5426,6 +5431,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 新建圈子标签
+      tags:
+      - 圈子
+  /app/circle/deleteCircleChannel:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)删除圈子频道
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamDeleteCircleChannel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)删除圈子频道
       tags:
       - 圈子
   /app/circle/deleteCircleForumPosts:
@@ -6195,7 +6223,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 设置圈子频道
+      - description: (圈子管理者)设置圈子频道
         in: body
         name: data
         required: true
@@ -6210,7 +6238,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 设置圈子频道
+      summary: (圈子管理者)设置圈子频道
       tags:
       - 圈子
   /app/circle/setUserCurCircle:
@@ -6622,59 +6650,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 获取圈子热门应用列表
-      tags:
-      - 圈子应用
-  /app/circleApply/getUserCircleApplyListAll:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 圈子_编号
-        in: query
-        name: circleId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回communityReq.UserCircleApplySearch
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/community.UserCircleApply'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: (废掉)获取UserCircleApply列表
-      tags:
-      - 圈子应用
-  /app/circleApply/setUserCircleApply:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: (废掉)设置UserCircleApply
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.UserCircleApplyUpdate'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: (废掉)设置UserCircleApply
       tags:
       - 圈子应用
   /app/fileUploadAndDownload/breakpointContinue:
@@ -7768,29 +7743,6 @@ paths:
       summary: 更新ForumPosts
       tags:
       - 帖子
-  /app/general/createBugReport:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: Bug反馈
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/general.BugReport'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: Bug反馈
-      tags:
-      - 常规方法
   /app/general/createFeedback:
     post:
       consumes:
@@ -7929,34 +7881,6 @@ paths:
       summary: 批量删除反馈
       tags:
       - 常规方法
-  /app/general/findBugReport:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 编号
-        in: query
-        name: id
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回general.BugReport
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/general.BugReport'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询Bug反馈
-      tags:
-      - 常规方法
   /app/general/findDraft:
     get:
       consumes:
@@ -8061,7 +7985,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回general.BugReport
+          description: 返回general.MiniProgramBaseInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -8130,62 +8054,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 用名字查询协议
-      tags:
-      - 常规方法
-  /app/general/getBugReportList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 处理状态：0 未处理、1 处理中、2 拒绝、3 完成
-        in: query
-        name: checkStatus
-        type: integer
-      - in: query
-        name: endCreatedAt
-        type: string
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: startCreatedAt
-        type: string
-      - description: 标题
-        in: query
-        name: title
-        type: string
-      - description: 用户编号
-        in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回general.BugReport
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.PageResult'
-            - properties:
-                List:
-                  items:
-                    $ref: '#/definitions/general.BugReport'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取Bug反馈列表
       tags:
       - 常规方法
   /app/general/getDraftList:
@@ -8291,6 +8159,48 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 获取反馈类型列表
+      tags:
+      - 常规方法
+  /app/general/getUserCoverImageList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 类型
+        in: query
+        name: type
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回common.User
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.UserCoverImage'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户主页封面列表
       tags:
       - 常规方法
   /app/general/updateDraft:
@@ -9252,6 +9162,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 设置用户基础信息
+      tags:
+      - 用户
+  /app/user/setUserCoverImage:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 设置用户主页封面
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SetUserCoverImageReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 设置用户主页封面
       tags:
       - 用户
   /app/userBrowsingHistory/deleteAllUserBrowsingHistory:

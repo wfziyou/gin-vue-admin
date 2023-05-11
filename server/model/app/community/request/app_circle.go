@@ -114,6 +114,15 @@ type ParamSetCircleChannel struct {
 	CircleId   uint64 `json:"circleId" form:"circleId" `                  //圈子_编号
 	ChannelIds string `json:"channelIds" form:"channelIds" example:"1,2"` //频道编号，通过逗号分割
 }
+type ParamAddCircleChannel struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+	Name     string `json:"name" form:"name" `         //名称
+}
+type ParamDeleteCircleChannel struct {
+	CircleId uint64   `json:"circleId" form:"circleId" ` //圈子_编号
+	Ids      []uint64 `json:"ids" form:"ids"`
+}
+
 type ParamGetCircleChannel struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 }

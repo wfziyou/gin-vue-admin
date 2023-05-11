@@ -896,13 +896,13 @@ func (circleApi *CircleApi) GetCircleClassifyListAll(c *gin.Context) {
 	}
 }
 
-// SetCircleChannel 设置圈子频道
+// SetCircleChannel (圈子管理者)设置圈子频道
 // @Tags 圈子
-// @Summary 设置圈子频道
+// @Summary (圈子管理者)设置圈子频道
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.ParamSetCircleChannel true "设置圈子频道"
+// @Param data body communityReq.ParamSetCircleChannel true "(圈子管理者)设置圈子频道"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router /app/circle/setCircleChannel [post]
 func (circleApi *CircleApi) SetCircleChannel(c *gin.Context) {
@@ -927,6 +927,73 @@ func (circleApi *CircleApi) SetCircleChannel(c *gin.Context) {
 		response.FailWithMessage("创建失败", c)
 	} else {
 		response.OkWithMessage("创建成功", c)
+	}
+}
+
+// AddCircleChannel (圈子管理者)添加圈子频道
+// @Tags 圈子
+// @Summary (圈子管理者)添加圈子频道
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamAddCircleChannel true "(圈子管理者)添加圈子频道"
+// @Success 200  {object}  response.Response{data=community.CircleChannel,msg=string}  "返回community.CircleChannel"
+// @Router /app/circle/addCircleChannel [post]
+func (circleApi *CircleApi) AddCircleChannel(c *gin.Context) {
+	var req communityReq.ParamAddCircleChannel
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	circle, err := appCircleService.GetCircle(req.CircleId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if obj, err := appCircleService.AddCircleChannel(circle.ID, req.Name); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+	} else {
+		response.OkWithDetailed(community.CircleChannelInfo{
+			ID:   obj.ID,
+			Name: obj.Name,
+		}, "获取成功", c)
+	}
+}
+
+// DeleteCircleChannel (圈子管理者)删除圈子频道
+// @Tags 圈子
+// @Summary (圈子管理者)删除圈子频道
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamDeleteCircleChannel true "(圈子管理者)删除圈子频道"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
+// @Router /app/circle/deleteCircleChannel [delete]
+func (circleApi *CircleApi) DeleteCircleChannel(c *gin.Context) {
+	var req communityReq.ParamDeleteCircleChannel
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	if err := appCircleChannelService.DeleteCircleChannelByIds(req.CircleId, req.Ids); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("成功", c)
 	}
 }
 
@@ -965,21 +1032,30 @@ func (circleApi *CircleApi) GetCircleChannelList(c *gin.Context) {
 		response.OkWithDetailed(list, "获取成功", c)
 		return
 	}
-	if list, _, err := appCircleChannelService.GetChannelInfoListById(circle.ChannelId); err != nil {
+	if list, err := appCircleChannelService.GetChannelInfoListById(circle.ChannelId); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 		return
-	} else {
+	} else if len(list) > 0 {
+		newList := make([]community.CircleChannelInfo, 0, len(list))
 		tmp := utils.SplitToUint64List(circle.ChannelId, ",")
-		for index, id := range tmp {
+		for _, id := range tmp {
 			for _, obj := range list {
 				if obj.ID == id {
-					obj.Sort = index
+					newList = append(newList, obj)
 					break
 				}
 			}
 		}
+		response.OkWithDetailed(newList, "获取成功", c)
+	} else {
+		list, err := appCircleChannelService.GetDefaultChannelInfoList(circle.ID)
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
 		response.OkWithDetailed(list, "获取成功", c)
+		return
 	}
 }
 

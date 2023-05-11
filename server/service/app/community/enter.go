@@ -37,6 +37,7 @@ type ServiceGroup struct {
 	RecordBrowsingUserHomepageService
 	GoldBillService
 	UserBillService
+	UserCoverImageService
 	UserRechargeService
 	HkUserExtractService
 	OrderService

@@ -460,6 +460,19 @@ func (appUserService *AppUserService) UpdateUserChannel(userId uint64, channel s
 	}
 	return err
 }
+func (appUserService *AppUserService) UpdateUserCoverImage(userId uint64, coverImage string) (err error) {
+	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}, CoverImage: coverImage}
+	db := global.GVA_DB.Model(&obj)
+	if errors.Is(db.Where("id = ?", userId).First(&obj).Error, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&obj).Error
+	} else {
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["cover_image"] = coverImage
+		err = db.Where("id = ?", userId).Updates(updateData).Error
+	}
+	return err
+}
 func (appUserService *AppUserService) UpdatePostsTime(userId uint64) (err error) {
 	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}}
 	db := global.GVA_DB.Model(&obj)
