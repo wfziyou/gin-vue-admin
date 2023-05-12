@@ -33,7 +33,7 @@ func (appForumThumbsUpService *AppForumThumbsUpService) UpdateForumPostsLikeNum(
 // DeleteForumThumbsUp 删除ForumThumbsUp记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumThumbsUpService *AppForumThumbsUpService) DeleteForumThumbsUp(info communityReq.DeleteForumThumbsUp) (err error) {
-	err = global.GVA_DB.Where("user_id = ? and posts_id = ?", info.UserId, info.PostsId).Delete(&community.ForumThumbsUp{}).Error
+	err = global.GVA_DB.Unscoped().Where("user_id = ? and posts_id = ?", info.UserId, info.PostsId).Delete(&community.ForumThumbsUp{}).Error
 	if err == nil {
 		err = appForumThumbsUpService.UpdateForumPostsLikeNum(info.PostsId)
 	}
@@ -43,7 +43,7 @@ func (appForumThumbsUpService *AppForumThumbsUpService) DeleteForumThumbsUp(info
 // DeleteForumThumbsUpByIds 批量删除ForumThumbsUp记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumThumbsUpService *AppForumThumbsUpService) DeleteForumThumbsUpByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]community.ForumThumbsUp{}, "id in ?", ids.Ids).Error
+	err = global.GVA_DB.Unscoped().Delete(&[]community.ForumThumbsUp{}, "id in ?", ids.Ids).Error
 	return err
 }
 
