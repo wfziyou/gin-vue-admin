@@ -32,6 +32,19 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleUser(hkCircleUser 
 	}
 	return err
 }
+func (appCircleUserService *AppCircleUserService) DeleteCircleAllUser(circleId uint64) (err error) {
+	var hkCircleUser []community.CircleUser
+	err = global.GVA_DB.Model(&community.CircleUserInfo{}).Where("circle_id = ?", circleId).Find(&hkCircleUser).Error
+	if err == nil && len(hkCircleUser) > 0 {
+		err = global.GVA_DB.Delete(&[]community.CircleUser{}, "circle_id = ?", circleId).Error
+		if err == nil {
+			for _, obj := range hkCircleUser {
+				appCircleUserService.UpdateUserNumCircle(obj.UserId)
+			}
+		}
+	}
+	return err
+}
 func (appCircleUserService *AppCircleUserService) DeleteCircleUserInfo(hkCircleUser community.CircleUserInfo) (err error) {
 	err = global.GVA_DB.Delete(&hkCircleUser).Error
 	if err == nil {

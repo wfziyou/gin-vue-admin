@@ -261,48 +261,6 @@ func (circleApi *CircleApi) UpdateCircle(c *gin.Context) {
 	}
 }
 
-// SetUserCurCircle 设置用户当前圈子
-// @Tags 圈子
-// @Summary 设置用户当前圈子
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body communityReq.SetUserCurCircleReq true "设置用户当前圈子"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"设置成功"}"
-// @Router /app/circle/setUserCurCircle [post]
-func (circleApi *CircleApi) SetUserCurCircle(c *gin.Context) {
-	var req communityReq.SetUserCurCircleReq
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-
-	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
-		response.FailWithMessage("圈子不存在", c)
-		return
-	}
-
-	userId := utils.GetUserID(c)
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
-		CircleId: req.CircleId,
-		UserId:   userId,
-		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
-	}); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	} else if len(data) == 0 {
-		response.FailWithMessage("用户不在圈子中", c)
-		return
-	}
-
-	if err = appCircleUserService.SetUserCurCircle(userId, req.CircleId); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	response.OkWithMessage("设置成功", c)
-}
-
 // EnterCircle 加入圈子
 // @Tags 圈子
 // @Summary 加入圈子
@@ -591,13 +549,13 @@ func (circleApi *CircleApi) ApproveEnterCircleRequest(c *gin.Context) {
 圈子成员
 **************************************/
 
-// DeleteCircleUser 删除圈子用户
+// DeleteCircleUser (圈子管理者)删除圈子用户
 // @Tags 圈子
-// @Summary 删除圈子用户
+// @Summary (圈子管理者)删除圈子用户
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.DeleteCircleUserReq true "删除圈子用户"
+// @Param data body communityReq.DeleteCircleUserReq true "(圈子管理者)删除圈子用户"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /app/circle/deleteCircleUser [delete]
 func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
@@ -631,13 +589,13 @@ func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 	}
 }
 
-// DeleteCircleUsers 批量删除圈子用户
+// DeleteCircleUsers (圈子管理者)批量删除圈子用户
 // @Tags 圈子
-// @Summary 批量删除圈子用户
+// @Summary (圈子管理者)批量删除圈子用户
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body request.IdsReq true "批量删除圈子用户"
+// @Param data body request.IdsReq true "(圈子管理者)批量删除圈子用户"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /app/circle/deleteCircleUsers [delete]
 func (circleApi *CircleApi) DeleteCircleUsers(c *gin.Context) {
@@ -787,6 +745,39 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 			Protocol:         req.Protocol,
 			CoverImage:       req.CoverImage,
 		})
+	}
+}
+
+// DestroyCircle (圈子管理者)注销圈子
+// @Tags 圈子
+// @Summary (圈子管理者)注销圈子
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamDestroyCircle true "(圈子管理者)注销圈子"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circle/destroyCircle [post]
+func (circleApi *CircleApi) DestroyCircle(c *gin.Context) {
+	var req communityReq.ParamDestroyCircle
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	obj, err := appCircleService.GetCircle(req.CircleId)
+	if err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	//need to do 删除圈子关联数据
+	if err := appCircleService.DeleteCircle(obj); err != nil {
+		global.GVA_LOG.Error("失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		appCircleUserService.DeleteCircleAllUser(req.CircleId)
+		response.OkWithMessage("成功", c)
 	}
 }
 
@@ -1088,16 +1079,16 @@ func (circleApi *CircleApi) GetChildCircleList(c *gin.Context) {
 	}
 }
 
-// CreateCircleTag 新建圈子标签
+// AddCircleTag (圈子管理者)添加圈子标签
 // @Tags 圈子
-// @Summary 新建圈子标签
+// @Summary (圈子管理者)添加圈子标签
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.ParamCreateCircleTag true "新建圈子标签"
+// @Param data body communityReq.ParamCreateCircleTag true "(圈子管理者)添加圈子标签"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
-// @Router /app/circle/createCircleTag [post]
-func (circleApi *CircleApi) CreateCircleTag(c *gin.Context) {
+// @Router /app/circle/addCircleTag [post]
+func (circleApi *CircleApi) AddCircleTag(c *gin.Context) {
 	var req communityReq.ParamCreateCircleTag
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
@@ -1110,7 +1101,7 @@ func (circleApi *CircleApi) CreateCircleTag(c *gin.Context) {
 		return
 	}
 
-	if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
+	if _, err := appCircleTagService.AddCircleTag(req.CircleId, req.Name); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
 	} else {
@@ -1118,13 +1109,13 @@ func (circleApi *CircleApi) CreateCircleTag(c *gin.Context) {
 	}
 }
 
-// DeleteCircleTags 删除圈子标签
+// DeleteCircleTags (圈子管理者)删除圈子标签
 // @Tags 圈子
-// @Summary 删除圈子标签
+// @Summary (圈子管理者)删除圈子标签
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.ParamDeleteCircleTags true "删除圈子标签"
+// @Param data body communityReq.ParamDeleteCircleTags true "(圈子管理者)删除圈子标签"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
 // @Router /app/circle/deleteCircleTags [delete]
 func (circleApi *CircleApi) DeleteCircleTags(c *gin.Context) {
@@ -1148,13 +1139,13 @@ func (circleApi *CircleApi) DeleteCircleTags(c *gin.Context) {
 	}
 }
 
-// GetCircleTagList 获取圈子的标签
+// GetCircleTagList (圈子管理者)获取圈子的标签
 // @Tags 圈子
-// @Summary 获取圈子的标签
+// @Summary (圈子管理者)获取圈子的标签
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.ParamGetCircleTags true "获取圈子的标签"
+// @Param data query communityReq.ParamGetCircleTags true "(圈子管理者)获取圈子的标签"
 // @Success 200 {object}  response.PageResult{List=[]community.CircleTag,msg=string} "返回[]community.CircleTag"
 // @Router /app/circle/getCircleTagList [get]
 func (circleApi *CircleApi) GetCircleTagList(c *gin.Context) {
@@ -1170,4 +1161,165 @@ func (circleApi *CircleApi) GetCircleTagList(c *gin.Context) {
 	} else {
 		response.OkWithDetailed(list, "获取成功", c)
 	}
+}
+
+// RequestBecomeChildCircle (圈子管理者)申请成为子圈子
+// @Tags 圈子
+// @Summary (圈子管理者)申请成为子圈子
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamRequestBecomeChildCircle true "(圈子管理者)申请成为子圈子"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circle/requestBecomeChildCircle [post]
+func (circleApi *CircleApi) RequestBecomeChildCircle(c *gin.Context) {
+	var req communityReq.ParamRequestBecomeChildCircle
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	if _, err := appCircleService.GetCircle(req.ParentCircleId); err != nil {
+		response.FailWithMessage("父圈子不存在", c)
+		return
+	}
+
+	//
+	//if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
+	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
+	//	response.FailWithMessage(err.Error(), c)
+	//} else {
+	//	response.OkWithMessage("创建成功", c)
+	//}
+}
+
+// ApproveChildCircleRequest (圈子管理者)审批子圈子申请
+// @Tags 圈子
+// @Summary (圈子管理者)审批子圈子申请
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamApproveChildCircleRequest true "(圈子管理者)审批子圈子申请"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circle/approveChildCircleRequest [post]
+func (circleApi *CircleApi) ApproveChildCircleRequest(c *gin.Context) {
+	var req communityReq.ParamApproveChildCircleRequest
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	//if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+	//	response.FailWithMessage("圈子不存在", c)
+	//	return
+	//}
+	//
+	//if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
+	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
+	//	response.FailWithMessage(err.Error(), c)
+	//} else {
+	//	response.OkWithMessage("创建成功", c)
+	//}
+}
+
+// CreateChildCircle (圈子管理者)创建子圈子
+// @Tags 圈子
+// @Summary (圈子管理者)创建子圈子
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamCreateChildCircle true "(圈子管理者)创建子圈子"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circle/createChildCircle [post]
+func (circleApi *CircleApi) CreateChildCircle(c *gin.Context) {
+	var req communityReq.ParamCreateChildCircle
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	//if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+	//	response.FailWithMessage("圈子不存在", c)
+	//	return
+	//}
+	//
+	//if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
+	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
+	//	response.FailWithMessage(err.Error(), c)
+	//} else {
+	//	response.OkWithMessage("创建成功", c)
+	//}
+}
+
+// DeleteChildCircle (圈子管理者)删除子圈子
+// @Tags 圈子
+// @Summary (圈子管理者)删除子圈子
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamDeleteChildCircle true "(圈子管理者)删除子圈子"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circle/deleteChildCircle [delete]
+func (circleApi *CircleApi) DeleteChildCircle(c *gin.Context) {
+	var req communityReq.ParamDeleteChildCircle
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	//if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+	//	response.FailWithMessage("圈子不存在", c)
+	//	return
+	//}
+	//
+	//if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
+	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
+	//	response.FailWithMessage(err.Error(), c)
+	//} else {
+	//	response.OkWithMessage("创建成功", c)
+	//}
+}
+
+// GetChildCircleRequestList (圈子管理者)获取子圈子申请列表
+// @Tags 圈子
+// @Summary (圈子管理者)获取子圈子申请列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.ChildCircleRequestSearch true "(圈子管理者)获取子圈子申请列表"
+// @Success 200 {object}  response.PageResult{List=[]community.CircleTag,msg=string} "返回[]community.CircleTag"
+// @Router /app/circle/getChildCircleRequestList [get]
+func (circleApi *CircleApi) GetChildCircleRequestList(c *gin.Context) {
+	var req communityReq.ChildCircleRequestSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	//var pageInfo communityReq.CircleRelationRequestSearch
+	//err := c.ShouldBindQuery(&pageInfo)
+	//if err != nil {
+	//	response.FailWithMessage(err.Error(), c)
+	//	return
+	//}
+	//if list, total, err := hkCircleRelationRequestService.GetCircleRelationRequestInfoList(pageInfo); err != nil {
+	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
 }

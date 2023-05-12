@@ -87,6 +87,7 @@ func RegisterTables() {
 		community.UserRecharge{},
 		community.HkUserExtract{},
 		community.Order{},
+		community.ProductGold{},
 
 		apply.Apply{},
 		apply.CircleApply{},
@@ -100,7 +101,7 @@ func RegisterTables() {
 		general.UserCollect{},
 		general.UserBrowsingHistory{},
 		general.FeedbackType{},
-		general.Feedback{},
+		general.Feedback{}, community.CircleRelationRequest{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

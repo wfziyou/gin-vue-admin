@@ -16,7 +16,6 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 	var circleApi = v1.ApiGroupApp.AppApiGroup.CircleApi
 	{
 		circleRouter.PUT("updateCircle", circleApi.UpdateCircle)                                            //(圈子管理者)更新圈子
-		circleRouter.POST("setUserCurCircle", circleApi.SetUserCurCircle)                                   //设置用户当前圈子
 		circleRouter.POST("enterCircle", circleApi.EnterCircle)                                             //加入圈子
 		circleRouter.POST("exitCircle", circleApi.ExitCircle)                                               //退出圈子
 		circleRouterWithoutRecord.GET("getCircleForumPostsList", circleApi.GetCircleForumPostsList)         // 分页获取圈子的帖子列表
@@ -34,12 +33,13 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 	}
 	{
 		circleRouter.POST("createCircleRequest", circleApi.CreateCircleRequest)               //创建圈子请求
+		circleRouter.POST("destroyCircle", circleApi.DestroyCircle)                           //(圈子管理者)注销圈子
 		circleRouterWithoutRecord.GET("findCircleRequest", circleApi.FindCircleRequest)       //用id查询创建圈子请求
 		circleRouterWithoutRecord.GET("getCircleRequestList", circleApi.GetCircleRequestList) //分页获取创建圈子请求列表
 	}
 	{
-		circleRouter.DELETE("deleteCircleUser", circleApi.DeleteCircleUser)             //删除圈子用户
-		circleRouter.DELETE("deleteCircleUsers", circleApi.DeleteCircleUsers)           //批量删除圈子用户
+		circleRouter.DELETE("deleteCircleUser", circleApi.DeleteCircleUser)             //(圈子管理者)删除圈子用户
+		circleRouter.DELETE("deleteCircleUsers", circleApi.DeleteCircleUsers)           //(圈子管理者)批量删除圈子用户
 		circleRouter.PUT("updateCircleUser", circleApi.UpdateCircleUser)                //更新圈子用户
 		circleRouterWithoutRecord.GET("findCircleUser", circleApi.FindCircleUser)       // 查询圈子用户信息
 		circleRouterWithoutRecord.GET("getCircleUserList", circleApi.GetCircleUserList) // 分页获取圈子的用户信息列表
@@ -55,9 +55,16 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 		circleRouterWithoutRecord.GET("getCircleChannelList", circleApi.GetCircleChannelList) //获取圈子频道
 	}
 	{
-		circleRouter.POST("createCircleTag", circleApi.CreateCircleTag)               //新建圈子标签
-		circleRouter.DELETE("deleteCircleTags", circleApi.DeleteCircleTags)           //删除圈子标签
-		circleRouterWithoutRecord.GET("getCircleTagList", circleApi.GetCircleTagList) // 获取圈子的标签
+		circleRouter.POST("addCircleTag", circleApi.AddCircleTag)                     //(圈子管理者)添加圈子标签
+		circleRouter.DELETE("deleteCircleTags", circleApi.DeleteCircleTags)           //(圈子管理者)删除圈子标签
+		circleRouterWithoutRecord.GET("getCircleTagList", circleApi.GetCircleTagList) //(圈子管理者)获取圈子的标签
+	}
+	{
+		circleRouter.POST("requestBecomeChildCircle", circleApi.RequestBecomeChildCircle)               //(圈子管理者)申请成为子圈子
+		circleRouter.POST("approveChildCircleRequest", circleApi.ApproveChildCircleRequest)             //(圈子管理者)审批子圈子申请
+		circleRouter.POST("createChildCircle", circleApi.CreateChildCircle)                             //(圈子管理者)创建子圈子
+		circleRouter.DELETE("deleteChildCircle", circleApi.DeleteChildCircle)                           //(圈子管理者)删除子圈子
+		circleRouterWithoutRecord.GET("getChildCircleRequestList", circleApi.GetChildCircleRequestList) //(圈子管理者)获取子圈子申请列表
 	}
 	return circleRouter
 }

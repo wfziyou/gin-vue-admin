@@ -275,3 +275,60 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupListAll(c *gin.Context)
 		response.OkWithDetailed(list, "获取成功", c)
 	}
 }
+
+// AddCircleApply (圈子管理者)添加圈子应用
+// @Tags 圈子应用
+// @Summary (圈子管理者)添加圈子应用
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query applyReq.ParamAddCircleApply true "(圈子管理者)添加圈子应用"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circleApply/addCircleApply [post]
+func (circleApplyApi *CircleApplyApi) AddCircleApply(c *gin.Context) {
+	var pageInfo applyReq.ParamAddCircleApply
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+}
+
+// UpdateCircleApply (圈子管理者)更新圈子应用
+// @Tags 圈子应用
+// @Summary (圈子管理者)更新圈子应用
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query applyReq.ParamUpdateCircleApply true "(圈子管理者)更新圈子应用"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circleApply/updateCircleApply [post]
+func (circleApplyApi *CircleApplyApi) UpdateCircleApply(c *gin.Context) {
+	var pageInfo applyReq.ParamUpdateCircleApply
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+}
+
+// DeleteCircleApply (圈子管理者)删除圈子应用
+// @Tags 圈子应用
+// @Summary (圈子管理者)删除圈子应用
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query applyReq.ParamUpdateCircleApply true "(圈子管理者)删除圈子应用"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circleApply/deleteCircleApply [post]
+func (circleApplyApi *CircleApplyApi) DeleteCircleApply(c *gin.Context) {
+	var pageInfo applyReq.ParamUpdateCircleApply
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+}

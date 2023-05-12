@@ -671,7 +671,7 @@ definitions:
         description: 收藏次数
         type: integer
       commentId:
-        description: 问答最佳答案ID
+        description: 问答最佳答案ID 0未解答，否则已解答
         type: integer
       commentNum:
         description: 评论次数
@@ -827,7 +827,7 @@ definitions:
         description: 收藏次数
         type: integer
       commentId:
-        description: 问答最佳答案ID
+        description: 问答最佳答案ID 0未解答，否则已解答
         type: integer
       commentNum:
         description: 评论次数
@@ -5410,12 +5410,12 @@ paths:
       summary: 创建圈子请求
       tags:
       - 圈子
-  /app/circle/createCircleTag:
+  /app/circle/addCircleTag:
     post:
       consumes:
       - application/json
       parameters:
-      - description: 新建圈子标签
+      - description: (圈子管理者)新建圈子标签
         in: body
         name: data
         required: true
@@ -5430,7 +5430,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 新建圈子标签
+      summary: (圈子管理者)新建圈子标签
       tags:
       - 圈子
   /app/circle/deleteCircleChannel:
@@ -5479,12 +5479,12 @@ paths:
       summary: (圈子管理员)删除圈子的帖子
       tags:
       - 圈子
-  /app/circle/deleteCircleTags:
+  /app/circle/setCircleTags:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 删除圈子标签
+      - description: (圈子管理者)删除圈子标签
         in: body
         name: data
         required: true
@@ -5499,7 +5499,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除圈子标签
+      summary: (圈子管理者)删除圈子标签
       tags:
       - 圈子
   /app/circle/deleteCircleUser:
@@ -5507,7 +5507,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 删除圈子用户
+      - description: (圈子管理者)删除圈子用户
         in: body
         name: data
         required: true
@@ -5522,7 +5522,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除圈子用户
+      summary: (圈子管理者)删除圈子用户
       tags:
       - 圈子
   /app/circle/deleteCircleUsers:
@@ -5530,7 +5530,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 批量删除圈子用户
+      - description: (圈子管理者)批量删除圈子用户
         in: body
         name: data
         required: true
@@ -5545,7 +5545,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 批量删除圈子用户
+      summary: (圈子管理者)批量删除圈子用户
       tags:
       - 圈子
   /app/circle/enterCircle:
@@ -6061,7 +6061,7 @@ paths:
               type: object
       security:
       - ApiKeyAuth: []
-      summary: 获取圈子的标签
+      summary: (圈子管理者)获取圈子的标签
       tags:
       - 圈子
   /app/circle/getCircleUserList:

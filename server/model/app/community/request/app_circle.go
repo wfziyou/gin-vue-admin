@@ -27,11 +27,6 @@ type SelfCircleSearch struct {
 	request.PageInfo
 }
 
-// SetUserCurCircleReq 设置用户当前圈子
-type SetUserCurCircleReq struct {
-	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
-	UserId   uint64 `json:"-"`                         //用户ID
-}
 type EnterCircleReq struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 	UserId   uint64 `json:"-"`                         //用户ID
@@ -86,6 +81,9 @@ type CreateCircleRequestReq struct {
 	Protocol         string `json:"protocol" form:"protocol" gorm:"column:protocol;comment:圈子规约;size:1000;"`                                    //圈子规约
 	CoverImage       string `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:圈子背景图;size:500;"`                             //圈子背景图
 }
+type ParamDestroyCircle struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+}
 
 type UpdateCircleReq struct {
 	ID               uint64 `json:"id" `                                                                                                                 //圈子编号
@@ -138,4 +136,35 @@ type ParamDeleteCircleTags struct {
 }
 type ParamGetCircleTags struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+}
+
+type ParamRequestBecomeChildCircle struct {
+	ParentCircleId uint64 `json:"parentCircleId" form:"parentCircleId" ` //父圈子编号
+	CircleId       uint64 `json:"circleId" form:"circleId" `             //圈子_编号
+	Des            string `json:"des" form:"des"`                        //描述
+}
+type ParamApproveChildCircleRequest struct {
+	ID          uint64 `json:"id" `            //申请编号
+	CheckStatus int    `json:"checkStatus" `   //审批状态: 0未处理，1同意，2拒绝
+	Des         string `json:"des" form:"des"` //描述
+}
+type ParamCreateChildCircle struct {
+	CircleId         uint64 `json:"circleId" form:"circleId" `                                                                                  //圈子_编号
+	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                  //圈子名称
+	Logo             string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                               //圈子Logo
+	CircleClassifyId uint64 `json:"circleClassifyId" form:"circleClassifyId" gorm:"type:bigint(20);column:circle_classify_id;comment:圈子分类_编号;"` //圈子分类_编号
+	Slogan           string `json:"slogan" form:"slogan" gorm:"column:slogan;comment:圈子标语;size:20;"`                                            //圈子标语
+	Des              string `json:"des" form:"des" gorm:"column:des;comment:圈子简介;size:1000;"`                                                   //圈子简介
+	Protocol         string `json:"protocol" form:"protocol" gorm:"column:protocol;comment:圈子规约;size:1000;"`                                    //圈子规约
+	CoverImage       string `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:圈子背景图;size:500;"`                             //圈子背景图
+}
+type ParamDeleteChildCircle struct {
+	CircleId      uint64 `json:"circleId" form:"circleId" `           //圈子_编号
+	ChildCircleId uint64 `json:"childCircleId" form:"childCircleId" ` //子圈子编号
+}
+type ChildCircleRequestSearch struct {
+	CircleId       uint64     `json:"circleId" form:"circleId" `            //圈子_编号
+	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"` //创建时间（开始）
+	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）
+	request.PageInfo
 }

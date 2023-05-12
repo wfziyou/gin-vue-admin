@@ -8,8 +8,9 @@ import (
 // CircleTag 结构体
 type CircleTag struct {
 	global.GvaModelAppEx
-	Name string `json:"name" form:"name" gorm:"column:name;comment:标签名称;size:20;"` //标签名称
-	Sort int    `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`     //排序
+	CircleId uint64 `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"` //圈子_编号
+	Name     string `json:"name" form:"name" gorm:"column:name;comment:标签名称;size:20;"`                       //标签名称
+	Sort     int    `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                         //排序
 }
 
 // TableName CircleTag 表名

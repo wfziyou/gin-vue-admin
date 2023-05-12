@@ -27,9 +27,10 @@ type ApiGroup struct {
 }
 
 var (
-	appUserService           = service.ServiceGroupApp.AppServiceGroup.Community.AppUserService
-	appCircleService         = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleService
-	appCircleRelationService = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRelationService
+	appUserService                 = service.ServiceGroupApp.AppServiceGroup.Community.AppUserService
+	appCircleService               = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleService
+	appCircleRelationService       = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRelationService
+	hkCircleRelationRequestService = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRelationRequestService
 
 	appCircleClassifyService   = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleClassifyService
 	appCircleRequestService    = service.ServiceGroupApp.AppServiceGroup.Community.AppCircleRequestService
@@ -68,6 +69,7 @@ var (
 	hkActivityAddRequestService = service.ServiceGroupApp.AppServiceGroup.Community.ActivityAddRequestService
 	hkThirdPlatformService      = service.ServiceGroupApp.AppServiceGroup.Community.ThirdPlatformService
 	hkGoldBillService           = service.ServiceGroupApp.AppServiceGroup.Community.GoldBillService
+	hkProductGoldService        = service.ServiceGroupApp.AppServiceGroup.Community.ProductGoldService
 	hkOrderService              = service.ServiceGroupApp.AppServiceGroup.Community.OrderService
 	hkUserBillService           = service.ServiceGroupApp.AppServiceGroup.Community.UserBillService
 	hkUserCoverImageService     = service.ServiceGroupApp.AppServiceGroup.Community.UserCoverImageService

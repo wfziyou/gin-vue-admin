@@ -356,10 +356,10 @@ DROP TABLE IF EXISTS `hk_circle_relation`;
 CREATE TABLE `hk_circle_relation`  (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `relation_type` int(2) NULL DEFAULT NULL COMMENT '关系类型：0父子节点 1关注',
+   `relation_type` int(2) NULL DEFAULT NULL COMMENT '关系类型：0父子 1友好',
    `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
    `circle_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子名称',
-   `other_circle_id` bigint(20) NOT NULL COMMENT '关系圈子_编号（ 关系类型0：父节点编号； 关系类型1：关注圈子编号）',
+   `other_circle_id` bigint(20) NOT NULL COMMENT '关系圈子_编号(关系类型0_父节点编号)',
    `other_circle_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '关系圈子名称',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
@@ -373,12 +373,38 @@ CREATE TABLE `hk_circle_relation`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子关系';
 
 -- ----------------------------
+-- Table structure for hk_circle_relation_request
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_circle_relation_request`;
+CREATE TABLE `hk_circle_relation_request`  (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `relation_type` int(2) NULL DEFAULT NULL COMMENT '关系类型：0父子 1友好',
+   `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
+   `circle_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '圈子名称',
+   `request_circle_id` bigint(20) NOT NULL COMMENT '请求圈子编号',
+   `request_circle_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求圈子名称',
+   `request_des` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求描述',
+   `check_status` int(2) NULL DEFAULT 0 COMMENT '审批状态：0未审批 1同意 2拒绝',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子关系申请';
+
+-- ----------------------------
 -- Table structure for hk_circle_tag
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_circle_tag`;
 CREATE TABLE `hk_circle_tag`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
   `name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
   `sort` int(11) NULL DEFAULT NULL COMMENT '用户的圈子排序',
   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
@@ -390,32 +416,59 @@ CREATE TABLE `hk_circle_tag`  (
   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子标签' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '圈子标签' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of hk_circle_tag
 -- ----------------------------
-INSERT INTO `hk_circle_tag` VALUES (1, '000000', '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_tag` VALUES (2, '000000', '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_tag` VALUES (3, '000000', '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_tag` VALUES (4, '000000', '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
-
--- ----------------------------
--- Table structure for hk_circle_tags
--- ----------------------------
-DROP TABLE IF EXISTS `hk_circle_tags`;
-CREATE TABLE `hk_circle_tags`  (
-  `circle_id` bigint(20) UNSIGNED NOT NULL,
-  `circle_tag_id` bigint(20) UNSIGNED NOT NULL,
-  PRIMARY KEY (`circle_id`, `circle_tag_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of hk_circle_tags
--- ----------------------------
-INSERT INTO `hk_circle_tags` VALUES (2, 1);
-INSERT INTO `hk_circle_tags` VALUES (2, 2);
-INSERT INTO `hk_circle_tags` VALUES (2, 3);
+INSERT INTO `hk_circle_tag` VALUES (1, '000000', 1, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (2, '000000', 1, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (3, '000000', 1, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (4, '000000', 1, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (5, '000000', 2, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (6, '000000', 2, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (7, '000000', 2, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (8, '000000', 2, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (9, '000000', 3, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (10, '000000', 3, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (11, '000000', 3, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (12, '000000', 3, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (13, '000000', 4, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (14, '000000', 4, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (15, '000000', 4, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (16, '000000', 4, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (17, '000000', 5, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (18, '000000', 5, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (19, '000000', 5, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (20, '000000', 5, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (21, '000000', 6, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (22, '000000', 6, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (23, '000000', 6, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (24, '000000', 6, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (25, '000000', 7, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (26, '000000', 7, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (27, '000000', 7, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (28, '000000', 7, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (29, '000000', 8, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (30, '000000', 8, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (31, '000000', 8, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (32, '000000', 8, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (33, '000000', 9, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (34, '000000', 9, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (35, '000000', 9, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (36, '000000', 9, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (37, '000000', 10, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (38, '000000', 10, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (39, '000000', 10, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (40, '000000', 10, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (41, '000000', 11, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (42, '000000', 11, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (43, '000000', 11, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (44, '000000', 11, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (45, '000000', 12, '交友', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (46, '000000', 12, '娱乐', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (47, '000000', 12, '闲聊', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_tag` VALUES (48, '000000', 12, '游戏', NULL, '2023-04-28 15:21:52.000', '2023-04-28 15:21:52.000', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_circle_user
@@ -544,7 +597,7 @@ CREATE TABLE `hk_forum_posts`  (
   `tag` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
   `top` smallint(6) NULL DEFAULT NULL COMMENT '置顶：0否、1是',
   `marrow` smallint(6) NULL DEFAULT NULL COMMENT '精华：0否、1是',
-  `comment_id` bigint(20) NULL DEFAULT NULL COMMENT '问答最佳答案ID',
+  `comment_id` bigint(20) NULL DEFAULT NULL COMMENT '问答最佳答案ID 0未解答，否则已解答',
   `anonymity` smallint(6) NULL DEFAULT NULL COMMENT '匿名发布：0否、1是',
   `user_id` bigint(20) NULL DEFAULT NULL COMMENT '发布者编号',
   `read_num` smallint(6) NULL DEFAULT NULL COMMENT '阅读次数',
@@ -1467,6 +1520,27 @@ CREATE TABLE `hk_user_sign` (
    PRIMARY KEY (`id`) USING BTREE,
    KEY `user_id` (`user_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='签到记录表';
+
+-- ----------------------------
+-- Table structure for hk_product_gold
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_product_gold`;
+CREATE TABLE `hk_product_gold` (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `image` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品图片',
+   `num` int DEFAULT '0' COMMENT '数量',
+   `price` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品价格',
+   `vip_price` bigint(20) UNSIGNED DEFAULT 0 COMMENT '会员价格',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品金币';
 
 -- ----------------------------
 -- Table structure for hk_user_bill

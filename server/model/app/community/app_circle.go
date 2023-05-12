@@ -61,7 +61,7 @@ type Circle struct {
 	Sort             int         `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                                                            //排序
 	HaveCircle       int         `json:"haveCircle"`                                                                                                                         //是在圈子里：0否、1是
 	ChannelId        string      `json:"channelId" form:"channelId" gorm:"column:channel_id;comment:频道_编号;"`                                                                 //频道_编号
-	Tags             []CircleTag `json:"tags" gorm:"many2many:hk_circle_tags;"`
+	Tags             []CircleTag `json:"tags"`
 }
 
 // TableName Circle 表名

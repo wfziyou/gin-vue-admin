@@ -2006,7 +2006,7 @@ var doc = `{
                 }
             }
         },
-        "/app/circle/createCircleTag": {
+        "/app/circle/addCircleTag": {
             "post": {
                 "security": [
                     {
@@ -2022,10 +2022,10 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "新建圈子标签",
+                "summary": "(圈子管理者)新建圈子标签",
                 "parameters": [
                     {
-                        "description": "新建圈子标签",
+                        "description": "(圈子管理者)新建圈子标签",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -2120,7 +2120,7 @@ var doc = `{
                 }
             }
         },
-        "/app/circle/deleteCircleTags": {
+        "/app/circle/setCircleTags": {
             "delete": {
                 "security": [
                     {
@@ -2136,10 +2136,10 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "删除圈子标签",
+                "summary": "(圈子管理者)删除圈子标签",
                 "parameters": [
                     {
-                        "description": "删除圈子标签",
+                        "description": "(圈子管理者)删除圈子标签",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -2174,10 +2174,10 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "删除圈子用户",
+                "summary": "(圈子管理者)删除圈子用户",
                 "parameters": [
                     {
-                        "description": "删除圈子用户",
+                        "description": "(圈子管理者)删除圈子用户",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -2212,10 +2212,10 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "批量删除圈子用户",
+                "summary": "(圈子管理者)批量删除圈子用户",
                 "parameters": [
                     {
-                        "description": "批量删除圈子用户",
+                        "description": "(圈子管理者)批量删除圈子用户",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -3074,7 +3074,7 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "获取圈子的标签",
+                "summary": "(圈子管理者)获取圈子的标签",
                 "parameters": [
                     {
                         "type": "integer",
@@ -16167,7 +16167,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "commentId": {
-                    "description": "问答最佳答案ID",
+                    "description": "问答最佳答案ID 0未解答，否则已解答",
                     "type": "integer"
                 },
                 "commentNum": {
@@ -16377,7 +16377,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "commentId": {
-                    "description": "问答最佳答案ID",
+                    "description": "问答最佳答案ID 0未解答，否则已解答",
                     "type": "integer"
                 },
                 "commentNum": {

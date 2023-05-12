@@ -105,6 +105,12 @@ func (appCircleService *AppCircleService) UpdateCircle(req communityReq.UpdateCi
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleService *AppCircleService) GetCircle(id uint64) (hkCircle community.Circle, err error) {
 	err = global.GVA_DB.Where("id = ?", id).Preload("Tags").First(&hkCircle).Error
+	if err == nil {
+		var hkCircleTags []community.CircleTag
+		if err := global.GVA_DB.Model(&community.CircleTag{}).Where("circle_id = ?", id).Find(&hkCircleTags).Error; err == nil {
+			hkCircle.Tags = hkCircleTags
+		}
+	}
 	return
 }
 

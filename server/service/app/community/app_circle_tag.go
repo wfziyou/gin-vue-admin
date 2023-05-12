@@ -1,20 +1,22 @@
 package community
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	"gorm.io/gorm"
 )
 
 type AppCircleTagService struct {
 }
 
-func (appCircleTagService *AppCircleTagService) CreateCircleTag(circleId uint64, name string) (err error) {
-	//var tag = community.CircleTag{}
-	//err = global.GVA_DB.Where("name = ?", name).First(&tag).Error
-	//if errors.Is(err, gorm.ErrRecordNotFound) {
-	//	err = global.GVA_DB.Create(&tag).Error
-	//}
-	return err
+func (appCircleTagService *AppCircleTagService) AddCircleTag(circleId uint64, name string) (tag community.CircleTag, err error) {
+	var obj = community.CircleTag{CircleId: circleId, Name: name}
+	err = global.GVA_DB.Where("circle_id = ? AND name = ?", circleId, name).First(&obj).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = global.GVA_DB.Create(&obj).Error
+	}
+	return obj, err
 }
 func (appCircleTagService *AppCircleTagService) DeleteCircleTags(circleId uint64, names []string) (err error) {
 	err = global.GVA_DB.Unscoped().Delete(&[]community.CircleTag{}, "circle_id = ? and name in ?", circleId, names).Error

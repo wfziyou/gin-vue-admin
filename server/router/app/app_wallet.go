@@ -16,14 +16,16 @@ func (s *WalletRouter) InitWalletRouter(Router *gin.RouterGroup) {
 	routerWithoutRecord := appRouter.Group("wallet")
 	var api = v1.ApiGroupApp.AppApiGroup.WalletApi
 	{
-		router.POST("createUserRecharge", api.CreateUserRecharge)               // 新建用户充值
-		routerWithoutRecord.GET("findUserRecharge", api.FindUserRecharge)       // 根据ID获取用户充值
-		routerWithoutRecord.GET("getUserRechargeList", api.GetUserRechargeList) // 获取用户充值列表
-		routerWithoutRecord.GET("findGoldBill", api.FindGoldBill)               // 根据ID获取金币账单
-		routerWithoutRecord.GET("getGoldBillList", api.GetGoldBillList)         // 获取金币账单列表
-		routerWithoutRecord.GET("findOrder", api.FindOrder)                     // 根据ID获取订单
-		routerWithoutRecord.GET("getOrderList", api.GetOrderList)               // 获取订单列表
-		routerWithoutRecord.GET("findUserBill", api.FindUserBill)               // 根据ID获取用户账单
-		routerWithoutRecord.GET("getUserBillList", api.GetUserBillList)         // 获取用户账单列表
+		routerWithoutRecord.GET("getProductGoldList", api.GetProductGoldList) // 获取金币列表
+		router.POST("createOrder", api.CreateOrder)                           // 创建订单
+		routerWithoutRecord.GET("getGoldBillList", api.GetGoldBillList)       // 获取金币账单列表
+		routerWithoutRecord.GET("findGoldBill", api.FindGoldBill)             // 根据ID获取金币账单
+
+		router.POST("createUserRecharge", api.CreateUserRecharge)             // 新建用户充值
+		routerWithoutRecord.GET("getExtractTypeList", api.GetExtractTypeList) // 获取提现类型列表
+		router.POST("createUserExtract", api.CreateUserExtract)               // 创建用户提现
+
+		routerWithoutRecord.GET("getUserBillList", api.GetUserBillList) // 获取用户账单列表
+		routerWithoutRecord.GET("findUserBill", api.FindUserBill)       // 根据ID获取用户账单
 	}
 }

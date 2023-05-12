@@ -12,8 +12,8 @@ type OrderService struct {
 
 // CreateOrder 创建Order记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkOrderService *OrderService) CreateOrder(hkOrder *community.Order) (err error) {
-	err = global.GVA_DB.Create(hkOrder).Error
+func (hkOrderService *OrderService) CreateOrder(userId uint64, info communityReq.ParamCreateOrder) (err error) {
+	//err = global.GVA_DB.Create(hkOrder).Error
 	return err
 }
 

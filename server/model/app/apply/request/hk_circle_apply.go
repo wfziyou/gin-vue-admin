@@ -17,3 +17,10 @@ type CircleApplySearchAll struct {
 type CircleHotApplySearch struct {
 	CircleId uint64 `json:"circleId" form:"circleId"` //圈子_编号
 }
+
+type ParamAddCircleApply struct {
+	CircleId uint64 `json:"circleId" form:"circleId"` //圈子_编号
+}
+type ParamUpdateCircleApply struct {
+	CircleId uint64 `json:"circleId" form:"circleId"` //圈子_编号
+}
