@@ -11,25 +11,34 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
 	"math/rand"
+	"strconv"
 	"time"
 )
 
 type AppUserService struct {
 }
 
+//Register 注册
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: Register
 //@description: 用户注册
 //@param: u model.SysUser
 //@return: userInter community.User, err error
-
 func (appUserService *AppUserService) Register(user community.User) (userInter community.User, err error) {
 	var userTmp community.User
-	if !errors.Is(global.GVA_DB.Where("account = ?", user.Account).First(&userTmp).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
-		return userInter, errors.New("用户名已注册")
+	if len(user.Account) > 0 {
+		if !errors.Is(global.GVA_DB.Where("account = ?", user.Account).First(&userTmp).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
+			return userInter, errors.New("用户名已注册")
+		}
+	} else if len(user.Phone) > 0 {
+		if !errors.Is(global.GVA_DB.Where("phone = ?", user.Phone).First(&userTmp).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
+			return userInter, errors.New("用户名已注册")
+		}
 	}
 	// 否则 附加uuid 密码hash加密 注册
-	user.Password = utils.BcryptHash(user.Password)
+	if len(user.Password) > 0 {
+		user.Password = utils.BcryptHash(user.Password)
+	}
 	user.Uuid = uuid.NewV4()
 	err = global.GVA_DB.Create(&user).Error
 	if err == nil {
@@ -37,12 +46,20 @@ func (appUserService *AppUserService) Register(user community.User) (userInter c
 		err := global.GVA_DB.Model(&community.UserCoverImage{}).Where("account = ?", user.Account).Find(&userCovers)
 		size := len(userCovers)
 		var coverImage string
+		rand.Seed(time.Now().Unix())
 		if err == nil && size > 0 {
-			rand.Seed(time.Now().Unix())
 			coverImage = userCovers[rand.Intn(size)].CoverImage
 		}
 		if len(coverImage) > 0 {
-			appUserService.UpdateUserCover(user.ID, coverImage)
+			if err := appUserService.UpdateUserCover(user.ID, coverImage); err == nil {
+				user.UserExtend.CoverImage = coverImage
+			}
+		}
+		if len(user.Account) == 0 {
+			var account = "id_" + strconv.FormatInt(int64(rand.Intn(0xffff)), 36) + strconv.FormatUint(user.ID, 36)
+			if err := appUserService.UpdateUserAccount(user.ID, account); err == nil {
+				user.Account = account
+			}
 		}
 	}
 	return user, err
@@ -512,6 +529,20 @@ func (appUserService *AppUserService) UpdateUserCover(userId uint64, coverImage 
 	}
 	return err
 }
+func (appUserService *AppUserService) UpdateUserAccount(userId uint64, account string) (err error) {
+	obj := community.User{}
+	db := global.GVA_DB.Model(&obj)
+	if error := db.Where("id = ?", userId).First(&obj).Error; errors.Is(error, gorm.ErrRecordNotFound) {
+		return errors.New("用户不存在")
+	} else {
+		var updateData map[string]interface{}
+		updateData = make(map[string]interface{})
+		updateData["account"] = account
+		err = db.Where("id = ?", userId).Updates(updateData).Error
+	}
+	return err
+}
+
 func (appUserService *AppUserService) UpdateUserNumFocus(userId uint64) (err error) {
 	focusCount := int64(0)
 	err = global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ?", userId).Count(&focusCount).Error

@@ -41,7 +41,7 @@ func (appCommentThumbsUpService *AppCommentThumbsUpService) UpdateCommentLikeNum
 // DeleteCommentThumbsUp 删除CommentThumbsUp记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCommentThumbsUpService *AppCommentThumbsUpService) DeleteCommentThumbsUp(info communityReq.DeleteCommentThumbsUp) (err error) {
-	err = global.GVA_DB.Where("user_id = ? and comment_id = ?", info.UserId, info.CommentId).Delete(&community.CommentThumbsUp{}).Error
+	err = global.GVA_DB.Where("user_id = ? and comment_id = ?", info.UserId, info.CommentId).Unscoped().Delete(&community.CommentThumbsUp{}).Error
 	if err == nil {
 		err = appCommentThumbsUpService.UpdateCommentLikeNum(info.CommentId)
 	}

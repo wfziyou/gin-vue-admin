@@ -95,6 +95,10 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 		return
 	}
 	userInfo := utils.GetUserInfo(c)
+	if userInfo.GetUserId() == req.UserId {
+		response.FailWithMessage("不能关注自己", c)
+		return
+	}
 	focusUser, err := appUserService.GetUser(req.UserId)
 	if err != nil {
 		global.GVA_LOG.Error("关注用户不存在!", zap.Error(err))

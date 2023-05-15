@@ -96,7 +96,7 @@ func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(selectUs
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 
 	db = db.Where("channel_id = ?", channelId)
 
@@ -108,18 +108,18 @@ func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(selectUs
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
 	if err == nil {
-		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
 	}
-	return hkForumPostss, total, err
+	return forumPosts, total, err
 }
 
 // GetGlobalTopInfoList 分页获全局置顶资讯列表
 func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList(selectUserId uint64) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 
 	db = db.Where("top = 1 and is_public = 1 and check_status=? and category = ?",
 		community.PostsCheckStatusPass,
@@ -133,11 +133,11 @@ func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList(selectUse
 		return
 	}
 
-	err = db.Limit(utils.HomePageTopNewsNum).Find(&hkForumPostss).Error
+	err = db.Limit(utils.HomePageTopNewsNum).Find(&forumPosts).Error
 	if err == nil {
-		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
 	}
-	return hkForumPostss, total, err
+	return forumPosts, total, err
 }
 
 // GetGlobalRecommendInfoList 分页获全局推荐资讯列表
@@ -146,7 +146,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(sel
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 
 	db = db.Where("is_public = 1 and check_status=? and category = ?",
 		community.PostsCheckStatusPass,
@@ -164,11 +164,11 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(sel
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
 	if err == nil {
-		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
 	}
-	return hkForumPostss, total, err
+	return forumPosts, total, err
 }
 
 // GetNearbyRecommendPostsList 分页获附近推荐帖子列表
@@ -177,7 +177,7 @@ func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(se
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 
 	if len(page.Keyword) > 0 {
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
@@ -194,11 +194,11 @@ func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(se
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
 	if err == nil {
-		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
 	}
-	return hkForumPostss, total, err
+	return forumPosts, total, err
 }
 
 // GetGlobalRecommendQuestionList 分页获取全局推荐问题列表
@@ -207,7 +207,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendQuestionList
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 
 	if len(page.Keyword) > 0 {
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
@@ -225,11 +225,11 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendQuestionList
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
 	if err == nil {
-		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
 	}
-	return hkForumPostss, total, err
+	return forumPosts, total, err
 }
 
 // GetGlobalRecommendActivityList 分页获全局推荐活动列表
@@ -238,7 +238,7 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList
 	offset := page.PageSize * (page.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 
 	if len(page.Keyword) > 0 {
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
@@ -256,11 +256,11 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendActivityList
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
 	if err == nil {
-		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
 	}
-	return hkForumPostss, total, err
+	return forumPosts, total, err
 }
 
 // GetForumPostsInfoList 分页获取ForumPosts记录
@@ -270,7 +270,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(selectUs
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
@@ -315,11 +315,11 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(selectUs
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
 	if err == nil {
-		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
 	}
-	return hkForumPostss, total, err
+	return forumPosts, total, err
 }
 
 func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(selectUserId uint64, userId uint64, info communityReq.UserForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
@@ -327,7 +327,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(selectUs
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 
 	db = db.Where("user_id = ?", userId)
 	if selectUserId != userId {
@@ -349,7 +349,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(selectUs
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
 	if err == nil {
 		size := len(list)
 		if size > 0 {
@@ -363,9 +363,9 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(selectUs
 		}
 	}
 	if err == nil {
-		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
 	}
-	return hkForumPostss, total, err
+	return forumPosts, total, err
 }
 
 // GetCircleForumPostsList 分页获取ForumPosts记录
@@ -375,7 +375,7 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(select
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	//圈子_编号
 	db = db.Where("circle_id = ?", info.CircleId)
@@ -407,11 +407,11 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(select
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
 	if err == nil {
-		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
 	}
-	return hkForumPostss, total, err
+	return forumPosts, total, err
 }
 
 func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
@@ -501,7 +501,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(user
 	var circleCount = len(circles1)
 
 	if circleCount == 0 {
-		return hkForumPosts, total, err
+		return make([]community.ForumPostsBaseInfo, 0), total, err
 	}
 	var ids = make([]uint64, circleCount)
 	for index, v := range circles1 {
@@ -513,6 +513,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(user
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	db = db.Where("circle_id in ?", ids)
 
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
@@ -563,7 +564,7 @@ func (appForumPostsService *AppForumPostsService) GetDraftList(userId uint64, in
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
+	var forumPosts []community.ForumPostsBaseInfo
 
 	db = db.Where("check_status = ? AND user_id = ?", community.PostsCheckStatusDraft, userId)
 	if info.Category > 0 {
@@ -578,8 +579,8 @@ func (appForumPostsService *AppForumPostsService) GetDraftList(userId uint64, in
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
-	return hkForumPostss, total, err
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
+	return forumPosts, total, err
 }
 func (appForumPostsService *AppForumPostsService) DeleteAllDraft(userId uint64, category int) (err error) {
 	if category > 0 {

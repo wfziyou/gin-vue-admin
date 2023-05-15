@@ -79,10 +79,11 @@ func (appUserBrowsingHistoryService *AppUserBrowsingHistoryService) GetUserBrows
 	if info.StartUpdatedAt != nil && info.EndUpdatedAt != nil {
 		db = db.Where("updated_at BETWEEN ? AND ?", info.StartUpdatedAt, info.EndUpdatedAt)
 	}
-	if userId > 0 {
-		db = db.Where("user_id = ?", userId)
-	}
+	db = db.Where("user_id = ?", userId)
 
+	if info.Category > 0 {
+		db = db.Where("category = ? ", info.Category)
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
