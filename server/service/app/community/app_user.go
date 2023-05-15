@@ -356,7 +356,7 @@ func SetForumCommentUserIsFocus(selectUserId uint64, list []community.ForumComme
 		}
 	}
 }
-func SetCircleUserUserIsFocus(selectUserId uint64, list []community.CircleUserInfo) {
+func SetCircleUserUserIsFocus(selectUserId uint64, list []community.CircleUser) {
 	size := len(list)
 	if size == 0 {
 		return
@@ -473,18 +473,29 @@ func (appUserService *AppUserService) UpdateUserCoverImage(userId uint64, coverI
 	}
 	return err
 }
-func (appUserService *AppUserService) UpdatePostsTime(userId uint64) (err error) {
+func (appUserService *AppUserService) UpdatePostsTime(circleId uint64, userId uint64) (err error) {
 	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}}
 	db := global.GVA_DB.Model(&obj)
+	curTime := time.Now()
 	if errors.Is(db.Where("id = ?", userId).First(&obj).Error, gorm.ErrRecordNotFound) {
-		now := time.Now()
+		now := curTime
 		obj.UpdateForumPostsTime = &now
 		err = global.GVA_DB.Create(&obj).Error
 	} else {
 		var updateData map[string]interface{}
 		updateData = make(map[string]interface{})
-		updateData["update_forum_posts_time"] = time.Now()
+		updateData["update_forum_posts_time"] = curTime
 		err = db.Where("id = ?", userId).Updates(updateData).Error
+	}
+	if circleId > 0 {
+		var circle community.Circle
+		err = global.GVA_DB.Where("id = ?", circleId).First(&circle).Error
+		if err == nil {
+			var updateData map[string]interface{}
+			updateData = make(map[string]interface{})
+			updateData["update_forum_posts_time"] = curTime
+			err = global.GVA_DB.Model(&community.Circle{}).Where("id = ?", circleId).Updates(updateData).Error
+		}
 	}
 	return err
 }

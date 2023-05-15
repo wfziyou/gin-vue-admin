@@ -159,15 +159,11 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 			return
 		}
 
-		if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
-			CircleId: req.CircleId,
-			UserId:   userId,
-			PageInfo: request.PageInfo{Page: 1, PageSize: 2},
-		}); err != nil {
-			response.FailWithMessage(err.Error(), c)
-			return
-		} else if len(data) == 0 {
+		if _, err := appCircleUserService.GetCircleUser(req.CircleId, userId); errors.Is(err, gorm.ErrRecordNotFound) {
 			response.FailWithMessage("用户不在圈子中", c)
+			return
+		} else if err != nil {
+			response.FailWithMessage(err.Error(), c)
 			return
 		}
 	}
@@ -177,7 +173,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 		response.FailWithMessage("创建失败", c)
 		return
 	} else {
-		appUserService.UpdatePostsTime(userId)
+		appUserService.UpdatePostsTime(req.CircleId, userId)
 		response.OkWithMessage("创建成功", c)
 	}
 }
@@ -289,6 +285,7 @@ func (forumPostsApi *ForumPostsApi) UpdateForumPosts(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
 	if data, err := appForumPostsService.GetForumPosts(req.ID); err != nil {
 		response.FailWithMessage("帖子不存在", c)
 	} else if data.UserId != utils.GetUserID(c) {

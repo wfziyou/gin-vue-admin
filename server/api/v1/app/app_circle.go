@@ -80,7 +80,7 @@ func (circleApi *CircleApi) DeleteCircleForumPosts(c *gin.Context) {
 	}
 
 	userId := utils.GetUserID(c)
-	circleUser, err := appCircleUserService.GetCircleUserEx(req.CircleId, userId)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		response.FailWithMessage("用户不在圈子中", c)
 		return
@@ -157,6 +157,9 @@ func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
+		for index, _ := range list {
+			list[index].HaveCircle = 1
+		}
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
@@ -285,17 +288,14 @@ func (circleApi *CircleApi) EnterCircle(c *gin.Context) {
 	}
 
 	userId := utils.GetUserID(c)
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
-		CircleId: req.CircleId,
-		UserId:   userId,
-		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
-	}); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	} else if len(data) > 0 {
+	if _, err := appCircleUserService.GetCircleUser(req.CircleId, userId); err == nil {
 		response.FailWithMessage("用户已在圈子中", c)
 		return
+	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
 	//圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
 	if circleInfo.Property == 0 {
 		appCircleUserService.CreateCircleUser(community.CircleUser{
@@ -348,29 +348,27 @@ func (circleApi *CircleApi) ExitCircle(c *gin.Context) {
 	}
 
 	userId := utils.GetUserID(c)
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
-		CircleId: req.CircleId,
-		UserId:   userId,
-		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
-	}); err != nil {
+	if data, err := appCircleUserService.GetCircleUser(req.CircleId, userId); err == nil {
+		//如果是圈主
+		//if data.Power == community.CircleUserPowerManager {
+		//	response.FailWithMessage("圈主不能退出", c)
+		//	return
+		//} else {
+		err = appCircleUserService.DeleteCircleUser(data)
+		if err == nil {
+			response.OkWithMessage("退出成功", c)
+			return
+		}
+		response.FailWithMessage("退出失败", c)
+		return
+		//}
+	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
 		response.FailWithMessage(err.Error(), c)
 		return
-	} else if len(data) == 0 {
+	} else {
+		//用户不在圈子中
 		response.FailWithMessage("用户不在圈子中", c)
 		return
-	} else {
-		//如果是圈主
-		if data[0].Power == 1 {
-			response.FailWithMessage("圈主不能退出", c)
-			return
-		} else {
-			err = appCircleUserService.DeleteCircleUserInfo(data[0])
-			if err == nil {
-				response.OkWithMessage("退出成功", c)
-				return
-			}
-			response.FailWithMessage("退出失败", c)
-		}
 	}
 }
 
@@ -398,17 +396,14 @@ func (circleApi *CircleApi) ApplyEnterCircle(c *gin.Context) {
 	}
 
 	userId := utils.GetUserID(c)
-	if data, _, err := appCircleUserService.GetCircleUserInfoList(userId, communityReq.CircleUserSearch{
-		CircleId: req.CircleId,
-		UserId:   userId,
-		PageInfo: request.PageInfo{Page: 1, PageSize: 2},
-	}); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	} else if len(data) > 0 {
+	if _, err := appCircleUserService.GetCircleUser(req.CircleId, userId); err == nil {
 		response.FailWithMessage("用户已在圈子中", c)
 		return
+	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage(err.Error(), c)
+		return
 	}
+
 	//圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
 	if circleInfo.Property == 0 {
 		appCircleUserService.CreateCircleUser(community.CircleUser{
@@ -466,7 +461,7 @@ func (circleApi *CircleApi) EnterCircleApplyList(c *gin.Context) {
 	}
 
 	userId := utils.GetUserID(c)
-	circleUser, err := appCircleUserService.GetCircleUserEx(req.CircleId, userId)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		response.FailWithMessage("用户不在圈子中", c)
 		return
@@ -519,7 +514,7 @@ func (circleApi *CircleApi) ApproveEnterCircleRequest(c *gin.Context) {
 	}
 
 	userId := utils.GetUserID(c)
-	circleUser, err := appCircleUserService.GetCircleUserEx(req.CircleId, userId)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		response.FailWithMessage("用户不在圈子中", c)
 		return
@@ -566,19 +561,8 @@ func (circleApi *CircleApi) DeleteCircleUser(c *gin.Context) {
 		return
 	}
 
-	var pageInfo communityReq.CircleUserSearch
-	pageInfo.Page = 1
-	pageInfo.PageSize = 10
-	pageInfo.CircleId = req.CircleId
-	pageInfo.UserId = req.UserId
-	userId := utils.GetUserID(c)
-	if list, total, err := appCircleUserService.GetCircleUserInfoList(userId, pageInfo); err == nil {
-		if total == 0 {
-			response.FailWithMessage("圈子成员不存在", c)
-			return
-		}
-
-		if err := appCircleUserService.DeleteCircleUserInfo(list[0]); err != nil {
+	if data, err := appCircleUserService.GetCircleUser(req.CircleId, req.UserId); err == nil {
+		if err := appCircleUserService.DeleteCircleUser(data); err != nil {
 			global.GVA_LOG.Error("删除失败!", zap.Error(err))
 			response.FailWithMessage(err.Error(), c)
 		} else {

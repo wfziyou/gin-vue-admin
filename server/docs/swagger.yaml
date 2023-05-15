@@ -472,6 +472,9 @@ definitions:
     type: object
   community.CircleTag:
     properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
       id:
         description: 主键ID
         type: integer
@@ -484,37 +487,46 @@ definitions:
     type: object
   community.CircleUserInfo:
     properties:
-      UserInfo:
-        $ref: '#/definitions/community.UserBaseInfo'
-        description: 用户基本信息
-      circleId:
-        description: 圈子_编号
-        type: integer
-      createdAt:
-        description: 创建时间
+      account:
+        description: 账号
+        type: string
+      birthday:
+        type: string
+      description:
+        description: 描述
+        type: string
+      headerImg:
+        description: 头像
         type: string
       id:
         description: 主键ID
         type: integer
+      isFan:
+        description: 是否是粉丝:0 否、1是
+        type: integer
+      isFocus:
+        description: 是否关注:0 否、1是
+        type: integer
+      nickName:
+        description: 昵称
+        type: string
       power:
         description: 权限：0普通 1圈主
         type: integer
+      realName:
+        description: 真名
+        type: string
       remark:
         description: 备注
         type: string
-      sort:
-        description: 用户的圈子排序
-        type: integer
-      status:
+      sex:
+        description: 性别： 0未知、1男、2女
         type: integer
       tag:
         description: 标签
         type: string
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        description: 用户ID
+      userType:
+        description: '用户平台: 1web、2app、3other'
         type: integer
     type: object
   community.FocusUserInfo:
@@ -981,76 +993,6 @@ definitions:
         type: string
       userId:
         type: integer
-    type: object
-  community.Order:
-    properties:
-      backIntegral:
-        type: number
-      cartNum:
-        type: integer
-      cost:
-        type: number
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      extendOrderId:
-        type: string
-      gainIntegral:
-        type: number
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      mark:
-        type: string
-      orderId:
-        type: string
-      paid:
-        type: boolean
-      payPrice:
-        type: number
-      payTime:
-        type: string
-      payType:
-        type: string
-      productId:
-        type: integer
-      refundPrice:
-        type: number
-      refundReason:
-        type: string
-      refundReasonTime:
-        type: string
-      refundReasonWap:
-        type: string
-      refundReasonWapExplain:
-        type: string
-      refundReasonWapImg:
-        type: string
-      refundStatus:
-        type: boolean
-      remark:
-        type: string
-      status:
-        type: integer
-      totalPrice:
-        type: number
-      unique:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        type: integer
-      verifyCode:
-        type: string
     type: object
   community.QuestionAnswer:
     properties:
@@ -3085,6 +3027,45 @@ definitions:
         description: 名称
         type: string
     type: object
+  request.ParamApproveChildCircleRequest:
+    properties:
+      checkStatus:
+        description: '审批状态: 0未处理，1同意，2拒绝'
+        type: integer
+      des:
+        description: 描述
+        type: string
+      id:
+        description: 申请编号
+        type: integer
+    type: object
+  request.ParamCreateChildCircle:
+    properties:
+      circleClassifyId:
+        description: 圈子分类_编号
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      coverImage:
+        description: 圈子背景图
+        type: string
+      des:
+        description: 圈子简介
+        type: string
+      logo:
+        description: 圈子Logo
+        type: string
+      name:
+        description: 圈子名称
+        type: string
+      protocol:
+        description: 圈子规约
+        type: string
+      slogan:
+        description: 圈子标语
+        type: string
+    type: object
   request.ParamCreateCircleTag:
     properties:
       circleId:
@@ -3093,6 +3074,21 @@ definitions:
       name:
         description: 标签名称
         type: string
+    type: object
+  request.ParamCreateOrder:
+    properties:
+      productId:
+        description: 商品ID
+        type: integer
+    type: object
+  request.ParamDeleteChildCircle:
+    properties:
+      childCircleId:
+        description: 子圈子编号
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
     type: object
   request.ParamDeleteCircleChannel:
     properties:
@@ -3114,6 +3110,24 @@ definitions:
         items:
           type: string
         type: array
+    type: object
+  request.ParamDestroyCircle:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+    type: object
+  request.ParamRequestBecomeChildCircle:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      des:
+        description: 描述
+        type: string
+      parentCircleId:
+        description: 父圈子编号
+        type: integer
     type: object
   request.ParamSetCircleChannel:
     properties:
@@ -3261,12 +3275,6 @@ definitions:
       coverImage:
         description: 主页封面
         type: string
-    type: object
-  request.SetUserCurCircleReq:
-    properties:
-      circleId:
-        description: 圈子_编号
-        type: integer
     type: object
   request.SysAuthorityBtnReq:
     properties:
@@ -5341,6 +5349,29 @@ paths:
       summary: (圈子管理者)添加圈子频道
       tags:
       - 圈子
+  /app/circle/addCircleTag:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)添加圈子标签
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateCircleTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)添加圈子标签
+      tags:
+      - 圈子
   /app/circle/applyEnterCircle:
     post:
       consumes:
@@ -5362,6 +5393,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 申请加入圈子
+      tags:
+      - 圈子
+  /app/circle/approveChildCircleRequest:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)审批子圈子申请
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamApproveChildCircleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)审批子圈子申请
       tags:
       - 圈子
   /app/circle/approveEnterCircleRequest:
@@ -5387,6 +5441,29 @@ paths:
       summary: (圈子管理员)审批加入圈子申请
       tags:
       - 圈子
+  /app/circle/createChildCircle:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)创建子圈子
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateChildCircle'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)创建子圈子
+      tags:
+      - 圈子
   /app/circle/createCircleRequest:
     post:
       consumes:
@@ -5410,17 +5487,17 @@ paths:
       summary: 创建圈子请求
       tags:
       - 圈子
-  /app/circle/addCircleTag:
-    post:
+  /app/circle/deleteChildCircle:
+    delete:
       consumes:
       - application/json
       parameters:
-      - description: (圈子管理者)新建圈子标签
+      - description: (圈子管理者)删除子圈子
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.ParamCreateCircleTag'
+          $ref: '#/definitions/request.ParamDeleteChildCircle'
       produces:
       - application/json
       responses:
@@ -5430,7 +5507,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: (圈子管理者)新建圈子标签
+      summary: (圈子管理者)删除子圈子
       tags:
       - 圈子
   /app/circle/deleteCircleChannel:
@@ -5479,7 +5556,7 @@ paths:
       summary: (圈子管理员)删除圈子的帖子
       tags:
       - 圈子
-  /app/circle/setCircleTags:
+  /app/circle/deleteCircleTags:
     delete:
       consumes:
       - application/json
@@ -5546,6 +5623,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: (圈子管理者)批量删除圈子用户
+      tags:
+      - 圈子
+  /app/circle/destroyCircle:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)注销圈子
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamDestroyCircle'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)注销圈子
       tags:
       - 圈子
   /app/circle/enterCircle:
@@ -5713,6 +5813,10 @@ paths:
         in: query
         name: circleId
         type: integer
+      - description: 用户ID
+        in: query
+        name: userId
+        type: integer
       produces:
       - application/json
       responses:
@@ -5772,6 +5876,56 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取子圈子列表
+      tags:
+      - 圈子
+  /app/circle/getChildCircleRequestList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      - description: 创建时间（结束）
+        in: query
+        name: endCreatedAt
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 创建时间（开始）
+        in: query
+        name: startCreatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.CircleTag
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.CircleTag'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)获取子圈子申请列表
       tags:
       - 圈子
   /app/circle/getCircleChannelList:
@@ -6073,10 +6227,6 @@ paths:
         in: query
         name: circleId
         type: integer
-      - description: 创建时间（结束）
-        in: query
-        name: endCreatedAt
-        type: string
       - description: 关键字
         in: query
         name: keyword
@@ -6089,10 +6239,10 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 创建时间（开始）
+      - description: 权限：0普通 1圈主
         in: query
-        name: startCreatedAt
-        type: string
+        name: power
+        type: integer
       produces:
       - application/json
       responses:
@@ -6218,6 +6368,29 @@ paths:
       summary: 用户加入圈子的所有动态列表
       tags:
       - 圈子
+  /app/circle/requestBecomeChildCircle:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)申请成为子圈子
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamRequestBecomeChildCircle'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)申请成为子圈子
+      tags:
+      - 圈子
   /app/circle/setCircleChannel:
     post:
       consumes:
@@ -6239,29 +6412,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: (圈子管理者)设置圈子频道
-      tags:
-      - 圈子
-  /app/circle/setUserCurCircle:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 设置用户当前圈子
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.SetUserCurCircleReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"设置成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 设置用户当前圈子
       tags:
       - 圈子
   /app/circle/updateCircle:
@@ -6310,6 +6460,48 @@ paths:
       summary: 更新圈子用户
       tags:
       - 圈子
+  /app/circleApply/addCircleApply:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)添加圈子应用
+      tags:
+      - 圈子应用
+  /app/circleApply/deleteCircleApply:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)删除圈子应用
+      tags:
+      - 圈子应用
   /app/circleApply/findApply:
     get:
       consumes:
@@ -6650,6 +6842,27 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 获取圈子热门应用列表
+      tags:
+      - 圈子应用
+  /app/circleApply/updateCircleApply:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)更新圈子应用
       tags:
       - 圈子应用
   /app/fileUploadAndDownload/breakpointContinue:
@@ -9434,6 +9647,68 @@ paths:
       summary: 分页获取收藏列表
       tags:
       - 收藏
+  /app/wallet/GetExtractTypeList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取提现类型列表
+      tags:
+      - 钱包
+  /app/wallet/createOrder:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建订单
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建订单
+      tags:
+      - 钱包
+  /app/wallet/createUserExtract:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建用户提现
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.UserRecharge'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建用户提现
+      tags:
+      - 钱包
   /app/wallet/createUserRecharge:
     post:
       consumes:
@@ -9526,129 +9801,6 @@ paths:
       summary: 用id查询金币账单
       tags:
       - 钱包
-  /app/wallet/findOrder:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: backIntegral
-        type: number
-      - in: query
-        name: cartNum
-        type: integer
-      - in: query
-        name: cost
-        type: number
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: extendOrderId
-        type: string
-      - in: query
-        name: gainIntegral
-        type: number
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: mark
-        type: string
-      - in: query
-        name: orderId
-        type: string
-      - in: query
-        name: paid
-        type: boolean
-      - in: query
-        name: payPrice
-        type: number
-      - in: query
-        name: payTime
-        type: string
-      - in: query
-        name: payType
-        type: string
-      - in: query
-        name: productId
-        type: integer
-      - in: query
-        name: refundPrice
-        type: number
-      - in: query
-        name: refundReason
-        type: string
-      - in: query
-        name: refundReasonTime
-        type: string
-      - in: query
-        name: refundReasonWap
-        type: string
-      - in: query
-        name: refundReasonWapExplain
-        type: string
-      - in: query
-        name: refundReasonWapImg
-        type: string
-      - in: query
-        name: refundStatus
-        type: boolean
-      - in: query
-        name: remark
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: totalPrice
-        type: number
-      - in: query
-        name: unique
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      - in: query
-        name: verifyCode
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回community.Order
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/community.Order'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询订单
-      tags:
-      - 钱包
   /app/wallet/findUserBill:
     get:
       consumes:
@@ -9725,84 +9877,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 用id查询用户账单
-      tags:
-      - 钱包
-  /app/wallet/findUserRecharge:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: givePrice
-        type: number
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - in: query
-        name: nickname
-        type: string
-      - in: query
-        name: orderId
-        type: string
-      - in: query
-        name: paid
-        type: boolean
-      - in: query
-        name: payTime
-        type: string
-      - in: query
-        name: price
-        type: number
-      - in: query
-        name: rechargeType
-        type: string
-      - in: query
-        name: refundPrice
-        type: number
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回community.UserRecharge
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/community.UserRecharge'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询用户充值
       tags:
       - 钱包
   /app/wallet/getGoldBillList:
@@ -9885,128 +9959,10 @@ paths:
       summary: 分页获取金币账单列表
       tags:
       - 钱包
-  /app/wallet/getOrderList:
+  /app/wallet/getProductGoldList:
     get:
       consumes:
       - application/json
-      parameters:
-      - in: query
-        name: backIntegral
-        type: number
-      - in: query
-        name: cartNum
-        type: integer
-      - in: query
-        name: cost
-        type: number
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - in: query
-        name: extendOrderId
-        type: string
-      - in: query
-        name: gainIntegral
-        type: number
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: mark
-        type: string
-      - in: query
-        name: orderId
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: paid
-        type: boolean
-      - in: query
-        name: payPrice
-        type: number
-      - in: query
-        name: payTime
-        type: string
-      - in: query
-        name: payType
-        type: string
-      - in: query
-        name: productId
-        type: integer
-      - in: query
-        name: refundPrice
-        type: number
-      - in: query
-        name: refundReason
-        type: string
-      - in: query
-        name: refundReasonTime
-        type: string
-      - in: query
-        name: refundReasonWap
-        type: string
-      - in: query
-        name: refundReasonWapExplain
-        type: string
-      - in: query
-        name: refundReasonWapImg
-        type: string
-      - in: query
-        name: refundStatus
-        type: boolean
-      - in: query
-        name: remark
-        type: string
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: totalPrice
-        type: number
-      - in: query
-        name: unique
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      - in: query
-        name: verifyCode
-        type: string
       produces:
       - application/json
       responses:
@@ -10016,7 +9972,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 分页获取订单列表
+      summary: 获取金币列表
       tags:
       - 钱包
   /app/wallet/getUserBillList:
@@ -10106,95 +10062,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取用户账单列表
-      tags:
-      - 钱包
-  /app/wallet/getUserRechargeList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: endCreatedAt
-        type: string
-      - in: query
-        name: givePrice
-        type: number
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: nickname
-        type: string
-      - in: query
-        name: orderId
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: paid
-        type: boolean
-      - in: query
-        name: payTime
-        type: string
-      - in: query
-        name: price
-        type: number
-      - in: query
-        name: rechargeType
-        type: string
-      - in: query
-        name: refundPrice
-        type: number
-      - in: query
-        name: startCreatedAt
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取用户充值列表
       tags:
       - 钱包
   /authority/copyAuthority:

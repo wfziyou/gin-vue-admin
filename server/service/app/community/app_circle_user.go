@@ -11,45 +11,32 @@ import (
 type AppCircleUserService struct {
 }
 
-// CreateCircleUser 创建CircleUser记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appCircleUserService *AppCircleUserService) CreateCircleUser(hkCircleUser community.CircleUser) (err error) {
-	err = global.GVA_DB.Create(&hkCircleUser).Error
+func (appCircleUserService *AppCircleUserService) CreateCircleUser(circleUser community.CircleUser) (err error) {
+	err = global.GVA_DB.Create(&circleUser).Error
 	if err == nil {
-		err = appCircleUserService.UpdateCircleUserCount(hkCircleUser.CircleId)
-		appCircleUserService.UpdateUserNumCircle(hkCircleUser.UserId)
+		err = appCircleUserService.UpdateCircleUserCount(circleUser.CircleId)
+		appCircleUserService.UpdateUserNumCircle(circleUser.UserId)
 	}
 	return err
 }
-
-// DeleteCircleUser 删除圈子用户记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appCircleUserService *AppCircleUserService) DeleteCircleUser(hkCircleUser community.CircleUser) (err error) {
-	err = global.GVA_DB.Delete(&hkCircleUser).Error
+func (appCircleUserService *AppCircleUserService) DeleteCircleUser(circleUser community.CircleUser) (err error) {
+	err = global.GVA_DB.Delete(&circleUser).Error
 	if err == nil {
-		err = appCircleUserService.UpdateCircleUserCount(hkCircleUser.CircleId)
-		appCircleUserService.UpdateUserNumCircle(hkCircleUser.UserId)
+		err = appCircleUserService.UpdateCircleUserCount(circleUser.CircleId)
+		appCircleUserService.UpdateUserNumCircle(circleUser.UserId)
 	}
 	return err
 }
 func (appCircleUserService *AppCircleUserService) DeleteCircleAllUser(circleId uint64) (err error) {
-	var hkCircleUser []community.CircleUser
-	err = global.GVA_DB.Model(&community.CircleUserInfo{}).Where("circle_id = ?", circleId).Find(&hkCircleUser).Error
-	if err == nil && len(hkCircleUser) > 0 {
+	var circleUser []community.CircleUser
+	err = global.GVA_DB.Model(&community.CircleUser{}).Where("circle_id = ?", circleId).Find(&circleUser).Error
+	if err == nil && len(circleUser) > 0 {
 		err = global.GVA_DB.Delete(&[]community.CircleUser{}, "circle_id = ?", circleId).Error
 		if err == nil {
-			for _, obj := range hkCircleUser {
+			for _, obj := range circleUser {
 				appCircleUserService.UpdateUserNumCircle(obj.UserId)
 			}
 		}
-	}
-	return err
-}
-func (appCircleUserService *AppCircleUserService) DeleteCircleUserInfo(hkCircleUser community.CircleUserInfo) (err error) {
-	err = global.GVA_DB.Delete(&hkCircleUser).Error
-	if err == nil {
-		err = appCircleUserService.UpdateCircleUserCount(hkCircleUser.CircleId)
-		appCircleUserService.UpdateUserNumCircle(hkCircleUser.UserId)
 	}
 	return err
 }
@@ -66,11 +53,10 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleUsers(circleId uin
 	}
 	return err
 }
-
-func (appCircleUserService *AppCircleUserService) GetUserHaveCircles(userId uint64, circleIds []uint64) (hkCircleUser []community.CircleUser, num int, err error) {
-	err = global.GVA_DB.Where("user_id = ? and circle_id in  ?", userId, circleIds).Find(&hkCircleUser).Error
+func (appCircleUserService *AppCircleUserService) GetUserHaveCircles(userId uint64, circleIds []uint64) (circleUser []community.CircleUser, num int, err error) {
+	err = global.GVA_DB.Where("user_id = ? and circle_id in  ?", userId, circleIds).Find(&circleUser).Error
 	if err == nil {
-		num = len(hkCircleUser)
+		num = len(circleUser)
 	}
 	return
 }
@@ -94,9 +80,65 @@ func (appCircleUserService *AppCircleUserService) GetUserHaveCircle(userId uint6
 	}
 	return
 }
+func (appCircleUserService *AppCircleUserService) GetCircleUser(circleId uint64, userId uint64) (circleUser community.CircleUser, err error) {
+	err = global.GVA_DB.Where("circle_id = ? and user_id = ?", circleId, userId).First(&circleUser).Error
+	return
+}
+func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(selectUserId uint64, circleId uint64, userId uint64) (circleUserInfo community.CircleUserInfo, err error) {
+	var circleUser community.CircleUser
+	err = global.GVA_DB.Where("circle_id = ? and user_id = ?", circleId, userId).Preload("UserInfo").First(&circleUser).Error
+	if err == nil {
+		isFocus, isFan, _ := GetIsFocusAndIsFan(selectUserId, &circleUser.UserInfo)
+		circleUser.UserInfo.IsFocus = isFocus
+		circleUser.UserInfo.IsFan = isFan
 
-// UpdateCircleUser 更新圈子用户记录
-// Author [piexlmax](https://github.com/piexlmax)
+		circleUserInfo.Remark = circleUser.Remark
+		circleUserInfo.Tag = circleUser.Tag
+		circleUserInfo.Power = circleUser.Power
+		circleUserInfo.UserBaseInfo = circleUser.UserInfo
+		return circleUserInfo, err
+	}
+	return
+}
+func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(selectUserId uint64, info communityReq.CircleUserSearch) (list []community.CircleUserInfo, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.CircleUser{}).Preload("UserInfo")
+	var hkCircleUsers []community.CircleUser
+
+	db = db.Where("circle_id = ?", info.CircleId)
+
+	if info.Power != nil && *info.Power == community.CircleUserPowerManager {
+		db = db.Where("power = ?", info.Power)
+	}
+	if len(info.Keyword) > 0 {
+		db = db.Where("remark = ?", "%"+info.Keyword+"%")
+	}
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	var tmp = make([]community.CircleUserInfo, 0, len(hkCircleUsers))
+	err = db.Limit(limit).Offset(offset).Find(&hkCircleUsers).Error
+	if err == nil {
+		SetCircleUserUserIsFocus(selectUserId, hkCircleUsers)
+		for index, obj := range hkCircleUsers {
+			tmp[index].UserBaseInfo = obj.UserInfo
+			tmp[index].Remark = obj.Remark
+			tmp[index].Tag = obj.Tag
+			tmp[index].Power = obj.Power
+		}
+	}
+	return tmp, total, err
+}
+func (appCircleUserService *AppCircleUserService) GetCircleUserCount(circleId uint64) (total int64, err error) {
+	db := global.GVA_DB.Model(&community.CircleUser{}).Where("circle_id = ?", circleId)
+	err = db.Where("circle_id = ?", circleId).Count(&total).Error
+	return total, err
+}
 func (appCircleUserService *AppCircleUserService) UpdateCircleUser(info communityReq.UpdateCircleUserReq) (err error) {
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
@@ -114,80 +156,6 @@ func (appCircleUserService *AppCircleUserService) UpdateCircleUser(info communit
 	}
 	err = global.GVA_DB.Model(&community.CircleUser{}).Where("circle_id = ? AND user_id = ?", info.CircleId, info.UserId).Updates(updateData).Error
 	return err
-}
-
-// GetCircleUser 根据id获取CircleUser记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appCircleUserService *AppCircleUserService) GetCircleUser(id uint64) (hkCircleUser community.CircleUser, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleUser).Error
-	return
-}
-
-func (appCircleUserService *AppCircleUserService) GetCircleUserEx(circleId uint64, userId uint64) (hkCircleUser community.CircleUser, err error) {
-	err = global.GVA_DB.Where("circle_id = ? and user_id = ?", circleId, userId).First(&hkCircleUser).Error
-	return
-}
-
-func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(selectUserId uint64, circleId uint64, userId uint64) (hkCircleUser community.CircleUserInfo, err error) {
-	err = global.GVA_DB.Where("circle_id = ? and user_id = ?", circleId, userId).Preload("UserInfo").First(&hkCircleUser).Error
-	if err == nil {
-		isFocus, isFan, _ := GetIsFocusAndIsFan(selectUserId, &hkCircleUser.UserInfo)
-		hkCircleUser.UserInfo.IsFocus = isFocus
-		hkCircleUser.UserInfo.IsFan = isFan
-	}
-	return
-}
-
-// SetUserCurCircle 根据id获取CircleUser记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appCircleUserService *AppCircleUserService) SetUserCurCircle(userId uint64, circleId uint64) (err error) {
-	var userExtend community.UserExtend
-	userExtend.ID = userId
-	err = global.GVA_DB.Where("id = ?", userId).First(&userExtend).Error
-	if err == nil {
-		db := global.GVA_DB.Model(&userExtend)
-		err = db.Where("id = ?", userId).Update("circle_id", circleId).Error
-	} else if errors.Is(err, gorm.ErrRecordNotFound) {
-		err = global.GVA_DB.Create(&userExtend).Error
-		return err
-	}
-	return err
-}
-
-// GetCircleUserInfoList 分页获取CircleUser记录
-func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(selectUserId uint64, info communityReq.CircleUserSearch) (list []community.CircleUserInfo, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
-	// 创建db
-	db := global.GVA_DB.Model(&community.CircleUserInfo{}).Preload("UserInfo")
-	var hkCircleUsers []community.CircleUserInfo
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
-		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
-	}
-	db = db.Where("circle_id = ? AND user_id = ?", info.CircleId, info.UserId)
-	if info.CircleId != 0 {
-
-	}
-	if len(info.Keyword) > 0 {
-		db = db.Where("remark = ?", "%"+info.Keyword+"%")
-	}
-
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Limit(limit).Offset(offset).Find(&hkCircleUsers).Error
-	if err == nil {
-		SetCircleUserUserIsFocus(selectUserId, hkCircleUsers)
-	}
-	return hkCircleUsers, total, err
-}
-func (appCircleUserService *AppCircleUserService) GetCircleUserCount(circleId uint64) (total int64, err error) {
-	db := global.GVA_DB.Model(&community.CircleUser{}).Where("circle_id = ?", circleId)
-	err = db.Where("circle_id = ?", circleId).Count(&total).Error
-	return total, err
 }
 func (appCircleUserService *AppCircleUserService) UpdateCircleUserCount(circleId uint64) (err error) {
 	num, err := appCircleUserService.GetCircleUserCount(circleId)

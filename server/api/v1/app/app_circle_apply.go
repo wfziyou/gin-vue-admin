@@ -119,7 +119,7 @@ func (circleApplyApi *CircleApplyApi) FindCircleApply(c *gin.Context) {
 	} else {
 		userId := utils.GetUserID(c)
 		var isMember = true
-		if _, err := appCircleUserService.GetCircleUserEx(rehkCircleApply.CircleId, userId); err != nil {
+		if _, err := appCircleUserService.GetCircleUser(rehkCircleApply.CircleId, userId); err != nil {
 			isMember = false
 		}
 		if isMember == false && rehkCircleApply.Power == 1 {
@@ -148,7 +148,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyList(c *gin.Context) {
 	}
 	userId := utils.GetUserID(c)
 	var isMember = true
-	if _, err := appCircleUserService.GetCircleUserEx(req.CircleId, userId); err != nil {
+	if _, err := appCircleUserService.GetCircleUser(req.CircleId, userId); err != nil {
 		isMember = false
 	}
 	if list, total, err := appCircleApplyService.GetCircleApplyInfoList(req, isMember); err != nil {
@@ -182,7 +182,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyListAll(c *gin.Context) {
 	}
 	userId := utils.GetUserID(c)
 	var isMember = true
-	if _, err := appCircleUserService.GetCircleUserEx(req.CircleId, userId); err != nil {
+	if _, err := appCircleUserService.GetCircleUser(req.CircleId, userId); err != nil {
 		isMember = false
 	}
 	if list, err := appCircleApplyService.GetCircleApplyInfoListAll(req, isMember); err != nil {
@@ -212,7 +212,7 @@ func (circleApplyApi *CircleApplyApi) GetCircleHotApplyList(c *gin.Context) {
 
 	userId := utils.GetUserID(c)
 	var isMember = true
-	if _, err := appCircleUserService.GetCircleUserEx(req.CircleId, userId); err != nil {
+	if _, err := appCircleUserService.GetCircleUser(req.CircleId, userId); err != nil {
 		isMember = false
 	}
 	if list, _, err := appCircleApplyService.GetCircleHotApplyList(req.CircleId, isMember); err != nil {

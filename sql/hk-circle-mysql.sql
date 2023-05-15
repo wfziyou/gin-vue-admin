@@ -265,6 +265,7 @@ CREATE TABLE `hk_circle`  (
   `new_user_focus` smallint(6) NULL DEFAULT NULL COMMENT '新注册用户默认关注：0 否，1是',
   `channel_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '频道_编号',
   `user_num` smallint(6) NULL DEFAULT NULL COMMENT '用户数',
+  `update_forum_posts_time` datetime(3) NULL DEFAULT NULL COMMENT '发布帖子时间',
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   `created_at` datetime(3) NULL DEFAULT NULL,
   `updated_at` datetime(3) NULL DEFAULT NULL,

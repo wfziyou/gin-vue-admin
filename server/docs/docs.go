@@ -1892,6 +1892,44 @@ var doc = `{
                 }
             }
         },
+        "/app/circle/addCircleTag": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)添加圈子标签",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)添加圈子标签",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateCircleTag"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/applyEnterCircle": {
             "post": {
                 "security": [
@@ -1923,6 +1961,44 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"设置成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/approveChildCircleRequest": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)审批子圈子申请",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)审批子圈子申请",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamApproveChildCircleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -1968,6 +2044,44 @@ var doc = `{
                 }
             }
         },
+        "/app/circle/createChildCircle": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)创建子圈子",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)创建子圈子",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateChildCircle"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/createCircleRequest": {
             "post": {
                 "security": [
@@ -2006,8 +2120,8 @@ var doc = `{
                 }
             }
         },
-        "/app/circle/addCircleTag": {
-            "post": {
+        "/app/circle/deleteChildCircle": {
+            "delete": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -2022,15 +2136,15 @@ var doc = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "(圈子管理者)新建圈子标签",
+                "summary": "(圈子管理者)删除子圈子",
                 "parameters": [
                     {
-                        "description": "(圈子管理者)新建圈子标签",
+                        "description": "(圈子管理者)删除子圈子",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.ParamCreateCircleTag"
+                            "$ref": "#/definitions/request.ParamDeleteChildCircle"
                         }
                     }
                 ],
@@ -2120,7 +2234,7 @@ var doc = `{
                 }
             }
         },
-        "/app/circle/setCircleTags": {
+        "/app/circle/deleteCircleTags": {
             "delete": {
                 "security": [
                     {
@@ -2227,6 +2341,44 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/destroyCircle": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)注销圈子",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)注销圈子",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamDestroyCircle"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -2522,6 +2674,12 @@ var doc = `{
                         "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户ID",
+                        "name": "userId",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -2607,6 +2765,89 @@ var doc = `{
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/community.CircleBaseInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/getChildCircleRequestList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)获取子圈子申请列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间（结束）",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间（开始）",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.CircleTag",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.CircleTag"
                                             }
                                         },
                                         "msg": {
@@ -3137,12 +3378,6 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "创建时间（结束）",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "description": "关键字",
                         "name": "keyword",
                         "in": "query"
@@ -3160,9 +3395,9 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "创建时间（开始）",
-                        "name": "startCreatedAt",
+                        "type": "integer",
+                        "description": "权限：0普通 1圈主",
+                        "name": "power",
                         "in": "query"
                     }
                 ],
@@ -3366,6 +3601,44 @@ var doc = `{
                 }
             }
         },
+        "/app/circle/requestBecomeChildCircle": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)申请成为子圈子",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)申请成为子圈子",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamRequestBecomeChildCircle"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/setCircleChannel": {
             "post": {
                 "security": [
@@ -3397,44 +3670,6 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/circle/setUserCurCircle": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "圈子"
-                ],
-                "summary": "设置用户当前圈子",
-                "parameters": [
-                    {
-                        "description": "设置用户当前圈子",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.SetUserCurCircleReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"设置成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -3511,6 +3746,76 @@ var doc = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circleApply/addCircleApply": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子应用"
+                ],
+                "summary": "(圈子管理者)添加圈子应用",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circleApply/deleteCircleApply": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子应用"
+                ],
+                "summary": "(圈子管理者)删除圈子应用",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -4098,6 +4403,41 @@ var doc = `{
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circleApply/updateCircleApply": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子应用"
+                ],
+                "summary": "(圈子管理者)更新圈子应用",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -8820,6 +9160,109 @@ var doc = `{
                 }
             }
         },
+        "/app/wallet/GetExtractTypeList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "获取提现类型列表",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/wallet/createOrder": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "创建订单",
+                "parameters": [
+                    {
+                        "description": "创建订单",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/wallet/createUserExtract": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "创建用户提现",
+                "parameters": [
+                    {
+                        "description": "创建用户提现",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.UserRecharge"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/wallet/createUserRecharge": {
             "post": {
                 "security": [
@@ -8975,213 +9418,6 @@ var doc = `{
                 }
             }
         },
-        "/app/wallet/findOrder": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "钱包"
-                ],
-                "summary": "用id查询订单",
-                "parameters": [
-                    {
-                        "type": "number",
-                        "name": "backIntegral",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "cartNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "cost",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "extendOrderId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "gainIntegral",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "mark",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "orderId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "paid",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "payPrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "payTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "payType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "productId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "refundPrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReason",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReasonTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReasonWap",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReasonWapExplain",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReasonWapImg",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "refundStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "remark",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "totalPrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "unique",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "verifyCode",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回community.Order",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/community.Order"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
         "/app/wallet/findUserBill": {
             "get": {
                 "security": [
@@ -9302,138 +9538,6 @@ var doc = `{
                                     "properties": {
                                         "data": {
                                             "$ref": "#/definitions/community.UserBill"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/wallet/findUserRecharge": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "钱包"
-                ],
-                "summary": "用id查询用户充值",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "givePrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "nickname",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "orderId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "paid",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "payTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "price",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "rechargeType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "refundPrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回community.UserRecharge",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/community.UserRecharge"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -9576,7 +9680,7 @@ var doc = `{
                 }
             }
         },
-        "/app/wallet/getOrderList": {
+        "/app/wallet/getProductGoldList": {
             "get": {
                 "security": [
                     {
@@ -9592,200 +9696,7 @@ var doc = `{
                 "tags": [
                     "钱包"
                 ],
-                "summary": "分页获取订单列表",
-                "parameters": [
-                    {
-                        "type": "number",
-                        "name": "backIntegral",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "cartNum",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "cost",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "extendOrderId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "gainIntegral",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "mark",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "orderId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "paid",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "payPrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "payTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "payType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "productId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "refundPrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReason",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReasonTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReasonWap",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReasonWapExplain",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "refundReasonWapImg",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "refundStatus",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "remark",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "totalPrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "unique",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "verifyCode",
-                        "in": "query"
-                    }
-                ],
+                "summary": "获取金币列表",
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
@@ -9912,151 +9823,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/wallet/getUserRechargeList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "钱包"
-                ],
-                "summary": "分页获取用户充值列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "givePrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "nickname",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "orderId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "name": "paid",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "payTime",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "price",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "rechargeType",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "refundPrice",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
                         "in": "query"
                     },
                     {
@@ -15897,6 +15663,10 @@ var doc = `{
         "community.CircleTag": {
             "type": "object",
             "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
@@ -15914,47 +15684,59 @@ var doc = `{
         "community.CircleUserInfo": {
             "type": "object",
             "properties": {
-                "UserInfo": {
-                    "description": "用户基本信息",
-                    "$ref": "#/definitions/community.UserBaseInfo"
+                "account": {
+                    "description": "账号",
+                    "type": "string"
                 },
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
+                "birthday": {
+                    "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
+                "description": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "headerImg": {
+                    "description": "头像",
                     "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "isFan": {
+                    "description": "是否是粉丝:0 否、1是",
+                    "type": "integer"
+                },
+                "isFocus": {
+                    "description": "是否关注:0 否、1是",
+                    "type": "integer"
+                },
+                "nickName": {
+                    "description": "昵称",
+                    "type": "string"
+                },
                 "power": {
                     "description": "权限：0普通 1圈主",
                     "type": "integer"
+                },
+                "realName": {
+                    "description": "真名",
+                    "type": "string"
                 },
                 "remark": {
                     "description": "备注",
                     "type": "string"
                 },
-                "sort": {
-                    "description": "用户的圈子排序",
-                    "type": "integer"
-                },
-                "status": {
+                "sex": {
+                    "description": "性别： 0未知、1男、2女",
                     "type": "integer"
                 },
                 "tag": {
                     "description": "标签",
                     "type": "string"
                 },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户ID",
+                "userType": {
+                    "description": "用户平台: 1web、2app、3other",
                     "type": "integer"
                 }
             }
@@ -16591,110 +16373,6 @@ var doc = `{
                 },
                 "userId": {
                     "type": "integer"
-                }
-            }
-        },
-        "community.Order": {
-            "type": "object",
-            "properties": {
-                "backIntegral": {
-                    "type": "number"
-                },
-                "cartNum": {
-                    "type": "integer"
-                },
-                "cost": {
-                    "type": "number"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "extendOrderId": {
-                    "type": "string"
-                },
-                "gainIntegral": {
-                    "type": "number"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDel": {
-                    "type": "integer"
-                },
-                "mark": {
-                    "type": "string"
-                },
-                "orderId": {
-                    "type": "string"
-                },
-                "paid": {
-                    "type": "boolean"
-                },
-                "payPrice": {
-                    "type": "number"
-                },
-                "payTime": {
-                    "type": "string"
-                },
-                "payType": {
-                    "type": "string"
-                },
-                "productId": {
-                    "type": "integer"
-                },
-                "refundPrice": {
-                    "type": "number"
-                },
-                "refundReason": {
-                    "type": "string"
-                },
-                "refundReasonTime": {
-                    "type": "string"
-                },
-                "refundReasonWap": {
-                    "type": "string"
-                },
-                "refundReasonWapExplain": {
-                    "type": "string"
-                },
-                "refundReasonWapImg": {
-                    "type": "string"
-                },
-                "refundStatus": {
-                    "type": "boolean"
-                },
-                "remark": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "totalPrice": {
-                    "type": "number"
-                },
-                "unique": {
-                    "type": "string"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "type": "integer"
-                },
-                "verifyCode": {
-                    "type": "string"
                 }
             }
         },
@@ -19576,6 +19254,60 @@ var doc = `{
                 }
             }
         },
+        "request.ParamApproveChildCircleRequest": {
+            "type": "object",
+            "properties": {
+                "checkStatus": {
+                    "description": "审批状态: 0未处理，1同意，2拒绝",
+                    "type": "integer"
+                },
+                "des": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "申请编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamCreateChildCircle": {
+            "type": "object",
+            "properties": {
+                "circleClassifyId": {
+                    "description": "圈子分类_编号",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "coverImage": {
+                    "description": "圈子背景图",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "圈子简介",
+                    "type": "string"
+                },
+                "logo": {
+                    "description": "圈子Logo",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "圈子名称",
+                    "type": "string"
+                },
+                "protocol": {
+                    "description": "圈子规约",
+                    "type": "string"
+                },
+                "slogan": {
+                    "description": "圈子标语",
+                    "type": "string"
+                }
+            }
+        },
         "request.ParamCreateCircleTag": {
             "type": "object",
             "properties": {
@@ -19586,6 +19318,28 @@ var doc = `{
                 "name": {
                     "description": "标签名称",
                     "type": "string"
+                }
+            }
+        },
+        "request.ParamCreateOrder": {
+            "type": "object",
+            "properties": {
+                "productId": {
+                    "description": "商品ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamDeleteChildCircle": {
+            "type": "object",
+            "properties": {
+                "childCircleId": {
+                    "description": "子圈子编号",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
                 }
             }
         },
@@ -19617,6 +19371,32 @@ var doc = `{
                     "items": {
                         "type": "string"
                     }
+                }
+            }
+        },
+        "request.ParamDestroyCircle": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamRequestBecomeChildCircle": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "des": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "parentCircleId": {
+                    "description": "父圈子编号",
+                    "type": "integer"
                 }
             }
         },
@@ -19825,15 +19605,6 @@ var doc = `{
                 "coverImage": {
                     "description": "主页封面",
                     "type": "string"
-                }
-            }
-        },
-        "request.SetUserCurCircleReq": {
-            "type": "object",
-            "properties": {
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
                 }
             }
         },

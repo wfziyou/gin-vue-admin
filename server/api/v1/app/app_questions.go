@@ -126,7 +126,7 @@ func (questionApi *QuestionApi) CreateQuestion(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	appUserService.UpdatePostsTime(userId)
+	appUserService.UpdatePostsTime(req.CircleId, userId)
 	response.OkWithMessage("成功", c)
 }
 

@@ -1,7 +1,6 @@
 package community
 
 import (
-	"database/sql"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
@@ -200,77 +199,6 @@ func (appForumPostsService *AppForumPostsService) GetNearbyRecommendPostsList(se
 		SetPostsListUserIsFocus(selectUserId, hkForumPostss)
 	}
 	return hkForumPostss, total, err
-}
-
-func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
-	limit := page.PageSize
-	offset := page.PageSize * (page.Page - 1)
-
-	//查询关注用户
-	type tmp struct {
-		ID         uint64
-		UserExtend community.UserExtend `gorm:"foreignKey:ID;references:ID;"` //用户扩展
-	}
-	var focusUsers []tmp
-	focusUserDb := global.GVA_DB.Model(&community.FocusUser{}).Select("focus_user_id as id").Where("user_id = ?", userId)
-	err = focusUserDb.Find(&focusUsers).Error
-	if err != nil {
-		return
-	}
-	var focusUsersSize = len(focusUsers)
-	var hkForumPosts []community.ForumPostsBaseInfo
-	if focusUsersSize == 0 {
-		return hkForumPosts, total, err
-	}
-	var ids = make([]uint64, focusUsersSize)
-	for index, v := range focusUsers {
-		ids[index] = v.ID
-	}
-
-	//查询最近发布帖子的关注用户
-	type tmpUpdate struct {
-		ID uint64
-		Tm *time.Time
-	}
-	var focusUsersTm []tmpUpdate
-	db1 := global.GVA_DB.Model(&community.UserExtend{}).Select("id,update_forum_posts_time as tm").Where("id in ?", ids)
-	db1 = db1.Order("update_forum_posts_time desc")
-	err = db1.Find(&focusUsersTm).Error
-	if err != nil {
-		return
-	}
-	var size = len(focusUsersTm)
-	if size == 0 {
-		return hkForumPosts, total, err
-	}
-	var idEx = make([]uint64, size)
-	for index, v := range focusUsersTm {
-		idEx[index] = v.ID
-	}
-	//查询最新发布的帖子
-	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	db = db.Where("user_id in ?", idEx)
-	db = db.Where("is_public = 1 and check_status=?",
-		community.PostsCheckStatusPass)
-
-	//创建时间降序排列
-	db = db.Order("hk_forum_posts.created_at desc")
-
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPosts).Error
-	if err == nil {
-		//因为是关注用户的帖子，所以帖子的用户都是关注状态
-		for index, _ := range hkForumPosts {
-			hkForumPosts[index].UserInfo.IsFocus = 1
-		}
-		//SetPostsListUserIsFocus(userId, hkForumPosts)
-	}
-
-	return hkForumPosts, total, err
 }
 
 // GetGlobalRecommendQuestionList 分页获取全局推荐问题列表
@@ -486,17 +414,105 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(select
 	return hkForumPostss, total, err
 }
 
+func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := page.PageSize
+	offset := page.PageSize * (page.Page - 1)
+
+	//查询关注用户
+	type tmp struct {
+		ID         uint64
+		UserExtend community.UserExtend `gorm:"foreignKey:ID;references:ID;"` //用户扩展
+	}
+	var focusUsers []tmp
+	focusUserDb := global.GVA_DB.Model(&community.FocusUser{}).Select("focus_user_id as id").Where("user_id = ?", userId)
+	err = focusUserDb.Find(&focusUsers).Error
+	if err != nil {
+		return
+	}
+	var focusUsersSize = len(focusUsers)
+	var hkForumPosts []community.ForumPostsBaseInfo
+	if focusUsersSize == 0 {
+		return hkForumPosts, total, err
+	}
+	var ids = make([]uint64, focusUsersSize)
+	for index, v := range focusUsers {
+		ids[index] = v.ID
+	}
+
+	//查询最近发布帖子的关注用户
+	type tmpUpdate struct {
+		ID uint64
+		Tm *time.Time
+	}
+	var focusUsersTm []tmpUpdate
+	db1 := global.GVA_DB.Model(&community.UserExtend{}).Select("id,update_forum_posts_time as tm").Where("id in ?", ids)
+	db1 = db1.Order("update_forum_posts_time desc")
+	err = db1.Find(&focusUsersTm).Error
+	if err != nil {
+		return
+	}
+	var size = len(focusUsersTm)
+	if size == 0 {
+		return hkForumPosts, total, err
+	}
+	var idEx = make([]uint64, size)
+	for index, v := range focusUsersTm {
+		idEx[index] = v.ID
+	}
+	//查询最新发布的帖子
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	db = db.Where("user_id in ?", idEx)
+	db = db.Where("is_public = 1 and check_status=?",
+		community.PostsCheckStatusPass)
+
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPosts).Error
+	if err == nil {
+		//因为是关注用户的帖子，所以帖子的用户都是关注状态
+		for index, _ := range hkForumPosts {
+			hkForumPosts[index].UserInfo.IsFocus = 1
+		}
+		//SetPostsListUserIsFocus(userId, hkForumPosts)
+	}
+
+	return hkForumPosts, total, err
+}
+
 // GetUserForumPostsInfoList 分页获取用户加入圈子的所有动态列表
 // Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(userId uint64, info communityReq.UserCircleForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	type tmp struct {
+		ID uint64
+	}
+	var circles1 []tmp
+	var hkForumPosts []community.ForumPostsBaseInfo
+	dbCircleUser := global.GVA_DB.Model(&community.CircleUser{}).Select("circle_id as id").Joins("left join hk_circle on hk_circle.id = hk_circle_user.circle_id").Where("hk_circle_user.user_id = ?", userId)
+	err = dbCircleUser.Order("hk_circle.update_forum_posts_time desc").Limit(utils.PageSizeMax).Offset(0).Find(&circles1).Error
+	if err != nil {
+		return hkForumPosts, total, err
+	}
+	var circleCount = len(circles1)
+
+	if circleCount == 0 {
+		return hkForumPosts, total, err
+	}
+	var ids = make([]uint64, circleCount)
+	for index, v := range circles1 {
+		ids[index] = v.ID
+	}
+
 	//优化，need to do
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	var hkForumPostss []community.ForumPostsBaseInfo
-	db.Joins(",`hk_circle_user`")
-	db = db.Where("hk_circle_user.circle_id = hk_forum_posts.circle_id and hk_circle_user.user_id =@userId", sql.Named("userId", userId))
 
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
@@ -532,11 +548,11 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(user
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkForumPostss).Error
+	err = db.Limit(limit).Offset(offset).Find(&hkForumPosts).Error
 	if err == nil {
-		SetPostsListUserIsFocus(userId, hkForumPostss)
+		SetPostsListUserIsFocus(userId, hkForumPosts)
 	}
-	return hkForumPostss, total, err
+	return hkForumPosts, total, err
 }
 func (appForumPostsService *AppForumPostsService) GetDraft(id uint64) (hkForumPosts community.ForumPosts, err error) {
 	err = global.GVA_DB.Where("id = ? AND check_status = ?", id, community.PostsCheckStatusDraft).First(&hkForumPosts).Error
