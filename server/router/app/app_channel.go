@@ -16,8 +16,9 @@ func (s *HkChannelRouter) InitHkChannelRouter(Router *gin.RouterGroup) {
 	hkChannelRouterWithoutRecord := appRouter.Group("channel")
 	var hkChannelApi = v1.ApiGroupApp.AppApiGroup.HkChannelApi
 	{
-		hkChannelRouter.POST("setUserChannel", hkChannelApi.SetUserChannel)                     // 设置用户频道
-		hkChannelRouterWithoutRecord.GET("getChannelList", hkChannelApi.GetChannelList)         // 获取频道列表
-		hkChannelRouterWithoutRecord.GET("getUserChannelList", hkChannelApi.GetUserChannelList) // 获取用户频道
+		hkChannelRouter.POST("setUserChannel", hkChannelApi.SetUserChannel)                           // 设置用户频道
+		hkChannelRouterWithoutRecord.GET("getChannelList", hkChannelApi.GetChannelList)               // 获取频道列表
+		hkChannelRouterWithoutRecord.GET("getUserChannelList", hkChannelApi.GetUserChannelList)       // 获取用户频道
+		hkChannelRouterWithoutRecord.GET("getGeneralChannelList", hkChannelApi.GetGeneralChannelList) // 获取常规频道列表
 	}
 }

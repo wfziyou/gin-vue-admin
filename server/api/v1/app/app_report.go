@@ -96,55 +96,26 @@ func (reportApi *ReportApi) GetReportList(c *gin.Context) {
 	}
 }
 
-// FindReportReason 用id查询举报原因
+// GetReportReasonList 获取举报原因列表
 // @Tags 举报
-// @Summary 用id查询举报原因
+// @Summary 获取举报原因列表
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query request.IdSearch true "用id查询举报原因"
-// @Success 200 {object}  response.Response{data=community.ReportReason,msg=string}  "返回community.ReportReason"
-// @Router /app/report/findReportReason [get]
-func (reportApi *ReportApi) FindReportReason(c *gin.Context) {
-	var idSearch request.IdSearch
-	err := c.ShouldBindQuery(&idSearch)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	if rehkReportReason, err := appReportReasonService.GetReportReason(idSearch.ID); err != nil {
-		global.GVA_LOG.Error("查询失败!", zap.Error(err))
-		response.FailWithMessage("查询失败", c)
-	} else {
-		response.OkWithData(rehkReportReason, c)
-	}
-}
-
-// GetReportReasonList 分页获取举报原因列表
-// @Tags 举报
-// @Summary 分页获取举报原因列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query communityReq.ReportReasonSearch true "分页获取举报原因列表"
-// @Success 200 {object}  response.PageResult{List=[]community.ReportReason,msg=string} "返回community.ReportReason"
+// @Param data query communityReq.ReportReasonSearch true "获取举报原因列表"
+// @Success 200 {object}  response.PageResult{List=[]community.ReportReasonInfo,msg=string} "返回community.ReportReason"
 // @Router /app/report/getReportReasonList [get]
 func (reportApi *ReportApi) GetReportReasonList(c *gin.Context) {
-	var pageInfo communityReq.ReportReasonSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.ReportReasonSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := appReportReasonService.GetReportReasonInfoList(pageInfo); err != nil {
+	if list, err := appReportReasonService.GetReportReasonInfoList(req.ReportType); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithDetailed(response.PageResult{
-			List:     list,
-			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
-		}, "获取成功", c)
+		response.OkWithDetailed(list, "获取成功", c)
 	}
 }

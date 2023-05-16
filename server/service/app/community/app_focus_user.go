@@ -133,13 +133,14 @@ func (hkFocusUserService *FocusUserService) GetFocusUserInfoList(userId uint64, 
 							hkFocusUsers[i].NumCircle = user.UserExtend.NumCircle
 							hkFocusUsers[i].NumFocus = user.UserExtend.NumFocus
 							hkFocusUsers[i].NumFan = user.UserExtend.NumFan
+							hkFocusUsers[i].IsFocus = 1
 							break
 						}
 					}
 				}
 			}
 		}
-
+		SetFocusUserInfoIsFans(userId, hkFocusUsers)
 	}
 	return hkFocusUsers, total, err
 }
@@ -186,13 +187,14 @@ func (hkFocusUserService *FocusUserService) GetFansList(userId uint64, page requ
 							hkFocusUsers[i].NumCircle = user.UserExtend.NumCircle
 							hkFocusUsers[i].NumFocus = user.UserExtend.NumFocus
 							hkFocusUsers[i].NumFan = user.UserExtend.NumFan
+							hkFocusUsers[i].IsFan = 1
 							break
 						}
 					}
 				}
 			}
 		}
-
+		SetFocusUserInfoIsFocus(userId, hkFocusUsers)
 	}
 	return hkFocusUsers, total, err
 }

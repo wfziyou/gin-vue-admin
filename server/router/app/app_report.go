@@ -15,13 +15,10 @@ func (router *ReportRouter) InitReportRouter(Router *gin.RouterGroup) (R gin.IRo
 	reportRouterWithoutRecord := appRouter.Group("report")
 	var reportApi = v1.ApiGroupApp.AppApiGroup.ReportApi
 	{
-		reportRouter.POST("createReport", reportApi.CreateReport) //举报
-	}
-	{
+		reportRouter.POST("createReport", reportApi.CreateReport)                           //举报
 		reportRouterWithoutRecord.GET("findReport", reportApi.FindReport)                   //用id查询举报
 		reportRouterWithoutRecord.GET("getReportList", reportApi.GetReportList)             //分页获取举报列表
-		reportRouterWithoutRecord.GET("findReportReason", reportApi.FindReportReason)       //用id查询举报原因
-		reportRouterWithoutRecord.GET("getReportReasonList", reportApi.GetReportReasonList) //分页获取举报原因列表
+		reportRouterWithoutRecord.GET("getReportReasonList", reportApi.GetReportReasonList) //获取举报原因列表
 	}
 	return reportRouter
 }

@@ -406,6 +406,72 @@ func SetCircleUserUserIsFocus(selectUserId uint64, list []community.CircleUser) 
 		}
 	}
 }
+func SetFocusUserInfoIsFocus(selectUserId uint64, list []community.FocusUserInfo) {
+	size := len(list)
+	if size == 0 {
+		return
+	}
+	var ids = make([]uint64, 0, size)
+	num := 0
+	for _, obj := range list {
+		if obj.UserInfo.ID != selectUserId {
+			ids = append(ids, obj.UserInfo.ID)
+			num++
+		}
+	}
+	if num == 0 {
+		return
+	}
+	var focusUserList []community.FocusUser
+	err := global.GVA_DB.Model(&community.FocusUser{}).Where("user_id = ? AND focus_user_id in ?", selectUserId, ids).Find(&focusUserList).Error
+	if err != nil {
+		return
+	}
+
+	for index, obj := range list {
+		if obj.UserInfo.ID != selectUserId {
+			for _, focus := range focusUserList {
+				if obj.ID == focus.FocusUserId {
+					list[index].UserInfo.IsFocus = 1
+					break
+				}
+			}
+		}
+	}
+}
+func SetFocusUserInfoIsFans(userId uint64, list []community.FocusUserInfo) {
+	size := len(list)
+	if size == 0 {
+		return
+	}
+	var ids = make([]uint64, 0, size)
+	num := 0
+	for _, obj := range list {
+		if obj.UserInfo.ID != userId {
+			ids = append(ids, obj.UserInfo.ID)
+			num++
+		}
+	}
+	if num == 0 {
+		return
+	}
+	var focusUserList []community.FocusUser
+	err := global.GVA_DB.Model(&community.FocusUser{}).Where("focus_user_id = ? AND user_id in ?", userId, ids).Find(&focusUserList).Error
+	if err != nil {
+		return
+	}
+
+	for index, obj := range list {
+		if obj.UserInfo.ID != userId {
+			for _, focus := range focusUserList {
+				if obj.ID == focus.UserId {
+					list[index].UserInfo.IsFan = 1
+					break
+				}
+			}
+		}
+	}
+}
 
 func GetIsFocusAndIsFan(selectUserId uint64, userInfo *community.UserBaseInfo) (isFocus int, isFan int, err error) {
 	if selectUserId != userInfo.ID {

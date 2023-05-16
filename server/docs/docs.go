@@ -7868,7 +7868,7 @@ var doc = `{
                 "tags": [
                     "举报"
                 ],
-                "summary": "分页获取举报原因列表",
+                "summary": "获取举报原因列表",
                 "parameters": [
                     {
                         "type": "string",

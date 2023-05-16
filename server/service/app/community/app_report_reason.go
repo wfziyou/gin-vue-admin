@@ -3,7 +3,6 @@ package community
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
-	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
@@ -47,21 +46,12 @@ func (appReportReasonService *AppReportReasonService) GetReportReason(id uint64)
 
 // GetReportReasonInfoList 分页获取ReportReason记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appReportReasonService *AppReportReasonService) GetReportReasonInfoList(info communityReq.ReportReasonSearch) (list []community.ReportReason, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
+func (appReportReasonService *AppReportReasonService) GetReportReasonInfoList(reportType int) (list []community.ReportReasonInfo, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&community.ReportReason{})
-	var hkReportReasons []community.ReportReason
-	// 如果有条件搜索 下方会自动创建搜索语句
-	if len(info.Keyword) > 0 {
-		db = db.Where("reason LIKE ?", "%"+info.Keyword+"%")
-	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
+	var hkReportReasons []community.ReportReasonInfo
+	db = db.Where("report_type = ?", reportType)
 
-	err = db.Limit(limit).Offset(offset).Find(&hkReportReasons).Error
-	return hkReportReasons, total, err
+	err = db.Find(&hkReportReasons).Error
+	return hkReportReasons, err
 }
