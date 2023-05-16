@@ -1202,6 +1202,7 @@ DROP TABLE IF EXISTS `hk_report_reason`;
 CREATE TABLE `hk_report_reason`  (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `report_type` int(2) NOT NULL COMMENT '举报类型:1用户、2圈子、3群、4帖子、5帖子评论',
    `reason` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '举报理由',
    `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',

@@ -254,31 +254,32 @@ INSERT INTO `casbin_rule` VALUES (1206, 'p', '888', '/app/circleApply/getCircleA
 INSERT INTO `casbin_rule` VALUES (1207, 'p', '888', '/app/circleApply/getCircleApplyGroupList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1208, 'p', '888', '/app/circleApply/getCircleApplyGroupListAll', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1209, 'p', '888', '/app/circleApply/getCircleHotApplyList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1209, 'p', '888', '/app/circleApply/addCircleApply', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1209, 'p', '888', '/app/circleApply/updateCircleApply', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1209, 'p', '888', '/app/circleApply/deleteCircleApply', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1210, 'p', '888', '/app/circleApply/addCircleApply', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1211, 'p', '888', '/app/circleApply/updateCircleApply', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1212, 'p', '888', '/app/circleApply/deleteCircleApply', 'DELETE', '', '', '', '', '');
 
-INSERT INTO `casbin_rule` VALUES (1300, 'p', '888', '/app/forumPosts/createForumPosts', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1301, 'p', '888', '/app/forumPosts/deleteForumPosts', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1302, 'p', '888', '/app/forumPosts/deleteForumPostsByIds', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1303, 'p', '888', '/app/forumPosts/deleteSelfForumPosts', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1304, 'p', '888', '/app/forumPosts/updateForumPosts', 'PUT', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1305, 'p', '888', '/app/forumPosts/createForumComment', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1306, 'p', '888', '/app/forumPosts/deleteForumComment', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1307, 'p', '888', '/app/forumPosts/deleteForumCommentByIds', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1308, 'p', '888', '/app/forumPosts/createForumThumbsUp', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1309, 'p', '888', '/app/forumPosts/deleteForumThumbsUp', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1310, 'p', '888', '/app/forumPosts/createCommentThumbsUp', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1311, 'p', '888', '/app/forumPosts/deleteCommentThumbsUp', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1312, 'p', '888', '/app/forumPosts/getRecommendPostsList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1313, 'p', '888', '/app/forumPosts/getGlobalTopInfoList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1314, 'p', '888', '/app/forumPosts/getGlobalRecommendInfoList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1315, 'p', '888', '/app/forumPosts/getNearbyRecommendPostsList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1316, 'p', '888', '/app/forumPosts/findForumPosts', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1317, 'p', '888', '/app/forumPosts/getForumPostsList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1318, 'p', '888', '/app/forumPosts/findForumComment', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1319, 'p', '888', '/app/forumPosts/getForumCommentList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1320, 'p', '888', '/app/forumPosts/getUserForumPostsList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1301, 'p', '888', '/app/forumPosts/createForumPosts', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1302, 'p', '888', '/app/forumPosts/createNews', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1303, 'p', '888', '/app/forumPosts/deleteForumPosts', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1304, 'p', '888', '/app/forumPosts/deleteForumPostsByIds', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1305, 'p', '888', '/app/forumPosts/deleteSelfForumPosts', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1306, 'p', '888', '/app/forumPosts/updateForumPosts', 'PUT', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1307, 'p', '888', '/app/forumPosts/createForumComment', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1308, 'p', '888', '/app/forumPosts/deleteForumComment', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1309, 'p', '888', '/app/forumPosts/deleteForumCommentByIds', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1310, 'p', '888', '/app/forumPosts/createForumThumbsUp', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1311, 'p', '888', '/app/forumPosts/deleteForumThumbsUp', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1312, 'p', '888', '/app/forumPosts/createCommentThumbsUp', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1313, 'p', '888', '/app/forumPosts/deleteCommentThumbsUp', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1314, 'p', '888', '/app/forumPosts/getRecommendPostsList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1315, 'p', '888', '/app/forumPosts/getGlobalTopInfoList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1316, 'p', '888', '/app/forumPosts/getGlobalRecommendInfoList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1317, 'p', '888', '/app/forumPosts/getNearbyRecommendPostsList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1318, 'p', '888', '/app/forumPosts/findForumPosts', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1319, 'p', '888', '/app/forumPosts/getForumPostsList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1320, 'p', '888', '/app/forumPosts/findForumComment', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1321, 'p', '888', '/app/forumPosts/getForumCommentList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1322, 'p', '888', '/app/forumPosts/getUserForumPostsList', 'GET', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (1401, 'p', '888', '/app/general/findProtocol', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1402, 'p', '888', '/app/general/findProtocolByName', 'GET', '', '', '', '', '');
@@ -301,8 +302,7 @@ INSERT INTO `casbin_rule` VALUES (14017, 'p', '888', '/app/general/getUserCoverI
 INSERT INTO `casbin_rule` VALUES (1500, 'p', '888', '/app/report/createReport', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1501, 'p', '888', '/app/report/findReport', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1502, 'p', '888', '/app/report/getReportList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1503, 'p', '888', '/app/report/findReportReason', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1504, 'p', '888', '/app/report/getReportReasonList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1503, 'p', '888', '/app/report/getReportReasonList', 'GET', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (1600, 'p', '888', '/app/topic/findForumTopicGroup', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1601, 'p', '888', '/app/topic/getForumTopicGroupList', 'GET', '', '', '', '', '');
@@ -397,6 +397,7 @@ INSERT INTO `casbin_rule` VALUES (11408, 'p', '888', '/app/focus/findFocusUser',
 INSERT INTO `casbin_rule` VALUES (11501, 'p', '888', '/app/channel/getChannelList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11502, 'p', '888', '/app/channel/getUserChannelList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11503, 'p', '888', '/app/channel/setUserChannel', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11504, 'p', '888', '/app/channel/getGeneralChannelList', 'GET', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for exa_customers
@@ -758,27 +759,28 @@ INSERT INTO `sys_apis` VALUES (210, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (211, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circleApply/updateCircleApply', '(圈子管理者)更新圈子应用', 2, 'POST');
 INSERT INTO `sys_apis` VALUES (212, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circleApply/deleteCircleApply', '(圈子管理者)删除圈子应用', 2, 'DELETE');
 
-INSERT INTO `sys_apis` VALUES (300, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/createForumPosts', '创建帖子', 3, 'POST');
-INSERT INTO `sys_apis` VALUES (301, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumPosts', '删除帖子', 3, 'DELETE');
-INSERT INTO `sys_apis` VALUES (302, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumPostsByIds', '批量删除帖子', 3, 'DELETE');
-INSERT INTO `sys_apis` VALUES (303, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteSelfForumPosts', '删除自己的帖子', 3, 'DELETE');
-INSERT INTO `sys_apis` VALUES (304, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/updateForumPosts', '更新帖子', 3, 'PUT');
-INSERT INTO `sys_apis` VALUES (305, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/createForumComment', '创建评论', 3, 'POST');
-INSERT INTO `sys_apis` VALUES (306, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumComment', '删除评论', 3, 'DELETE');
-INSERT INTO `sys_apis` VALUES (307, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumCommentByIds', '批量删除评论', 3, 'DELETE');
-INSERT INTO `sys_apis` VALUES (308, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/createForumThumbsUp', '帖子点赞', 3, 'POST');
-INSERT INTO `sys_apis` VALUES (309, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumThumbsUp', '删除帖子点赞', 3, 'DELETE');
-INSERT INTO `sys_apis` VALUES (310, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/createCommentThumbsUp', '评论点赞', 3, 'POST');
-INSERT INTO `sys_apis` VALUES (311, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteCommentThumbsUp', '删除评论点赞', 3, 'DELETE');
-INSERT INTO `sys_apis` VALUES (312, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getRecommendPostsList', '分页获取推荐帖子列表', 3, 'GET');
-INSERT INTO `sys_apis` VALUES (313, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getGlobalTopInfoList', '获全局置顶资讯列表', 3, 'GET');
-INSERT INTO `sys_apis` VALUES (314, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getGlobalRecommendInfoList', '分页获全局推荐资讯列表', 3, 'GET');
-INSERT INTO `sys_apis` VALUES (315, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getNearbyRecommendPostsList', '分页获附近推荐帖子列表', 3, 'GET');
-INSERT INTO `sys_apis` VALUES (316, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/findForumPosts', '用id查询帖子', 3, 'GET');
-INSERT INTO `sys_apis` VALUES (317, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getForumPostsList', '分页获取帖子列表', 3, 'GET');
-INSERT INTO `sys_apis` VALUES (318, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/findForumComment', '用id查询评论', 3, 'GET');
-INSERT INTO `sys_apis` VALUES (319, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getForumCommentList', '分页获取评论列表', 3, 'GET');
-INSERT INTO `sys_apis` VALUES (320, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getUserForumPostsList', '分页获取用户帖子列表', 7, 'GET');
+INSERT INTO `sys_apis` VALUES (301, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/createForumPosts', '创建帖子', 3, 'POST');
+INSERT INTO `sys_apis` VALUES (302, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/createNews', '创建资讯', 3, 'POST');
+INSERT INTO `sys_apis` VALUES (303, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumPosts', '删除帖子', 3, 'DELETE');
+INSERT INTO `sys_apis` VALUES (304, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumPostsByIds', '批量删除帖子', 3, 'DELETE');
+INSERT INTO `sys_apis` VALUES (305, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteSelfForumPosts', '删除自己的帖子', 3, 'DELETE');
+INSERT INTO `sys_apis` VALUES (306, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/updateForumPosts', '更新帖子', 3, 'PUT');
+INSERT INTO `sys_apis` VALUES (307, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/createForumComment', '创建评论', 3, 'POST');
+INSERT INTO `sys_apis` VALUES (308, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumComment', '删除评论', 3, 'DELETE');
+INSERT INTO `sys_apis` VALUES (309, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumCommentByIds', '批量删除评论', 3, 'DELETE');
+INSERT INTO `sys_apis` VALUES (310, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/createForumThumbsUp', '帖子点赞', 3, 'POST');
+INSERT INTO `sys_apis` VALUES (311, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteForumThumbsUp', '删除帖子点赞', 3, 'DELETE');
+INSERT INTO `sys_apis` VALUES (312, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/createCommentThumbsUp', '评论点赞', 3, 'POST');
+INSERT INTO `sys_apis` VALUES (313, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/deleteCommentThumbsUp', '删除评论点赞', 3, 'DELETE');
+INSERT INTO `sys_apis` VALUES (314, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getRecommendPostsList', '分页获取推荐帖子列表', 3, 'GET');
+INSERT INTO `sys_apis` VALUES (315, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getGlobalTopInfoList', '获全局置顶资讯列表', 3, 'GET');
+INSERT INTO `sys_apis` VALUES (316, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getGlobalRecommendInfoList', '分页获全局推荐资讯列表', 3, 'GET');
+INSERT INTO `sys_apis` VALUES (317, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getNearbyRecommendPostsList', '分页获附近推荐帖子列表', 3, 'GET');
+INSERT INTO `sys_apis` VALUES (318, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/findForumPosts', '用id查询帖子', 3, 'GET');
+INSERT INTO `sys_apis` VALUES (319, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getForumPostsList', '分页获取帖子列表', 3, 'GET');
+INSERT INTO `sys_apis` VALUES (320, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/findForumComment', '用id查询评论', 3, 'GET');
+INSERT INTO `sys_apis` VALUES (321, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getForumCommentList', '分页获取评论列表', 3, 'GET');
+INSERT INTO `sys_apis` VALUES (322, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/forumPosts/getUserForumPostsList', '分页获取用户帖子列表', 7, 'GET');
 
 INSERT INTO `sys_apis` VALUES (401, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocol', '用id查询协议', 4, 'GET');
 INSERT INTO `sys_apis` VALUES (402, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocolByName', '用名字查询协议', 4, 'GET');
@@ -801,8 +803,7 @@ INSERT INTO `sys_apis` VALUES (417, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (500, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/createReport', '举报', 5, 'POST');
 INSERT INTO `sys_apis` VALUES (501, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/findReport', '用id查询Report', 5, 'GET');
 INSERT INTO `sys_apis` VALUES (502, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/getReportList', '分页获取Report列表', 5, 'GET');
-INSERT INTO `sys_apis` VALUES (503, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/findReportReason', '用id查询ReportReason', 5, 'GET');
-INSERT INTO `sys_apis` VALUES (504, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/getReportReasonList', '分页获取ReportReason列表', 5, 'GET');
+INSERT INTO `sys_apis` VALUES (503, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/report/getReportReasonList', '分页获取ReportReason列表', 5, 'GET');
 
 INSERT INTO `sys_apis` VALUES (600, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/topic/findForumTopicGroup', '用id查询ForumTopicGroup', 6, 'GET');
 INSERT INTO `sys_apis` VALUES (601, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/topic/getForumTopicGroupList', '分页获取ForumTopicGroup列表', 6, 'GET');
@@ -897,6 +898,7 @@ INSERT INTO `sys_apis` VALUES (1408, '000000', '2023-02-06 18:19:13.303', '2023-
 INSERT INTO `sys_apis` VALUES (1501, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/channel/getChannelList', '获取频道列表', 15, 'GET');
 INSERT INTO `sys_apis` VALUES (1502, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/channel/getUserChannelList', '获取用户频道', 15, 'GET');
 INSERT INTO `sys_apis` VALUES (1503, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/channel/setUserChannel', '设置用户频道', 15, 'POST');
+INSERT INTO `sys_apis` VALUES (1504, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/channel/getGeneralChannelList', '获取常规频道列表', 15, 'GET');
 
 INSERT INTO `sys_apis` VALUES (1601, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/getProductGoldList', '获取金币列表', 16, 'GET');
 INSERT INTO `sys_apis` VALUES (1602, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/createOrder', '创建订单', 16, 'POST');
