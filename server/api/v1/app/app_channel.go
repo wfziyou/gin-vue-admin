@@ -109,3 +109,20 @@ func (hkChannelApi *HkChannelApi) SetUserChannel(c *gin.Context) {
 		response.OkWithMessage("成功", c)
 	}
 }
+
+// GetGeneralChannelList 获取常规频道列表
+// @Tags 频道
+// @Summary 获取常规频道列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {object}  response.Response{data=[]community.ChannelInfo,msg=string} "返回[]community.HkChannel"
+// @Router /app/channel/getGeneralChannelList [get]
+func (hkChannelApi *HkChannelApi) GetGeneralChannelList(c *gin.Context) {
+	list, _, err := hkChannelService.GetGeneralChannelList()
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	}
+	response.OkWithDetailed(list, "获取成功", c)
+}

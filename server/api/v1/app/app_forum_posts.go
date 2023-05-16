@@ -178,6 +178,50 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 	}
 }
 
+// CreateNews 创建资讯
+// @Tags 帖子
+// @Summary 创建资讯
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamCreateNews true "创建资讯"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /app/forumPosts/createNews [post]
+func (forumPostsApi *ForumPostsApi) CreateNews(c *gin.Context) {
+	var req communityReq.ParamCreateNews
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power != community.CircleUserPowerManager {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+
+	if err := appForumPostsService.CreateNews(userId, req); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+		return
+	} else {
+		appUserService.UpdatePostsTime(req.CircleId, userId)
+		response.OkWithMessage("创建成功", c)
+	}
+}
+
 // DeleteForumPosts 删除帖子
 // @Tags 帖子
 // @Summary 删除帖子

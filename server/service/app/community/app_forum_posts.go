@@ -48,6 +48,36 @@ func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communit
 	}
 	return err
 }
+func (appForumPostsService *AppForumPostsService) CreateNews(userId uint64, info communityReq.ParamCreateNews) (err error) {
+	checkStatus := community.PostsCheckStatusPass
+	if info.Draft == community.DraftTrue {
+		checkStatus = community.PostsCheckStatusDraft
+	}
+	forumPosts := community.ForumPosts{
+		UserId:       userId,
+		ChannelId:    info.ChannelId,
+		CircleId:     info.CircleId,
+		Category:     community.PostsCategoryNews,
+		Title:        info.Title,
+		CoverImage:   info.CoverImage,
+		ContentType:  community.ContentTypeHtml,
+		ContentHtml:  info.ContentHtml,
+		CheckStatus:  checkStatus,
+		IsPublic:     community.ForumPostsIsPublicTrue,
+		PowerComment: community.ForumPostsPowerCommentOpen,
+	}
+	err = global.GVA_DB.Create(&forumPosts).Error
+	if err == nil && len(info.TopicId) > 0 {
+		tmp := utils.SplitToUint64List(info.TopicId, ",")
+		for _, topicId := range tmp {
+			err = global.GVA_DB.Create(&community.ForumTopicPostsMapping{
+				TopicId: topicId,
+				PostsId: forumPosts.ID,
+			}).Error
+		}
+	}
+	return err
+}
 
 // DeleteForumPosts 删除帖子记录
 // Author [piexlmax](https://github.com/piexlmax)

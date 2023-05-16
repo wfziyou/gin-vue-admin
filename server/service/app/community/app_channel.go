@@ -56,6 +56,15 @@ func (hkChannelService *HkChannelService) GetChannelInfoList() (list []community
 	return hkChannels, total, err
 }
 
+func (hkChannelService *HkChannelService) GetGeneralChannelList() (list []community.ChannelInfo, total int64, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&community.ChannelInfo{}).Where("code = ?", community.ChannelCodeGeneral)
+	var hkChannels []community.ChannelInfo
+
+	err = db.Find(&hkChannels).Error
+	return hkChannels, total, err
+}
+
 // GetChannelInfoListById 分页获取HkChannel记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkChannelService *HkChannelService) GetChannelInfoListById(ids string) (list []community.ChannelInfo, total int64, err error) {
