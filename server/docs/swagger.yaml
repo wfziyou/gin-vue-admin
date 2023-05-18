@@ -529,6 +529,21 @@ definitions:
         description: '用户平台: 1web、2app、3other'
         type: integer
     type: object
+  community.ExtractType:
+    properties:
+      code:
+        description: '标识: h5=网页 alipay = 支付宝 wx=微信 paypal apple=苹果'
+        type: string
+      icon:
+        description: 图标
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+    type: object
   community.FocusUserInfo:
     properties:
       account:
@@ -987,11 +1002,38 @@ definitions:
       titleIcon:
         type: string
       type:
-        type: string
+        type: integer
       updatedAt:
         description: 更新时间
         type: string
       userId:
+        type: integer
+    type: object
+  community.PayTypeInfo:
+    properties:
+      code:
+        description: '标识: h5=网页 alipay = 支付宝 wx=微信 paypal apple=苹果'
+        type: string
+      icon:
+        description: 图标
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+    type: object
+  community.ProductGoldInfo:
+    properties:
+      id:
+        description: 主键ID
+        type: integer
+      num:
+        description: 数量
+        type: integer
+      price:
+        description: 商品价格
         type: integer
     type: object
   community.QuestionAnswer:
@@ -1144,24 +1186,13 @@ definitions:
         description: 举报用户编号
         type: integer
     type: object
-  community.ReportReason:
+  community.ReportReasonInfo:
     properties:
-      createdAt:
-        description: 创建时间
-        type: string
       id:
         description: 主键ID
         type: integer
       reason:
         description: 举报理由
-        type: string
-      sort:
-        description: 排序
-        type: integer
-      status:
-        type: integer
-      updatedAt:
-        description: 更新时间
         type: string
     type: object
   community.User:
@@ -1267,37 +1298,29 @@ definitions:
   community.UserBill:
     properties:
       balance:
-        type: number
+        type: integer
       category:
         type: string
-      createDept:
-        type: integer
-      createUser:
-        type: integer
       createdAt:
         description: 创建时间
         type: string
       id:
         description: 主键ID
         type: integer
-      isDel:
-        type: integer
       linkId:
         type: string
       mark:
         type: string
       number:
-        type: number
+        type: integer
       pm:
-        type: boolean
+        type: integer
       status:
         type: integer
       title:
         type: string
       type:
         type: string
-      updateUser:
-        type: integer
       updatedAt:
         description: 更新时间
         type: string
@@ -1419,46 +1442,6 @@ definitions:
         type: integer
       userType:
         description: '用户平台: 1web、2app、3other'
-        type: integer
-    type: object
-  community.UserRecharge:
-    properties:
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      givePrice:
-        type: number
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      nickname:
-        type: string
-      orderId:
-        type: string
-      paid:
-        type: boolean
-      payTime:
-        type: string
-      price:
-        type: number
-      rechargeType:
-        type: string
-      refundPrice:
-        type: number
-      status:
-        type: integer
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
         type: integer
     type: object
   config.AliyunOSS:
@@ -3075,8 +3058,38 @@ definitions:
         description: 标签名称
         type: string
     type: object
+  request.ParamCreateNews:
+    properties:
+      channelId:
+        description: 频道_编号
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      contentHtml:
+        description: html内容
+        type: string
+      coverImage:
+        description: 封面
+        type: string
+      draft:
+        description: 是否是草稿：0不是，1是
+        type: integer
+      title:
+        description: 标题
+        type: string
+      topicId:
+        description: 话题_编号
+        type: string
+    type: object
   request.ParamCreateOrder:
     properties:
+      cartNum:
+        description: 商品数量
+        type: integer
+      payType:
+        description: 支付方式
+        type: string
       productId:
         description: 商品ID
         type: integer
@@ -3145,6 +3158,18 @@ definitions:
         description: 频道编号，通过逗号分割
         example: 1,2
         type: string
+    type: object
+  request.ParamUserExtract:
+    properties:
+      bank:
+        description: 银行卡
+        type: string
+      code:
+        description: '标识: bank = 银行卡 alipay = 支付宝wx=微信'
+        type: integer
+      num:
+        description: 数量
+        type: integer
     type: object
   request.ResetPasswordReq:
     properties:
@@ -3543,6 +3568,12 @@ definitions:
     properties:
       file:
         $ref: '#/definitions/example.ExaFile'
+    type: object
+  response.LocalTelephone:
+    properties:
+      phone:
+        description: 手机
+        type: string
     type: object
   response.PageResult:
     properties:
@@ -5055,6 +5086,32 @@ paths:
       summary: 活动报名申请审批
       tags:
       - 活动
+  /app/auth/getLocalTelephone:
+    post:
+      parameters:
+      - description: 获取本机手机号码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginOneClick'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回LocalTelephone
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.LocalTelephone'
+                msg:
+                  type: string
+              type: object
+      summary: 获取本机手机号码
+      tags:
+      - 鉴权认证
   /app/auth/getSmsVerification:
     post:
       consumes:
@@ -5269,6 +5326,31 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 获取频道列表
+      tags:
+      - 频道
+  /app/channel/getGeneralChannelList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.HkChannel
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.ChannelInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取常规频道列表
       tags:
       - 频道
   /app/channel/getUserChannelList:
@@ -7403,6 +7485,29 @@ paths:
       summary: 帖子点赞
       tags:
       - 帖子
+  /app/forumPosts/createNews:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建资讯
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateNews'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建资讯
+      tags:
+      - 帖子
   /app/forumPosts/deleteCommentThumbsUp:
     delete:
       consumes:
@@ -8777,34 +8882,6 @@ paths:
       summary: 用id查询举报
       tags:
       - 举报
-  /app/report/findReportReason:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 编号
-        in: query
-        name: id
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回community.ReportReason
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/community.ReportReason'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询举报原因
-      tags:
-      - 举报
   /app/report/getReportList:
     get:
       consumes:
@@ -8880,17 +8957,9 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 关键字
+      - description: 举报类型:1用户、2圈子、3群、4帖子、5帖子评论
         in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
+        name: reportType
         type: integer
       produces:
       - application/json
@@ -8903,7 +8972,7 @@ paths:
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.ReportReason'
+                    $ref: '#/definitions/community.ReportReasonInfo'
                   type: array
                 msg:
                   type: string
@@ -9474,6 +9543,10 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        in: query
+        name: category
+        type: integer
       - in: query
         name: endUpdatedAt
         type: string
@@ -9647,22 +9720,6 @@ paths:
       summary: 分页获取收藏列表
       tags:
       - 收藏
-  /app/wallet/GetExtractTypeList:
-    get:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 获取提现类型列表
-      tags:
-      - 钱包
   /app/wallet/createOrder:
     post:
       consumes:
@@ -9696,7 +9753,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.UserRecharge'
+          $ref: '#/definitions/request.ParamUserExtract'
       produces:
       - application/json
       responses:
@@ -9709,78 +9766,14 @@ paths:
       summary: 创建用户提现
       tags:
       - 钱包
-  /app/wallet/createUserRecharge:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建用户充值
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/community.UserRecharge'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建用户充值
-      tags:
-      - 钱包
   /app/wallet/findGoldBill:
     get:
       consumes:
       - application/json
       parameters:
-      - in: query
-        name: balance
-        type: integer
-      - in: query
-        name: beforeNumber
-        type: integer
-      - in: query
-        name: changeNumber
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
+      - description: 编号
         in: query
         name: id
-        type: integer
-      - in: query
-        name: linkId
-        type: string
-      - in: query
-        name: mark
-        type: string
-      - in: query
-        name: pm
-        type: integer
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: titleIcon
-        type: string
-      - in: query
-        name: type
-        type: string
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
         type: integer
       produces:
       - application/json
@@ -9808,16 +9801,10 @@ paths:
       parameters:
       - in: query
         name: balance
-        type: number
+        type: integer
       - in: query
         name: category
         type: string
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
       - description: 创建时间
         in: query
         name: createdAt
@@ -9827,9 +9814,6 @@ paths:
         name: id
         type: integer
       - in: query
-        name: isDel
-        type: integer
-      - in: query
         name: linkId
         type: string
       - in: query
@@ -9837,10 +9821,10 @@ paths:
         type: string
       - in: query
         name: number
-        type: number
+        type: integer
       - in: query
         name: pm
-        type: boolean
+        type: integer
       - in: query
         name: status
         type: integer
@@ -9850,9 +9834,6 @@ paths:
       - in: query
         name: type
         type: string
-      - in: query
-        name: updateUser
-        type: integer
       - description: 更新时间
         in: query
         name: updatedAt
@@ -9879,40 +9860,42 @@ paths:
       summary: 用id查询用户账单
       tags:
       - 钱包
+  /app/wallet/getExtractTypeList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.PayTypeInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.ExtractType'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取提现类型列表
+      tags:
+      - 钱包
   /app/wallet/getGoldBillList:
     get:
       consumes:
       - application/json
       parameters:
       - in: query
-        name: balance
-        type: integer
-      - in: query
-        name: beforeNumber
-        type: integer
-      - in: query
-        name: changeNumber
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
         name: endCreatedAt
         type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
       - description: 关键字
         in: query
         name: keyword
-        type: string
-      - in: query
-        name: linkId
-        type: string
-      - in: query
-        name: mark
         type: string
       - description: 页码
         in: query
@@ -9922,41 +9905,61 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 0 = 支出 1 = 获得
+        in: query
         name: pm
         type: integer
       - in: query
         name: startCreatedAt
         type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: titleIcon
-        type: string
-      - in: query
-        name: type
-        type: string
-      - description: 更新时间
+      - description: 账单类型 1充值 2付费 3红包 4打赏 5其他
         in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
+        name: type
         type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回[]community.GoldBill
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.GoldBill'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取金币账单列表
+      tags:
+      - 钱包
+  /app/wallet/getPayTypeList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.PayTypeInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.PayTypeInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取支付类型列表
       tags:
       - 钱包
   /app/wallet/getProductGoldList:
@@ -9967,9 +9970,18 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回[]community.ProductGoldInfo
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.ProductGoldInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 获取金币列表
@@ -9981,44 +9993,12 @@ paths:
       - application/json
       parameters:
       - in: query
-        name: balance
-        type: number
-      - in: query
-        name: category
-        type: string
-      - in: query
-        name: createDept
-        type: integer
-      - in: query
-        name: createUser
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
         name: endCreatedAt
         type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: isDel
-        type: integer
       - description: 关键字
         in: query
         name: keyword
         type: string
-      - in: query
-        name: linkId
-        type: string
-      - in: query
-        name: mark
-        type: string
-      - in: query
-        name: number
-        type: number
       - description: 页码
         in: query
         name: page
@@ -10027,38 +10007,33 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - in: query
+      - description: 0 = 支出 1 = 获得
+        in: query
         name: pm
-        type: boolean
+        type: integer
       - in: query
         name: startCreatedAt
         type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: title
-        type: string
-      - in: query
-        name: type
-        type: string
-      - in: query
-        name: updateUser
-        type: integer
-      - description: 更新时间
+      - description: 账单类型 1收入 2创作收益 3提现 4消费 5其他
         in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
+        name: type
         type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 返回[]community.UserBill
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.UserBill'
+                  type: array
+                msg:
+                  type: string
+              type: object
       security:
       - ApiKeyAuth: []
       summary: 分页获取用户账单列表

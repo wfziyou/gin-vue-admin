@@ -399,6 +399,15 @@ INSERT INTO `casbin_rule` VALUES (11502, 'p', '888', '/app/channel/getUserChanne
 INSERT INTO `casbin_rule` VALUES (11503, 'p', '888', '/app/channel/setUserChannel', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11504, 'p', '888', '/app/channel/getGeneralChannelList', 'GET', '', '', '', '', '');
 
+INSERT INTO `casbin_rule` VALUES (11601, 'p', '888', '/app/wallet/getProductGoldList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11602, 'p', '888', '/app/wallet/getPayTypeList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11603, 'p', '888', '/app/wallet/createOrder', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11604, 'p', '888', '/app/wallet/getGoldBillList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11605, 'p', '888', '/app/wallet/findGoldBill', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11606, 'p', '888', '/app/wallet/getExtractTypeList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11607, 'p', '888', '/app/wallet/createUserExtract', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11608, 'p', '888', '/app/wallet/getUserBillList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11609, 'p', '888', '/app/wallet/findUserBill', 'GET', '', '', '', '', '');
 -- ----------------------------
 -- Table structure for exa_customers
 -- ----------------------------
@@ -901,10 +910,10 @@ INSERT INTO `sys_apis` VALUES (1503, '000000', '2023-02-06 18:19:13.303', '2023-
 INSERT INTO `sys_apis` VALUES (1504, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/channel/getGeneralChannelList', '获取常规频道列表', 15, 'GET');
 
 INSERT INTO `sys_apis` VALUES (1601, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/getProductGoldList', '获取金币列表', 16, 'GET');
-INSERT INTO `sys_apis` VALUES (1602, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/createOrder', '创建订单', 16, 'POST');
-INSERT INTO `sys_apis` VALUES (1603, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/getGoldBillList', '获取金币账单列表', 16, 'GET');
-INSERT INTO `sys_apis` VALUES (1604, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/findGoldBill', '根据ID获取金币账单', 16, 'GET');
-INSERT INTO `sys_apis` VALUES (1605, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/createUserRecharge', '新建用户充值', 16, 'POST');
+INSERT INTO `sys_apis` VALUES (1602, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/getPayTypeList', '获取支付类型列表', 16, 'GET');
+INSERT INTO `sys_apis` VALUES (1603, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/createOrder', '创建订单', 16, 'POST');
+INSERT INTO `sys_apis` VALUES (1604, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/getGoldBillList', '获取金币账单列表', 16, 'GET');
+INSERT INTO `sys_apis` VALUES (1605, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/findGoldBill', '根据ID获取金币账单', 16, 'GET');
 INSERT INTO `sys_apis` VALUES (1606, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/getExtractTypeList', '获取提现类型列表', 16, 'GET');
 INSERT INTO `sys_apis` VALUES (1607, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/createUserExtract', '创建用户提现', 16, 'POST');
 INSERT INTO `sys_apis` VALUES (1608, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/getUserBillList', '获取用户账单列表', 16, 'GET');

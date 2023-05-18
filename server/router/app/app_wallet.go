@@ -17,11 +17,11 @@ func (s *WalletRouter) InitWalletRouter(Router *gin.RouterGroup) {
 	var api = v1.ApiGroupApp.AppApiGroup.WalletApi
 	{
 		routerWithoutRecord.GET("getProductGoldList", api.GetProductGoldList) // 获取金币列表
+		routerWithoutRecord.GET("getPayTypeList", api.GetPayTypeList)         // 获取支付类型列表
 		router.POST("createOrder", api.CreateOrder)                           // 创建订单
 		routerWithoutRecord.GET("getGoldBillList", api.GetGoldBillList)       // 获取金币账单列表
 		routerWithoutRecord.GET("findGoldBill", api.FindGoldBill)             // 根据ID获取金币账单
 
-		router.POST("createUserRecharge", api.CreateUserRecharge)             // 新建用户充值
 		routerWithoutRecord.GET("getExtractTypeList", api.GetExtractTypeList) // 获取提现类型列表
 		router.POST("createUserExtract", api.CreateUserExtract)               // 创建用户提现
 

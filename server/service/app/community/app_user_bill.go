@@ -10,6 +10,19 @@ import (
 type UserBillService struct {
 }
 
+func (hkUserBillService *UserBillService) GetPayTypeList() (list []community.UserBill, total int64, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&community.UserBill{})
+	var hkUserBills []community.UserBill
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Find(&hkUserBills).Error
+	return hkUserBills, total, err
+}
+
 // CreateUserBill 创建UserBill记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkUserBillService *UserBillService) CreateUserBill(hkUserBill *community.UserBill) (err error) {
@@ -47,13 +60,20 @@ func (hkUserBillService *UserBillService) GetUserBill(id uint64) (hkUserBill com
 
 // GetUserBillInfoList 分页获取UserBill记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkUserBillService *UserBillService) GetUserBillInfoList(info communityReq.UserBillSearch) (list []community.UserBill, total int64, err error) {
+func (hkUserBillService *UserBillService) GetUserBillInfoList(userId uint64, info communityReq.UserBillSearch) (list []community.UserBill, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.UserBill{})
 	var hkUserBills []community.UserBill
-	// 如果有条件搜索 下方会自动创建搜索语句
+
+	db = db.Where("user_id = ?", userId)
+	if info.Pm != nil {
+		db = db.Where("pm = ?", info.Pm)
+	}
+	if info.Type != nil {
+		db = db.Where("type = ?", info.Type)
+	}
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}

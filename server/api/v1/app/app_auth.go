@@ -241,6 +241,30 @@ func (authApi *AuthApi) LoginOneClick(c *gin.Context) {
 	}
 }
 
+// GetLocalTelephone 获取本机手机号码
+// @Tags 鉴权认证
+// @Summary 获取本机手机号码
+// @Produce application/json
+// @Param data body authReq.LoginOneClick true "获取本机手机号码"
+// @Success  200   {object}  response.Response{data=authRes.LocalTelephone,msg=string}  "返回LocalTelephone"
+// @Router /app/auth/getLocalTelephone [post]
+func (authApi *AuthApi) GetLocalTelephone(c *gin.Context) {
+	var req authReq.ParamGetLocalTelephone
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if rsp, err := oneLoginService.ServiceGroupApp.LoginTokenValidate(req.Token); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else {
+		response.OkWithDetailed(authRes.LocalTelephone{Phone: rsp.Telephone}, "成功", c)
+		return
+	}
+}
+
 // Register 注册
 // @Tags 鉴权认证
 // @Summary  注册

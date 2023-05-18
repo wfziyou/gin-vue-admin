@@ -88,6 +88,8 @@ func RegisterTables() {
 		community.HkUserExtract{},
 		community.Order{},
 		community.ProductGold{},
+		community.PayType{},
+		community.ExtractType{},
 
 		apply.Apply{},
 		apply.CircleApply{},

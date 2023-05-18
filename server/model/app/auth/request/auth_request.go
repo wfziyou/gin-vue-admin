@@ -26,6 +26,10 @@ type LoginOneClick struct {
 	Platform int    `json:"platform"` // 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
 	Token    string `json:"token"`    //令牌
 }
+type ParamGetLocalTelephone struct {
+	Platform int    `json:"platform"` // 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+	Token    string `json:"token"`    //令牌
+}
 
 // CaptchaReq  验证码请求
 type CaptchaReq struct {

@@ -12,8 +12,8 @@ type UserRechargeService struct {
 
 // CreateUserRecharge 创建UserRecharge记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkUserRechargeService *UserRechargeService) CreateUserRecharge(hkUserRecharge *community.UserRecharge) (err error) {
-	err = global.GVA_DB.Create(hkUserRecharge).Error
+func (hkUserRechargeService *UserRechargeService) CreateUserRecharge(userId uint64, info communityReq.ParamUserExtract) (err error) {
+	//err = global.GVA_DB.Create(hkUserRecharge).Error
 	return err
 }
 

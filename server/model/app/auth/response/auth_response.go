@@ -18,3 +18,7 @@ type LoginResponse struct {
 type RegisterResponse struct {
 	User community.User `json:"user"`
 }
+
+type LocalTelephone struct {
+	Phone string `json:"phone" form:"phone" gorm:"column:phone;comment:手机;size:45;"` //手机
+}

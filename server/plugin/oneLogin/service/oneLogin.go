@@ -104,3 +104,56 @@ func (e *OneLoginService) LoginTokenValidate(token string) (result *model.LoginT
 	}
 	return
 }
+func (e *OneLoginService) TokenValidate(tele string, token string) (result *model.LoginTokenValidateRespone, err error) {
+	client, err := utils.NewClient()
+	if err != nil {
+		return nil, errors.New("创建httpClient失败")
+	}
+	if len(token) == 0 {
+		return nil, errors.New("请输入token")
+	}
+	msgId := fmt.Sprintf("%08v", rand.New(rand.NewSource(time.Now().UnixNano())).Int63n(100000000))
+
+	sign, err := utils.Sha256WithRsa(global.GlobalConfig.Appid+token, global.GlobalConfig.RsaPrivateKey)
+	if err != nil {
+		return nil, errors.New("签名错误")
+	}
+
+	TimeLocation, _ := time.LoadLocation("Asia/Shanghai")
+	now := time.Now().Unix()
+	curTime := time.Unix(now, 0).In(TimeLocation).Format("20060102150405000")
+
+	req := model.LoginTokenValidateRequest{}
+	req.Version = utils.Version
+	req.Msgid = msgId
+	req.Systemtime = curTime
+	req.Strictcheck = global.GlobalConfig.StrictCheck
+	req.Appid = global.GlobalConfig.Appid
+	req.Token = token
+	req.Sign = sign
+	req.Encryptionalgorithm = utils.Encryptionalgorithm
+
+	result = &model.LoginTokenValidateRespone{}
+	err = client.Post("/openapi/rs/tokenValidate", req, result)
+	if err != nil {
+		return nil, errors.New("调用httpClient失败")
+	}
+	if result.ResultCode == "103000" {
+		if utils.Encryptionalgorithm == "RSA" {
+			data, err := hex.DecodeString(result.Msisdn)
+			if err != nil {
+				return nil, errors.New("返回结果解密错误")
+			}
+			output, err := utils.RSA_Decrypt(data, global.GlobalConfig.RsaPrivateKey)
+			if err != nil {
+				return nil, errors.New("返回结果解密错误")
+			}
+			result.Telephone = string(output)
+		} else {
+			return nil, errors.New("错误加密算法")
+		}
+	} else {
+		return nil, errors.New(fmt.Sprintf("ErrorCode(%s):%s", result.ResultCode, e.GetErrorDes(result.ResultCode)))
+	}
+	return
+}

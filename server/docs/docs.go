@@ -1386,6 +1386,51 @@ var doc = `{
                 }
             }
         },
+        "/app/auth/getLocalTelephone": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "获取本机手机号码",
+                "parameters": [
+                    {
+                        "description": "获取本机手机号码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.LoginOneClick"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回LocalTelephone",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.LocalTelephone"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/auth/getSmsVerification": {
             "post": {
                 "consumes": [
@@ -1728,6 +1773,51 @@ var doc = `{
                     "频道"
                 ],
                 "summary": "获取频道列表",
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.HkChannel",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ChannelInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/channel/getGeneralChannelList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "频道"
+                ],
+                "summary": "获取常规频道列表",
                 "responses": {
                     "200": {
                         "description": "返回[]community.HkChannel",
@@ -5368,6 +5458,44 @@ var doc = `{
                 }
             }
         },
+        "/app/forumPosts/createNews": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子"
+                ],
+                "summary": "创建资讯",
+                "parameters": [
+                    {
+                        "description": "创建资讯",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateNews"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/forumPosts/deleteCommentThumbsUp": {
             "delete": {
                 "security": [
@@ -7689,56 +7817,6 @@ var doc = `{
                 }
             }
         },
-        "/app/report/findReportReason": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "举报"
-                ],
-                "summary": "用id查询举报原因",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "编号",
-                        "name": "id",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回community.ReportReason",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/community.ReportReason"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
         "/app/report/getReportList": {
             "get": {
                 "security": [
@@ -7871,21 +7949,9 @@ var doc = `{
                 "summary": "获取举报原因列表",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
                         "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
+                        "description": "举报类型:1用户、2圈子、3群、4帖子、5帖子评论",
+                        "name": "reportType",
                         "in": "query"
                     }
                 ],
@@ -7903,7 +7969,7 @@ var doc = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.ReportReason"
+                                                "$ref": "#/definitions/community.ReportReasonInfo"
                                             }
                                         },
                                         "msg": {
@@ -8881,6 +8947,12 @@ var doc = `{
                 "summary": "分页获取浏览历史列表",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "name": "category",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "name": "endUpdatedAt",
                         "in": "query"
@@ -9160,33 +9232,6 @@ var doc = `{
                 }
             }
         },
-        "/app/wallet/GetExtractTypeList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "钱包"
-                ],
-                "summary": "获取提现类型列表",
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/app/wallet/createOrder": {
             "post": {
                 "security": [
@@ -9249,45 +9294,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.UserRecharge"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/wallet/createUserRecharge": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "钱包"
-                ],
-                "summary": "创建用户充值",
-                "parameters": [
-                    {
-                        "description": "创建用户充值",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/community.UserRecharge"
+                            "$ref": "#/definitions/request.ParamUserExtract"
                         }
                     }
                 ],
@@ -9321,75 +9328,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "name": "balance",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "beforeNumber",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "changeNumber",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
+                        "description": "编号",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "linkId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "mark",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "pm",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "titleIcon",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
                         "in": "query"
                     }
                 ],
@@ -9437,23 +9377,13 @@ var doc = `{
                 "summary": "用id查询用户账单",
                 "parameters": [
                     {
-                        "type": "number",
+                        "type": "integer",
                         "name": "balance",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "name": "category",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
                         "in": "query"
                     },
                     {
@@ -9469,11 +9399,6 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "isDel",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "name": "linkId",
                         "in": "query"
@@ -9484,12 +9409,12 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "number",
+                        "type": "integer",
                         "name": "number",
                         "in": "query"
                     },
                     {
-                        "type": "boolean",
+                        "type": "integer",
                         "name": "pm",
                         "in": "query"
                     },
@@ -9506,11 +9431,6 @@ var doc = `{
                     {
                         "type": "string",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
                         "in": "query"
                     },
                     {
@@ -9550,6 +9470,51 @@ var doc = `{
                 }
             }
         },
+        "/app/wallet/getExtractTypeList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "获取提现类型列表",
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.PayTypeInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ExtractType"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/wallet/getGoldBillList": {
             "get": {
                 "security": [
@@ -9569,51 +9534,14 @@ var doc = `{
                 "summary": "分页获取金币账单列表",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "name": "balance",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "beforeNumber",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "changeNumber",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "linkId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "mark",
                         "in": "query"
                     },
                     {
@@ -9630,6 +9558,7 @@ var doc = `{
                     },
                     {
                         "type": "integer",
+                        "description": "0 = 支出 1 = 获得",
                         "name": "pm",
                         "in": "query"
                     },
@@ -9640,41 +9569,79 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "titleIcon",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
+                        "description": "账单类型 1充值 2付费 3红包 4打赏 5其他",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
                         "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回[]community.GoldBill",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.GoldBill"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/wallet/getPayTypeList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "钱包"
+                ],
+                "summary": "获取支付类型列表",
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.PayTypeInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.PayTypeInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -9699,9 +9666,27 @@ var doc = `{
                 "summary": "获取金币列表",
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回[]community.ProductGoldInfo",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ProductGoldInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -9726,66 +9711,14 @@ var doc = `{
                 "summary": "分页获取用户账单列表",
                 "parameters": [
                     {
-                        "type": "number",
-                        "name": "balance",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "category",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createDept",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "isDel",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "关键字",
                         "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "linkId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "mark",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "name": "number",
                         "in": "query"
                     },
                     {
@@ -9801,7 +9734,8 @@ var doc = `{
                         "in": "query"
                     },
                     {
-                        "type": "boolean",
+                        "type": "integer",
+                        "description": "0 = 支出 1 = 获得",
                         "name": "pm",
                         "in": "query"
                     },
@@ -9812,41 +9746,34 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
+                        "description": "账单类型 1收入 2创作收益 3提现 4消费 5其他",
                         "name": "type",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updateUser",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "userId",
                         "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "返回[]community.UserBill",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.UserBill"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -15741,6 +15668,27 @@ var doc = `{
                 }
             }
         },
+        "community.ExtractType": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "标识: h5=网页 alipay = 支付宝 wx=微信 paypal apple=苹果",
+                    "type": "string"
+                },
+                "icon": {
+                    "description": "图标",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                }
+            }
+        },
         "community.FocusUserInfo": {
             "type": "object",
             "properties": {
@@ -16365,13 +16313,51 @@ var doc = `{
                     "type": "string"
                 },
                 "type": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
                 },
                 "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "community.PayTypeInfo": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "标识: h5=网页 alipay = 支付宝 wx=微信 paypal apple=苹果",
+                    "type": "string"
+                },
+                "icon": {
+                    "description": "图标",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                }
+            }
+        },
+        "community.ProductGoldInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "num": {
+                    "description": "数量",
+                    "type": "integer"
+                },
+                "price": {
+                    "description": "商品价格",
                     "type": "integer"
                 }
             }
@@ -16586,30 +16572,15 @@ var doc = `{
                 }
             }
         },
-        "community.ReportReason": {
+        "community.ReportReasonInfo": {
             "type": "object",
             "properties": {
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
                 },
                 "reason": {
                     "description": "举报理由",
-                    "type": "string"
-                },
-                "sort": {
-                    "description": "排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
                     "type": "string"
                 }
             }
@@ -16755,16 +16726,10 @@ var doc = `{
             "type": "object",
             "properties": {
                 "balance": {
-                    "type": "number"
+                    "type": "integer"
                 },
                 "category": {
                     "type": "string"
-                },
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
@@ -16774,9 +16739,6 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "isDel": {
-                    "type": "integer"
-                },
                 "linkId": {
                     "type": "string"
                 },
@@ -16784,10 +16746,10 @@ var doc = `{
                     "type": "string"
                 },
                 "number": {
-                    "type": "number"
+                    "type": "integer"
                 },
                 "pm": {
-                    "type": "boolean"
+                    "type": "integer"
                 },
                 "status": {
                     "type": "integer"
@@ -16797,9 +16759,6 @@ var doc = `{
                 },
                 "type": {
                     "type": "string"
-                },
-                "updateUser": {
-                    "type": "integer"
                 },
                 "updatedAt": {
                     "description": "更新时间",
@@ -16966,65 +16925,6 @@ var doc = `{
                 },
                 "userType": {
                     "description": "用户平台: 1web、2app、3other",
-                    "type": "integer"
-                }
-            }
-        },
-        "community.UserRecharge": {
-            "type": "object",
-            "properties": {
-                "createDept": {
-                    "type": "integer"
-                },
-                "createUser": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "givePrice": {
-                    "type": "number"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "isDel": {
-                    "type": "integer"
-                },
-                "nickname": {
-                    "type": "string"
-                },
-                "orderId": {
-                    "type": "string"
-                },
-                "paid": {
-                    "type": "boolean"
-                },
-                "payTime": {
-                    "type": "string"
-                },
-                "price": {
-                    "type": "number"
-                },
-                "rechargeType": {
-                    "type": "string"
-                },
-                "refundPrice": {
-                    "type": "number"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "updateUser": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
                     "type": "integer"
                 }
             }
@@ -19321,9 +19221,50 @@ var doc = `{
                 }
             }
         },
+        "request.ParamCreateNews": {
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "description": "频道_编号",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "contentHtml": {
+                    "description": "html内容",
+                    "type": "string"
+                },
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
+                "draft": {
+                    "description": "是否是草稿：0不是，1是",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "标题",
+                    "type": "string"
+                },
+                "topicId": {
+                    "description": "话题_编号",
+                    "type": "string"
+                }
+            }
+        },
         "request.ParamCreateOrder": {
             "type": "object",
             "properties": {
+                "cartNum": {
+                    "description": "商品数量",
+                    "type": "integer"
+                },
+                "payType": {
+                    "description": "支付方式",
+                    "type": "string"
+                },
                 "productId": {
                     "description": "商品ID",
                     "type": "integer"
@@ -19421,6 +19362,23 @@ var doc = `{
                     "description": "频道编号，通过逗号分割",
                     "type": "string",
                     "example": "1,2"
+                }
+            }
+        },
+        "request.ParamUserExtract": {
+            "type": "object",
+            "properties": {
+                "bank": {
+                    "description": "银行卡",
+                    "type": "string"
+                },
+                "code": {
+                    "description": "标识: bank = 银行卡 alipay = 支付宝wx=微信",
+                    "type": "integer"
+                },
+                "num": {
+                    "description": "数量",
+                    "type": "integer"
                 }
             }
         },
@@ -19979,6 +19937,15 @@ var doc = `{
             "properties": {
                 "file": {
                     "$ref": "#/definitions/example.ExaFile"
+                }
+            }
+        },
+        "response.LocalTelephone": {
+            "type": "object",
+            "properties": {
+                "phone": {
+                    "description": "手机",
+                    "type": "string"
                 }
             }
         },

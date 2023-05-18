@@ -1524,15 +1524,18 @@ CREATE TABLE `hk_user_sign` (
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='签到记录表';
 
 -- ----------------------------
--- Table structure for hk_product_gold
+-- Table structure for hk_pay_type
 -- ----------------------------
-DROP TABLE IF EXISTS `hk_product_gold`;
-CREATE TABLE `hk_product_gold` (
+DROP TABLE IF EXISTS `hk_pay_type`;
+CREATE TABLE `hk_pay_type` (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `image` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品图片',
-   `num` int DEFAULT '0' COMMENT '数量',
-   `price` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品价格',
-   `vip_price` bigint(20) UNSIGNED DEFAULT 0 COMMENT '会员价格',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `icon` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图标',
+   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
+   `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标识: h5=网页 alipay = 支付宝 wx=微信 paypal apple=苹果',
+   `plat_appid` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '支付平台appid',
+   `plat_key` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '支付平台key',
+   `plat_security` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '支付平台security',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
    `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
@@ -1541,8 +1544,119 @@ CREATE TABLE `hk_product_gold` (
    `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
    `status` int(2) NULL DEFAULT 0 COMMENT '状态',
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='商品金币';
+   PRIMARY KEY (`id`) USING BTREE,
+   KEY `name` (`name`) USING BTREE,
+   KEY `code` (`code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='支付类型';
+
+-- ----------------------------
+-- Table structure for hk_pay_type
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_pay_type`;
+CREATE TABLE `hk_pay_type`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `icon` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图标',
+  `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标识: h5=网页 alipay = 支付宝 wx=微信 paypal apple=苹果',
+  `plat_appid` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '支付平台appid',
+  `plat_key` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '支付平台key',
+  `plat_security` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '支付平台security',
+  `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+  `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+  `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '支付类型' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of hk_pay_type
+-- ----------------------------
+INSERT INTO `hk_pay_type` VALUES (1, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', '支付宝', 'alipay', '1', NULL, NULL, '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `hk_pay_type` VALUES (2, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', '微信', 'wx', '1', NULL, NULL, '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
+
+
+-- ----------------------------
+-- Table structure for hk_extract_type
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_extract_type`;
+CREATE TABLE `hk_extract_type`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `icon` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图标',
+  `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
+  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标识: h5=网页 alipay = 支付宝 wx=微信 paypal apple=苹果',
+  `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+  `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+  `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '提现类型' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of hk_pay_type
+-- ----------------------------
+INSERT INTO `hk_extract_type` VALUES (1, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', '支付宝', 'alipay', '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `hk_extract_type` VALUES (2, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230221/824d662f5440cf8180ac77fb1e2d68e0.png', '微信', 'wx', '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
+
+-- ----------------------------
+-- Table structure for hk_extract_type
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_extract_type`;
+CREATE TABLE `hk_extract_type` (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `icon` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图标',
+   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
+   `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标识: bank = 银行卡 alipay = 支付宝wx=微信',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE,
+   KEY `name` (`name`) USING BTREE,
+   KEY `code` (`code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='提现类型';
+
+
+-- ----------------------------
+-- Table structure for hk_product_gold
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_product_gold`;
+CREATE TABLE `hk_product_gold`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `num`  bigint(20) NULL DEFAULT 0 COMMENT '数量',
+  `price`  bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '商品价格',
+  `cost` bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '成本价',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of hk_product_gold
+-- ----------------------------
+INSERT INTO `hk_product_gold` VALUES (1, '000000', 60, 600, 600, '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `hk_product_gold` VALUES (2, '000000', 300, 3000, 3000, '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `hk_product_gold` VALUES (3, '000000', 980, 9800, 9800, '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `hk_product_gold` VALUES (4, '000000', 1980, 19800, 19800, '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `hk_product_gold` VALUES (5, '000000', 2980, 29800, 29800, '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `hk_product_gold` VALUES (6, '000000', 4180, 41800, 41800, '2023-05-18 14:12:18.000', '2023-05-18 14:12:18.000', NULL, NULL, NULL, NULL, 0);
 
 -- ----------------------------
 -- Table structure for hk_user_bill
@@ -1550,14 +1664,15 @@ CREATE TABLE `hk_product_gold` (
 DROP TABLE IF EXISTS `hk_user_bill`;
 CREATE TABLE `hk_user_bill` (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `user_id` bigint(20) NOT NULL COMMENT '用户编号',
    `link_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '关联id',
    `pm` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '0 = 支出 1 = 获得',
    `title` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '账单标题',
    `category` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '明细种类',
-   `type` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '明细类型',
-   `number` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '明细数字',
-   `balance` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '剩余',
+   `type` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '账单类型 1收入 2创作收益 3提现 4消费 5其他',
+   `number` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '明细数字',
+   `balance` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '剩余',
    `mark` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '备注',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
@@ -1581,12 +1696,13 @@ CREATE TABLE `hk_user_bill` (
 DROP TABLE IF EXISTS `hk_gold_bill`;
 CREATE TABLE `hk_gold_bill` (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `user_id` bigint(20) NOT NULL COMMENT '用户编号',
    `link_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '关联id',
-   `pm` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '0 = 支出 1 = 获得',
+   `pm` int(2) NOT NULL DEFAULT '0' COMMENT '0 = 支出 1 = 获得',
    `title` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '账单标题',
    `title_icon` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题图标',
-   `type` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '类型',
+   `type` int(2) NOT NULL DEFAULT '5' COMMENT '账单类型 1充值 2付费 3红包 4打赏 5其他',
    `before_number` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '之前金额',
    `change_number` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '改变金额',
    `balance` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '余额',
@@ -1612,6 +1728,7 @@ CREATE TABLE `hk_gold_bill` (
 DROP TABLE IF EXISTS `hk_user_recharge`;
 CREATE TABLE `hk_user_recharge` (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `user_id` bigint(20) NOT NULL COMMENT '用户编号',
    `nickname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '',
    `order_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '订单号',
@@ -1642,6 +1759,7 @@ CREATE TABLE `hk_user_recharge` (
 DROP TABLE IF EXISTS `hk_user_extract`;
 CREATE TABLE `hk_user_extract` (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `user_id` bigint(20) NOT NULL COMMENT '用户编号',
    `real_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '名称',
    `extract_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'bank' COMMENT 'bank = 银行卡 alipay = 支付宝wx=微信',
@@ -1676,30 +1794,30 @@ CREATE TABLE `hk_user_extract` (
 DROP TABLE IF EXISTS `hk_order`;
 CREATE TABLE `hk_order` (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单ID',
-   `order_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单号',
-   `extend_order_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '额外订单号',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `order_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单号',
+   `extend_order_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '额外订单号',
    `user_id` bigint(20) NOT NULL COMMENT '用户编号',
    `product_id` bigint unsigned NOT NULL COMMENT '商品ID',
-   `cart_num` smallint unsigned NOT NULL DEFAULT '0' COMMENT '商品数量',
-   `total_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '订单总价',
-   `pay_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '实际支付金额',
-   `paid` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '支付状态',
-   `pay_time` datetime DEFAULT NULL COMMENT '支付时间',
+   `cart_num` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '商品数量',
+   `total_price` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '订单总价',
+   `pay_price` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '实际支付金额',
+   `cost` bigint(20) unsigned NOT NULL COMMENT '成本价',
+   `paid` int(2) unsigned NOT NULL DEFAULT 0 COMMENT '支付状态: 0未支付 1已支付',
+   `pay_time` datetime(3) DEFAULT NULL COMMENT '支付时间',
    `pay_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '支付方式',
-   `refund_status` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '0 未退款 1 申请中 2 已退款',
+   `refund_status` int(2) unsigned NOT NULL DEFAULT 0 COMMENT '0 未退款 1 申请中 2 已退款',
    `refund_reason_wap_img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '退款图片',
    `refund_reason_wap_explain` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '退款用户说明',
-   `refund_reason_time` datetime DEFAULT NULL COMMENT '退款时间',
+   `refund_reason_time` datetime(3) DEFAULT NULL COMMENT '退款时间',
    `refund_reason_wap` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '前台退款原因',
    `refund_reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '不退款的理由',
-   `refund_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '退款金额',
-   `gain_integral` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '消费赚取积分',
-   `back_integral` decimal(8,2) unsigned DEFAULT NULL COMMENT '给用户退了多少积分',
-   `mark` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
-   `unique` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '唯一id(md5加密)类似id',
-   `remark` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '管理员备注',
-   `cost` decimal(8,2) unsigned NOT NULL COMMENT '成本价',
-   `verify_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '核销码',
+   `refund_price` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '退款金额',
+   `gain_integral` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '消费赚取积分',
+   `back_integral` bigint(20) unsigned DEFAULT NULL COMMENT '给用户退了多少积分',
+   `mark` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+   `remark` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '管理员备注',  
+   `verify_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '核销码',
    `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
    `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
    `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
@@ -1710,7 +1828,6 @@ CREATE TABLE `hk_order` (
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `order_id_2` (`order_id`,`user_id`) USING BTREE,
-  UNIQUE KEY `unique` (`unique`) USING BTREE,
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `created_at` (`created_at`) USING BTREE,
   KEY `pay_price` (`pay_price`) USING BTREE,

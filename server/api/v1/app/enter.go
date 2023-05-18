@@ -75,6 +75,8 @@ var (
 	hkUserCoverImageService     = service.ServiceGroupApp.AppServiceGroup.Community.UserCoverImageService
 	hkUserExtractService        = service.ServiceGroupApp.AppServiceGroup.Community.HkUserExtractService
 	hkUserRechargeService       = service.ServiceGroupApp.AppServiceGroup.Community.UserRechargeService
+	payTypeService              = service.ServiceGroupApp.AppServiceGroup.Community.PayTypeService
+	extractTypeService          = service.ServiceGroupApp.AppServiceGroup.Community.ExtractTypeService
 
 	//apiService              = service.ServiceGroupApp.SystemServiceGroup.ApiService
 	//jwtService              = service.ServiceGroupApp.SystemServiceGroup.JwtService

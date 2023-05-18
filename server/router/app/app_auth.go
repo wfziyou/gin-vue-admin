@@ -20,5 +20,6 @@ func (s *BaseRouter) InitAuthRouter(Router *gin.RouterGroup) {
 		authRouter.POST("loginOneClick", authApi.LoginOneClick)           //一键登录
 		authRouter.POST("getSmsVerification", authApi.GetSmsVerification) //获取短信验证码
 		authRouter.POST("resetPassword", authApi.ResetPassword)           //重置密码
+		authRouter.POST("getLocalTelephone", authApi.GetLocalTelephone)   //获取本机手机号码
 	}
 }

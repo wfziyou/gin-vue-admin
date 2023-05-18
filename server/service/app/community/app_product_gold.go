@@ -46,10 +46,10 @@ func (service *ProductGoldService) GetProductGold(id uint) (hkProductGold commun
 
 // GetProductGoldInfoList 分页获取ProductGold记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (service *ProductGoldService) GetProductGoldInfoList() (list []community.ProductGold, err error) {
+func (service *ProductGoldService) GetProductGoldInfoList() (list []community.ProductGoldInfo, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&community.ProductGold{})
-	var hkProductGolds []community.ProductGold
+	var hkProductGolds []community.ProductGoldInfo
 
 	err = db.Find(&hkProductGolds).Error
 	return hkProductGolds, err

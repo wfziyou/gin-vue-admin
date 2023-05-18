@@ -4,6 +4,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
@@ -19,10 +20,27 @@ type WalletApi struct {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.Response{data=[]community.ProductGoldInfo,msg=string} "返回[]community.ProductGoldInfo"
 // @Router /app/wallet/getProductGoldList [get]
 func (api *WalletApi) GetProductGoldList(c *gin.Context) {
 	if list, err := hkProductGoldService.GetProductGoldInfoList(); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(list, "获取成功", c)
+	}
+}
+
+// GetPayTypeList 获取支付类型列表
+// @Tags 钱包
+// @Summary 获取支付类型列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {object}  response.Response{data=[]community.PayTypeInfo,msg=string} "返回[]community.PayTypeInfo"
+// @Router /app/wallet/getPayTypeList [get]
+func (api *WalletApi) GetPayTypeList(c *gin.Context) {
+	if list, err := payTypeService.GetPayTypeInfoList(); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -62,7 +80,7 @@ func (api *WalletApi) CreateOrder(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.GoldBillSearch true "分页获取金币账单列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.Response{data=[]community.GoldBill,msg=string} "返回[]community.GoldBill"
 // @Router /app/wallet/getGoldBillList [get]
 func (api *WalletApi) GetGoldBillList(c *gin.Context) {
 	var pageInfo communityReq.GoldBillSearch
@@ -71,7 +89,8 @@ func (api *WalletApi) GetGoldBillList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkGoldBillService.GetGoldBillInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := hkGoldBillService.GetGoldBillInfoList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -90,45 +109,22 @@ func (api *WalletApi) GetGoldBillList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query community.GoldBill true "用id查询金币账单"
+// @Param data query request.IdSearch true "用id查询金币账单"
 // @Success 200 {object} response.Response{data=community.GoldBill,msg=string}  "返回community.GoldBill"
 // @Router /app/wallet/findGoldBill [get]
 func (api *WalletApi) FindGoldBill(c *gin.Context) {
-	var hkGoldBill community.GoldBill
-	err := c.ShouldBindQuery(&hkGoldBill)
+	var req request.IdSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if rehkGoldBill, err := hkGoldBillService.GetGoldBill(hkGoldBill.ID); err != nil {
+
+	if rehkGoldBill, err := hkGoldBillService.GetGoldBill(req.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithDetailed(rehkGoldBill, "成功", c)
-	}
-}
-
-// CreateUserRecharge 创建用户充值
-// @Tags 钱包
-// @Summary 创建用户充值
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body community.UserRecharge true "创建用户充值"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /app/wallet/createUserRecharge [post]
-func (api *WalletApi) CreateUserRecharge(c *gin.Context) {
-	var hkUserRecharge community.UserRecharge
-	err := c.ShouldBindJSON(&hkUserRecharge)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	if err := hkUserRechargeService.CreateUserRecharge(&hkUserRecharge); err != nil {
-		global.GVA_LOG.Error("创建失败!", zap.Error(err))
-		response.FailWithMessage("创建失败", c)
-	} else {
-		response.OkWithMessage("创建成功", c)
 	}
 }
 
@@ -138,25 +134,14 @@ func (api *WalletApi) CreateUserRecharge(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /app/wallet/GetExtractTypeList [get]
+// @Success 200 {object}  response.Response{data=[]community.ExtractType,msg=string} "返回[]community.PayTypeInfo"
+// @Router /app/wallet/getExtractTypeList [get]
 func (api *WalletApi) GetExtractTypeList(c *gin.Context) {
-	var pageInfo communityReq.UserBillSearch
-	err := c.ShouldBindQuery(&pageInfo)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	if list, total, err := hkUserBillService.GetUserBillInfoList(pageInfo); err != nil {
+	if list, err := extractTypeService.GetExtractTypeInfoList(); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithDetailed(response.PageResult{
-			List:     list,
-			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
-		}, "获取成功", c)
+		response.OkWithDetailed(list, "获取成功", c)
 	}
 }
 
@@ -166,17 +151,18 @@ func (api *WalletApi) GetExtractTypeList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.UserRecharge true "创建用户提现"
+// @Param data body communityReq.ParamUserExtract true "创建用户提现"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/wallet/createUserExtract [post]
 func (api *WalletApi) CreateUserExtract(c *gin.Context) {
-	var hkUserRecharge community.UserRecharge
-	err := c.ShouldBindJSON(&hkUserRecharge)
+	var req communityReq.ParamUserExtract
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if err := hkUserRechargeService.CreateUserRecharge(&hkUserRecharge); err != nil {
+	userId := utils.GetUserID(c)
+	if err := hkUserRechargeService.CreateUserRecharge(userId, req); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -191,24 +177,25 @@ func (api *WalletApi) CreateUserExtract(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.UserBillSearch true "分页获取用户账单列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Success 200 {object}  response.Response{data=[]community.UserBill,msg=string} "返回[]community.UserBill"
 // @Router /app/wallet/getUserBillList [get]
 func (api *WalletApi) GetUserBillList(c *gin.Context) {
-	var pageInfo communityReq.UserBillSearch
-	err := c.ShouldBindQuery(&pageInfo)
+	var req communityReq.UserBillSearch
+	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkUserBillService.GetUserBillInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := hkUserBillService.GetUserBillInfoList(userId, req); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     req.Page,
+			PageSize: req.PageSize,
 		}, "获取成功", c)
 	}
 }

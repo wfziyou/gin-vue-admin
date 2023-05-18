@@ -1,10 +1,12 @@
 package community
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	uuid "github.com/satori/go.uuid"
 )
 
 type OrderService struct {
@@ -13,7 +15,27 @@ type OrderService struct {
 // CreateOrder 创建Order记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkOrderService *OrderService) CreateOrder(userId uint64, info communityReq.ParamCreateOrder) (err error) {
-	//err = global.GVA_DB.Create(hkOrder).Error
+	var product community.ProductGold
+	err = global.GVA_DB.Where("id = ?", info.ProductId).First(&product).Error
+	if err != nil {
+		return errors.New("产品不存在")
+	}
+	if info.CartNum < 1 {
+		info.CartNum = 1
+	}
+	totalPrice := product.Price * uint64(info.CartNum)
+	totalCost := product.Cost * uint64(info.CartNum)
+	order := community.Order{
+		OrderId:    uuid.NewV4().String(),
+		UserId:     userId,
+		ProductId:  info.ProductId,
+		CartNum:    info.CartNum,
+		TotalPrice: totalPrice,
+		Paid:       community.OrderPaidFalse,
+		PayType:    info.PayType,
+		Cost:       totalCost,
+	}
+	err = global.GVA_DB.Create(&order).Error
 	return err
 }
 

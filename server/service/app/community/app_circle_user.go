@@ -125,11 +125,13 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(selectUs
 	err = db.Limit(limit).Offset(offset).Find(&hkCircleUsers).Error
 	if err == nil {
 		SetCircleUserUserIsFocus(selectUserId, hkCircleUsers)
-		for index, obj := range hkCircleUsers {
-			tmp[index].UserBaseInfo = obj.UserInfo
-			tmp[index].Remark = obj.Remark
-			tmp[index].Tag = obj.Tag
-			tmp[index].Power = obj.Power
+		for _, obj := range hkCircleUsers {
+			tmp = append(tmp, community.CircleUserInfo{
+				Remark:       obj.Remark,
+				Tag:          obj.Tag,
+				Power:        obj.Power,
+				UserBaseInfo: obj.UserInfo,
+			})
 		}
 	}
 	return tmp, total, err
