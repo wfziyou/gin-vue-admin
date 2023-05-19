@@ -8475,6 +8475,77 @@ var doc = `{
                 }
             }
         },
+        "/app/topic/getTopicForumPostsList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "话题"
+                ],
+                "summary": "分页获取话题帖子列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "话题_编号",
+                        "name": "topicId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumTopic",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ForumTopic"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/topic/updateForumTopic": {
             "put": {
                 "security": [
@@ -15703,6 +15774,14 @@ var doc = `{
                     "description": "主页封面",
                     "type": "string"
                 },
+                "currencyGold": {
+                    "description": "货币_金币",
+                    "type": "integer"
+                },
+                "currencyMoney": {
+                    "description": "货币_零钱",
+                    "type": "integer"
+                },
                 "description": {
                     "description": "描述",
                     "type": "string"
@@ -16278,16 +16357,27 @@ var doc = `{
             "type": "object",
             "properties": {
                 "balance": {
+                    "description": "余额",
                     "type": "integer"
                 },
                 "beforeNumber": {
+                    "description": "之前金额",
                     "type": "integer"
                 },
                 "changeNumber": {
+                    "description": "改变金额",
+                    "type": "integer"
+                },
+                "childType": {
+                    "description": "子类型： 1充值 2付费 3红包 4打赏 5其他",
                     "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "描述",
                     "type": "string"
                 },
                 "id": {
@@ -16295,24 +16385,26 @@ var doc = `{
                     "type": "integer"
                 },
                 "linkId": {
-                    "type": "string"
+                    "description": "关联id",
+                    "type": "integer"
                 },
                 "mark": {
+                    "description": "备注",
                     "type": "string"
                 },
                 "pm": {
+                    "description": "0 = 支出 1 = 获得",
                     "type": "integer"
                 },
                 "status": {
                     "type": "integer"
                 },
                 "title": {
-                    "type": "string"
-                },
-                "titleIcon": {
+                    "description": "账单标题",
                     "type": "string"
                 },
                 "type": {
+                    "description": "账单类型 1充值 2付费 3红包 4打赏 5其他",
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -16320,6 +16412,7 @@ var doc = `{
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户编号",
                     "type": "integer"
                 }
             }
@@ -16348,12 +16441,12 @@ var doc = `{
         "community.ProductGoldInfo": {
             "type": "object",
             "properties": {
-                "id": {
-                    "description": "主键ID",
+                "count": {
+                    "description": "数量",
                     "type": "integer"
                 },
-                "num": {
-                    "description": "数量",
+                "id": {
+                    "description": "主键ID",
                     "type": "integer"
                 },
                 "price": {
@@ -16527,9 +16620,9 @@ var doc = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "reasonId": {
-                    "description": "举报原因_编号",
-                    "type": "integer"
+                "reason": {
+                    "description": "举报原因",
+                    "type": "string"
                 },
                 "reportId": {
                     "description": "被举报编号",
@@ -16878,6 +16971,14 @@ var doc = `{
                 "coverImage": {
                     "description": "主页封面",
                     "type": "string"
+                },
+                "currencyGold": {
+                    "description": "货币_金币",
+                    "type": "integer"
+                },
+                "currencyMoney": {
+                    "description": "货币_零钱",
+                    "type": "integer"
                 },
                 "description": {
                     "description": "描述",
@@ -18759,6 +18860,10 @@ var doc = `{
                 },
                 "contentAttachment": {
                     "description": "内容附件",
+                    "type": "string"
+                },
+                "reason": {
+                    "description": "举报原因",
                     "type": "string"
                 },
                 "reportId": {

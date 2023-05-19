@@ -140,20 +140,20 @@ func (appUserService *AppUserService) BindTelephone(userId uint64, telephone str
 	err = db.Where("id = ?", userId).Updates(updateData).Error
 	return err
 }
-func (appUserService *AppUserService) DecreaseGold(userId uint64, num uint64, title string, titleIcon string, mark string) (err error) {
+func (appUserService *AppUserService) DecreaseGold(userId uint64, linkId uint64, num uint64, title string, description string, billType int, billChildType int, mark string) (bill community.GoldBill, err error) {
 	if num == 0 {
-		return nil
+		return bill, errors.New("数量为零")
 	}
 	obj := community.UserExtend{GvaModelApp: global.GvaModelApp{ID: userId}}
 	db := global.GVA_DB.Model(&obj)
 	err = db.Where("id = ?", userId).First(&obj).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		return errors.New("金币不够")
+		return bill, errors.New("金币不够")
 	} else if err != nil {
-		return err
+		return bill, err
 	} else {
 		if obj.CurrencyGold < num {
-			return errors.New("金币不够")
+			return bill, errors.New("金币不够")
 		}
 		beforeNumber := obj.CurrencyGold
 		currency := obj.CurrencyGold - num
@@ -161,22 +161,28 @@ func (appUserService *AppUserService) DecreaseGold(userId uint64, num uint64, ti
 		updateData = make(map[string]interface{})
 		updateData["currency_gold"] = currency
 		err = db.Where("id = ?", userId).Updates(updateData).Error
+
 		if err == nil {
-			err = global.GVA_DB.Create(&community.GoldBill{
+			var goldBill = community.GoldBill{
 				UserId:       userId,
+				LinkId:       linkId,
 				Pm:           community.GoldBillTypeDecrease,
 				Title:        title,
-				TitleIcon:    titleIcon,
+				Description:  description,
+				Type:         billType,
+				ChildType:    billChildType,
 				BeforeNumber: beforeNumber,
 				ChangeNumber: num,
 				Balance:      currency,
 				Mark:         mark,
-			}).Error
+			}
+			err = global.GVA_DB.Create(&goldBill).Error
+			return goldBill, err
 		}
 	}
-	return err
+	return bill, err
 }
-func (appUserService *AppUserService) IncreaseGold(userId uint64, num uint64, title string, titleIcon string, mark string) (err error) {
+func (appUserService *AppUserService) IncreaseGold(userId uint64, num uint64, title string, description string, billType int, billChildType int, mark string) (err error) {
 	if num == 0 {
 		return nil
 	}
@@ -192,7 +198,9 @@ func (appUserService *AppUserService) IncreaseGold(userId uint64, num uint64, ti
 					UserId:       userId,
 					Pm:           community.GoldBillTypeIncrease,
 					Title:        title,
-					TitleIcon:    titleIcon,
+					Description:  description,
+					Type:         billType,
+					ChildType:    billChildType,
 					BeforeNumber: 0,
 					ChangeNumber: num,
 					Balance:      num,
@@ -213,7 +221,8 @@ func (appUserService *AppUserService) IncreaseGold(userId uint64, num uint64, ti
 				UserId:       userId,
 				Pm:           community.GoldBillTypeIncrease,
 				Title:        title,
-				TitleIcon:    titleIcon,
+				Description:  description,
+				Type:         billType,
 				BeforeNumber: beforeNumber,
 				ChangeNumber: num,
 				Balance:      currency,
@@ -300,7 +309,8 @@ func (appUserService *AppUserService) GetUserInfo(selectUserId uint64, id uint64
 		userInfo.NumCircle = user.UserExtend.NumCircle
 		userInfo.NumFocus = user.UserExtend.NumFocus
 		userInfo.NumFan = user.UserExtend.NumFan
-
+		userInfo.CurrencyMoney = user.UserExtend.CurrencyMoney
+		userInfo.CurrencyGold = user.UserExtend.CurrencyGold
 		isFocus, isFan, _ := GetIsFocusAndIsFan(selectUserId, &userInfo.UserBaseInfo)
 		userInfo.IsFocus = isFocus
 		userInfo.IsFan = isFan

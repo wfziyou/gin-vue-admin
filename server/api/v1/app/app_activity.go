@@ -212,7 +212,7 @@ func (activityApi *ActivityApi) JoinActivity(c *gin.Context) {
 				response.FailWithMessage("金币不够", c)
 				return
 			}
-			err = appUserService.DecreaseGold(userId, activity.PayNum, "加入活动", "", "")
+			_, err = appUserService.DecreaseGold(userId, activity.ID, activity.PayNum, "加入活动", "", community.BillTypeBuy, community.BillChildTypeAddActivity, "")
 			if err != nil {
 				response.FailWithMessage(err.Error(), c)
 				return

@@ -18,7 +18,7 @@ const (
 type Report struct {
 	global.GvaModelApp
 	UserId            uint64  `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:举报用户编号;"`                            //举报用户编号
-	ReasonId          uint64  `json:"reasonId" form:"reasonId" gorm:"type:bigint(20);column:reason_id;comment:举报原因_编号;"`                     //举报原因_编号
+	Reason            string  `json:"reason" form:"reason" gorm:"column:reason;comment:举报原因;"`                                               //举报原因
 	ReportType        int     `json:"reportType" form:"reportType" gorm:"column:report_type;comment:举报类型:1用户、2圈子、3群、4帖子、5帖子评论;size:10;"`     //举报类型:1用户、2圈子、3群、4帖子、5帖子评论
 	ReportId          uint64  `json:"reportId" form:"reportId" gorm:"type:bigint(20);column:report_id;comment:被举报编号;"`                       //被举报编号
 	Content           string  `json:"content" form:"content" gorm:"column:content;comment:举报内容;size:200;"`                                   //举报内容

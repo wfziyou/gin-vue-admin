@@ -14,7 +14,7 @@ type QuestionService struct {
 }
 
 // CreateQuestion 创建Question记录
-func (questionService *QuestionService) CreateQuestion(userId uint64, info communityReq.CreateQuestion) (err error) {
+func (questionService *QuestionService) CreateQuestion(userId uint64, info communityReq.CreateQuestion) (question community.ForumPosts, err error) {
 	checkStatus := community.PostsCheckStatusPass
 	if info.Draft == community.DraftTrue {
 		checkStatus = community.PostsCheckStatusDraft
@@ -35,7 +35,7 @@ func (questionService *QuestionService) CreateQuestion(userId uint64, info commu
 		PowerComment: community.ForumPostsPowerCommentOpen,
 	}
 	err = global.GVA_DB.Create(&forumPosts).Error
-	return err
+	return forumPosts, err
 }
 
 // GetQuestion 根据id获取Question记录

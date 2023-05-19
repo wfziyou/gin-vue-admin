@@ -17,6 +17,7 @@ func (appReportService *AppReportService) CreateReport(userId uint64, info commu
 		UserId:            userId,
 		ReportType:        info.ReportType,
 		ReportId:          info.ReportId,
+		Reason:            info.Reason,
 		Content:           info.Content,
 		ContentAttachment: info.ContentAttachment,
 	}

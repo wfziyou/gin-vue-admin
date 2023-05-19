@@ -443,6 +443,52 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(select
 	}
 	return forumPosts, total, err
 }
+func (appForumPostsService *AppForumPostsService) GetTopicForumPostsList(info communityReq.TopicForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumTopicPostsMapping{})
+	var forumTopicPostsMapping []community.ForumTopicPostsMapping
+
+	db = db.Where("topic_id = ?", info.TopicId)
+
+	//创建时间降序排列
+	db = db.Order("hk_forum_topic_posts_mapping.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	err = db.Limit(limit).Offset(offset).Find(&forumTopicPostsMapping).Error
+	if err != nil {
+		return
+	}
+
+	size := len(forumTopicPostsMapping)
+	if size > 0 {
+		var ids = make([]uint64, size)
+		for index, v := range forumTopicPostsMapping {
+			ids[index] = v.PostsId
+		}
+		db1 := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+		var hkForumPosts []community.ForumPostsBaseInfo
+		db1 = db1.Where("id in ?", ids)
+		err = db1.Find(&hkForumPosts).Error
+		if err == nil {
+			var forumPosts = make([]community.ForumPostsBaseInfo, 0, size)
+			for _, obj := range forumTopicPostsMapping {
+				for _, posts := range hkForumPosts {
+					if obj.PostsId == posts.ID {
+						forumPosts = append(forumPosts, posts)
+						break
+					}
+				}
+			}
+			return forumPosts, total, err
+		}
+	}
+	return list, total, err
+}
 
 func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize

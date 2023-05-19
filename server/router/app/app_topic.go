@@ -21,13 +21,14 @@ func (router *TopicRouter) InitTopicRouter(Router *gin.RouterGroup) (R gin.IRout
 		topicRouter.PUT("updateForumTopic", topicApi.UpdateForumTopic)              //更新话题
 	}
 	{
-		topicRouterWithoutRecord.GET("getNearbyHotTopicList", topicApi.GetNearbyHotTopicList) //获取附近热门话题列表
 
 		topicRouterWithoutRecord.GET("findForumTopicGroup", topicApi.FindForumTopicGroup)             //用id查询话题分组
 		topicRouterWithoutRecord.GET("getForumTopicGroupList", topicApi.GetForumTopicGroupList)       //分页获取话题分组列表
 		topicRouterWithoutRecord.GET("getForumTopicGroupListAll", topicApi.GetForumTopicGroupListAll) //获取话题分组列表
 		topicRouterWithoutRecord.GET("findForumTopic", topicApi.FindForumTopic)                       //用id查询话题
 		topicRouterWithoutRecord.GET("getForumTopicList", topicApi.GetForumTopicList)                 //分页获取话题列表
+		topicRouterWithoutRecord.GET("getNearbyHotTopicList", topicApi.GetNearbyHotTopicList)         //获取附近热门话题列表
+		topicRouterWithoutRecord.GET("getTopicForumPostsList", topicApi.GetTopicForumPostsList)       //分页获取话题帖子列表
 	}
 	return topicRouter
 }

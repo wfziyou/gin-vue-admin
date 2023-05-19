@@ -314,7 +314,7 @@ INSERT INTO `casbin_rule` VALUES (1606, 'p', '888', '/app/topic/updateForumTopic
 INSERT INTO `casbin_rule` VALUES (1607, 'p', '888', '/app/topic/findForumTopic', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1608, 'p', '888', '/app/topic/getForumTopicList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1609, 'p', '888', '/app/topic/getNearbyHotTopicList', 'GET', '', '', '', '', '');
-
+INSERT INTO `casbin_rule` VALUES (1610, 'p', '888', '/app/topic/getTopicForumPostsList', 'GET', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (1701, 'p', '888', '/app/user/bindTelephone', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1702, 'p', '888', '/app/user/bindEmail', 'POST', '', '', '', '', '');
@@ -824,6 +824,7 @@ INSERT INTO `sys_apis` VALUES (606, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (607, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/topic/findForumTopic', '用id查询ForumTopic', 6, 'GET');
 INSERT INTO `sys_apis` VALUES (608, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/topic/getForumTopicList', '分页获取ForumTopic列表', 6, 'GET');
 INSERT INTO `sys_apis` VALUES (609, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/topic/getNearbyHotTopicList', '获取附近热门话题列表', 6, 'GET');
+INSERT INTO `sys_apis` VALUES (610, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/topic/getTopicForumPostsList', '分页获取话题帖子列表', 6, 'GET');
 
 INSERT INTO `sys_apis` VALUES (701, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/bindTelephone', '绑定手机', 7, 'POST');
 INSERT INTO `sys_apis` VALUES (702, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/user/bindEmail', '绑定邮箱', 7, 'POST');

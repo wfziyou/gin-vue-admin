@@ -23,6 +23,14 @@ func (hkGoldBillService *GoldBillService) DeleteGoldBill(hkGoldBill community.Go
 	err = global.GVA_DB.Delete(&hkGoldBill).Error
 	return err
 }
+func (hkGoldBillService *GoldBillService) UpdateGoldBillLinkId(hkGoldBill community.GoldBill, linkId uint64) (err error) {
+	db := global.GVA_DB.Model(hkGoldBill)
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	updateData["link_id"] = linkId
+	err = db.Where("id = ?", hkGoldBill.ID).Updates(updateData).Error
+	return err
+}
 
 // DeleteGoldBillByIds 批量删除GoldBill记录
 // Author [piexlmax](https://github.com/piexlmax)

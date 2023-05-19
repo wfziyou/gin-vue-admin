@@ -1200,22 +1200,76 @@ CREATE TABLE `hk_feedback`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_report_reason`;
 CREATE TABLE `hk_report_reason`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `report_type` int(2) NOT NULL COMMENT '举报类型:1用户、2圈子、3群、4帖子、5帖子评论',
-   `reason` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '举报理由',
-   `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '举报原因';
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `report_type` int(2) NOT NULL COMMENT '举报类型:1用户、2圈子、3群、4帖子、5帖子评论',
+  `reason` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '举报理由',
+  `sort` smallint(6) NULL DEFAULT NULL COMMENT '排序',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_hk_report_reason_deleted_at`(`deleted_at`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '举报原因' ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Records of hk_report_reason
+-- ----------------------------
+INSERT INTO `hk_report_reason` VALUES (1, '000000', 1, '用户举报原因1', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (2, '000000', 1, '用户举报原因2', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (3, '000000', 1, '用户举报原因3', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (4, '000000', 1, '用户举报原因4', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (5, '000000', 1, '用户举报原因5', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (6, '000000', 1, '用户举报原因6', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (7, '000000', 1, '用户举报原因7', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (8, '000000', 1, '用户举报原因用户举报原因用户举报原因8', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (9, '000000', 1, '用户举报原因9', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (10, '000000', 1, '用户举报原因10', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (11, '000000', 2, '圈子举报原因1', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (12, '000000', 2, '圈子举报原因2', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (13, '000000', 2, '圈子举报原因3', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (14, '000000', 2, '圈子举报原因4', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (15, '000000', 2, '圈子举报原因5', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (16, '000000', 2, '圈子举报原因6', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (17, '000000', 2, '圈子举报原因7', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (18, '000000', 2, '圈子举报原因圈子举报原因圈子举报原因8', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (19, '000000', 2, '圈子举报原因9', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (20, '000000', 2, '圈子举报原因10', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (21, '000000', 3, '群举报原因1', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (22, '000000', 3, '群举报原因2', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (23, '000000', 3, '群举报原因3', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (24, '000000', 3, '群举报原因4', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (25, '000000', 3, '群举报原因5', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (26, '000000', 3, '群举报原因6', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (27, '000000', 3, '群举报原因7', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (28, '000000', 3, '群举报原因群举报原因群举报原因8', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (29, '000000', 3, '群举报原因9', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (30, '000000', 3, '群举报原因10', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (31, '000000', 4, '帖子举报原因1', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (32, '000000', 4, '帖子举报原因2', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (33, '000000', 4, '帖子举报原因3', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (34, '000000', 4, '帖子举报原因4', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (35, '000000', 4, '帖子举报原因5', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (36, '000000', 4, '帖子举报原因6', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (37, '000000', 4, '帖子举报原因7', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (38, '000000', 4, '帖子举报原因帖子举报原因帖子举报原因8', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (39, '000000', 4, '帖子举报原因9', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (40, '000000', 4, '帖子举报原因10', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (41, '000000', 5, '帖子评论举报原因1', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (42, '000000', 5, '帖子评论举报原因2', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (43, '000000', 5, '帖子评论举报原因3', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (44, '000000', 5, '帖子评论举报原因4', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (45, '000000', 5, '帖子评论举报原因5', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (46, '000000', 5, '帖子评论举报原因6', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (47, '000000', 5, '帖子评论举报原因7', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (48, '000000', 5, '帖子评论举报原因8', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (49, '000000', 5, '帖子评论举报原因9', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_report_reason` VALUES (50, '000000', 5, '帖子评论举报原因10', NULL, '2023-05-19 17:48:13.000', '2023-05-19 17:48:13.000', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_report
@@ -1225,13 +1279,13 @@ CREATE TABLE `hk_report`  (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `user_id` bigint(20) NOT NULL COMMENT '举报用户编号',
-   `reason_id` bigint(20) NOT NULL COMMENT '举报原因_编号',
+   `reason` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '举报原因',
    `report_type` int(2) NOT NULL COMMENT '举报类型:1用户、2圈子、3群、4帖子、5帖子评论',
    `report_id` bigint(20) NOT NULL COMMENT '被举报编号',
    `content` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '举报内容',
    `content_attachment` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '内容附件',
    `cur_status` int(2) NULL DEFAULT NULL COMMENT '处理状态：0 未处理、1 处理中、2 拒绝、3 完成',
-   `handle_user_id` bigint(20) NOT NULL COMMENT '操作用户_编号',
+   `handle_user_id` bigint(20) NULL DEFAULT NULL COMMENT '操作用户_编号',
    `handle_type` bigint(20) NULL DEFAULT NULL COMMENT '处理方式:0无效处理（不予处理）、账号禁言',
    `duration_id` bigint(20) NULL DEFAULT NULL COMMENT '禁言时长_编号',
    `handle_score` int(2) NULL DEFAULT NULL COMMENT '积分处理:0不扣分、1扣分',
@@ -1635,7 +1689,7 @@ DROP TABLE IF EXISTS `hk_product_gold`;
 CREATE TABLE `hk_product_gold`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `tenant_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-  `num`  bigint(20) NULL DEFAULT 0 COMMENT '数量',
+  `count`  bigint(20) NULL DEFAULT 0 COMMENT '数量',
   `price`  bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '商品价格',
   `cost` bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '成本价',
   `created_at` datetime(3) NULL DEFAULT NULL,
@@ -1698,11 +1752,12 @@ CREATE TABLE `hk_gold_bill` (
    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
    `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
    `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-   `link_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '关联id',
+   `link_id` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '关联id',
    `pm` int(2) NOT NULL DEFAULT '0' COMMENT '0 = 支出 1 = 获得',
    `title` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '账单标题',
-   `title_icon` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '标题图标',
+   `description` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '描述',
    `type` int(2) NOT NULL DEFAULT '5' COMMENT '账单类型 1充值 2付费 3红包 4打赏 5其他',
+   `child_type` int(2) NOT NULL DEFAULT '0' COMMENT '子类型',
    `before_number` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '之前金额',
    `change_number` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '改变金额',
    `balance` bigint(20) unsigned NOT NULL DEFAULT 0 COMMENT '余额',

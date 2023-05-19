@@ -18,3 +18,7 @@ type ForumTopicUpdate struct {
 	TopicGroupId *uint64 `json:"topicGroupId" form:"topicGroupId" gorm:"type:bigint(20);column:topic_group_id;comment:分组id;"` //分组id
 	Hot          *int    `json:"hot" form:"hot" gorm:"column:hot;comment:是否热门：0 否 1 是;size:10;"`                              //是否热门：0 否 1 是
 }
+type TopicForumPostsSearch struct {
+	TopicId string `json:"topicId" form:"topicId"` //话题_编号
+	request.PageInfo
+}

@@ -3,6 +3,7 @@ package app
 import (
 	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
@@ -116,15 +117,18 @@ func (questionApi *QuestionApi) CreateQuestion(c *gin.Context) {
 		return
 	}
 
-	err = appUserService.DecreaseGold(userId, req.PayNum, "发布问题", "", "")
+	bill, err := appUserService.DecreaseGold(userId, 0, req.PayNum, "发布问题", "", community.BillTypeBuy, community.BillChildTypeCreateQuestion, "")
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	err = hkQuestionService.CreateQuestion(userId, req)
+	question, err := hkQuestionService.CreateQuestion(userId, req)
 	if err != nil {
+		hkGoldBillService.DeleteGoldBill(bill)
 		response.FailWithMessage(err.Error(), c)
 		return
+	} else {
+		hkGoldBillService.UpdateGoldBillLinkId(bill, question.ID)
 	}
 	appUserService.UpdatePostsTime(req.CircleId, userId)
 	response.OkWithMessage("成功", c)
@@ -271,7 +275,7 @@ func (questionApi *QuestionApi) SetBestAnswer(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	} else if question.PayNum > 0 {
-		appUserService.IncreaseGold(answer.UserId, question.PayNum, user.NickName, user.HeaderImg, "")
+		appUserService.IncreaseGold(answer.UserId, question.PayNum, user.NickName, user.HeaderImg, community.BillTypeOther, community.BillChildTypeAnswerQuestion, "")
 	}
 }
 
@@ -290,6 +294,5 @@ func (questionApi *QuestionApi) SetQuestionScore(c *gin.Context) {
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
-
 	}
 }
