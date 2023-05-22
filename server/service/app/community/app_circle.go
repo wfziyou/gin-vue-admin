@@ -100,10 +100,81 @@ func (appCircleService *AppCircleService) UpdateCircle(req communityReq.UpdateCi
 	err = db.Where("id = ?", req.ID).Updates(updateData).Error
 	return err
 }
+func (appCircleService *AppCircleService) UpdateCircleBaseInfo(req communityReq.UpdateCircleBaseInfoReq) (err error) {
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	if len(req.Name) > 0 {
+		updateData["name"] = req.Name
+	}
+	if len(req.Logo) > 0 {
+		updateData["logo"] = req.Logo
+	}
+	if len(req.Slogan) > 0 {
+		updateData["slogan"] = req.Slogan
+	}
+	if len(req.Des) > 0 {
+		updateData["des"] = req.Des
+	}
+	if len(req.Protocol) > 0 {
+		updateData["protocol"] = req.Protocol
+	}
+	if len(req.CoverImage) > 0 {
+		updateData["cover_image"] = req.CoverImage
+	}
 
-// GetCircle 根据id获取Circle记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (appCircleService *AppCircleService) GetCircle(id uint64) (hkCircle community.Circle, err error) {
+	db := global.GVA_DB.Model(&community.Circle{})
+	err = db.Where("id = ?", req.ID).Updates(updateData).Error
+	return err
+}
+func (appCircleService *AppCircleService) UpdateCirclePower(req communityReq.UpdateCirclePowerReq) (err error) {
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	if req.Process != nil {
+		updateData["process"] = req.Process
+	}
+	if req.Property != nil {
+		updateData["property"] = req.Property
+	}
+	if req.View != nil {
+		updateData["view"] = req.View
+	}
+	if req.PowerAdd != nil {
+		updateData["power_add"] = req.PowerAdd
+	}
+	if req.PowerView != nil {
+		updateData["power_view"] = req.PowerView
+	}
+	if req.PowerPublish != nil {
+		updateData["power_publish"] = req.PowerPublish
+	}
+	if req.PowerComment != nil {
+		updateData["power_comment"] = req.PowerComment
+	}
+	if len(req.PowerAddUser) > 0 {
+		updateData["power_add_user"] = req.PowerAddUser
+	}
+	if len(req.PowerViewUser) > 0 {
+		updateData["power_view_user"] = req.PowerViewUser
+	}
+	if len(req.PowerPublishUser) > 0 {
+		updateData["power_publish_user"] = req.PowerPublishUser
+	}
+	if len(req.PowerCommentUser) > 0 {
+		updateData["power_comment_user"] = req.PowerCommentUser
+	}
+	if len(req.NoLimitUserGroup) > 0 {
+		updateData["no_limit_user_group"] = req.NoLimitUserGroup
+	}
+	if req.NewUserFocus != nil {
+		updateData["new_user_focus"] = req.NewUserFocus
+	}
+
+	db := global.GVA_DB.Model(&community.Circle{})
+	err = db.Where("id = ?", req.ID).Updates(updateData).Error
+	return err
+}
+
+func (appCircleService *AppCircleService) FindCircle(id uint64) (hkCircle community.Circle, err error) {
 	err = global.GVA_DB.Where("id = ?", id).Preload("Tags").First(&hkCircle).Error
 	if err == nil {
 		var hkCircleTags []community.CircleTag
@@ -111,6 +182,21 @@ func (appCircleService *AppCircleService) GetCircle(id uint64) (hkCircle communi
 			hkCircle.Tags = hkCircleTags
 		}
 	}
+	return
+}
+
+// GetCircle 根据id获取Circle记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (appCircleService *AppCircleService) GetCircle(id uint64) (hkCircle community.Circle, err error) {
+	err = global.GVA_DB.Where("id = ?", id).Preload("Tags").First(&hkCircle).Error
+	return
+}
+func (appCircleService *AppCircleService) GetCircleInfo(id uint64) (hkCircle community.CircleInfo, err error) {
+	err = global.GVA_DB.Model(&community.Circle{}).Where("id = ?", id).First(&hkCircle).Error
+	return
+}
+func (appCircleService *AppCircleService) GetCirclePower(id uint64) (hkCircle community.CirclePower, err error) {
+	err = global.GVA_DB.Model(&community.Circle{}).Where("id = ?", id).First(&hkCircle).Error
 	return
 }
 

@@ -36,6 +36,10 @@ type CaptchaReq struct {
 	Telephone string `json:"telephone" example:"12345678901"` // 电话号码
 	Type      int    `json:"type" example:"0"`                //类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
 }
+type EmailVerificationReq struct {
+	Email string `json:"email" example:"xxx@163.com"` // 邮箱地址
+	Type  int    `json:"type" example:"0"`            //类型：0绑定邮箱
+}
 
 // Register User register structure
 type Register struct {

@@ -43,7 +43,7 @@ func (appUserService *AppUserService) Register(user community.User) (userInter c
 	err = global.GVA_DB.Create(&user).Error
 	if err == nil {
 		var userCovers []community.UserCoverImage
-		err := global.GVA_DB.Model(&community.UserCoverImage{}).Where("account = ?", user.Account).Find(&userCovers)
+		err := global.GVA_DB.Model(&community.UserCoverImage{}).Find(&userCovers)
 		size := len(userCovers)
 		var coverImage string
 		rand.Seed(time.Now().Unix())
@@ -108,6 +108,21 @@ func (appUserService *AppUserService) GetUserByPhone(phone string) (userInter *c
 	}
 	return user, err
 }
+func (appUserService *AppUserService) GetUserByEmail(email string) (userInter *community.User, err error) {
+	if nil == global.GVA_DB {
+		return nil, fmt.Errorf("db not init")
+	}
+	var user *community.User
+	var users []community.User
+	err = global.GVA_DB.Where("email = ?", email).Find(&users).Error
+	if err != nil {
+		return nil, errors.New("数据库错误")
+	}
+	if len(users) > 0 {
+		user = &users[0]
+	}
+	return user, err
+}
 
 // ChangePassword 修改用户密码
 func (appUserService *AppUserService) ChangePassword(u *community.User, newPassword string) (userInter *community.User, err error) {
@@ -137,6 +152,14 @@ func (appUserService *AppUserService) BindTelephone(userId uint64, telephone str
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
 	updateData["phone"] = telephone
+	err = db.Where("id = ?", userId).Updates(updateData).Error
+	return err
+}
+func (appUserService *AppUserService) BindEmail(userId uint64, email string) (err error) {
+	db := global.GVA_DB.Model(&community.User{GvaModelApp: global.GvaModelApp{ID: userId}})
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	updateData["email"] = email
 	err = db.Where("id = ?", userId).Updates(updateData).Error
 	return err
 }

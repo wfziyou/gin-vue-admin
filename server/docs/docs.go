@@ -1756,6 +1756,39 @@ var doc = `{
                 }
             }
         },
+        "/app/auth/sendEmailVerification": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "发送Email验证码",
+                "parameters": [
+                    {
+                        "description": "发送Email验证码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.EmailVerificationReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/channel/getChannelList": {
             "get": {
                 "security": [
@@ -2679,6 +2712,106 @@ var doc = `{
                                     "properties": {
                                         "data": {
                                             "$ref": "#/definitions/community.Circle"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/findCircleBaseInfo": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "用id查询圈子基本信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "编号",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.Circle",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.CircleInfo"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/findCirclePower": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "用id查询圈子权限",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "编号",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.Circle",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/community.CirclePower"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -3792,6 +3925,82 @@ var doc = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/request.UpdateCircleReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/updateCircleBaseInfo": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)更新圈子基本信息",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)更新圈子基本信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.UpdateCircleBaseInfoReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/updateCirclePower": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)更新圈子权限",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)更新圈子权限",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.UpdateCircleBaseInfoReq"
                         }
                     }
                 ],
@@ -15594,6 +15803,100 @@ var doc = `{
                 }
             }
         },
+        "community.CircleInfo": {
+            "type": "object",
+            "properties": {
+                "coverImage": {
+                    "description": "圈子背景图;size:500",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "圈子简介;size:1000",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "logo": {
+                    "description": "圈子Logo",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "圈子名称",
+                    "type": "string"
+                },
+                "protocol": {
+                    "description": "圈子规约;size:1000",
+                    "type": "string"
+                },
+                "slogan": {
+                    "description": "圈子标语;size:20",
+                    "type": "string"
+                }
+            }
+        },
+        "community.CirclePower": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "newUserFocus": {
+                    "description": "新注册用户默认关注：0 否，1是",
+                    "type": "integer"
+                },
+                "noLimitUserGroup": {
+                    "description": "不受限用户组(json数组);size:500",
+                    "type": "string"
+                },
+                "powerAdd": {
+                    "description": "圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户",
+                    "type": "integer"
+                },
+                "powerAddUser": {
+                    "description": "圈子加入权限_指定部门和成员(json数组);size:500",
+                    "type": "string"
+                },
+                "powerComment": {
+                    "description": "圈子内评论权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerCommentUser": {
+                    "description": "圈子内评论权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "powerPublish": {
+                    "description": "圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerPublishUser": {
+                    "description": "圈子内发布权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "powerView": {
+                    "description": "圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组",
+                    "type": "integer"
+                },
+                "powerViewUser": {
+                    "description": "圈子内浏览权限_指定部门和用户(json数组);size:500",
+                    "type": "string"
+                },
+                "process": {
+                    "description": "是否开启版块内容人工审核：0 否，1是",
+                    "type": "integer"
+                },
+                "property": {
+                    "description": ":圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）",
+                    "type": "integer"
+                },
+                "view": {
+                    "description": "板块可见性： 0不在社区中显示，不能被搜索到，1不在社区中显示，可以被搜索到，2在社区中显示，可以被搜索到",
+                    "type": "integer"
+                }
+            }
+        },
         "community.CircleRequest": {
             "type": "object",
             "properties": {
@@ -17269,8 +17572,25 @@ var doc = `{
                     "description": "密钥",
                     "type": "string"
                 },
+                "template": {
+                    "description": "邮件模板",
+                    "$ref": "#/definitions/config.EmailTemplate"
+                },
                 "to": {
                     "description": "收件人:多个以英文逗号分隔",
+                    "type": "string"
+                }
+            }
+        },
+        "config.EmailTemplate": {
+            "type": "object",
+            "properties": {
+                "bindEmailBody": {
+                    "description": "绑定邮箱",
+                    "type": "string"
+                },
+                "bindEmailSubject": {
+                    "description": "绑定邮箱",
                     "type": "string"
                 }
             }
@@ -18966,6 +19286,21 @@ var doc = `{
                 }
             }
         },
+        "request.EmailVerificationReq": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "description": "邮箱地址",
+                    "type": "string",
+                    "example": "xxx@163.com"
+                },
+                "type": {
+                    "description": "类型：0绑定邮箱",
+                    "type": "integer",
+                    "example": 0
+                }
+            }
+        },
         "request.Empty": {
             "type": "object"
         },
@@ -19751,6 +20086,39 @@ var doc = `{
                 },
                 "title": {
                     "description": "标题",
+                    "type": "string"
+                }
+            }
+        },
+        "request.UpdateCircleBaseInfoReq": {
+            "type": "object",
+            "properties": {
+                "coverImage": {
+                    "description": "圈子背景图;size:500",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "圈子简介;size:1000",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "圈子编号",
+                    "type": "integer"
+                },
+                "logo": {
+                    "description": "圈子Logo",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "圈子名称",
+                    "type": "string"
+                },
+                "protocol": {
+                    "description": "圈子规约;size:1000",
+                    "type": "string"
+                },
+                "slogan": {
+                    "description": "圈子标语;size:20",
                     "type": "string"
                 }
             }

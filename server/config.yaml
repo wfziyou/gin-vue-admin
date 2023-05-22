@@ -1,5 +1,8 @@
 # github.com/flipped-aurora/gin-vue-admin/server Global Configuration
 
+cache-captcha:
+  expires-time: 120s
+  sms-time: 60s
 oneLogin:
   strictcheck: 0
   appid: 300012349007
@@ -62,21 +65,23 @@ redis:
 
 # email configuration
 email:
-  to: xxx@qq.com
+  to: 470992807@qq.com
   port: 465
-  from: xxx@163.com
+  from: wfziyou@163.com
   host: smtp.163.com
   is-ssl: true
-  secret: xxx
-  nickname: test
-
+  secret: UWMLBYIPGNIGDYUL
+  nickname: 邻里圈子
+  template:
+    bindEmailSubject: 绑定邮箱
+    bindEmailBody: 绑定邮箱，验证码%06v
 # system configuration
 system:
   env: public # Change to "develop" to skip authentication for development mode
   addr: 8888
   db-type: mysql
   oss-type: aliyun-oss # 控制oss选择走本地还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
-  use-redis: false # 使用redis
+  use-redis: true # 使用redis
   use-multipoint: false
   # IP限制次数 一个小时15000次
   iplimit-count: 15000

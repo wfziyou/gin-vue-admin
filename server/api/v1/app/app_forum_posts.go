@@ -154,7 +154,7 @@ func (forumPostsApi *ForumPostsApi) CreateForumPosts(c *gin.Context) {
 	}
 	userId := utils.GetUserID(c)
 	if req.CircleId != 0 {
-		if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+		if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
 			response.FailWithMessage("圈子不存在", c)
 			return
 		}
@@ -195,7 +195,7 @@ func (forumPostsApi *ForumPostsApi) CreateNews(c *gin.Context) {
 		return
 	}
 	userId := utils.GetUserID(c)
-	if _, err := appCircleService.GetCircle(req.CircleId); err != nil {
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
 		response.FailWithMessage("圈子不存在", c)
 		return
 	}

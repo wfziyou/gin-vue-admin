@@ -33,6 +33,12 @@ const (
 	VerificationBindBank = 5
 )
 
+// 类型：0绑定邮箱
+const (
+	//EmailCodeBindEmail 0绑定邮箱
+	EmailCodeBindEmail = 0
+)
+
 //
 const (
 	QuestionStatusOpen  = 0

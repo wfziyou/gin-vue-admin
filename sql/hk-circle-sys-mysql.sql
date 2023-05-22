@@ -244,6 +244,10 @@ INSERT INTO `casbin_rule` VALUES (1133, 'p', '888', '/app/circle/approveChildCir
 INSERT INTO `casbin_rule` VALUES (1134, 'p', '888', '/app/circle/createChildCircle', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1135, 'p', '888', '/app/circle/deleteChildCircle', 'DELETE', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1136, 'p', '888', '/app/circle/getChildCircleRequestList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1137, 'p', '888', '/app/circle/findCircleBaseInfo', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1138, 'p', '888', '/app/circle/findCirclePower', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1139, 'p', '888', '/app/circle/updateCircleBaseInfo', 'PUT', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (1140, 'p', '888', '/app/circle/updateCirclePower', 'PUT', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (1201, 'p', '888', '/app/circleApply/findApply', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1202, 'p', '888', '/app/circleApply/getApplyList', 'GET', '', '', '', '', '');
@@ -754,6 +758,10 @@ INSERT INTO `sys_apis` VALUES (133, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (134, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/createChildCircle', '(圈子管理者)创建子圈子', 1, 'POST');
 INSERT INTO `sys_apis` VALUES (135, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/deleteChildCircle', '(圈子管理者)删除子圈子', 1, 'DELETE');
 INSERT INTO `sys_apis` VALUES (136, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/getChildCircleRequestList', '(圈子管理者)获取子圈子申请列表', 1, 'GET');
+INSERT INTO `sys_apis` VALUES (137, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/findCircleBaseInfo', '用id查询圈子基本信息', 1, 'GET');
+INSERT INTO `sys_apis` VALUES (138, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/findCirclePower', '用id查询圈子权限', 1, 'GET');
+INSERT INTO `sys_apis` VALUES (139, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/updateCircleBaseInfo', '(圈子管理者)更新圈子基本信息', 1, 'PUT');
+INSERT INTO `sys_apis` VALUES (140, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circle/updateCirclePower', '(圈子管理者)更新圈子权限', 1, 'PUT');
 
 INSERT INTO `sys_apis` VALUES (201, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circleApply/findApply', '用id查询Apply', 2, 'GET');
 INSERT INTO `sys_apis` VALUES (202, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/circleApply/getApplyList', '分页获取Apply列表', 2, 'GET');

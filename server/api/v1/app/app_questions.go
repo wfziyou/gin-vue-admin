@@ -68,7 +68,7 @@ func (questionApi *QuestionApi) GetCircleQuestionList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	circle, err := appCircleService.GetCircle(req.CircleId)
+	circle, err := appCircleService.GetCircleInfo(req.CircleId)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		response.FailWithMessage("圈子不存在", c)
 	}

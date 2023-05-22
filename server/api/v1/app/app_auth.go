@@ -10,6 +10,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
+	emailService "github.com/flipped-aurora/gin-vue-admin/server/plugin/email/service"
 	openImReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open/model/request"
 	openImService "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open/service"
 	yunXinImReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-yunxin/model/request"
@@ -360,6 +361,67 @@ func (authApi *AuthApi) GetSmsVerification(c *gin.Context) {
 		}
 
 		if err := smsService.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
+			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
+			response.FailWithMessage("发送验证码失败", c)
+			return
+		} else {
+			response.OkWithData("发送成功", c)
+			return
+		}
+	}
+}
+
+// SendEmailVerification 发送Email验证码
+// @Tags 鉴权认证
+// @Summary   发送Email验证码
+// @accept    application/json
+// @Produce   application/json
+// @Param data body authReq.EmailVerificationReq true "发送Email验证码"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"发送成功"}"
+// @Router    /app/auth/sendEmailVerification [post]
+func (authApi *AuthApi) SendEmailVerification(c *gin.Context) {
+	var obj authReq.EmailVerificationReq
+	_ = c.ShouldBindJSON(&obj)
+
+	//类型：0绑定邮箱
+	var subject string = global.GVA_CONFIG.Email.EmailTemplate.BindEmailSubject
+	var code string = fmt.Sprintf(global.GVA_CONFIG.Email.EmailTemplate.BindEmailBody, rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
+	//if obj.Type == utils.EmailCodeBindEmail {
+	//	subject = global.GVA_CONFIG.Email.EmailTemplate.BindEmailSubject
+	//	code = fmt.Sprintf(global.GVA_CONFIG.Email.EmailTemplate.BindEmailBody, rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
+	//}
+	key := fmt.Sprintf("email-%d-%s", obj.Type, obj.Email)
+	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
+		if err := cacheSmsService.SetCacheSms(key, code); err != nil {
+			global.GVA_LOG.Error("设置验证码到缓存失败!", zap.Error(err))
+			response.FailWithMessage("设置验证码到缓存失败", c)
+			return
+		}
+
+		if err := emailService.ServiceGroupApp.SendEmail(obj.Email, subject, code); err != nil {
+			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
+			response.FailWithMessage("发送验证码失败", c)
+			return
+		} else {
+			response.OkWithData("发送成功", c)
+			return
+		}
+	} else if err != nil {
+		global.GVA_LOG.Error("设置验证码到缓存失败!", zap.Error(err))
+		response.FailWithMessage("设置验证码到缓存失败", c)
+	} else {
+		if cacheCaptcha.Overtime.After(time.Now()) {
+			response.FailWithMessage("发送太频繁，稍后再试", c)
+			return
+		}
+
+		if err := cacheSmsService.SetCacheSms(key, code); err != nil {
+			global.GVA_LOG.Error("设置验证码到缓存失败!", zap.Error(err))
+			response.FailWithMessage("设置验证码到缓存失败", c)
+			return
+		}
+
+		if err := emailService.ServiceGroupApp.SendEmail(obj.Email, subject, code); err != nil {
 			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
 			response.FailWithMessage("发送验证码失败", c)
 			return

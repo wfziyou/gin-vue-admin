@@ -15,7 +15,12 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 	circleRouterWithoutRecord := appRouter.Group("circle")
 	var circleApi = v1.ApiGroupApp.AppApiGroup.CircleApi
 	{
-		circleRouter.PUT("updateCircle", circleApi.UpdateCircle)                                            //(圈子管理者)更新圈子
+		circleRouter.PUT("updateCircle", circleApi.UpdateCircle)                          //(圈子管理者)更新圈子
+		circleRouterWithoutRecord.GET("findCircleBaseInfo", circleApi.FindCircleBaseInfo) // 用id查询圈子基本信息
+		circleRouterWithoutRecord.GET("findCirclePower", circleApi.FindCirclePower)       // 用id查询圈子权限
+		circleRouter.PUT("updateCircleBaseInfo", circleApi.UpdateCircleBaseInfo)          //(圈子管理者)更新圈子基本信息
+		circleRouter.PUT("updateCirclePower", circleApi.UpdateCirclePower)                //(圈子管理者)更新圈子权限
+
 		circleRouter.POST("enterCircle", circleApi.EnterCircle)                                             //加入圈子
 		circleRouter.POST("exitCircle", circleApi.ExitCircle)                                               //退出圈子
 		circleRouterWithoutRecord.GET("getCircleForumPostsList", circleApi.GetCircleForumPostsList)         // 分页获取圈子的帖子列表

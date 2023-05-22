@@ -82,7 +82,46 @@ func (userApi *UserApi) BindTelephone(c *gin.Context) {
 // @Router   /app/user/bindEmail [post]
 func (userApi *UserApi) BindEmail(c *gin.Context) {
 	//var l communityReq.BindEmailReq
-
+	var req communityReq.BindEmailReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	key := fmt.Sprintf("email-%d-%s", utils.EmailCodeBindEmail, req.Email)
+	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
+		response.FailWithMessage("验证码失效", c)
+		return
+	} else if err != nil {
+		global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
+		response.FailWithMessage("获取验证码失败", c)
+		return
+	} else {
+		if cacheCaptcha.Overtime.Before(time.Now()) {
+			response.FailWithMessage("验证码失效", c)
+			return
+		}
+		if cacheCaptcha.Code != req.Captcha {
+			response.FailWithMessage("验证码错误", c)
+			return
+		} else if _, err := appUserService.GetUserByEmail(req.Email); err == nil {
+			response.FailWithMessage("电话号码被使用", c)
+			return
+		} else if errors.Is(err, gorm.ErrRecordNotFound) {
+			userId := utils.GetUserID(c)
+			err = appUserService.BindEmail(userId, req.Email)
+			if err != nil {
+				global.GVA_LOG.Error("绑定电话失败!", zap.Error(err))
+				response.FailWithMessage("绑定电话失败", c)
+				return
+			}
+			response.OkWithMessage("成功", c)
+			return
+		} else {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+	}
 }
 
 // GetUserBaseInfo 用id查询用户基本信息
