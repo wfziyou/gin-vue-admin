@@ -15,6 +15,7 @@ func (s *BaseRouter) InitAuthRouter(Router *gin.RouterGroup) {
 		authRouter.POST("getThirdPlat", authApi.GetThirdPlat)                   //获取第三方平台信息
 		authRouter.POST("register", authApi.Register)                           //用户注册账号
 		authRouter.POST("loginPwd", authApi.LoginPwd)                           //用户登录(账号密码)
+		authRouter.POST("loginPwdTest", authApi.LoginPwdTest)                   //用户登录(账号密码)
 		authRouter.POST("loginTelephone", authApi.LoginTelephone)               //用户登录(手机)
 		authRouter.POST("loginThird", authApi.LoginThird)                       //用户登录(第三方授权)
 		authRouter.POST("loginOneClick", authApi.LoginOneClick)                 //一键登录

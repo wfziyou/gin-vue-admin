@@ -66,7 +66,7 @@ func (appCircleAddRequestService *AppCircleAddRequestService) GetCircleAddReques
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&community.CircleAddRequest{})
+	db := global.GVA_DB.Model(&community.CircleAddRequest{}).Preload("UserInfo")
 	var hkCircleAddRequests []community.CircleAddRequest
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {

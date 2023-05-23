@@ -38,8 +38,8 @@ yunxin-im:
   url: https://api.netease.im/nimserver
 open-im:
   appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
-  appSecret: tuoyun
-  url: https://api.netease.im/nimserver
+  appSecret: openIM123
+  url: http://192.168.3.22:10002
 # jwt configuration
 jwt:
   signing-key: qmPlus

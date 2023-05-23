@@ -332,6 +332,9 @@ definitions:
       userId:
         description: 用户_编号
         type: integer
+      userInfo:
+        $ref: '#/definitions/community.UserBaseInfo'
+        description: 用户基本信息
     type: object
   community.CircleBaseInfo:
     properties:
@@ -5353,6 +5356,32 @@ paths:
       tags:
       - 鉴权认证
   /app/auth/loginPwd:
+    post:
+      parameters:
+      - description: 用户登录(账号密码)
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginPwd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回LoginResponse
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                msg:
+                  type: string
+              type: object
+      summary: 用户登录(账号密码)
+      tags:
+      - 鉴权认证
+  /app/auth/loginPwdTest:
     post:
       parameters:
       - description: 用户登录(账号密码)

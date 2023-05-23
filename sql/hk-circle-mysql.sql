@@ -331,24 +331,31 @@ CREATE TABLE `hk_circle_request`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_circle_add_request`;
 CREATE TABLE `hk_circle_add_request`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-   `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
-   `reason` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '申请理由',
-   `check_user` bigint(20) NULL DEFAULT NULL COMMENT '审核人',
-   `check_time` datetime(3) NULL DEFAULT NULL COMMENT '审核时间',
-   `check_status` int(2) NULL DEFAULT 0 COMMENT '审核状态：0 未处理、1通过、2驳回',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '加入圈子申请';
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户_编号',
+  `circle_id` bigint(20) NOT NULL COMMENT '圈子_编号',
+  `reason` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '申请理由',
+  `check_user` bigint(20) NULL DEFAULT NULL COMMENT '审核人',
+  `check_time` datetime(3) NULL DEFAULT NULL COMMENT '审核时间',
+  `check_status` smallint(6) NOT NULL DEFAULT 0 COMMENT '审核状态：0 未处理 1 通过，2驳回',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_hk_circle_add_request_deleted_at`(`deleted_at`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '加入圈子申请' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hk_circle_add_request
+-- ----------------------------
+INSERT INTO `hk_circle_add_request` VALUES (1, '000000', 1, 1, '原因1', NULL, NULL, 0, '2023-05-16 13:59:10.200', '2023-05-16 13:59:10.200', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_add_request` VALUES (2, '000000', 6, 5, '原因2', NULL, NULL, 0, '2023-05-23 11:47:10.709', '2023-05-23 11:47:10.709', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_circle_relation
