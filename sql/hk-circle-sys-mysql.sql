@@ -288,13 +288,6 @@ INSERT INTO `casbin_rule` VALUES (1322, 'p', '888', '/app/forumPosts/getUserForu
 INSERT INTO `casbin_rule` VALUES (1401, 'p', '888', '/app/general/findProtocol', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1402, 'p', '888', '/app/general/findProtocolByName', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (1403, 'p', '888', '/app/general/findMiniProgram', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1404, 'p', '888', '/app/general/getFeedbackTypeList', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1405, 'p', '888', '/app/general/createFeedback', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1406, 'p', '888', '/app/general/deleteFeedback', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1407, 'p', '888', '/app/general/deleteFeedbackByIds', 'DELETE', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1408, 'p', '888', '/app/general/updateFeedback', 'PUT', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (1409, 'p', '888', '/app/general/findFeedback', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (14010, 'p', '888', '/app/general/getFeedbackList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (14011, 'p', '888', '/app/general/findDraft', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (14012, 'p', '888', '/app/general/getDraftList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (14013, 'p', '888', '/app/general/deleteAllDraft', 'DELETE', '', '', '', '', '');
@@ -412,6 +405,20 @@ INSERT INTO `casbin_rule` VALUES (11606, 'p', '888', '/app/wallet/getExtractType
 INSERT INTO `casbin_rule` VALUES (11607, 'p', '888', '/app/wallet/createUserExtract', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11608, 'p', '888', '/app/wallet/getUserBillList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11609, 'p', '888', '/app/wallet/findUserBill', 'GET', '', '', '', '', '');
+
+INSERT INTO `casbin_rule` VALUES (11701, 'p', '888', '/app/helpCenter/getHelpTypeList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11702, 'p', '888', '/app/helpCenter/getMainHelpList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11703, 'p', '888', '/app/helpCenter/findHelp', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11704, 'p', '888', '/app/helpCenter/helpThumbsUpGood', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11705, 'p', '888', '/app/helpCenter/helpThumbsUpBad', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11706, 'p', '888', '/app/helpCenter/getHelpList', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11707, 'p', '888', '/app/helpCenter/createFeedback', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11708, 'p', '888', '/app/helpCenter/deleteFeedback', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11709, 'p', '888', '/app/helpCenter/deleteFeedbackByIds', 'DELETE', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11710, 'p', '888', '/app/helpCenter/updateFeedback', 'PUT', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11711, 'p', '888', '/app/helpCenter/findFeedback', 'GET', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11712, 'p', '888', '/app/helpCenter/getFeedbackList', 'GET', '', '', '', '', '');
+
 -- ----------------------------
 -- Table structure for exa_customers
 -- ----------------------------
@@ -584,6 +591,7 @@ INSERT INTO `sys_apis_group` VALUES (13, '000000', '2023-02-06 18:19:13.303', '2
 INSERT INTO `sys_apis_group` VALUES (14, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'APP权限_关注', '', 14);
 INSERT INTO `sys_apis_group` VALUES (15, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'APP权限_频道', '', 15);
 INSERT INTO `sys_apis_group` VALUES (16, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'APP权限_钱包', '', 16);
+INSERT INTO `sys_apis_group` VALUES (17, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'APP权限_反馈中心', '', 17);
 
 INSERT INTO `sys_apis_group` VALUES (51, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'base', '', 51);
 INSERT INTO `sys_apis_group` VALUES (52, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, 'jwt', '', 52);
@@ -802,13 +810,6 @@ INSERT INTO `sys_apis` VALUES (322, '000000', '2023-02-06 18:19:13.303', '2023-0
 INSERT INTO `sys_apis` VALUES (401, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocol', '用id查询协议', 4, 'GET');
 INSERT INTO `sys_apis` VALUES (402, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findProtocolByName', '用名字查询协议', 4, 'GET');
 INSERT INTO `sys_apis` VALUES (403, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findMiniProgram', '用id查询MiniProgram', 4, 'GET');
-INSERT INTO `sys_apis` VALUES (404, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/getFeedbackTypeList', '获取反馈类型列表', 4, 'GET');
-INSERT INTO `sys_apis` VALUES (405, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/createFeedback', '创建反馈', 4, 'POST');
-INSERT INTO `sys_apis` VALUES (406, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/deleteFeedback', '删除反馈', 4, 'DELETE');
-INSERT INTO `sys_apis` VALUES (407, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/deleteFeedbackByIds', '批量删除反馈', 4, 'DELETE');
-INSERT INTO `sys_apis` VALUES (408, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/updateFeedback', '更新反馈', 4, 'PUT');
-INSERT INTO `sys_apis` VALUES (409, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findFeedback', '用id查询反馈', 4, 'GET');
-INSERT INTO `sys_apis` VALUES (410, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/getFeedbackList', '分页获取反馈列表', 4, 'GET');
 INSERT INTO `sys_apis` VALUES (411, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/findDraft', '用id查询草稿', 4, 'GET');
 INSERT INTO `sys_apis` VALUES (412, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/getDraftList', '分页获取草稿列表', 4, 'GET');
 INSERT INTO `sys_apis` VALUES (413, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/general/deleteAllDraft', '删除所有草稿', 4, 'DELETE');
@@ -927,6 +928,20 @@ INSERT INTO `sys_apis` VALUES (1606, '000000', '2023-02-06 18:19:13.303', '2023-
 INSERT INTO `sys_apis` VALUES (1607, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/createUserExtract', '创建用户提现', 16, 'POST');
 INSERT INTO `sys_apis` VALUES (1608, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/getUserBillList', '获取用户账单列表', 16, 'GET');
 INSERT INTO `sys_apis` VALUES (1609, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/wallet/findUserBill', '根据ID获取用户账单', 16, 'GET');
+
+INSERT INTO `sys_apis` VALUES (1701, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/getHelpTypeList', '(管理员)获取帮助类型列表', 17, 'GET');
+INSERT INTO `sys_apis` VALUES (1702, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/getMainHelpList', '获取主页帮助列表', 17, 'GET');
+INSERT INTO `sys_apis` VALUES (1703, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/findHelp', '用id查询帮助', 17, 'GET');
+INSERT INTO `sys_apis` VALUES (1704, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/helpThumbsUpGood', '帮助点赞（好评）', 17, 'POST');
+INSERT INTO `sys_apis` VALUES (1705, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/helpThumbsUpBad', '帮助点赞（差评）', 17, 'POST');
+INSERT INTO `sys_apis` VALUES (1706, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/getHelpList', '获取帮助列表', 17, 'GET');
+INSERT INTO `sys_apis` VALUES (1707, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/createFeedback', '创建反馈', 17, 'POST');
+INSERT INTO `sys_apis` VALUES (1708, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/deleteFeedback', '(管理员)删除反馈', 17, 'DELETE');
+INSERT INTO `sys_apis` VALUES (1709, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/deleteFeedbackByIds', '(管理员)批量删除反馈', 17, 'DELETE');
+INSERT INTO `sys_apis` VALUES (1710, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/updateFeedback', '(管理员)更新反馈', 17, 'PUT');
+INSERT INTO `sys_apis` VALUES (1711, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/findFeedback', '用id查询反馈', 17, 'GET');
+INSERT INTO `sys_apis` VALUES (1712, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/getFeedbackList', '分页获取反馈列表', 17, 'GET');
+
 -- ----------------------------
 -- Table structure for sys_authorities
 -- ----------------------------

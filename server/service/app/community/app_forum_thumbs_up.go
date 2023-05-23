@@ -19,14 +19,14 @@ func (appForumThumbsUpService *AppForumThumbsUpService) CreateForumThumbsUp(hkFo
 	}
 	return err
 }
-func (appForumThumbsUpService *AppForumThumbsUpService) UpdateForumPostsLikeNum(postsIdd uint64) (err error) {
+func (appForumThumbsUpService *AppForumThumbsUpService) UpdateForumPostsLikeNum(postsId uint64) (err error) {
 	var total int64 = 0
-	db := global.GVA_DB.Model(&community.ForumThumbsUp{}).Where("posts_id = ?", postsIdd)
+	db := global.GVA_DB.Model(&community.ForumThumbsUp{}).Where("posts_id = ?", postsId)
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = global.GVA_DB.Model(community.ForumPosts{}).Where("id = ?", postsIdd).Update("like_num", total).Error
+	err = global.GVA_DB.Model(&community.ForumPosts{}).Where("id = ?", postsId).Update("like_num", total).Error
 	return err
 }
 

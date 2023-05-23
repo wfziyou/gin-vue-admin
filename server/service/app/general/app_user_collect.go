@@ -32,7 +32,7 @@ func (appUserCollectService *AppUserCollectService) UpdateCollectNum(postsIdd ui
 	if err != nil {
 		return
 	}
-	err = global.GVA_DB.Model(community.ForumPosts{}).Where("id = ?", postsIdd).Update("collect_num", total).Error
+	err = global.GVA_DB.Model(&community.ForumPosts{}).Where("id = ?", postsIdd).Update("collect_num", total).Error
 	return err
 }
 

@@ -1,9 +1,9 @@
-package general
+package community
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
-	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
@@ -12,11 +12,9 @@ type FeedbackService struct {
 
 // CreateFeedback 创建Feedback记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkFeedbackService *FeedbackService) CreateFeedback(userId uint64, typeId uint64, typeName string, des string, attachment string) (err error) {
-	err = global.GVA_DB.Create(&general.Feedback{
+func (hkFeedbackService *FeedbackService) CreateFeedback(userId uint64, des string, attachment string) (err error) {
+	err = global.GVA_DB.Create(&community.Feedback{
 		UserId:     userId,
-		TypeId:     typeId,
-		Type:       typeName,
 		Des:        des,
 		Attachment: attachment,
 	}).Error
@@ -25,7 +23,7 @@ func (hkFeedbackService *FeedbackService) CreateFeedback(userId uint64, typeId u
 
 // DeleteFeedback 删除Feedback记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkFeedbackService *FeedbackService) DeleteFeedback(hkFeedback general.Feedback) (err error) {
+func (hkFeedbackService *FeedbackService) DeleteFeedback(hkFeedback community.Feedback) (err error) {
 	err = global.GVA_DB.Delete(&hkFeedback).Error
 	return err
 }
@@ -33,14 +31,14 @@ func (hkFeedbackService *FeedbackService) DeleteFeedback(hkFeedback general.Feed
 // DeleteFeedbackByIds 批量删除Feedback记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (hkFeedbackService *FeedbackService) DeleteFeedbackByIds(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&[]general.Feedback{}, "id in ?", ids.Ids).Error
+	err = global.GVA_DB.Delete(&[]community.Feedback{}, "id in ?", ids.Ids).Error
 	return err
 }
 
 // UpdateFeedback 更新Feedback记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkFeedbackService *FeedbackService) UpdateFeedback(info generalReq.UpdateFeedbackReq) (err error) {
-	db := global.GVA_DB.Model(&general.Feedback{})
+func (hkFeedbackService *FeedbackService) UpdateFeedback(info communityReq.UpdateFeedbackReq) (err error) {
+	db := global.GVA_DB.Model(&community.Feedback{})
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
 	if info.CheckStatus != nil {
@@ -55,19 +53,19 @@ func (hkFeedbackService *FeedbackService) UpdateFeedback(info generalReq.UpdateF
 
 // GetFeedback 根据id获取Feedback记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkFeedbackService *FeedbackService) GetFeedback(id uint64) (hkFeedback general.Feedback, err error) {
+func (hkFeedbackService *FeedbackService) GetFeedback(id uint64) (hkFeedback community.Feedback, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkFeedback).Error
 	return
 }
 
 // GetFeedbackInfoList 分页获取Feedback记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkFeedbackService *FeedbackService) GetFeedbackInfoList(info generalReq.FeedbackSearch) (list []general.Feedback, total int64, err error) {
+func (hkFeedbackService *FeedbackService) GetFeedbackInfoList(info communityReq.FeedbackSearch) (list []community.Feedback, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&general.Feedback{})
-	var hkFeedbacks []general.Feedback
+	db := global.GVA_DB.Model(&community.Feedback{})
+	var hkFeedbacks []community.Feedback
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if len(info.Keyword) > 0 {
 		db = db.Where("name LIKE ?", "%"+info.Keyword+"%")

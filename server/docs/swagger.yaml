@@ -613,6 +613,35 @@ definitions:
         description: 名称
         type: string
     type: object
+  community.Feedback:
+    properties:
+      attachment:
+        description: 附件
+        type: string
+      checkStatus:
+        description: 处理状态：0 未处理、1 处理中、2 拒绝、3 完成
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      des:
+        description: 描述
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      process:
+        description: 处理描述
+        type: string
+      status:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        description: 用户编号
+        type: integer
+    type: object
   community.FocusUserInfo:
     properties:
       account:
@@ -1095,6 +1124,45 @@ definitions:
         type: string
       userId:
         description: 用户编号
+        type: integer
+    type: object
+  community.Help:
+    properties:
+      badNum:
+        description: 差评数
+        type: integer
+      content:
+        description: 内容
+        type: string
+      goodNum:
+        description: 好评数
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+      title:
+        description: 标题
+        type: string
+      top:
+        description: 是否置顶：0不 1是
+        type: integer
+      typeId:
+        description: 类型编号
+        type: integer
+    type: object
+  community.HelpType:
+    properties:
+      id:
+        description: 主键ID
+        type: integer
+      name:
+        description: 名称
+        type: string
+      sort:
+        description: 排序
         type: integer
     type: object
   community.PayTypeInfo:
@@ -2365,64 +2433,6 @@ definitions:
         description: 文件地址
         type: string
     type: object
-  general.Feedback:
-    properties:
-      attachment:
-        type: string
-      checkStatus:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      des:
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      process:
-        type: string
-      status:
-        type: integer
-      tenantId:
-        type: string
-      type:
-        type: string
-      typeId:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-      userId:
-        type: integer
-    type: object
-  general.FeedbackType:
-    properties:
-      createDept:
-        type: integer
-      createUser:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      isDel:
-        type: integer
-      name:
-        type: string
-      sort:
-        type: integer
-      status:
-        type: integer
-      tenantId:
-        type: string
-      updateUser:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
   general.MiniProgramBaseInfo:
     properties:
       code:
@@ -2990,6 +3000,24 @@ definitions:
     properties:
       id:
         description: 主键ID
+        type: integer
+    type: object
+  request.HelpThumbsUpBadReq:
+    properties:
+      bad:
+        description: 是否好评：0否 1是
+        type: integer
+      helpId:
+        description: 帮助编号
+        type: integer
+    type: object
+  request.HelpThumbsUpGoodReq:
+    properties:
+      good:
+        description: 是否好评：0否 1是
+        type: integer
+      helpId:
+        description: 帮助编号
         type: integer
     type: object
   request.IdDelete:
@@ -8328,29 +8356,6 @@ paths:
       summary: 更新ForumPosts
       tags:
       - 帖子
-  /app/general/createFeedback:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建反馈
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/general.Feedback'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建反馈
-      tags:
-      - 常规方法
   /app/general/deleteAllDraft:
     delete:
       consumes:
@@ -8420,52 +8425,6 @@ paths:
       summary: 批量删除草稿
       tags:
       - 常规方法
-  /app/general/deleteFeedback:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除反馈
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/general.Feedback'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除反馈
-      tags:
-      - 常规方法
-  /app/general/deleteFeedbackByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除反馈
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除反馈
-      tags:
-      - 常规方法
   /app/general/findDraft:
     get:
       consumes:
@@ -8494,69 +8453,6 @@ paths:
       summary: 用id查询草稿
       tags:
       - 帖子
-  /app/general/findFeedback:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: attachment
-        type: string
-      - in: query
-        name: checkStatus
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: des
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: process
-        type: string
-      - in: query
-        name: status
-        type: integer
-      - in: query
-        name: tenantId
-        type: string
-      - in: query
-        name: type
-        type: string
-      - in: query
-        name: typeId
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: userId
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回general.Feedback
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/general.Feedback'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询Feedback
-      tags:
-      - 常规方法
   /app/general/findMiniProgram:
     get:
       consumes:
@@ -8666,14 +8562,14 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回[]general.Feedback
+          description: 返回[]community.Feedback
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/general.Feedback'
+                    $ref: '#/definitions/community.Feedback'
                   type: array
                 msg:
                   type: string
@@ -8681,69 +8577,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取草稿列表
-      tags:
-      - 常规方法
-  /app/general/getFeedbackList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回[]general.Feedback
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.PageResult'
-            - properties:
-                List:
-                  items:
-                    $ref: '#/definitions/general.Feedback'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取反馈列表
-      tags:
-      - 常规方法
-  /app/general/getFeedbackTypeList:
-    get:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 返回[]general.FeedbackType
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/general.FeedbackType'
-                  type: array
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 获取反馈类型列表
       tags:
       - 常规方法
   /app/general/getUserCoverImageList:
@@ -8811,17 +8644,335 @@ paths:
       summary: 更新草稿
       tags:
       - 常规方法
-  /app/general/updateFeedback:
-    put:
+  /app/helpCenter/createFeedback:
+    post:
       consumes:
       - application/json
       parameters:
-      - description: 更新反馈
+      - description: 创建反馈
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/general.Feedback'
+          $ref: '#/definitions/community.Feedback'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建反馈
+      tags:
+      - 反馈中心
+  /app/helpCenter/deleteFeedback:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: (管理员)删除反馈
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.Feedback'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (管理员)删除反馈
+      tags:
+      - 反馈中心
+  /app/helpCenter/deleteFeedbackByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: (管理员)批量删除反馈
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (管理员)批量删除反馈
+      tags:
+      - 反馈中心
+  /app/helpCenter/findFeedback:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 编号
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.Feedback
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.Feedback'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询反馈
+      tags:
+      - 反馈中心
+  /app/helpCenter/findHelp:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 编号
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.Help
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/community.Help'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询帮助
+      tags:
+      - 反馈中心
+  /app/helpCenter/getFeedbackList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.Feedback
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.Feedback'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取反馈列表
+      tags:
+      - 反馈中心
+  /app/helpCenter/getHelpList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 类型编号
+        in: query
+        name: typeId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.Help
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.Help'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取帮助列表
+      tags:
+      - 反馈中心
+  /app/helpCenter/getHelpTypeList:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.HelpType
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.HelpType'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: (管理员)获取帮助类型列表
+      tags:
+      - 反馈中心
+  /app/helpCenter/getMainHelpList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 类型编号
+        in: query
+        name: typeId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.Help
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.Help'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取主页帮助列表
+      tags:
+      - 反馈中心
+  /app/helpCenter/helpThumbsUpBad:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 帮助点赞（差评）
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.HelpThumbsUpBadReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 帮助点赞（差评）
+      tags:
+      - 反馈中心
+  /app/helpCenter/helpThumbsUpGood:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 帮助点赞（好评）
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.HelpThumbsUpGoodReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 帮助点赞（好评）
+      tags:
+      - 反馈中心
+  /app/helpCenter/updateFeedback:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: (管理员)更新反馈
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/community.Feedback'
       produces:
       - application/json
       responses:
@@ -8831,9 +8982,9 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 更新反馈
+      summary: (管理员)更新反馈
       tags:
-      - 常规方法
+      - 反馈中心
   /app/question/answerQuestion:
     post:
       consumes:
