@@ -6,7 +6,6 @@
         "contact": {},
         "version": "0.0.1"
     },
-    "basePath": "/",
     "paths": {
         "/aliSms/sendAliSms": {
             "post": {
@@ -1517,7 +1516,7 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
+                                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -1562,7 +1561,7 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
+                                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -1607,7 +1606,7 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
+                                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -1652,7 +1651,7 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
+                                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -1697,7 +1696,7 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
+                                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -1726,7 +1725,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register"
+                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register"
                         }
                     }
                 ],
@@ -6977,6 +6976,48 @@
                 }
             }
         },
+        "/app/general/getConfigParam": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "获取配置参数",
+                "responses": {
+                    "200": {
+                        "description": "返回general.Protocol",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/general.ConfigParam"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/general/getDraftList": {
             "get": {
                 "security": [
@@ -11460,7 +11501,7 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse"
+                                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -15039,7 +15080,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Register"
+                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_system_request.Register"
                         }
                     }
                 ],
@@ -15055,7 +15096,7 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/response.SysUserResponse"
+                                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -15533,7 +15574,11 @@
             "properties": {
                 "apply": {
                     "description": "应用",
-                    "$ref": "#/definitions/apply.Apply"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/apply.Apply"
+                        }
+                    ]
                 },
                 "applyGroupId": {
                     "description": "应用分组_编号",
@@ -15919,7 +15964,11 @@
                 },
                 "userInfo": {
                     "description": "用户基本信息",
-                    "$ref": "#/definitions/community.UserBaseInfo"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/community.UserBaseInfo"
+                        }
+                    ]
                 }
             }
         },
@@ -16479,7 +16528,11 @@
                 },
                 "userInfo": {
                     "description": "用户基本信息",
-                    "$ref": "#/definitions/community.UserBaseInfo"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/community.UserBaseInfo"
+                        }
+                    ]
                 }
             }
         },
@@ -16552,7 +16605,11 @@
                 },
                 "circleInfo": {
                     "description": "圈子基本信息",
-                    "$ref": "#/definitions/community.CircleBaseInfo"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/community.CircleBaseInfo"
+                        }
+                    ]
                 },
                 "collect": {
                     "description": "是否收藏：0否、1是",
@@ -16697,7 +16754,11 @@
                 },
                 "userInfo": {
                     "description": "用户基本信息",
-                    "$ref": "#/definitions/community.UserBaseInfo"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/community.UserBaseInfo"
+                        }
+                    ]
                 },
                 "video": {
                     "description": "视频地址",
@@ -16762,7 +16823,11 @@
                 },
                 "circleInfo": {
                     "description": "圈子基本信息",
-                    "$ref": "#/definitions/community.CircleBaseInfo"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/community.CircleBaseInfo"
+                        }
+                    ]
                 },
                 "collect": {
                     "description": "是否收藏：0否、1是",
@@ -16851,7 +16916,11 @@
                 },
                 "userInfo": {
                     "description": "用户基本信息",
-                    "$ref": "#/definitions/community.UserBaseInfo"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/community.UserBaseInfo"
+                        }
+                    ]
                 },
                 "video": {
                     "description": "视频地址",
@@ -17215,7 +17284,11 @@
                 },
                 "userBaseInfo": {
                     "description": "用户基本信息",
-                    "$ref": "#/definitions/community.UserBaseInfo"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/community.UserBaseInfo"
+                        }
+                    ]
                 },
                 "userId": {
                     "type": "integer"
@@ -17334,7 +17407,11 @@
                 },
                 "authority": {
                     "description": "用户角色",
-                    "$ref": "#/definitions/system.SysAuthority"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/system.SysAuthority"
+                        }
+                    ]
                 },
                 "birthday": {
                     "type": "string"
@@ -17396,7 +17473,11 @@
                 },
                 "userExtend": {
                     "description": "用户扩展",
-                    "$ref": "#/definitions/community.UserExtend"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/community.UserExtend"
+                        }
+                    ]
                 },
                 "userType": {
                     "description": "用户平台: 1web、2app、3other",
@@ -17711,7 +17792,11 @@
                 },
                 "smsTemplate": {
                     "description": "短信模板",
-                    "$ref": "#/definitions/config.SmsTemplate"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.SmsTemplate"
+                        }
+                    ]
                 }
             }
         },
@@ -17879,43 +17964,6 @@
                 },
                 "tableName": {
                     "description": "需要清理的表名",
-                    "type": "string"
-                }
-            }
-        },
-        "config.Email": {
-            "type": "object",
-            "properties": {
-                "from": {
-                    "description": "收件人",
-                    "type": "string"
-                },
-                "host": {
-                    "description": "服务器地址",
-                    "type": "string"
-                },
-                "is-ssl": {
-                    "description": "是否SSL",
-                    "type": "boolean"
-                },
-                "nickname": {
-                    "description": "昵称",
-                    "type": "string"
-                },
-                "port": {
-                    "description": "端口",
-                    "type": "integer"
-                },
-                "secret": {
-                    "description": "密钥",
-                    "type": "string"
-                },
-                "template": {
-                    "description": "邮件模板",
-                    "$ref": "#/definitions/config.EmailTemplate"
-                },
-                "to": {
-                    "description": "收件人:多个以英文逗号分隔",
                     "type": "string"
                 }
             }
@@ -18111,40 +18159,6 @@
                 }
             }
         },
-        "config.OneLogin": {
-            "type": "object",
-            "properties": {
-                "appid": {
-                    "description": "是 业务在统一认证申请的应用id",
-                    "type": "string"
-                },
-                "rsaPrivateKey": {
-                    "description": "rsa 私有key",
-                    "type": "string"
-                },
-                "strictcheck": {
-                    "description": "是 暂时填写\"0\"，填写“1”时，将对服务器 IP 白名单进行强校验（后续将强制要求 IP 强校验）",
-                    "type": "string"
-                }
-            }
-        },
-        "config.OpenIm": {
-            "type": "object",
-            "properties": {
-                "appKey": {
-                    "description": "云信IM AppKey",
-                    "type": "string"
-                },
-                "appSecret": {
-                    "description": "云信IM AppSecret",
-                    "type": "string"
-                },
-                "url": {
-                    "description": "云信IM 地址",
-                    "type": "string"
-                }
-            }
-        },
         "config.Oracle": {
             "type": "object",
             "properties": {
@@ -18207,7 +18221,7 @@
             "type": "object",
             "properties": {
                 "createCircleCheck": {
-                    "description": "创建圈子是否需要审核",
+                    "description": "创建圈子是否需要审批",
                     "type": "boolean"
                 }
             }
@@ -18328,25 +18342,41 @@
                 },
                 "aliyun-sms": {
                     "description": "sms",
-                    "$ref": "#/definitions/config.AliyunSms"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.AliyunSms"
+                        }
+                    ]
                 },
                 "autocode": {
                     "description": "auto",
-                    "$ref": "#/definitions/config.Autocode"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.Autocode"
+                        }
+                    ]
                 },
                 "aws-s3": {
                     "$ref": "#/definitions/config.AwsS3"
                 },
                 "cache-captcha": {
                     "description": "cacheCaptcha",
-                    "$ref": "#/definitions/config.CacheCaptcha"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.CacheCaptcha"
+                        }
+                    ]
                 },
                 "captcha": {
                     "$ref": "#/definitions/config.Captcha"
                 },
                 "cors": {
                     "description": "跨域配置",
-                    "$ref": "#/definitions/config.CORS"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.CORS"
+                        }
+                    ]
                 },
                 "db-list": {
                     "type": "array",
@@ -18355,7 +18385,7 @@
                     }
                 },
                 "email": {
-                    "$ref": "#/definitions/config.Email"
+                    "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.Email"
                 },
                 "excel": {
                     "$ref": "#/definitions/config.Excel"
@@ -18368,28 +18398,44 @@
                 },
                 "local": {
                     "description": "oss",
-                    "$ref": "#/definitions/config.Local"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.Local"
+                        }
+                    ]
                 },
                 "mssql": {
                     "$ref": "#/definitions/config.Mssql"
                 },
                 "mysql": {
                     "description": "gorm",
-                    "$ref": "#/definitions/config.Mysql"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.Mysql"
+                        }
+                    ]
                 },
                 "oneLogin": {
                     "description": "oneLogin",
-                    "$ref": "#/definitions/config.OneLogin"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.OneLogin"
+                        }
+                    ]
                 },
                 "open-im": {
-                    "$ref": "#/definitions/config.OpenIm"
+                    "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.OpenIm"
                 },
                 "oracle": {
                     "$ref": "#/definitions/config.Oracle"
                 },
                 "param": {
                     "description": "参数",
-                    "$ref": "#/definitions/config.Param"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.Param"
+                        }
+                    ]
                 },
                 "pgsql": {
                     "$ref": "#/definitions/config.Pgsql"
@@ -18411,7 +18457,11 @@
                 },
                 "yunxin-im": {
                     "description": "im",
-                    "$ref": "#/definitions/config.YunXinIm"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.YunXinIm"
+                        }
+                    ]
                 },
                 "zap": {
                     "$ref": "#/definitions/config.Zap"
@@ -18602,23 +18652,6 @@
                 }
             }
         },
-        "config.YunXinIm": {
-            "type": "object",
-            "properties": {
-                "appKey": {
-                    "description": "云信IM AppKey",
-                    "type": "string"
-                },
-                "appSecret": {
-                    "description": "云信IM AppSecret",
-                    "type": "string"
-                },
-                "url": {
-                    "description": "云信IM 地址",
-                    "type": "string"
-                }
-            }
-        },
         "config.Zap": {
             "type": "object",
             "properties": {
@@ -18690,7 +18723,11 @@
                 },
                 "sysUser": {
                     "description": "管理详情",
-                    "$ref": "#/definitions/system.SysUser"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/system.SysUser"
+                        }
+                    ]
                 },
                 "sysUserAuthorityID": {
                     "description": "管理角色ID",
@@ -18842,6 +18879,26 @@
                 }
             }
         },
+        "general.ConfigParam": {
+            "type": "object",
+            "properties": {
+                "miniProgram": {
+                    "description": "小程序",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/general.MiniProgramBaseInfo"
+                        }
+                    ]
+                },
+                "paramList": {
+                    "description": "参数参数",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysParam"
+                    }
+                }
+            }
+        },
         "general.MiniProgramBaseInfo": {
             "type": "object",
             "properties": {
@@ -18962,7 +19019,99 @@
                 }
             }
         },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register": {
+        "github_com_flipped-aurora_gin-vue-admin_server_config.Email": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "description": "收件人",
+                    "type": "string"
+                },
+                "host": {
+                    "description": "服务器地址",
+                    "type": "string"
+                },
+                "is-ssl": {
+                    "description": "是否SSL",
+                    "type": "boolean"
+                },
+                "nickname": {
+                    "description": "昵称",
+                    "type": "string"
+                },
+                "port": {
+                    "description": "端口",
+                    "type": "integer"
+                },
+                "secret": {
+                    "description": "密钥",
+                    "type": "string"
+                },
+                "template": {
+                    "description": "邮件模板",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.EmailTemplate"
+                        }
+                    ]
+                },
+                "to": {
+                    "description": "收件人:多个以英文逗号分隔",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_flipped-aurora_gin-vue-admin_server_config.OneLogin": {
+            "type": "object",
+            "properties": {
+                "appid": {
+                    "description": "是 业务在统一认证申请的应用id",
+                    "type": "string"
+                },
+                "rsaPrivateKey": {
+                    "description": "rsa 私有key",
+                    "type": "string"
+                },
+                "strictcheck": {
+                    "description": "是 暂时填写\"0\"，填写“1”时，将对服务器 IP 白名单进行强校验（后续将强制要求 IP 强校验）",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_flipped-aurora_gin-vue-admin_server_config.OpenIm": {
+            "type": "object",
+            "properties": {
+                "appKey": {
+                    "description": "云信IM AppKey",
+                    "type": "string"
+                },
+                "appSecret": {
+                    "description": "云信IM AppSecret",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "云信IM 地址",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_flipped-aurora_gin-vue-admin_server_config.YunXinIm": {
+            "type": "object",
+            "properties": {
+                "appKey": {
+                    "description": "云信IM AppKey",
+                    "type": "string"
+                },
+                "appSecret": {
+                    "description": "云信IM AppSecret",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "云信IM 地址",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register": {
             "type": "object",
             "properties": {
                 "account": {
@@ -18986,7 +19135,7 @@
                 }
             }
         },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse": {
+        "github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse": {
             "type": "object",
             "properties": {
                 "expiresAt": {
@@ -19000,7 +19149,7 @@
                 }
             }
         },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Register": {
+        "github_com_flipped-aurora_gin-vue-admin_server_model_system_request.Register": {
             "type": "object",
             "properties": {
                 "authorityId": {
@@ -19041,7 +19190,7 @@
                 }
             }
         },
-        "github.com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse": {
+        "github_com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse": {
             "type": "object",
             "properties": {
                 "expiresAt": {
@@ -19050,6 +19199,14 @@
                 "token": {
                     "type": "string"
                 },
+                "user": {
+                    "$ref": "#/definitions/system.SysUser"
+                }
+            }
+        },
+        "github_com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse": {
+            "type": "object",
+            "properties": {
                 "user": {
                     "$ref": "#/definitions/system.SysUser"
                 }
@@ -20704,9 +20861,7 @@
         "response.PageResult": {
             "type": "object",
             "properties": {
-                "list": {
-                    "type": "object"
-                },
+                "list": {},
                 "page": {
                     "type": "integer"
                 },
@@ -20743,9 +20898,7 @@
                 "code": {
                     "type": "integer"
                 },
-                "data": {
-                    "type": "object"
-                },
+                "data": {},
                 "msg": {
                     "type": "string"
                 }
@@ -20853,14 +21006,6 @@
                     "items": {
                         "$ref": "#/definitions/system.SysMenu"
                     }
-                }
-            }
-        },
-        "response.SysUserResponse": {
-            "type": "object",
-            "properties": {
-                "user": {
-                    "$ref": "#/definitions/system.SysUser"
                 }
             }
         },
@@ -20996,6 +21141,34 @@
                 "sort": {
                     "description": "是否增加排序",
                     "type": "boolean"
+                }
+            }
+        },
+        "system.Meta": {
+            "type": "object",
+            "properties": {
+                "activeName": {
+                    "type": "string"
+                },
+                "closeTab": {
+                    "description": "自动关闭tab",
+                    "type": "boolean"
+                },
+                "defaultMenu": {
+                    "description": "是否是基础路由（开发中）",
+                    "type": "boolean"
+                },
+                "icon": {
+                    "description": "菜单图标",
+                    "type": "string"
+                },
+                "keepAlive": {
+                    "description": "是否缓存",
+                    "type": "boolean"
+                },
+                "title": {
+                    "description": "菜单名",
+                    "type": "string"
                 }
             }
         },
@@ -21174,9 +21347,6 @@
         "system.SysBaseMenu": {
             "type": "object",
             "properties": {
-                "activeName": {
-                    "type": "string"
-                },
                 "authoritys": {
                     "type": "array",
                     "items": {
@@ -21188,10 +21358,6 @@
                     "items": {
                         "$ref": "#/definitions/system.SysBaseMenu"
                     }
-                },
-                "closeTab": {
-                    "description": "自动关闭tab",
-                    "type": "boolean"
                 },
                 "component": {
                     "description": "对应前端文件路径",
@@ -21207,31 +21373,27 @@
                     "description": "创建时间",
                     "type": "string"
                 },
-                "defaultMenu": {
-                    "description": "是否是基础路由（开发中）",
-                    "type": "boolean"
-                },
                 "hidden": {
                     "description": "是否在列表隐藏",
                     "type": "boolean"
                 },
-                "icon": {
-                    "description": "菜单图标",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
-                },
-                "keepAlive": {
-                    "description": "是否缓存",
-                    "type": "boolean"
                 },
                 "menuBtn": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/system.SysBaseMenuBtn"
                     }
+                },
+                "meta": {
+                    "description": "附加属性",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/system.Meta"
+                        }
+                    ]
                 },
                 "name": {
                     "description": "路由name",
@@ -21257,10 +21419,6 @@
                 },
                 "status": {
                     "type": "integer"
-                },
-                "title": {
-                    "description": "菜单名",
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21450,9 +21608,6 @@
         "system.SysMenu": {
             "type": "object",
             "properties": {
-                "activeName": {
-                    "type": "string"
-                },
                 "authoritys": {
                     "type": "array",
                     "items": {
@@ -21471,10 +21626,6 @@
                         "$ref": "#/definitions/system.SysMenu"
                     }
                 },
-                "closeTab": {
-                    "description": "自动关闭tab",
-                    "type": "boolean"
-                },
                 "component": {
                     "description": "对应前端文件路径",
                     "type": "string"
@@ -21489,25 +21640,13 @@
                     "description": "创建时间",
                     "type": "string"
                 },
-                "defaultMenu": {
-                    "description": "是否是基础路由（开发中）",
-                    "type": "boolean"
-                },
                 "hidden": {
                     "description": "是否在列表隐藏",
                     "type": "boolean"
                 },
-                "icon": {
-                    "description": "菜单图标",
-                    "type": "string"
-                },
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
-                },
-                "keepAlive": {
-                    "description": "是否缓存",
-                    "type": "boolean"
                 },
                 "menuBtn": {
                     "type": "array",
@@ -21517,6 +21656,14 @@
                 },
                 "menuId": {
                     "type": "string"
+                },
+                "meta": {
+                    "description": "附加属性",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/system.Meta"
+                        }
+                    ]
                 },
                 "name": {
                     "description": "路由name",
@@ -21542,10 +21689,6 @@
                 },
                 "status": {
                     "type": "integer"
-                },
-                "title": {
-                    "description": "菜单名",
-                    "type": "string"
                 },
                 "updateUser": {
                     "type": "integer"
@@ -21622,6 +21765,31 @@
                 "user_id": {
                     "description": "用户id",
                     "type": "integer"
+                }
+            }
+        },
+        "system.SysParam": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "paramKey": {
+                    "description": "参数键",
+                    "type": "string"
+                },
+                "paramName": {
+                    "description": "参数名",
+                    "type": "string"
+                },
+                "paramValue": {
+                    "description": "参数值",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
                 }
             }
         },

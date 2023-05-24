@@ -1,11 +1,15 @@
 package system
 
 import (
+	"context"
+	"encoding/json"
 	"github.com/flipped-aurora/gin-vue-admin/server/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"go.uber.org/zap"
+	"strconv"
 )
 
 //@author: [piexlmax](https://github.com/piexlmax)
@@ -61,4 +65,28 @@ func (systemConfigService *SystemConfigService) GetServerInfo() (server *utils.S
 	}
 
 	return &s, nil
+}
+
+func LoadConfigParamToCache() {
+	var data []system.SysParam
+	err := global.GVA_DB.Model(&system.SysParam{}).Find(&data).Error
+	if err != nil {
+		global.GVA_LOG.Error("加载数据库SysParam失败!", zap.Error(err))
+		return
+	}
+	for _, obj := range data {
+		bytes, _ := json.Marshal(obj) // Marshal函数转成的是 byte 数组
+		global.GVA_REDIS.HSet(context.Background(), utils.ConfigParamKey, obj.ParamKey, bytes)
+		if obj.ParamKey == utils.MiniProgramId {
+			var data general.MiniProgramBaseInfo
+			miniProgramId, _ := strconv.ParseInt(obj.ParamValue, 10, 64)
+			err1 := global.GVA_DB.Raw("SELECT t.name,t.icon,t.company_name,t.program_id,p.version,p.code,p.packet_address,t.hidden FROM hk_mini_program t LEFT JOIN hk_mini_program_packet p ON  t.cur_packet_id = p.id WHERE t.id = ?", miniProgramId).First(&data).Error
+			if err1 != nil {
+				global.GVA_LOG.Error("查找 miniProgramId 失败", zap.Error(err1))
+			} else {
+				str, _ := json.Marshal(data)
+				global.GVA_REDIS.HSet(context.Background(), utils.ConfigParamKey, utils.MiniProgramKey, str)
+			}
+		}
+	}
 }

@@ -122,7 +122,7 @@ func (httpClient *HttpClient) Post(name string, postData interface{}, result int
 	Nonce = strconv.Itoa(rand.Intn(10000))
 	CurTime = strconv.FormatInt(time.Now().UTC().Unix(), 10)
 	CheckSum = httpClient.getCheckSum(httpClient.AppSecret, Nonce, CurTime)
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded; charset=utf-8")
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	req.Header.Set("AppKey", httpClient.AppKey)
 	req.Header.Set("Nonce", Nonce)
 	req.Header.Set("CurTime", CurTime)
@@ -134,7 +134,10 @@ func (httpClient *HttpClient) Post(name string, postData interface{}, result int
 		return err
 	}
 	if c := resp.StatusCode; 200 != c {
-		return errors.New("调用失败")
+		body, _ := ioutil.ReadAll(resp.Body)
+		//buf := new(bytes.Buffer)
+		//buf.ReadFrom(resp.Body)
+		return errors.New(fmt.Sprintf("调用IM失败code：%d body:%s", resp.StatusCode, body))
 	}
 	//body, err := ioutil.ReadAll(resp.Body)
 	//if err != nil {

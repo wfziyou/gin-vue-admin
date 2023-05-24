@@ -571,7 +571,7 @@ func ImLogin(user *community.User, platform int, clientIp string) error {
 		if rsp, err := openImService.ServiceGroupApp.UserToken(userToken); err != nil {
 			global.GVA_LOG.Debug("open-im：GetUserInfo."+err.Error(), zap.Error(err))
 			return err
-		} else if rsp.Code == 414 {
+		} else if rsp.Code == 802 {
 			err = ImRegiser(user, platform)
 			if err != nil {
 				return err
@@ -590,7 +590,7 @@ func ImLogin(user *community.User, platform int, clientIp string) error {
 		if rsp, err := yunXinImService.ServiceGroupApp.UserGetUinfosAction(req); err != nil {
 			global.GVA_LOG.Debug("调用IM失败：UserGetUinfosAction."+err.Error(), zap.Error(err))
 			return err
-		} else if rsp.Code == 802 {
+		} else if rsp.Code == 414 {
 			err = ImRegiser(user, platform)
 			if err != nil {
 				return err
@@ -651,7 +651,7 @@ func (authApi *AuthApi) LoginPwdTest(c *gin.Context) {
 			response.FailWithMessage("用户被禁止登录", c)
 			return
 		}
-		TokenNext(c, user, req.Platform)
+		TokenNextTest(c, user, req.Platform)
 		return
 	} else if openCaptcha == 0 {
 		u := &community.User{Account: req.Account, Password: req.Password}

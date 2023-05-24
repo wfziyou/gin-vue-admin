@@ -1,7 +1,7 @@
 package api
 
 type ApiGroup struct {
-	AliSmsApi
+	YunXinApi
 }
 
 var ApiGroupApp = new(ApiGroup)

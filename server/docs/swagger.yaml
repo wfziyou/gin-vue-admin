@@ -1,4 +1,3 @@
-basePath: /
 definitions:
   apply.Apply:
     properties:
@@ -50,7 +49,8 @@ definitions:
   apply.CircleApply:
     properties:
       apply:
-        $ref: '#/definitions/apply.Apply'
+        allOf:
+        - $ref: '#/definitions/apply.Apply'
         description: 应用
       applyGroupId:
         description: 应用分组_编号
@@ -333,7 +333,8 @@ definitions:
         description: 用户_编号
         type: integer
       userInfo:
-        $ref: '#/definitions/community.UserBaseInfo'
+        allOf:
+        - $ref: '#/definitions/community.UserBaseInfo'
         description: 用户基本信息
     type: object
   community.CircleBaseInfo:
@@ -742,7 +743,8 @@ definitions:
         description: 评论者
         type: integer
       userInfo:
-        $ref: '#/definitions/community.UserBaseInfo'
+        allOf:
+        - $ref: '#/definitions/community.UserBaseInfo'
         description: 用户基本信息
     type: object
   community.ForumPosts:
@@ -796,7 +798,8 @@ definitions:
         description: 圈子_编号
         type: integer
       circleInfo:
-        $ref: '#/definitions/community.CircleBaseInfo'
+        allOf:
+        - $ref: '#/definitions/community.CircleBaseInfo'
         description: 圈子基本信息
       collect:
         description: 是否收藏：0否、1是
@@ -904,7 +907,8 @@ definitions:
         description: 发布者编号
         type: integer
       userInfo:
-        $ref: '#/definitions/community.UserBaseInfo'
+        allOf:
+        - $ref: '#/definitions/community.UserBaseInfo'
         description: 用户基本信息
       video:
         description: 视频地址
@@ -952,7 +956,8 @@ definitions:
         description: 圈子_编号
         type: integer
       circleInfo:
-        $ref: '#/definitions/community.CircleBaseInfo'
+        allOf:
+        - $ref: '#/definitions/community.CircleBaseInfo'
         description: 圈子基本信息
       collect:
         description: 是否收藏：0否、1是
@@ -1018,7 +1023,8 @@ definitions:
         description: 发布者编号
         type: integer
       userInfo:
-        $ref: '#/definitions/community.UserBaseInfo'
+        allOf:
+        - $ref: '#/definitions/community.UserBaseInfo'
         description: 用户基本信息
       video:
         description: 视频地址
@@ -1278,7 +1284,8 @@ definitions:
         description: 更新时间
         type: string
       userBaseInfo:
-        $ref: '#/definitions/community.UserBaseInfo'
+        allOf:
+        - $ref: '#/definitions/community.UserBaseInfo'
         description: 用户基本信息
       userId:
         type: integer
@@ -1364,7 +1371,8 @@ definitions:
           $ref: '#/definitions/system.SysAuthority'
         type: array
       authority:
-        $ref: '#/definitions/system.SysAuthority'
+        allOf:
+        - $ref: '#/definitions/system.SysAuthority'
         description: 用户角色
       birthday:
         type: string
@@ -1410,7 +1418,8 @@ definitions:
         description: 更新时间
         type: string
       userExtend:
-        $ref: '#/definitions/community.UserExtend'
+        allOf:
+        - $ref: '#/definitions/community.UserExtend'
         description: 用户扩展
       userType:
         description: '用户平台: 1web、2app、3other'
@@ -1636,7 +1645,8 @@ definitions:
         description: 短信的 SignName
         type: string
       smsTemplate:
-        $ref: '#/definitions/config.SmsTemplate'
+        allOf:
+        - $ref: '#/definitions/config.SmsTemplate'
         description: 短信模板
     type: object
   config.Autocode:
@@ -1750,33 +1760,6 @@ definitions:
         type: string
       tableName:
         description: 需要清理的表名
-        type: string
-    type: object
-  config.Email:
-    properties:
-      from:
-        description: 收件人
-        type: string
-      host:
-        description: 服务器地址
-        type: string
-      is-ssl:
-        description: 是否SSL
-        type: boolean
-      nickname:
-        description: 昵称
-        type: string
-      port:
-        description: 端口
-        type: integer
-      secret:
-        description: 密钥
-        type: string
-      template:
-        $ref: '#/definitions/config.EmailTemplate'
-        description: 邮件模板
-      to:
-        description: 收件人:多个以英文逗号分隔
         type: string
     type: object
   config.EmailTemplate:
@@ -1916,30 +1899,6 @@ definitions:
         description: 数据库用户名
         type: string
     type: object
-  config.OneLogin:
-    properties:
-      appid:
-        description: 是 业务在统一认证申请的应用id
-        type: string
-      rsaPrivateKey:
-        description: rsa 私有key
-        type: string
-      strictcheck:
-        description: 是 暂时填写"0"，填写“1”时，将对服务器 IP 白名单进行强校验（后续将强制要求 IP 强校验）
-        type: string
-    type: object
-  config.OpenIm:
-    properties:
-      appKey:
-        description: 云信IM AppKey
-        type: string
-      appSecret:
-        description: 云信IM AppSecret
-        type: string
-      url:
-        description: 云信IM 地址
-        type: string
-    type: object
   config.Oracle:
     properties:
       config:
@@ -1986,7 +1945,7 @@ definitions:
   config.Param:
     properties:
       createCircleCheck:
-        description: 创建圈子是否需要审核
+        description: 创建圈子是否需要审批
         type: boolean
     type: object
   config.Pgsql:
@@ -2073,27 +2032,31 @@ definitions:
       aliyun-oss:
         $ref: '#/definitions/config.AliyunOSS'
       aliyun-sms:
-        $ref: '#/definitions/config.AliyunSms'
+        allOf:
+        - $ref: '#/definitions/config.AliyunSms'
         description: sms
       autocode:
-        $ref: '#/definitions/config.Autocode'
+        allOf:
+        - $ref: '#/definitions/config.Autocode'
         description: auto
       aws-s3:
         $ref: '#/definitions/config.AwsS3'
       cache-captcha:
-        $ref: '#/definitions/config.CacheCaptcha'
+        allOf:
+        - $ref: '#/definitions/config.CacheCaptcha'
         description: cacheCaptcha
       captcha:
         $ref: '#/definitions/config.Captcha'
       cors:
-        $ref: '#/definitions/config.CORS'
+        allOf:
+        - $ref: '#/definitions/config.CORS'
         description: 跨域配置
       db-list:
         items:
           $ref: '#/definitions/config.SpecializedDB'
         type: array
       email:
-        $ref: '#/definitions/config.Email'
+        $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.Email'
       excel:
         $ref: '#/definitions/config.Excel'
       hua-wei-obs:
@@ -2101,22 +2064,26 @@ definitions:
       jwt:
         $ref: '#/definitions/config.JWT'
       local:
-        $ref: '#/definitions/config.Local'
+        allOf:
+        - $ref: '#/definitions/config.Local'
         description: oss
       mssql:
         $ref: '#/definitions/config.Mssql'
       mysql:
-        $ref: '#/definitions/config.Mysql'
+        allOf:
+        - $ref: '#/definitions/config.Mysql'
         description: gorm
       oneLogin:
-        $ref: '#/definitions/config.OneLogin'
+        allOf:
+        - $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.OneLogin'
         description: oneLogin
       open-im:
-        $ref: '#/definitions/config.OpenIm'
+        $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.OpenIm'
       oracle:
         $ref: '#/definitions/config.Oracle'
       param:
-        $ref: '#/definitions/config.Param'
+        allOf:
+        - $ref: '#/definitions/config.Param'
         description: 参数
       pgsql:
         $ref: '#/definitions/config.Pgsql'
@@ -2131,7 +2098,8 @@ definitions:
       timer:
         $ref: '#/definitions/config.Timer'
       yunxin-im:
-        $ref: '#/definitions/config.YunXinIm'
+        allOf:
+        - $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.YunXinIm'
         description: im
       zap:
         $ref: '#/definitions/config.Zap'
@@ -2267,18 +2235,6 @@ definitions:
         description: 是否精确到秒
         type: boolean
     type: object
-  config.YunXinIm:
-    properties:
-      appKey:
-        description: 云信IM AppKey
-        type: string
-      appSecret:
-        description: 云信IM AppSecret
-        type: string
-      url:
-        description: 云信IM 地址
-        type: string
-    type: object
   config.Zap:
     properties:
       director:
@@ -2330,7 +2286,8 @@ definitions:
       status:
         type: integer
       sysUser:
-        $ref: '#/definitions/system.SysUser'
+        allOf:
+        - $ref: '#/definitions/system.SysUser'
         description: 管理详情
       sysUserAuthorityID:
         description: 管理角色ID
@@ -2436,6 +2393,18 @@ definitions:
         description: 文件地址
         type: string
     type: object
+  general.ConfigParam:
+    properties:
+      miniProgram:
+        allOf:
+        - $ref: '#/definitions/general.MiniProgramBaseInfo'
+        description: 小程序
+      paramList:
+        description: 参数参数
+        items:
+          $ref: '#/definitions/system.SysParam'
+        type: array
+    type: object
   general.MiniProgramBaseInfo:
     properties:
       code:
@@ -2522,7 +2491,71 @@ definitions:
       postsInfo:
         $ref: '#/definitions/community.ForumPostsBaseInfo'
     type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register:
+  github_com_flipped-aurora_gin-vue-admin_server_config.Email:
+    properties:
+      from:
+        description: 收件人
+        type: string
+      host:
+        description: 服务器地址
+        type: string
+      is-ssl:
+        description: 是否SSL
+        type: boolean
+      nickname:
+        description: 昵称
+        type: string
+      port:
+        description: 端口
+        type: integer
+      secret:
+        description: 密钥
+        type: string
+      template:
+        allOf:
+        - $ref: '#/definitions/config.EmailTemplate'
+        description: 邮件模板
+      to:
+        description: 收件人:多个以英文逗号分隔
+        type: string
+    type: object
+  github_com_flipped-aurora_gin-vue-admin_server_config.OneLogin:
+    properties:
+      appid:
+        description: 是 业务在统一认证申请的应用id
+        type: string
+      rsaPrivateKey:
+        description: rsa 私有key
+        type: string
+      strictcheck:
+        description: 是 暂时填写"0"，填写“1”时，将对服务器 IP 白名单进行强校验（后续将强制要求 IP 强校验）
+        type: string
+    type: object
+  github_com_flipped-aurora_gin-vue-admin_server_config.OpenIm:
+    properties:
+      appKey:
+        description: 云信IM AppKey
+        type: string
+      appSecret:
+        description: 云信IM AppSecret
+        type: string
+      url:
+        description: 云信IM 地址
+        type: string
+    type: object
+  github_com_flipped-aurora_gin-vue-admin_server_config.YunXinIm:
+    properties:
+      appKey:
+        description: 云信IM AppKey
+        type: string
+      appSecret:
+        description: 云信IM AppSecret
+        type: string
+      url:
+        description: 云信IM 地址
+        type: string
+    type: object
+  github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register:
     properties:
       account:
         description: 用户名
@@ -2540,7 +2573,7 @@ definitions:
         description: 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
         type: integer
     type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse:
+  github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse:
     properties:
       expiresAt:
         type: integer
@@ -2549,7 +2582,7 @@ definitions:
       user:
         $ref: '#/definitions/community.User'
     type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Register:
+  github_com_flipped-aurora_gin-vue-admin_server_model_system_request.Register:
     properties:
       authorityId:
         example: uint64 角色id
@@ -2579,12 +2612,17 @@ definitions:
         example: 用户名
         type: string
     type: object
-  github.com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse:
+  github_com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse:
     properties:
       expiresAt:
         type: integer
       token:
         type: string
+      user:
+        $ref: '#/definitions/system.SysUser'
+    type: object
+  github_com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse:
+    properties:
       user:
         $ref: '#/definitions/system.SysUser'
     type: object
@@ -3752,8 +3790,7 @@ definitions:
     type: object
   response.PageResult:
     properties:
-      list:
-        type: object
+      list: {}
       page:
         type: integer
       pageSize:
@@ -3777,8 +3814,7 @@ definitions:
     properties:
       code:
         type: integer
-      data:
-        type: object
+      data: {}
       msg:
         type: string
     type: object
@@ -3848,11 +3884,6 @@ definitions:
         items:
           $ref: '#/definitions/system.SysMenu'
         type: array
-    type: object
-  response.SysUserResponse:
-    properties:
-      user:
-        $ref: '#/definitions/system.SysUser'
     type: object
   response.ThirdPlatInfo:
     properties:
@@ -3951,6 +3982,26 @@ definitions:
       sort:
         description: 是否增加排序
         type: boolean
+    type: object
+  system.Meta:
+    properties:
+      activeName:
+        type: string
+      closeTab:
+        description: 自动关闭tab
+        type: boolean
+      defaultMenu:
+        description: 是否是基础路由（开发中）
+        type: boolean
+      icon:
+        description: 菜单图标
+        type: string
+      keepAlive:
+        description: 是否缓存
+        type: boolean
+      title:
+        description: 菜单名
+        type: string
     type: object
   system.SysApi:
     properties:
@@ -4075,8 +4126,6 @@ definitions:
     type: object
   system.SysBaseMenu:
     properties:
-      activeName:
-        type: string
       authoritys:
         items:
           $ref: '#/definitions/system.SysAuthority'
@@ -4085,9 +4134,6 @@ definitions:
         items:
           $ref: '#/definitions/system.SysBaseMenu'
         type: array
-      closeTab:
-        description: 自动关闭tab
-        type: boolean
       component:
         description: 对应前端文件路径
         type: string
@@ -4098,25 +4144,20 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
-      defaultMenu:
-        description: 是否是基础路由（开发中）
-        type: boolean
       hidden:
         description: 是否在列表隐藏
         type: boolean
-      icon:
-        description: 菜单图标
-        type: string
       id:
         description: 主键ID
         type: integer
-      keepAlive:
-        description: 是否缓存
-        type: boolean
       menuBtn:
         items:
           $ref: '#/definitions/system.SysBaseMenuBtn'
         type: array
+      meta:
+        allOf:
+        - $ref: '#/definitions/system.Meta'
+        description: 附加属性
       name:
         description: 路由name
         type: string
@@ -4135,9 +4176,6 @@ definitions:
         type: integer
       status:
         type: integer
-      title:
-        description: 菜单名
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -4270,8 +4308,6 @@ definitions:
     type: object
   system.SysMenu:
     properties:
-      activeName:
-        type: string
       authoritys:
         items:
           $ref: '#/definitions/system.SysAuthority'
@@ -4284,9 +4320,6 @@ definitions:
         items:
           $ref: '#/definitions/system.SysMenu'
         type: array
-      closeTab:
-        description: 自动关闭tab
-        type: boolean
       component:
         description: 对应前端文件路径
         type: string
@@ -4297,27 +4330,22 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
-      defaultMenu:
-        description: 是否是基础路由（开发中）
-        type: boolean
       hidden:
         description: 是否在列表隐藏
         type: boolean
-      icon:
-        description: 菜单图标
-        type: string
       id:
         description: 主键ID
         type: integer
-      keepAlive:
-        description: 是否缓存
-        type: boolean
       menuBtn:
         items:
           $ref: '#/definitions/system.SysBaseMenuBtn'
         type: array
       menuId:
         type: string
+      meta:
+        allOf:
+        - $ref: '#/definitions/system.Meta'
+        description: 附加属性
       name:
         description: 路由name
         type: string
@@ -4336,9 +4364,6 @@ definitions:
         type: integer
       status:
         type: integer
-      title:
-        description: 菜单名
-        type: string
       updateUser:
         type: integer
       updatedAt:
@@ -4394,6 +4419,24 @@ definitions:
       user_id:
         description: 用户id
         type: integer
+    type: object
+  system.SysParam:
+    properties:
+      id:
+        description: 主键ID
+        type: integer
+      paramKey:
+        description: 参数键
+        type: string
+      paramName:
+        description: 参数名
+        type: string
+      paramValue:
+        description: 参数值
+        type: string
+      remark:
+        description: 备注
+        type: string
     type: object
   system.SysUser:
     properties:
@@ -5348,7 +5391,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                  $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
                 msg:
                   type: string
               type: object
@@ -5374,7 +5417,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                  $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
                 msg:
                   type: string
               type: object
@@ -5400,7 +5443,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                  $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
                 msg:
                   type: string
               type: object
@@ -5426,7 +5469,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                  $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
                 msg:
                   type: string
               type: object
@@ -5452,7 +5495,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
+                  $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse'
                 msg:
                   type: string
               type: object
@@ -5467,7 +5510,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register'
+          $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_request.Register'
       produces:
       - application/json
       responses:
@@ -8566,6 +8609,29 @@ paths:
       summary: 用名字查询协议
       tags:
       - 常规方法
+  /app/general/getConfigParam:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回general.Protocol
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/general.ConfigParam'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取配置参数
+      tags:
+      - 常规方法
   /app/general/getDraftList:
     get:
       consumes:
@@ -11185,7 +11251,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse'
+                  $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_system_response.LoginResponse'
                 msg:
                   type: string
               type: object
@@ -13273,7 +13339,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/github.com_flipped-aurora_gin-vue-admin_server_model_system_request.Register'
+          $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_system_request.Register'
       produces:
       - application/json
       responses:
@@ -13284,7 +13350,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/response.SysUserResponse'
+                  $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_system_response.SysUserResponse'
                 msg:
                   type: string
               type: object

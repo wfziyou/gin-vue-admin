@@ -1,11 +1,14 @@
 package app
 
 import (
+	"encoding/json"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
@@ -68,6 +71,33 @@ func (generalApi *GeneralApi) FindProtocolByName(c *gin.Context) {
 	} else {
 		response.OkWithData(rehkProtocol, c)
 	}
+}
+
+// GetConfigParam 获取配置参数
+// @Tags 常规方法
+// @Summary 获取配置参数
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {object}  response.Response{data=general.ConfigParam,msg=string}  "返回general.Protocol"
+// @Router /app/general/getConfigParam [get]
+func (generalApi *GeneralApi) GetConfigParam(c *gin.Context) {
+	var resp general.ConfigParam
+	data := global.GVA_REDIS.HGetAll(c, utils.ConfigParamKey)
+	list := make([]system.SysParam, 0, len(data.Val()))
+	for key, value := range data.Val() {
+		if key == utils.MiniProgramKey {
+			var obj general.MiniProgramBaseInfo
+			json.Unmarshal([]byte(value), &obj)
+			resp.MiniProgram = &obj
+		} else {
+			var obj system.SysParam
+			json.Unmarshal([]byte(value), &obj)
+			list = append(list, obj)
+		}
+	}
+	resp.ParamList = list
+	response.OkWithData(resp, c)
 }
 
 // FindMiniProgram 用id查询小程序

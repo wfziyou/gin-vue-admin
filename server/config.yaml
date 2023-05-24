@@ -39,7 +39,7 @@ yunxin-im:
 open-im:
   appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
   appSecret: openIM123
-  url: http://192.168.3.22:10002
+  url: http://192.168.3.23:10002
 # jwt configuration
 jwt:
   signing-key: qmPlus
@@ -89,7 +89,7 @@ system:
   iplimit-time: 3600
   #  路由全局前缀
   router-prefix: ""
-  im-type: yunxin-im # open-im yunxin-im
+  im-type: open-im # open-im yunxin-im
 # captcha configuration
 captcha:
   key-long: 6
@@ -269,4 +269,4 @@ cors:
       expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
       allow-credentials: true # 布尔值
 param:
-  createCircleCheck: false
+  createCircleCheck: false #创建圈子是否需要审批
