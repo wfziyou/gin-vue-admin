@@ -237,6 +237,9 @@ func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info 
 	var circleUser []community.CircleUser
 
 	db = db.Where("user_id = ?", userId)
+	if info.Power != nil {
+		db = db.Where("power = ?", info.Power)
+	}
 	if len(info.Keyword) > 0 {
 		db = db.Where("circle_name LIKE ?", "%"+info.Keyword+"%")
 	}
@@ -244,6 +247,10 @@ func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info 
 	err = db.Count(&total).Error
 	if err != nil {
 		return
+	}
+
+	if info.Power == nil {
+		db = db.Order("sort desc")
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&circleUser).Error
@@ -277,6 +284,11 @@ func (appCircleService *AppCircleService) AddCircleChannel(circleId uint64, name
 	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
 		return
 	}
-	err = global.GVA_DB.Create(&channel).Error
-	return
+	var tmp = community.CircleChannel{
+		CircleId: circleId,
+		Name:     name,
+	}
+
+	err = global.GVA_DB.Create(&tmp).Error
+	return tmp, err
 }

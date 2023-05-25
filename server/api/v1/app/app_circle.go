@@ -169,6 +169,88 @@ func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 	}
 }
 
+// SelfCircleTop 用户圈子置顶
+// @Tags 圈子
+// @Summary 用户圈子置顶
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamSelfCircleTop true "用户圈子置顶"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"设置成功"}"
+// @Router /app/circle/selfCircleTop [post]
+func (circleApi *CircleApi) SelfCircleTop(c *gin.Context) {
+	var req communityReq.ParamSelfCircleTop
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	_, err = appCircleService.GetCircleInfo(req.CircleId)
+	if err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	_, err = appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	err = appCircleUserService.SelfCircleTop(req.CircleId, userId)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	response.OkWithMessage("成功", c)
+}
+
+// SelfCircleCancelTop 用户圈子置顶
+// @Tags 圈子
+// @Summary 用户圈子置顶
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamSelfCircleCancelTop true "用户圈子置顶"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"设置成功"}"
+// @Router /app/circle/selfCircleCancelTop [post]
+func (circleApi *CircleApi) SelfCircleCancelTop(c *gin.Context) {
+	var req communityReq.ParamSelfCircleCancelTop
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	_, err = appCircleService.GetCircleInfo(req.CircleId)
+	if err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	_, err = appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	err = appCircleUserService.SelfCircleCancelTop(req.CircleId, userId)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	response.OkWithMessage("成功", c)
+}
+
 // FindCircle 用id查询Circle
 // @Tags 圈子
 // @Summary 用id查询Circle
@@ -731,7 +813,73 @@ func (circleApi *CircleApi) UpdateCircleUser(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if circleUser.Power == community.CircleUserPowerGeneral && req.UserId != userId {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+
 	if err := appCircleUserService.UpdateCircleUser(req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
+// SetCircleUserPower (圈子管理者)设置圈子用户权限
+// @Tags 圈子
+// @Summary (圈子管理者)设置圈子用户权限
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.SetCircleUserPowerReq true "(圈子管理者)设置圈子用户权限"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /app/circle/setCircleUserPower [put]
+func (circleApi *CircleApi) SetCircleUserPower(c *gin.Context) {
+	var req communityReq.SetCircleUserPowerReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+
+	if err := appCircleUserService.SetCircleUserPower(req); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {

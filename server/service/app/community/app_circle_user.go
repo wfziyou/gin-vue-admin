@@ -84,6 +84,22 @@ func (appCircleUserService *AppCircleUserService) GetCircleUser(circleId uint64,
 	err = global.GVA_DB.Where("circle_id = ? and user_id = ?", circleId, userId).First(&circleUser).Error
 	return
 }
+func (appCircleUserService *AppCircleUserService) SelfCircleTop(circleId uint64, userId uint64) (err error) {
+	db := global.GVA_DB.Model(&community.CircleUser{})
+	var maxSort int
+	err = db.Where("user_id = ?", userId).Select("MAX(sort)").Find(&maxSort).Error
+	if err != nil {
+		return err
+	}
+	maxSort += 1
+	err = global.GVA_DB.Model(community.CircleUser{}).Where("circle_id = ? AND user_id = ?", circleId, userId).Update("sort", maxSort).Error
+	return err
+}
+func (appCircleUserService *AppCircleUserService) SelfCircleCancelTop(circleId uint64, userId uint64) (err error) {
+	err = global.GVA_DB.Model(community.CircleUser{}).Where("circle_id = ? AND user_id = ?", circleId, userId).Update("sort", 0).Error
+	return err
+}
+
 func (appCircleUserService *AppCircleUserService) GetCircleUserInfo(selectUserId uint64, circleId uint64, userId uint64) (circleUserInfo community.CircleUserInfo, err error) {
 	var circleUser community.CircleUser
 	err = global.GVA_DB.Where("circle_id = ? and user_id = ?", circleId, userId).Preload("UserInfo").First(&circleUser).Error
@@ -150,15 +166,21 @@ func (appCircleUserService *AppCircleUserService) UpdateCircleUser(info communit
 	if len(info.Tag) > 0 {
 		updateData["tag"] = info.Tag
 	}
-	if info.Power != nil {
-		updateData["power"] = info.Power
-	}
+
 	if info.Sort != nil {
 		updateData["sort"] = info.Sort
 	}
 	err = global.GVA_DB.Model(&community.CircleUser{}).Where("circle_id = ? AND user_id = ?", info.CircleId, info.UserId).Updates(updateData).Error
 	return err
 }
+func (appCircleUserService *AppCircleUserService) SetCircleUserPower(info communityReq.SetCircleUserPowerReq) (err error) {
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	updateData["power"] = info.Power
+	err = global.GVA_DB.Model(&community.CircleUser{}).Where("circle_id = ? AND user_id = ?", info.CircleId, info.UserId).Updates(updateData).Error
+	return err
+}
+
 func (appCircleUserService *AppCircleUserService) UpdateCircleUserCount(circleId uint64) (err error) {
 	num, err := appCircleUserService.GetCircleUserCount(circleId)
 	if err == nil {

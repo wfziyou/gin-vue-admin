@@ -3365,6 +3365,18 @@ definitions:
         description: 父圈子编号
         type: integer
     type: object
+  request.ParamSelfCircleCancelTop:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+    type: object
+  request.ParamSelfCircleTop:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+    type: object
   request.ParamSetCircleChannel:
     properties:
       channelIds:
@@ -3473,6 +3485,18 @@ definitions:
         type: integer
       questionId:
         description: 问题_编号
+        type: integer
+    type: object
+  request.SetCircleUserPowerReq:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      power:
+        description: 权限：0普通 1圈主
+        type: integer
+      userId:
+        description: 用户ID
         type: integer
     type: object
   request.SetQuestionScore:
@@ -3674,9 +3698,6 @@ definitions:
     properties:
       circleId:
         description: 圈子_编号
-        type: integer
-      power:
-        description: 权限：0普通 1圈主
         type: integer
       remark:
         description: 备注
@@ -6718,6 +6739,10 @@ paths:
         in: query
         name: pageSize
         type: integer
+      - description: 权限：0普通 1圈主
+        in: query
+        name: power
+        type: integer
       produces:
       - application/json
       responses:
@@ -6828,6 +6853,52 @@ paths:
       summary: (圈子管理者)申请成为子圈子
       tags:
       - 圈子
+  /app/circle/selfCircleCancelTop:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户圈子置顶
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamSelfCircleCancelTop'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用户圈子置顶
+      tags:
+      - 圈子
+  /app/circle/selfCircleTop:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户圈子置顶
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamSelfCircleTop'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"设置成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用户圈子置顶
+      tags:
+      - 圈子
   /app/circle/setCircleChannel:
     post:
       consumes:
@@ -6849,6 +6920,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: (圈子管理者)设置圈子频道
+      tags:
+      - 圈子
+  /app/circle/setCircleUserPower:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)设置圈子用户权限
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SetCircleUserPowerReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)设置圈子用户权限
       tags:
       - 圈子
   /app/circle/updateCircle:

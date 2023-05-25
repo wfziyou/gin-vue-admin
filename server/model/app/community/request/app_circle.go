@@ -24,6 +24,7 @@ type UserCircleForumPostsSearch struct {
 }
 
 type SelfCircleSearch struct {
+	Power *int `json:"power"` //权限：0普通 1圈主
 	request.PageInfo
 }
 
@@ -34,6 +35,13 @@ type EnterCircleReq struct {
 type ExitCircleReq struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 	UserId   uint64 `json:"-"`                         //用户ID
+}
+
+type ParamSelfCircleTop struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+}
+type ParamSelfCircleCancelTop struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
 }
 
 type FindCircleUserReq struct {
@@ -67,8 +75,12 @@ type UpdateCircleUserReq struct {
 	UserId   uint64 `json:"userId" form:"userId" `     //用户ID
 	Remark   string `json:"remark" form:"remark"`      //备注
 	Tag      string `json:"tag" form:"tag"`            //标签
-	Power    *int   `json:"power" form:"power"`        //权限：0普通 1圈主
 	Sort     *int   `json:"sort" form:"sort"`          //用户的圈子排序
+}
+type SetCircleUserPowerReq struct {
+	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号
+	UserId   uint64 `json:"userId" form:"userId" `     //用户ID
+	Power    int    `json:"power" form:"power"`        //权限：0普通 1圈主
 }
 
 // CreateCircleRequestReq 创建圈子申请参数

@@ -16,17 +16,10 @@ func (circleChannelService *AppCircleChannelService) CreateCircleChannel(hkChann
 	return err
 }
 
-// DeleteCircleChannel 删除CircleChannel记录
-// Author [piexlmax](https://github.com/piexlmax)
-func (circleChannelService *AppCircleChannelService) DeleteCircleChannel(hkChannel community.CircleChannel) (err error) {
-	err = global.GVA_DB.Delete(&hkChannel).Error
-	return err
-}
-
 // DeleteCircleChannelByIds 批量删除CircleChannel记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (circleChannelService *AppCircleChannelService) DeleteCircleChannelByIds(circleId uint64, ids []uint64) (err error) {
-	err = global.GVA_DB.Delete(&[]community.CircleChannel{}, "circle_id = ? AND id in ?", circleId, ids).Error
+	err = global.GVA_DB.Unscoped().Delete(&[]community.CircleChannel{}, "circle_id = ? AND id in ?", circleId, ids).Error
 	return err
 }
 

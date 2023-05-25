@@ -3724,6 +3724,12 @@ const docTemplate = `{
                         "description": "每页大小",
                         "name": "pageSize",
                         "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "权限：0普通 1圈主",
+                        "name": "power",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -3899,6 +3905,82 @@ const docTemplate = `{
                 }
             }
         },
+        "/app/circle/selfCircleCancelTop": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "用户圈子置顶",
+                "parameters": [
+                    {
+                        "description": "用户圈子置顶",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamSelfCircleCancelTop"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"设置成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/selfCircleTop": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "用户圈子置顶",
+                "parameters": [
+                    {
+                        "description": "用户圈子置顶",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamSelfCircleTop"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"设置成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/setCircleChannel": {
             "post": {
                 "security": [
@@ -3930,6 +4012,44 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/setCircleUserPower": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)设置圈子用户权限",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)设置圈子用户权限",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.SetCircleUserPowerReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -20374,6 +20494,24 @@ const docTemplate = `{
                 }
             }
         },
+        "request.ParamSelfCircleCancelTop": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.ParamSelfCircleTop": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                }
+            }
+        },
         "request.ParamSetCircleChannel": {
             "type": "object",
             "properties": {
@@ -20524,6 +20662,23 @@ const docTemplate = `{
                 },
                 "questionId": {
                     "description": "问题_编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.SetCircleUserPowerReq": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "power": {
+                    "description": "权限：0普通 1圈主",
+                    "type": "integer"
+                },
+                "userId": {
+                    "description": "用户ID",
                     "type": "integer"
                 }
             }
@@ -20806,10 +20961,6 @@ const docTemplate = `{
             "properties": {
                 "circleId": {
                     "description": "圈子_编号",
-                    "type": "integer"
-                },
-                "power": {
-                    "description": "权限：0普通 1圈主",
                     "type": "integer"
                 },
                 "remark": {

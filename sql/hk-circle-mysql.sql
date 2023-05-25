@@ -575,9 +575,9 @@ CREATE TABLE `hk_circle_channel`  (
 -- Records of hk_circle_channel
 -- ----------------------------
 INSERT INTO `hk_circle_channel` VALUES (1, '000000', 0, '全部', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (2, '000000', 0, '问答', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (2, '000000', 0, '资讯', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
 INSERT INTO `hk_circle_channel` VALUES (3, '000000', 0, '动态', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
-INSERT INTO `hk_circle_channel` VALUES (4, '000000', 0, '资讯', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_circle_channel` VALUES (4, '000000', 0, '问答', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
 INSERT INTO `hk_circle_channel` VALUES (5, '000000', 0, '活动', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
 INSERT INTO `hk_circle_channel` VALUES (6, '000000', 0, '文章', '2023-05-09 17:57:30.000', '2023-05-09 17:57:30.000', NULL, NULL, NULL, NULL, 0, 0);
 
