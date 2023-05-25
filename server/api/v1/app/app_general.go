@@ -79,7 +79,7 @@ func (generalApi *GeneralApi) FindProtocolByName(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Success 200 {object}  response.Response{data=general.ConfigParam,msg=string}  "返回general.Protocol"
+// @Success 200 {object}  response.Response{data=general.ConfigParam,msg=string}  "返回general.ConfigParam"
 // @Router /app/general/getConfigParam [get]
 func (generalApi *GeneralApi) GetConfigParam(c *gin.Context) {
 	var resp general.ConfigParam
@@ -98,6 +98,56 @@ func (generalApi *GeneralApi) GetConfigParam(c *gin.Context) {
 	}
 	resp.ParamList = list
 	response.OkWithData(resp, c)
+}
+
+// GetGlobalMiniProgram 获取全局小程序
+// @Tags 常规方法
+// @Summary 获取全局小程序
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {object}  response.Response{data=general.MiniProgramBaseInfo,msg=string}  "返回general.MiniProgramBaseInfo"
+// @Router /app/general/getGlobalMiniProgram [get]
+func (generalApi *GeneralApi) GetGlobalMiniProgram(c *gin.Context) {
+	data := global.GVA_REDIS.HGet(c, utils.ConfigParamKey, utils.MiniProgramKey)
+	if len(data.Val()) == 0 {
+		response.FailWithMessage("查询失败", c)
+		return
+	}
+	var obj general.MiniProgramBaseInfo
+	if err := json.Unmarshal([]byte(data.Val()), &obj); err != nil {
+		response.FailWithMessage("解析失败", c)
+		return
+	}
+	response.OkWithData(obj, c)
+}
+
+// CheckAppUpdate 检测APP更新
+// @Tags 常规方法
+// @Summary 检测APP更新
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query generalReq.ParamCheckAppUpdate true "检测APP更新"
+// @Success 200 {object}  response.Response{data=general.ResponseCheckAppUpdate,msg=string}  "返回general.ResponseCheckAppUpdate"
+// @Router /app/general/checkAppUpdate [get]
+func (generalApi *GeneralApi) CheckAppUpdate(c *gin.Context) {
+	var req generalReq.ParamCheckAppUpdate
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if data, forceUpdate, err := appVersionService.CheckAppUpdate(req); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(general.ResponseCheckAppUpdate{
+			Version:     data,
+			ForceUpdate: forceUpdate,
+		}, c)
+	}
 }
 
 // FindMiniProgram 用id查询小程序

@@ -57,6 +57,7 @@ var (
 	appUserCollectService         = service.ServiceGroupApp.AppServiceGroup.General.AppUserCollectService
 	appUserBrowsingHistoryService = service.ServiceGroupApp.AppServiceGroup.General.AppUserBrowsingHistoryService
 	appMiniProgramService         = service.ServiceGroupApp.AppServiceGroup.General.AppMiniProgramService
+	appVersionService             = service.ServiceGroupApp.AppServiceGroup.General.AppVersionService
 
 	appApplyService            = service.ServiceGroupApp.AppServiceGroup.Apply.AppApplyService
 	appCircleApplyService      = service.ServiceGroupApp.AppServiceGroup.Apply.AppCircleApplyService

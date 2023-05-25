@@ -2393,6 +2393,30 @@ definitions:
         description: 文件地址
         type: string
     type: object
+  general.AppVersion:
+    properties:
+      forceUpdate:
+        description: 强制更新：0否 1是
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      packetName:
+        description: 包名
+        type: string
+      packetUrl:
+        description: 下载地址
+        type: string
+      platform:
+        description: 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+        type: integer
+      updateLog:
+        description: 更新日志
+        type: string
+      version:
+        description: 版本
+        type: string
+    type: object
   general.ConfigParam:
     properties:
       miniProgram:
@@ -2460,6 +2484,16 @@ definitions:
       updatedAt:
         description: 更新时间
         type: string
+    type: object
+  general.ResponseCheckAppUpdate:
+    properties:
+      forceUpdate:
+        description: 强制更新：0否 1是
+        type: integer
+      version:
+        allOf:
+        - $ref: '#/definitions/general.AppVersion'
+        description: 最新版本
     type: object
   general.UserBrowsingHistoryInfo:
     properties:
@@ -8428,6 +8462,38 @@ paths:
       summary: 更新ForumPosts
       tags:
       - 帖子
+  /app/general/checkAppUpdate:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 当前版本
+        in: query
+        name: curVersion
+        type: string
+      - description: 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+        in: query
+        name: platform
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回general.ResponseCheckAppUpdate
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/general.ResponseCheckAppUpdate'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 检测APP更新
+      tags:
+      - 常规方法
   /app/general/deleteAllDraft:
     delete:
       consumes:
@@ -8617,7 +8683,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回general.Protocol
+          description: 返回general.ConfigParam
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -8672,6 +8738,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取草稿列表
+      tags:
+      - 常规方法
+  /app/general/getGlobalMiniProgram:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回general.MiniProgramBaseInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/general.MiniProgramBaseInfo'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取全局小程序
       tags:
       - 常规方法
   /app/general/getUserCoverImageList:

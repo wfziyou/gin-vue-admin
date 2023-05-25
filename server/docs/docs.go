@@ -6671,6 +6671,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/app/general/checkAppUpdate": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "检测APP更新",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "当前版本",
+                        "name": "curVersion",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin",
+                        "name": "platform",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回general.ResponseCheckAppUpdate",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/general.ResponseCheckAppUpdate"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/general/deleteAllDraft": {
             "delete": {
                 "security": [
@@ -7004,7 +7060,7 @@ const docTemplate = `{
                 "summary": "获取配置参数",
                 "responses": {
                     "200": {
-                        "description": "返回general.Protocol",
+                        "description": "返回general.ConfigParam",
                         "schema": {
                             "allOf": [
                                 {
@@ -7086,6 +7142,48 @@ const docTemplate = `{
                                             "items": {
                                                 "$ref": "#/definitions/community.Feedback"
                                             }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/general/getGlobalMiniProgram": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "获取全局小程序",
+                "responses": {
+                    "200": {
+                        "description": "返回general.MiniProgramBaseInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/general.MiniProgramBaseInfo"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -18888,6 +18986,39 @@ const docTemplate = `{
                 }
             }
         },
+        "general.AppVersion": {
+            "type": "object",
+            "properties": {
+                "forceUpdate": {
+                    "description": "强制更新：0否 1是",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "packetName": {
+                    "description": "包名",
+                    "type": "string"
+                },
+                "packetUrl": {
+                    "description": "下载地址",
+                    "type": "string"
+                },
+                "platform": {
+                    "description": "平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin",
+                    "type": "integer"
+                },
+                "updateLog": {
+                    "description": "更新日志",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "版本",
+                    "type": "string"
+                }
+            }
+        },
         "general.ConfigParam": {
             "type": "object",
             "properties": {
@@ -18982,6 +19113,23 @@ const docTemplate = `{
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
+                }
+            }
+        },
+        "general.ResponseCheckAppUpdate": {
+            "type": "object",
+            "properties": {
+                "forceUpdate": {
+                    "description": "强制更新：0否 1是",
+                    "type": "integer"
+                },
+                "version": {
+                    "description": "最新版本",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/general.AppVersion"
+                        }
+                    ]
                 }
             }
         },

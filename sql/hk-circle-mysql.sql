@@ -2032,3 +2032,28 @@ CREATE TABLE `hk_third_platform`  (
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
    PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '第三方平台';
+
+
+-- ----------------------------
+-- Table structure for hk_app_version
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_app_version`;
+CREATE TABLE `hk_app_version`  (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `platform` int(2) NULL DEFAULT 0 COMMENT '平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin',
+   `version` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '版本',
+   `force_update` int(2) NULL DEFAULT 0 COMMENT '强制更新：0否 1是',
+   `packet_name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '包名',
+   `packet_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '下载地址',
+   `update_log` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '更新日志',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'app版本';

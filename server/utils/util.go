@@ -7,11 +7,16 @@ import (
 	"strings"
 )
 
-const LatestVersion = "latestVersion"     //当前版本
-const RequiredVersion = "requiredVersion" // 最小版本
-const MiniProgramId = "miniProgramId"     //小程序id
-const ConfigParamKey = "configParam"
 const MiniProgramKey = "miniProgram"
+const ConfigParamKey = "configParam"
+
+//配置参数
+const (
+	LatestVersion   = "latestVersion"   //当前版本
+	RequiredVersion = "requiredVersion" // 最小版本
+	MiniProgramId   = "miniProgramId"   //小程序id
+)
+
 const BrowsingUserNum = 5
 
 //HomePageTopNewsNum 首页置顶资讯数
