@@ -59,6 +59,8 @@ https://github.com/go-oauth2/gin-server
 
 文档  
 [GORM 指南](https://gorm.io/zh_CN/docs/)  
+# 安装第三方软件
+docker-compose -f docker-compose-third.yaml up -d;
 # 按照go环境
 
 # 下载源码：
