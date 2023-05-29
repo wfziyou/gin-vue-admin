@@ -3087,6 +3087,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "description": "关系类型：0父子 1友好",
+                        "name": "relationType",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间（开始）",
                         "name": "startCreatedAt",
@@ -16474,10 +16480,6 @@ const docTemplate = `{
                 "userId": {
                     "description": "用户_编号",
                     "type": "integer"
-                },
-                "userNickName": {
-                    "description": "用户昵称",
-                    "type": "string"
                 }
             }
         },
@@ -20311,7 +20313,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "checkStatus": {
-                    "description": "审批状态: 0未处理，1同意，2拒绝",
+                    "description": "审批状态: 1同意，2拒绝",
                     "type": "integer"
                 },
                 "des": {

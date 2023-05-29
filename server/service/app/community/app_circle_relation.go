@@ -23,6 +23,10 @@ func (appCircleRelationService *AppCircleRelationService) DeleteCircleRelation(h
 	err = global.GVA_DB.Delete(&hkCircleRelation).Error
 	return err
 }
+func (appCircleRelationService *AppCircleRelationService) DeleteCircleRelationByOtherCircleId(circleId uint64, otherCircleId uint64) (err error) {
+	err = global.GVA_DB.Delete(&[]community.CircleRelation{}, "circle_id = ? AND other_circle_id = ?", circleId, otherCircleId).Error
+	return err
+}
 
 // DeleteCircleRelationByIds 批量删除CircleRelation记录
 // Author [piexlmax](https://github.com/piexlmax)

@@ -14,15 +14,19 @@ type AppCircleService struct {
 
 // CreateCircle 创建Circle记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleService *AppCircleService) CreateCircle(hkCircle community.Circle) (err error) {
+func (appCircleService *AppCircleService) CreateCircle(hkCircle community.Circle) (circle community.Circle, err error) {
 	err = global.GVA_DB.Create(&hkCircle).Error
-	return err
+	return circle, err
 }
 
 // DeleteCircle 删除Circle记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleService *AppCircleService) DeleteCircle(hkCircle community.Circle) (err error) {
 	err = global.GVA_DB.Delete(&hkCircle).Error
+	return err
+}
+func (appCircleService *AppCircleService) UnscopedDeleteCircle(hkCircle community.Circle) (err error) {
+	err = global.GVA_DB.Unscoped().Delete(&hkCircle).Error
 	return err
 }
 

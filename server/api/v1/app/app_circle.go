@@ -968,7 +968,6 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 	if obj.CreateCircleCheck == true {
 		if err := appCircleRequestService.CreateCircleRequest(community.CircleRequest{
 			UserId:           user.GetUserId(),
-			UserNickName:     user.NickName,
 			Type:             community.CircleTypeUser,
 			Name:             req.Name,
 			Logo:             req.Logo,
@@ -1430,22 +1429,37 @@ func (circleApi *CircleApi) RequestBecomeChildCircle(c *gin.Context) {
 		return
 	}
 
-	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
-		response.FailWithMessage("圈子不存在", c)
+	userId := utils.GetUserID(c)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	if circleUser.Power != community.CircleUserPowerManager {
+		response.FailWithMessage("没有权限创建", c)
+		return
+	}
+
 	if _, err := appCircleService.GetCircleInfo(req.ParentCircleId); err != nil {
 		response.FailWithMessage("父圈子不存在", c)
 		return
 	}
 
-	//
-	//if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage(err.Error(), c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+	if err := hkCircleRelationRequestService.CreateCircleRelationRequest(&community.CircleRelationRequest{
+		RelationType:    utils.CircleRelationTypeFather,
+		CircleId:        req.ParentCircleId,
+		RequestCircleId: req.CircleId,
+		RequestDes:      req.Des,
+		CheckStatus:     community.CircleRelationStatusUnCheck,
+	}); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("创建成功", c)
+	}
 }
 
 // ApproveChildCircleRequest (圈子管理者)审批子圈子申请
@@ -1465,17 +1479,57 @@ func (circleApi *CircleApi) ApproveChildCircleRequest(c *gin.Context) {
 		return
 	}
 
-	//if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
-	//	response.FailWithMessage("圈子不存在", c)
-	//	return
-	//}
-	//
-	//if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage(err.Error(), c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+	info, err := hkCircleRelationRequestService.GetCircleRelationRequest(req.ID)
+	if err != nil {
+		response.FailWithMessage("请求不存在", c)
+		return
+	}
+
+	if info.CheckStatus != community.CircleRelationStatusUnCheck {
+		response.FailWithMessage("请求已审批", c)
+		return
+	}
+
+	circle, err := appCircleService.GetCircleInfo(info.CircleId)
+	if err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	childCircle, err := appCircleService.GetCircleInfo(info.RequestCircleId)
+	if err != nil {
+		response.FailWithMessage("请求圈子不存在", c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	circleUser, err := appCircleUserService.GetCircleUser(info.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power != community.CircleUserPowerManager {
+		response.FailWithMessage("没有权限审批", c)
+		return
+	}
+
+	if req.CheckStatus == community.CircleRelationStatusAgree {
+		hkCircleRelationRequestService.UpdateCheckStatus(req.ID, req.CheckStatus)
+		err = appCircleRelationService.CreateCircleRelation(community.CircleRelation{
+			RelationType:    utils.CircleRelationTypeFather,
+			CircleId:        circle.ID,
+			CircleName:      circle.Name,
+			OtherCircleId:   childCircle.ID,
+			OtherCircleName: childCircle.Name,
+		})
+	} else if req.CheckStatus == community.CircleRelationStatusRefuse {
+		hkCircleRelationRequestService.UpdateCheckStatus(req.ID, req.CheckStatus)
+	} else {
+		response.FailWithMessage("审批状态错误", c)
+		return
+	}
 }
 
 // CreateChildCircle (圈子管理者)创建子圈子
@@ -1495,17 +1549,55 @@ func (circleApi *CircleApi) CreateChildCircle(c *gin.Context) {
 		return
 	}
 
-	//if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
-	//	response.FailWithMessage("圈子不存在", c)
-	//	return
-	//}
-	//
-	//if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage(err.Error(), c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+	circle, err := appCircleService.GetCircleInfo(req.CircleId)
+	if err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if circleUser.Power != community.CircleUserPowerManager {
+		response.FailWithMessage("没有权限创建", c)
+		return
+	}
+
+	childCircle, err := appCircleService.CreateCircle(community.Circle{
+		Type:             community.CircleTypeUser,
+		Name:             req.Name,
+		Logo:             req.Logo,
+		CircleClassifyId: req.CircleClassifyId,
+		Slogan:           req.Slogan,
+		Des:              req.Des,
+		Protocol:         req.Protocol,
+		CoverImage:       req.CoverImage,
+	})
+	if err != nil {
+		response.FailWithMessage("创建子圈子失败", c)
+		return
+	}
+
+	err = appCircleRelationService.CreateCircleRelation(community.CircleRelation{
+		RelationType:    utils.CircleRelationTypeFather,
+		CircleId:        circle.ID,
+		CircleName:      circle.Name,
+		OtherCircleId:   childCircle.ID,
+		OtherCircleName: childCircle.Name,
+	})
+	if err != nil {
+		appCircleService.UnscopedDeleteCircle(childCircle)
+		response.FailWithMessage("创建子圈子失败", c)
+		return
+	}
+	response.OkWithMessage("创建成功", c)
 }
 
 // DeleteChildCircle (圈子管理者)删除子圈子
@@ -1525,17 +1617,27 @@ func (circleApi *CircleApi) DeleteChildCircle(c *gin.Context) {
 		return
 	}
 
-	//if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
-	//	response.FailWithMessage("圈子不存在", c)
-	//	return
-	//}
-	//
-	//if err := appCircleTagService.CreateCircleTag(req.CircleId, req.Name); err != nil {
-	//	global.GVA_LOG.Error("创建失败!", zap.Error(err))
-	//	response.FailWithMessage(err.Error(), c)
-	//} else {
-	//	response.OkWithMessage("创建成功", c)
-	//}
+	userId := utils.GetUserID(c)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if circleUser.Power != community.CircleUserPowerManager {
+		response.FailWithMessage("没有权限删除", c)
+		return
+	}
+
+	if err := appCircleRelationService.DeleteCircleRelationByOtherCircleId(req.CircleId, req.ChildCircleId); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
 }
 
 // GetChildCircleRequestList (圈子管理者)获取子圈子申请列表
@@ -1544,32 +1646,26 @@ func (circleApi *CircleApi) DeleteChildCircle(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.ChildCircleRequestSearch true "(圈子管理者)获取子圈子申请列表"
+// @Param data query communityReq.CircleRelationRequestSearch true "(圈子管理者)获取子圈子申请列表"
 // @Success 200 {object}  response.PageResult{List=[]community.CircleTag,msg=string} "返回[]community.CircleTag"
 // @Router /app/circle/getChildCircleRequestList [get]
 func (circleApi *CircleApi) GetChildCircleRequestList(c *gin.Context) {
-	var req communityReq.ChildCircleRequestSearch
+	var req communityReq.CircleRelationRequestSearch
 	err := c.ShouldBindQuery(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
-	//var pageInfo communityReq.CircleRelationRequestSearch
-	//err := c.ShouldBindQuery(&pageInfo)
-	//if err != nil {
-	//	response.FailWithMessage(err.Error(), c)
-	//	return
-	//}
-	//if list, total, err := hkCircleRelationRequestService.GetCircleRelationRequestInfoList(pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	if list, total, err := hkCircleRelationRequestService.GetCircleRelationRequestInfoList(req); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
+	}
 }

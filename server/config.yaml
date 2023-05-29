@@ -43,8 +43,8 @@ open-im:
 # jwt configuration
 jwt:
   signing-key: qmPlus
-  expires-time: 7d
-  buffer-time: 1d
+  expires-time: 700d
+  buffer-time: 100d
   issuer: qmPlus
 # zap logger configuration
 zap:

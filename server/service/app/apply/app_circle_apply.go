@@ -4,6 +4,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/apply"
 	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/apply/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 )
@@ -69,7 +70,6 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoList(info 
 // GetCircleApplyInfoListAll 分页获取CircleApply记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoListAll(info applyReq.CircleApplySearchAll, isMember bool) (list []apply.CircleApply, err error) {
-	// 创建db
 	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
 	var hkCircleApplys []apply.CircleApply
 
@@ -78,10 +78,34 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoListAll(in
 	}
 
 	err = db.Find(&hkCircleApplys).Error
+	if err == nil && len(hkCircleApplys) > 0 {
+		var ids = make([]uint64, 0, len(hkCircleApplys))
+
+		for _, obj := range hkCircleApplys {
+			if obj.Apply.Type == utils.ApplyTypeMimiProgram {
+				ids = append(ids, obj.Apply.MiniProgramId)
+			}
+		}
+		if len(ids) > 0 {
+			var miniProgram []general.MiniProgram
+			err1 := global.GVA_DB.Where("id in ?", ids).Find(&miniProgram).Error
+			if err1 == nil && len(miniProgram) > 0 {
+				for index, obj := range hkCircleApplys {
+					if obj.Apply.Type == utils.ApplyTypeMimiProgram {
+						for _, program := range miniProgram {
+							if obj.Apply.MiniProgramId == program.ID {
+								hkCircleApplys[index].Apply.ProgramId = program.ProgramId
+								break
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	return hkCircleApplys, err
 }
 func (appCircleApplyService *AppCircleApplyService) GetCircleHotApplyList(circleId uint64, isMember bool) (list []apply.CircleApply, total int64, err error) {
-	// 创建db
 	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
 	var hkCircleApplys []apply.CircleApply
 
@@ -98,5 +122,30 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleHotApplyList(circle
 	}
 
 	err = db.Limit(utils.CircleHotApplyNum).Offset(0).Find(&hkCircleApplys).Error
+	if err == nil && len(hkCircleApplys) > 0 {
+		var ids = make([]uint64, 0, len(hkCircleApplys))
+
+		for _, obj := range hkCircleApplys {
+			if obj.Apply.Type == utils.ApplyTypeMimiProgram {
+				ids = append(ids, obj.Apply.MiniProgramId)
+			}
+		}
+		if len(ids) > 0 {
+			var miniProgram []general.MiniProgram
+			err1 := global.GVA_DB.Where("id in ?", ids).Find(&miniProgram).Error
+			if err1 == nil && len(miniProgram) > 0 {
+				for index, obj := range hkCircleApplys {
+					if obj.Apply.Type == utils.ApplyTypeMimiProgram {
+						for _, program := range miniProgram {
+							if obj.Apply.MiniProgramId == program.ID {
+								hkCircleApplys[index].Apply.ProgramId = program.ProgramId
+								break
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	return hkCircleApplys, total, err
 }

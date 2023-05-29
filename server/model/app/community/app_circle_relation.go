@@ -12,8 +12,8 @@ type CircleRelation struct {
 	CircleId     uint64 `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`            //圈子_编号
 	CircleName   string `json:"circleName" form:"circleId" gorm:"column:circle_name;comment:圈子名称;size:20;"`                 //圈子名称
 
-	OtherCircleId   uint64 `json:"otherCircleId" form:"otherCircleId" gorm:"type:bigint(20);column:other_circle_id;comment:关系圈子_编号(关系类型0_父节点编号)"` //关系圈子_编号(关系类型0_父节点编号)
-	OtherCircleName string `json:"otherCircleName" form:"otherCircleName" gorm:"column:other_circle_name;comment:关系圈子名称;size:20;"`                //关系圈子名称
+	OtherCircleId   uint64 `json:"otherCircleId" form:"otherCircleId" gorm:"type:bigint(20);column:other_circle_id;comment:关系圈子_编号(孩子圈子Id，或者友好圈子Id)"` //关系圈子_编号(孩子圈子Id，或者友好圈子Id)
+	OtherCircleName string `json:"otherCircleName" form:"otherCircleName" gorm:"column:other_circle_name;comment:关系圈子名称;size:20;"`                    //关系圈子名称
 
 }
 

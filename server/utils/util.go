@@ -10,6 +10,18 @@ import (
 const MiniProgramKey = "miniProgram"
 const ConfigParamKey = "configParam"
 
+//圈子关系类型：0父子 1友好
+const (
+	CircleRelationTypeFather = 0
+	CircleRelationTypeFriend = 1
+)
+
+//应用类型： 0小程序、1第三方链接
+const (
+	ApplyTypeMimiProgram = 0
+	ApplyTypeH5          = 1
+)
+
 //配置参数
 const (
 	LatestVersion   = "latestVersion"   //当前版本

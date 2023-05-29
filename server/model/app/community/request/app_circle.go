@@ -182,7 +182,7 @@ type ParamRequestBecomeChildCircle struct {
 }
 type ParamApproveChildCircleRequest struct {
 	ID          uint64 `json:"id" `            //申请编号
-	CheckStatus int    `json:"checkStatus" `   //审批状态: 0未处理，1同意，2拒绝
+	CheckStatus int    `json:"checkStatus" `   //审批状态: 1同意，2拒绝
 	Des         string `json:"des" form:"des"` //描述
 }
 type ParamCreateChildCircle struct {
@@ -198,10 +198,4 @@ type ParamCreateChildCircle struct {
 type ParamDeleteChildCircle struct {
 	CircleId      uint64 `json:"circleId" form:"circleId" `           //圈子_编号
 	ChildCircleId uint64 `json:"childCircleId" form:"childCircleId" ` //子圈子编号
-}
-type ChildCircleRequestSearch struct {
-	CircleId       uint64     `json:"circleId" form:"circleId" `            //圈子_编号
-	StartCreatedAt *time.Time `json:"startCreatedAt" form:"startCreatedAt"` //创建时间（开始）
-	EndCreatedAt   *time.Time `json:"endCreatedAt" form:"endCreatedAt"`     //创建时间（结束）
-	request.PageInfo
 }

@@ -539,9 +539,6 @@ definitions:
       userId:
         description: 用户_编号
         type: integer
-      userNickName:
-        description: 用户昵称
-        type: string
     type: object
   community.CircleTag:
     properties:
@@ -3236,7 +3233,7 @@ definitions:
   request.ParamApproveChildCircleRequest:
     properties:
       checkStatus:
-        description: '审批状态: 0未处理，1同意，2拒绝'
+        description: '审批状态: 1同意，2拒绝'
         type: integer
       des:
         description: 描述
@@ -6360,6 +6357,10 @@ paths:
       - description: 每页大小
         in: query
         name: pageSize
+        type: integer
+      - description: 关系类型：0父子 1友好
+        in: query
+        name: relationType
         type: integer
       - description: 创建时间（开始）
         in: query

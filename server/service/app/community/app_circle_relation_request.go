@@ -38,9 +38,14 @@ func (hkCircleRelationRequestService *AppCircleRelationRequestService) UpdateCir
 	return err
 }
 
+func (hkCircleRelationRequestService *AppCircleRelationRequestService) UpdateCheckStatus(id uint64, checkStatus int) (err error) {
+	err = global.GVA_DB.Model(community.CircleRelationRequest{}).Where("id = ?", id).Update("check_status", checkStatus).Error
+	return err
+}
+
 // GetCircleRelationRequest 根据id获取CircleRelationRequest记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkCircleRelationRequestService *AppCircleRelationRequestService) GetCircleRelationRequest(id uint) (hkCircleRelationRequest community.CircleRelationRequest, err error) {
+func (hkCircleRelationRequestService *AppCircleRelationRequestService) GetCircleRelationRequest(id uint64) (hkCircleRelationRequest community.CircleRelationRequest, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleRelationRequest).Error
 	return
 }
@@ -53,10 +58,15 @@ func (hkCircleRelationRequestService *AppCircleRelationRequestService) GetCircle
 	// 创建db
 	db := global.GVA_DB.Model(&community.CircleRelationRequest{})
 	var hkCircleRelationRequests []community.CircleRelationRequest
-	// 如果有条件搜索 下方会自动创建搜索语句
+	db = db.Where("circle_id = ?", info.CircleId)
+	if info.RelationType != nil {
+		db = db.Where("relation_type = ?", info.RelationType)
+	}
+
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return
