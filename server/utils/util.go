@@ -16,6 +16,13 @@ const (
 	CircleRelationTypeFriend = 1
 )
 
+//拥有者：0平台、1圈子、2个人
+const (
+	ApplyOwnerTypePlat   = 0
+	ApplyOwnerTypeCircle = 1
+	ApplyOwnerTypeUSer   = 2
+)
+
 //应用类型： 0小程序、1第三方链接
 const (
 	ApplyTypeMimiProgram = 0

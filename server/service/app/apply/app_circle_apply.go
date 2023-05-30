@@ -14,8 +14,35 @@ type AppCircleApplyService struct {
 
 // CreateCircleApply 创建CircleApply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleApplyService *AppCircleApplyService) CreateCircleApply(hkCircleApply apply.CircleApply) (err error) {
-	err = global.GVA_DB.Create(&hkCircleApply).Error
+func (appCircleApplyService *AppCircleApplyService) CreateCircleApply(circleId uint64, info applyReq.ParamAddCircleApply) (err error) {
+	var tmpApply = apply.Apply{}
+	tmpApply.OwerType = utils.ApplyOwnerTypeCircle
+	tmpApply.CircleId = circleId
+	tmpApply.Name = info.Name
+	tmpApply.Icon = info.Icon
+	tmpApply.Type = info.Type
+	tmpApply.ApplyParameters = info.ApplyParameters
+
+	if info.Type == utils.ApplyTypeH5 {
+		tmpApply.ApplyAddress = info.ApplyAddress
+	} else {
+		tmpApply.Type = utils.ApplyTypeMimiProgram
+		tmpApply.MiniProgramId = info.MiniProgramId
+	}
+
+	err = global.GVA_DB.Create(&tmpApply).Error
+	if err != nil {
+		return err
+	}
+	err = global.GVA_DB.Create(&apply.CircleApply{
+		CircleId:     circleId,
+		ApplyGroupId: info.ApplyGroupId,
+		ApplyId:      tmpApply.ID,
+		Power:        info.Power,
+	}).Error
+	if err != nil {
+		global.GVA_DB.Delete(&tmpApply)
+	}
 	return err
 }
 
@@ -23,6 +50,10 @@ func (appCircleApplyService *AppCircleApplyService) CreateCircleApply(hkCircleAp
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleApplyService *AppCircleApplyService) DeleteCircleApply(hkCircleApply apply.CircleApply) (err error) {
 	err = global.GVA_DB.Delete(&hkCircleApply).Error
+	return err
+}
+func (appCircleApplyService *AppCircleApplyService) DeleteCircleApplyByApplyId(circleId uint64, applyId uint64) (err error) {
+	err = global.GVA_DB.Delete(&[]apply.CircleApply{}, "circle_id = ? AND apply_id", circleId, applyId).Error
 	return err
 }
 
@@ -35,8 +66,15 @@ func (appCircleApplyService *AppCircleApplyService) DeleteCircleApplyByIds(ids r
 
 // UpdateCircleApply 更新CircleApply记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleApplyService *AppCircleApplyService) UpdateCircleApply(hkCircleApply apply.CircleApply) (err error) {
-	err = global.GVA_DB.Save(&hkCircleApply).Error
+func (appCircleApplyService *AppCircleApplyService) UpdateCircleApply(info applyReq.ParamUpdateCircleApply) (err error) {
+	//var updateData map[string]interface{}
+	//updateData = make(map[string]interface{})
+	//if len(info.Name) > 0 {
+	//	updateData["name"] = info.Name
+	//}
+	//
+	//db := global.GVA_DB.Model(&community.Circle{})
+	//err = db.Where("id = ?", info.ID).Updates(updateData).Error
 	return err
 }
 
@@ -55,7 +93,6 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoList(info 
 	// 创建db
 	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
 	var hkCircleApplys []apply.CircleApply
-	// 如果有条件搜索 下方会自动创建搜索语句
 	db.Where("circle_id = ?", info.CircleId)
 
 	err = db.Count(&total).Error
@@ -64,6 +101,31 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoList(info 
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&hkCircleApplys).Error
+	if err == nil && len(hkCircleApplys) > 0 {
+		var ids = make([]uint64, 0, len(hkCircleApplys))
+
+		for _, obj := range hkCircleApplys {
+			if obj.Apply.Type == utils.ApplyTypeMimiProgram {
+				ids = append(ids, obj.Apply.MiniProgramId)
+			}
+		}
+		if len(ids) > 0 {
+			var miniProgram []general.MiniProgram
+			err1 := global.GVA_DB.Where("id in ?", ids).Find(&miniProgram).Error
+			if err1 == nil && len(miniProgram) > 0 {
+				for index, obj := range hkCircleApplys {
+					if obj.Apply.Type == utils.ApplyTypeMimiProgram {
+						for _, program := range miniProgram {
+							if obj.Apply.MiniProgramId == program.ID {
+								hkCircleApplys[index].Apply.ProgramId = program.ProgramId
+								break
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	return hkCircleApplys, total, err
 }
 
@@ -73,9 +135,7 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoListAll(in
 	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
 	var hkCircleApplys []apply.CircleApply
 
-	if info.CircleId != 0 {
-		db.Where("circle_id = ?", info.CircleId)
-	}
+	db.Where("circle_id = ?", info.CircleId)
 
 	err = db.Find(&hkCircleApplys).Error
 	if err == nil && len(hkCircleApplys) > 0 {

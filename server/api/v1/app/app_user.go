@@ -209,7 +209,7 @@ func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
 
 	if err != nil {
 		global.GVA_LOG.Error("设置失败!", zap.Error(err))
-		response.FailWithMessage("设置失败", c)
+		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	response.OkWithMessage("设置成功", c)

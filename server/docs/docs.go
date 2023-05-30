@@ -3180,6 +3180,59 @@ const docTemplate = `{
                 }
             }
         },
+        "/app/circle/getCircleChannelListAll": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理员)获取圈子频道全部",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回[]community.CircleChannelInfoEx",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.CircleChannelInfoEx"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/getCircleClassifyList": {
             "get": {
                 "security": [
@@ -4234,9 +4287,57 @@ const docTemplate = `{
                 "summary": "(圈子管理者)添加圈子应用",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "访问地址",
+                        "name": "applyAddress",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "应用分组_编号",
+                        "name": "applyGroupId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "访问参数",
+                        "name": "applyParameters",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "description": "圈子_编号",
                         "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "图标",
+                        "name": "icon",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "小程序id",
+                        "name": "miniProgramId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "名称",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "权限：0 所有可见 1 圈内成员可见",
+                        "name": "power",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "类型(0小程序、1第三方链接)",
+                        "name": "type",
                         "in": "query"
                     }
                 ],
@@ -4251,7 +4352,7 @@ const docTemplate = `{
             }
         },
         "/app/circleApply/deleteCircleApply": {
-            "post": {
+            "delete": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -4268,6 +4369,12 @@ const docTemplate = `{
                 ],
                 "summary": "(圈子管理者)删除圈子应用",
                 "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "应用_编号",
+                        "name": "applyId",
+                        "in": "query"
+                    },
                     {
                         "type": "integer",
                         "description": "圈子_编号",
@@ -4889,9 +4996,57 @@ const docTemplate = `{
                 "summary": "(圈子管理者)更新圈子应用",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "访问地址",
+                        "name": "applyAddress",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "应用分组_编号",
+                        "name": "applyGroupId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "访问参数",
+                        "name": "applyParameters",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "description": "圈子_编号",
                         "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "图标",
+                        "name": "icon",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "小程序id",
+                        "name": "miniProgramId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "名称",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "权限：0 所有可见 1 圈内成员可见",
+                        "name": "power",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "类型(0小程序、1第三方链接)",
+                        "name": "type",
                         "in": "query"
                     }
                 ],
@@ -15777,10 +15932,6 @@ const docTemplate = `{
                     "description": "拥有者：0平台、1圈子、2个人",
                     "type": "integer"
                 },
-                "programId": {
-                    "description": "小程序id",
-                    "type": "string"
-                },
                 "sort": {
                     "description": "排序",
                     "type": "integer"
@@ -15802,6 +15953,59 @@ const docTemplate = `{
                 }
             }
         },
+        "apply.ApplyInfo": {
+            "type": "object",
+            "properties": {
+                "applyAddress": {
+                    "description": "访问地址",
+                    "type": "string"
+                },
+                "applyParameters": {
+                    "description": "访问参数",
+                    "type": "string"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "icon": {
+                    "description": "图标",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "miniProgramId": {
+                    "description": "小程序id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "owerType": {
+                    "description": "拥有者：0平台、1圈子、2个人",
+                    "type": "integer"
+                },
+                "programId": {
+                    "description": "程序id",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "类型(0小程序、1第三方链接)",
+                    "type": "integer"
+                },
+                "userId": {
+                    "description": "用户_编号",
+                    "type": "integer"
+                }
+            }
+        },
         "apply.CircleApply": {
             "type": "object",
             "properties": {
@@ -15809,7 +16013,7 @@ const docTemplate = `{
                     "description": "应用",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/apply.Apply"
+                            "$ref": "#/definitions/apply.ApplyInfo"
                         }
                     ]
                 },
@@ -16289,6 +16493,23 @@ const docTemplate = `{
                 },
                 "updatedAt": {
                     "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "community.CircleChannelInfoEx": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "编号",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
                     "type": "string"
                 }
             }

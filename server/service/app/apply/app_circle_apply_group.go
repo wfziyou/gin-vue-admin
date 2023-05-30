@@ -40,7 +40,7 @@ func (appCircleApplyGroupService *AppCircleApplyGroupService) UpdateCircleApplyG
 
 // GetCircleApplyGroup 根据id获取CircleApplyGroup记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (appCircleApplyGroupService *AppCircleApplyGroupService) GetCircleApplyGroup(id uint) (hkCircleApplyGroup apply.CircleApplyGroup, err error) {
+func (appCircleApplyGroupService *AppCircleApplyGroupService) GetCircleApplyGroup(id uint64) (hkCircleApplyGroup apply.CircleApplyGroup, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleApplyGroup).Error
 	return
 }

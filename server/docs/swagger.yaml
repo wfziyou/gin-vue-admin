@@ -28,9 +28,6 @@ definitions:
       owerType:
         description: 拥有者：0平台、1圈子、2个人
         type: integer
-      programId:
-        description: 小程序id
-        type: string
       sort:
         description: 排序
         type: integer
@@ -46,11 +43,50 @@ definitions:
         description: 用户_编号
         type: integer
     type: object
+  apply.ApplyInfo:
+    properties:
+      applyAddress:
+        description: 访问地址
+        type: string
+      applyParameters:
+        description: 访问参数
+        type: string
+      circleId:
+        description: 圈子_编号
+        type: integer
+      icon:
+        description: 图标
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      miniProgramId:
+        description: 小程序id
+        type: integer
+      name:
+        description: 名称
+        type: string
+      owerType:
+        description: 拥有者：0平台、1圈子、2个人
+        type: integer
+      programId:
+        description: 程序id
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      type:
+        description: 类型(0小程序、1第三方链接)
+        type: integer
+      userId:
+        description: 用户_编号
+        type: integer
+    type: object
   apply.CircleApply:
     properties:
       apply:
         allOf:
-        - $ref: '#/definitions/apply.Apply'
+        - $ref: '#/definitions/apply.ApplyInfo'
         description: 应用
       applyGroupId:
         description: 应用分组_编号
@@ -399,6 +435,18 @@ definitions:
         type: integer
       updatedAt:
         description: 更新时间
+        type: string
+    type: object
+  community.CircleChannelInfoEx:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      id:
+        description: 编号
+        type: integer
+      name:
+        description: 名称
         type: string
     type: object
   community.CircleClassify:
@@ -6417,6 +6465,36 @@ paths:
       summary: 获取圈子频道
       tags:
       - 圈子
+  /app/circle/getCircleChannelListAll:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.CircleChannelInfoEx
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/community.CircleChannelInfoEx'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理员)获取圈子频道全部
+      tags:
+      - 圈子
   /app/circle/getCircleClassifyList:
     get:
       consumes:
@@ -7043,9 +7121,41 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: 访问地址
+        in: query
+        name: applyAddress
+        type: string
+      - description: 应用分组_编号
+        in: query
+        name: applyGroupId
+        type: integer
+      - description: 访问参数
+        in: query
+        name: applyParameters
+        type: string
       - description: 圈子_编号
         in: query
         name: circleId
+        type: integer
+      - description: 图标
+        in: query
+        name: icon
+        type: string
+      - description: 小程序id
+        in: query
+        name: miniProgramId
+        type: integer
+      - description: 名称
+        in: query
+        name: name
+        type: string
+      - description: 权限：0 所有可见 1 圈内成员可见
+        in: query
+        name: power
+        type: integer
+      - description: 类型(0小程序、1第三方链接)
+        in: query
+        name: type
         type: integer
       produces:
       - application/json
@@ -7060,10 +7170,14 @@ paths:
       tags:
       - 圈子应用
   /app/circleApply/deleteCircleApply:
-    post:
+    delete:
       consumes:
       - application/json
       parameters:
+      - description: 应用_编号
+        in: query
+        name: applyId
+        type: integer
       - description: 圈子_编号
         in: query
         name: circleId
@@ -7427,9 +7541,41 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: 访问地址
+        in: query
+        name: applyAddress
+        type: string
+      - description: 应用分组_编号
+        in: query
+        name: applyGroupId
+        type: integer
+      - description: 访问参数
+        in: query
+        name: applyParameters
+        type: string
       - description: 圈子_编号
         in: query
         name: circleId
+        type: integer
+      - description: 图标
+        in: query
+        name: icon
+        type: string
+      - description: 小程序id
+        in: query
+        name: miniProgramId
+        type: integer
+      - description: 名称
+        in: query
+        name: name
+        type: string
+      - description: 权限：0 所有可见 1 圈内成员可见
+        in: query
+        name: power
+        type: integer
+      - description: 类型(0小程序、1第三方链接)
+        in: query
+        name: type
         type: integer
       produces:
       - application/json
