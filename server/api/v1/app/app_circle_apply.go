@@ -285,12 +285,12 @@ func (circleApplyApi *CircleApplyApi) GetCircleApplyGroupListAll(c *gin.Context)
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query applyReq.ParamAddCircleApply true "(圈子管理者)添加圈子应用"
+// @Param data body applyReq.ParamAddCircleApply true "(圈子管理者)添加圈子应用"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
 // @Router /app/circleApply/addCircleApply [post]
 func (circleApplyApi *CircleApplyApi) AddCircleApply(c *gin.Context) {
 	var req applyReq.ParamAddCircleApply
-	err := c.ShouldBindQuery(&req)
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
@@ -305,7 +305,7 @@ func (circleApplyApi *CircleApplyApi) AddCircleApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power != community.CircleUserPowerMaster {
 		response.FailWithMessage("没有权限创建", c)
 		return
 	}
@@ -329,12 +329,12 @@ func (circleApplyApi *CircleApplyApi) AddCircleApply(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query applyReq.ParamUpdateCircleApply true "(圈子管理者)更新圈子应用"
+// @Param data body applyReq.ParamUpdateCircleApply true "(圈子管理者)更新圈子应用"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
 // @Router /app/circleApply/updateCircleApply [post]
 func (circleApplyApi *CircleApplyApi) UpdateCircleApply(c *gin.Context) {
 	var req applyReq.ParamUpdateCircleApply
-	err := c.ShouldBindQuery(&req)
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
@@ -349,7 +349,7 @@ func (circleApplyApi *CircleApplyApi) UpdateCircleApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power != community.CircleUserPowerMaster {
 		response.FailWithMessage("没有权限创建", c)
 		return
 	}
@@ -368,12 +368,12 @@ func (circleApplyApi *CircleApplyApi) UpdateCircleApply(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query applyReq.ParamDeleteCircleApply true "(圈子管理者)删除圈子应用"
+// @Param data body applyReq.ParamDeleteCircleApply true "(圈子管理者)删除圈子应用"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
 // @Router /app/circleApply/deleteCircleApply [delete]
 func (circleApplyApi *CircleApplyApi) DeleteCircleApply(c *gin.Context) {
 	var req applyReq.ParamDeleteCircleApply
-	err := c.ShouldBindQuery(&req)
+	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
@@ -388,13 +388,147 @@ func (circleApplyApi *CircleApplyApi) DeleteCircleApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power != community.CircleUserPowerMaster {
 		response.FailWithMessage("没有权限创建", c)
 		return
 	}
 
 	if err := appCircleApplyService.DeleteCircleApplyByApplyId(req.CircleId, req.ApplyId); err != nil {
 		global.GVA_LOG.Error("失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("成功", c)
+	}
+}
+
+// AddCircleApplyGroup (圈子管理者)添加圈子应用分组
+// @Tags 圈子应用
+// @Summary (圈子管理者)添加圈子应用分组
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body applyReq.ParamAddCircleApplyGroup true "(圈子管理者)添加圈子应用分组"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circleApply/addCircleApplyGroup [post]
+func (circleApplyApi *CircleApplyApi) AddCircleApplyGroup(c *gin.Context) {
+	var req applyReq.ParamAddCircleApplyGroup
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power != community.CircleUserPowerMaster {
+		response.FailWithMessage("没有权限创建", c)
+		return
+	}
+
+	if err := appCircleApplyGroupService.AddCircleApplyGroup(req.CircleId, req.Name); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("成功", c)
+	}
+}
+
+// DeleteCircleApplyGroup (圈子管理者)删除圈子应用分组
+// @Tags 圈子应用
+// @Summary (圈子管理者)删除圈子应用分组
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body request.IdDelete true "(圈子管理者)删除圈子应用分组"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
+// @Router /app/circleApply/deleteCircleApplyGroup [delete]
+func (circleApplyApi *CircleApplyApi) DeleteCircleApplyGroup(c *gin.Context) {
+	var req request.IdDelete
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	applyGroup, err := appCircleApplyGroupService.GetCircleApplyGroup(req.ID)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.OkWithMessage("成功", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if count, err := appCircleApplyService.GetCircleApplyCountByGroupId(req.ID); err != nil {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if count > 0 {
+		response.FailWithMessage("分组中有应用不能删除", c)
+		return
+	}
+
+	circleUser, err := appCircleUserService.GetCircleUser(applyGroup.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power != community.CircleUserPowerMaster {
+		response.FailWithMessage("没有权限创建", c)
+		return
+	}
+
+	if err := appCircleApplyGroupService.DeleteCircleApplyGroup(applyGroup); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("成功", c)
+	}
+}
+
+// SetCircleApplyGroupSort (圈子管理者)设置圈子应用分组顺序
+// @Tags 圈子应用
+// @Summary (圈子管理者)设置圈子应用分组顺序
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body applyReq.ParamSetCircleApplyGroupSort true "(圈子管理者)设置圈子应用分组顺序"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
+// @Router /app/circleApply/setCircleApplyGroupSort [post]
+func (circleApplyApi *CircleApplyApi) SetCircleApplyGroupSort(c *gin.Context) {
+	var req applyReq.ParamSetCircleApplyGroupSort
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power != community.CircleUserPowerMaster {
+		response.FailWithMessage("没有权限创建", c)
+		return
+	}
+
+	if err := appCircleApplyGroupService.SetCircleApplyGroupSort(req); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
 	} else {
 		response.OkWithMessage("成功", c)

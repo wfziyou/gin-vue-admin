@@ -550,18 +550,18 @@ func (circleApi *CircleApi) ExitCircle(c *gin.Context) {
 	userId := utils.GetUserID(c)
 	if data, err := appCircleUserService.GetCircleUser(req.CircleId, userId); err == nil {
 		//如果是圈主
-		//if data.Power == community.CircleUserPowerManager {
-		//	response.FailWithMessage("圈主不能退出", c)
-		//	return
-		//} else {
-		err = appCircleUserService.DeleteCircleUser(data)
-		if err == nil {
-			response.OkWithMessage("退出成功", c)
+		if data.Power == community.CircleUserPowerMaster {
+			response.FailWithMessage("圈主不能退出", c)
+			return
+		} else {
+			err = appCircleUserService.DeleteCircleUser(data)
+			if err == nil {
+				response.OkWithMessage("退出成功", c)
+				return
+			}
+			response.FailWithMessage("退出失败", c)
 			return
 		}
-		response.FailWithMessage("退出失败", c)
-		return
-		//}
 	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
 		response.FailWithMessage(err.Error(), c)
 		return
@@ -874,7 +874,7 @@ func (circleApi *CircleApi) SetCircleUserPower(c *gin.Context) {
 		return
 	}
 
-	if circleUser.Power == community.CircleUserPowerGeneral {
+	if circleUser.Power == community.CircleUserPowerGeneral || req.Power > circleUser.Power {
 		response.FailWithMessage("没有权限", c)
 		return
 	}
@@ -1363,6 +1363,45 @@ func (circleApi *CircleApi) GetChildCircleList(c *gin.Context) {
 	}
 }
 
+// SetCircleTagSort (圈子管理者)设置圈子标签顺序
+// @Tags 圈子
+// @Summary (圈子管理者)设置圈子标签顺序
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamSetCircleTagSort true "(圈子管理者)设置圈子标签顺序"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
+// @Router /app/circle/setCircleTagSort [post]
+func (circleApi *CircleApi) SetCircleTagSort(c *gin.Context) {
+	var req communityReq.ParamSetCircleTagSort
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	userId := utils.GetUserID(c)
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限设置", c)
+		return
+	}
+
+	if err := appCircleTagService.SetCircleTagSort(req); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("成功", c)
+	}
+}
+
 // AddCircleTag (圈子管理者)添加圈子标签
 // @Tags 圈子
 // @Summary (圈子管理者)添加圈子标签
@@ -1389,7 +1428,7 @@ func (circleApi *CircleApi) AddCircleTag(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power == community.CircleUserPowerGeneral {
 		response.FailWithMessage("没有权限创建", c)
 		return
 	}
@@ -1428,7 +1467,7 @@ func (circleApi *CircleApi) DeleteCircleTags(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power == community.CircleUserPowerGeneral {
 		response.FailWithMessage("没有权限创建", c)
 		return
 	}
@@ -1491,7 +1530,7 @@ func (circleApi *CircleApi) RequestBecomeChildCircle(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power != community.CircleUserPowerMaster {
 		response.FailWithMessage("没有权限创建", c)
 		return
 	}
@@ -1563,7 +1602,7 @@ func (circleApi *CircleApi) ApproveChildCircleRequest(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power != community.CircleUserPowerMaster {
 		response.FailWithMessage("没有权限审批", c)
 		return
 	}
@@ -1618,7 +1657,7 @@ func (circleApi *CircleApi) CreateChildCircle(c *gin.Context) {
 		return
 	}
 
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power != community.CircleUserPowerMaster {
 		response.FailWithMessage("没有权限创建", c)
 		return
 	}
@@ -1680,7 +1719,7 @@ func (circleApi *CircleApi) DeleteChildCircle(c *gin.Context) {
 		return
 	}
 
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power != community.CircleUserPowerMaster {
 		response.FailWithMessage("没有权限删除", c)
 		return
 	}

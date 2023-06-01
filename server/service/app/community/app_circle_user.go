@@ -125,7 +125,7 @@ func (appCircleUserService *AppCircleUserService) GetCircleUserInfoList(selectUs
 
 	db = db.Where("circle_id = ?", info.CircleId)
 
-	if info.Power != nil && *info.Power == community.CircleUserPowerManager {
+	if info.Power != nil && *info.Power == community.CircleUserPowerMaster {
 		db = db.Where("power = ?", info.Power)
 	}
 	if len(info.Keyword) > 0 {

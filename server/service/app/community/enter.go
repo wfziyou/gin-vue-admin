@@ -39,6 +39,7 @@ type ServiceGroup struct {
 	GoldBillService
 	UserBillService
 	UserCoverImageService
+	UserHeaderImageService
 	UserRechargeService
 	HkUserExtractService
 	OrderService

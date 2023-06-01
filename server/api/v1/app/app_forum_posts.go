@@ -207,7 +207,7 @@ func (forumPostsApi *ForumPostsApi) CreateNews(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if circleUser.Power != community.CircleUserPowerManager {
+	if circleUser.Power == community.CircleUserPowerGeneral {
 		response.FailWithMessage("没有权限", c)
 		return
 	}

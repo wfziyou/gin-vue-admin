@@ -2,9 +2,13 @@ package community
 
 import (
 	"errors"
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
+	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"gorm.io/gorm"
+	"strconv"
 )
 
 type AppCircleTagService struct {
@@ -27,6 +31,28 @@ func (appCircleTagService *AppCircleTagService) GetCircleTagList(circleId uint64
 	db := global.GVA_DB.Model(&community.CircleTag{})
 	var hkCircleTags []community.CircleTag
 	db = db.Where("circle_id = ?", circleId)
+	db = db.Order("sort desc")
 	err = db.Find(&hkCircleTags).Error
 	return hkCircleTags, err
+}
+func (appCircleTagService *AppCircleTagService) SetCircleTagSort(info communityReq.ParamSetCircleTagSort) (err error) {
+	if len(info.TagIds) == 0 {
+		return nil
+	}
+	tmp := utils.SplitToUint64List(info.TagIds, ",")
+	sql := "update hk_circle_tag set sort = CASE id"
+	sqlIds := "("
+	size := len(tmp)
+	for index, id := range tmp {
+		sql += fmt.Sprintf(" WHEN %d THEN %d", id, size-index)
+		if index != 0 {
+			sqlIds = sqlIds + "," + strconv.FormatUint(id, 10)
+		} else {
+			sqlIds = sqlIds + strconv.FormatUint(id, 10)
+		}
+	}
+	sqlIds += ")"
+	sql = sql + " END WHERE id IN" + sqlIds
+	err = global.GVA_DB.Exec(sql).Error
+	return err
 }

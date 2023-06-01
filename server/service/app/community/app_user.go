@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	authReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/auth/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
@@ -40,10 +41,19 @@ func (appUserService *AppUserService) Register(user community.User) (userInter c
 		user.Password = utils.BcryptHash(user.Password)
 	}
 	user.Uuid = uuid.NewV4()
+	if len(user.HeaderImg) == 0 {
+		var userHeaderImg []community.UserHeaderImage
+		err := global.GVA_DB.Model(&community.UserHeaderImage{}).Find(&userHeaderImg).Error
+		size := len(userHeaderImg)
+		rand.Seed(time.Now().Unix())
+		if err == nil && size > 0 {
+			user.HeaderImg = userHeaderImg[rand.Intn(size)].HeaderImg
+		}
+	}
 	err = global.GVA_DB.Create(&user).Error
 	if err == nil {
 		var userCovers []community.UserCoverImage
-		err := global.GVA_DB.Model(&community.UserCoverImage{}).Find(&userCovers)
+		err := global.GVA_DB.Model(&community.UserCoverImage{}).Find(&userCovers).Error
 		size := len(userCovers)
 		var coverImage string
 		rand.Seed(time.Now().Unix())
@@ -72,24 +82,19 @@ func (appUserService *AppUserService) Register(user community.User) (userInter c
 //@param: u *model.SysUser
 //@return: err error, userInter *model.SysUser
 
-func (appUserService *AppUserService) Login(u *community.User) (userInter *community.User, err error) {
+func (appUserService *AppUserService) GetUserByPwd(info *authReq.LoginPwd) (userInter *community.User, err error) {
 	if nil == global.GVA_DB {
 		return nil, fmt.Errorf("db not init")
 	}
 
 	var user community.User
-	err = global.GVA_DB.Where("account = ?", u.Account).Preload("Authorities").Preload("Authority").Preload("UserExtend").First(&user).Error
+	err = global.GVA_DB.Where("account = ? or phone = ?", info.Account, info.Account).Preload("Authorities").Preload("Authority").Preload("UserExtend").First(&user).Error
 	if err == nil {
-		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
+		if ok := utils.BcryptCheck(info.Password, user.Password); !ok {
 			return nil, errors.New("密码错误")
 		}
-
-		//if user.UserExtend.CircleId != 0 {
-		//	var hkCircle community.Circle
-		//	if global.GVA_DB.Where("id = ?", user.UserExtend.CircleId).First(&hkCircle).Error == nil {
-		//		user.UserExtend.CircleName = hkCircle.Name
-		//	}
-		//}
+	} else if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = errors.New("用户不存在")
 	}
 	return &user, err
 }

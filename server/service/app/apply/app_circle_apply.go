@@ -53,7 +53,7 @@ func (appCircleApplyService *AppCircleApplyService) DeleteCircleApply(hkCircleAp
 	return err
 }
 func (appCircleApplyService *AppCircleApplyService) DeleteCircleApplyByApplyId(circleId uint64, applyId uint64) (err error) {
-	err = global.GVA_DB.Delete(&[]apply.CircleApply{}, "circle_id = ? AND apply_id", circleId, applyId).Error
+	err = global.GVA_DB.Delete(&[]apply.CircleApply{}, "circle_id = ? AND apply_id = ?", circleId, applyId).Error
 	return err
 }
 
@@ -83,6 +83,12 @@ func (appCircleApplyService *AppCircleApplyService) UpdateCircleApply(info apply
 func (appCircleApplyService *AppCircleApplyService) GetCircleApply(id uint64) (hkCircleApply apply.CircleApply, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkCircleApply).Error
 	return
+}
+func (appCircleApplyService *AppCircleApplyService) GetCircleApplyCountByGroupId(groupId uint64) (count int64, err error) {
+	db := global.GVA_DB.Model(&apply.CircleApply{})
+	db.Where("apply_group_id = ?", groupId)
+	err = db.Count(&count).Error
+	return count, err
 }
 
 // GetCircleApplyInfoList 分页获取CircleApply记录

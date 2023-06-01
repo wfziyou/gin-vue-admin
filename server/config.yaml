@@ -270,3 +270,5 @@ cors:
       allow-credentials: true # 布尔值
 param:
   createCircleCheck: false #创建圈子是否需要审批
+  useSmsCheckCode: false #使用短信验证码
+  defaultSmsCheckCode: 666666 #默认短信验证码

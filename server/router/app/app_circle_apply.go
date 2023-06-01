@@ -27,6 +27,9 @@ func (router *CircleApplyRouter) InitCircleApplyRouter(Router *gin.RouterGroup) 
 		circleApplyRouter.POST("addCircleApply", circleApplyApi.AddCircleApply)                                     //(圈子管理者)添加圈子应用
 		circleApplyRouter.POST("updateCircleApply", circleApplyApi.UpdateCircleApply)                               //(圈子管理者)更新圈子应用
 		circleApplyRouter.DELETE("deleteCircleApply", circleApplyApi.DeleteCircleApply)                             //(圈子管理者)删除圈子应用
+		circleApplyRouter.POST("addCircleApplyGroup", circleApplyApi.AddCircleApplyGroup)                           //(圈子管理者)添加圈子应用分组
+		circleApplyRouter.DELETE("deleteCircleApplyGroup", circleApplyApi.DeleteCircleApplyGroup)                   //(圈子管理者)删除圈子应用分组
+		circleApplyRouter.POST("setCircleApplyGroupSort", circleApplyApi.SetCircleApplyGroupSort)                   //(圈子管理者)设置圈子应用分组顺序
 	}
 	return circleApplyRouter
 }

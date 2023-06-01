@@ -336,7 +336,7 @@ func (generalApi *GeneralApi) UpdateDraft(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.UserCoverImageSearch true "获取用户主页封面列表"
-// @Success 200 {object}  response.PageResult{List=[]community.UserCoverImage,msg=string} "返回common.User"
+// @Success 200 {object}  response.PageResult{List=[]community.UserCoverImage,msg=string} "返回[]community.UserCoverImage"
 // @Router /app/general/getUserCoverImageList [get]
 func (generalApi *GeneralApi) GetUserCoverImageList(c *gin.Context) {
 	var req communityReq.UserCoverImageSearch
@@ -355,5 +355,30 @@ func (generalApi *GeneralApi) GetUserCoverImageList(c *gin.Context) {
 			Page:     req.Page,
 			PageSize: req.PageSize,
 		}, "获取成功", c)
+	}
+}
+
+// GetUserHeaderImageList 获取用户头像列表
+// @Tags 常规方法
+// @Summary 获取用户头像列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.UserHeaderImageSearch true "获取用户头像列表"
+// @Success 200 {object}  response.PageResult{List=[]community.UserHeaderImage,msg=string} "返回[]community.UserHeaderImage"
+// @Router /app/general/getUserHeaderImageList [get]
+func (generalApi *GeneralApi) GetUserHeaderImageList(c *gin.Context) {
+	var req communityReq.UserHeaderImageSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if list, err := hkUserHeaderImageService.GetUserHeaderImageList(req); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(list, "获取成功", c)
 	}
 }

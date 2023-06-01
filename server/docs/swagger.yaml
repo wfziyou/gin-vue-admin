@@ -1610,6 +1610,26 @@ definitions:
         description: 微信
         type: string
     type: object
+  community.UserHeaderImage:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      headerImg:
+        description: 头像
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      status:
+        type: integer
+      type:
+        description: 类型
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
   community.UserInfo:
     properties:
       account:
@@ -1991,6 +2011,12 @@ definitions:
     properties:
       createCircleCheck:
         description: 创建圈子是否需要审批
+        type: boolean
+      defaultSmsCheckCode:
+        description: 默认短信验证码
+        type: string
+      useSmsCheckCode:
+        description: 使用短信验证码
         type: boolean
     type: object
   config.Pgsql:
@@ -3269,6 +3295,45 @@ definitions:
         description: 每页大小
         type: integer
     type: object
+  request.ParamAddCircleApply:
+    properties:
+      applyAddress:
+        description: 访问地址
+        type: string
+      applyGroupId:
+        description: 应用分组_编号
+        type: integer
+      applyParameters:
+        description: 访问参数
+        type: string
+      circleId:
+        description: 圈子_编号
+        type: integer
+      icon:
+        description: 图标
+        type: string
+      miniProgramId:
+        description: 小程序id
+        type: integer
+      name:
+        description: 名称
+        type: string
+      power:
+        description: 权限：0 所有可见 1 圈内成员可见
+        type: integer
+      type:
+        description: 类型(0小程序、1第三方链接)
+        type: integer
+    type: object
+  request.ParamAddCircleApplyGroup:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      name:
+        description: 名称
+        type: string
+    type: object
   request.ParamAddCircleChannel:
     properties:
       circleId:
@@ -3371,6 +3436,15 @@ definitions:
         description: 圈子_编号
         type: integer
     type: object
+  request.ParamDeleteCircleApply:
+    properties:
+      applyId:
+        description: 应用_编号
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+    type: object
   request.ParamDeleteCircleChannel:
     properties:
       circleId:
@@ -3422,6 +3496,16 @@ definitions:
         description: 圈子_编号
         type: integer
     type: object
+  request.ParamSetCircleApplyGroupSort:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      groupIds:
+        description: 分组编号，通过逗号分割
+        example: 1,2
+        type: string
+    type: object
   request.ParamSetCircleChannel:
     properties:
       channelIds:
@@ -3432,12 +3516,52 @@ definitions:
         description: 圈子_编号
         type: integer
     type: object
+  request.ParamSetCircleTagSort:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      tagIds:
+        description: 标签编号，通过逗号分割
+        example: 1,2
+        type: string
+    type: object
   request.ParamSetUserChannel:
     properties:
       channelIds:
         description: 频道编号，通过逗号分割
         example: 1,2
         type: string
+    type: object
+  request.ParamUpdateCircleApply:
+    properties:
+      applyAddress:
+        description: 访问地址
+        type: string
+      applyGroupId:
+        description: 应用分组_编号
+        type: integer
+      applyParameters:
+        description: 访问参数
+        type: string
+      circleId:
+        description: 圈子_编号
+        type: integer
+      icon:
+        description: 图标
+        type: string
+      miniProgramId:
+        description: 小程序id
+        type: integer
+      name:
+        description: 名称
+        type: string
+      power:
+        description: 权限：0 所有可见 1 圈内成员可见
+        type: integer
+      type:
+        description: 类型(0小程序、1第三方链接)
+        type: integer
     type: object
   request.ParamUserExtract:
     properties:
@@ -7001,6 +7125,29 @@ paths:
       summary: (圈子管理者)设置圈子频道
       tags:
       - 圈子
+  /app/circle/setCircleTagSort:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)设置圈子标签顺序
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamSetCircleTagSort'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)设置圈子标签顺序
+      tags:
+      - 圈子
   /app/circle/setCircleUserPower:
     put:
       consumes:
@@ -7121,42 +7268,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 访问地址
-        in: query
-        name: applyAddress
-        type: string
-      - description: 应用分组_编号
-        in: query
-        name: applyGroupId
-        type: integer
-      - description: 访问参数
-        in: query
-        name: applyParameters
-        type: string
-      - description: 圈子_编号
-        in: query
-        name: circleId
-        type: integer
-      - description: 图标
-        in: query
-        name: icon
-        type: string
-      - description: 小程序id
-        in: query
-        name: miniProgramId
-        type: integer
-      - description: 名称
-        in: query
-        name: name
-        type: string
-      - description: 权限：0 所有可见 1 圈内成员可见
-        in: query
-        name: power
-        type: integer
-      - description: 类型(0小程序、1第三方链接)
-        in: query
-        name: type
-        type: integer
+      - description: (圈子管理者)添加圈子应用
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamAddCircleApply'
       produces:
       - application/json
       responses:
@@ -7169,19 +7286,40 @@ paths:
       summary: (圈子管理者)添加圈子应用
       tags:
       - 圈子应用
+  /app/circleApply/addCircleApplyGroup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)添加圈子应用分组
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamAddCircleApplyGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)添加圈子应用分组
+      tags:
+      - 圈子应用
   /app/circleApply/deleteCircleApply:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: 应用_编号
-        in: query
-        name: applyId
-        type: integer
-      - description: 圈子_编号
-        in: query
-        name: circleId
-        type: integer
+      - description: (圈子管理者)删除圈子应用
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamDeleteCircleApply'
       produces:
       - application/json
       responses:
@@ -7192,6 +7330,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: (圈子管理者)删除圈子应用
+      tags:
+      - 圈子应用
+  /app/circleApply/deleteCircleApplyGroup:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)删除圈子应用分组
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdDelete'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)删除圈子应用分组
       tags:
       - 圈子应用
   /app/circleApply/findApply:
@@ -7536,47 +7697,40 @@ paths:
       summary: 获取圈子热门应用列表
       tags:
       - 圈子应用
+  /app/circleApply/setCircleApplyGroupSort:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)设置圈子应用分组顺序
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamSetCircleApplyGroupSort'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)设置圈子应用分组顺序
+      tags:
+      - 圈子应用
   /app/circleApply/updateCircleApply:
     post:
       consumes:
       - application/json
       parameters:
-      - description: 访问地址
-        in: query
-        name: applyAddress
-        type: string
-      - description: 应用分组_编号
-        in: query
-        name: applyGroupId
-        type: integer
-      - description: 访问参数
-        in: query
-        name: applyParameters
-        type: string
-      - description: 圈子_编号
-        in: query
-        name: circleId
-        type: integer
-      - description: 图标
-        in: query
-        name: icon
-        type: string
-      - description: 小程序id
-        in: query
-        name: miniProgramId
-        type: integer
-      - description: 名称
-        in: query
-        name: name
-        type: string
-      - description: 权限：0 所有可见 1 圈内成员可见
-        in: query
-        name: power
-        type: integer
-      - description: 类型(0小程序、1第三方链接)
-        in: query
-        name: type
-        type: integer
+      - description: (圈子管理者)更新圈子应用
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamUpdateCircleApply'
       produces:
       - application/json
       responses:
@@ -9029,7 +9183,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回common.User
+          description: 返回[]community.UserCoverImage
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
@@ -9044,6 +9198,36 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 获取用户主页封面列表
+      tags:
+      - 常规方法
+  /app/general/getUserHeaderImageList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 类型
+        in: query
+        name: type
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回[]community.UserHeaderImage
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.UserHeaderImage'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户头像列表
       tags:
       - 常规方法
   /app/general/updateDraft:

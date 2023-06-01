@@ -77,13 +77,12 @@ func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 	var oc bool = openCaptcha == 0 || openCaptcha < utils.InterfaceToInt(v)
 
 	if !oc {
-		u := &community.User{Account: req.Account, Password: req.Password}
-		user, err := appUserService.Login(u)
+		user, err := appUserService.GetUserByPwd(&req)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
 			// 验证码次数+1
 			global.BlackCache.Increment(key, 1)
-			response.FailWithMessage("用户名不存在或者密码错误", c)
+			response.FailWithMessage(err.Error(), c)
 			return
 		}
 		if user.Status != 0 {
@@ -96,11 +95,10 @@ func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 		TokenNext(c, user, req.Platform)
 		return
 	} else if openCaptcha == 0 {
-		u := &community.User{Account: req.Account, Password: req.Password}
-		user, err := appUserService.Login(u)
+		user, err := appUserService.GetUserByPwd(&req)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
-			response.FailWithMessage("用户名不存在或者密码错误", c)
+			response.FailWithMessage(err.Error(), c)
 			return
 		}
 		if user.Status != 0 {
@@ -130,15 +128,18 @@ func (authApi *AuthApi) LoginTelephone(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	key := fmt.Sprintf("%d-%s", utils.VerificationLogin, req.Telephone)
-	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
-		response.FailWithMessage("验证码失效", c)
-		return
-	} else if err != nil {
-		global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
-		response.FailWithMessage("获取验证码失败", c)
-		return
-	} else {
+
+	if global.GVA_CONFIG.Param.UseSmsCheckCode == true {
+		key := fmt.Sprintf("%d-%s", utils.VerificationLogin, req.Telephone)
+		cacheCaptcha, err := cacheSmsService.GetCacheSms(key)
+		if err == redis.Nil {
+			response.FailWithMessage("验证码失效", c)
+			return
+		} else if err != nil {
+			global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
+			response.FailWithMessage("获取验证码失败", c)
+			return
+		}
 		if cacheCaptcha.Overtime.Before(time.Now()) {
 			response.FailWithMessage("验证码失效", c)
 			return
@@ -146,34 +147,42 @@ func (authApi *AuthApi) LoginTelephone(c *gin.Context) {
 		if cacheCaptcha.Code != req.Captcha {
 			response.FailWithMessage("验证码错误", c)
 			return
-		} else if user, err := appUserService.GetUserByPhone(req.Telephone); err != nil {
-			response.FailWithMessage(err.Error(), c)
-			return
-		} else if user == nil {
-			userInfo := &community.User{Phone: req.Telephone}
-			userObj, err := appUserService.Register(*userInfo)
-			if err != nil {
-				global.GVA_LOG.Error("注册失败!", zap.Error(err))
-				response.FailWithMessage(err.Error(), c)
-				return
-			}
-			user = &userObj
-			err = ImRegiser(user, req.Platform)
-			if err != nil {
-				response.FailWithMessage(err.Error(), c)
-				return
-			}
-			TokenNext(c, user, req.Platform)
-			return
-		} else {
-			if user.Status != 0 {
-				global.GVA_LOG.Error("登陆失败! 用户被禁止登录!")
-				response.FailWithMessage("用户被禁止登录", c)
-				return
-			}
-			TokenNext(c, user, req.Platform)
+		}
+	} else {
+		if global.GVA_CONFIG.Param.DefaultSmsCheckCode != req.Captcha {
+			response.FailWithMessage("验证码错误", c)
 			return
 		}
+	}
+
+	user, err := appUserService.GetUserByPhone(req.Telephone)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if user == nil {
+		userInfo := &community.User{Phone: req.Telephone}
+		userObj, err := appUserService.Register(*userInfo)
+		if err != nil {
+			global.GVA_LOG.Error("注册失败!", zap.Error(err))
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		user = &userObj
+		err = ImRegiser(user, req.Platform)
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		TokenNext(c, user, req.Platform)
+		return
+	} else {
+		if user.Status != 0 {
+			global.GVA_LOG.Error("登陆失败! 用户被禁止登录!")
+			response.FailWithMessage("用户被禁止登录", c)
+			return
+		}
+		TokenNext(c, user, req.Platform)
+		return
 	}
 }
 
@@ -635,13 +644,12 @@ func (authApi *AuthApi) LoginPwdTest(c *gin.Context) {
 	var oc bool = openCaptcha == 0 || openCaptcha < utils.InterfaceToInt(v)
 
 	if !oc {
-		u := &community.User{Account: req.Account, Password: req.Password}
-		user, err := appUserService.Login(u)
+		user, err := appUserService.GetUserByPwd(&req)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
 			// 验证码次数+1
 			global.BlackCache.Increment(key, 1)
-			response.FailWithMessage("用户名不存在或者密码错误", c)
+			response.FailWithMessage(err.Error(), c)
 			return
 		}
 		if user.Status != 0 {
@@ -654,11 +662,10 @@ func (authApi *AuthApi) LoginPwdTest(c *gin.Context) {
 		TokenNextTest(c, user, req.Platform)
 		return
 	} else if openCaptcha == 0 {
-		u := &community.User{Account: req.Account, Password: req.Password}
-		user, err := appUserService.Login(u)
+		user, err := appUserService.GetUserByPwd(&req)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
-			response.FailWithMessage("用户名不存在或者密码错误", c)
+			response.FailWithMessage(err.Error(), c)
 			return
 		}
 		if user.Status != 0 {

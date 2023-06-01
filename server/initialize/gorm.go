@@ -94,6 +94,8 @@ func RegisterTables() {
 		community.Help{},
 		community.Feedback{},
 		community.CircleRelationRequest{},
+		community.UserHeaderImage{},
+		community.UserCoverImage{},
 
 		apply.Apply{},
 		apply.CircleApply{},

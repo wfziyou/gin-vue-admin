@@ -122,10 +122,49 @@ CREATE TABLE `hk_user_cover_image`  (
   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',  
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_hk_user_extend_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户主页封面' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户主页封面' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of hk_user_cover_image
+-- ----------------------------
+INSERT INTO `hk_user_cover_image` VALUES (1, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230509/d83ddab0eaeab0ecccda2f4f8cee1421.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_cover_image` VALUES (2, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/52f7bf7fb12ea2fa12a7ea7015eb3fe3.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_cover_image` VALUES (3, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/583813a9b9c54bd7b8de1f5e308b869f.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_cover_image` VALUES (4, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/37518339a95d26159d8c8d17c4540030.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_cover_image` VALUES (5, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/2e1d769d8f483c08d57ea5dad21ab847.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
+
+-- ----------------------------
+-- Table structure for hk_user_header_image
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_user_header_image`;
+CREATE TABLE `hk_user_header_image`  (
+  `id` bigint(20) UNSIGNED NOT NULL COMMENT '用户ID',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `header_img` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
+  `type` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '类型',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_hk_user_extend_deleted_at`(`deleted_at`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户主页封面' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of hk_user_header_image
+-- ----------------------------
+INSERT INTO `hk_user_header_image` VALUES (1, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230509/d83ddab0eaeab0ecccda2f4f8cee1421.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_header_image` VALUES (2, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/52f7bf7fb12ea2fa12a7ea7015eb3fe3.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_header_image` VALUES (3, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/583813a9b9c54bd7b8de1f5e308b869f.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_header_image` VALUES (4, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/37518339a95d26159d8c8d17c4540030.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_user_header_image` VALUES (5, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/upload/20230510/2e1d769d8f483c08d57ea5dad21ab847.jpg', 0, '2023-05-10 15:47:57.000', '2023-05-10 15:47:57.000', NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_user_address

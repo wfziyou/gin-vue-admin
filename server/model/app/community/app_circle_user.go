@@ -5,12 +5,14 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
-//权限：0普通 1圈主
+//权限：0普通 1管理 2圈主
 const (
 	//CircleUserPowerGeneral 0普通
 	CircleUserPowerGeneral = 0
-	//CircleUserPowerManager 1圈主
+	//CircleUserPowerManager 1管理
 	CircleUserPowerManager = 1
+	//CircleUserPowerMaster 2圈主
+	CircleUserPowerMaster = 2
 )
 
 // CircleUser 结构体
