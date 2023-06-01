@@ -3,6 +3,7 @@ package community
 import (
 	"errors"
 	"fmt"
+	"github.com/DanPlayer/randomname"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	authReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/auth/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
@@ -50,6 +51,9 @@ func (appUserService *AppUserService) Register(user community.User) (userInter c
 			user.HeaderImg = userHeaderImg[rand.Intn(size)].HeaderImg
 		}
 	}
+	if len(user.NickName) == 0 {
+		user.NickName = randomname.GenerateName()
+	}
 	err = global.GVA_DB.Create(&user).Error
 	if err == nil {
 		var userCovers []community.UserCoverImage
@@ -66,7 +70,7 @@ func (appUserService *AppUserService) Register(user community.User) (userInter c
 			}
 		}
 		if len(user.Account) == 0 {
-			var account = "id_" + strconv.FormatInt(int64(rand.Intn(0xffff)), 36) + strconv.FormatUint(user.ID, 36)
+			var account = "id_" + strconv.FormatInt(int64(rand.Intn(100000)+900000), 36) + strconv.FormatUint(user.ID, 36) + strconv.FormatInt(int64(rand.Intn(36)), 36)
 			if err := appUserService.UpdateUserAccount(user.ID, account); err == nil {
 				user.Account = account
 			}
