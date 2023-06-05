@@ -2,6 +2,7 @@ package system
 
 import (
 	"context"
+	"strconv"
 
 	"go.uber.org/zap"
 
@@ -47,8 +48,8 @@ func (jwtService *JwtService) IsBlacklist(jwt string) bool {
 //@param: userName string
 //@return: redisJWT string, err error
 
-func (jwtService *JwtService) GetRedisJWT(userName string) (redisJWT string, err error) {
-	redisJWT, err = global.GVA_REDIS.Get(context.Background(), userName).Result()
+func (jwtService *JwtService) GetRedisJWT(userId uint64) (redisJWT string, err error) {
+	redisJWT, err = global.GVA_REDIS.Get(context.Background(), strconv.FormatUint(userId, 10)).Result()
 	return redisJWT, err
 }
 
@@ -58,14 +59,14 @@ func (jwtService *JwtService) GetRedisJWT(userName string) (redisJWT string, err
 //@param: jwt string, userName string
 //@return: err error
 
-func (jwtService *JwtService) SetRedisJWT(jwt string, userName string) (err error) {
+func (jwtService *JwtService) SetRedisJWT(jwt string, userId uint64) (err error) {
 	// 此处过期时间等于jwt过期时间
 	dr, err := utils.ParseDuration(global.GVA_CONFIG.JWT.ExpiresTime)
 	if err != nil {
 		return err
 	}
 	timer := dr
-	err = global.GVA_REDIS.Set(context.Background(), userName, jwt, timer).Err()
+	err = global.GVA_REDIS.Set(context.Background(), strconv.FormatUint(userId, 10), jwt, timer).Err()
 	return err
 }
 

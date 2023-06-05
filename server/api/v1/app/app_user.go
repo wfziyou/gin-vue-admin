@@ -8,11 +8,14 @@ import (
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	imReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open/model/request"
+	openImService "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
+	"strconv"
 	"time"
 )
 
@@ -53,7 +56,7 @@ func (userApi *UserApi) BindTelephone(c *gin.Context) {
 		if cacheCaptcha.Code != req.Captcha {
 			response.FailWithMessage("验证码错误", c)
 			return
-		} else if _, err := appUserService.GetUserByPhone(req.Telephone); err == nil {
+		} else if user, err := appUserService.GetUserByPhone(req.Telephone); err == nil {
 			response.FailWithMessage("电话号码被使用", c)
 			return
 		} else if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -63,6 +66,22 @@ func (userApi *UserApi) BindTelephone(c *gin.Context) {
 				global.GVA_LOG.Error("绑定电话失败!", zap.Error(err))
 				response.FailWithMessage("绑定电话失败", c)
 				return
+			} else {
+				var updateReq imReq.UpdateSelfUserInfoReq
+				updateReq.UserID = strconv.FormatUint(user.ID, 10)
+				updateReq.Nickname = user.NickName
+				updateReq.FaceURL = user.HeaderImg
+				updateReq.Gender = user.Sex
+				updateReq.PhoneNumber = req.Telephone
+				updateReq.BirthStr = user.Birthday
+				updateReq.Email = user.Email
+				updateReq.CreateTime = user.CreatedAt.Unix()
+				//need to do 更新失败，需要单独处理
+				if rsp, err := openImService.ServiceGroupApp.UpdateUserInfo(updateReq); err != nil {
+					global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
+				} else if rsp.Code != 0 {
+					global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
+				}
 			}
 			response.OkWithMessage("成功", c)
 			return
@@ -104,7 +123,7 @@ func (userApi *UserApi) BindEmail(c *gin.Context) {
 		if cacheCaptcha.Code != req.Captcha {
 			response.FailWithMessage("验证码错误", c)
 			return
-		} else if _, err := appUserService.GetUserByEmail(req.Email); err == nil {
+		} else if user, err := appUserService.GetUserByEmail(req.Email); err == nil {
 			response.FailWithMessage("电话号码被使用", c)
 			return
 		} else if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -114,6 +133,22 @@ func (userApi *UserApi) BindEmail(c *gin.Context) {
 				global.GVA_LOG.Error("绑定电话失败!", zap.Error(err))
 				response.FailWithMessage("绑定电话失败", c)
 				return
+			} else {
+				var updateReq imReq.UpdateSelfUserInfoReq
+				updateReq.UserID = strconv.FormatUint(user.ID, 10)
+				updateReq.Nickname = user.NickName
+				updateReq.FaceURL = user.HeaderImg
+				updateReq.Gender = user.Sex
+				updateReq.PhoneNumber = user.Phone
+				updateReq.BirthStr = user.Birthday
+				updateReq.Email = req.Email
+				updateReq.CreateTime = user.CreatedAt.Unix()
+				//need to do 更新失败，需要单独处理
+				if rsp, err := openImService.ServiceGroupApp.UpdateUserInfo(updateReq); err != nil {
+					global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
+				} else if rsp.Code != 0 {
+					global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
+				}
 			}
 			response.OkWithMessage("成功", c)
 			return
@@ -205,12 +240,28 @@ func (userApi *UserApi) SetSelfBaseInfo(c *gin.Context) {
 		return
 	}
 	userId := utils.GetUserID(c)
-	err = appUserService.SetSelfBaseInfo(userId, req)
+	user, err := appUserService.SetSelfBaseInfo(userId, req)
 
 	if err != nil {
 		global.GVA_LOG.Error("设置失败!", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
 		return
+	} else {
+		var req imReq.UpdateSelfUserInfoReq
+		req.UserID = strconv.FormatUint(user.ID, 10)
+		req.Nickname = user.NickName
+		req.FaceURL = user.HeaderImg
+		req.Gender = user.Sex
+		req.PhoneNumber = user.Phone
+		req.BirthStr = user.Birthday
+		req.Email = user.Email
+		req.CreateTime = user.CreatedAt.Unix()
+		//need to do 更新失败，需要单独处理
+		if rsp, err := openImService.ServiceGroupApp.UpdateUserInfo(req); err != nil {
+			global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
+		} else if rsp.Code != 0 {
+			global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
+		}
 	}
 	response.OkWithMessage("设置成功", c)
 }

@@ -1200,45 +1200,89 @@ CREATE TABLE `hk_forbidden_speak`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_help_type`;
 CREATE TABLE `hk_help_type`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
-   `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '帮助类型';
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
+  `sort` smallint(6) NULL DEFAULT NULL COMMENT '排序',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_hk_help_type_created_at`(`created_at`) USING BTREE,
+  INDEX `idx_hk_help_type_updated_at`(`updated_at`) USING BTREE,
+  INDEX `idx_hk_help_type_deleted_at`(`deleted_at`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '帮助类型' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of hk_help_type
+-- ----------------------------
+INSERT INTO `hk_help_type` VALUES (1, '000000', '类型1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help_type` VALUES (2, '000000', '类型2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help_type` VALUES (3, '000000', '类型3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help_type` VALUES (4, '000000', '类型4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help_type` VALUES (5, '000000', '类型5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_help
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_help`;
 CREATE TABLE `hk_help`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题',
-   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '内容',
-   `type_id` bigint(20) NOT NULL COMMENT '类型编号',
-   `good_num` int(11) NULL DEFAULT 0 COMMENT '好评数',
-   `bad_num` int(11) NULL DEFAULT 0 COMMENT '差评数',
-   `top` int(11) NULL DEFAULT 0 COMMENT '是否置顶：0不 1是',
-   `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '帮助';
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '内容',
+  `type_id` bigint(20) NOT NULL COMMENT '类型编号',
+  `good_num` smallint(6) NULL DEFAULT NULL COMMENT '好评数',
+  `bad_num` smallint(6) NULL DEFAULT NULL COMMENT '差评数',
+  `top` smallint(6) NULL DEFAULT NULL COMMENT '是否置顶：0不 1是',
+  `sort` smallint(6) NULL DEFAULT NULL COMMENT '排序',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_hk_help_updated_at`(`updated_at`) USING BTREE,
+  INDEX `idx_hk_help_deleted_at`(`deleted_at`) USING BTREE,
+  INDEX `idx_hk_help_created_at`(`created_at`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '帮助' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of hk_help
+-- ----------------------------
+INSERT INTO `hk_help` VALUES (1, '000000', '帮助标题', '帮助内容', 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (2, '000000', '帮助标题', '帮助内容', 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (3, '000000', '帮助标题', '帮助内容', 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (4, '000000', '帮助标题', '帮助内容', 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (5, '000000', '帮助标题', '帮助内容', 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (6, '000000', '帮助标题', '帮助内容', 2, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (7, '000000', '帮助标题', '帮助内容', 2, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (8, '000000', '帮助标题', '帮助内容', 2, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (9, '000000', '帮助标题', '帮助内容', 2, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (10, '000000', '帮助标题', '帮助内容', 2, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (11, '000000', '帮助标题', '帮助内容', 3, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (12, '000000', '帮助标题', '帮助内容', 3, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (13, '000000', '帮助标题', '帮助内容', 3, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (14, '000000', '帮助标题', '帮助内容', 3, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (15, '000000', '帮助标题', '帮助内容', 3, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (16, '000000', '帮助标题', '帮助内容', 4, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (17, '000000', '帮助标题', '帮助内容', 4, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (18, '000000', '帮助标题', '帮助内容', 4, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (19, '000000', '帮助标题', '帮助内容', 4, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (20, '000000', '帮助标题', '帮助内容', 4, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (21, '000000', '帮助标题', '帮助内容', 5, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (22, '000000', '帮助标题', '帮助内容', 5, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (23, '000000', '帮助标题', '帮助内容', 5, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (24, '000000', '帮助标题', '帮助内容', 5, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `hk_help` VALUES (25, '000000', '帮助标题', '帮助内容', 5, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for hk_help_thumbs_up
@@ -1247,8 +1291,7 @@ DROP TABLE IF EXISTS `hk_help_thumbs_up`;
 CREATE TABLE `hk_help_thumbs_up`  (
    `user_id` bigint(20) NOT NULL COMMENT'用户id',
    `help_id` bigint(20) NOT NULL COMMENT '帮助编号',
-   `good` int(11) NULL DEFAULT 0 COMMENT '是否好评：0否 1是',
-   `bad` int(11) NULL DEFAULT 0 COMMENT '是否差评：0否 1是',
+   `thumbs_up` int(11) NULL DEFAULT 0 COMMENT '是否好评：0未点赞 1有用 2无用',
    PRIMARY KEY (`user_id`, `help_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '帮助点赞' ROW_FORMAT = Dynamic;
 

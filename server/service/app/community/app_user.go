@@ -79,14 +79,7 @@ func (appUserService *AppUserService) Register(user community.User) (userInter c
 	return user, err
 }
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@author: [SliverHorn](https://github.com/SliverHorn)
-//@function: Login
-//@description: 用户登录
-//@param: u *model.SysUser
-//@return: err error, userInter *model.SysUser
-
-func (appUserService *AppUserService) GetUserByPwd(info *authReq.LoginPwd) (userInter *community.User, err error) {
+func (appUserService *AppUserService) LoadUserByPwd(info *authReq.LoginPwd) (userInter *community.User, err error) {
 	if nil == global.GVA_DB {
 		return nil, fmt.Errorf("db not init")
 	}
@@ -102,13 +95,28 @@ func (appUserService *AppUserService) GetUserByPwd(info *authReq.LoginPwd) (user
 	}
 	return &user, err
 }
-func (appUserService *AppUserService) GetUserByPhone(phone string) (userInter *community.User, err error) {
+func (appUserService *AppUserService) LoadUserByPhone(phone string) (userInter *community.User, err error) {
 	if nil == global.GVA_DB {
 		return nil, fmt.Errorf("db not init")
 	}
 	var user *community.User
 	var users []community.User
 	err = global.GVA_DB.Where("phone = ?", phone).Preload("Authorities").Preload("Authority").Preload("UserExtend").Find(&users).Error
+	if err != nil {
+		return nil, errors.New("数据库错误")
+	}
+	if len(users) > 0 {
+		user = &users[0]
+	}
+	return user, err
+}
+func (appUserService *AppUserService) GetUserByPhone(phone string) (userInter *community.User, err error) {
+	if nil == global.GVA_DB {
+		return nil, fmt.Errorf("db not init")
+	}
+	var user *community.User
+	var users []community.User
+	err = global.GVA_DB.Where("phone = ?", phone).Find(&users).Error
 	if err != nil {
 		return nil, errors.New("数据库错误")
 	}
@@ -293,7 +301,7 @@ func (appUserService *AppUserService) UpdateUser(hkUser community.User) (err err
 	return err
 }
 
-func (appUserService *AppUserService) SetSelfBaseInfo(userId uint64, req communityReq.SetSelfBaseInfoReq) (err error) {
+func (appUserService *AppUserService) SetSelfBaseInfo(userId uint64, req communityReq.SetSelfBaseInfoReq) (user community.User, err error) {
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
 	if len(req.NickName) > 0 {
@@ -315,13 +323,22 @@ func (appUserService *AppUserService) SetSelfBaseInfo(userId uint64, req communi
 
 	db := global.GVA_DB.Model(&community.User{})
 	err = db.Where("id = ?", userId).Updates(updateData).Error
-	return err
+	if err == nil {
+		var userInfo community.User
+		err = global.GVA_DB.Where("id = ?", userId).First(&userInfo).Error
+		return userInfo, err
+	}
+	return user, err
 }
 
 // GetUser 根据id获取User记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appUserService *AppUserService) GetUser(id uint64) (hkUser community.User, err error) {
 	err = global.GVA_DB.Where("id = ?", id).Preload("UserExtend").First(&hkUser).Error
+	return
+}
+func (appUserService *AppUserService) GetUserBaseInfo(id uint64) (hkUser community.User, err error) {
+	err = global.GVA_DB.Where("id = ?", id).First(&hkUser).Error
 	return
 }
 func (appUserService *AppUserService) GetUserInfo(selectUserId uint64, id uint64) (userInfo community.UserInfo, err error) {

@@ -36,6 +36,14 @@ func RunWindowsServer() {
 	time.Sleep(10 * time.Microsecond)
 	global.GVA_LOG.Info("server run success on ", zap.String("address", address))
 
+	//j := &utils.JWT{SigningKey: []byte(global.GVA_CONFIG.JWT.SigningKey)} // 唯一签名
+	//token, err1 := j.CreateToken(j.CreateClaims(systemReq.BaseClaims{
+	//	ID:          111,
+	//	AuthorityId: 111,
+	//	Platform:    "111",
+	//}))
+	//obj, err2 := j.ParseToken(token)
+	//fmt.Printf("%s %s %s", err1, err2, obj.Platform)
 	fmt.Printf(`
 	欢迎使用 gin-vue-admin
 	当前版本:v2.5.5

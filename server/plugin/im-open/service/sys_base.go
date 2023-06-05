@@ -54,6 +54,16 @@ func (e *OpenImService) UserRegister(req imReq.RegisterReq) (result *response.Us
 	err = client.Post("/auth/user_register", req, result)
 	return
 }
+func (e *OpenImService) UpdateUserInfo(req imReq.UpdateSelfUserInfoReq) (result *response.UpdateUserInfoResp, err error) {
+	client, err := CreateClient(tea.String(global.GlobalConfig.Url), tea.String(global.GlobalConfig.AppKey), tea.String(global.GlobalConfig.AppSecret))
+	if err != nil {
+		return
+	}
+	req.OperationID = global.GlobalConfig.AppKey
+	result = &response.UpdateUserInfoResp{}
+	err = client.Post("/user/update_user_info", req, result)
+	return
+}
 
 func (e *OpenImService) GetUserInfo(req imReq.GetUserInfoReq) (result *response.GetSelfUserInfoResp, err error) {
 	client, err := CreateClient(tea.String(global.GlobalConfig.Url), tea.String(global.GlobalConfig.AppKey), tea.String(global.GlobalConfig.AppSecret))

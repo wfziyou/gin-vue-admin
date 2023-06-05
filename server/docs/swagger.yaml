@@ -679,6 +679,9 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      phone:
+        description: 手机
+        type: string
       process:
         description: 处理描述
         type: string
@@ -1180,7 +1183,28 @@ definitions:
         description: 用户编号
         type: integer
     type: object
-  community.Help:
+  community.HelpBaseInfo:
+    properties:
+      badNum:
+        description: 差评数
+        type: integer
+      goodNum:
+        description: 好评数
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+      title:
+        description: 标题
+        type: string
+      typeId:
+        description: 类型编号
+        type: integer
+    type: object
+  community.HelpInfo:
     properties:
       badNum:
         description: 差评数
@@ -1196,6 +1220,9 @@ definitions:
         type: integer
       sort:
         description: 排序
+        type: integer
+      thumbsUp:
+        description: 是否好评：0未点赞 1有用 2无用
         type: integer
       title:
         description: 标题
@@ -1218,6 +1245,19 @@ definitions:
       sort:
         description: 排序
         type: integer
+    type: object
+  community.MainHelp:
+    properties:
+      help:
+        description: 帮助
+        items:
+          $ref: '#/definitions/community.HelpBaseInfo'
+        type: array
+      helpType:
+        description: 帮助类型
+        items:
+          $ref: '#/definitions/community.HelpType'
+        type: array
     type: object
   community.PayTypeInfo:
     properties:
@@ -2915,6 +2955,18 @@ definitions:
         description: 圈子标语
         type: string
     type: object
+  request.CreateFeedbackReq:
+    properties:
+      attachment:
+        description: 附件
+        type: string
+      des:
+        description: 描述
+        type: string
+      phone:
+        description: 手机
+        type: string
+    type: object
   request.CreateForumComment:
     properties:
       commentContent:
@@ -3148,22 +3200,13 @@ definitions:
         description: 主键ID
         type: integer
     type: object
-  request.HelpThumbsUpBadReq:
+  request.HelpThumbsUpReq:
     properties:
-      bad:
-        description: 是否好评：0否 1是
-        type: integer
       helpId:
         description: 帮助编号
         type: integer
-    type: object
-  request.HelpThumbsUpGoodReq:
-    properties:
-      good:
-        description: 是否好评：0否 1是
-        type: integer
-      helpId:
-        description: 帮助编号
+      thumbsUp:
+        description: 是否好评：0未点赞 1有用 2无用
         type: integer
     type: object
   request.IdDelete:
@@ -3460,10 +3503,9 @@ definitions:
       circleId:
         description: 圈子_编号
         type: integer
-      names:
-        description: 标签名称
+      ids:
         items:
-          type: string
+          type: integer
         type: array
     type: object
   request.ParamDestroyCircle:
@@ -9263,7 +9305,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/community.Feedback'
+          $ref: '#/definitions/request.CreateFeedbackReq'
       produces:
       - application/json
       responses:
@@ -9363,13 +9405,13 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回community.Help
+          description: 返回community.HelpInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/community.Help'
+                  $ref: '#/definitions/community.HelpInfo'
                 msg:
                   type: string
               type: object
@@ -9441,14 +9483,14 @@ paths:
       - application/json
       responses:
         "200":
-          description: 返回[]community.Help
+          description: 返回[]community.HelpBaseInfo
           schema:
             allOf:
             - $ref: '#/definitions/response.PageResult'
             - properties:
                 List:
                   items:
-                    $ref: '#/definitions/community.Help'
+                    $ref: '#/definitions/community.HelpBaseInfo'
                   type: array
                 msg:
                   type: string
@@ -9487,36 +9529,17 @@ paths:
     get:
       consumes:
       - application/json
-      parameters:
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - description: 类型编号
-        in: query
-        name: typeId
-        type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: 返回[]community.Help
+          description: 返回community.MainHelp
           schema:
             allOf:
-            - $ref: '#/definitions/response.PageResult'
+            - $ref: '#/definitions/response.Response'
             - properties:
-                List:
-                  items:
-                    $ref: '#/definitions/community.Help'
-                  type: array
+                data:
+                  $ref: '#/definitions/community.MainHelp'
                 msg:
                   type: string
               type: object
@@ -9525,17 +9548,17 @@ paths:
       summary: 获取主页帮助列表
       tags:
       - 反馈中心
-  /app/helpCenter/helpThumbsUpBad:
+  /app/helpCenter/helpThumbsUp:
     post:
       consumes:
       - application/json
       parameters:
-      - description: 帮助点赞（差评）
+      - description: 帮助点赞
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.HelpThumbsUpBadReq'
+          $ref: '#/definitions/request.HelpThumbsUpReq'
       produces:
       - application/json
       responses:
@@ -9545,30 +9568,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: 帮助点赞（差评）
-      tags:
-      - 反馈中心
-  /app/helpCenter/helpThumbsUpGood:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 帮助点赞（好评）
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.HelpThumbsUpGoodReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 帮助点赞（好评）
+      summary: 帮助点赞
       tags:
       - 反馈中心
   /app/helpCenter/updateFeedback:

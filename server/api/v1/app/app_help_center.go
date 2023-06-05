@@ -39,7 +39,7 @@ func (api *HelpCenterApi) GetHelpTypeList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query communityReq.HelpSearch true "获取帮助列表"
-// @Success 200 {object}  response.PageResult{List=[]community.Help,msg=string} "返回[]community.Help"
+// @Success 200 {object}  response.PageResult{List=[]community.HelpBaseInfo,msg=string} "返回[]community.HelpBaseInfo"
 // @Router /app/helpCenter/getHelpList [get]
 func (api *HelpCenterApi) GetHelpList(c *gin.Context) {
 	var pageInfo communityReq.HelpSearch
@@ -67,8 +67,7 @@ func (api *HelpCenterApi) GetHelpList(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data query communityReq.HelpSearch true "获取主页帮助列表"
-// @Success 200 {object}  response.PageResult{List=[]community.Help,msg=string} "返回[]community.Help"
+// @Success  200   {object}  response.Response{data=community.MainHelp,msg=string}  "返回community.MainHelp"
 // @Router /app/helpCenter/getMainHelpList [get]
 func (api *HelpCenterApi) GetMainHelpList(c *gin.Context) {
 	if obj, err := hkHelpService.GetMainHelpList(); err != nil {
@@ -86,7 +85,7 @@ func (api *HelpCenterApi) GetMainHelpList(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query request.IdSearch true "用id查询帮助"
-// @Success 200 {object} response.Response{data=community.Help,msg=string}  "返回community.Help"
+// @Success 200 {object} response.Response{data=community.HelpInfo,msg=string}  "返回community.HelpInfo"
 // @Router /app/helpCenter/findHelp [get]
 func (api *HelpCenterApi) FindHelp(c *gin.Context) {
 	var req request.IdSearch
@@ -95,57 +94,38 @@ func (api *HelpCenterApi) FindHelp(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if help, err := hkHelpService.GetHelp(req.ID); err != nil {
+	if help, err := hkHelpService.GetHelpInfo(req.ID); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
+		userId := utils.GetUserID(c)
+		if list, err := hkHelpService.GetHelpThumbsUpList(userId, req.ID); err == nil {
+			if len(list) > 0 {
+				help.ThumbsUp = list[0].ThumbsUp
+			}
+		}
 		response.OkWithDetailed(help, "成功", c)
 	}
 }
 
-// HelpThumbsUpGood 帮助点赞（好评）
+// HelpThumbsUp 帮助点赞
 // @Tags 反馈中心
-// @Summary 帮助点赞（好评）
+// @Summary 帮助点赞
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.HelpThumbsUpGoodReq true "帮助点赞（好评）"
+// @Param data body communityReq.HelpThumbsUpReq true "帮助点赞"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /app/helpCenter/helpThumbsUpGood [post]
-func (api *HelpCenterApi) HelpThumbsUpGood(c *gin.Context) {
-	var req communityReq.HelpThumbsUpGoodReq
+// @Router /app/helpCenter/helpThumbsUp [post]
+func (api *HelpCenterApi) HelpThumbsUp(c *gin.Context) {
+	var req communityReq.HelpThumbsUpReq
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	userId := utils.GetUserID(c)
-	if err := hkHelpService.SetHelpThumbsUpGood(userId, req); err != nil {
-		global.GVA_LOG.Error("点赞失败!", zap.Error(err))
-		response.FailWithMessage("点赞失败", c)
-	} else {
-		response.OkWithMessage("成功", c)
-	}
-}
-
-// HelpThumbsUpBad 帮助点赞（差评）
-// @Tags 反馈中心
-// @Summary 帮助点赞（差评）
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body communityReq.HelpThumbsUpBadReq true "帮助点赞（差评）"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /app/helpCenter/helpThumbsUpBad [post]
-func (api *HelpCenterApi) HelpThumbsUpBad(c *gin.Context) {
-	var req communityReq.HelpThumbsUpBadReq
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	userId := utils.GetUserID(c)
-	if err := hkHelpService.SetHelpThumbsUpBad(userId, req); err != nil {
+	if err := hkHelpService.SetHelpThumbsUp(userId, req); err != nil {
 		global.GVA_LOG.Error("点赞失败!", zap.Error(err))
 		response.FailWithMessage("点赞失败", c)
 	} else {
@@ -159,7 +139,7 @@ func (api *HelpCenterApi) HelpThumbsUpBad(c *gin.Context) {
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body community.Feedback true "创建反馈"
+// @Param data body communityReq.CreateFeedbackReq true "创建反馈"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /app/helpCenter/createFeedback [post]
 func (api *HelpCenterApi) CreateFeedback(c *gin.Context) {
@@ -170,7 +150,7 @@ func (api *HelpCenterApi) CreateFeedback(c *gin.Context) {
 		return
 	}
 	userId := utils.GetUserID(c)
-	if err := hkFeedbackService.CreateFeedback(userId, req.Des, req.Attachment); err != nil {
+	if err := hkFeedbackService.CreateFeedback(userId, req.Des, req.Attachment, req.Phone); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -252,6 +232,7 @@ func (api *HelpCenterApi) UpdateFeedback(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
 	if err := hkFeedbackService.UpdateFeedback(req); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
@@ -300,7 +281,8 @@ func (api *HelpCenterApi) GetFeedbackList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	if list, total, err := hkFeedbackService.GetFeedbackInfoList(pageInfo); err != nil {
+	userId := utils.GetUserID(c)
+	if list, total, err := hkFeedbackService.GetFeedbackInfoList(userId, pageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

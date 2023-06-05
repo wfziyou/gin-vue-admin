@@ -174,7 +174,7 @@ type ParamCreateCircleTag struct {
 
 type ParamDeleteCircleTags struct {
 	CircleId uint64   `json:"circleId" form:"circleId" ` //圈子_编号
-	Names    []string `json:"names" form:"names"`        //标签名称
+	Ids      []uint64 `json:"ids" form:"ids"`
 }
 type ParamGetCircleTags struct {
 	CircleId uint64 `json:"circleId" form:"circleId" ` //圈子_编号

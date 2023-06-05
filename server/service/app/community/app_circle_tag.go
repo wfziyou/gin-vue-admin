@@ -22,8 +22,8 @@ func (appCircleTagService *AppCircleTagService) AddCircleTag(circleId uint64, na
 	}
 	return obj, err
 }
-func (appCircleTagService *AppCircleTagService) DeleteCircleTags(circleId uint64, names []string) (err error) {
-	err = global.GVA_DB.Unscoped().Delete(&[]community.CircleTag{}, "circle_id = ? and name in ?", circleId, names).Error
+func (appCircleTagService *AppCircleTagService) DeleteCircleTags(circleId uint64, ids []uint64) (err error) {
+	err = global.GVA_DB.Unscoped().Delete(&[]community.CircleTag{}, "circle_id = ? and id in ?", circleId, ids).Error
 	return err
 }
 func (appCircleTagService *AppCircleTagService) GetCircleTagList(circleId uint64) (list []community.CircleTag, err error) {

@@ -418,8 +418,7 @@ INSERT INTO `casbin_rule` VALUES (11609, 'p', '888', '/app/wallet/findUserBill',
 INSERT INTO `casbin_rule` VALUES (11701, 'p', '888', '/app/helpCenter/getHelpTypeList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11702, 'p', '888', '/app/helpCenter/getMainHelpList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11703, 'p', '888', '/app/helpCenter/findHelp', 'GET', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (11704, 'p', '888', '/app/helpCenter/helpThumbsUpGood', 'POST', '', '', '', '', '');
-INSERT INTO `casbin_rule` VALUES (11705, 'p', '888', '/app/helpCenter/helpThumbsUpBad', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11704, 'p', '888', '/app/helpCenter/helpThumbsUp', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11706, 'p', '888', '/app/helpCenter/getHelpList', 'GET', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11707, 'p', '888', '/app/helpCenter/createFeedback', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11708, 'p', '888', '/app/helpCenter/deleteFeedback', 'DELETE', '', '', '', '', '');
@@ -950,8 +949,7 @@ INSERT INTO `sys_apis` VALUES (1609, '000000', '2023-02-06 18:19:13.303', '2023-
 INSERT INTO `sys_apis` VALUES (1701, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/getHelpTypeList', '(管理员)获取帮助类型列表', 17, 'GET');
 INSERT INTO `sys_apis` VALUES (1702, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/getMainHelpList', '获取主页帮助列表', 17, 'GET');
 INSERT INTO `sys_apis` VALUES (1703, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/findHelp', '用id查询帮助', 17, 'GET');
-INSERT INTO `sys_apis` VALUES (1704, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/helpThumbsUpGood', '帮助点赞（好评）', 17, 'POST');
-INSERT INTO `sys_apis` VALUES (1705, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/helpThumbsUpBad', '帮助点赞（差评）', 17, 'POST');
+INSERT INTO `sys_apis` VALUES (1704, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/helpThumbsUp', '帮助点赞', 17, 'POST');
 INSERT INTO `sys_apis` VALUES (1706, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/getHelpList', '获取帮助列表', 17, 'GET');
 INSERT INTO `sys_apis` VALUES (1707, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/createFeedback', '创建反馈', 17, 'POST');
 INSERT INTO `sys_apis` VALUES (1708, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/helpCenter/deleteFeedback', '(管理员)删除反馈', 17, 'DELETE');

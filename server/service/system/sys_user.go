@@ -197,9 +197,9 @@ func (userService *UserService) SetSelfInfo(req system.SysUser) error {
 //@param: uuid uuid.UUID
 //@return: err error, user system.SysUser
 
-func (userService *UserService) GetUserInfo(uuid uuid.UUID) (user system.SysUser, err error) {
+func (userService *UserService) GetUserInfo(userId uint64) (user system.SysUser, err error) {
 	var reqUser system.SysUser
-	err = global.GVA_DB.Preload("Authorities").Preload("Authority").First(&reqUser, "uuid = ?", uuid).Error
+	err = global.GVA_DB.Preload("Authorities").Preload("Authority").First(&reqUser, "id = ?", userId).Error
 	if err != nil {
 		return reqUser, err
 	}

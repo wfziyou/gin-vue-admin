@@ -78,10 +78,7 @@ func (b *BaseApi) Login(c *gin.Context) {
 func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 	j := &utils.JWT{SigningKey: []byte(global.GVA_CONFIG.JWT.SigningKey)} // 唯一签名
 	claims := j.CreateClaims(systemReq.BaseClaims{
-		UUID:        user.UUID,
 		ID:          user.ID,
-		NickName:    user.NickName,
-		Username:    user.Username,
 		AuthorityId: user.AuthorityId,
 	})
 	token, err := j.CreateToken(claims)
@@ -99,8 +96,8 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 		return
 	}
 
-	if jwtStr, err := jwtService.GetRedisJWT(user.Username); err == redis.Nil {
-		if err := jwtService.SetRedisJWT(token, user.Username); err != nil {
+	if jwtStr, err := jwtService.GetRedisJWT(user.ID); err == redis.Nil {
+		if err := jwtService.SetRedisJWT(token, user.ID); err != nil {
 			global.GVA_LOG.Error("设置登录状态失败!", zap.Error(err))
 			response.FailWithMessage("设置登录状态失败", c)
 			return
@@ -120,7 +117,7 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 			response.FailWithMessage("jwt作废失败", c)
 			return
 		}
-		if err := jwtService.SetRedisJWT(token, user.Username); err != nil {
+		if err := jwtService.SetRedisJWT(token, user.ID); err != nil {
 			response.FailWithMessage("设置登录状态失败", c)
 			return
 		}
@@ -427,8 +424,8 @@ func (b *BaseApi) SetSelfInfo(c *gin.Context) {
 // @Success   200  {object}  response.Response{data=map[string]interface{},msg=string}  "获取用户信息"
 // @Router    /user/getUserInfo [get]
 func (b *BaseApi) GetUserInfo(c *gin.Context) {
-	uuid := utils.GetUserUuid(c)
-	ReqUser, err := userService.GetUserInfo(uuid)
+	userId := utils.GetUserID(c)
+	ReqUser, err := userService.GetUserInfo(userId)
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)

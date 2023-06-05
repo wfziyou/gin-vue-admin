@@ -10,6 +10,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	systemReq "github.com/flipped-aurora/gin-vue-admin/server/model/system/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/pkg/common/constant"
 	emailService "github.com/flipped-aurora/gin-vue-admin/server/plugin/email/service"
 	openImReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open/model/request"
 	openImService "github.com/flipped-aurora/gin-vue-admin/server/plugin/im-open/service"
@@ -77,7 +78,7 @@ func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 	var oc bool = openCaptcha == 0 || openCaptcha < utils.InterfaceToInt(v)
 
 	if !oc {
-		user, err := appUserService.GetUserByPwd(&req)
+		user, err := appUserService.LoadUserByPwd(&req)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
 			// 验证码次数+1
@@ -95,7 +96,7 @@ func (authApi *AuthApi) LoginPwd(c *gin.Context) {
 		TokenNext(c, user, req.Platform)
 		return
 	} else if openCaptcha == 0 {
-		user, err := appUserService.GetUserByPwd(&req)
+		user, err := appUserService.LoadUserByPwd(&req)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
 			response.FailWithMessage(err.Error(), c)
@@ -155,7 +156,7 @@ func (authApi *AuthApi) LoginTelephone(c *gin.Context) {
 		}
 	}
 
-	user, err := appUserService.GetUserByPhone(req.Telephone)
+	user, err := appUserService.LoadUserByPhone(req.Telephone)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
@@ -221,7 +222,7 @@ func (authApi *AuthApi) LoginOneClick(c *gin.Context) {
 	if rsp, err := oneLoginService.ServiceGroupApp.LoginTokenValidate(req.Token); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
-	} else if user, err := appUserService.GetUserByPhone(rsp.Telephone); err != nil {
+	} else if user, err := appUserService.LoadUserByPhone(rsp.Telephone); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	} else if user == nil {
@@ -393,8 +394,8 @@ func (authApi *AuthApi) SendEmailVerification(c *gin.Context) {
 	_ = c.ShouldBindJSON(&obj)
 
 	//类型：0绑定邮箱
-	var subject string = global.GVA_CONFIG.Email.EmailTemplate.BindEmailSubject
-	var code string = fmt.Sprintf(global.GVA_CONFIG.Email.EmailTemplate.BindEmailBody, rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
+	var subject = global.GVA_CONFIG.Email.EmailTemplate.BindEmailSubject
+	var code = fmt.Sprintf(global.GVA_CONFIG.Email.EmailTemplate.BindEmailBody, rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
 	//if obj.Type == utils.EmailCodeBindEmail {
 	//	subject = global.GVA_CONFIG.Email.EmailTemplate.BindEmailSubject
 	//	code = fmt.Sprintf(global.GVA_CONFIG.Email.EmailTemplate.BindEmailBody, rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
@@ -499,11 +500,9 @@ func (authApi *AuthApi) ResetPassword(c *gin.Context) {
 func TokenNext(c *gin.Context, user *community.User, platform int) {
 	j := &utils.JWT{SigningKey: []byte(global.GVA_CONFIG.JWT.SigningKey)} // 唯一签名
 	claims := j.CreateClaims(systemReq.BaseClaims{
-		UUID:        user.Uuid,
 		ID:          user.ID,
-		NickName:    user.NickName,
-		Username:    user.Account,
 		AuthorityId: user.AuthorityId,
+		Platform:    constant.PlatformIDToName(platform),
 	})
 	clientIp := c.ClientIP()
 	token, err := j.CreateToken(claims)
@@ -537,8 +536,8 @@ func TokenNext(c *gin.Context, user *community.User, platform int) {
 		return
 	}
 
-	if jwtStr, err := jwtService.GetRedisJWT(user.Account); err == redis.Nil {
-		if err := jwtService.SetRedisJWT(token, user.Account); err != nil {
+	if jwtStr, err := jwtService.GetRedisJWT(user.ID); err == redis.Nil {
+		if err := jwtService.SetRedisJWT(token, user.ID); err != nil {
 			global.GVA_LOG.Error("设置登录状态失败!", zap.Error(err))
 			response.FailWithMessage("设置登录状态失败", c)
 			return
@@ -558,7 +557,7 @@ func TokenNext(c *gin.Context, user *community.User, platform int) {
 			response.FailWithMessage("jwt作废失败", c)
 			return
 		}
-		if err := jwtService.SetRedisJWT(token, user.Account); err != nil {
+		if err := jwtService.SetRedisJWT(token, user.ID); err != nil {
 			response.FailWithMessage("设置登录状态失败", c)
 			return
 		}
@@ -644,7 +643,7 @@ func (authApi *AuthApi) LoginPwdTest(c *gin.Context) {
 	var oc bool = openCaptcha == 0 || openCaptcha < utils.InterfaceToInt(v)
 
 	if !oc {
-		user, err := appUserService.GetUserByPwd(&req)
+		user, err := appUserService.LoadUserByPwd(&req)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
 			// 验证码次数+1
@@ -662,7 +661,7 @@ func (authApi *AuthApi) LoginPwdTest(c *gin.Context) {
 		TokenNextTest(c, user, req.Platform)
 		return
 	} else if openCaptcha == 0 {
-		user, err := appUserService.GetUserByPwd(&req)
+		user, err := appUserService.LoadUserByPwd(&req)
 		if err != nil {
 			global.GVA_LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
 			response.FailWithMessage(err.Error(), c)
@@ -684,11 +683,9 @@ func (authApi *AuthApi) LoginPwdTest(c *gin.Context) {
 func TokenNextTest(c *gin.Context, user *community.User, platform int) {
 	j := &utils.JWT{SigningKey: []byte(global.GVA_CONFIG.JWT.SigningKey)} // 唯一签名
 	claims := j.CreateClaims(systemReq.BaseClaims{
-		UUID:        user.Uuid,
 		ID:          user.ID,
-		NickName:    user.NickName,
-		Username:    user.Account,
 		AuthorityId: user.AuthorityId,
+		//Platform:    platform,
 	})
 	clientIp := c.ClientIP()
 	token, err := j.CreateToken(claims)
@@ -722,8 +719,8 @@ func TokenNextTest(c *gin.Context, user *community.User, platform int) {
 		return
 	}
 
-	if jwtStr, err := jwtService.GetRedisJWT(user.Account); err == redis.Nil {
-		if err := jwtService.SetRedisJWT(token, user.Account); err != nil {
+	if jwtStr, err := jwtService.GetRedisJWT(user.ID); err == redis.Nil {
+		if err := jwtService.SetRedisJWT(token, user.ID); err != nil {
 			global.GVA_LOG.Error("设置登录状态失败!", zap.Error(err))
 			response.FailWithMessage("设置登录状态失败", c)
 			return
@@ -743,7 +740,7 @@ func TokenNextTest(c *gin.Context, user *community.User, platform int) {
 			response.FailWithMessage("jwt作废失败", c)
 			return
 		}
-		if err := jwtService.SetRedisJWT(token, user.Account); err != nil {
+		if err := jwtService.SetRedisJWT(token, user.ID); err != nil {
 			response.FailWithMessage("设置登录状态失败", c)
 			return
 		}

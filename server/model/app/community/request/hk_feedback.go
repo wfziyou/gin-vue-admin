@@ -13,8 +13,9 @@ type HelpSearch struct {
 }
 
 type CreateFeedbackReq struct {
-	Des        string `json:"des" form:"des" `               //描述
-	Attachment string `json:"attachment" form:"attachment" ` //附件
+	Des        string `json:"des" form:"des" `                                            //描述
+	Attachment string `json:"attachment" form:"attachment" `                              //附件
+	Phone      string `json:"phone" form:"phone" gorm:"column:phone;comment:手机;size:45;"` //手机
 }
 
 type UpdateFeedbackReq struct {

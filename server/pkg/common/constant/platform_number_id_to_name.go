@@ -1,4 +1,4 @@
-package utils
+package constant
 
 // fixme 1<--->IOS 2<--->Android  3<--->Windows
 //fixme  4<--->OSX  5<--->Web  6<--->MiniWeb 7<--->Linux

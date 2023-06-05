@@ -1472,7 +1472,7 @@ func (circleApi *CircleApi) DeleteCircleTags(c *gin.Context) {
 		return
 	}
 
-	if err := appCircleTagService.DeleteCircleTags(req.CircleId, req.Names); err != nil {
+	if err := appCircleTagService.DeleteCircleTags(req.CircleId, req.Ids); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
 	} else {

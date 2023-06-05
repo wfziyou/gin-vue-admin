@@ -7722,7 +7722,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/community.Feedback"
+                            "$ref": "#/definitions/request.CreateFeedbackReq"
                         }
                     }
                 ],
@@ -7889,7 +7889,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回community.Help",
+                        "description": "返回community.HelpInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -7899,7 +7899,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/community.Help"
+                                            "$ref": "#/definitions/community.HelpInfo"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -8022,7 +8022,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回[]community.Help",
+                        "description": "返回[]community.HelpBaseInfo",
                         "schema": {
                             "allOf": [
                                 {
@@ -8034,7 +8034,7 @@ const docTemplate = `{
                                         "List": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/community.Help"
+                                                "$ref": "#/definitions/community.HelpBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -8110,48 +8110,19 @@ const docTemplate = `{
                     "反馈中心"
                 ],
                 "summary": "获取主页帮助列表",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "类型编号",
-                        "name": "typeId",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
-                        "description": "返回[]community.Help",
+                        "description": "返回community.MainHelp",
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/response.PageResult"
+                                    "$ref": "#/definitions/response.Response"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "List": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/community.Help"
-                                            }
+                                        "data": {
+                                            "$ref": "#/definitions/community.MainHelp"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -8164,7 +8135,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/app/helpCenter/helpThumbsUpBad": {
+        "/app/helpCenter/helpThumbsUp": {
             "post": {
                 "security": [
                     {
@@ -8180,53 +8151,15 @@ const docTemplate = `{
                 "tags": [
                     "反馈中心"
                 ],
-                "summary": "帮助点赞（差评）",
+                "summary": "帮助点赞",
                 "parameters": [
                     {
-                        "description": "帮助点赞（差评）",
+                        "description": "帮助点赞",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.HelpThumbsUpBadReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/app/helpCenter/helpThumbsUpGood": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "反馈中心"
-                ],
-                "summary": "帮助点赞（好评）",
-                "parameters": [
-                    {
-                        "description": "帮助点赞（好评）",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.HelpThumbsUpGoodReq"
+                            "$ref": "#/definitions/request.HelpThumbsUpReq"
                         }
                     }
                 ],
@@ -16941,6 +16874,10 @@ const docTemplate = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "phone": {
+                    "description": "手机",
+                    "type": "string"
+                },
                 "process": {
                     "description": "处理描述",
                     "type": "string"
@@ -17635,7 +17572,36 @@ const docTemplate = `{
                 }
             }
         },
-        "community.Help": {
+        "community.HelpBaseInfo": {
+            "type": "object",
+            "properties": {
+                "badNum": {
+                    "description": "差评数",
+                    "type": "integer"
+                },
+                "goodNum": {
+                    "description": "好评数",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "标题",
+                    "type": "string"
+                },
+                "typeId": {
+                    "description": "类型编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "community.HelpInfo": {
             "type": "object",
             "properties": {
                 "badNum": {
@@ -17656,6 +17622,10 @@ const docTemplate = `{
                 },
                 "sort": {
                     "description": "排序",
+                    "type": "integer"
+                },
+                "thumbsUp": {
+                    "description": "是否好评：0未点赞 1有用 2无用",
                     "type": "integer"
                 },
                 "title": {
@@ -17686,6 +17656,25 @@ const docTemplate = `{
                 "sort": {
                     "description": "排序",
                     "type": "integer"
+                }
+            }
+        },
+        "community.MainHelp": {
+            "type": "object",
+            "properties": {
+                "help": {
+                    "description": "帮助",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/community.HelpBaseInfo"
+                    }
+                },
+                "helpType": {
+                    "description": "帮助类型",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/community.HelpType"
+                    }
                 }
             }
         },
@@ -20121,6 +20110,23 @@ const docTemplate = `{
                 }
             }
         },
+        "request.CreateFeedbackReq": {
+            "type": "object",
+            "properties": {
+                "attachment": {
+                    "description": "附件",
+                    "type": "string"
+                },
+                "des": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "手机",
+                    "type": "string"
+                }
+            }
+        },
         "request.CreateForumComment": {
             "type": "object",
             "properties": {
@@ -20455,28 +20461,15 @@ const docTemplate = `{
                 }
             }
         },
-        "request.HelpThumbsUpBadReq": {
+        "request.HelpThumbsUpReq": {
             "type": "object",
             "properties": {
-                "bad": {
-                    "description": "是否好评：0否 1是",
-                    "type": "integer"
-                },
                 "helpId": {
                     "description": "帮助编号",
                     "type": "integer"
-                }
-            }
-        },
-        "request.HelpThumbsUpGoodReq": {
-            "type": "object",
-            "properties": {
-                "good": {
-                    "description": "是否好评：0否 1是",
-                    "type": "integer"
                 },
-                "helpId": {
-                    "description": "帮助编号",
+                "thumbsUp": {
+                    "description": "是否好评：0未点赞 1有用 2无用",
                     "type": "integer"
                 }
             }
@@ -20897,11 +20890,10 @@ const docTemplate = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
-                "names": {
-                    "description": "标签名称",
+                "ids": {
                     "type": "array",
                     "items": {
-                        "type": "string"
+                        "type": "integer"
                     }
                 }
             }

@@ -94,8 +94,13 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	userInfo := utils.GetUserInfo(c)
-	if userInfo.GetUserId() == req.UserId {
+	userId := utils.GetUserID(c)
+	user, err := appUserService.GetUserBaseInfo(userId)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if userId == req.UserId {
 		response.FailWithMessage("不能关注自己", c)
 		return
 	}
@@ -105,7 +110,7 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 		response.FailWithMessage("关注用户不存在", c)
 		return
 	}
-	otherFocus, err := hkFocusUserService.GetFocusUserObj(req.UserId, userInfo.GetUserId())
+	otherFocus, err := hkFocusUserService.GetFocusUserObj(req.UserId, userId)
 	isOtherFocus := false
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		isOtherFocus = false
@@ -116,13 +121,13 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 		isOtherFocus = true
 	}
 
-	_, err = hkFocusUserService.GetFocusUserObj(userInfo.GetUserId(), req.UserId)
+	_, err = hkFocusUserService.GetFocusUserObj(userId, req.UserId)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		mutual := 0
 		if isOtherFocus == true {
 			mutual = 1
 		}
-		if err := hkFocusUserService.CreateFocusUser(userInfo.GetUserId(), userInfo.NickName, focusUser, mutual); err != nil {
+		if err := hkFocusUserService.CreateFocusUser(userId, user.NickName, focusUser, mutual); err != nil {
 			global.GVA_LOG.Error("关注用户失败", zap.Error(err))
 			response.FailWithMessage("关注用户失败", c)
 			return
@@ -131,7 +136,7 @@ func (focusApi *FocusApi) FocusUser(c *gin.Context) {
 				otherFocus.Mutual = mutual
 				hkFocusUserService.UpdateFocusUser(otherFocus)
 			}
-			appUserService.UpdateUserNumFocus(userInfo.GetUserId())
+			appUserService.UpdateUserNumFocus(userId)
 			appUserService.UpdateUserNumFan(req.UserId)
 			response.OkWithMessage("成功", c)
 			return

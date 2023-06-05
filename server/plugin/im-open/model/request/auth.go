@@ -8,7 +8,10 @@ type RegisterReq struct {
 	model.ApiUserInfo
 	OperationID string `json:"operationID" binding:"required"`
 }
-
+type UpdateSelfUserInfoReq struct {
+	model.ApiUserInfo
+	OperationID string `json:"operationID" binding:"required"`
+}
 type UserTokenReq struct {
 	Secret      string `json:"secret" binding:"required,max=32"`
 	Platform    int    `json:"platform" binding:"required,min=1,max=12"`

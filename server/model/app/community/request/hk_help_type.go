@@ -13,11 +13,7 @@ type HelpTypeSearch struct {
 	request.PageInfo
 }
 
-type HelpThumbsUpGoodReq struct {
-	HelpId uint64 `json:"helpId" form:"helpId"` //帮助编号
-	Good   int    `json:"good" form:"good"`     //是否好评：0否 1是
-}
-type HelpThumbsUpBadReq struct {
-	HelpId uint64 `json:"helpId" form:"helpId"` //帮助编号
-	Bad    int    `json:"bad" form:"bad"`       //是否好评：0否 1是
+type HelpThumbsUpReq struct {
+	HelpId   uint64 `json:"helpId" form:"helpId"`     //帮助编号
+	ThumbsUp int    `json:"thumbsUp" form:"thumbsUp"` //是否好评：0未点赞 1有用 2无用
 }

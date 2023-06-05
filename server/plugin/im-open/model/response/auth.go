@@ -10,6 +10,9 @@ type UserRegisterResp struct {
 	UserToken UserTokenInfo `json:"data"`
 }
 
+type UpdateUserInfoResp struct {
+	CommResp
+}
 type UserTokenResp struct {
 	CommResp
 	UserToken UserTokenInfo `json:"data"`

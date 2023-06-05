@@ -12,11 +12,12 @@ type FeedbackService struct {
 
 // CreateFeedback 创建Feedback记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkFeedbackService *FeedbackService) CreateFeedback(userId uint64, des string, attachment string) (err error) {
+func (hkFeedbackService *FeedbackService) CreateFeedback(userId uint64, des string, attachment string, phone string) (err error) {
 	err = global.GVA_DB.Create(&community.Feedback{
 		UserId:     userId,
 		Des:        des,
 		Attachment: attachment,
+		Phone:      phone,
 	}).Error
 	return err
 }
@@ -60,12 +61,13 @@ func (hkFeedbackService *FeedbackService) GetFeedback(id uint64) (hkFeedback com
 
 // GetFeedbackInfoList 分页获取Feedback记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (hkFeedbackService *FeedbackService) GetFeedbackInfoList(info communityReq.FeedbackSearch) (list []community.Feedback, total int64, err error) {
+func (hkFeedbackService *FeedbackService) GetFeedbackInfoList(userId uint64, info communityReq.FeedbackSearch) (list []community.Feedback, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.Feedback{})
 	var hkFeedbacks []community.Feedback
+	db = db.Where("user_id = ?", userId)
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if len(info.Keyword) > 0 {
 		db = db.Where("name LIKE ?", "%"+info.Keyword+"%")

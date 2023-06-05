@@ -3,7 +3,6 @@ package middleware
 import (
 	"bytes"
 	"io"
-	"strconv"
 	"time"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/email/utils"
@@ -21,17 +20,14 @@ var userService = service.ServiceGroupApp.SystemServiceGroup.UserService
 func ErrorToEmail() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var username string
-		claims, _ := utils2.GetClaims(c)
-		if claims.Username != "" {
-			username = claims.Username
+		userId := utils2.GetUserID(c)
+		user, err := userService.GetUserInfo(userId)
+		if err != nil {
+			username = "Unknown"
 		} else {
-			id, _ := strconv.Atoi(c.Request.Header.Get("x-user-id"))
-			user, err := userService.FindUserById(id)
-			if err != nil {
-				username = "Unknown"
-			}
 			username = user.Username
 		}
+
 		body, _ := io.ReadAll(c.Request.Body)
 		// 再重新写回请求体body中，ioutil.ReadAll会清空c.Request.Body中的数据
 		c.Request.Body = io.NopCloser(bytes.NewBuffer(body))

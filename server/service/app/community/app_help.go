@@ -40,19 +40,23 @@ func (service *HelpService) UpdateHelp(hkHelp community.Help) (err error) {
 
 // GetHelp 根据id获取Help记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (service *HelpService) GetHelp(id uint64) (hkHelp community.Help, err error) {
+func (service *HelpService) GetHelp(id uint64) (hkHelp community.HelpBaseInfo, err error) {
+	err = global.GVA_DB.Where("id = ?", id).First(&hkHelp).Error
+	return
+}
+func (service *HelpService) GetHelpInfo(id uint64) (hkHelp community.HelpInfo, err error) {
 	err = global.GVA_DB.Where("id = ?", id).First(&hkHelp).Error
 	return
 }
 
 // GetHelpInfoList 获取Help记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (service *HelpService) GetHelpList(info communityReq.HelpSearch) (list []community.Help, total int64, err error) {
+func (service *HelpService) GetHelpList(info communityReq.HelpSearch) (list []community.HelpBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.Help{})
-	var hkFeedbacks []community.Help
+	var hkFeedbacks []community.HelpBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if len(info.Keyword) > 0 {
 		db = db.Where("name LIKE ?", "%"+info.Keyword+"%")
@@ -75,65 +79,42 @@ func (service *HelpService) GetMainHelpList() (mainHelp community.MainHelp, err 
 	err = global.GVA_DB.Model(&community.Help{}).Where("top > 0").Find(&mainHelp.Help).Error
 	return
 }
-func (service *HelpService) SetHelpThumbsUpGood(userId uint64, info communityReq.HelpThumbsUpGoodReq) (err error) {
+func (service *HelpService) GetHelpThumbsUpList(userId uint64, helpId uint64) (list []community.HelpThumbsUp, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&community.HelpThumbsUp{})
+	db = db.Where("user_id = ? AND help_id = ?", userId, helpId)
+	var helpThumbsUp []community.HelpThumbsUp
+
+	err = db.Find(&helpThumbsUp).Error
+	return helpThumbsUp, err
+}
+
+func (service *HelpService) SetHelpThumbsUp(userId uint64, info communityReq.HelpThumbsUpReq) (err error) {
 	var helpList []community.HelpThumbsUp
 	err = global.GVA_DB.Where("user_id = ? and help_id = ?", userId, info.HelpId).Limit(1).Find(&helpList).Error
 	if err != nil {
 		return
 	}
 	if len(helpList) > 0 {
-		helpList[0].Good = info.Good
-		if info.Good > 0 {
+		helpList[0].ThumbsUp = info.ThumbsUp
+		if info.ThumbsUp > 0 {
 			global.GVA_DB.Model(&community.HelpThumbsUp{}).Save(&helpList[0])
 		} else {
-			if helpList[0].Bad == 0 {
+			if helpList[0].ThumbsUp == 0 {
 				err = global.GVA_DB.Unscoped().Where("help_id = ? and user_id = ?", info.HelpId, userId).Delete(&community.HelpThumbsUp{}).Error
 			} else {
 				global.GVA_DB.Model(&community.HelpThumbsUp{}).Save(&helpList[0])
 			}
 		}
 	} else {
-		if info.Good > 0 {
+		if info.ThumbsUp > 0 {
 			help := community.HelpThumbsUp{
-				Bad:    0,
-				Good:   info.Good,
-				UserId: userId,
+				ThumbsUp: info.ThumbsUp,
+				UserId:   userId,
 			}
 			err = global.GVA_DB.Model(&community.HelpThumbsUp{}).Create(&help).Error
 			if err == nil {
 				service.UpdateHelpGoodNum(info.HelpId)
-			}
-		}
-	}
-	return err
-}
-func (service *HelpService) SetHelpThumbsUpBad(userId uint64, info communityReq.HelpThumbsUpBadReq) (err error) {
-	var helpList []community.HelpThumbsUp
-	err = global.GVA_DB.Where("user_id = ? and help_id = ?", userId, info.HelpId).Limit(1).Find(&helpList).Error
-	if err != nil {
-		return
-	}
-	if len(helpList) > 0 {
-		helpList[0].Bad = info.Bad
-		if info.Bad > 0 {
-			global.GVA_DB.Model(&community.HelpThumbsUp{}).Save(&helpList[0])
-		} else {
-			if helpList[0].Good == 0 {
-				err = global.GVA_DB.Unscoped().Where("help_id = ? and user_id = ?", info.HelpId, userId).Delete(&community.HelpThumbsUp{}).Error
-			} else {
-				global.GVA_DB.Model(&community.HelpThumbsUp{}).Save(&helpList[0])
-			}
-		}
-	} else {
-		if info.Bad > 0 {
-			help := community.HelpThumbsUp{
-				Bad:    info.Bad,
-				Good:   0,
-				UserId: userId,
-			}
-			err = global.GVA_DB.Model(&community.HelpThumbsUp{}).Create(&help).Error
-			if err == nil {
-				service.UpdateHelpBadNum(info.HelpId)
 			}
 		}
 	}

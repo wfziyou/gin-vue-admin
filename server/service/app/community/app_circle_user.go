@@ -20,7 +20,7 @@ func (appCircleUserService *AppCircleUserService) CreateCircleUser(circleUser co
 	return err
 }
 func (appCircleUserService *AppCircleUserService) DeleteCircleUser(circleUser community.CircleUser) (err error) {
-	err = global.GVA_DB.Delete(&circleUser).Error
+	err = global.GVA_DB.Unscoped().Delete(&circleUser).Error
 	if err == nil {
 		err = appCircleUserService.UpdateCircleUserCount(circleUser.CircleId)
 		appCircleUserService.UpdateUserNumCircle(circleUser.UserId)
@@ -31,7 +31,7 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleAllUser(circleId u
 	var circleUser []community.CircleUser
 	err = global.GVA_DB.Model(&community.CircleUser{}).Where("circle_id = ?", circleId).Find(&circleUser).Error
 	if err == nil && len(circleUser) > 0 {
-		err = global.GVA_DB.Delete(&[]community.CircleUser{}, "circle_id = ?", circleId).Error
+		err = global.GVA_DB.Unscoped().Delete(&[]community.CircleUser{}, "circle_id = ?", circleId).Error
 		if err == nil {
 			for _, obj := range circleUser {
 				appCircleUserService.UpdateUserNumCircle(obj.UserId)
@@ -44,7 +44,7 @@ func (appCircleUserService *AppCircleUserService) DeleteCircleUsers(circleId uin
 	if len(userIds) == 0 {
 		return nil
 	}
-	err = global.GVA_DB.Delete(&[]community.CircleUser{}, "circle_id = ? and user_id in ?", circleId, userIds).Error
+	err = global.GVA_DB.Unscoped().Delete(&[]community.CircleUser{}, "circle_id = ? and user_id in ?", circleId, userIds).Error
 	if err == nil {
 		err = appCircleUserService.UpdateCircleUserCount(circleId)
 		for _, userId := range userIds {
