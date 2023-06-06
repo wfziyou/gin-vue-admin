@@ -296,3 +296,8 @@ func (appCircleService *AppCircleService) AddCircleChannel(circleId uint64, name
 	err = global.GVA_DB.Create(&tmp).Error
 	return tmp, err
 }
+
+////NewRegisterUserFocusDefaultCircle 新注册用户关注默认圈子
+//func (appCircleService *AppCircleService) NewRegisterUserFocusDefaultCircle(userId uint64) (channel community.CircleChannel, err error) {
+
+//}

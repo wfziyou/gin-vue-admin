@@ -59,8 +59,7 @@ func (service *HelpService) GetHelpList(info communityReq.HelpSearch) (list []co
 	var hkFeedbacks []community.HelpBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if len(info.Keyword) > 0 {
-		db = db.Where("name LIKE ?", "%"+info.Keyword+"%")
-		db = db.Where("type LIKE ?", "%"+info.Keyword+"%")
+		db = db.Where("title LIKE ?", "%"+info.Keyword+"%")
 	}
 
 	err = db.Count(&total).Error
@@ -91,14 +90,14 @@ func (service *HelpService) GetHelpThumbsUpList(userId uint64, helpId uint64) (l
 
 func (service *HelpService) SetHelpThumbsUp(userId uint64, info communityReq.HelpThumbsUpReq) (err error) {
 	var helpList []community.HelpThumbsUp
-	err = global.GVA_DB.Where("user_id = ? and help_id = ?", userId, info.HelpId).Limit(1).Find(&helpList).Error
+	err = global.GVA_DB.Model(&community.HelpThumbsUp{}).Where("user_id = ? and help_id = ?", userId, info.HelpId).Limit(1).Find(&helpList).Error
 	if err != nil {
 		return
 	}
 	if len(helpList) > 0 {
 		helpList[0].ThumbsUp = info.ThumbsUp
 		if info.ThumbsUp > 0 {
-			global.GVA_DB.Model(&community.HelpThumbsUp{}).Save(&helpList[0])
+			global.GVA_DB.Model(&community.HelpThumbsUp{}).Where("help_id = ? and user_id = ?", info.HelpId, userId).Update("thumbs_up", info.ThumbsUp)
 		} else {
 			if helpList[0].ThumbsUp == 0 {
 				err = global.GVA_DB.Unscoped().Where("help_id = ? and user_id = ?", info.HelpId, userId).Delete(&community.HelpThumbsUp{}).Error
@@ -111,6 +110,7 @@ func (service *HelpService) SetHelpThumbsUp(userId uint64, info communityReq.Hel
 			help := community.HelpThumbsUp{
 				ThumbsUp: info.ThumbsUp,
 				UserId:   userId,
+				HelpId:   info.HelpId,
 			}
 			err = global.GVA_DB.Model(&community.HelpThumbsUp{}).Create(&help).Error
 			if err == nil {
@@ -123,7 +123,7 @@ func (service *HelpService) SetHelpThumbsUp(userId uint64, info communityReq.Hel
 
 func (service *HelpService) UpdateHelpGoodNum(helpId uint64) (err error) {
 	var total int64 = 0
-	db := global.GVA_DB.Model(&community.HelpThumbsUp{}).Where("posts_id = ? and good > 0", helpId)
+	db := global.GVA_DB.Model(&community.HelpThumbsUp{}).Where("help_id = ? and thumbs_up = 1", helpId)
 	err = db.Count(&total).Error
 	if err != nil {
 		return
@@ -133,7 +133,7 @@ func (service *HelpService) UpdateHelpGoodNum(helpId uint64) (err error) {
 }
 func (service *HelpService) UpdateHelpBadNum(helpId uint64) (err error) {
 	var total int64 = 0
-	db := global.GVA_DB.Model(&community.HelpThumbsUp{}).Where("posts_id = ? and bad > 0", helpId)
+	db := global.GVA_DB.Model(&community.HelpThumbsUp{}).Where("help_id = ? and thumbs_up = 2", helpId)
 	err = db.Count(&total).Error
 	if err != nil {
 		return

@@ -6,11 +6,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"github.com/flipped-aurora/gin-vue-admin/server/pkg/common/utils"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
+	jwtEx "github.com/flipped-aurora/gin-vue-admin/server/pkg/common/jwt"
 	"github.com/flipped-aurora/gin-vue-admin/server/service"
 
 	"github.com/gin-gonic/gin"
@@ -33,11 +34,11 @@ func JWTAuth() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		j := utils.NewJWT()
+		j := jwtEx.NewJWT()
 		// parseToken 解析token包含的信息
 		claims, err := j.ParseToken(token)
 		if err != nil {
-			if errors.Is(err, utils.TokenExpired) {
+			if errors.Is(err, jwtEx.TokenExpired) {
 				response.FailWithDetailed(gin.H{"reload": true}, "授权已过期", c)
 				c.Abort()
 				return
