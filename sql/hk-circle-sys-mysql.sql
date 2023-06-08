@@ -358,6 +358,7 @@ INSERT INTO `casbin_rule` VALUES (11105, 'p', '888', '/app/auth/loginThird', 'PO
 INSERT INTO `casbin_rule` VALUES (11106, 'p', '888', '/app/auth/loginOneClick', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11107, 'p', '888', '/app/auth/getSmsVerification', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11108, 'p', '888', '/app/auth/resetPassword', 'POST', '', '', '', '', '');
+INSERT INTO `casbin_rule` VALUES (11109, 'p', '888', '/app/auth/getSmsVerificationPrivate', 'POST', '', '', '', '', '');
 
 INSERT INTO `casbin_rule` VALUES (11201, 'p', '888', '/app/activity/createActivity', 'POST', '', '', '', '', '');
 INSERT INTO `casbin_rule` VALUES (11202, 'p', '888', '/app/activity/deleteActivity', 'DELETE', '', '', '', '', '');
@@ -888,6 +889,7 @@ INSERT INTO `sys_apis` VALUES (1105, '000000', '2023-02-06 18:19:13.303', '2023-
 INSERT INTO `sys_apis` VALUES (1106, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/auth/loginOneClick', '一键登录', 11, 'POST');
 INSERT INTO `sys_apis` VALUES (1107, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/auth/getSmsVerification', '获取短信验证码', 11, 'POST');
 INSERT INTO `sys_apis` VALUES (1108, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/auth/resetPassword', '重置密码', 11, 'POST');
+INSERT INTO `sys_apis` VALUES (1109, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/auth/getSmsVerificationPrivate', '获取短信验证码', 11, 'POST');
 
 INSERT INTO `sys_apis` VALUES (1201, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/activity/createActivity', '创建活动', 12, 'POST');
 INSERT INTO `sys_apis` VALUES (1202, '000000', '2023-02-06 18:19:13.303', '2023-02-06 18:19:13.303', NULL, 0, 0, NULL, NULL, NULL, '/app/activity/deleteActivity', '删除活动', 12, 'DELETE');
@@ -1361,14 +1363,14 @@ CREATE TABLE `sys_operation_records`  (
   `method` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求方法',
   `path` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求路径',
   `latency` bigint(20) NULL DEFAULT NULL COMMENT '延迟',
-  `agent` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '代理',
+  `agent` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '代理',
   `error_message` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '错误信息',
   `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '请求Body',
   `resp` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '响应Body',
   `user_id` bigint(20) UNSIGNED NULL DEFAULT NULL COMMENT '用户id',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_sys_operation_records_deleted_at`(`deleted_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_operation_records

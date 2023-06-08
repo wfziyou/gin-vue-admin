@@ -78,6 +78,7 @@ type CircleBaseInfo struct {
 	Name             string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                                 //圈子名称
 	Logo             string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                              //圈子Logo
 	CircleClassifyId uint64 `json:"circleClassifyId" form:"circleClassifyId" gorm:"type:bigint(20);column:circle_classify_id;comment:圈子分类_编号"` //圈子分类_编号
+	Slogan           string `json:"slogan" form:"slogan" gorm:"column:slogan;comment:圈子标语;size:20;"`                                           //圈子标语;size:20
 	Pay              int    `json:"pay" form:"pay" gorm:"column:pay;comment:付费：0否、1是;size:10;"`                                                //付费：0否、1是;size:10
 	Process          int    `json:"process" form:"process" gorm:"column:process;comment:是否开启版块内容人工审核：0 否，1是;size:10;"`                         //是否开启版块内容人工审核：0 否，1是
 	Property         int    `json:"property" form:"property" gorm:"column:property;comment:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）;size:10;"`      //:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）

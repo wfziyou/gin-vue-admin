@@ -26,7 +26,7 @@ aliyun-sms:
   accessSecret: mFfYI7R8lw43dFrUDX3Bnj4Nwnz0gm
   signName: 李林个人论坛
   smsTemplate:
-    test: SMS_138165092
+    test: SMS_269185218
     register: SMS_269145225
     changePwd: SMS_269260229
     bindTel: SMS_269135269

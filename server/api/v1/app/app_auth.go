@@ -364,6 +364,86 @@ func (authApi *AuthApi) GetSmsVerification(c *gin.Context) {
 	}
 }
 
+// GetSmsVerificationPrivate 获取短信验证码
+// @Tags 鉴权认证
+// @Summary   获取短信验证码
+// @accept    application/json
+// @Produce   application/json
+// @Param data body authReq.CaptchaReq true "获取短信验证码"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"发送成功"}"
+// @Router    /app/auth/getSmsVerificationPrivate [post]
+func (authApi *AuthApi) GetSmsVerificationPrivate(c *gin.Context) {
+	var obj authReq.CaptchaReq
+	_ = c.ShouldBindJSON(&obj)
+
+	userId := utils.GetUserID(c)
+	//类型：0 测试，1注册，2修改密码，3绑定电话，4忘记密码，5绑定银行
+	var TemplateCode string = global.GVA_CONFIG.AliyunSms.SmsTemplate.Test
+	if obj.Type == utils.VerificationRegister {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.Register
+	} else if obj.Type == utils.VerificationChangePwd {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.ChangePwd
+	} else if obj.Type == utils.VerificationBindTel {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.BindTel
+	} else if obj.Type == utils.VerificationResetPwd {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.ResetPwd
+		user, err := appUserService.GetUserBaseInfo(userId)
+		if err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+		if len(user.Phone) < 11 {
+			response.FailWithMessage("请绑定电话号码", c)
+			return
+		}
+		obj.Telephone = user.Phone
+	} else if obj.Type == utils.VerificationBindBank {
+		TemplateCode = global.GVA_CONFIG.AliyunSms.SmsTemplate.BindBank
+	}
+	code := fmt.Sprintf("{\"code\":\"%06v\"}", rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
+	key := fmt.Sprintf("%d-%s", obj.Type, obj.Telephone)
+	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
+		if err := cacheSmsService.SetCacheSms(key, code); err != nil {
+			global.GVA_LOG.Error("设置验证码到缓存失败!", zap.Error(err))
+			response.FailWithMessage("设置验证码到缓存失败", c)
+			return
+		}
+
+		if err := smsService.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
+			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
+			response.FailWithMessage("发送验证码失败", c)
+			return
+		} else {
+			response.OkWithData("发送成功", c)
+			return
+		}
+	} else if err != nil {
+		global.GVA_LOG.Error("设置验证码到缓存失败!", zap.Error(err))
+		response.FailWithMessage("设置验证码到缓存失败", c)
+	} else {
+		//global.GVA_LOG.Error("aaa:" + cacheCaptcha.Overtime.String() + " : " + time.Now().String())
+		if cacheCaptcha.Overtime.After(time.Now()) {
+			response.FailWithMessage("发送太频繁，稍后再试", c)
+			return
+		}
+
+		if err := cacheSmsService.SetCacheSms(key, code); err != nil {
+			global.GVA_LOG.Error("设置验证码到缓存失败!", zap.Error(err))
+			response.FailWithMessage("设置验证码到缓存失败", c)
+			return
+		}
+
+		if err := smsService.ServiceGroupApp.SendAliSms([]string{obj.Telephone}, TemplateCode, code); err != nil {
+			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
+			response.FailWithMessage("发送验证码失败", c)
+			return
+		} else {
+			response.OkWithData("发送成功", c)
+			return
+		}
+	}
+}
+
 // SendEmailVerification 发送Email验证码
 // @Tags 鉴权认证
 // @Summary   发送Email验证码
