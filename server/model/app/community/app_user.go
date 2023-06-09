@@ -22,7 +22,7 @@ type User struct {
 	Birthday    string                `json:"birthday" form:"birthday" gorm:"column:birthday;comment:生日;size:20;"`
 	Sex         int                   `json:"sex" form:"sex" gorm:"column:sex;comment:性别： 0未知、1男、2女;size:10;"`                //性别： 0未知、1男、2女
 	Description string                `json:"description" form:"description" gorm:"column:description;comment:描述;size:45;"`   //描述
-	ImToken     string                `json:"imToken" form:"imToken"`                                                         //Im回话
+	ImToken     string                `json:"imToken" form:"imToken" gorm:"-"`                                                //Im回话
 	AuthorityId uint64                `json:"roleId" form:"roleId" gorm:"column:role_id;default:888;comment:用户角色ID;size:20;"` // 用户角色ID
 	Authority   system.SysAuthority   `json:"authority" gorm:"foreignKey:Id;references:AuthorityId;comment:用户角色"`             //用户角色
 	Authorities []system.SysAuthority `json:"authorities" gorm:"many2many:sys_user_authority;"`
@@ -44,8 +44,8 @@ type UserBaseInfo struct {
 	Birthday    string `json:"birthday" form:"birthday" gorm:"column:birthday;comment:生日;size:20;"`
 	Sex         int    `json:"sex" form:"sex" gorm:"column:sex;comment:性别： 0未知、1男、2女;size:10;"`              //性别： 0未知、1男、2女
 	Description string `json:"description" form:"description" gorm:"column:description;comment:描述;size:45;"` //描述
-	IsFocus     int    `json:"isFocus" form:"isFocus"`                                                       //是否关注:0 否、1是
-	IsFan       int    `json:"isFan" form:"isFan"`                                                           //是否是粉丝:0 否、1是
+	IsFocus     int    `json:"isFocus" form:"isFocus" gorm:"-"`                                              //是否关注:0 否、1是
+	IsFan       int    `json:"isFan" form:"isFan" gorm:"-"`                                                  //是否是粉丝:0 否、1是
 }
 type UserInfo struct {
 	UserBaseInfo

@@ -1456,6 +1456,39 @@ const docTemplate = `{
                 }
             }
         },
+        "/app/auth/getSmsVerificationPrivate": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "获取短信验证码",
+                "parameters": [
+                    {
+                        "description": "获取短信验证码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CaptchaReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"发送成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/auth/getThirdPlat": {
             "post": {
                 "produces": [
@@ -1539,51 +1572,6 @@ const docTemplate = `{
             }
         },
         "/app/auth/loginPwd": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "鉴权认证"
-                ],
-                "summary": "用户登录(账号密码)",
-                "parameters": [
-                    {
-                        "description": "用户登录(账号密码)",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.LoginPwd"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "返回LoginResponse",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_model_app_auth_response.LoginResponse"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/app/auth/loginPwdTest": {
             "post": {
                 "produces": [
                     "application/json"
@@ -3786,8 +3774,8 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "权限：0普通 1圈主",
-                        "name": "power",
+                        "description": "类型：0全部、1管理、2创建",
+                        "name": "type",
                         "in": "query"
                     }
                 ],
@@ -3806,6 +3794,77 @@ const docTemplate = `{
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/community.CircleBaseInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/getSelfCircleRequestList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "分页获取用户创建圈子申请记录列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "类型：0全部、1管理、2创建",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.CircleRequestBaseInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.CircleRequestBaseInfo"
                                             }
                                         },
                                         "msg": {
@@ -3980,10 +4039,10 @@ const docTemplate = `{
                 "tags": [
                     "圈子"
                 ],
-                "summary": "用户圈子置顶",
+                "summary": "用户圈子取消置顶",
                 "parameters": [
                     {
-                        "description": "用户圈子置顶",
+                        "description": "用户圈子取消置顶",
                         "name": "data",
                         "in": "body",
                         "required": true,
@@ -16292,7 +16351,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "haveCircle": {
-                    "description": "是在圈子里：0否、1是",
+                    "description": "是否在圈子里：0否、1是",
                     "type": "integer"
                 },
                 "id": {
@@ -16312,8 +16371,24 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "noLimitUserGroup": {
-                    "description": "不受限用户组(json数组);size:500",
+                    "description": "不受限用户组(json数组)",
                     "type": "string"
+                },
+                "outUserLookSubCircle": {
+                    "description": "圈外成员是否查看子圈子：0不能、1能",
+                    "type": "integer"
+                },
+                "outUserShowApply": {
+                    "description": "圈外成员是否显示应用：0不显示、1能显示",
+                    "type": "integer"
+                },
+                "outUserShowIntro": {
+                    "description": "圈外成员是否显示介绍：0不显示、1显示",
+                    "type": "integer"
+                },
+                "outUserShowNews": {
+                    "description": "圈外成员是否显示资讯：0不显示、1显示",
+                    "type": "integer"
                 },
                 "pay": {
                     "description": "付费：0否、1是;size:10",
@@ -16324,7 +16399,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "powerAddUser": {
-                    "description": "圈子加入权限_指定部门和成员(json数组);size:500",
+                    "description": "圈子加入权限_指定部门和成员(json数组)",
                     "type": "string"
                 },
                 "powerComment": {
@@ -16332,23 +16407,35 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "powerCommentUser": {
-                    "description": "圈子内评论权限_指定部门和用户(json数组);size:500",
+                    "description": "圈子内评论权限_指定部门和用户(json数组)",
                     "type": "string"
+                },
+                "powerLookCircleUserInfo": {
+                    "description": "用户信息查看权限：0不能查看、1所有人、2圈内成员",
+                    "type": "integer"
+                },
+                "powerLookCircleUserList": {
+                    "description": "用户列表查看权限：0不能查看、1所有人、2圈内成员",
+                    "type": "integer"
                 },
                 "powerPublish": {
                     "description": "圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组",
                     "type": "integer"
                 },
                 "powerPublishUser": {
-                    "description": "圈子内发布权限_指定部门和用户(json数组);size:500",
+                    "description": "圈子内发布权限_指定部门和用户(json数组)",
                     "type": "string"
+                },
+                "powerSearch": {
+                    "description": "圈子帖子搜索权限：0不能搜索、1所有人、2圈内成员",
+                    "type": "integer"
                 },
                 "powerView": {
                     "description": "圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组",
                     "type": "integer"
                 },
                 "powerViewUser": {
-                    "description": "圈子内浏览权限_指定部门和用户(json数组);size:500",
+                    "description": "圈子内浏览权限_指定部门和用户(json数组)",
                     "type": "string"
                 },
                 "process": {
@@ -16394,6 +16481,10 @@ const docTemplate = `{
                 },
                 "userNum": {
                     "description": "用户数",
+                    "type": "integer"
+                },
+                "userPower": {
+                    "description": "用户权限：0普通、1管理、2圈主",
                     "type": "integer"
                 },
                 "view": {
@@ -16492,6 +16583,10 @@ const docTemplate = `{
                 "property": {
                     "description": ":圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）",
                     "type": "integer"
+                },
+                "slogan": {
+                    "description": "圈子标语;size:20",
+                    "type": "string"
                 },
                 "sort": {
                     "description": "排序",
@@ -16635,13 +16730,25 @@ const docTemplate = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "newUserFocus": {
-                    "description": "新注册用户默认关注：0 否，1是",
-                    "type": "integer"
-                },
                 "noLimitUserGroup": {
                     "description": "不受限用户组(json数组);size:500",
                     "type": "string"
+                },
+                "outUserLookSubCircle": {
+                    "description": "圈外成员是否查看子圈子：0不能、1能",
+                    "type": "integer"
+                },
+                "outUserShowApply": {
+                    "description": "圈外成员是否显示应用：0不显示、1能显示",
+                    "type": "integer"
+                },
+                "outUserShowIntro": {
+                    "description": "圈外成员是否显示介绍：0不显示、1显示",
+                    "type": "integer"
+                },
+                "outUserShowNews": {
+                    "description": "圈外成员是否显示资讯：0不显示、1显示",
+                    "type": "integer"
                 },
                 "powerAdd": {
                     "description": "圈子加入权限：0 所有人，1指定用户组，2指定部门和成员，3仅邀请的用户",
@@ -16659,6 +16766,14 @@ const docTemplate = `{
                     "description": "圈子内评论权限_指定部门和用户(json数组);size:500",
                     "type": "string"
                 },
+                "powerLookCircleUserInfo": {
+                    "description": "用户信息查看权限：0不能查看、1所有人、2圈内成员",
+                    "type": "integer"
+                },
+                "powerLookCircleUserList": {
+                    "description": "用户列表查看权限：0不能查看、1所有人、2圈内成员",
+                    "type": "integer"
+                },
                 "powerPublish": {
                     "description": "圈子内发布权限：0 所有人，1版块用户，2版主，3指定用户组",
                     "type": "integer"
@@ -16666,6 +16781,10 @@ const docTemplate = `{
                 "powerPublishUser": {
                     "description": "圈子内发布权限_指定部门和用户(json数组);size:500",
                     "type": "string"
+                },
+                "powerSearch": {
+                    "description": "圈子帖子搜索权限：0不能搜索、1所有人、2圈内成员",
+                    "type": "integer"
                 },
                 "powerView": {
                     "description": "圈子内浏览权限：0 所有人，1版块用户，2版主，3指定用户组",
@@ -16724,6 +16843,10 @@ const docTemplate = `{
                     "description": "圈子名称",
                     "type": "string"
                 },
+                "property": {
+                    "description": ":圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）",
+                    "type": "integer"
+                },
                 "protocol": {
                     "description": "圈子规约",
                     "type": "string"
@@ -16737,6 +16860,46 @@ const docTemplate = `{
                 },
                 "type": {
                     "description": "类型：0官方圈子 ，1用户圈子",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户_编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "community.CircleRequestBaseInfo": {
+            "type": "object",
+            "properties": {
+                "checkStatus": {
+                    "description": "审核状态：0 未审批 1 通过，2拒绝",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "logo": {
+                    "description": "圈子Logo",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "圈子名称",
+                    "type": "string"
+                },
+                "slogan": {
+                    "description": "圈子标语",
+                    "type": "string"
+                },
+                "status": {
                     "type": "integer"
                 },
                 "updatedAt": {
@@ -20099,6 +20262,10 @@ const docTemplate = `{
                 "name": {
                     "description": "圈子名称",
                     "type": "string"
+                },
+                "property": {
+                    "description": ":圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）",
+                    "type": "integer"
                 },
                 "protocol": {
                     "description": "圈子规约",

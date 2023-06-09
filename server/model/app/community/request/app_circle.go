@@ -24,7 +24,10 @@ type UserCircleForumPostsSearch struct {
 }
 
 type SelfCircleSearch struct {
-	Power *int `json:"power"` //权限：0普通 1圈主
+	Type int `json:"type"` //类型：0全部、1管理、2创建
+	request.PageInfo
+}
+type SelfCircleRequestSearch struct {
 	request.PageInfo
 }
 

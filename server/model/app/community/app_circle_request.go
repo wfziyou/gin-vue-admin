@@ -20,6 +20,14 @@ type CircleRequest struct {
 	Property         int    `json:"property" form:"property" gorm:"column:property;comment:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）;size:10;"`       //:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
 	CheckStatus      *int   `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态：0 未处理 1 通过，2驳回;size:10;"`             //审核状态：0 未处理 1 通过，2驳回
 }
+type CircleRequestBaseInfo struct {
+	global.GvaModelApp
+	UserId      uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户_编号;"`                      //用户_编号
+	Name        string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                      //圈子名称
+	Logo        string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                   //圈子Logo
+	Slogan      string `json:"slogan" form:"slogan" gorm:"column:slogan;comment:圈子标语;size:20;"`                                //圈子标语
+	CheckStatus *int   `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态：0 未处理 1 通过，2驳回;size:10;"` //审核状态：0 未审批 1 通过，2拒绝
+}
 
 // TableName CircleRequest 表名
 func (CircleRequest) TableName() string {

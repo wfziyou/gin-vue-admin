@@ -27,6 +27,7 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 		circleRouter.DELETE("deleteCircleForumPosts", circleApi.DeleteCircleForumPosts)                     //(圈子管理者)删除圈子的帖子
 		circleRouterWithoutRecord.GET("getUserCircleForumPostsList", circleApi.GetUserCircleForumPostsList) // 分页获取用户圈子ForumPosts列表
 		circleRouterWithoutRecord.GET("getSelfCircleList", circleApi.GetSelfCircleList)                     // 分页获取用户加入的圈子列表
+		circleRouterWithoutRecord.GET("getSelfCircleRequestList", circleApi.GetSelfCircleRequestList)       // 分页获取用户创建圈子申请记录列表
 		circleRouter.POST("selfCircleTop", circleApi.SelfCircleTop)                                         //用户圈子置顶
 		circleRouter.POST("selfCircleCancelTop", circleApi.SelfCircleCancelTop)                             //用户圈子取消置顶
 		circleRouterWithoutRecord.GET("findCircle", circleApi.FindCircle)                                   // 用id查询Circle

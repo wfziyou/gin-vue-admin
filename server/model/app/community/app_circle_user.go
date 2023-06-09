@@ -23,7 +23,7 @@ type CircleUser struct {
 	Tag        string       `json:"tag" form:"tag" gorm:"column:tag;comment:标签;size:512;"`                           //标签
 	CircleId   uint64       `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"` //圈子_编号
 	CircleName string       `json:"circleName" form:"circleName" gorm:"column:circle_name;comment:圈子名称;size:20;"`    //圈子名称
-	Power      int          `json:"power" form:"power" gorm:"column:power;comment:权限：0普通 1圈主;"`                      //权限：0普通 1圈主
+	Power      int          `json:"power" form:"power" gorm:"column:power;comment:权限：0普通、1管理、2圈主;"`                  //权限：0普通、1管理、2圈主
 	Sort       int          `json:"sort" form:"sort" gorm:"column:sort;comment:用户的圈子排序;size:10;"`                    //用户的圈子排序
 	UserInfo   UserBaseInfo `json:"UserInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`                  //用户基本信息
 }

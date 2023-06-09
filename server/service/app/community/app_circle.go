@@ -241,9 +241,12 @@ func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info 
 	var circleUser []community.CircleUser
 
 	db = db.Where("user_id = ?", userId)
-	if info.Power != nil {
-		db = db.Where("power = ?", info.Power)
+	if info.Type == 1 {
+		db = db.Where("power = ?", community.CircleUserPowerManager)
+	} else if info.Type == 2 {
+		db = db.Where("power = ?", community.CircleUserPowerMaster)
 	}
+
 	if len(info.Keyword) > 0 {
 		db = db.Where("circle_name LIKE ?", "%"+info.Keyword+"%")
 	}
@@ -253,7 +256,7 @@ func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info 
 		return
 	}
 
-	if info.Power == nil {
+	if info.Type == community.CircleUserPowerGeneral {
 		db = db.Order("sort desc")
 	}
 

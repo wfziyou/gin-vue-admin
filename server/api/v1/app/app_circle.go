@@ -169,6 +169,39 @@ func (circleApi *CircleApi) GetSelfCircleList(c *gin.Context) {
 	}
 }
 
+// GetSelfCircleRequestList 分页获取用户创建圈子申请记录列表
+// @Tags 圈子
+// @Summary 分页获取用户创建圈子申请记录列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.SelfCircleSearch true "分页获取用户创建圈子申请记录列表"
+// @Success 200 {object}  response.PageResult{List=[]community.CircleRequestBaseInfo,msg=string} "返回community.CircleRequestBaseInfo"
+// @Router /app/circle/getSelfCircleRequestList [get]
+func (circleApi *CircleApi) GetSelfCircleRequestList(c *gin.Context) {
+	var pageInfo communityReq.SelfCircleRequestSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	//userId := utils.GetUserID(c)
+	//if list, total, err := appCircleRequestService.GetCircleRequestInfoList(userId, pageInfo); err != nil {
+	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
+	//	response.FailWithMessage("获取失败", c)
+	//} else {
+	//	for index, _ := range list {
+	//		list[index].HaveCircle = 1
+	//	}
+	//	response.OkWithDetailed(response.PageResult{
+	//		List:     list,
+	//		Total:    total,
+	//		Page:     pageInfo.Page,
+	//		PageSize: pageInfo.PageSize,
+	//	}, "获取成功", c)
+	//}
+}
+
 // SelfCircleTop 用户圈子置顶
 // @Tags 圈子
 // @Summary 用户圈子置顶
@@ -210,13 +243,13 @@ func (circleApi *CircleApi) SelfCircleTop(c *gin.Context) {
 	response.OkWithMessage("成功", c)
 }
 
-// SelfCircleCancelTop 用户圈子置顶
+// SelfCircleCancelTop 用户圈子取消置顶
 // @Tags 圈子
-// @Summary 用户圈子置顶
+// @Summary 用户圈子取消置顶
 // @Security ApiKeyAuth
 // @accept application/json
 // @Produce application/json
-// @Param data body communityReq.ParamSelfCircleCancelTop true "用户圈子置顶"
+// @Param data body communityReq.ParamSelfCircleCancelTop true "用户圈子取消置顶"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"设置成功"}"
 // @Router /app/circle/selfCircleCancelTop [post]
 func (circleApi *CircleApi) SelfCircleCancelTop(c *gin.Context) {
@@ -273,8 +306,9 @@ func (circleApi *CircleApi) FindCircle(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		if _, num, err := appCircleUserService.GetUserHaveCircles(userId, []uint64{idSearch.ID}); err == nil && num > 0 {
+		if obj, err := appCircleUserService.GetCircleUser(idSearch.ID, userId); err == nil {
 			circle.HaveCircle = 1
+			circle.UserPower = obj.Power
 		}
 
 		response.OkWithData(circle, c)
