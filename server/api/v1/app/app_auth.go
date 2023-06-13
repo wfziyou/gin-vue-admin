@@ -455,10 +455,10 @@ func (authApi *AuthApi) GetSmsVerificationPrivate(c *gin.Context) {
 func (authApi *AuthApi) SendEmailVerification(c *gin.Context) {
 	var obj authReq.EmailVerificationReq
 	_ = c.ShouldBindJSON(&obj)
-
+	code := fmt.Sprintf("%06v", rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
+	var emailContent = fmt.Sprintf(global.GVA_CONFIG.Email.EmailTemplate.BindEmailBody, code)
 	//类型：0绑定邮箱
 	var subject = global.GVA_CONFIG.Email.EmailTemplate.BindEmailSubject
-	var code = fmt.Sprintf(global.GVA_CONFIG.Email.EmailTemplate.BindEmailBody, rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
 	//if obj.Type == utils.EmailCodeBindEmail {
 	//	subject = global.GVA_CONFIG.Email.EmailTemplate.BindEmailSubject
 	//	code = fmt.Sprintf(global.GVA_CONFIG.Email.EmailTemplate.BindEmailBody, rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(1000000))
@@ -471,7 +471,7 @@ func (authApi *AuthApi) SendEmailVerification(c *gin.Context) {
 			return
 		}
 
-		if err := emailService.ServiceGroupApp.SendEmail(obj.Email, subject, code); err != nil {
+		if err := emailService.ServiceGroupApp.SendEmail(obj.Email, subject, emailContent); err != nil {
 			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
 			response.FailWithMessage("发送验证码失败", c)
 			return
@@ -494,7 +494,7 @@ func (authApi *AuthApi) SendEmailVerification(c *gin.Context) {
 			return
 		}
 
-		if err := emailService.ServiceGroupApp.SendEmail(obj.Email, subject, code); err != nil {
+		if err := emailService.ServiceGroupApp.SendEmail(obj.Email, subject, emailContent); err != nil {
 			global.GVA_LOG.Error("发送验证码失败!", zap.Error(err))
 			response.FailWithMessage("发送验证码失败", c)
 			return
@@ -519,15 +519,17 @@ func (authApi *AuthApi) ResetPassword(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	key := fmt.Sprintf("%d-%s", utils.VerificationResetPwd, req.Telephone)
-	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
-		response.FailWithMessage("验证码失效", c)
-		return
-	} else if err != nil {
-		global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
-		response.FailWithMessage("获取验证码失败", c)
-		return
-	} else {
+	if global.GVA_CONFIG.Param.UseSmsCheckCode == true {
+		key := fmt.Sprintf("%d-%s", utils.VerificationResetPwd, req.Telephone)
+		cacheCaptcha, err := cacheSmsService.GetCacheSms(key)
+		if err == redis.Nil {
+			response.FailWithMessage("验证码失效", c)
+			return
+		} else if err != nil {
+			global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
+			response.FailWithMessage("获取验证码失败", c)
+			return
+		}
 		if cacheCaptcha.Overtime.Before(time.Now()) {
 			response.FailWithMessage("验证码失效", c)
 			return
@@ -535,27 +537,91 @@ func (authApi *AuthApi) ResetPassword(c *gin.Context) {
 		if cacheCaptcha.Code != req.Captcha {
 			response.FailWithMessage("验证码错误", c)
 			return
-		} else if user, err := appUserService.GetUserByPhone(req.Telephone); err != nil {
-			response.FailWithMessage(err.Error(), c)
-			return
-		} else if user == nil {
-			response.FailWithMessage("账号不存在", c)
-			return
-		} else {
-			if user.Status != 0 {
-				global.GVA_LOG.Error("账号被禁止")
-				response.FailWithMessage("账号被禁止", c)
-				return
-			}
-			err = appUserService.ResetPassword(user, req.Password)
-			if err != nil {
-				global.GVA_LOG.Error("修改密码失败!", zap.Error(err))
-				response.FailWithMessage("修改密码失败", c)
-				return
-			}
-			response.OkWithMessage("修改成功", c)
+		}
+	} else {
+		if global.GVA_CONFIG.Param.DefaultSmsCheckCode != req.Captcha {
+			response.FailWithMessage("验证码错误", c)
 			return
 		}
+	}
+
+	if user, err := appUserService.GetUserByPhone(req.Telephone); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if user == nil {
+		response.FailWithMessage("账号不存在", c)
+		return
+	} else {
+		if user.Status != 0 {
+			global.GVA_LOG.Error("账号被禁止")
+			response.FailWithMessage("账号被禁止", c)
+			return
+		}
+		err = appUserService.ResetPassword(user, req.Password)
+		if err != nil {
+			global.GVA_LOG.Error("修改密码失败!", zap.Error(err))
+			response.FailWithMessage("修改密码失败", c)
+			return
+		}
+		response.OkWithMessage("修改成功", c)
+		return
+	}
+}
+
+// ResetPasswordCheckCode 重置密码检验验证码
+// @Tags 鉴权认证
+// @Summary   重置密码检验验证码
+// @Produce  application/json
+// @Param     data  body      authReq.ResetPasswordCheckCode    true  "重置密码检验验证码"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
+// @Router    /app/auth/resetPasswordCheckCode [post]
+func (authApi *AuthApi) ResetPasswordCheckCode(c *gin.Context) {
+	var req authReq.ResetPasswordCheckCode
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if global.GVA_CONFIG.Param.UseSmsCheckCode == true {
+		key := fmt.Sprintf("%d-%s", utils.VerificationResetPwd, req.Telephone)
+		cacheCaptcha, err := cacheSmsService.GetCacheSms(key)
+		if err == redis.Nil {
+			response.FailWithMessage("验证码失效", c)
+			return
+		} else if err != nil {
+			global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
+			response.FailWithMessage("获取验证码失败", c)
+			return
+		}
+		if cacheCaptcha.Overtime.Before(time.Now()) {
+			response.FailWithMessage("验证码失效", c)
+			return
+		}
+		if cacheCaptcha.Code != req.Captcha {
+			response.FailWithMessage("验证码错误", c)
+			return
+		}
+	} else {
+		if global.GVA_CONFIG.Param.DefaultSmsCheckCode != req.Captcha {
+			response.FailWithMessage("验证码错误", c)
+			return
+		}
+	}
+
+	if user, err := appUserService.GetUserByPhone(req.Telephone); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else if user == nil {
+		response.FailWithMessage("账号不存在", c)
+		return
+	} else {
+		if user.Status != 0 {
+			global.GVA_LOG.Error("账号被禁止")
+			response.FailWithMessage("账号被禁止", c)
+			return
+		}
+		response.OkWithMessage("成功", c)
+		return
 	}
 }
 

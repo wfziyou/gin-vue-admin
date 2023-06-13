@@ -77,5 +77,15 @@ func (router *CircleRouter) InitCircleRouter(Router *gin.RouterGroup) (R gin.IRo
 		circleRouter.DELETE("deleteChildCircle", circleApi.DeleteChildCircle)                           //(圈子管理者)删除子圈子
 		circleRouterWithoutRecord.GET("getChildCircleRequestList", circleApi.GetChildCircleRequestList) //(圈子管理者)获取子圈子申请列表
 	}
+	{
+		circleRouter.POST("createNews", circleApi.CreateNews)                         //(圈子管理者)创建资讯
+		circleRouterWithoutRecord.GET("getNewsList", circleApi.GetNewsList)           //(圈子管理者)获取资讯列表
+		circleRouterWithoutRecord.GET("getNewsDraftList", circleApi.GetNewsDraftList) //(圈子管理者)获取资讯草稿列表
+		circleRouter.POST("updateNewsDraft", circleApi.UpdateNewsDraft)               //(圈子管理者)更新资讯草稿
+		circleRouter.DELETE("deleteNewsDraft", circleApi.DeleteNewsDraft)             //(圈子管理者)删除资讯草稿
+		circleRouter.DELETE("deleteNewsDraftByIds", circleApi.DeleteNewsDraftByIds)   //(圈子管理者)批量删除资讯草稿
+		circleRouter.DELETE("deleteNews", circleApi.DeleteNews)                       //(圈子管理者)删除资讯
+		circleRouter.DELETE("deleteNewsByIds", circleApi.DeleteNewsByIds)             //(圈子管理者)批量删除资讯
+	}
 	return circleRouter
 }

@@ -74,7 +74,7 @@ email:
   nickname: 邻里圈子
   template:
     bindEmailSubject: 绑定邮箱
-    bindEmailBody: 绑定邮箱，验证码%06v
+    bindEmailBody: 绑定邮箱，验证码%s
 # system configuration
 system:
   env: public # Change to "develop" to skip authentication for development mode
@@ -269,6 +269,6 @@ cors:
       expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
       allow-credentials: true # 布尔值
 param:
-  createCircleCheck: false #创建圈子是否需要审批
+  createCircleCheck: true #创建圈子是否需要审批
   useSmsCheckCode: false #使用短信验证码
   defaultSmsCheckCode: 666666 #默认短信验证码

@@ -1781,6 +1781,36 @@ const docTemplate = `{
                 }
             }
         },
+        "/app/auth/resetPasswordCheckCode": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "鉴权认证"
+                ],
+                "summary": "重置密码检验验证码",
+                "parameters": [
+                    {
+                        "description": "重置密码检验验证码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ResetPasswordCheckCode"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"修改成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/auth/sendEmailVerification": {
             "post": {
                 "consumes": [
@@ -2268,6 +2298,44 @@ const docTemplate = `{
                 }
             }
         },
+        "/app/circle/createNews": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)创建资讯",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)创建资讯",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamCreateNews"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/deleteChildCircle": {
             "delete": {
                 "security": [
@@ -2483,6 +2551,158 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/deleteNews": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "删除资讯",
+                "parameters": [
+                    {
+                        "description": "删除资讯",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteNewsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/deleteNewsByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "批量删除资讯",
+                "parameters": [
+                    {
+                        "description": "批量删除资讯",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteNewsByIdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/deleteNewsDraft": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "删除资讯草稿",
+                "parameters": [
+                    {
+                        "description": "删除资讯草稿",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteNewsDraftReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/deleteNewsDraftByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "批量删除资讯草稿",
+                "parameters": [
+                    {
+                        "description": "批量删除资讯草稿",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.DeleteNewsDraftByIdsReq"
                         }
                     }
                 ],
@@ -3736,6 +3956,148 @@ const docTemplate = `{
                 }
             }
         },
+        "/app/circle/getNewsDraftList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)获取资讯草稿列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumPostsBaseInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/getNewsList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)获取资讯列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "圈子_编号",
+                        "name": "circleId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回community.ForumPostsBaseInfo",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "List": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/community.ForumPostsBaseInfo"
+                                            }
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/circle/getSelfCircleList": {
             "get": {
                 "security": [
@@ -3774,7 +4136,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "类型：0全部、1管理、2创建",
+                        "description": "类型：0全部、2管理、3创建",
                         "name": "type",
                         "in": "query"
                     }
@@ -3845,7 +4207,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "类型：0全部、1管理、2创建",
+                        "description": "类型：0全部、2管理、3创建",
                         "name": "type",
                         "in": "query"
                     }
@@ -4352,6 +4714,44 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/request.UpdateCircleUserReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circle/updateNewsDraft": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子"
+                ],
+                "summary": "(圈子管理者)更新资讯草稿",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)更新资讯草稿",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.UpdateNewsDraftReq"
                         }
                     }
                 ],
@@ -5080,12 +5480,12 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/response.Response"
+                                    "$ref": "#/definitions/response.PageResult"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "List": {
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/apply.CircleApply"
@@ -5133,6 +5533,44 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/app/circleApply/setCircleHotApply": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "圈子应用"
+                ],
+                "summary": "(圈子管理者)设置圈子热门应用",
+                "parameters": [
+                    {
+                        "description": "(圈子管理者)设置圈子热门应用",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ParamSetCircleHotApply"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -16330,10 +16768,6 @@ const docTemplate = `{
         "community.Circle": {
             "type": "object",
             "properties": {
-                "channelId": {
-                    "description": "频道_编号",
-                    "type": "string"
-                },
                 "circleClassifyId": {
                     "description": "圈子分类_编号",
                     "type": "integer"
@@ -17084,6 +17518,10 @@ const docTemplate = `{
                     "description": "描述",
                     "type": "string"
                 },
+                "email": {
+                    "description": "邮箱",
+                    "type": "string"
+                },
                 "headerImg": {
                     "description": "头像",
                     "type": "string"
@@ -17119,6 +17557,10 @@ const docTemplate = `{
                 "numFocus": {
                     "description": "关注数",
                     "type": "integer"
+                },
+                "phone": {
+                    "description": "手机",
+                    "type": "string"
                 },
                 "realName": {
                     "description": "真名",
@@ -17399,6 +17841,11 @@ const docTemplate = `{
                 "top": {
                     "description": "置顶：0否、1是",
                     "type": "integer"
+                },
+                "topicId": {
+                    "description": "话题_编号,通过逗号分割",
+                    "type": "string",
+                    "example": "1,2"
                 },
                 "topicInfo": {
                     "type": "array",
@@ -18448,6 +18895,10 @@ const docTemplate = `{
                     "description": "描述",
                     "type": "string"
                 },
+                "email": {
+                    "description": "邮箱",
+                    "type": "string"
+                },
                 "headerImg": {
                     "description": "头像",
                     "type": "string"
@@ -18479,6 +18930,10 @@ const docTemplate = `{
                 "numFocus": {
                     "description": "关注数",
                     "type": "integer"
+                },
+                "phone": {
+                    "description": "手机",
+                    "type": "string"
                 },
                 "realName": {
                     "description": "真名",
@@ -20235,8 +20690,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "topicId": {
-                    "description": "话题_编号",
-                    "type": "string"
+                    "description": "话题_编号,通过逗号分割",
+                    "type": "string",
+                    "example": "1,2"
                 }
             }
         },
@@ -20355,8 +20811,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "topicId": {
-                    "description": "话题_编号",
-                    "type": "string"
+                    "description": "话题_编号,通过逗号分割",
+                    "type": "string",
+                    "example": "1,2"
                 },
                 "video": {
                     "description": "视频地址",
@@ -20513,6 +20970,62 @@ const docTemplate = `{
             "properties": {
                 "postsId": {
                     "description": "帖子编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.DeleteNewsByIdsReq": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "request.DeleteNewsDraftByIdsReq": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "request.DeleteNewsDraftReq": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "编号",
+                    "type": "integer"
+                }
+            }
+        },
+        "request.DeleteNewsReq": {
+            "type": "object",
+            "properties": {
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "编号",
                     "type": "integer"
                 }
             }
@@ -20987,8 +21500,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "topicId": {
-                    "description": "话题_编号",
-                    "type": "string"
+                    "description": "话题_编号,通过逗号分割",
+                    "type": "string",
+                    "example": "1,2"
                 }
             }
         },
@@ -21137,6 +21651,20 @@ const docTemplate = `{
                 }
             }
         },
+        "request.ParamSetCircleHotApply": {
+            "type": "object",
+            "properties": {
+                "applyIds": {
+                    "description": "应用编号，通过逗号分割",
+                    "type": "string",
+                    "example": "1,2"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                }
+            }
+        },
         "request.ParamSetCircleTagSort": {
             "type": "object",
             "properties": {
@@ -21216,6 +21744,20 @@ const docTemplate = `{
                 "num": {
                     "description": "数量",
                     "type": "integer"
+                }
+            }
+        },
+        "request.ResetPasswordCheckCode": {
+            "type": "object",
+            "properties": {
+                "captcha": {
+                    "description": "验证码",
+                    "type": "string",
+                    "example": "666666"
+                },
+                "telephone": {
+                    "description": "电话号码",
+                    "type": "string"
                 }
             }
         },
@@ -21742,6 +22284,11 @@ const docTemplate = `{
                     "description": "标题",
                     "type": "string"
                 },
+                "topicId": {
+                    "description": "话题_编号,通过逗号分割",
+                    "type": "string",
+                    "example": "1,2"
+                },
                 "video": {
                     "description": "视频地址",
                     "type": "string"
@@ -21762,6 +22309,44 @@ const docTemplate = `{
                 "userId": {
                     "description": "用户ID",
                     "type": "integer"
+                }
+            }
+        },
+        "request.UpdateNewsDraftReq": {
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "description": "频道_编号",
+                    "type": "integer"
+                },
+                "circleId": {
+                    "description": "圈子_编号",
+                    "type": "integer"
+                },
+                "contentHtml": {
+                    "description": "html内容",
+                    "type": "string"
+                },
+                "coverImage": {
+                    "description": "封面",
+                    "type": "string"
+                },
+                "draft": {
+                    "description": "是否是草稿：0不是，1是",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "编号",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "标题",
+                    "type": "string"
+                },
+                "topicId": {
+                    "description": "话题_编号,通过逗号分割",
+                    "type": "string",
+                    "example": "1,2"
                 }
             }
         },

@@ -21,6 +21,7 @@ func (s *BaseRouter) InitAuthRouter(PublicRouter *gin.RouterGroup, PrivateRouter
 		authRouterPublic.POST("getSmsVerification", authApi.GetSmsVerification)                //获取短信验证码
 		authRouterPublic.POST("sendEmailVerification", authApi.SendEmailVerification)          //发送Email验证码
 		authRouterPublic.POST("resetPassword", authApi.ResetPassword)                          //重置密码
+		authRouterPublic.POST("resetPasswordCheckCode", authApi.ResetPasswordCheckCode)        //重置密码检验验证码
 		authRouterPublic.POST("getLocalTelephone", authApi.GetLocalTelephone)                  //获取本机手机号码
 		authRouterPrivate.POST("getSmsVerificationPrivate", authApi.GetSmsVerificationPrivate) //获取短信验证码
 	}

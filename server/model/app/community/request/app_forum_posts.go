@@ -23,7 +23,7 @@ type ForumPostsSearch struct {
 type CreateForumPostsReq struct {
 	UserId uint64 `json:"-" ` //发布者编号
 
-	TopicId         string `json:"topicId" form:"topicId"`                 //话题_编号
+	TopicId         string `json:"topicId" form:"topicId" example:"1,2"`   //话题_编号,通过逗号分割
 	CircleId        uint64 `json:"circleId" form:"circleId"`               //圈子_编号
 	Category        int    `json:"category" form:"category"`               //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
 	Title           string `json:"title" form:"title"`                     //标题
@@ -37,13 +37,21 @@ type CreateForumPostsReq struct {
 	Draft           int    `json:"draft" form:"draft"`                     //是否是草稿：0不是，1是
 }
 type ParamCreateNews struct {
-	ChannelId   uint64 `json:"channelId" form:"channelId"`     //频道_编号
-	TopicId     string `json:"topicId" form:"topicId"`         //话题_编号
-	CircleId    uint64 `json:"circleId" form:"circleId"`       //圈子_编号
-	Title       string `json:"title" form:"title"`             //标题
-	CoverImage  string `json:"coverImage" form:"coverImage"`   //封面
-	ContentHtml string `json:"contentHtml" form:"contentHtml"` //html内容
-	Draft       int    `json:"draft" form:"draft"`             //是否是草稿：0不是，1是
+	ChannelId   uint64 `json:"channelId" form:"channelId"`           //频道_编号
+	TopicId     string `json:"topicId" form:"topicId" example:"1,2"` //话题_编号,通过逗号分割
+	CircleId    uint64 `json:"circleId" form:"circleId"`             //圈子_编号
+	Title       string `json:"title" form:"title"`                   //标题
+	CoverImage  string `json:"coverImage" form:"coverImage"`         //封面
+	ContentHtml string `json:"contentHtml" form:"contentHtml"`       //html内容
+	Draft       int    `json:"draft" form:"draft"`                   //是否是草稿：0不是，1是
+}
+type GetNewsListSearch struct {
+	CircleId uint64 `json:"circleId" form:"circleId" "` //圈子_编号
+	request.PageInfo
+}
+type GetNewsDraftListSearch struct {
+	CircleId uint64 `json:"circleId" form:"circleId" "` //圈子_编号
+	request.PageInfo
 }
 
 type GetRecommendPostsSearch struct {

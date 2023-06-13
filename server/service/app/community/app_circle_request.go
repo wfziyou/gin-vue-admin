@@ -74,3 +74,22 @@ func (appCircleRequestService *AppCircleRequestService) GetCircleRequestInfoList
 	err = db.Limit(limit).Offset(offset).Find(&hkCircleRequests).Error
 	return hkCircleRequests, total, err
 }
+
+func (appCircleRequestService *AppCircleRequestService) GetSelfCircleRequestList(userId uint64, info communityReq.SelfCircleRequestSearch) (list []community.CircleRequestBaseInfo, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.CircleRequest{})
+	var hkCircleRequests []community.CircleRequestBaseInfo
+	db = db.Where("user_id = ?", userId)
+	if len(info.Keyword) > 0 {
+		db = db.Where("name LIKE ?", "%"+info.Keyword+"%")
+	}
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&hkCircleRequests).Error
+	return hkCircleRequests, total, err
+}

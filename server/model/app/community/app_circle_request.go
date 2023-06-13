@@ -18,7 +18,7 @@ type CircleRequest struct {
 	Protocol         string `json:"protocol" form:"protocol" gorm:"column:protocol;comment:圈子规约;size:1000;"`                                    //圈子规约
 	CoverImage       string `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:圈子背景图;size:500;"`                             //圈子背景图
 	Property         int    `json:"property" form:"property" gorm:"column:property;comment:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）;size:10;"`       //:圈子属性： 0公开（自由加入），1公开（审核加入），2私密（邀请加入）
-	CheckStatus      *int   `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态：0 未处理 1 通过，2驳回;size:10;"`             //审核状态：0 未处理 1 通过，2驳回
+	CheckStatus      int    `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态：0 未处理 1 通过，2驳回;size:10;"`             //审核状态：0 未处理 1 通过，2驳回
 }
 type CircleRequestBaseInfo struct {
 	global.GvaModelApp
@@ -26,7 +26,7 @@ type CircleRequestBaseInfo struct {
 	Name        string `json:"name" form:"name" gorm:"column:name;comment:圈子名称;size:20;"`                                      //圈子名称
 	Logo        string `json:"logo" form:"logo" gorm:"column:logo;comment:圈子Logo;size:500;"`                                   //圈子Logo
 	Slogan      string `json:"slogan" form:"slogan" gorm:"column:slogan;comment:圈子标语;size:20;"`                                //圈子标语
-	CheckStatus *int   `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态：0 未处理 1 通过，2驳回;size:10;"` //审核状态：0 未审批 1 通过，2拒绝
+	CheckStatus int    `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态：0 未处理 1 通过，2驳回;size:10;"` //审核状态：0 未审批 1 通过，2拒绝
 }
 
 // TableName CircleRequest 表名

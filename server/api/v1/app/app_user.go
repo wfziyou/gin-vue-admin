@@ -1,7 +1,6 @@
 package app
 
 import (
-	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
@@ -14,7 +13,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 	"go.uber.org/zap"
-	"gorm.io/gorm"
 	"strconv"
 	"time"
 )
@@ -40,15 +38,17 @@ func (userApi *UserApi) BindTelephone(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	key := fmt.Sprintf("%d-%s", utils.VerificationBindTel, req.Telephone)
-	if cacheCaptcha, err := cacheSmsService.GetCacheSms(key); err == redis.Nil {
-		response.FailWithMessage("验证码失效", c)
-		return
-	} else if err != nil {
-		global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
-		response.FailWithMessage("获取验证码失败", c)
-		return
-	} else {
+	if global.GVA_CONFIG.Param.UseSmsCheckCode == true {
+		key := fmt.Sprintf("%d-%s", utils.VerificationBindTel, req.Telephone)
+		cacheCaptcha, err := cacheSmsService.GetCacheSms(key)
+		if err == redis.Nil {
+			response.FailWithMessage("验证码失效", c)
+			return
+		} else if err != nil {
+			global.GVA_LOG.Error("获取验证码失败", zap.Error(err))
+			response.FailWithMessage("获取验证码失败", c)
+			return
+		}
 		if cacheCaptcha.Overtime.Before(time.Now()) {
 			response.FailWithMessage("验证码失效", c)
 			return
@@ -56,40 +56,52 @@ func (userApi *UserApi) BindTelephone(c *gin.Context) {
 		if cacheCaptcha.Code != req.Captcha {
 			response.FailWithMessage("验证码错误", c)
 			return
-		} else if user, err := appUserService.GetUserByPhone(req.Telephone); err == nil {
-			response.FailWithMessage("电话号码被使用", c)
-			return
-		} else if errors.Is(err, gorm.ErrRecordNotFound) {
-			userId := utils.GetUserID(c)
-			err = appUserService.BindTelephone(userId, req.Telephone)
-			if err != nil {
-				global.GVA_LOG.Error("绑定电话失败!", zap.Error(err))
-				response.FailWithMessage("绑定电话失败", c)
-				return
-			} else {
-				var updateReq imReq.UpdateSelfUserInfoReq
-				updateReq.UserID = strconv.FormatUint(user.ID, 10)
-				updateReq.Nickname = user.NickName
-				updateReq.FaceURL = user.HeaderImg
-				updateReq.Gender = user.Sex
-				updateReq.PhoneNumber = req.Telephone
-				updateReq.BirthStr = user.Birthday
-				updateReq.Email = user.Email
-				updateReq.CreateTime = user.CreatedAt.Unix()
-				//need to do 更新失败，需要单独处理
-				if rsp, err := openImService.ServiceGroupApp.UpdateUserInfo(updateReq); err != nil {
-					global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
-				} else if rsp.Code != 0 {
-					global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
-				}
-			}
-			response.OkWithMessage("成功", c)
-			return
-		} else {
-			response.FailWithMessage(err.Error(), c)
+		}
+	} else {
+		if global.GVA_CONFIG.Param.DefaultSmsCheckCode != req.Captcha {
+			response.FailWithMessage("验证码错误", c)
 			return
 		}
 	}
+
+	userInfo, err := appUserService.GetUserByPhone(req.Telephone)
+	if err == nil && userInfo != nil {
+		response.FailWithMessage("电话号码被使用", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	user, err := appUserService.GetUserBaseInfo(userId)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	err = appUserService.BindTelephone(userId, req.Telephone)
+	if err != nil {
+		global.GVA_LOG.Error("绑定电话失败!", zap.Error(err))
+		response.FailWithMessage("绑定电话失败", c)
+		return
+	} else {
+		var updateReq imReq.UpdateSelfUserInfoReq
+		updateReq.UserID = strconv.FormatUint(user.ID, 10)
+		updateReq.Nickname = user.NickName
+		updateReq.FaceURL = user.HeaderImg
+		updateReq.Gender = user.Sex
+		updateReq.PhoneNumber = req.Telephone
+		updateReq.BirthStr = user.Birthday
+		updateReq.Email = user.Email
+		updateReq.CreateTime = user.CreatedAt.Unix()
+		//need to do 更新失败，需要单独处理
+		if rsp, err := openImService.ServiceGroupApp.UpdateUserInfo(updateReq); err != nil {
+			global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
+		} else if rsp.Code != 0 {
+			global.GVA_LOG.Error("调用IM失败：UpdateUserInfo."+err.Error(), zap.Error(err))
+		}
+	}
+	response.OkWithMessage("成功", c)
+	return
 }
 
 // BindEmail 绑定邮箱
@@ -123,17 +135,23 @@ func (userApi *UserApi) BindEmail(c *gin.Context) {
 		if cacheCaptcha.Code != req.Captcha {
 			response.FailWithMessage("验证码错误", c)
 			return
-		} else if user, err := appUserService.GetUserByEmail(req.Email); err == nil {
-			response.FailWithMessage("电话号码被使用", c)
+		} else if userInfo, err := appUserService.GetUserByEmail(req.Email); userInfo != nil {
+			response.FailWithMessage("邮箱被使用", c)
 			return
-		} else if errors.Is(err, gorm.ErrRecordNotFound) {
+		} else if err == nil {
 			userId := utils.GetUserID(c)
 			err = appUserService.BindEmail(userId, req.Email)
 			if err != nil {
-				global.GVA_LOG.Error("绑定电话失败!", zap.Error(err))
-				response.FailWithMessage("绑定电话失败", c)
+				global.GVA_LOG.Error("绑定邮箱失败!", zap.Error(err))
+				response.FailWithMessage("绑定邮箱失败", c)
 				return
 			} else {
+				user, err := appUserService.GetUserBaseInfo(userId)
+				if err != nil {
+					global.GVA_LOG.Error("GetUserBaseInfo!", zap.Error(err))
+					response.FailWithMessage(err.Error(), c)
+					return
+				}
 				var updateReq imReq.UpdateSelfUserInfoReq
 				updateReq.UserID = strconv.FormatUint(user.ID, 10)
 				updateReq.Nickname = user.NickName

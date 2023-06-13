@@ -1,6 +1,7 @@
 package apply
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/apply"
 	applyReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/apply/request"
@@ -86,7 +87,7 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApply(id uint64) (h
 }
 func (appCircleApplyService *AppCircleApplyService) GetCircleApplyCountByGroupId(groupId uint64) (count int64, err error) {
 	db := global.GVA_DB.Model(&apply.CircleApply{})
-	db.Where("apply_group_id = ?", groupId)
+	db = db.Where("apply_group_id = ?", groupId)
 	err = db.Count(&count).Error
 	return count, err
 }
@@ -99,7 +100,7 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoList(info 
 	// 创建db
 	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
 	var hkCircleApplys []apply.CircleApply
-	db.Where("circle_id = ?", info.CircleId)
+	db = db.Where("circle_id = ?", info.CircleId)
 
 	err = db.Count(&total).Error
 	if err != nil {
@@ -136,12 +137,11 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoList(info 
 }
 
 // GetCircleApplyInfoListAll 分页获取CircleApply记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoListAll(info applyReq.CircleApplySearchAll, isMember bool) (list []apply.CircleApply, err error) {
 	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
 	var hkCircleApplys []apply.CircleApply
 
-	db.Where("circle_id = ?", info.CircleId)
+	db = db.Where("circle_id = ?", info.CircleId)
 
 	err = db.Find(&hkCircleApplys).Error
 	if err == nil && len(hkCircleApplys) > 0 {
@@ -171,27 +171,41 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleApplyInfoListAll(in
 	}
 	return hkCircleApplys, err
 }
-func (appCircleApplyService *AppCircleApplyService) GetCircleHotApplyList(circleId uint64, isMember bool) (list []apply.CircleApply, total int64, err error) {
+func (appCircleApplyService *AppCircleApplyService) GetCircleHotApplyList(circleId uint64, applyIds string, isMember bool) (list []apply.CircleApply, total int64, err error) {
+	if len(applyIds) == 0 {
+		return
+	}
 	db := global.GVA_DB.Model(&apply.CircleApply{}).Preload("Apply")
-	var hkCircleApplys []apply.CircleApply
 
 	power := 0
 	if isMember == true {
 		power = 1
 	}
-	db.Where("circle_id = ? AND power <= ?", circleId, power)
-	db = db.Order("browse_num desc")
+	sql := fmt.Sprintf("id in(%s) AND circle_id = %d AND power <= %d", applyIds, circleId, power)
+	db = db.Where(sql)
 
-	err = db.Count(&total).Error
+	err = global.GVA_DB.Model(&apply.CircleApply{}).Where("circle_id = ? AND power <= ?", circleId, power).Count(&total).Error
 	if err != nil {
 		return
 	}
 
-	err = db.Limit(utils.CircleHotApplyNum).Offset(0).Find(&hkCircleApplys).Error
-	if err == nil && len(hkCircleApplys) > 0 {
-		var ids = make([]uint64, 0, len(hkCircleApplys))
+	var hkCircleApplys []apply.CircleApply
+	err = db.Find(&hkCircleApplys).Error
+	size := len(hkCircleApplys)
+	if err == nil && size > 0 {
+		newCircleApplys := make([]apply.CircleApply, 0, size)
+		tmp := utils.SplitToUint64List(applyIds, ",")
+		for _, id := range tmp {
+			for _, obj := range hkCircleApplys {
+				if obj.ID == id {
+					newCircleApplys = append(newCircleApplys, obj)
+					break
+				}
+			}
+		}
 
-		for _, obj := range hkCircleApplys {
+		var ids = make([]uint64, 0, size)
+		for _, obj := range newCircleApplys {
 			if obj.Apply.Type == utils.ApplyTypeMimiProgram {
 				ids = append(ids, obj.Apply.MiniProgramId)
 			}
@@ -200,11 +214,11 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleHotApplyList(circle
 			var miniProgram []general.MiniProgram
 			err1 := global.GVA_DB.Where("id in ?", ids).Find(&miniProgram).Error
 			if err1 == nil && len(miniProgram) > 0 {
-				for index, obj := range hkCircleApplys {
+				for index, obj := range newCircleApplys {
 					if obj.Apply.Type == utils.ApplyTypeMimiProgram {
 						for _, program := range miniProgram {
 							if obj.Apply.MiniProgramId == program.ID {
-								hkCircleApplys[index].Apply.ProgramId = program.ProgramId
+								newCircleApplys[index].Apply.ProgramId = program.ProgramId
 								break
 							}
 						}
@@ -212,6 +226,7 @@ func (appCircleApplyService *AppCircleApplyService) GetCircleHotApplyList(circle
 				}
 			}
 		}
+		return newCircleApplys, total, err
 	}
-	return hkCircleApplys, total, err
+	return nil, total, err
 }

@@ -18,6 +18,11 @@ type CircleHotApplySearch struct {
 	CircleId uint64 `json:"circleId" form:"circleId"` //圈子_编号
 }
 
+type ParamSetCircleHotApply struct {
+	CircleId uint64 `json:"circleId" form:"circleId" `              //圈子_编号
+	ApplyIds string `json:"applyIds" form:"applyIds" example:"1,2"` //应用编号，通过逗号分割
+}
+
 type ParamAddCircleApply struct {
 	CircleId        uint64 `json:"circleId" form:"circleId"`                                                                       //圈子_编号
 	ApplyGroupId    uint64 `json:"applyGroupId" form:"applyGroupId" gorm:"type:bigint(20);column:apply_group_id;comment:应用分组_编号;"` //应用分组_编号

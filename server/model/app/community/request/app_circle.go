@@ -24,7 +24,7 @@ type UserCircleForumPostsSearch struct {
 }
 
 type SelfCircleSearch struct {
-	Type int `json:"type"` //类型：0全部、1管理、2创建
+	Type int `json:"type" form:"type"` //类型：0全部、2管理、3创建
 	request.PageInfo
 }
 type SelfCircleRequestSearch struct {

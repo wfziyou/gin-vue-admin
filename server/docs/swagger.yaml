@@ -240,9 +240,6 @@ definitions:
     type: object
   community.Circle:
     properties:
-      channelId:
-        description: 频道_编号
-        type: string
       circleClassifyId:
         description: 圈子分类_编号
         type: integer
@@ -790,6 +787,9 @@ definitions:
       description:
         description: 描述
         type: string
+      email:
+        description: 邮箱
+        type: string
       headerImg:
         description: 头像
         type: string
@@ -817,6 +817,9 @@ definitions:
       numFocus:
         description: 关注数
         type: integer
+      phone:
+        description: 手机
+        type: string
       realName:
         description: 真名
         type: string
@@ -1021,6 +1024,10 @@ definitions:
       top:
         description: 置顶：0否、1是
         type: integer
+      topicId:
+        description: 话题_编号,通过逗号分割
+        example: 1,2
+        type: string
       topicInfo:
         items:
           $ref: '#/definitions/community.ForumTopicBaseInfo'
@@ -1766,6 +1773,9 @@ definitions:
       description:
         description: 描述
         type: string
+      email:
+        description: 邮箱
+        type: string
       headerImg:
         description: 头像
         type: string
@@ -1790,6 +1800,9 @@ definitions:
       numFocus:
         description: 关注数
         type: integer
+      phone:
+        description: 手机
+        type: string
       realName:
         description: 真名
         type: string
@@ -3005,7 +3018,8 @@ definitions:
         description: 标题
         type: string
       topicId:
-        description: 话题_编号
+        description: 话题_编号,通过逗号分割
+        example: 1,2
         type: string
     type: object
   request.CreateCircleRequestReq:
@@ -3092,7 +3106,8 @@ definitions:
         description: 标题
         type: string
       topicId:
-        description: 话题_编号
+        description: 话题_编号,通过逗号分割
+        example: 1,2
         type: string
       video:
         description: 视频地址
@@ -3202,6 +3217,44 @@ definitions:
     properties:
       postsId:
         description: 帖子编号
+        type: integer
+    type: object
+  request.DeleteNewsByIdsReq:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  request.DeleteNewsDraftByIdsReq:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  request.DeleteNewsDraftReq:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      id:
+        description: 编号
+        type: integer
+    type: object
+  request.DeleteNewsReq:
+    properties:
+      circleId:
+        description: 圈子_编号
+        type: integer
+      id:
+        description: 编号
         type: integer
     type: object
   request.EmailVerificationReq:
@@ -3535,7 +3588,8 @@ definitions:
         description: 标题
         type: string
       topicId:
-        description: 话题_编号
+        description: 话题_编号,通过逗号分割
+        example: 1,2
         type: string
     type: object
   request.ParamCreateOrder:
@@ -3638,6 +3692,16 @@ definitions:
         description: 圈子_编号
         type: integer
     type: object
+  request.ParamSetCircleHotApply:
+    properties:
+      applyIds:
+        description: 应用编号，通过逗号分割
+        example: 1,2
+        type: string
+      circleId:
+        description: 圈子_编号
+        type: integer
+    type: object
   request.ParamSetCircleTagSort:
     properties:
       circleId:
@@ -3696,6 +3760,16 @@ definitions:
       num:
         description: 数量
         type: integer
+    type: object
+  request.ResetPasswordCheckCode:
+    properties:
+      captcha:
+        description: 验证码
+        example: "666666"
+        type: string
+      telephone:
+        description: 电话号码
+        type: string
     type: object
   request.ResetPasswordReq:
     properties:
@@ -4074,6 +4148,10 @@ definitions:
       title:
         description: 标题
         type: string
+      topicId:
+        description: 话题_编号,通过逗号分割
+        example: 1,2
+        type: string
       video:
         description: 视频地址
         type: string
@@ -4089,6 +4167,34 @@ definitions:
       userId:
         description: 用户ID
         type: integer
+    type: object
+  request.UpdateNewsDraftReq:
+    properties:
+      channelId:
+        description: 频道_编号
+        type: integer
+      circleId:
+        description: 圈子_编号
+        type: integer
+      contentHtml:
+        description: html内容
+        type: string
+      coverImage:
+        description: 封面
+        type: string
+      draft:
+        description: 是否是草稿：0不是，1是
+        type: integer
+      id:
+        description: 编号
+        type: integer
+      title:
+        description: 标题
+        type: string
+      topicId:
+        description: 话题_编号,通过逗号分割
+        example: 1,2
+        type: string
     type: object
   request.UserCollectReq:
     properties:
@@ -5888,6 +5994,25 @@ paths:
       summary: 重置密码
       tags:
       - 鉴权认证
+  /app/auth/resetPasswordCheckCode:
+    post:
+      parameters:
+      - description: 重置密码检验验证码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ResetPasswordCheckCode'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"修改成功"}'
+          schema:
+            type: string
+      summary: 重置密码检验验证码
+      tags:
+      - 鉴权认证
   /app/auth/sendEmailVerification:
     post:
       consumes:
@@ -6175,6 +6300,29 @@ paths:
       summary: 创建圈子请求
       tags:
       - 圈子
+  /app/circle/createNews:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)创建资讯
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamCreateNews'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)创建资讯
+      tags:
+      - 圈子
   /app/circle/deleteChildCircle:
     delete:
       consumes:
@@ -6311,6 +6459,98 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: (圈子管理者)批量删除圈子用户
+      tags:
+      - 圈子
+  /app/circle/deleteNews:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除资讯
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DeleteNewsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除资讯
+      tags:
+      - 圈子
+  /app/circle/deleteNewsByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除资讯
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DeleteNewsByIdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除资讯
+      tags:
+      - 圈子
+  /app/circle/deleteNewsDraft:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除资讯草稿
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DeleteNewsDraftReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除资讯草稿
+      tags:
+      - 圈子
+  /app/circle/deleteNewsDraftByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除资讯草稿
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DeleteNewsDraftByIdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除资讯草稿
       tags:
       - 圈子
   /app/circle/destroyCircle:
@@ -7042,6 +7282,90 @@ paths:
       summary: 分页获取圈子的用户信息列表
       tags:
       - 圈子
+  /app/circle/getNewsDraftList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPostsBaseInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPostsBaseInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)获取资讯草稿列表
+      tags:
+      - 圈子
+  /app/circle/getNewsList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 圈子_编号
+        in: query
+        name: circleId
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回community.ForumPostsBaseInfo
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                List:
+                  items:
+                    $ref: '#/definitions/community.ForumPostsBaseInfo'
+                  type: array
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)获取资讯列表
+      tags:
+      - 圈子
   /app/circle/getSelfCircleList:
     get:
       consumes:
@@ -7059,7 +7383,7 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 类型：0全部、1管理、2创建
+      - description: 类型：0全部、2管理、3创建
         in: query
         name: type
         type: integer
@@ -7101,7 +7425,7 @@ paths:
         in: query
         name: pageSize
         type: integer
-      - description: 类型：0全部、1管理、2创建
+      - description: 类型：0全部、2管理、3创建
         in: query
         name: type
         type: integer
@@ -7420,6 +7744,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 更新圈子用户
+      tags:
+      - 圈子
+  /app/circle/updateNewsDraft:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)更新资讯草稿
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateNewsDraftReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)更新资讯草稿
       tags:
       - 圈子
   /app/circleApply/addCircleApply:
@@ -7842,9 +8189,9 @@ paths:
           description: 返回apply.CircleApply
           schema:
             allOf:
-            - $ref: '#/definitions/response.Response'
+            - $ref: '#/definitions/response.PageResult'
             - properties:
-                data:
+                List:
                   items:
                     $ref: '#/definitions/apply.CircleApply'
                   type: array
@@ -7877,6 +8224,29 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: (圈子管理者)设置圈子应用分组顺序
+      tags:
+      - 圈子应用
+  /app/circleApply/setCircleHotApply:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: (圈子管理者)设置圈子热门应用
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ParamSetCircleHotApply'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: (圈子管理者)设置圈子热门应用
       tags:
       - 圈子应用
   /app/circleApply/updateCircleApply:

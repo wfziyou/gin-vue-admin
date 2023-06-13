@@ -241,9 +241,9 @@ func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info 
 	var circleUser []community.CircleUser
 
 	db = db.Where("user_id = ?", userId)
-	if info.Type == 1 {
+	if info.Type == 2 {
 		db = db.Where("power = ?", community.CircleUserPowerManager)
-	} else if info.Type == 2 {
+	} else if info.Type == 3 {
 		db = db.Where("power = ?", community.CircleUserPowerMaster)
 	}
 
@@ -261,6 +261,9 @@ func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info 
 	}
 
 	err = db.Limit(limit).Offset(offset).Find(&circleUser).Error
+	if len(circleUser) == 0 {
+		return
+	}
 	var circleIds = make([]uint64, len(circleUser))
 	if err != nil {
 		return
@@ -272,6 +275,22 @@ func (appCircleService *AppCircleService) GetSelfCircleList(userId uint64, info 
 	var hkCircles []community.CircleBaseInfo
 	err = global.GVA_DB.Where("id in ?", circleIds).Find(&hkCircles).Error
 
+	size := len(hkCircles)
+	if size > 0 {
+		var circles = make([]community.CircleBaseInfo, 0, size)
+		for _, user := range circleUser {
+			for index, circle := range hkCircles {
+				if user.CircleId == circle.ID {
+					circle.Sort = user.Sort
+					circles = append(circles, circle)
+					hkCircles = append(hkCircles[:index], hkCircles[index+1:]...)
+					break
+				}
+			}
+		}
+		return circles, total, err
+	}
+
 	return hkCircles, total, err
 }
 
@@ -281,6 +300,13 @@ func (appCircleService *AppCircleService) UpdateCircleChannel(circleId uint64, c
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
 	updateData["channel_id"] = channel
+	err = global.GVA_DB.Model(&community.Circle{}).Where("id = ?", circleId).Updates(updateData).Error
+	return err
+}
+func (appCircleService *AppCircleService) UpdateCircleHotApply(circleId uint64, applyIds string) (err error) {
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+	updateData["apply_id"] = applyIds
 	err = global.GVA_DB.Model(&community.Circle{}).Where("id = ?", circleId).Updates(updateData).Error
 	return err
 }

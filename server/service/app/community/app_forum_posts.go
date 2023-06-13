@@ -1,6 +1,7 @@
 package community
 
 import (
+	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/community"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
@@ -443,6 +444,68 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(select
 	}
 	return forumPosts, total, err
 }
+
+func (appForumPostsService *AppForumPostsService) GetCircleNewsList(selectUserId uint64, info communityReq.GetNewsListSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var forumPosts []community.ForumPostsBaseInfo
+	// 如果有条件搜索 下方会自动创建搜索语句
+	//圈子_编号
+	db = db.Where("circle_id = ? AND check_status=? AND category = ?",
+		info.CircleId,
+		community.PostsCheckStatusPass,
+		community.PostsCategoryNews)
+
+	if len(info.Keyword) != 0 {
+		db = db.Where("title LIKE ?", "%"+info.Keyword+"%")
+	}
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
+	}
+	return forumPosts, total, err
+}
+func (appForumPostsService *AppForumPostsService) GetCircleNewsDraftList(selectUserId uint64, info communityReq.GetNewsDraftListSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	// 创建db
+	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
+	var forumPosts []community.ForumPostsBaseInfo
+	// 如果有条件搜索 下方会自动创建搜索语句
+	//圈子_编号
+	db = db.Where("circle_id = ? AND check_status=? AND category = ?",
+		info.CircleId,
+		community.PostsCheckStatusDraft,
+		community.PostsCategoryNews)
+
+	if len(info.Keyword) != 0 {
+		db = db.Where("title LIKE ?", "%"+info.Keyword+"%")
+	}
+	//创建时间降序排列
+	db = db.Order("hk_forum_posts.created_at desc")
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	err = db.Limit(limit).Offset(offset).Find(&forumPosts).Error
+	if err == nil {
+		SetPostsListUserIsFocus(selectUserId, forumPosts)
+	}
+	return forumPosts, total, err
+}
+
 func (appForumPostsService *AppForumPostsService) GetTopicForumPostsList(info communityReq.TopicForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
@@ -684,7 +747,7 @@ func (appForumPostsService *AppForumPostsService) UpdateDraft(userId uint64, inf
 	updateData = make(map[string]interface{})
 
 	if obj.Category != *info.Category {
-		//TopicId: need to do
+		updateData["topic_id"] = ""
 		updateData["circle_id"] = 0
 		updateData["title"] = ""
 		updateData["cover_image"] = ""
@@ -708,7 +771,9 @@ func (appForumPostsService *AppForumPostsService) UpdateDraft(userId uint64, inf
 			updateData["activity_add_approve"] = ""
 		}
 	}
-
+	if info.TopicId != obj.TopicId {
+		updateData["topic_id"] = info.CircleId
+	}
 	if info.CircleId != nil {
 		updateData["circle_id"] = info.CircleId
 	}
@@ -781,5 +846,98 @@ func (appForumPostsService *AppForumPostsService) UpdateDraft(userId uint64, inf
 	}
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{})
 	err = db.Where("id = ? AND user_id = ? AND check_status = ?", info.Id, userId, community.PostsCheckStatusDraft).Updates(updateData).Error
+	if err == nil && info.Draft != nil && *info.Draft == 0 && len(info.TopicId) > 0 {
+		tmp := utils.SplitToUint64List(info.TopicId, ",")
+		for _, topicId := range tmp {
+			err = global.GVA_DB.Create(&community.ForumTopicPostsMapping{
+				TopicId: topicId,
+				PostsId: info.Id,
+			}).Error
+		}
+	}
+	return err
+}
+
+func (appForumPostsService *AppForumPostsService) UpdateCircleNewsDraft(userId uint64, userPower int, info communityReq.UpdateNewsDraftReq) (err error) {
+	var obj community.ForumPosts
+	err = global.GVA_DB.Model(&community.ForumPosts{}).Where("id = ? AND check_status = ?", info.Id, community.PostsCheckStatusDraft).First(&obj).Error
+	if err != nil {
+		return
+	}
+	if userPower < community.CircleUserPowerMaster && obj.UserId != userId {
+		return errors.New("用户没有权限")
+	}
+
+	var updateData map[string]interface{}
+	updateData = make(map[string]interface{})
+
+	if info.ChannelId != nil {
+		updateData["channel_id"] = info.ChannelId
+	}
+	if info.TopicId != obj.TopicId {
+		updateData["topic_id"] = info.TopicId
+	}
+	if len(info.Title) > 0 {
+		updateData["title"] = info.Title
+	}
+	if len(info.CoverImage) > 0 {
+		updateData["cover_image"] = info.CoverImage
+	}
+	if len(info.ContentHtml) > 0 {
+		updateData["content_html"] = info.ContentHtml
+	}
+	if info.Draft != nil && *info.Draft == 0 {
+		updateData["check_status"] = community.PostsCheckStatusPass
+	}
+	err = global.GVA_DB.Model(&community.ForumPosts{}).Where("id = ?", info.Id).Updates(updateData).Error
+	if err == nil && info.Draft != nil && *info.Draft == 0 && len(info.TopicId) > 0 {
+		tmp := utils.SplitToUint64List(info.TopicId, ",")
+		for _, topicId := range tmp {
+			err = global.GVA_DB.Create(&community.ForumTopicPostsMapping{
+				TopicId: topicId,
+				PostsId: info.Id,
+			}).Error
+		}
+	}
+	return err
+}
+func (appForumPostsService *AppForumPostsService) DeleteCircleNewsDraft(userId uint64, userPower int, info communityReq.DeleteNewsDraftReq) (err error) {
+	if userPower == community.CircleUserPowerGeneral {
+		return errors.New("没有权限")
+	} else if userPower == community.CircleUserPowerManager {
+		err = global.GVA_DB.Unscoped().Delete(&community.ForumPostsBaseInfo{}, "id = ? AND circle_id = ? AND user_id = ?", info.Id, info.CircleId, userId).Error
+	} else {
+		err = global.GVA_DB.Unscoped().Delete(&community.ForumPostsBaseInfo{}, "id = ? AND circle_id = ?", info.Id, info.CircleId).Error
+	}
+	return err
+}
+func (appForumPostsService *AppForumPostsService) DeleteCircleNewsDraftByIds(userId uint64, userPower int, info communityReq.DeleteNewsDraftByIdsReq) (err error) {
+	if userPower == community.CircleUserPowerGeneral {
+		return errors.New("没有权限")
+	} else if userPower == community.CircleUserPowerManager {
+		err = global.GVA_DB.Unscoped().Delete(&community.ForumPostsBaseInfo{}, "id in ? AND circle_id = ? AND user_id = ?", info.Ids, info.CircleId, userId).Error
+	} else {
+		err = global.GVA_DB.Unscoped().Delete(&community.ForumPostsBaseInfo{}, "id in ? AND circle_id = ?", info.Ids, info.CircleId).Error
+	}
+	return err
+}
+func (appForumPostsService *AppForumPostsService) DeleteCircleNews(userId uint64, userPower int, info communityReq.DeleteNewsReq) (err error) {
+	if userPower == community.CircleUserPowerGeneral {
+		return errors.New("没有权限")
+	} else if userPower == community.CircleUserPowerManager {
+		err = global.GVA_DB.Delete(&community.ForumPostsBaseInfo{}, "id = ? AND circle_id = ? AND user_id = ?", info.Id, info.CircleId, userId).Error
+	} else {
+		err = global.GVA_DB.Delete(&community.ForumPostsBaseInfo{}, "id = ? AND circle_id = ?", info.Id, info.CircleId).Error
+	}
+	return err
+}
+func (appForumPostsService *AppForumPostsService) DeleteCircleNewsByIds(userId uint64, userPower int, info communityReq.DeleteNewsByIdsReq) (err error) {
+	if userPower == community.CircleUserPowerGeneral {
+		return errors.New("没有权限")
+	} else if userPower == community.CircleUserPowerManager {
+		err = global.GVA_DB.Delete(&community.ForumPostsBaseInfo{}, "id in ? AND circle_id = ? AND user_id = ?", info.Ids, info.CircleId, userId).Error
+	} else {
+		err = global.GVA_DB.Delete(&community.ForumPostsBaseInfo{}, "id in ? AND circle_id = ?", info.Ids, info.CircleId).Error
+	}
 	return err
 }

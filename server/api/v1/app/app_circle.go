@@ -185,21 +185,18 @@ func (circleApi *CircleApi) GetSelfCircleRequestList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	//userId := utils.GetUserID(c)
-	//if list, total, err := appCircleRequestService.GetCircleRequestInfoList(userId, pageInfo); err != nil {
-	//	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	//	response.FailWithMessage("获取失败", c)
-	//} else {
-	//	for index, _ := range list {
-	//		list[index].HaveCircle = 1
-	//	}
-	//	response.OkWithDetailed(response.PageResult{
-	//		List:     list,
-	//		Total:    total,
-	//		Page:     pageInfo.Page,
-	//		PageSize: pageInfo.PageSize,
-	//	}, "获取成功", c)
-	//}
+	userId := utils.GetUserID(c)
+	if list, total, err := appCircleRequestService.GetSelfCircleRequestList(userId, pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 // SelfCircleTop 用户圈子置顶
@@ -1019,7 +1016,7 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 		}
 		return
 	} else {
-		appCircleService.CreateCircle(community.Circle{
+		if _, err := appCircleService.CreateCircle(community.Circle{
 			Type:             community.CircleTypeUser,
 			Name:             req.Name,
 			Logo:             req.Logo,
@@ -1029,7 +1026,13 @@ func (circleApi *CircleApi) CreateCircleRequest(c *gin.Context) {
 			Protocol:         req.Protocol,
 			CoverImage:       req.CoverImage,
 			Property:         req.Property,
-		})
+		}); err != nil {
+			global.GVA_LOG.Error("创建失败!", zap.Error(err))
+			response.FailWithMessage(err.Error(), c)
+		} else {
+			response.OkWithMessage("创建成功", c)
+		}
+		return
 	}
 }
 
@@ -1795,5 +1798,352 @@ func (circleApi *CircleApi) GetChildCircleRequestList(c *gin.Context) {
 			Page:     req.Page,
 			PageSize: req.PageSize,
 		}, "获取成功", c)
+	}
+}
+
+// CreateNews (圈子管理者)创建资讯
+// @Tags 圈子
+// @Summary (圈子管理者)创建资讯
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.ParamCreateNews true "(圈子管理者)创建资讯"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /app/circle/createNews [post]
+func (circleApi *CircleApi) CreateNews(c *gin.Context) {
+	var req communityReq.ParamCreateNews
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+
+	if err := appForumPostsService.CreateNews(userId, req); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+		return
+	} else {
+		appUserService.UpdatePostsTime(req.CircleId, userId)
+		response.OkWithMessage("创建成功", c)
+	}
+}
+
+// GetNewsList (圈子管理者)获取资讯列表
+// @Tags 圈子
+// @Summary (圈子管理者)获取资讯列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.GetNewsListSearch true "(圈子管理者)获取资讯列表"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
+// @Router /app/circle/getNewsList [get]
+func (circleApi *CircleApi) GetNewsList(c *gin.Context) {
+	var req communityReq.GetNewsListSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+	if list, total, err := appForumPostsService.GetCircleNewsList(userId, req); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		var userId = utils.GetUserID(c)
+		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
+		appUserCollectService.GetUserIsCollect(userId, list)
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
+	}
+}
+
+// GetNewsDraftList (圈子管理者)获取资讯草稿列表
+// @Tags 圈子
+// @Summary (圈子管理者)获取资讯草稿列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query communityReq.GetNewsDraftListSearch true "(圈子管理者)获取资讯草稿列表"
+// @Success 200 {object}  response.PageResult{List=[]community.ForumPostsBaseInfo,msg=string} "返回community.ForumPostsBaseInfo"
+// @Router /app/circle/getNewsDraftList [get]
+func (circleApi *CircleApi) GetNewsDraftList(c *gin.Context) {
+	var req communityReq.GetNewsDraftListSearch
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+	if list, total, err := appForumPostsService.GetCircleNewsDraftList(userId, req); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		var userId = utils.GetUserID(c)
+		appForumThumbsUpService.GetUserForumThumbsUp(userId, list)
+		appUserCollectService.GetUserIsCollect(userId, list)
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     req.Page,
+			PageSize: req.PageSize,
+		}, "获取成功", c)
+	}
+}
+
+// UpdateNewsDraft (圈子管理者)更新资讯草稿
+// @Tags 圈子
+// @Summary (圈子管理者)更新资讯草稿
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.UpdateNewsDraftReq true "(圈子管理者)更新资讯草稿"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /app/circle/updateNewsDraft [post]
+func (circleApi *CircleApi) UpdateNewsDraft(c *gin.Context) {
+	var req communityReq.UpdateNewsDraftReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+	if err := appForumPostsService.UpdateCircleNewsDraft(userId, circleUser.Power, req); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
+// DeleteNewsDraft 删除资讯草稿
+// @Tags 圈子
+// @Summary 删除资讯草稿
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.DeleteNewsDraftReq true "删除资讯草稿"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /app/circle/deleteNewsDraft [delete]
+func (circleApi *CircleApi) DeleteNewsDraft(c *gin.Context) {
+	var req communityReq.DeleteNewsDraftReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+	if err := appForumPostsService.DeleteCircleNewsDraft(userId, circleUser.Power, req); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
+}
+
+// DeleteNewsDraftByIds 批量删除资讯草稿
+// @Tags 圈子
+// @Summary 批量删除资讯草稿
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.DeleteNewsDraftByIdsReq true "批量删除资讯草稿"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
+// @Router /app/circle/deleteNewsDraftByIds [delete]
+func (circleApi *CircleApi) DeleteNewsDraftByIds(c *gin.Context) {
+	var req communityReq.DeleteNewsDraftByIdsReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+	if err := appForumPostsService.DeleteCircleNewsDraftByIds(userId, circleUser.Power, req); err != nil {
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		response.FailWithMessage("批量删除失败", c)
+	} else {
+		response.OkWithMessage("批量删除成功", c)
+	}
+}
+
+// DeleteNews 删除资讯
+// @Tags 圈子
+// @Summary 删除资讯
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.DeleteNewsReq true "删除资讯"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
+// @Router /app/circle/deleteNews [delete]
+func (circleApi *CircleApi) DeleteNews(c *gin.Context) {
+	var req communityReq.DeleteNewsReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+	if err := appForumPostsService.DeleteCircleNews(userId, circleUser.Power, req); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		response.FailWithMessage("删除失败", c)
+	} else {
+		response.OkWithMessage("删除成功", c)
+	}
+}
+
+// DeleteNewsByIds 批量删除资讯
+// @Tags 圈子
+// @Summary 批量删除资讯
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body communityReq.DeleteNewsByIdsReq true "批量删除资讯"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
+// @Router /app/circle/deleteNewsByIds [delete]
+func (circleApi *CircleApi) DeleteNewsByIds(c *gin.Context) {
+	var req communityReq.DeleteNewsByIdsReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	userId := utils.GetUserID(c)
+	if _, err := appCircleService.GetCircleInfo(req.CircleId); err != nil {
+		response.FailWithMessage("圈子不存在", c)
+		return
+	}
+	circleUser, err := appCircleUserService.GetCircleUser(req.CircleId, userId)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		response.FailWithMessage("用户不在圈子中", c)
+		return
+	} else if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if circleUser.Power == community.CircleUserPowerGeneral {
+		response.FailWithMessage("没有权限", c)
+		return
+	}
+	if err := appForumPostsService.DeleteCircleNewsByIds(userId, circleUser.Power, req); err != nil {
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		response.FailWithMessage("批量删除失败", c)
+	} else {
+		response.OkWithMessage("批量删除成功", c)
 	}
 }

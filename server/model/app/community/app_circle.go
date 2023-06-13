@@ -65,7 +65,8 @@ type Circle struct {
 	PowerCommentUser        string      `json:"powerCommentUser" form:"powerCommentUser" gorm:"column:power_comment_user;comment:圈子内评论权限_指定部门和用户(json数组);"`                                        //圈子内评论权限_指定部门和用户(json数组)
 	NoLimitUserGroup        string      `json:"noLimitUserGroup" form:"noLimitUserGroup" gorm:"column:no_limit_user_group;comment:不受限用户组(json数组);"`                                                //不受限用户组(json数组)
 	NewUserFocus            int         `json:"newUserFocus" form:"newUserFocus" gorm:"column:new_user_focus;comment:新注册用户默认关注：0 否，1是;size:10;"`                                                   //新注册用户默认关注：0 否，1是
-	ChannelId               string      `json:"channelId" form:"channelId" gorm:"column:channel_id;comment:频道_编号;"`                                                                                //频道_编号
+	ChannelId               string      `json:"-"gorm:"column:channel_id;comment:频道_编号;"`                                                                                                          //频道_编号
+	ApplyId                 string      `json:"-" gorm:"column:apply_id;comment:应用_编号;"`                                                                                                           //应用_编号
 	UserNum                 int         `json:"userNum" form:"userNum" gorm:"column:user_num;comment:用户数;size:10;"`                                                                                //用户数
 	UpdateForumPostsTime    *time.Time  `json:"-" gorm:"column:update_forum_posts_time;comment:发布帖子时间;"`                                                                                           //发布帖子时间
 	Sort                    int         `json:"sort" form:"sort" gorm:"column:sort;comment:排序;size:10;"`                                                                                           //排序

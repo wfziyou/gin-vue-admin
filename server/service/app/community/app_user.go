@@ -157,7 +157,7 @@ func (appUserService *AppUserService) ChangePassword(u *community.User, newPassw
 
 // ResetPassword 重置密码
 func (appUserService *AppUserService) ResetPassword(user *community.User, newPassword string) (err error) {
-	db := global.GVA_DB.Model(user)
+	db := global.GVA_DB.Model(&community.User{})
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
 	updateData["password"] = utils.BcryptHash(newPassword)
@@ -165,7 +165,7 @@ func (appUserService *AppUserService) ResetPassword(user *community.User, newPas
 	return err
 }
 func (appUserService *AppUserService) BindTelephone(userId uint64, telephone string) (err error) {
-	db := global.GVA_DB.Model(&community.User{GvaModelApp: global.GvaModelApp{ID: userId}})
+	db := global.GVA_DB.Model(&community.User{})
 	var updateData map[string]interface{}
 	updateData = make(map[string]interface{})
 	updateData["phone"] = telephone
@@ -354,6 +354,8 @@ func (appUserService *AppUserService) GetUserInfo(selectUserId uint64, id uint64
 		userInfo.Birthday = user.Birthday
 		userInfo.Sex = user.Sex
 		userInfo.Description = user.Description
+		userInfo.Email = user.Email
+		userInfo.Phone = user.Phone
 		userInfo.CoverImage = user.UserExtend.CoverImage
 		userInfo.NumCircle = user.UserExtend.NumCircle
 		userInfo.NumFocus = user.UserExtend.NumFocus

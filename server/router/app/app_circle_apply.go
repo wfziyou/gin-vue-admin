@@ -24,6 +24,7 @@ func (router *CircleApplyRouter) InitCircleApplyRouter(Router *gin.RouterGroup) 
 		circleApplyRouterWithoutRecord.GET("getCircleApplyGroupList", circleApplyApi.GetCircleApplyGroupList)       //分页获取CircleApplyGroup列表
 		circleApplyRouterWithoutRecord.GET("getCircleApplyGroupListAll", circleApplyApi.GetCircleApplyGroupListAll) //获取CircleApplyGroup列表
 		circleApplyRouterWithoutRecord.GET("getCircleHotApplyList", circleApplyApi.GetCircleHotApplyList)           //获取圈子热门应用列表
+		circleApplyRouter.POST("setCircleHotApply", circleApplyApi.SetCircleHotApply)                               //(圈子管理者)设置圈子热门应用
 		circleApplyRouter.POST("addCircleApply", circleApplyApi.AddCircleApply)                                     //(圈子管理者)添加圈子应用
 		circleApplyRouter.POST("updateCircleApply", circleApplyApi.UpdateCircleApply)                               //(圈子管理者)更新圈子应用
 		circleApplyRouter.DELETE("deleteCircleApply", circleApplyApi.DeleteCircleApply)                             //(圈子管理者)删除圈子应用

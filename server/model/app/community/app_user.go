@@ -49,6 +49,8 @@ type UserBaseInfo struct {
 }
 type UserInfo struct {
 	UserBaseInfo
+	Email         string `json:"email" form:"email" gorm:"column:email;comment:邮箱;size:45;"`                                     //邮箱
+	Phone         string `json:"phone" form:"phone" gorm:"column:phone;comment:手机;size:45;"`                                     //手机
 	NumCircle     int64  `json:"numCircle" form:"numCircle" gorm:"type:bigint(20);column:num_circle;comment:圈子数;"`               //圈子数
 	NumFocus      int64  `json:"numFocus" form:"numFocus" gorm:"type:bigint(20);column:num_focus;comment:关注数;"`                  //关注数
 	NumFan        int64  `json:"numFan" form:"numFan" gorm:"type:bigint(20);column:num_fan;comment:粉丝数;"`                        //粉丝数

@@ -35,7 +35,7 @@ type ActivityDynamicSearch struct {
 }
 
 type CreateActivityReq struct {
-	TopicId         string `json:"topicId" form:"topicId"`                 //话题_编号
+	TopicId         string `json:"topicId" form:"topicId" example:"1,2"`   //话题_编号,通过逗号分割
 	CircleId        uint64 `json:"circleId" form:"circleId"`               //圈子_编号
 	Title           string `json:"title" form:"title" `                    //标题
 	CoverImage      string `json:"coverImage" form:"coverImage"`           //封面
