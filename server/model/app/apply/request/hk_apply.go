@@ -20,16 +20,16 @@ type ApplySearchAll struct {
 }
 
 type ApplySearchReq struct {
-	OwerType int    `json:"owerType" form:"owerType" gorm:"column:ower_type;comment:拥有者：0平台、1圈子、2个人;size:10;"` //拥有者：0平台、1圈子、2个人
-	CircleId uint64 `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`   //圈子_编号
-	UserId   uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户_编号;"`         //用户_编号
-	Name     string `json:"name" form:"name" gorm:"column:name;comment:名称;size:80;"`                           //名称
+	OwnerType int    `json:"ownerType" form:"ownerType" gorm:"column:owner_type;comment:拥有者：0平台、1圈子、2个人;size:10;"` //拥有者：0平台、1圈子、2个人
+	CircleId  uint64 `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`      //圈子_编号
+	UserId    uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户_编号;"`            //用户_编号
+	Name      string `json:"name" form:"name" gorm:"column:name;comment:名称;size:80;"`                              //名称
 
 	request.PageInfo
 }
 type ApplyAllSearchReq struct {
-	OwerType int    `json:"owerType" form:"owerType" gorm:"column:ower_type;comment:拥有者：0平台、1圈子、2个人;size:10;"` //拥有者：0平台、1圈子、2个人
-	CircleId uint64 `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`   //圈子_编号
-	UserId   uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户_编号;"`         //用户_编号
-	Keyword  string `json:"keyword" form:"keyword"`                                                            //关键字
+	OwnerType int    `json:"ownerType" form:"ownerType" gorm:"column:owner_type;comment:拥有者：0平台、1圈子、2个人;size:10;"` //拥有者：0平台、1圈子、2个人
+	CircleId  uint64 `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`      //圈子_编号
+	UserId    uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户_编号;"`            //用户_编号
+	Keyword   string `json:"keyword" form:"keyword"`                                                               //关键字
 }

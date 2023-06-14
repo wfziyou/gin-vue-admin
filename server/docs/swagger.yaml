@@ -25,7 +25,7 @@ definitions:
       name:
         description: 名称
         type: string
-      owerType:
+      ownerType:
         description: 拥有者：0平台、1圈子、2个人
         type: integer
       sort:
@@ -66,7 +66,7 @@ definitions:
       name:
         description: 名称
         type: string
-      owerType:
+      ownerType:
         description: 拥有者：0平台、1圈子、2个人
         type: integer
       programId:
@@ -335,9 +335,6 @@ definitions:
         type: integer
       status:
         type: integer
-      supportCategory:
-        description: 支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:500;
-        type: string
       tags:
         items:
           $ref: '#/definitions/community.CircleTag'
@@ -907,8 +904,11 @@ definitions:
       attachment:
         description: 附件
         type: string
+      belongType:
+        description: 是否是资讯：0否、1是
+        type: integer
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        description: 类别：1视频、2动态、5文章、6问答、7活动
         type: integer
       channelId:
         description: 频道_编号
@@ -1075,8 +1075,11 @@ definitions:
       attachment:
         description: 附件
         type: string
+      belongType:
+        description: 是否是资讯：0否、1是
+        type: integer
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        description: 类别：1视频、2动态、5文章、6问答、7活动
         type: integer
       channelId:
         description: 频道_编号
@@ -2699,7 +2702,7 @@ definitions:
   general.UserBrowsingHistoryInfo:
     properties:
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        description: 类别：1视频、2动态、5文章、6问答、7活动
         type: integer
       id:
         description: 主键ID
@@ -2715,7 +2718,7 @@ definitions:
   general.UserCollectInfo:
     properties:
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        description: 类别：1视频、2动态、5文章、6问答、7活动
         type: integer
       id:
         description: 主键ID
@@ -3082,7 +3085,7 @@ definitions:
         description: 附件
         type: string
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        description: 类别：1视频、2动态、5文章、6问答、7活动
         type: integer
       circleId:
         description: 圈子_编号
@@ -3172,19 +3175,19 @@ definitions:
   request.DeleteAllDraftReq:
     properties:
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        description: 类别：1视频、2动态、5文章、6问答、7活动
         type: integer
     type: object
   request.DeleteAllUserBrowsingHistoryReq:
     properties:
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        description: 类别：1视频、2动态、5文章、6问答、7活动
         type: integer
     type: object
   request.DeleteAllUserCollectReq:
     properties:
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        description: 类别：1视频、2动态、5文章、6问答、7活动
         type: integer
     type: object
   request.DeleteCircleForumPostsReq:
@@ -3569,6 +3572,21 @@ definitions:
     type: object
   request.ParamCreateNews:
     properties:
+      activityAddress:
+        description: 活动地址
+        type: string
+      activityEndAt:
+        description: 活动结束时间
+        type: string
+      activityStartAt:
+        description: 活动开始时间
+        type: string
+      activityUserNum:
+        description: 活动用户人数（0不限制活动人数，否则为活动人数）
+        type: integer
+      category:
+        description: 类别：1视频、5文章、7活动
+        type: integer
       channelId:
         description: 频道_编号
         type: integer
@@ -3584,12 +3602,18 @@ definitions:
       draft:
         description: 是否是草稿：0不是，1是
         type: integer
+      payNum:
+        description: 付费金额
+        type: integer
       title:
         description: 标题
         type: string
       topicId:
         description: 话题_编号,通过逗号分割
         example: 1,2
+        type: string
+      video:
+        description: 视频地址
         type: string
     type: object
   request.ParamCreateOrder:
@@ -4101,7 +4125,7 @@ definitions:
         description: 附件
         type: string
       category:
-        description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+        description: 类别：1视频、2动态、5文章、6问答、7活动
         type: integer
       channelId:
         description: 频道_编号
@@ -7329,6 +7353,10 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: 类别：1视频、5文章、7活动
+        in: query
+        name: category
+        type: integer
       - description: 圈子_编号
         in: query
         name: circleId
@@ -7455,7 +7483,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+      - description: 类别：1视频、2动态、5文章、6问答、7活动
         in: query
         name: category
         type: integer
@@ -7936,7 +7964,7 @@ paths:
         type: string
       - description: 拥有者：0平台、1圈子、2个人
         in: query
-        name: owerType
+        name: ownerType
         type: integer
       - description: 页码
         in: query
@@ -7986,7 +8014,7 @@ paths:
         type: string
       - description: 拥有者：0平台、1圈子、2个人
         in: query
-        name: owerType
+        name: ownerType
         type: integer
       - description: 用户_编号
         in: query
@@ -9101,7 +9129,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+      - description: 类别：1视频、2动态、5文章、6问答、7活动
         in: query
         name: category
         type: integer
@@ -9322,7 +9350,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+      - description: 类别：1视频、2动态、5文章、6问答、7活动
         in: query
         name: category
         type: integer
@@ -9627,7 +9655,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+      - description: 类别：1视频、2动态、5文章、6问答、7活动
         in: query
         name: category
         type: integer
@@ -11099,7 +11127,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+      - description: 类别：1视频、2动态、5文章、6问答、7活动
         in: query
         name: category
         type: integer
@@ -11239,7 +11267,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+      - description: 类别：1视频、2动态、5文章、6问答、7活动
         in: query
         name: category
         type: integer

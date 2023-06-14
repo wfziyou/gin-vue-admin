@@ -11,7 +11,7 @@ type UserCollect struct {
 	global.GvaModelApp
 	UserId   uint64 `json:"userId" form:"userId" gorm:"type:bigint(20);column:user_id;comment:用户编号;"`                        //用户编号
 	PostsId  uint64 `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"`                     //帖子编号
-	Category int    `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	Category int    `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、5文章、6问答、7活动
 }
 
 // TableName UserCollect 表名
@@ -21,9 +21,9 @@ func (UserCollect) TableName() string {
 
 // UserCollect 结构体
 type UserCollectInfo struct {
-	ID        uint64                        `json:"id" form:"id" gorm:"primarykey"`                                                                  // 主键ID
+	ID        uint64                        `json:"id" form:"id" gorm:"primarykey"`                                                                      // 主键ID
 	PostsId   uint64                        `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"`                     //帖子编号
-	Category  int                           `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	Category  int                           `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、5文章、6问答、7活动
 	PostsInfo *community.ForumPostsBaseInfo `json:"postsInfo" gorm:"foreignKey:ID;references:PostsId;comment:帖子信息"`
 }
 

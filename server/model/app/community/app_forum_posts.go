@@ -7,14 +7,16 @@ import (
 )
 
 const (
+	BelongTypeUser   = 0
+	BelongTypeCircle = 1
+)
+
+//类别：1视频、2动态、5文章、6问答、7活动
+const (
 	//PostsCategoryVideo 1视频
 	PostsCategoryVideo = 1
 	//PostsCategoryDynamic 2动态
 	PostsCategoryDynamic = 2
-	//PostsCategoryNews 3资讯
-	PostsCategoryNews = 3
-	//PostsCategoryNotice 4公告
-	PostsCategoryNotice = 4
 	//PostsCategoryArticle 5文章
 	PostsCategoryArticle = 5
 	//PostsCategoryQuestion 6问答
@@ -60,7 +62,8 @@ type ForumPosts struct {
 	global.GvaModelApp
 	CircleId              uint64     `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                                        //圈子_编号
 	ActivityId            uint64     `json:"activityId" form:"activityId" gorm:"type:bigint(20);column:activity_id;comment:活动_编号;"`                                  //活动_编号
-	Category              int        `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:10;"`                        //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	BelongType            int        `json:"belongType" form:"belongType" gorm:"column:belong_type;comment:属于类型：0个人、1圈子;size:10;"`                                   //是否是资讯：0否、1是
+	Category              int        `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、5文章、6问答、7活动;size:10;"`                                //类别：1视频、2动态、5文章、6问答、7活动
 	ChannelId             uint64     `json:"channelId" form:"channelId" gorm:"type:bigint(20);column:channel_id;comment:频道_编号;"`                                     //频道_编号
 	Title                 string     `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                                             //标题
 	SeoKey                string     `json:"seoKey" form:"seoKey" gorm:"column:seo_key;comment:SEO关键词;size:500;"`                                                    //SEO关键词
@@ -121,7 +124,8 @@ func (ForumPosts) TableName() string {
 type ForumPostsBaseInfo struct {
 	global.GvaModelApp
 	CircleId            uint64               `json:"circleId" form:"circleId" gorm:"type:bigint(20);column:circle_id;comment:圈子_编号;"`                                      //圈子_编号
-	Category            int                  `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:10;"`                      //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	BelongType          int                  `json:"belongType" form:"belongType" gorm:"column:belong_type;comment:属于类型：0个人、1圈子;size:10;"`                                 //是否是资讯：0否、1是
+	Category            int                  `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、5文章、6问答、7活动;size:10;"`                              //类别：1视频、2动态、5文章、6问答、7活动
 	ChannelId           uint64               `json:"channelId" form:"channelId" gorm:"type:bigint(20);column:channel_id;comment:频道_编号;"`                                   //频道_编号
 	Title               string               `json:"title" form:"title" gorm:"column:title;comment:标题;size:80;"`                                                           //标题
 	CoverImage          string               `json:"coverImage" form:"coverImage" gorm:"column:cover_image;comment:封面;size:500;"`                                          //封面
@@ -150,10 +154,9 @@ type ForumPostsBaseInfo struct {
 	TopicInfo           []ForumTopicBaseInfo `json:"topicInfo" gorm:"many2many:hk_forum_topic_posts_mapping;foreignKey:ID;joinForeignKey:PostsId;References:ID;joinReferences:TopicId"`
 	CircleInfo          *CircleBaseInfo      `json:"circleInfo" gorm:"foreignKey:ID;references:CircleId;comment:用户基本信息"`                               //圈子基本信息
 	UserInfo            UserBaseInfo         `json:"userInfo" gorm:"foreignKey:ID;references:UserId;comment:用户基本信息"`                                   //用户基本信息
-	ThumbsUp            int                  `json:"thumbsUp"`                                                                                         //是否点赞：0否、1是
-	Collect             int                  `json:"collect"`                                                                                          //是否收藏：0否、1是
+	ThumbsUp            int                  `json:"thumbsUp" gorm:"-"`                                                                                //是否点赞：0否、1是
+	Collect             int                  `json:"collect" gorm:"-"`                                                                                 //是否收藏：0否、1是
 	CheckStatus         int                  `json:"checkStatus" form:"checkStatus" gorm:"column:check_status;comment:审核状态：1草稿、2未审批、3通过、4拒绝;size:10;"` //审核状态：1草稿、2未审批、3通过、4拒绝
-
 }
 
 // TableName ForumPosts 表名

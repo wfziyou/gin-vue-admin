@@ -36,6 +36,8 @@ const (
 	MiniProgramId   = "miniProgramId"   //小程序id
 )
 
+//BrowsingUserShowNum 经常浏览用户显示个数
+const BrowsingUserShowNum = 5
 const BrowsingUserNum = 5
 
 //HomePageTopNewsNum 首页置顶资讯数

@@ -9,10 +9,10 @@ type UserCollectReq struct {
 	PostsId uint64 `json:"postsId" form:"postsId" gorm:"type:bigint(20);column:posts_id;comment:帖子编号;"` //帖子编号
 }
 type UserCollectSearch struct {
-	Category int `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	Category int `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、5文章、6问答、7活动
 	request.PageInfo
 }
 
 type DeleteAllUserCollectReq struct {
-	Category int `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	Category int `json:"category" form:"category" gorm:"column:category;comment:类别：1视频、2动态、5文章、6问答、7活动;size:10;"` //类别：1视频、2动态、5文章、6问答、7活动
 }

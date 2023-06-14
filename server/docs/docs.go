@@ -4047,6 +4047,12 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "类别：1视频、5文章、7活动",
+                        "name": "category",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
                         "description": "圈子_编号",
                         "name": "circleId",
                         "in": "query"
@@ -4260,7 +4266,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "description": "类别：1视频、2动态、5文章、6问答、7活动",
                         "name": "category",
                         "in": "query"
                     },
@@ -5056,7 +5062,7 @@ const docTemplate = `{
                     {
                         "type": "integer",
                         "description": "拥有者：0平台、1圈子、2个人",
-                        "name": "owerType",
+                        "name": "ownerType",
                         "in": "query"
                     },
                     {
@@ -5139,7 +5145,7 @@ const docTemplate = `{
                     {
                         "type": "integer",
                         "description": "拥有者：0平台、1圈子、2个人",
-                        "name": "owerType",
+                        "name": "ownerType",
                         "in": "query"
                     },
                     {
@@ -7042,7 +7048,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "description": "类别：1视频、2动态、5文章、6问答、7活动",
                         "name": "category",
                         "in": "query"
                     },
@@ -7413,7 +7419,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "description": "类别：1视频、2动态、5文章、6问答、7活动",
                         "name": "category",
                         "in": "query"
                     },
@@ -7940,7 +7946,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "description": "类别：1视频、2动态、5文章、6问答、7活动",
                         "name": "category",
                         "in": "query"
                     },
@@ -10439,7 +10445,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "description": "类别：1视频、2动态、5文章、6问答、7活动",
                         "name": "category",
                         "in": "query"
                     },
@@ -10672,7 +10678,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                        "description": "类别：1视频、2动态、5文章、6问答、7活动",
                         "name": "category",
                         "in": "query"
                     },
@@ -16470,7 +16476,7 @@ const docTemplate = `{
                     "description": "名称",
                     "type": "string"
                 },
-                "owerType": {
+                "ownerType": {
                     "description": "拥有者：0平台、1圈子、2个人",
                     "type": "integer"
                 },
@@ -16526,7 +16532,7 @@ const docTemplate = `{
                     "description": "名称",
                     "type": "string"
                 },
-                "owerType": {
+                "ownerType": {
                     "description": "拥有者：0平台、1圈子、2个人",
                     "type": "integer"
                 },
@@ -16894,10 +16900,6 @@ const docTemplate = `{
                 },
                 "status": {
                     "type": "integer"
-                },
-                "supportCategory": {
-                    "description": "支持内容类别(json数组)：1视频、2动态、3资讯、4公告、5文章、6问答、7活动;size:500;",
-                    "type": "string"
                 },
                 "tags": {
                     "type": "array",
@@ -17683,8 +17685,12 @@ const docTemplate = `{
                     "description": "附件",
                     "type": "string"
                 },
+                "belongType": {
+                    "description": "是否是资讯：0否、1是",
+                    "type": "integer"
+                },
                 "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "description": "类别：1视频、2动态、5文章、6问答、7活动",
                     "type": "integer"
                 },
                 "channelId": {
@@ -17914,8 +17920,12 @@ const docTemplate = `{
                     "description": "附件",
                     "type": "string"
                 },
+                "belongType": {
+                    "description": "是否是资讯：0否、1是",
+                    "type": "integer"
+                },
                 "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "description": "类别：1视频、2动态、5文章、6问答、7活动",
                     "type": "integer"
                 },
                 "channelId": {
@@ -20235,7 +20245,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "description": "类别：1视频、2动态、5文章、6问答、7活动",
                     "type": "integer"
                 },
                 "id": {
@@ -20258,7 +20268,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "description": "类别：1视频、2动态、5文章、6问答、7活动",
                     "type": "integer"
                 },
                 "id": {
@@ -20779,7 +20789,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "description": "类别：1视频、2动态、5文章、6问答、7活动",
                     "type": "integer"
                 },
                 "circleId": {
@@ -20904,7 +20914,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "description": "类别：1视频、2动态、5文章、6问答、7活动",
                     "type": "integer"
                 }
             }
@@ -20913,7 +20923,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "description": "类别：1视频、2动态、5文章、6问答、7活动",
                     "type": "integer"
                 }
             }
@@ -20922,7 +20932,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "description": "类别：1视频、2动态、5文章、6问答、7活动",
                     "type": "integer"
                 }
             }
@@ -21475,6 +21485,26 @@ const docTemplate = `{
         "request.ParamCreateNews": {
             "type": "object",
             "properties": {
+                "activityAddress": {
+                    "description": "活动地址",
+                    "type": "string"
+                },
+                "activityEndAt": {
+                    "description": "活动结束时间",
+                    "type": "string"
+                },
+                "activityStartAt": {
+                    "description": "活动开始时间",
+                    "type": "string"
+                },
+                "activityUserNum": {
+                    "description": "活动用户人数（0不限制活动人数，否则为活动人数）",
+                    "type": "integer"
+                },
+                "category": {
+                    "description": "类别：1视频、5文章、7活动",
+                    "type": "integer"
+                },
                 "channelId": {
                     "description": "频道_编号",
                     "type": "integer"
@@ -21495,6 +21525,10 @@ const docTemplate = `{
                     "description": "是否是草稿：0不是，1是",
                     "type": "integer"
                 },
+                "payNum": {
+                    "description": "付费金额",
+                    "type": "integer"
+                },
                 "title": {
                     "description": "标题",
                     "type": "string"
@@ -21503,6 +21537,10 @@ const docTemplate = `{
                     "description": "话题_编号,通过逗号分割",
                     "type": "string",
                     "example": "1,2"
+                },
+                "video": {
+                    "description": "视频地址",
+                    "type": "string"
                 }
             }
         },
@@ -22221,7 +22259,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "category": {
-                    "description": "类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动",
+                    "description": "类别：1视频、2动态、5文章、6问答、7活动",
                     "type": "integer"
                 },
                 "channelId": {

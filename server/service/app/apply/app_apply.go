@@ -54,13 +54,13 @@ func (appApplyService *AppApplyService) GetApplyInfoList(info applyReq.ApplySear
 	db := global.GVA_DB.Model(&apply.Apply{})
 	var hkApplys []apply.Apply
 	// 如果有条件搜索 下方会自动创建搜索语句
-	db = db.Where("ower_type = ?", info.OwerType)
+	db = db.Where("owner_type = ?", info.OwnerType)
 	//拥有者：0平台、1圈子、2个人
-	if info.OwerType == 1 {
+	if info.OwnerType == 1 {
 		if info.CircleId > 0 {
 			db = db.Where("circle_id = ?", info.CircleId)
 		}
-	} else if info.OwerType == 2 {
+	} else if info.OwnerType == 2 {
 		if info.UserId > 0 {
 			db = db.Where("user_id = ?", info.UserId)
 		}
@@ -85,13 +85,13 @@ func (appApplyService *AppApplyService) GetApplyInfoListAll(info applyReq.ApplyA
 	db := global.GVA_DB.Model(&apply.Apply{})
 	var hkApplys []apply.Apply
 	// 如果有条件搜索 下方会自动创建搜索语句
-	db = db.Where("ower_type = ?", info.OwerType)
+	db = db.Where("owner_type = ?", info.OwnerType)
 	//拥有者：0平台、1圈子、2个人
-	if info.OwerType == 1 {
+	if info.OwnerType == 1 {
 		if info.CircleId > 0 {
 			db = db.Where("circle_id = ?", info.CircleId)
 		}
-	} else if info.OwerType == 2 {
+	} else if info.OwnerType == 2 {
 		if info.UserId > 0 {
 			db = db.Where("user_id = ?", info.UserId)
 		}

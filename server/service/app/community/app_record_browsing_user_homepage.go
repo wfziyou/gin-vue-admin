@@ -73,8 +73,8 @@ func (hkRecordBrowsingUserHomepageService *RecordBrowsingUserHomepageService) Ge
 }
 
 func (hkRecordBrowsingUserHomepageService *RecordBrowsingUserHomepageService) GetFrequentBrowsingUserList(userId uint64, info request.PageInfo) (list []community.UserBaseInfo, total int64, err error) {
-	limit := info.PageSize
-	offset := info.PageSize * (info.Page - 1)
+	//limit := info.PageSize
+	//offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := global.GVA_DB.Model(&community.RecordBrowsingUserHomepage{}).Preload("UserBaseInfo")
 	var hkRecordBrowsingUserHomepages []community.RecordBrowsingUserHomepage
@@ -88,7 +88,7 @@ func (hkRecordBrowsingUserHomepageService *RecordBrowsingUserHomepageService) Ge
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkRecordBrowsingUserHomepages).Error
+	err = db.Limit(utils.BrowsingUserShowNum).Offset(0).Find(&hkRecordBrowsingUserHomepages).Error
 
 	var userBaseInfos []community.UserBaseInfo
 	if err == nil {

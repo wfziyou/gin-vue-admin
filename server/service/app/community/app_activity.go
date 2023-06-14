@@ -151,12 +151,13 @@ func (hkActivityService *ActivityService) GetActivityInfoList(selectUserId uint6
 
 func (hkActivityService *ActivityService) CreateActivityDynamic(userId uint64, activity community.ForumPosts, content string, attachment string) (err error) {
 	err = global.GVA_DB.Create(&community.ForumPosts{
-		CircleId:   activity.CircleId,
-		ActivityId: activity.ID,
-		Category:   community.PostsCategoryDynamic,
-		UserId:     userId,
-		Title:      content,
-		Attachment: attachment,
+		CircleId:    activity.CircleId,
+		ActivityId:  activity.ID,
+		ContentType: community.ContentTypeHtml,
+		Category:    community.PostsCategoryDynamic,
+		UserId:      userId,
+		Title:       content,
+		Attachment:  attachment,
 	}).Error
 	return err
 }

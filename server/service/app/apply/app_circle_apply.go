@@ -17,7 +17,7 @@ type AppCircleApplyService struct {
 // Author [piexlmax](https://github.com/piexlmax)
 func (appCircleApplyService *AppCircleApplyService) CreateCircleApply(circleId uint64, info applyReq.ParamAddCircleApply) (err error) {
 	var tmpApply = apply.Apply{}
-	tmpApply.OwerType = utils.ApplyOwnerTypeCircle
+	tmpApply.OwnerType = utils.ApplyOwnerTypeCircle
 	tmpApply.CircleId = circleId
 	tmpApply.Name = info.Name
 	tmpApply.Icon = info.Icon

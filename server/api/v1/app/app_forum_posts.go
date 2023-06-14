@@ -370,6 +370,12 @@ func (forumPostsApi *ForumPostsApi) FindForumPosts(c *gin.Context) {
 		if _, num, err := appUserCollectService.GetUserCollectEx(userId, []uint64{idSearch.ID}); err == nil && num > 0 {
 			rehkForumPosts.Collect = 1
 		}
+		if rehkForumPosts.CircleId > 0 {
+			if _, err := appCircleUserService.GetCircleUser(rehkForumPosts.CircleId, userId); err == nil {
+				rehkForumPosts.CircleInfo.HaveCircle = 1
+			}
+		}
+
 		hkRecordBrowsingUserHomepageService.BrowsingUser(userId, rehkForumPosts.UserId)
 		appUserBrowsingHistoryService.CreateUserBrowsingHistory(userId, rehkForumPosts.ID, rehkForumPosts.Category)
 		response.OkWithData(rehkForumPosts, c)

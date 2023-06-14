@@ -27,7 +27,7 @@ func (appForumPostsService *AppForumPostsService) CreateForumPosts(info communit
 		Category:        info.Category,
 		Title:           info.Title,
 		CoverImage:      info.CoverImage,
-		ContentType:     info.ContentType,
+		ContentType:     community.ContentTypeHtml,
 		ContentMarkdown: info.ContentMarkdown,
 		ContentHtml:     info.ContentHtml,
 		Video:           info.Video,
@@ -58,14 +58,23 @@ func (appForumPostsService *AppForumPostsService) CreateNews(userId uint64, info
 		UserId:       userId,
 		ChannelId:    info.ChannelId,
 		CircleId:     info.CircleId,
-		Category:     community.PostsCategoryNews,
-		Title:        info.Title,
+		BelongType:   community.BelongTypeCircle,
+		Category:     info.Category,
 		CoverImage:   info.CoverImage,
 		ContentType:  community.ContentTypeHtml,
 		ContentHtml:  info.ContentHtml,
 		CheckStatus:  checkStatus,
 		IsPublic:     community.ForumPostsIsPublicTrue,
 		PowerComment: community.ForumPostsPowerCommentOpen,
+	}
+	if info.Category == community.PostsCategoryVideo {
+		forumPosts.Video = info.Video
+	} else if info.Category == community.PostsCategoryArticle {
+		forumPosts.Title = info.Title
+		forumPosts.ContentType = community.ContentTypeHtml
+	} else if info.Category == community.PostsCategoryActivity {
+		forumPosts.Title = info.Title
+		forumPosts.ContentType = community.ContentTypeHtml
 	}
 	err = global.GVA_DB.Create(&forumPosts).Error
 	if err == nil && len(info.TopicId) > 0 {
@@ -112,7 +121,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPosts(id uint64) (hkFo
 }
 
 func (appForumPostsService *AppForumPostsService) FindForumPosts(selectUserId uint64, id uint64) (hkForumPosts community.ForumPosts, err error) {
-	err = global.GVA_DB.Where("id = ?", id).Preload("UserInfo").First(&hkForumPosts).Error
+	err = global.GVA_DB.Where("id = ?", id).Preload("UserInfo").Preload("CircleInfo").First(&hkForumPosts).Error
 	if err == nil {
 		isFocus, isFan, _ := GetIsFocusAndIsFan(selectUserId, &hkForumPosts.UserInfo)
 		hkForumPosts.UserInfo.IsFocus = isFocus
@@ -146,15 +155,13 @@ func (appForumPostsService *AppForumPostsService) GetRecommendPostsList(selectUs
 	return forumPosts, total, err
 }
 
-// GetGlobalTopInfoList 分页获全局置顶资讯列表
 func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList(selectUserId uint64) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var forumPosts []community.ForumPostsBaseInfo
 
-	db = db.Where("top = 1 and is_public = 1 and check_status=? and category = ?",
-		community.PostsCheckStatusPass,
-		community.PostsCategoryNews)
+	db = db.Where("top = 1 and is_public = 1 and check_status=?",
+		community.PostsCheckStatusPass)
 
 	//创建时间降序排列
 	db = db.Order("hk_forum_posts.created_at desc")
@@ -171,7 +178,6 @@ func (appForumPostsService *AppForumPostsService) GetGlobalTopInfoList(selectUse
 	return forumPosts, total, err
 }
 
-// GetGlobalRecommendInfoList 分页获全局推荐资讯列表
 func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(selectUserId uint64, page request.PageInfo) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := page.PageSize
 	offset := page.PageSize * (page.Page - 1)
@@ -179,9 +185,8 @@ func (appForumPostsService *AppForumPostsService) GetGlobalRecommendInfoList(sel
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
 	var forumPosts []community.ForumPostsBaseInfo
 
-	db = db.Where("is_public = 1 and check_status=? and category = ?",
-		community.PostsCheckStatusPass,
-		community.PostsCategoryNews)
+	db = db.Where("is_public = 1 and check_status=?",
+		community.PostsCheckStatusPass)
 
 	if len(page.Keyword) > 0 {
 		db = db.Where("title LIKE ?", "%"+page.Keyword+"%")
@@ -316,7 +321,7 @@ func (appForumPostsService *AppForumPostsService) GetForumPostsInfoList(selectUs
 		db = db.Where("circle_id = ?", info.CircleId)
 	}
 
-	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	//类别：1视频、2动态、5文章、6问答、7活动
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}
@@ -367,7 +372,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(selectUs
 		db = db.Where("check_status != ?", community.PostsCheckStatusDraft)
 	}
 
-	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	//类别：1视频、2动态、5文章、6问答、7活动
 	if info.Category != 0 {
 		db = db.Where("category = ?", info.Category)
 	}
@@ -399,8 +404,6 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsList(selectUs
 	return forumPosts, total, err
 }
 
-// GetCircleForumPostsList 分页获取ForumPosts记录
-// Author [piexlmax](https://github.com/piexlmax)
 func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(selectUserId uint64, info communityReq.CircleForumPostsSearch) (list []community.ForumPostsBaseInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
@@ -418,7 +421,7 @@ func (appForumPostsService *AppForumPostsService) GetCircleForumPostsList(select
 		} else if info.ChannelId == community.CircleChannelDynamic {
 			db = db.Where("channel_id = 0 AND category = ?", community.PostsCategoryDynamic)
 		} else if info.ChannelId == community.CircleChannelNews {
-			db = db.Where("channel_id = 0 AND category = ?", community.PostsCategoryNews)
+			db = db.Where("channel_id = 0 AND belong_type = ?", community.BelongTypeCircle)
 		} else if info.ChannelId == community.CircleChannelActivity {
 			db = db.Where("channel_id = 0 AND category = ?", community.PostsCategoryActivity)
 		} else if info.ChannelId == community.CircleChannelArticle {
@@ -453,11 +456,13 @@ func (appForumPostsService *AppForumPostsService) GetCircleNewsList(selectUserId
 	var forumPosts []community.ForumPostsBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	//圈子_编号
-	db = db.Where("circle_id = ? AND check_status=? AND category = ?",
+	db = db.Where("circle_id = ? AND check_status=? AND belong_type = ?",
 		info.CircleId,
 		community.PostsCheckStatusPass,
-		community.PostsCategoryNews)
-
+		community.BelongTypeCircle)
+	if info.Category > 0 {
+		db = db.Where("category = ?", info.Category)
+	}
 	if len(info.Keyword) != 0 {
 		db = db.Where("title LIKE ?", "%"+info.Keyword+"%")
 	}
@@ -483,10 +488,10 @@ func (appForumPostsService *AppForumPostsService) GetCircleNewsDraftList(selectU
 	var forumPosts []community.ForumPostsBaseInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	//圈子_编号
-	db = db.Where("circle_id = ? AND check_status=? AND category = ?",
+	db = db.Where("circle_id = ? AND check_status=? AND belong_type = ?",
 		info.CircleId,
 		community.PostsCheckStatusDraft,
-		community.PostsCategoryNews)
+		community.BelongTypeCircle)
 
 	if len(info.Keyword) != 0 {
 		db = db.Where("title LIKE ?", "%"+info.Keyword+"%")
@@ -659,7 +664,7 @@ func (appForumPostsService *AppForumPostsService) GetUserForumPostsInfoList(user
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
 
-	//类别：1视频、2动态、3资讯、4公告、5文章、6问答、7活动
+	//类别：1视频、2动态、5文章、6问答、7活动
 	if info.Category != nil {
 		db = db.Where("category = ?", info.Category)
 	}
