@@ -81,17 +81,13 @@ func (generalApi *GeneralApi) FindProtocolByName(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Success 200 {object}  response.Response{data=general.ConfigParam,msg=string}  "返回general.ConfigParam"
-// @Router /app/general/getConfigParam [post]
+// @Router /app/general/getConfigParam [get]
 func (generalApi *GeneralApi) GetConfigParam(c *gin.Context) {
 	var resp general.ConfigParam
 	data := global.GVA_REDIS.HGetAll(c, utils.ConfigParamKey)
 	list := make([]system.SysParam, 0, len(data.Val()))
 	for key, value := range data.Val() {
-		if key == utils.MiniProgramKey {
-			var obj general.MiniProgramBaseInfo
-			json.Unmarshal([]byte(value), &obj)
-			resp.MiniProgram = &obj
-		} else if key == utils.SysParamActivityManagerApplyId {
+		if key == utils.SysParamActivityManagerApplyId {
 			var obj apply.Apply
 			json.Unmarshal([]byte(value), &obj)
 			resp.ActivityManagerApply = &obj
@@ -113,6 +109,7 @@ func (generalApi *GeneralApi) GetConfigParam(c *gin.Context) {
 			list = append(list, obj)
 		}
 	}
+
 	resp.ParamList = list
 	response.OkWithData(resp, c)
 }
@@ -146,7 +143,7 @@ func (generalApi *GeneralApi) GetGlobalMiniProgram(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Param data query generalReq.ParamCheckAppUpdate true "检测APP更新"
-// @Success 200 {object}  response.Response{data=general.ResponseCheckAppUpdate,msg=string}  "返回general.ResponseCheckAppUpdate"
+// @Success 200 {object}  response.Response{data=general.AppVersion,msg=string}  "返回general.AppVersion"
 // @Router /app/general/checkAppUpdate [get]
 func (generalApi *GeneralApi) CheckAppUpdate(c *gin.Context) {
 	var req generalReq.ParamCheckAppUpdate
@@ -156,14 +153,11 @@ func (generalApi *GeneralApi) CheckAppUpdate(c *gin.Context) {
 		return
 	}
 
-	if data, forceUpdate, err := appVersionService.CheckAppUpdate(req); err != nil {
+	if data, err := appVersionService.CheckAppUpdate(req); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
 	} else {
-		response.OkWithData(general.ResponseCheckAppUpdate{
-			Version:     data,
-			ForceUpdate: forceUpdate,
-		}, c)
+		response.OkWithData(data, c)
 	}
 }
 

@@ -7547,7 +7547,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "返回general.ResponseCheckAppUpdate",
+                        "description": "返回general.AppVersion",
                         "schema": {
                             "allOf": [
                                 {
@@ -7557,7 +7557,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/general.ResponseCheckAppUpdate"
+                                            "$ref": "#/definitions/general.AppVersion"
                                         },
                                         "msg": {
                                             "type": "string"
@@ -7885,7 +7885,7 @@ const docTemplate = `{
             }
         },
         "/app/general/getConfigParam": {
-            "post": {
+            "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -16464,6 +16464,14 @@ const docTemplate = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
+                "miniProgram": {
+                    "description": "小程序",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/apply.MiniProgramBaseInfo"
+                        }
+                    ]
+                },
                 "miniProgramId": {
                     "description": "小程序id",
                     "type": "integer"
@@ -16582,6 +16590,47 @@ const docTemplate = `{
                 },
                 "updatedAt": {
                     "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
+        "apply.MiniProgramBaseInfo": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "版本code",
+                    "type": "integer"
+                },
+                "companyName": {
+                    "description": "公司名称",
+                    "type": "string"
+                },
+                "hidden": {
+                    "description": "隐藏(0否 1是)",
+                    "type": "integer"
+                },
+                "icon": {
+                    "description": "图标",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "名称",
+                    "type": "string"
+                },
+                "packetAddress": {
+                    "description": "当前包下载地址",
+                    "type": "string"
+                },
+                "programId": {
+                    "description": "小程序id",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "当前版本",
                     "type": "string"
                 }
             }
@@ -20094,14 +20143,6 @@ const docTemplate = `{
                         }
                     ]
                 },
-                "miniProgram": {
-                    "description": "小程序",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/general.MiniProgramBaseInfo"
-                        }
-                    ]
-                },
                 "paramList": {
                     "description": "参数参数",
                     "type": "array",
@@ -20137,6 +20178,10 @@ const docTemplate = `{
                 "icon": {
                     "description": "图标",
                     "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
                 },
                 "name": {
                     "description": "名称",
@@ -20193,23 +20238,6 @@ const docTemplate = `{
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
-                }
-            }
-        },
-        "general.ResponseCheckAppUpdate": {
-            "type": "object",
-            "properties": {
-                "forceUpdate": {
-                    "description": "强制更新：0否 1是",
-                    "type": "integer"
-                },
-                "version": {
-                    "description": "最新版本",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/general.AppVersion"
-                        }
-                    ]
                 }
             }
         },

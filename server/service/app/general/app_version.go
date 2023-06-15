@@ -45,7 +45,7 @@ func (service *AppVersionService) GetAppVersion(id uint64) (appVersion general.A
 	return
 }
 
-func (service *AppVersionService) CheckAppUpdate(info generalReq.ParamCheckAppUpdate) (obj general.AppVersion, force int, err error) {
+func (service *AppVersionService) CheckAppUpdate(info generalReq.ParamCheckAppUpdate) (obj general.AppVersion, err error) {
 	var number int64
 	err = global.GVA_DB.Model(&general.AppVersion{}).Where("platform = ? AND version > ? AND force_update = 1", info.Platform, info.CurVersion).Count(&number).Error
 	if err != nil {
@@ -55,9 +55,8 @@ func (service *AppVersionService) CheckAppUpdate(info generalReq.ParamCheckAppUp
 	if err != nil {
 		return
 	}
-	forceUpdate := int(0)
 	if number > 0 {
-		forceUpdate = 1
+		obj.ForceUpdate = 1
 	}
-	return obj, forceUpdate, err
+	return obj, err
 }

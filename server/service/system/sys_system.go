@@ -111,14 +111,15 @@ func LoadConfigParamToCache() {
 			}
 		}
 		if len(miniIds) > 0 {
-			var miniProgram []general.MiniProgram
-			err1 := global.GVA_DB.Where("id in ?", miniIds).Find(&miniProgram).Error
+			var miniProgram []apply.MiniProgramBaseInfo
+			err1 := global.GVA_DB.Raw("SELECT t.id,t.name,t.icon,t.company_name,t.program_id,p.version,p.code,p.packet_address,t.hidden FROM hk_mini_program t LEFT JOIN hk_mini_program_packet p ON  t.cur_packet_id = p.id WHERE t.id in ?", miniIds).Find(&miniProgram).Error
 			if err1 == nil && len(miniProgram) > 0 {
 				for index, obj := range applyList {
 					if obj.Type == utils.ApplyTypeMimiProgram {
 						for _, program := range miniProgram {
-							if obj.MiniProgramId == program.ID {
+							if obj.MiniProgramId == program.Id {
 								applyList[index].ProgramId = program.ProgramId
+								applyList[index].MiniProgram = &program
 								break
 							}
 						}

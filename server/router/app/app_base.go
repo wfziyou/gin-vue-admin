@@ -14,7 +14,7 @@ func (s *BaseRouter) InitBaseRouter(Router *gin.RouterGroup) {
 	{
 		generalRouterWithoutRecord.GET("findProtocol", generalApi.FindProtocol)                 //用id查询协议
 		generalRouterWithoutRecord.GET("findProtocolByName", generalApi.FindProtocolByName)     //用名字查询协议
-		generalRouterWithoutRecord.POST("getConfigParam", generalApi.GetConfigParam)            //获取配置参数
+		generalRouterWithoutRecord.GET("getConfigParam", generalApi.GetConfigParam)             //获取配置参数
 		generalRouterWithoutRecord.GET("getGlobalMiniProgram", generalApi.GetGlobalMiniProgram) //获取全局小程序
 		generalRouterWithoutRecord.GET("checkAppUpdate", generalApi.CheckAppUpdate)             //检测APP更新
 	}

@@ -1,5 +1,5 @@
 // 自动生成模板MiniProgram
-package general
+package apply
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
