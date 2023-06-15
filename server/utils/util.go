@@ -31,9 +31,13 @@ const (
 
 //配置参数
 const (
-	LatestVersion   = "latestVersion"   //当前版本
-	RequiredVersion = "requiredVersion" // 最小版本
-	MiniProgramId   = "miniProgramId"   //小程序id
+	LatestVersion                  = "latestVersion"              //当前版本
+	RequiredVersion                = "requiredVersion"            // 最小版本
+	MiniProgramId                  = "app.miniProgramId"          //小程序id
+	SysParamActivityManagerApplyId = "app.activityManagerApplyId" //活动管理访问应用id
+	SysParamCircleManagerApplyId   = "app.circleManagerApplyId"   //圈子管理访问应用id
+	SysParamWalletBillApplyId      = "app.walletBillApplyId"      //钱包账单访问应用id
+	SysParamGoldBillApplyId        = "app.goldBillApplyId"        //金币账单访问应用id
 )
 
 //BrowsingUserShowNum 经常浏览用户显示个数

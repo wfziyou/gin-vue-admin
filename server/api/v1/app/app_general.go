@@ -3,6 +3,7 @@ package app
 import (
 	"encoding/json"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/apply"
 	communityReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/community/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	generalReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/general/request"
@@ -80,7 +81,7 @@ func (generalApi *GeneralApi) FindProtocolByName(c *gin.Context) {
 // @accept application/json
 // @Produce application/json
 // @Success 200 {object}  response.Response{data=general.ConfigParam,msg=string}  "返回general.ConfigParam"
-// @Router /app/general/getConfigParam [get]
+// @Router /app/general/getConfigParam [post]
 func (generalApi *GeneralApi) GetConfigParam(c *gin.Context) {
 	var resp general.ConfigParam
 	data := global.GVA_REDIS.HGetAll(c, utils.ConfigParamKey)
@@ -90,6 +91,22 @@ func (generalApi *GeneralApi) GetConfigParam(c *gin.Context) {
 			var obj general.MiniProgramBaseInfo
 			json.Unmarshal([]byte(value), &obj)
 			resp.MiniProgram = &obj
+		} else if key == utils.SysParamActivityManagerApplyId {
+			var obj apply.Apply
+			json.Unmarshal([]byte(value), &obj)
+			resp.ActivityManagerApply = &obj
+		} else if key == utils.SysParamCircleManagerApplyId {
+			var obj apply.Apply
+			json.Unmarshal([]byte(value), &obj)
+			resp.CircleManagerApply = &obj
+		} else if key == utils.SysParamWalletBillApplyId {
+			var obj apply.Apply
+			json.Unmarshal([]byte(value), &obj)
+			resp.WalletBillApply = &obj
+		} else if key == utils.SysParamGoldBillApplyId {
+			var obj apply.Apply
+			json.Unmarshal([]byte(value), &obj)
+			resp.GoldBillApply = &obj
 		} else {
 			var obj system.SysParam
 			json.Unmarshal([]byte(value), &obj)

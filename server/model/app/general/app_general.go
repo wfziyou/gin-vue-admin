@@ -1,12 +1,17 @@
 package general
 
 import (
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/apply"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 )
 
 type ConfigParam struct {
-	MiniProgram *MiniProgramBaseInfo `json:"miniProgram" yaml:"miniProgram"` //小程序
-	ParamList   []system.SysParam    `json:"paramList" yaml:"paramList"`     //参数参数
+	MiniProgram          *MiniProgramBaseInfo `json:"miniProgram" yaml:"miniProgram"`                   //小程序
+	ActivityManagerApply *apply.Apply         `json:"activityManagerApply" yaml:"activityManagerApply"` //活动管理访问应用
+	CircleManagerApply   *apply.Apply         `json:"circleManagerApply" yaml:"circleManagerApply"`     //圈子管理访问应用
+	WalletBillApply      *apply.Apply         `json:"walletBillApply" yaml:"walletBillApply"`           //钱包账单访问应用
+	GoldBillApply        *apply.Apply         `json:"goldBillApply" yaml:"goldBillApply"`               //金币账单访问应用
+	ParamList            []system.SysParam    `json:"paramList" yaml:"paramList"`                       //参数参数
 }
 
 type ResponseCheckAppUpdate struct {

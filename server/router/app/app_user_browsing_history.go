@@ -17,6 +17,7 @@ func (router *UserBrowsingHistoryRouter) InitUserBrowsingHistoryRouter(Router *g
 	{
 		userBrowsingHistoryRouter.DELETE("deleteUserBrowsingHistory", userBrowsingHistoryApi.DeleteUserBrowsingHistory)             //删除浏览历史
 		userBrowsingHistoryRouter.DELETE("deleteUserBrowsingHistoryByIds", userBrowsingHistoryApi.DeleteUserBrowsingHistoryByIds)   //批量删除浏览历史
+		userBrowsingHistoryRouter.DELETE("deleteAllUserBrowsingHistory", userBrowsingHistoryApi.DeleteAllUserBrowsingHistory)       //删除所有浏览历史
 		userBrowsingHistoryRouterWithoutRecord.GET("getUserBrowsingHistoryList", userBrowsingHistoryApi.GetUserBrowsingHistoryList) //分页获取浏览历史列表
 	}
 	return userBrowsingHistoryRouter

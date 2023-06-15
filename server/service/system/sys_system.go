@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/flipped-aurora/gin-vue-admin/server/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app/apply"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app/general"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
@@ -69,14 +70,16 @@ func (systemConfigService *SystemConfigService) GetServerInfo() (server *utils.S
 
 func LoadConfigParamToCache() {
 	var data []system.SysParam
-	err := global.GVA_DB.Model(&system.SysParam{}).Find(&data).Error
+	err := global.GVA_DB.Model(&system.SysParam{}).Where("param_key LIKE 'app.%'").Select("param_key,param_value").Find(&data).Error
 	if err != nil {
 		global.GVA_LOG.Error("加载数据库SysParam失败!", zap.Error(err))
 		return
 	}
+	var ids = make([]uint64, 0, 4)
+	var mapApply = make(map[string]interface{})
 	for _, obj := range data {
 		bytes, _ := json.Marshal(obj) // Marshal函数转成的是 byte 数组
-		global.GVA_REDIS.HSet(context.Background(), utils.ConfigParamKey, obj.ParamKey, bytes)
+
 		if obj.ParamKey == utils.MiniProgramId {
 			var data general.MiniProgramBaseInfo
 			miniProgramId, _ := strconv.ParseInt(obj.ParamValue, 10, 64)
@@ -86,6 +89,52 @@ func LoadConfigParamToCache() {
 			} else {
 				str, _ := json.Marshal(data)
 				global.GVA_REDIS.HSet(context.Background(), utils.ConfigParamKey, utils.MiniProgramKey, str)
+			}
+		} else if obj.ParamKey == utils.SysParamActivityManagerApplyId ||
+			obj.ParamKey == utils.SysParamCircleManagerApplyId ||
+			obj.ParamKey == utils.SysParamWalletBillApplyId ||
+			obj.ParamKey == utils.SysParamGoldBillApplyId {
+			id, _ := strconv.ParseUint(obj.ParamValue, 10, 64)
+			ids = append(ids, id)
+			mapApply[obj.ParamKey] = id
+		} else {
+			global.GVA_REDIS.HSet(context.Background(), utils.ConfigParamKey, obj.ParamKey, bytes)
+		}
+	}
+	var applyList []apply.Apply
+	err = global.GVA_DB.Model(&apply.Apply{}).Where("id in ?", ids).Find(&applyList).Error
+	if err == nil {
+		var miniIds = make([]uint64, 0, 4)
+		for _, obj := range applyList {
+			if obj.Type == utils.ApplyTypeMimiProgram {
+				miniIds = append(miniIds, obj.MiniProgramId)
+			}
+		}
+		if len(miniIds) > 0 {
+			var miniProgram []general.MiniProgram
+			err1 := global.GVA_DB.Where("id in ?", miniIds).Find(&miniProgram).Error
+			if err1 == nil && len(miniProgram) > 0 {
+				for index, obj := range applyList {
+					if obj.Type == utils.ApplyTypeMimiProgram {
+						for _, program := range miniProgram {
+							if obj.MiniProgramId == program.ID {
+								applyList[index].ProgramId = program.ProgramId
+								break
+							}
+						}
+					}
+				}
+			}
+		}
+		if len(applyList) > 0 {
+			for key, applyId := range mapApply {
+				for _, obj := range applyList {
+					if obj.ID == applyId {
+						bytes, _ := json.Marshal(obj)
+						global.GVA_REDIS.HSet(context.Background(), utils.ConfigParamKey, key, bytes)
+						break
+					}
+				}
 			}
 		}
 	}

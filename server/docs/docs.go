@@ -7885,7 +7885,7 @@ const docTemplate = `{
             }
         },
         "/app/general/getConfigParam": {
-            "get": {
+            "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -16456,66 +16456,6 @@ const docTemplate = `{
                     "description": "圈子_编号",
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "icon": {
-                    "description": "图标",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "miniProgramId": {
-                    "description": "小程序id",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "名称",
-                    "type": "string"
-                },
-                "ownerType": {
-                    "description": "拥有者：0平台、1圈子、2个人",
-                    "type": "integer"
-                },
-                "sort": {
-                    "description": "排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "integer"
-                },
-                "type": {
-                    "description": "类型(0小程序、1第三方链接)",
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "userId": {
-                    "description": "用户_编号",
-                    "type": "integer"
-                }
-            }
-        },
-        "apply.ApplyInfo": {
-            "type": "object",
-            "properties": {
-                "applyAddress": {
-                    "description": "访问地址",
-                    "type": "string"
-                },
-                "applyParameters": {
-                    "description": "访问参数",
-                    "type": "string"
-                },
-                "circleId": {
-                    "description": "圈子_编号",
-                    "type": "integer"
-                },
                 "icon": {
                     "description": "图标",
                     "type": "string"
@@ -16561,7 +16501,7 @@ const docTemplate = `{
                     "description": "应用",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/apply.ApplyInfo"
+                            "$ref": "#/definitions/apply.Apply"
                         }
                     ]
                 },
@@ -20130,6 +20070,30 @@ const docTemplate = `{
         "general.ConfigParam": {
             "type": "object",
             "properties": {
+                "activityManagerApply": {
+                    "description": "活动管理访问应用",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/apply.Apply"
+                        }
+                    ]
+                },
+                "circleManagerApply": {
+                    "description": "圈子管理访问应用",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/apply.Apply"
+                        }
+                    ]
+                },
+                "goldBillApply": {
+                    "description": "金币账单访问应用",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/apply.Apply"
+                        }
+                    ]
+                },
                 "miniProgram": {
                     "description": "小程序",
                     "allOf": [
@@ -20144,6 +20108,14 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/system.SysParam"
                     }
+                },
+                "walletBillApply": {
+                    "description": "钱包账单访问应用",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/apply.Apply"
+                        }
+                    ]
                 }
             }
         },
