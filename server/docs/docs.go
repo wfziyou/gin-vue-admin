@@ -20283,6 +20283,10 @@ const docTemplate = `{
                     "description": "拥有者id",
                     "type": "integer"
                 },
+                "showTime": {
+                    "description": "显示时间，单位毫秒",
+                    "type": "integer"
+                },
                 "type": {
                     "description": "类型:0图片、1视频",
                     "type": "integer"

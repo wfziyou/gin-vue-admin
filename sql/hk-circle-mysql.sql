@@ -2195,19 +2195,25 @@ CREATE TABLE `hk_app_version`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `hk_open_screen_advertising`;
 CREATE TABLE `hk_open_screen_advertising`  (
-   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
-   `content` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '内容',
-   `link` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '链接',
-   `type` int(2) NULL DEFAULT 0 COMMENT '类型:0图片、1视频',
-   `owner_id` bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '拥有者id',
-   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
-   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
-   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
-   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
-   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
-   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
-   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
-   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
-   PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+  `content` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '内容',
+  `link` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '链接',
+  `show_time` smallint(6) NULL DEFAULT NULL COMMENT '显示时间，单位毫秒',
+  `type` smallint(6) NULL DEFAULT NULL COMMENT '类型:0图片、1视频',
+  `owner_id` mediumint(8) UNSIGNED NULL DEFAULT NULL COMMENT '拥有者id',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+  `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+  `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+  `is_del` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '刪除标志',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '开屏广告';
+
+-- ----------------------------
+-- Records of hk_open_screen_advertising
+-- ----------------------------
+INSERT INTO `hk_open_screen_advertising` VALUES (1, '000000', 'https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com/test/uploads/2023-05-16/image_picker6918635242921663127.jpg', 'https://www.baidu.com/', 4000, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
