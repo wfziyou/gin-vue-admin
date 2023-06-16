@@ -12,10 +12,11 @@ func (s *BaseRouter) InitBaseRouter(Router *gin.RouterGroup) {
 	generalRouterWithoutRecord := appRouter.Group("general")
 	var generalApi = v1.ApiGroupApp.AppApiGroup.GeneralApi
 	{
-		generalRouterWithoutRecord.GET("findProtocol", generalApi.FindProtocol)                 //用id查询协议
-		generalRouterWithoutRecord.GET("findProtocolByName", generalApi.FindProtocolByName)     //用名字查询协议
-		generalRouterWithoutRecord.GET("getConfigParam", generalApi.GetConfigParam)             //获取配置参数
-		generalRouterWithoutRecord.GET("getGlobalMiniProgram", generalApi.GetGlobalMiniProgram) //获取全局小程序
-		generalRouterWithoutRecord.GET("checkAppUpdate", generalApi.CheckAppUpdate)             //检测APP更新
+		generalRouterWithoutRecord.GET("findProtocol", generalApi.FindProtocol)                         //用id查询协议
+		generalRouterWithoutRecord.GET("findProtocolByName", generalApi.FindProtocolByName)             //用名字查询协议
+		generalRouterWithoutRecord.GET("getConfigParam", generalApi.GetConfigParam)                     //获取配置参数
+		generalRouterWithoutRecord.GET("getGlobalMiniProgram", generalApi.GetGlobalMiniProgram)         //获取全局小程序
+		generalRouterWithoutRecord.GET("checkAppUpdate", generalApi.CheckAppUpdate)                     //检测APP更新
+		generalRouterWithoutRecord.GET("getOpenScreenAdvertising", generalApi.GetOpenScreenAdvertising) //获取开屏广告
 	}
 }

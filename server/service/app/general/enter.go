@@ -5,6 +5,7 @@ type ServiceGroup struct {
 	AppMiniProgramService
 	AppMiniProgramPacketService
 	AppProtocolService
+	AppOpenScreenAdvertisingService
 	AppVersionService
 	AppUserBrowsingHistoryService
 	AppUserCollectService

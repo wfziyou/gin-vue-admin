@@ -108,6 +108,7 @@ func RegisterTables() {
 		general.Protocol{},
 		general.UserCollect{},
 		general.UserBrowsingHistory{},
+		general.OpenScreenAdvertising{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

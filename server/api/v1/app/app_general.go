@@ -161,6 +161,31 @@ func (generalApi *GeneralApi) CheckAppUpdate(c *gin.Context) {
 	}
 }
 
+// GetOpenScreenAdvertising 获取开屏广告
+// @Tags 常规方法
+// @Summary 获取开屏广告
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query generalReq.GetOpenScreenAdvertisingReq true "获取开屏广告"
+// @Success 200 {object}  response.Response{data=general.OpenScreenAdvertising,msg=string}  "返回general.OpenScreenAdvertising"
+// @Router /app/general/getOpenScreenAdvertising [get]
+func (generalApi *GeneralApi) GetOpenScreenAdvertising(c *gin.Context) {
+	var req generalReq.GetOpenScreenAdvertisingReq
+	err := c.ShouldBindQuery(&req)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if data, err := appOpenScreenAdvertisingService.GetOpenScreenAdvertisingInfo(req); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(data, c)
+	}
+}
+
 // FindMiniProgram 用id查询小程序
 // @Tags 常规方法
 // @Summary 用id查询小程序

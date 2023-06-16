@@ -348,10 +348,13 @@ func (activityApi *ActivityApi) GetActivityUserList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	userId := utils.GetUserID(c)
 	if list, total, err := hkActivityUserService.GetActivityUserInfoList(req.Id, req.PageInfo); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
+		appUserService.SetActivityUserIsFocus(userId, list)
+		appUserService.SetActivityUserIsFans(userId, list)
 		response.OkWithDetailed(response.PageResult{
 			List:     list,
 			Total:    total,

@@ -8039,6 +8039,68 @@ const docTemplate = `{
                 }
             }
         },
+        "/app/general/getOpenScreenAdvertising": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "常规方法"
+                ],
+                "summary": "获取开屏广告",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "当前位置",
+                        "name": "address",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "操作者编号（上次登录的用户编号，没有则不赋值）",
+                        "name": "operatorId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin",
+                        "name": "platform",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回general.OpenScreenAdvertising",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/general.OpenScreenAdvertising"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/app/general/getUserCoverImageList": {
             "get": {
                 "security": [
@@ -16686,8 +16748,8 @@ const docTemplate = `{
                     "description": "活动编号",
                     "type": "integer"
                 },
-                "createdAt": {
-                    "description": "创建时间",
+                "description": {
+                    "description": "描述",
                     "type": "string"
                 },
                 "headerImg": {
@@ -16696,6 +16758,14 @@ const docTemplate = `{
                 },
                 "id": {
                     "description": "主键ID",
+                    "type": "integer"
+                },
+                "isFan": {
+                    "description": "是否是粉丝:0 否、1是",
+                    "type": "integer"
+                },
+                "isFocus": {
+                    "description": "是否关注:0 否、1是",
                     "type": "integer"
                 },
                 "nickName": {
@@ -16718,15 +16788,8 @@ const docTemplate = `{
                     "description": "备注",
                     "type": "string"
                 },
-                "status": {
-                    "type": "integer"
-                },
                 "tag": {
                     "description": "标签",
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
                     "type": "string"
                 },
                 "userId": {
@@ -20198,6 +20261,31 @@ const docTemplate = `{
                 "version": {
                     "description": "当前版本",
                     "type": "string"
+                }
+            }
+        },
+        "general.OpenScreenAdvertising": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "description": "内容",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "link": {
+                    "description": "链接",
+                    "type": "string"
+                },
+                "ownerId": {
+                    "description": "拥有者id",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "类型:0图片、1视频",
+                    "type": "integer"
                 }
             }
         },

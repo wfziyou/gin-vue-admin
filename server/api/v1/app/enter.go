@@ -53,11 +53,12 @@ var (
 	hkRecordBrowsingCircleHomepageService = service.ServiceGroupApp.AppServiceGroup.Community.RecordBrowsingCircleHomepageService
 	hkRecordBrowsingUserHomepageService   = service.ServiceGroupApp.AppServiceGroup.Community.RecordBrowsingUserHomepageService
 
-	appProtocolService            = service.ServiceGroupApp.AppServiceGroup.General.AppProtocolService
-	appUserCollectService         = service.ServiceGroupApp.AppServiceGroup.General.AppUserCollectService
-	appUserBrowsingHistoryService = service.ServiceGroupApp.AppServiceGroup.General.AppUserBrowsingHistoryService
-	appMiniProgramService         = service.ServiceGroupApp.AppServiceGroup.General.AppMiniProgramService
-	appVersionService             = service.ServiceGroupApp.AppServiceGroup.General.AppVersionService
+	appProtocolService              = service.ServiceGroupApp.AppServiceGroup.General.AppProtocolService
+	appOpenScreenAdvertisingService = service.ServiceGroupApp.AppServiceGroup.General.AppOpenScreenAdvertisingService
+	appUserCollectService           = service.ServiceGroupApp.AppServiceGroup.General.AppUserCollectService
+	appUserBrowsingHistoryService   = service.ServiceGroupApp.AppServiceGroup.General.AppUserBrowsingHistoryService
+	appMiniProgramService           = service.ServiceGroupApp.AppServiceGroup.General.AppMiniProgramService
+	appVersionService               = service.ServiceGroupApp.AppServiceGroup.General.AppVersionService
 
 	appApplyService            = service.ServiceGroupApp.AppServiceGroup.Apply.AppApplyService
 	appCircleApplyService      = service.ServiceGroupApp.AppServiceGroup.Apply.AppCircleApplyService

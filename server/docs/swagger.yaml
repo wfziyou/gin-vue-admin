@@ -174,14 +174,20 @@ definitions:
       activityId:
         description: 活动编号
         type: integer
-      createdAt:
-        description: 创建时间
+      description:
+        description: 描述
         type: string
       headerImg:
         description: 头像
         type: string
       id:
         description: 主键ID
+        type: integer
+      isFan:
+        description: 是否是粉丝:0 否、1是
+        type: integer
+      isFocus:
+        description: 是否关注:0 否、1是
         type: integer
       nickName:
         description: 昵称
@@ -198,13 +204,8 @@ definitions:
       remark:
         description: 备注
         type: string
-      status:
-        type: integer
       tag:
         description: 标签
-        type: string
-      updatedAt:
-        description: 更新时间
         type: string
       userId:
         description: 用户编号
@@ -2664,6 +2665,24 @@ definitions:
       version:
         description: 当前版本
         type: string
+    type: object
+  general.OpenScreenAdvertising:
+    properties:
+      content:
+        description: 内容
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      link:
+        description: 链接
+        type: string
+      ownerId:
+        description: 拥有者id
+        type: integer
+      type:
+        description: 类型:0图片、1视频
+        type: integer
     type: object
   general.Protocol:
     properties:
@@ -9708,6 +9727,42 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 获取全局小程序
+      tags:
+      - 常规方法
+  /app/general/getOpenScreenAdvertising:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 当前位置
+        in: query
+        name: address
+        type: string
+      - description: 操作者编号（上次登录的用户编号，没有则不赋值）
+        in: query
+        name: operatorId
+        type: integer
+      - description: 平台：1IOS,2Android,3Windows,4OSX,5Web,6MiniWeb,7Linux,8APad,9IPad,10Admin
+        in: query
+        name: platform
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回general.OpenScreenAdvertising
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/general.OpenScreenAdvertising'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取开屏广告
       tags:
       - 常规方法
   /app/general/getUserCoverImageList:

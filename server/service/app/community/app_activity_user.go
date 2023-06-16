@@ -83,23 +83,24 @@ func (hkActivityUserService *ActivityUserService) GetActivityUserInfoList(activi
 		return
 	}
 
-	err = db.Limit(limit).Offset(offset).Find(&hkActivityUsers).Error
+	err = db.Limit(limit).Offset(offset).Select("user_id as id,remark,tag,power").Find(&hkActivityUsers).Error
 	if err == nil {
 		var size = len(hkActivityUsers)
 		if size > 0 {
 			var ids = make([]uint64, size)
 			for index, v := range hkActivityUsers {
-				ids[index] = v.UserId
+				ids[index] = v.ID
 			}
 
 			var users []community.User
-			err = global.GVA_DB.Select("id,nick_name,header_img").Where("id in ?", ids).Find(&users).Error
+			err = global.GVA_DB.Select("id,nick_name,header_img,description").Where("id in ?", ids).Find(&users).Error
 			if err == nil {
 				for index, v := range hkActivityUsers {
 					for _, user := range users {
-						if v.UserId == user.ID {
+						if v.ID == user.ID {
 							hkActivityUsers[index].NickName = user.NickName
 							hkActivityUsers[index].HeaderImg = user.HeaderImg
+							hkActivityUsers[index].Description = user.Description
 							break
 						}
 					}

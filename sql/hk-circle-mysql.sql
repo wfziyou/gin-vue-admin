@@ -2189,3 +2189,25 @@ CREATE TABLE `hk_app_version`  (
    `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
    PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'app版本';
+
+-- ----------------------------
+-- Table structure for hk_open_screen_advertising
+-- ----------------------------
+DROP TABLE IF EXISTS `hk_open_screen_advertising`;
+CREATE TABLE `hk_open_screen_advertising`  (
+   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '000000' COMMENT '租户ID',
+   `content` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '内容',
+   `link` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '链接',
+   `type` int(2) NULL DEFAULT 0 COMMENT '类型:0图片、1视频',
+   `owner_id` bigint(20) UNSIGNED NULL DEFAULT 0 COMMENT '拥有者id',
+   `created_at` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
+   `updated_at` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
+   `deleted_at` datetime(3) NULL DEFAULT NULL COMMENT '删除时间',
+   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人',
+   `create_dept` bigint(20) NULL DEFAULT NULL COMMENT '创建部门',
+   `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改人',
+   `status` int(2) NULL DEFAULT 0 COMMENT '状态',
+   `is_del` int(2) NULL DEFAULT 0 COMMENT '是否已删除',
+   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '开屏广告';
