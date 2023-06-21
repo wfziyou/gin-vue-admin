@@ -39,7 +39,7 @@ yunxin-im:
 open-im:
   appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
   appSecret: openIM123
-  url: http://192.168.3.23:10002
+  url: http://127.0.0.1:10002
 # jwt configuration
 jwt:
   signing-key: qmPlus
@@ -61,7 +61,7 @@ zap:
 redis:
   db: 0
   addr: 127.0.0.1:16379
-  password: ""
+  password: "openIM123"
 
 # email configuration
 email:
@@ -106,7 +106,7 @@ mysql:
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: bladex_boot
   username: root
-  password: openIM
+  password: openIM123
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: Info

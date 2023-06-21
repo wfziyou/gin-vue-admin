@@ -39,7 +39,7 @@ yunxin-im:
 open-im:
   appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
   appSecret: openIM123
-  url: http://192.168.3.23:10002
+  url: http://101.43.60.171:10002
 # jwt configuration
 jwt:
   signing-key: qmPlus
@@ -60,8 +60,8 @@ zap:
 # redis configuration
 redis:
   db: 0
-  addr: 127.0.0.1:6379
-  password: ""
+  addr: 101.43.60.171:16379
+  password: "openIM123"
 
 # email configuration
 email:
@@ -101,12 +101,12 @@ captcha:
 # mysql connect configuration
 # 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://gin-vue-admin.com/docs/first_master）
 mysql:
-  path: 127.0.0.1
-  port: "3306"
+  path: 101.43.60.171
+  port: "13306"
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: bladex_boot
   username: root
-  password: root
+  password: openIM123
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: Info
