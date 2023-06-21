@@ -103,6 +103,10 @@ func (generalApi *GeneralApi) GetConfigParam(c *gin.Context) {
 			var obj apply.Apply
 			json.Unmarshal([]byte(value), &obj)
 			resp.GoldBillApply = &obj
+		} else if key == utils.SysParamGoldShopApplyId {
+			var obj apply.Apply
+			json.Unmarshal([]byte(value), &obj)
+			resp.GoldShopApply = &obj
 		} else {
 			var obj system.SysParam
 			json.Unmarshal([]byte(value), &obj)

@@ -38,6 +38,7 @@ const (
 	SysParamCircleManagerApplyId   = "app.circleManagerApplyId"   //圈子管理访问应用id
 	SysParamWalletBillApplyId      = "app.walletBillApplyId"      //钱包账单访问应用id
 	SysParamGoldBillApplyId        = "app.goldBillApplyId"        //金币账单访问应用id
+	SysParamGoldShopApplyId        = "app.goldShopApplyId"        //金币商城访问应用id
 )
 
 //BrowsingUserShowNum 经常浏览用户显示个数

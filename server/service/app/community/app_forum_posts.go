@@ -67,15 +67,11 @@ func (appForumPostsService *AppForumPostsService) CreateNews(userId uint64, info
 		IsPublic:     community.ForumPostsIsPublicTrue,
 		PowerComment: community.ForumPostsPowerCommentOpen,
 	}
+	forumPosts.Title = info.Title
 	if info.Category == community.PostsCategoryVideo {
 		forumPosts.Video = info.Video
-	} else if info.Category == community.PostsCategoryArticle {
-		forumPosts.Title = info.Title
-		forumPosts.ContentType = community.ContentTypeHtml
-	} else if info.Category == community.PostsCategoryActivity {
-		forumPosts.Title = info.Title
-		forumPosts.ContentType = community.ContentTypeHtml
 	}
+
 	err = global.GVA_DB.Create(&forumPosts).Error
 	if err == nil && len(info.TopicId) > 0 {
 		tmp := utils.SplitToUint64List(info.TopicId, ",")

@@ -93,7 +93,8 @@ func LoadConfigParamToCache() {
 		} else if obj.ParamKey == utils.SysParamActivityManagerApplyId ||
 			obj.ParamKey == utils.SysParamCircleManagerApplyId ||
 			obj.ParamKey == utils.SysParamWalletBillApplyId ||
-			obj.ParamKey == utils.SysParamGoldBillApplyId {
+			obj.ParamKey == utils.SysParamGoldBillApplyId ||
+			obj.ParamKey == utils.SysParamGoldShopApplyId {
 			id, _ := strconv.ParseUint(obj.ParamValue, 10, 64)
 			ids = append(ids, id)
 			mapApply[obj.ParamKey] = id

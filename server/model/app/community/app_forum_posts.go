@@ -99,7 +99,8 @@ type ForumPosts struct {
 	PayNum                uint64     `json:"payNum" form:"payNum" gorm:"column:pay_num;comment:付费金额;size:19;"`                                                       //付费金额
 	ActivityStartAt       string     `json:"activityStartAt" form:"activityStartAt" gorm:"column:activity_start_at;comment:活动开始时间;size:20;"`                         //活动开始时间
 	ActivityEndAt         string     `json:"activityEndAt" form:"activityEndAt" gorm:"column:activity_end_at;comment:活动结束时间;size:20;"`                               //活动结束时间
-	ActivityAddress       string     `json:"activityAddress" form:"activityAddress" gorm:"column:activity_address;comment:活动地址;size:500;"`                           //活动地址
+	ActivityAddress       string     `json:"activityAddress" form:"activityAddress" gorm:"column:activity_address;comment:活动地址;size:40;"`                            //活动地址
+	LatLng                string     `json:"latLng" form:"latLng" gorm:"column:lat_lng;comment:经纬度;size:40;"`                                                        //经纬度
 	ActivityUserNum       int        `json:"activityUserNum" form:"activityUserNum" gorm:"column:activity_user_num;comment:活动用户人数（0不限制活动人数，否则为活动人数）;size:10;"`       //活动用户人数（0不限制活动人数，否则为活动人数）
 	ActivityCurUserNum    int        `json:"activityCurUserNum" form:"activityCurUserNum" gorm:"column:activity_cur_user_num;comment:活动参加人数;size:10;"`               //活动参加人数
 	ActivityChatGroupId   uint64     `json:"activityChatGroupId" form:"activityChatGroupId" gorm:"type:bigint(20);column:activity_chat_group_id;comment:活动聊天群编号;"`   //活动聊天群编号

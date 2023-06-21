@@ -135,11 +135,11 @@ func (j *JWT) ParseToken(tokenString string) (claims *request.CustomClaims, err 
 			global.GVA_LOG.Error("this token has been kicked by other same terminal ")
 			return nil, utils.Wrap(constant.ErrTokenKicked, "this token has been kicked by other same terminal ")
 		default:
-			return nil, utils.Wrap(constant.ErrTokenUnknown, "")
+			return nil, utils.Wrap(constant.ErrTokenInvalid, "")
 		}
 	}
 	global.GVA_LOG.Error("redis token map not find")
-	return nil, utils.Wrap(constant.ErrTokenUnknown, "redis token map not find")
+	return nil, utils.Wrap(constant.ErrTokenInvalid, "redis token map not find")
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)

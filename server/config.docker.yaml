@@ -1,10 +1,50 @@
 # github.com/flipped-aurora/gin-vue-admin/server Global Configuration
 
+cache-captcha:
+  expires-time: 120s
+  sms-time: 60s
+oneLogin:
+  strictcheck: 0
+  appid: 300012349007
+  rsaPrivateKey: |
+    MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBALSsLeIkMDoN0aWx
+    oqK0sENGjNEC84nfHAFykEwWdJtXN+sJxAYkMo1A8e/hljt71YRL1QkYmZtek/Vi
+    8XWhKD0Fme3rih50T3+Koe6YkLBKLEjM6MEmdV0z3lOmyCxbIYORuv5giiRUFSrA
+    bKFFh0vUzezmyFefAAfqA316+eDhAgMBAAECgYAIt433LTvOcUA+OFXad9FRTaQZ
+    qYTKkCMvxrFDmonBvPGLu4rjqPdvbUS/CClRcWYZ3fbHW5J9tpB49G8l98KTKlTm
+    bHWm2m6UBhqHxuNnhGK24muz99c1GzbXWgppxa2HeiA0yu2VT56RDfUrZGqvv+jD
+    npbuRP3YInXiMirF4QJBAOd7rH2ttqw6c1HHvL+9f3cWuUAXHcTqNhsWVlU2HslD
+    CJX2VDW76lF+nZLp7xeNsHb8gxBOvcfd2YYs4tyiHa0CQQDHztosmZY/JDtJUtY+
+    5xMMOWegCkeblCTLtc7v8zjLu2lcn6wEuShDXfxgVg7VPCTKbTiqYy+gEg9GsNKj
+    xQ6FAkAMQ3EP93QGC9KwMnS9c7ydAoct7guVsxLKvJQ2T3eyEesShspPTnVLe/m9
+    Hseb59XBd/85jfJf9FDh2t7p8WzBAkAKs4Nv3BH188TRGoSq/clBYFmycpp/NKH7
+    3xLkOwyRrMnp0gtufVQwt3nq1vEYbo4x4UOlrIZCdnUm/hVp/AXZAkAVhL9u6RGG
+    M8TY4sDI5e9DZM/oyvM5R96uGF1Xb6LK7Znicb/P7eD1tWd0wCTI34e8iE7qxzfn
+    Nz02SMfMuWaE
+aliyun-sms:
+  accessKeyId: LTAI9DHp7LBDXkbR
+  accessSecret: mFfYI7R8lw43dFrUDX3Bnj4Nwnz0gm
+  signName: 李林个人论坛
+  smsTemplate:
+    test: SMS_269185218
+    register: SMS_269145225
+    changePwd: SMS_269260229
+    bindTel: SMS_269135269
+    resetPwd: SMS_269245235
+    bindBank: SMS_269185218
+yunxin-im:
+  appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
+  appSecret: 54699e9dd7a0
+  url: https://api.netease.im/nimserver
+open-im:
+  appKey: fa7661a7cb7b9db8f47fe0e10ac8bae5
+  appSecret: openIM123
+  url: http://192.168.3.23:10002
 # jwt configuration
 jwt:
   signing-key: qmPlus
-  expires-time: 7d
-  buffer-time: 1d
+  expires-time: 700d
+  buffer-time: 100d
   issuer: qmPlus
 # zap logger configuration
 zap:
@@ -20,32 +60,36 @@ zap:
 # redis configuration
 redis:
   db: 0
-  addr: 177.7.0.14:6379
+  addr: 127.0.0.1:16379
   password: ""
 
 # email configuration
 email:
-  to: xxx@qq.com
+  to: 470992807@qq.com
   port: 465
-  from: xxx@163.com
+  from: wfziyou@163.com
   host: smtp.163.com
   is-ssl: true
-  secret: xxx
-  nickname: test
-
+  secret: UWMLBYIPGNIGDYUL
+  nickname: 邻里圈子
+  template:
+    bindEmailSubject: 绑定邮箱
+    bindEmailBody: 绑定邮箱，验证码%s
 # system configuration
 system:
-  env: public  # Change to "develop" to skip authentication for development mode
+  env: public # Change to "develop" to skip authentication for development mode
   addr: 8888
   db-type: mysql
-  oss-type: local    # 控制oss选择走本地还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
-  use-redis: false     # 使用redis
+  oss-type: aliyun-oss # 控制oss选择走本地还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
+  use-redis: true # 使用redis
   use-multipoint: false
   # IP限制次数 一个小时15000次
   iplimit-count: 15000
   #  IP限制一个小时
   iplimit-time: 3600
-
+  #  路由全局前缀
+  router-prefix: ""
+  im-type: open-im # open-im yunxin-im
 # captcha configuration
 captcha:
   key-long: 6
@@ -57,17 +101,16 @@ captcha:
 # mysql connect configuration
 # 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://gin-vue-admin.com/docs/first_master）
 mysql:
-  path: ""
-  port: ""
-  config: ""
-  db-name: ""
-  username: ""
-  password: ""
+  path: 127.0.0.1
+  port: "13306"
+  config: charset=utf8mb4&parseTime=True&loc=Local
+  db-name: bladex_boot
+  username: root
+  password: openIM
   max-idle-conns: 10
   max-open-conns: 100
-  log-mode: ""
+  log-mode: Info
   log-zap: false
-
 # pgsql connect configuration
 # 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://gin-vue-admin.com/docs/first_master）
 pgsql:
@@ -81,10 +124,34 @@ pgsql:
   max-open-conns: 100
   log-mode: ""
   log-zap: false
-
+oracle:
+  path: ""
+  port: ""
+  config: ""
+  db-name: ""
+  username: ""
+  password: ""
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false
+mssql:
+  path: ""
+  port: ""
+  config: ""
+  db-name: ""
+  username: ""
+  password: ""
+  prefix: ""
+  singular: false
+  engine: ""
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false
 db-list:
   - disable: true # 是否禁用
-    type: "" # 数据库的类型,目前支持mysql、pgsql
+    type: "" # 数据库的类型,目前支持mysql、pgsql、mssql、oracle
     alias-name: "" # 数据库的名称,注意: alias-name 需要在db-list中唯一
     path: ""
     port: ""
@@ -96,7 +163,6 @@ db-list:
     max-open-conns: 100
     log-mode: ""
     log-zap: false
-
 
 # local configuration
 local:
@@ -134,12 +200,12 @@ qiniu:
 
 # aliyun oss configuration
 aliyun-oss:
-  endpoint: yourEndpoint
-  access-key-id: yourAccessKeyId
-  access-key-secret: yourAccessKeySecret
-  bucket-name: yourBucketName
-  bucket-url: yourBucketUrl
-  base-path: yourBasePath
+  endpoint: oss-cn-hangzhou.aliyuncs.com
+  access-key-id: LTAI9DHp7LBDXkbR
+  access-key-secret: mFfYI7R8lw43dFrUDX3Bnj4Nwnz0gm
+  bucket-name: hk-uploadfiles
+  bucket-url: https://hk-uploadfiles.oss-cn-hangzhou.aliyuncs.com
+  base-path: test
 
 # tencent cos configuration
 tencent-cos:
@@ -177,7 +243,7 @@ excel:
 # timer task db clear table
 Timer:
   start: true
-  spec: "@daily"  # 定时任务详细配置参考 https://pkg.go.dev/github.com/robfig/cron/v3
+  spec: "@daily" # 定时任务详细配置参考 https://pkg.go.dev/github.com/robfig/cron/v3
   detail:
     - tableName: sys_operation_records
       compareField: created_at
@@ -189,15 +255,20 @@ Timer:
 # 跨域配置
 # 需要配合 server/initialize/router.go -> `Router.Use(middleware.CorsByRules())` 使用
 cors:
-  mode: whitelist # 放行模式: allow-all, 放行全部; whitelist, 白名单模式, 来自白名单内域名的请求添加 cors 头; strict-whitelist 严格白名单模式, 白名单外的请求一律拒绝
+  mode: strict-whitelist # 放行模式: allow-all, 放行全部; whitelist, 白名单模式, 来自白名单内域名的请求添加 cors 头; strict-whitelist 严格白名单模式, 白名单外的请求一律拒绝
   whitelist:
     - allow-origin: example1.com
-      allow-headers: content-type
-      allow-methods: GET, POST
+      allow-headers: Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Token,X-User-Id
+      allow-methods: POST, GET
       expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
+
       allow-credentials: true # 布尔值
     - allow-origin: example2.com
       allow-headers: content-type
       allow-methods: GET, POST
       expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
       allow-credentials: true # 布尔值
+param:
+  createCircleCheck: true #创建圈子是否需要审批
+  useSmsCheckCode: false #使用短信验证码
+  defaultSmsCheckCode: 666666 #默认短信验证码

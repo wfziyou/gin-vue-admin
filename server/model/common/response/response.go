@@ -26,6 +26,14 @@ func Result(code int, data interface{}, msg string, c *gin.Context) {
 		msg,
 	})
 }
+func ResultAuth(code int, data interface{}, msg string, c *gin.Context) {
+	// 开始时间
+	c.JSON(http.StatusUnauthorized, Response{
+		code,
+		data,
+		msg,
+	})
+}
 
 func Ok(c *gin.Context) {
 	Result(SUCCESS, map[string]interface{}{}, "操作成功", c)
@@ -53,4 +61,8 @@ func FailWithMessage(message string, c *gin.Context) {
 
 func FailWithDetailed(data interface{}, message string, c *gin.Context) {
 	Result(ERROR, data, message, c)
+}
+
+func FailWithAuth(data interface{}, message string, c *gin.Context) {
+	ResultAuth(ERROR, data, message, c)
 }
