@@ -601,8 +601,8 @@ func (appForumPostsService *AppForumPostsService) GetFocusUserPostsList(userId u
 	}
 	//查询最新发布的帖子
 	db := global.GVA_DB.Model(&community.ForumPostsBaseInfo{}).Preload("TopicInfo").Preload("UserInfo").Preload("CircleInfo")
-	db = db.Where("user_id in ?", idEx)
-	db = db.Where("is_public = 1 and check_status=?",
+	db = db.Where("user_id in ? AND is_public = 1 AND check_status=?",
+		idEx,
 		community.PostsCheckStatusPass)
 
 	//创建时间降序排列
